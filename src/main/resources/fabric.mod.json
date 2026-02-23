@@ -16,26 +16,26 @@
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"com.github.wilwe21.stargazer.Stargazer"
+			"com.github.starcatcher21.stargazer.Stargazer"
 		],
 		"fabric-datagen": [
-			"com.github.wilwe21.stargazer.StargazerDataGenerator"
+			"com.github.starcatcher21.stargazer.StargazerDataGenerator"
 		],
 		"client": [
-			"com.github.wilwe21.stargazer.StargazerClient"
+			"com.github.starcatcher21.stargazer.StargazerClient"
 		],
 		"rei_common": [
-			"com.github.wilwe21.stargazer.compat.StargazerREICommon"
+			"com.github.starcatcher21.stargazer.compat.StargazerREICommon"
 		],
 		"rei_client": [
-			"com.github.wilwe21.stargazer.compat.StargazerREIClient"
+			"com.github.starcatcher21.stargazer.compat.StargazerREIClient"
 		]
 	},
 	"mixins": [
 		"stargazer.mixins.json"
 	],
 	"depends": {
-		"fabricloader": ">=0.16.14",
+		"fabricloader": ">=0.17.0",
 		"minecraft": "~1.21.5",
 		"java": ">=21",
 		"fabric-api": "*"

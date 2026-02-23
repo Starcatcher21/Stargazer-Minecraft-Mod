@@ -1,6 +1,6 @@
 {
 	"required": true,
-	"package": "com.github.wilwe21.stargazer.mixin",
+	"package": "com.github.starcatcher21.stargazer.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
 		"PlayerClassMixin",
