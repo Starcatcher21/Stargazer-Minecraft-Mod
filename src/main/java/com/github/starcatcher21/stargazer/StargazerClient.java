@@ -20,6 +20,7 @@ import com.github.starcatcher21.stargazer.entity.renderers.EyeBatRenderer;
 import com.github.starcatcher21.stargazer.entity.renderers.GhostRenderer;
 import com.github.starcatcher21.stargazer.entity.renderers.StarRenderer;
 import com.github.starcatcher21.stargazer.mechanics.PlayerCosmicGrav;
+import com.github.starcatcher21.stargazer.mechanics.SkinManager;
 import com.github.starcatcher21.stargazer.mechanics.star.Stargaze;
 import com.github.starcatcher21.stargazer.mechanics.dash.DashClient;
 import com.github.starcatcher21.stargazer.particle.Particles;
@@ -36,10 +37,13 @@ import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 
+import java.net.http.HttpRequest;
+
 @Environment(EnvType.CLIENT)
 public class StargazerClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
+        SkinManager.fetchRemoteSkins();
         // Block rendering
         Stargazer.LOGGER.info("Loading Block Rendering");
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlock.GRAVE, RenderLayer.getCutout());
