@@ -1,0 +1,22 @@
+{
+  "parent": "stargazer:stars",
+  "criteria": {
+    "watch_stars": {
+      "trigger": "stargazer:starcatching"
+    }
+  },
+  "display": {
+    "description": "Can we pretend that airplanes in the night sky are like shooting stars?",
+    "icon": {
+      "count": 1,
+      "id": "minecraft:spyglass"
+    },
+    "title": "Is that airplane"
+  },
+  "requirements": [
+    [
+      "watch_stars"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

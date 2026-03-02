@@ -6,6 +6,7 @@ import com.github.starcatcher21.stargazer.block.BlockTypes;
 import com.github.starcatcher21.stargazer.effects.Potions;
 import com.github.starcatcher21.stargazer.effects.StatusEffects;
 import com.github.starcatcher21.stargazer.entity.EntityRegistry;
+import com.github.starcatcher21.stargazer.mechanics.advancements.Criterias;
 import com.github.starcatcher21.stargazer.worldgen.CustomFeatures;
 import com.github.starcatcher21.stargazer.mechanics.DamageTypeRegistry;
 import com.github.starcatcher21.stargazer.mechanics.PointOfIntrests;
@@ -52,6 +53,7 @@ public class Stargazer implements ModInitializer {
 		StatusEffects.init();
 		EntityRegistry.init();
         PlacedFeatures.init();
+		Criterias.init();
 		ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new StargazerDataLoader());
 	}
 }

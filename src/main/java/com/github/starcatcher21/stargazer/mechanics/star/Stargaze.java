@@ -1,8 +1,11 @@
 package com.github.starcatcher21.stargazer.mechanics.star;
 
 import com.github.starcatcher21.stargazer.StargazerDataLoader;
+import com.github.starcatcher21.stargazer.mechanics.advancements.Criterias;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.world.LightType;
 import net.minecraft.world.World;
 
@@ -40,6 +43,8 @@ public class Stargaze {
                             timer = 20;
                             Collections.shuffle(list.weightedList);
                             FallingObject star = list.weightedList.get(random.nextInt(list.weightedList.size()));
+                            ServerPlayerEntity spe = client.getServer().getPlayerManager().getPlayer(player.getUuid());
+                            Criterias.starcatching.trigger(spe);
                             star.spawn(client, player);
                         }
                     }

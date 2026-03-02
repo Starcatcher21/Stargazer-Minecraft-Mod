@@ -1,0 +1,24 @@
+{
+  "criteria": {
+    "none": {
+      "trigger": "minecraft:tick"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "background": "stargazer:gui/advancements/backgrounds/stars",
+    "description": "Are you ready for cosmic adventures",
+    "icon": {
+      "count": 1,
+      "id": "stargazer:moon_rock"
+    },
+    "show_toast": false,
+    "title": "Stargazer"
+  },
+  "requirements": [
+    [
+      "none"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -114,7 +114,7 @@ public class StarBlocks {
             .offset(AbstractBlock.OffsetType.XZ)
             .pistonBehavior(PistonBehavior.DESTROY)
     );
-    public static final Block POTTED_STAR_FLOWER = register("potted_star_flower", settings -> new FlowerPotBlock(STAR_FLOWER, settings), AbstractBlock.Settings.copy(Blocks.POTTED_ALLIUM).nonOpaque());
+    public static final Block POTTED_STAR_FLOWER = registerWoItem("potted_star_flower", settings -> new FlowerPotBlock(STAR_FLOWER, settings), AbstractBlock.Settings.copy(Blocks.POTTED_ALLIUM).nonOpaque());
     public static final Block CELESTIAL_STAR_FLOWER = register("celestial_star_flower", settings -> new CelestialFlowerBlock(StatusEffects.COSMO, 5.0f, settings), AbstractBlock.Settings.create()
             .mapColor(MapColor.YELLOW)
             .noCollision()
@@ -123,7 +123,7 @@ public class StarBlocks {
             .offset(AbstractBlock.OffsetType.XZ)
             .pistonBehavior(PistonBehavior.DESTROY)
     );
-    public static final Block POTTED_CELESTIAL_STAR_FLOWER = register("potted_celestial_star_flower", settings -> new FlowerPotBlock(CELESTIAL_STAR_FLOWER, settings), AbstractBlock.Settings.copy(Blocks.POTTED_ALLIUM).nonOpaque());
+    public static final Block POTTED_CELESTIAL_STAR_FLOWER = registerWoItem("potted_celestial_star_flower", settings -> new FlowerPotBlock(CELESTIAL_STAR_FLOWER, settings), AbstractBlock.Settings.copy(Blocks.POTTED_ALLIUM).nonOpaque());
     public static void init() {
     }
 }

@@ -17,6 +17,7 @@ public class StargazerDataGenerator implements DataGeneratorEntrypoint {
 		pack.addProvider(ModRecipeProvider::new);
 		pack.addProvider(ModWorldGenerator::new);
 		pack.addProvider(ModModelProvider::new);
+		pack.addProvider(ModAdvancementsProvider::new);
 		// Lang
 		pack.addProvider(ModEngLangProvider::new);
 	}
