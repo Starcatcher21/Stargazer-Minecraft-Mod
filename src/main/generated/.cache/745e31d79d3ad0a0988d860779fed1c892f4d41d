@@ -1,5 +1,7 @@
 // 1.21.5	-999999999-01-01T00:00:00	STARGAZER/Advancements
 a5d06c81024dada322f7ca190ee5ad23e16f9d42 data/stargazer/advancement/airplane.json
+61b25d1e3fb6be12459d7cda7c31d71faa175c84 data/stargazer/advancement/ghost.json
+7b58130865a798a78248d89fc3426d3fef400284 data/stargazer/advancement/gravity.json
 69b9452b504154492eeac4d8153b0da8964ae694 data/stargazer/advancement/portal.json
 b2d27a560ee5e63871da7eee4db461433fb25b91 data/stargazer/advancement/stars.json
 4161dcc2d741e71d8dd548b4af5838b3989e28f2 data/stargazer/advancement/teeth_plant.json

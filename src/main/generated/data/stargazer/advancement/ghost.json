@@ -1,0 +1,40 @@
+{
+  "parent": "stargazer:portal",
+  "criteria": {
+    "pacman look": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type_specific": {
+                "type": "minecraft:player",
+                "looking_at": {
+                  "type": "stargazer:ghost",
+                  "nbt": "{tag:\"pacman\"}"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    }
+  },
+  "display": {
+    "description": "It's all about the game",
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "stargazer:ghost_spawn_egg"
+    },
+    "title": "Time to eat some ghosts"
+  },
+  "requirements": [
+    [
+      "pacman look"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

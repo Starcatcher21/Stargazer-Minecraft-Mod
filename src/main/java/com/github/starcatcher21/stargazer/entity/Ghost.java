@@ -2,6 +2,9 @@ package com.github.starcatcher21.stargazer.entity;
 
 import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.entity.models.GhostModel;
+import com.github.starcatcher21.stargazer.mechanics.advancements.Criterias;
+import dev.architectury.event.events.common.TickEvent;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.control.FlightMoveControl;
 import net.minecraft.entity.ai.pathing.BirdNavigation;
@@ -11,6 +14,11 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.FlyingEntity;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.math.Vec3d;
@@ -28,10 +36,14 @@ import software.bernie.geckolib.animation.RawAnimation;
 
 import software.bernie.geckolib.util.GeckoLibUtil;
 
+import java.util.Objects;
+
 public class Ghost extends FlyingEntity implements GeoEntity {
     protected static final RawAnimation FLY_ANIM = RawAnimation.begin().thenLoop("animation.ghost_move");
     protected static final RawAnimation IDLE_ANIM = RawAnimation.begin().thenPlay("animation.ghost_idle");
     protected static final RawAnimation IDLE2_ANIM = RawAnimation.begin().thenLoop("animation.ghost_idle2");
+
+    private String TAG;
 
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
 
@@ -40,6 +52,7 @@ public class Ghost extends FlyingEntity implements GeoEntity {
         this.setNoGravity(true);
         this.moveControl = new FlightMoveControl(this, 20, true);
         this.noClip = true;
+        this.TAG = "";
     }
 
     public static DefaultAttributeContainer.Builder createFlyingCreatureAttributes() {
@@ -115,9 +128,9 @@ public class Ghost extends FlyingEntity implements GeoEntity {
 
     @Override
     public void onDamaged(DamageSource damageSource) {
-        if (damageSource.getAttacker() != null && damageSource.getAttacker().isPlayer()) {
-            damageSource.getAttacker().setVelocity(0,0,0);
-            damageSource.getAttacker().setNoGravity(!damageSource.getAttacker().hasNoGravity());
+        if (damageSource.getAttacker() != null && damageSource.getAttacker() instanceof PlayerEntity pe) {
+            pe.setVelocity(0,0,0);
+            pe.setNoGravity(!pe.hasNoGravity());
             this.oldDamage(damageSource);
         } else {
             this.oldDamage(damageSource);
@@ -140,6 +153,31 @@ public class Ghost extends FlyingEntity implements GeoEntity {
         if (!this.hasPositionTarget() && this.random.nextInt(32) > 24) {
             this.setTargetPos(this.getPos().add(random.nextFloat() * 10 - 5, random.nextFloat() * 10 - 5, random.nextFloat() * 10 - 5));
         }
+        if (this.hasCustomName() && GhostModel.pacman.contains(this.getCustomName().getString().toLowerCase())) {
+            if (!getTag().equals("pacman")) setTag("pacman");
+        } else {
+            if (!getTag().isEmpty()) setTag("");
+        }
+    }
+
+    public String getTag() {
+        return TAG;
+    }
+
+    public void setTag(String t) {
+        TAG = t;
+    }
+
+    @Override
+    public void writeCustomDataToNbt(NbtCompound nbt) {
+        super.writeCustomDataToNbt(nbt);
+        nbt.putString("tag", TAG);
+    }
+
+    @Override
+    public void readCustomDataFromNbt(NbtCompound nbt) {
+        super.readCustomDataFromNbt(nbt);
+        TAG = nbt.getString("tag", "");
     }
 
     public void setTargetPos(Vec3d pos) {

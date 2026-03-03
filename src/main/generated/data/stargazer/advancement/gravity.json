@@ -1,0 +1,34 @@
+{
+  "parent": "stargazer:portal",
+  "criteria": {
+    "hurt": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "stargazer:ghost"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:player_hurt_entity"
+    }
+  },
+  "display": {
+    "description": "This is some kind of gravity ghosts",
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "stargazer:ghost_spawn_egg"
+    },
+    "title": "Do you believe in Gravity"
+  },
+  "requirements": [
+    [
+      "hurt"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
