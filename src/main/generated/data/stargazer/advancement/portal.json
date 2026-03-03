@@ -1,0 +1,22 @@
+{
+  "parent": "stargazer:airplane",
+  "criteria": {
+    "open_portal": {
+      "trigger": "stargazer:cosmic_portal"
+    }
+  },
+  "display": {
+    "description": "Open a portal to the unknown",
+    "icon": {
+      "count": 1,
+      "id": "minecraft:cut_copper"
+    },
+    "title": "Where are we going?"
+  },
+  "requirements": [
+    [
+      "open_portal"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

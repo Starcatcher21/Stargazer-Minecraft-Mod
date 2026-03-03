@@ -1,0 +1,23 @@
+{
+  "parent": "stargazer:portal",
+  "criteria": {
+    "hurt": {
+      "trigger": "stargazer:star_trap"
+    }
+  },
+  "display": {
+    "description": "Ouch that hurts",
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "stargazer:star_trap"
+    },
+    "title": "Does this plant have teeth?"
+  },
+  "requirements": [
+    [
+      "hurt"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

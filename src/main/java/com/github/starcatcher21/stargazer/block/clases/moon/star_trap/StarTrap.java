@@ -2,6 +2,7 @@ package com.github.starcatcher21.stargazer.block.clases.moon.star_trap;
 
 import com.github.starcatcher21.stargazer.block.clases.moon.MoonGrass;
 import com.github.starcatcher21.stargazer.mechanics.DamageTypeRegistry;
+import com.github.starcatcher21.stargazer.mechanics.advancements.Criterias;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
@@ -11,6 +12,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
@@ -101,6 +103,9 @@ public class StarTrap extends BlockWithEntity {
                                 .getEntry(DamageTypeRegistry.STAR_TRAP.getValue()).get()
                 );
                 le.damage(sw, damageSource, 6.0f);
+                if (le instanceof ServerPlayerEntity spe) {
+                    Criterias.starTrap.trigger(spe);
+                }
             }
         }
     }
