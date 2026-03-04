@@ -23,6 +23,8 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
+        getOrCreateTagBuilder(CustomTags.COSMIC)
+                .add(StarBlocks.COSMIC_BLOCK.asItem());
         getOrCreateTagBuilder(net.minecraft.registry.tag.ItemTags.LOGS)
                 .add(MoonBlocks.MOON_LOG.asItem())
                 .add(MoonBlocks.STRIPPED_MOON_LOG.asItem())

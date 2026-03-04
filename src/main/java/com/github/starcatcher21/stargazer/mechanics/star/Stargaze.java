@@ -44,7 +44,7 @@ public class Stargaze {
                             Collections.shuffle(list.weightedList);
                             FallingObject star = list.weightedList.get(random.nextInt(list.weightedList.size()));
                             ServerPlayerEntity spe = client.getServer().getPlayerManager().getPlayer(player.getUuid());
-                            Criterias.starcatching.trigger(spe);
+                            Criterias.starcatching.trigger(spe, star.item.value());
                             star.spawn(client, player);
                         }
                     }

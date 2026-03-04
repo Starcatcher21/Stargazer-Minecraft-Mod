@@ -1,6 +1,7 @@
 package com.github.starcatcher21.stargazer.screens;
 
 import com.github.starcatcher21.stargazer.block.register.MoonBlocks;
+import com.github.starcatcher21.stargazer.mechanics.advancements.Criterias;
 import com.github.starcatcher21.stargazer.screens.recipe.RecipeTypes;
 import com.github.starcatcher21.stargazer.screens.recipe.StarforgeRecipe;
 import com.github.starcatcher21.stargazer.screens.recipe.StarforgeRecipeInput;
@@ -134,44 +135,51 @@ public class StarforgeScreenHandler
     @Override
     public ItemStack quickMove(PlayerEntity player, int slot) {
         ItemStack itemStack = ItemStack.EMPTY;
-        Slot slot2 = (Slot)this.slots.get(slot);
+        Slot slot2 = this.slots.get(slot);
 
         if (slot2 != null && slot2.hasStack()) {
             ItemStack itemStack2 = slot2.getStack();
             itemStack = itemStack2.copy();
 
+            // 1. Logic for the Output Slot
             if (slot == OUTPUT_SLOT) {
-                itemStack2.getItem().onCraftByPlayer(itemStack2, player);
-
+                // Attempt to move from output to player inventory
                 if (!this.insertItem(itemStack2, PLAYER_INVENTORY_START, PLAYER_INVENTORY_END + 1, true)) {
                     return ItemStack.EMPTY;
                 }
                 slot2.onQuickTransfer(itemStack2, itemStack);
             }
+            // 2. Logic for Player Inventory (Main + Hotbar)
             else if (slot >= PLAYER_INVENTORY_START && slot <= PLAYER_INVENTORY_END) {
+                // First, try to move into the Input Slots
                 if (!this.insertItem(itemStack2, INPUT_SLOTS_START, INPUT_SLOTS_END + 1, false)) {
-                    if (slot >= PLAYER_HOTBAR_START && slot <= PLAYER_HOTBAR_END) {
+                    // If input is full, swap between Hotbar and Main Inventory
+                    if (slot < PLAYER_HOTBAR_END + 1) { // Is in Hotbar
                         if (!this.insertItem(itemStack2, PLAYER_MAIN_INVENTORY_START, PLAYER_MAIN_INVENTORY_END + 1, false)) {
                             return ItemStack.EMPTY;
                         }
-                    } else {
+                    } else { // Is in Main Inventory
                         if (!this.insertItem(itemStack2, PLAYER_HOTBAR_START, PLAYER_HOTBAR_END + 1, false)) {
                             return ItemStack.EMPTY;
                         }
                     }
                 }
             }
+            // 3. Logic for Container/Input Slots
             else if (slot >= INPUT_SLOTS_START && slot <= INPUT_SLOTS_END) {
+                // Move from container back to player inventory
                 if (!this.insertItem(itemStack2, PLAYER_INVENTORY_START, PLAYER_INVENTORY_END + 1, false)) {
                     return ItemStack.EMPTY;
                 }
             }
+            // Catch-all for any other slots (e.g., unexpected custom slots)
             else {
                 if (!this.insertItem(itemStack2, PLAYER_INVENTORY_START, PLAYER_INVENTORY_END + 1, false)) {
                     return ItemStack.EMPTY;
                 }
             }
 
+            // --- Post-Transfer Cleanup ---
             if (itemStack2.isEmpty()) {
                 slot2.setStack(ItemStack.EMPTY);
             } else {
@@ -183,10 +191,6 @@ public class StarforgeScreenHandler
             }
 
             slot2.onTakeItem(player, itemStack2);
-
-            if (slot == OUTPUT_SLOT) {
-                player.dropItem(itemStack2, false);
-            }
         }
 
         return itemStack;

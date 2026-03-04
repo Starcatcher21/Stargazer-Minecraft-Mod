@@ -1,5 +1,7 @@
 package com.github.starcatcher21.stargazer.screens.slots;
 
+import com.github.starcatcher21.stargazer.mechanics.advancements.Criterias;
+import com.github.starcatcher21.stargazer.mechanics.advancements.ForgeCraft;
 import com.github.starcatcher21.stargazer.screens.recipe.RecipeTypes;
 import com.github.starcatcher21.stargazer.screens.recipe.StarforgeRecipe;
 import com.github.starcatcher21.stargazer.screens.recipe.StarforgeRecipeInput;
@@ -8,6 +10,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.slot.Slot;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
@@ -105,6 +108,9 @@ public class StarforgeResultSlot
                     }
                 }
             }
+        }
+        if (player instanceof ServerPlayerEntity spe) {
+            Criterias.forgeCraft.trigger(spe, stack.getItem());
         }
     }
 

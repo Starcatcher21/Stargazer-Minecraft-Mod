@@ -8,7 +8,7 @@ public class Criterias {
     public static final Starcatching starcatching = Criteria.register(Identifier.of(Stargazer.MOD_ID, "starcatching").toString(), new Starcatching());
     public static final CosmicPortal cosmicPortal = Criteria.register(Identifier.of(Stargazer.MOD_ID, "cosmic_portal").toString(), new CosmicPortal());
     public static final StarTrap starTrap = Criteria.register(Identifier.of(Stargazer.MOD_ID, "star_trap").toString(), new StarTrap());
-    public static final GhostHit ghostHit = Criteria.register(Identifier.of(Stargazer.MOD_ID, "ghost_hit").toString(), new GhostHit());
+    public static final ForgeCraft forgeCraft = Criteria.register(Identifier.of(Stargazer.MOD_ID, "forge_craft").toString(), new ForgeCraft());
 
     public static void init() {
     }

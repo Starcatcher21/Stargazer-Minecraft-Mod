@@ -4,6 +4,7 @@ ee1ed69ca37f5edc442a57e355786733dcb76e00 data/minecraft/tags/item/logs.json
 56c8b8ccfeb25598d9dc4235a17e9e77940395fb data/minecraft/tags/item/saplings.json
 1b05312e5e8ed17cdd31b6b7d72dc70fa26b8686 data/minecraft/tags/item/stone_tool_materials.json
 cb34386497d3aa2f1d016a1e3c70e4c5b0e7f004 data/stargazer/tags/item/blue_star.json
+21c1d6335b0aa5e376a8952ab31c3c50f229857c data/stargazer/tags/item/cosmic.json
 1f5bc73cb0b97929bfd43fa674c07161ea029c5a data/stargazer/tags/item/curve_log.json
 cd34982ed3cf5667c2d666fc0fd62b8d12cde010 data/stargazer/tags/item/icecream.json
 7d28ae06364be68c37696734f13a6b28b93070b9 data/stargazer/tags/item/moon_log.json

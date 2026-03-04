@@ -1,8 +1,12 @@
 package com.github.starcatcher21.stargazer.datagen;
 
+import com.github.starcatcher21.stargazer.CustomTags;
 import com.github.starcatcher21.stargazer.Stargazer;
+import com.github.starcatcher21.stargazer.block.ModBlock;
 import com.github.starcatcher21.stargazer.block.register.MoonBlocks;
+import com.github.starcatcher21.stargazer.block.register.StarBlocks;
 import com.github.starcatcher21.stargazer.entity.EntityRegistry;
+import com.github.starcatcher21.stargazer.entity.Star;
 import com.github.starcatcher21.stargazer.item.ModItems;
 import com.github.starcatcher21.stargazer.mechanics.DamageTypeRegistry;
 import com.github.starcatcher21.stargazer.mechanics.advancements.*;
@@ -22,6 +26,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.predicate.NbtPredicate;
 import net.minecraft.predicate.TagPredicate;
 import net.minecraft.predicate.entity.*;
+import net.minecraft.predicate.item.ItemPredicate;
 import net.minecraft.registry.*;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.text.Text;
@@ -43,7 +48,8 @@ public class ModAdvancementsProvider extends FabricAdvancementProvider {
 
     @Override
     public void generateAdvancement(RegistryWrapper.WrapperLookup wrapperLookup, Consumer<AdvancementEntry> consumer) {
-        RegistryEntryLookup registryEntryLookup = wrapperLookup.getOrThrow(RegistryKeys.ENTITY_TYPE);
+        RegistryEntryLookup registryEntryLookupEntity = wrapperLookup.getOrThrow(RegistryKeys.ENTITY_TYPE);
+        RegistryEntryLookup registryEntryLookupItem = wrapperLookup.getOrThrow(RegistryKeys.ITEM);
         AdvancementEntry stars = Advancement.Builder.create()
                 .display(
                         MoonBlocks.MOON_ROCK, // The display icon
@@ -69,7 +75,7 @@ public class ModAdvancementsProvider extends FabricAdvancementProvider {
                         true, // Announce it to chat
                         false // Hide it in the advancement tab until it's achieved
                 )
-                .criterion("watch_stars", Criterias.starcatching.create(new Starcatching.Conditions(Optional.empty())))
+                .criterion("watch_stars", Criterias.starcatching.create(new Starcatching.Conditions(Optional.empty(), Optional.empty())))
                 .build(consumer, Stargazer.MOD_ID + ":airplane");
 
         AdvancementEntry portal = Advancement.Builder.create()
@@ -122,7 +128,7 @@ public class ModAdvancementsProvider extends FabricAdvancementProvider {
                         Optional.of(EntityPredicate.Builder.create()
                                 .typeSpecific(PlayerPredicate.Builder.create()
                                         .lookingAt(EntityPredicate.Builder.create()
-                                                .type(registryEntryLookup, EntityRegistry.GHOST_ENTITY)
+                                                .type(registryEntryLookupEntity, EntityRegistry.GHOST_ENTITY)
                                         ).build())
                                 .build())))
                 .build(consumer, Stargazer.MOD_ID + ":ghost");
@@ -139,7 +145,7 @@ public class ModAdvancementsProvider extends FabricAdvancementProvider {
                         true, // Announce it to chat
                         true // Hide it in the advancement tab until it's achieved
                 )
-                .criterion("hurt", PlayerHurtEntityCriterion.Conditions.create(Optional.empty(), Optional.of(EntityPredicate.Builder.create().type(registryEntryLookup, EntityRegistry.GHOST_ENTITY).build())))
+                .criterion("hurt", PlayerHurtEntityCriterion.Conditions.create(Optional.empty(), Optional.of(EntityPredicate.Builder.create().type(registryEntryLookupEntity, EntityRegistry.GHOST_ENTITY).build())))
                 .build(consumer, Stargazer.MOD_ID + ":gravity");
 
         AdvancementEntry pac = Advancement.Builder.create()
@@ -158,7 +164,7 @@ public class ModAdvancementsProvider extends FabricAdvancementProvider {
                         Optional.of(EntityPredicate.Builder.create()
                                 .typeSpecific(PlayerPredicate.Builder.create()
                                         .lookingAt(EntityPredicate.Builder.create()
-                                                .type(registryEntryLookup, EntityRegistry.GHOST_ENTITY)
+                                                .type(registryEntryLookupEntity, EntityRegistry.GHOST_ENTITY)
                                                 .nbt(new NbtPredicate(Util.make(new NbtCompound(), nbt -> {
                                                     nbt.put("tag", Codec.STRING, "pacman");
                                                 })))
@@ -183,7 +189,7 @@ public class ModAdvancementsProvider extends FabricAdvancementProvider {
                         Optional.of(EntityPredicate.Builder.create()
                                 .typeSpecific(PlayerPredicate.Builder.create()
                                         .lookingAt(EntityPredicate.Builder.create()
-                                                .type(registryEntryLookup, EntityRegistry.GHOST_ENTITY)
+                                                .type(registryEntryLookupEntity, EntityRegistry.GHOST_ENTITY)
                                                 .nbt(new NbtPredicate(Util.make(new NbtCompound(), nbt -> {
                                                     nbt.put("tag", Codec.STRING, "bill");
                                                 })))
@@ -207,7 +213,7 @@ public class ModAdvancementsProvider extends FabricAdvancementProvider {
                         Optional.of(EntityPredicate.Builder.create()
                                 .typeSpecific(PlayerPredicate.Builder.create()
                                         .lookingAt(EntityPredicate.Builder.create()
-                                                .type(registryEntryLookup, EntityRegistry.GHOST_ENTITY)
+                                                .type(registryEntryLookupEntity, EntityRegistry.GHOST_ENTITY)
                                                 .nbt(new NbtPredicate(Util.make(new NbtCompound(), nbt -> {
                                                     nbt.put("tag", Codec.STRING, "adventure");
                                                 })))
@@ -229,6 +235,21 @@ public class ModAdvancementsProvider extends FabricAdvancementProvider {
                 )
                 .rewards(AdvancementRewards.Builder.experience(500))
                 .build(consumer, Stargazer.MOD_ID + ":exotic_turist");
+
+        AdvancementEntry Home = Advancement.Builder.create()
+                .parent(portal)
+                .display(
+                        ModItems.STARDUST, // The display icon
+                        Text.literal("I took a part to home"), // The title
+                        Text.literal("Craft cosmic block"), // The description
+                        null,
+                        AdvancementFrame.TASK, // TASK, CHALLENGE, or GOAL
+                        true, // Show the toast when completing it
+                        true, // Announce it to chat
+                        false // Hide it in the advancement tab until it's achieved
+                )
+                .criterion("craft", Criterias.forgeCraft.create(new ForgeCraft.Conditions(Optional.empty(), Optional.of(ItemPredicate.Builder.create().tag(registryEntryLookupItem, CustomTags.COSMIC).build()))))
+                .build(consumer, Stargazer.MOD_ID + ":home");
     }
 
     protected static Advancement.Builder requireListedBiomesVisited(Advancement.Builder builder, RegistryWrapper.WrapperLookup registries, List<RegistryKey<Biome>> biomes) {

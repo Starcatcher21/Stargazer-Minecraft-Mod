@@ -2,6 +2,7 @@ package com.github.starcatcher21.stargazer;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraft.registry.RegistryEntryLookup;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
@@ -18,6 +19,7 @@ public class CustomTags {
     public static final TagKey<Item> RED_STAR = register("red_star");
     public static final TagKey<Item> BLUE_STAR = register("blue_star");
     public static final TagKey<Item> STAR_FLOWER = register("star_flower");
+    public static final TagKey<Item> COSMIC = register("cosmic");
 
     public static final TagKey<Block> COPPER_BLOCKS = registerBlock("copper_block");
 

@@ -1,0 +1,27 @@
+{
+  "parent": "stargazer:portal",
+  "criteria": {
+    "craft": {
+      "conditions": {
+        "output": {
+          "items": "#stargazer:cosmic"
+        }
+      },
+      "trigger": "stargazer:forge_craft"
+    }
+  },
+  "display": {
+    "description": "Craft cosmic block",
+    "icon": {
+      "count": 1,
+      "id": "stargazer:stardust"
+    },
+    "title": "I took a part to home"
+  },
+  "requirements": [
+    [
+      "craft"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
