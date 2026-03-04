@@ -1,7 +1,7 @@
 {
-  "parent": "stargazer:portal",
+  "parent": "stargazer:ghost",
   "criteria": {
-    "ghost": {
+    "pacman look": {
       "conditions": {
         "player": [
           {
@@ -11,7 +11,8 @@
               "type_specific": {
                 "type": "minecraft:player",
                 "looking_at": {
-                  "type": "stargazer:ghost"
+                  "type": "stargazer:ghost",
+                  "nbt": "{tag:\"pacman\"}"
                 }
               }
             }
@@ -22,16 +23,17 @@
     }
   },
   "display": {
-    "description": "",
+    "description": "It's all about the game",
+    "hidden": true,
     "icon": {
       "count": 1,
       "id": "stargazer:ghost_spawn_egg"
     },
-    "title": "I think i saw a ghost"
+    "title": "Time to eat some ghosts"
   },
   "requirements": [
     [
-      "ghost"
+      "pacman look"
     ]
   ],
   "sends_telemetry_event": true

@@ -3,43 +3,31 @@ package com.github.starcatcher21.stargazer.datagen;
 import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.block.register.MoonBlocks;
 import com.github.starcatcher21.stargazer.entity.EntityRegistry;
-import com.github.starcatcher21.stargazer.entity.Ghost;
-import com.github.starcatcher21.stargazer.entity.models.GhostModel;
 import com.github.starcatcher21.stargazer.item.ModItems;
 import com.github.starcatcher21.stargazer.mechanics.DamageTypeRegistry;
 import com.github.starcatcher21.stargazer.mechanics.advancements.*;
+import com.github.starcatcher21.stargazer.worldgen.BiomeReg;
 import com.mojang.serialization.Codec;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
 import net.minecraft.advancement.Advancement;
 import net.minecraft.advancement.AdvancementEntry;
 import net.minecraft.advancement.AdvancementFrame;
+import net.minecraft.advancement.AdvancementRewards;
 import net.minecraft.advancement.criterion.*;
 import net.minecraft.block.Blocks;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.damage.DamageType;
 import net.minecraft.item.Items;
-import net.minecraft.loot.condition.LootCondition;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
-import net.minecraft.nbt.NbtList;
-import net.minecraft.nbt.NbtString;
-import net.minecraft.predicate.DamagePredicate;
 import net.minecraft.predicate.NbtPredicate;
-import net.minecraft.predicate.NumberRange;
 import net.minecraft.predicate.TagPredicate;
-import net.minecraft.predicate.component.ComponentPredicateTypes;
-import net.minecraft.predicate.component.ComponentsPredicate;
-import net.minecraft.predicate.component.CustomDataPredicate;
 import net.minecraft.predicate.entity.*;
-import net.minecraft.registry.RegistryEntryLookup;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.registry.entry.RegistryEntryList;
+import net.minecraft.registry.*;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
+import net.minecraft.world.biome.Biome;
 
 import java.util.List;
 import java.util.Optional;
@@ -116,8 +104,31 @@ public class ModAdvancementsProvider extends FabricAdvancementProvider {
                 .criterion("hurt", Criterias.starTrap.create(new StarTrap.Conditions(Optional.empty())))
                 .build(consumer, Stargazer.MOD_ID + ":teeth_plant");
 
-        AdvancementEntry gravity = Advancement.Builder.create()
+
+
+        AdvancementEntry ghost = Advancement.Builder.create()
                 .parent(portal)
+                .display(
+                        ModItems.GHOST_SPAWN_EGG, // The display icon
+                        Text.literal("I think i saw a ghost"), // The title
+                        Text.empty(), // The description
+                        null,
+                        AdvancementFrame.TASK, // TASK, CHALLENGE, or GOAL
+                        true, // Show the toast when completing it
+                        true, // Announce it to chat
+                        false // Hide it in the advancement tab until it's achieved
+                )
+                .criterion("ghost", TickCriterion.Conditions.createLocation(
+                        Optional.of(EntityPredicate.Builder.create()
+                                .typeSpecific(PlayerPredicate.Builder.create()
+                                        .lookingAt(EntityPredicate.Builder.create()
+                                                .type(registryEntryLookup, EntityRegistry.GHOST_ENTITY)
+                                        ).build())
+                                .build())))
+                .build(consumer, Stargazer.MOD_ID + ":ghost");
+
+        AdvancementEntry gravity = Advancement.Builder.create()
+                .parent(ghost)
                 .display(
                         ModItems.GHOST_SPAWN_EGG, // The display icon
                         Text.literal("Do you believe in Gravity"), // The title
@@ -131,10 +142,8 @@ public class ModAdvancementsProvider extends FabricAdvancementProvider {
                 .criterion("hurt", PlayerHurtEntityCriterion.Conditions.create(Optional.empty(), Optional.of(EntityPredicate.Builder.create().type(registryEntryLookup, EntityRegistry.GHOST_ENTITY).build())))
                 .build(consumer, Stargazer.MOD_ID + ":gravity");
 
-        List<String> pacmans = GhostModel.pacman.stream().toList();
-
-        AdvancementEntry ghost = Advancement.Builder.create()
-                .parent(portal)
+        AdvancementEntry pac = Advancement.Builder.create()
+                .parent(ghost)
                 .display(
                         ModItems.GHOST_SPAWN_EGG, // The display icon
                         Text.literal("Time to eat some ghosts"), // The title
@@ -155,7 +164,83 @@ public class ModAdvancementsProvider extends FabricAdvancementProvider {
                                                 })))
                                         ).build())
                                 .build())))
-                .build(consumer, Stargazer.MOD_ID + ":ghost");
+                .build(consumer, Stargazer.MOD_ID + ":pac");
 
+
+        AdvancementEntry meet_again = Advancement.Builder.create()
+                .parent(ghost)
+                .display(
+                        ModItems.GHOST_SPAWN_EGG, // The display icon
+                        Text.literal("We'll meet again"), // The title
+                        Text.literal("don't know where don't know when"), // The description
+                        null,
+                        AdvancementFrame.TASK, // TASK, CHALLENGE, or GOAL
+                        true, // Show the toast when completing it
+                        true, // Announce it to chat
+                        true // Hide it in the advancement tab until it's achieved
+                )
+                .criterion("meet again", TickCriterion.Conditions.createLocation(
+                        Optional.of(EntityPredicate.Builder.create()
+                                .typeSpecific(PlayerPredicate.Builder.create()
+                                        .lookingAt(EntityPredicate.Builder.create()
+                                                .type(registryEntryLookup, EntityRegistry.GHOST_ENTITY)
+                                                .nbt(new NbtPredicate(Util.make(new NbtCompound(), nbt -> {
+                                                    nbt.put("tag", Codec.STRING, "bill");
+                                                })))
+                                        ).build())
+                                .build())))
+                .build(consumer, Stargazer.MOD_ID + ":bill");
+
+        AdvancementEntry adventures = Advancement.Builder.create()
+                .parent(ghost)
+                .display(
+                        ModItems.GHOST_SPAWN_EGG, // The display icon
+                        Text.literal("It's Adventure Time"), // The title
+                        Text.literal("Look Jake I'm a ghost"), // The description
+                        null,
+                        AdvancementFrame.TASK, // TASK, CHALLENGE, or GOAL
+                        true, // Show the toast when completing it
+                        true, // Announce it to chat
+                        true // Hide it in the advancement tab until it's achieved
+                )
+                .criterion("adventure", TickCriterion.Conditions.createLocation(
+                        Optional.of(EntityPredicate.Builder.create()
+                                .typeSpecific(PlayerPredicate.Builder.create()
+                                        .lookingAt(EntityPredicate.Builder.create()
+                                                .type(registryEntryLookup, EntityRegistry.GHOST_ENTITY)
+                                                .nbt(new NbtPredicate(Util.make(new NbtCompound(), nbt -> {
+                                                    nbt.put("tag", Codec.STRING, "adventure");
+                                                })))
+                                        ).build())
+                                .build())))
+                .build(consumer, Stargazer.MOD_ID + ":adventure");
+
+        requireListedBiomesVisited(Advancement.Builder.create(), wrapperLookup, BiomeReg.MoonList)
+                .parent(portal)
+                .display(
+                        MoonBlocks.MOON_LOG, // The display icon
+                        Text.literal("Exotic Tourism"), // The title
+                        Text.literal("Visit all biomes in cosmic dimension"), // The description
+                        null,
+                        AdvancementFrame.CHALLENGE, // TASK, CHALLENGE, or GOAL
+                        true, // Show the toast when completing it
+                        true, // Announce it to chat
+                        false // Hide it in the advancement tab until it's achieved
+                )
+                .rewards(AdvancementRewards.Builder.experience(500))
+                .build(consumer, Stargazer.MOD_ID + ":exotic_turist");
+    }
+
+    protected static Advancement.Builder requireListedBiomesVisited(Advancement.Builder builder, RegistryWrapper.WrapperLookup registries, List<RegistryKey<Biome>> biomes) {
+        RegistryEntryLookup registryEntryLookup = registries.getOrThrow(RegistryKeys.BIOME);
+        for (RegistryKey<Biome> registryKey : biomes) {
+            builder.criterion(
+                    "visited_" + registryKey.getValue().getPath(),
+                    TickCriterion.Conditions.createLocation(
+                            LocationPredicate.Builder.createBiome(registryEntryLookup.getOrThrow(registryKey))
+                    )
+            );
+        }
+        return builder;
     }
 }

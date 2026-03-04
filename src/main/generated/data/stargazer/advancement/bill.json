@@ -1,7 +1,7 @@
 {
-  "parent": "stargazer:portal",
+  "parent": "stargazer:ghost",
   "criteria": {
-    "ghost": {
+    "meet again": {
       "conditions": {
         "player": [
           {
@@ -11,7 +11,8 @@
               "type_specific": {
                 "type": "minecraft:player",
                 "looking_at": {
-                  "type": "stargazer:ghost"
+                  "type": "stargazer:ghost",
+                  "nbt": "{tag:\"bill\"}"
                 }
               }
             }
@@ -22,16 +23,17 @@
     }
   },
   "display": {
-    "description": "",
+    "description": "don't know where don't know when",
+    "hidden": true,
     "icon": {
       "count": 1,
       "id": "stargazer:ghost_spawn_egg"
     },
-    "title": "I think i saw a ghost"
+    "title": "We'll meet again"
   },
   "requirements": [
     [
-      "ghost"
+      "meet again"
     ]
   ],
   "sends_telemetry_event": true

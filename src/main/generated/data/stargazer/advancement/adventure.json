@@ -1,7 +1,7 @@
 {
-  "parent": "stargazer:portal",
+  "parent": "stargazer:ghost",
   "criteria": {
-    "ghost": {
+    "adventure": {
       "conditions": {
         "player": [
           {
@@ -11,7 +11,8 @@
               "type_specific": {
                 "type": "minecraft:player",
                 "looking_at": {
-                  "type": "stargazer:ghost"
+                  "type": "stargazer:ghost",
+                  "nbt": "{tag:\"adventure\"}"
                 }
               }
             }
@@ -22,16 +23,17 @@
     }
   },
   "display": {
-    "description": "",
+    "description": "Look Jake I'm a ghost",
+    "hidden": true,
     "icon": {
       "count": 1,
       "id": "stargazer:ghost_spawn_egg"
     },
-    "title": "I think i saw a ghost"
+    "title": "It's Adventure Time"
   },
   "requirements": [
     [
-      "ghost"
+      "adventure"
     ]
   ],
   "sends_telemetry_event": true

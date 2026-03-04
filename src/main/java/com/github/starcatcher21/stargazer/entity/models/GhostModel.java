@@ -26,8 +26,10 @@ public class GhostModel extends GeoModel<Ghost> {
     private final Identifier texture_cat = Identifier.of(Stargazer.MOD_ID, "textures/entity/ghost_cat.png");
 
     private final Identifier texture_cipher = Identifier.of(Stargazer.MOD_ID, "textures/entity/ghost_cipher.png");
+    public static final Set<String> bill = Set.of("bill", "bill cipher", "cipher", "gold", "golden triangle", "60 degrees that comes in threes");
     public static final Identifier texture_finn = Identifier.of(Stargazer.MOD_ID, "textures/entity/ghost_finn.png");
     public static final Identifier texture_jake = Identifier.of(Stargazer.MOD_ID, "textures/entity/ghost_jake.png");
+    public static final Set<String> adventure = Set.of("finn", "finn the human", "finn martens", "jake", "jake the dog");
 
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {

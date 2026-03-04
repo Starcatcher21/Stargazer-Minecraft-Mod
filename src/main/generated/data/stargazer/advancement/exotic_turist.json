@@ -1,0 +1,134 @@
+{
+  "parent": "stargazer:portal",
+  "criteria": {
+    "visited_amethyst_spikes": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "biomes": "stargazer:amethyst_spikes"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    },
+    "visited_bone_forest": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "biomes": "stargazer:bone_forest"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    },
+    "visited_eye_birch_forest": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "biomes": "stargazer:eye_birch_forest"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    },
+    "visited_moon_forest": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "biomes": "stargazer:moon_forest"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    },
+    "visited_moon_waste": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "biomes": "stargazer:moon_waste"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    },
+    "visited_purple_shroom_forest": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "biomes": "stargazer:purple_shroom_forest"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    }
+  },
+  "display": {
+    "description": "Visit all biomes in cosmic dimension",
+    "frame": "challenge",
+    "icon": {
+      "count": 1,
+      "id": "stargazer:moon_log"
+    },
+    "title": "Exotic Tourism"
+  },
+  "requirements": [
+    [
+      "visited_moon_forest"
+    ],
+    [
+      "visited_moon_waste"
+    ],
+    [
+      "visited_amethyst_spikes"
+    ],
+    [
+      "visited_bone_forest"
+    ],
+    [
+      "visited_eye_birch_forest"
+    ],
+    [
+      "visited_purple_shroom_forest"
+    ]
+  ],
+  "rewards": {
+    "experience": 500
+  },
+  "sends_telemetry_event": true
+}

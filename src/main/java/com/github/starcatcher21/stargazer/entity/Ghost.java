@@ -36,6 +36,7 @@ import software.bernie.geckolib.animation.RawAnimation;
 
 import software.bernie.geckolib.util.GeckoLibUtil;
 
+import java.util.Locale;
 import java.util.Objects;
 
 public class Ghost extends FlyingEntity implements GeoEntity {
@@ -153,10 +154,16 @@ public class Ghost extends FlyingEntity implements GeoEntity {
         if (!this.hasPositionTarget() && this.random.nextInt(32) > 24) {
             this.setTargetPos(this.getPos().add(random.nextFloat() * 10 - 5, random.nextFloat() * 10 - 5, random.nextFloat() * 10 - 5));
         }
-        if (this.hasCustomName() && GhostModel.pacman.contains(this.getCustomName().getString().toLowerCase())) {
-            if (!getTag().equals("pacman")) setTag("pacman");
-        } else {
-            if (!getTag().isEmpty()) setTag("");
+        if (this.hasCustomName()) {
+            if (GhostModel.pacman.contains(this.getCustomName().getString().toLowerCase())) {
+                if (!getTag().equals("pacman")) setTag("pacman");
+            } else if (GhostModel.bill.contains(this.getCustomName().getString().toLowerCase())) {
+                if (!getTag().equals("bill")) setTag("bill");
+            } else if (GhostModel.adventure.contains(this.getCustomName().getString().toLowerCase())){
+                if (!getTag().equals("adventure")) setTag("adventure");
+            } else {
+                if (!getTag().isEmpty()) setTag("");
+            }
         }
     }
 

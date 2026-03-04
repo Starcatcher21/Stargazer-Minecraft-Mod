@@ -1,5 +1,5 @@
 {
-  "parent": "stargazer:portal",
+  "parent": "stargazer:ghost",
   "criteria": {
     "hurt": {
       "conditions": {
