@@ -7,6 +7,7 @@ import com.github.starcatcher21.stargazer.worldgen.features.trees.amertylst.Amer
 import com.github.starcatcher21.stargazer.worldgen.features.trees.amertylst.AmertylstConfig;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.bones.BoneTrees;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.curve.CurveTrees;
+import com.github.starcatcher21.stargazer.worldgen.features.trees.darkness.DarknessTrees;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.eyeblodbirch.EyeBirchTrees;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.moon.MoonTrees;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.prismaticore.PrismaticOre;
@@ -28,6 +29,7 @@ public class CustomFeatures {
     public static final Feature spike = register("spike", new Amertylst(AmertylstConfig.CODEC));
     public static final Feature prismatic_ore = register("prismatic_ore", new PrismaticOre(TreeConfig.CODEC));
     public static final Feature forget_me_now = register("forget_me_now", new ForgetMeNow(DefaultFeatureConfig.CODEC));
+    public static final Feature darkness_trees = register("darkness_trees", new DarknessTrees(TreeConfig.CODEC));
 
     public static Feature register(String id, Feature<?> entry) {
         return Registry.register(

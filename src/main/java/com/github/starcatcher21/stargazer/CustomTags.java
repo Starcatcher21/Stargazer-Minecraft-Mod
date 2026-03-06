@@ -20,6 +20,8 @@ public class CustomTags {
     public static final TagKey<Item> BLUE_STAR = register("blue_star");
     public static final TagKey<Item> STAR_FLOWER = register("star_flower");
     public static final TagKey<Item> COSMIC = register("cosmic");
+    public static final TagKey<Item> DARKNESS_LOG = register("darkness_log");
+    public static final TagKey<Item> ECTOPLASM = register("ectoplasm");
 
     public static final TagKey<Block> COPPER_BLOCKS = registerBlock("copper_block");
 

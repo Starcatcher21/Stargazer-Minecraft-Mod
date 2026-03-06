@@ -1,10 +1,12 @@
 package com.github.starcatcher21.stargazer.datagen;
 
+import com.github.starcatcher21.stargazer.block.register.Darkness;
 import com.github.starcatcher21.stargazer.block.register.EyeBloodBlocks;
 import com.github.starcatcher21.stargazer.block.register.MoonBlocks;
 import com.github.starcatcher21.stargazer.block.register.StarBlocks;
 import com.github.starcatcher21.stargazer.CustomTags;
 import com.github.starcatcher21.stargazer.item.ModItems;
+import dev.architectury.platform.Mod;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.item.Items;
@@ -32,7 +34,9 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(EyeBloodBlocks.EYE_LOG.asItem())
                 .add(EyeBloodBlocks.STRIPPED_EYE_LOG.asItem())
                 .add(StarBlocks.STAR_LOG.asItem())
-                .add(StarBlocks.STRIPPED_STAR_LOG.asItem());
+                .add(StarBlocks.STRIPPED_STAR_LOG.asItem())
+                .add(Darkness.LOG_OF_DARKNESS.asItem())
+                .add(Darkness.STRIPPED_LOG_OF_DARKNESS.asItem());
         getOrCreateTagBuilder(ItemTags.SAPLINGS)
                 .add(MoonBlocks.MOON_SAPLING.asItem())
                 .add(StarBlocks.STAR_SAPLING.asItem())
@@ -64,6 +68,9 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
         getOrCreateTagBuilder(CustomTags.CURVE_LOG)
                 .add(MoonBlocks.CURVE_LOG.asItem())
                 .add(MoonBlocks.STRIPPED_CURVE_LOG.asItem());
+        getOrCreateTagBuilder(CustomTags.DARKNESS_LOG)
+                .add(Darkness.LOG_OF_DARKNESS.asItem())
+                .add(Darkness.STRIPPED_LOG_OF_DARKNESS.asItem());
         getOrCreateTagBuilder(net.minecraft.registry.tag.ItemTags.PLANKS)
                 .add(MoonBlocks.RED_MOON_PLANKS.asItem())
                 .add(MoonBlocks.BLUE_MOON_PLANKS.asItem())
@@ -76,5 +83,8 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(MoonBlocks.MOON_ROCK.asItem());
         getOrCreateTagBuilder(CustomTags.STAR_FLOWER)
                 .add(StarBlocks.STAR_FLOWER.asItem());
+        getOrCreateTagBuilder(CustomTags.ECTOPLASM)
+                .add(ModItems.ECTOPLASM)
+                .add(ModItems.COOLER_ECTOPLASM);
     }
 }

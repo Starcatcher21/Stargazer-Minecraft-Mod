@@ -2,6 +2,7 @@ package com.github.starcatcher21.stargazer.datagen;
 
 import com.github.starcatcher21.stargazer.CustomTags;
 import com.github.starcatcher21.stargazer.block.ModBlock;
+import com.github.starcatcher21.stargazer.block.register.Darkness;
 import com.github.starcatcher21.stargazer.block.register.EyeBloodBlocks;
 import com.github.starcatcher21.stargazer.block.register.MoonBlocks;
 import com.github.starcatcher21.stargazer.block.register.StarBlocks;
@@ -74,7 +75,9 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(StarBlocks.STAR_PLANKS_BUTTON)
                 .add(StarBlocks.STAR_PLANKS_FENCE)
                 .add(StarBlocks.STAR_PLANKS_FENCE_GATE)
-                .add(StarBlocks.STRIPPED_STAR_LOG);
+                .add(StarBlocks.STRIPPED_STAR_LOG)
+                .add(Darkness.LOG_OF_DARKNESS)
+                .add(Darkness.STRIPPED_LOG_OF_DARKNESS);
 //                .add(Bonsai.LIVING_BONSAI_LOG)
 //                .add(Bonsai.BONSAI_LOG);
         getOrCreateTagBuilder(BlockTags.LOGS)
@@ -85,21 +88,25 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(EyeBloodBlocks.EYE_LOG)
                 .add(EyeBloodBlocks.STRIPPED_EYE_LOG)
                 .add(StarBlocks.STAR_LOG)
-                .add(StarBlocks.STRIPPED_STAR_LOG);
+                .add(StarBlocks.STRIPPED_STAR_LOG)
+                .add(Darkness.LOG_OF_DARKNESS)
+                .add(Darkness.STRIPPED_LOG_OF_DARKNESS);
 //                .add(Bonsai.LIVING_BONSAI_LOG)
 //                .add(Bonsai.BONSAI_LOG);
         getOrCreateTagBuilder(BlockTags.LEAVES)
                 .add(MoonBlocks.MOON_LEAVES)
                 .add(MoonBlocks.CURVE_LEAVES)
                 .add(EyeBloodBlocks.EYE_LEAVES)
-                .add(StarBlocks.STAR_LEAVES);
+                .add(StarBlocks.STAR_LEAVES)
+                .add(Darkness.DARKNESS_LEAVES);
         getOrCreateTagBuilder(BlockTags.HOE_MINEABLE)
                 .add(MoonBlocks.MOON_LEAVES)
                 .add(ModBlock.BONE_LEAVES)
                 .add(MoonBlocks.CURVE_LEAVES)
                 .add(EyeBloodBlocks.EYE_LEAVES)
                 .add(StarBlocks.STAR_LEAVES)
-                .add(MoonBlocks.PURPLE_MUSHROOM_BLOCK);
+                .add(MoonBlocks.PURPLE_MUSHROOM_BLOCK)
+                .add(Darkness.DARKNESS_LEAVES);
         // Rock
         getOrCreateTagBuilder(BlockTags.PICKAXE_MINEABLE)
                 .add(MoonBlocks.STAR_FORGE)

@@ -6,10 +6,7 @@ import com.github.starcatcher21.stargazer.block.clases.Sprinkler;
 import com.github.starcatcher21.stargazer.block.clases.grave.Grave;
 import com.github.starcatcher21.stargazer.block.clases.negative.NegativeBlock;
 import com.github.starcatcher21.stargazer.block.clases.teleporter.CopperTeleporter;
-import com.github.starcatcher21.stargazer.block.register.Crops;
-import com.github.starcatcher21.stargazer.block.register.EyeBloodBlocks;
-import com.github.starcatcher21.stargazer.block.register.MoonBlocks;
-import com.github.starcatcher21.stargazer.block.register.StarBlocks;
+import com.github.starcatcher21.stargazer.block.register.*;
 import it.unimi.dsi.fastutil.objects.ObjectArraySet;
 import net.minecraft.block.*;
 import net.minecraft.block.piston.PistonBehavior;
@@ -81,6 +78,7 @@ public class ModBlock {
         StarBlocks.init();
         EyeBloodBlocks.init();
         Crops.init();
+        Darkness.init();
         saplings.add(StarBlocks.STAR_SAPLING);
         saplings.add(MoonBlocks.MOON_SAPLING);
     }

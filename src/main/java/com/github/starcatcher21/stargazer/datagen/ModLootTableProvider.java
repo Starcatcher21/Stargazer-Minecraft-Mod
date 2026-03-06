@@ -4,10 +4,7 @@ import com.github.starcatcher21.stargazer.block.ModBlock;
 import com.github.starcatcher21.stargazer.block.clases.moon.geode_fruit.GeodeFruit;
 import com.github.starcatcher21.stargazer.block.clases.moon.geode_fruit.GeodeFruitStage;
 import com.github.starcatcher21.stargazer.block.clases.moon.plants.MoonCrop;
-import com.github.starcatcher21.stargazer.block.register.Crops;
-import com.github.starcatcher21.stargazer.block.register.EyeBloodBlocks;
-import com.github.starcatcher21.stargazer.block.register.MoonBlocks;
-import com.github.starcatcher21.stargazer.block.register.StarBlocks;
+import com.github.starcatcher21.stargazer.block.register.*;
 import com.github.starcatcher21.stargazer.item.ModItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
@@ -155,5 +152,14 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
         addDrop(StarBlocks.STAR_SAPLING);
         addDrop(StarBlocks.STAR_FLOWER);
         addDrop(StarBlocks.CELESTIAL_STAR_FLOWER);
+        // Darkness
+        addDrop(Darkness.LOG_OF_DARKNESS);
+        addDrop(Darkness.STRIPPED_LOG_OF_DARKNESS);
+        addDrop(Darkness.DARKNESS_PLANKS);
+        addDrop(Darkness.DARKNESS_PLANKS_STAIRS);
+        addDrop(Darkness.DARKNESS_PLANKS_SLAB);
+        addDrop(Darkness.DARKNESS_PLANKS_BUTTON);
+        addDrop(Darkness.DARKNESS_PLANKS_FENCE);
+        addDrop(Darkness.DARKNESS_PLANKS_FENCE_GATE);
     }
 }

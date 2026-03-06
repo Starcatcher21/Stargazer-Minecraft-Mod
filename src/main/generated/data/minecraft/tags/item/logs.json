@@ -6,6 +6,8 @@
     "stargazer:eye_log",
     "stargazer:stripped_eye_log",
     "stargazer:star_log",
-    "stargazer:stripped_star_log"
+    "stargazer:stripped_star_log",
+    "stargazer:log_of_darkness",
+    "stargazer:stripped_log_of_darkness"
   ]
 }

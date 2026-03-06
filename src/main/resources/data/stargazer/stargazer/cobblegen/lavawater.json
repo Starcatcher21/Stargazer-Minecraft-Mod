@@ -1,0 +1,6 @@
+{
+  "fluid": "#minecraft:water",
+  "lava": {"Name": "minecraft:lava"},
+  "obsidian": {"Name": "minecraft:obsidian"},
+  "cobble": {"Name": "minecraft:cobblestone"}
+}

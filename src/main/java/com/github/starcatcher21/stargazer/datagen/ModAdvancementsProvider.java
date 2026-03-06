@@ -136,7 +136,7 @@ public class ModAdvancementsProvider extends FabricAdvancementProvider {
         AdvancementEntry gravity = Advancement.Builder.create()
                 .parent(ghost)
                 .display(
-                        ModItems.GHOST_SPAWN_EGG, // The display icon
+                        ModItems.ECTOPLASM, // The display icon
                         Text.literal("Do you believe in Gravity"), // The title
                         Text.literal("This is some kind of gravity ghosts"), // The description
                         null,
@@ -151,7 +151,7 @@ public class ModAdvancementsProvider extends FabricAdvancementProvider {
         AdvancementEntry pac = Advancement.Builder.create()
                 .parent(ghost)
                 .display(
-                        ModItems.GHOST_SPAWN_EGG, // The display icon
+                        ModItems.COOLER_ECTOPLASM, // The display icon
                         Text.literal("Time to eat some ghosts"), // The title
                         Text.literal("It's all about the game"), // The description
                         null,

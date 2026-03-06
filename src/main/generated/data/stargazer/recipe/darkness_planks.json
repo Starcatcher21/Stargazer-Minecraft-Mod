@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "planks",
+  "ingredients": [
+    "#stargazer:darkness_log"
+  ],
+  "result": {
+    "count": 4,
+    "id": "stargazer:darkness_planks"
+  }
+}

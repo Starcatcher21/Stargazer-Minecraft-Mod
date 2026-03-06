@@ -3,10 +3,7 @@ package com.github.starcatcher21.stargazer.datagen;
 import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.block.ModBlock;
 import com.github.starcatcher21.stargazer.block.clases.moon.plants.MoonCrop;
-import com.github.starcatcher21.stargazer.block.register.Crops;
-import com.github.starcatcher21.stargazer.block.register.EyeBloodBlocks;
-import com.github.starcatcher21.stargazer.block.register.MoonBlocks;
-import com.github.starcatcher21.stargazer.block.register.StarBlocks;
+import com.github.starcatcher21.stargazer.block.register.*;
 import com.github.starcatcher21.stargazer.item.ModItems;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -93,6 +90,16 @@ public class ModModelProvider extends FabricModelProvider {
         blockStateModelGenerator.registerSimpleCubeAll(MoonBlocks.CURVE_LEAVES);
         blockStateModelGenerator.registerAxisRotated(StarBlocks.STAR_LOG, TexturedModel.CUBE_COLUMN);
         blockStateModelGenerator.registerAxisRotated(StarBlocks.STRIPPED_STAR_LOG, TexturedModel.CUBE_COLUMN);
+        blockStateModelGenerator.registerAxisRotated(Darkness.LOG_OF_DARKNESS, TexturedModel.CUBE_COLUMN);
+        blockStateModelGenerator.registerAxisRotated(Darkness.STRIPPED_LOG_OF_DARKNESS, TexturedModel.CUBE_COLUMN);
+        blockStateModelGenerator.registerSimpleCubeAll(Darkness.DARKNESS_LEAVES);
+
+        blockStateModelGenerator.registerCubeAllModelTexturePool(Darkness.DARKNESS_PLANKS)
+                .stairs(Darkness.DARKNESS_PLANKS_STAIRS)
+                .button(Darkness.DARKNESS_PLANKS_BUTTON)
+                .fence(Darkness.DARKNESS_PLANKS_FENCE)
+                .fenceGate(Darkness.DARKNESS_PLANKS_FENCE_GATE)
+                .slab(Darkness.DARKNESS_PLANKS_SLAB);
         // Eye blood
         blockStateModelGenerator.registerAxisRotated(EyeBloodBlocks.STRIPPED_EYE_LOG, TexturedModel.CUBE_COLUMN);
         blockStateModelGenerator.registerSimpleCubeAll(EyeBloodBlocks.EYE_LEAVES);
@@ -131,6 +138,8 @@ public class ModModelProvider extends FabricModelProvider {
         blockGeneratedItem(itemModelGenerator, StarBlocks.STAR_SAPLING);
 
         itemModelGenerator.register(ModItems.PRISMATIC_SHARD, Models.GENERATED);
+        itemModelGenerator.register(ModItems.ECTOPLASM, Models.GENERATED);
+        itemModelGenerator.register(ModItems.COOLER_ECTOPLASM, Models.GENERATED);
 
         // Spawn Eggs
         itemModelGenerator.register(ModItems.GHOST_SPAWN_EGG, Models.GENERATED);

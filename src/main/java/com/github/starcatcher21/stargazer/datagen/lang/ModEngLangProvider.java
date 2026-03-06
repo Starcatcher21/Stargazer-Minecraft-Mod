@@ -2,10 +2,7 @@ package com.github.starcatcher21.stargazer.datagen.lang;
 
 import com.github.starcatcher21.stargazer.CreativeTab.ItemGroup;
 import com.github.starcatcher21.stargazer.block.ModBlock;
-import com.github.starcatcher21.stargazer.block.register.Crops;
-import com.github.starcatcher21.stargazer.block.register.EyeBloodBlocks;
-import com.github.starcatcher21.stargazer.block.register.MoonBlocks;
-import com.github.starcatcher21.stargazer.block.register.StarBlocks;
+import com.github.starcatcher21.stargazer.block.register.*;
 import com.github.starcatcher21.stargazer.effects.Potions;
 import com.github.starcatcher21.stargazer.entity.EntityRegistry;
 import com.github.starcatcher21.stargazer.item.ModItems;
@@ -120,6 +117,16 @@ public class ModEngLangProvider extends FabricLanguageProvider {
         translationBuilder.add(EyeBloodBlocks.EYE_LOG, "Eye Birch Log");
         translationBuilder.add(EyeBloodBlocks.STRIPPED_EYE_LOG, "Stripped Eye Birch Log");
         translationBuilder.add(EyeBloodBlocks.EYE_LEAVES, "Eye Birch Leaves");
+        // Darkness
+        translationBuilder.add(Darkness.LOG_OF_DARKNESS, "Log of Darkness");
+        translationBuilder.add(Darkness.STRIPPED_LOG_OF_DARKNESS, "Stripped Log of Darkness");
+        translationBuilder.add(Darkness.DARKNESS_LEAVES, "Darkness Leaves");
+        translationBuilder.add(Darkness.DARKNESS_PLANKS, "Darkness Planks");
+        translationBuilder.add(Darkness.DARKNESS_PLANKS_SLAB, "Darkness Slab");
+        translationBuilder.add(Darkness.DARKNESS_PLANKS_STAIRS, "Darkness Stairs");
+        translationBuilder.add(Darkness.DARKNESS_PLANKS_FENCE, "Darkness Fence");
+        translationBuilder.add(Darkness.DARKNESS_PLANKS_FENCE_GATE, "Darkness Fence Gate");
+        translationBuilder.add(Darkness.DARKNESS_PLANKS_BUTTON, "Darkness Button");
         // Items
         translationBuilder.add(ModItems.GRAVICE, "Gravel Ice");
         translationBuilder.add(ModItems.STARDUST, "Stardust");
@@ -130,6 +137,8 @@ public class ModEngLangProvider extends FabricLanguageProvider {
         translationBuilder.add(ModItems.LODESTAR, "Lodestar");
         translationBuilder.add(ModItems.GEODE_FRUIT, "Geode Fruit");
         translationBuilder.add(ModItems.PRISMATIC_SHARD, "Prismatic Shard");
+        translationBuilder.add(ModItems.ECTOPLASM, "Ectoplasm");
+        translationBuilder.add(ModItems.COOLER_ECTOPLASM, "Ectoplasm but 20% Cooler");
         // Spawn Eggs
         translationBuilder.add(ModItems.GHOST_SPAWN_EGG, "Ghost Spawn Egg");
         translationBuilder.add(ModItems.AMETHYST_TURTLE_SPAWN_EGG, "Amethyst Turtle Spawn Egg");

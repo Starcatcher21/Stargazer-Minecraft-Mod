@@ -1,10 +1,10 @@
 // 1.21.5	-999999999-01-01T00:00:00	STARGAZER/Tags for minecraft:block
 ebdd3e739d356f9156df9593bec69e676c6e1666 data/minecraft/tags/block/fence_gates.json
 037db94bcc927454eae7d1e0f3ac20f6124c54c4 data/minecraft/tags/block/fences.json
-8a6d015ae5dceacda9c8494843ec807b18badefe data/minecraft/tags/block/leaves.json
-f6ea958d1b589a787c3e00f83afaaf74e73335ae data/minecraft/tags/block/logs.json
-757949d0b35cb9e4de503b40d8726847235cb72f data/minecraft/tags/block/mineable/axe.json
-f532d2f11a68032c8272794ed37d6e62fbed7cdb data/minecraft/tags/block/mineable/hoe.json
+2873c5a5adb3a9f570e229c1709f2fb93b551b03 data/minecraft/tags/block/leaves.json
+4b63fc5cde26743006e4bdb7cb42248efc6778e9 data/minecraft/tags/block/logs.json
+af49fc199cb2707bde95deedf70518af904d9a70 data/minecraft/tags/block/mineable/axe.json
+fd8275b9f8b978020ef2de1124773bae1568c217 data/minecraft/tags/block/mineable/hoe.json
 52e92ef231a154f057bf2e5da10c64e1ef827f72 data/minecraft/tags/block/mineable/pickaxe.json
 64e19493d67ca70e8940798545c45e5e94a379d8 data/minecraft/tags/block/mushroom_grow_block.json
 0e8bfcfe20282e1ad57c27203cf9c6f98fb7d792 data/minecraft/tags/block/needs_iron_tool.json

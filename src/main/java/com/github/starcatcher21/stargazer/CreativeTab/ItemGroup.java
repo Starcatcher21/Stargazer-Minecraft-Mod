@@ -2,10 +2,7 @@ package com.github.starcatcher21.stargazer.CreativeTab;
 
 import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.block.ModBlock;
-import com.github.starcatcher21.stargazer.block.register.Crops;
-import com.github.starcatcher21.stargazer.block.register.EyeBloodBlocks;
-import com.github.starcatcher21.stargazer.block.register.MoonBlocks;
-import com.github.starcatcher21.stargazer.block.register.StarBlocks;
+import com.github.starcatcher21.stargazer.block.register.*;
 import com.github.starcatcher21.stargazer.item.ModItems;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
@@ -122,6 +119,16 @@ public class ItemGroup {
             itemGroup.add(EyeBloodBlocks.STRIPPED_EYE_LOG);
             itemGroup.add(EyeBloodBlocks.EYE_LEAVES);
             itemGroup.add(EyeBloodBlocks.EYE_JAR);
+            // Darkness
+            itemGroup.add(Darkness.LOG_OF_DARKNESS);
+            itemGroup.add(Darkness.STRIPPED_LOG_OF_DARKNESS);
+            itemGroup.add(Darkness.DARKNESS_LEAVES);
+            itemGroup.add(Darkness.DARKNESS_PLANKS);
+            itemGroup.add(Darkness.DARKNESS_PLANKS_SLAB);
+            itemGroup.add(Darkness.DARKNESS_PLANKS_STAIRS);
+            itemGroup.add(Darkness.DARKNESS_PLANKS_BUTTON);
+            itemGroup.add(Darkness.DARKNESS_PLANKS_FENCE);
+            itemGroup.add(Darkness.DARKNESS_PLANKS_FENCE_GATE);
             // Plants
             itemGroup.add(StarBlocks.STAR_FLOWER);
             itemGroup.add(StarBlocks.CELESTIAL_STAR_FLOWER);
@@ -141,6 +148,8 @@ public class ItemGroup {
             itemGroup.add(ModItems.YELLOW_STAR);
             itemGroup.add(ModItems.LODESTAR);
             itemGroup.add(ModItems.GEODE_FRUIT);
+            itemGroup.add(ModItems.ECTOPLASM);
+            itemGroup.add(ModItems.COOLER_ECTOPLASM);
             // SpawnEggs
             itemGroup.add(ModItems.GHOST_SPAWN_EGG);
             itemGroup.add(ModItems.AMETHYST_TURTLE_SPAWN_EGG);

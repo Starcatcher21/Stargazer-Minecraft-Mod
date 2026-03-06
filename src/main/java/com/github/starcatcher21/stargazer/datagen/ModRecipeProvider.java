@@ -1,5 +1,6 @@
 package com.github.starcatcher21.stargazer.datagen;
 
+import com.github.starcatcher21.stargazer.block.register.Darkness;
 import com.github.starcatcher21.stargazer.block.register.MoonBlocks;
 import com.github.starcatcher21.stargazer.block.register.StarBlocks;
 import com.github.starcatcher21.stargazer.CustomTags;
@@ -197,6 +198,33 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 createFenceGateRecipe(MoonBlocks.CURVE_PLANKS_FENCE_GATE, Ingredient.ofItem(MoonBlocks.CURVE_PLANKS))
                         .group("wooden_fence_gate")
                         .criterion("wood", conditionsFromItem(MoonBlocks.CURVE_PLANKS))
+                        .offerTo(exporter);
+
+                // Darkness
+                createShapeless(RecipeCategory.BUILDING_BLOCKS, Darkness.DARKNESS_PLANKS, 4)
+                        .input(CustomTags.DARKNESS_LOG)
+                        .group("planks")
+                        .criterion("has_log", this.conditionsFromTag(CustomTags.DARKNESS_LOG))
+                        .offerTo(this.exporter);
+                createSlabRecipe(RecipeCategory.BUILDING_BLOCKS, Darkness.DARKNESS_PLANKS_SLAB, Ingredient.ofItem(Darkness.DARKNESS_PLANKS))
+                        .group("wooden_slab")
+                        .criterion("wood", conditionsFromItem(Darkness.DARKNESS_PLANKS))
+                        .offerTo(exporter);
+                createStairsRecipe(Darkness.DARKNESS_PLANKS_STAIRS, Ingredient.ofItem(Darkness.DARKNESS_PLANKS))
+                        .group("wooden_stairs")
+                        .criterion("wood", conditionsFromItem(Darkness.DARKNESS_PLANKS))
+                        .offerTo(exporter);
+                createButtonRecipe(Darkness.DARKNESS_PLANKS_BUTTON, Ingredient.ofItem(Darkness.DARKNESS_PLANKS))
+                        .group("wooden_button")
+                        .criterion("wood", conditionsFromItem(Darkness.DARKNESS_PLANKS))
+                        .offerTo(exporter);
+                createFenceRecipe(Darkness.DARKNESS_PLANKS_FENCE, Ingredient.ofItem(Darkness.DARKNESS_PLANKS))
+                        .group("wooden_fence")
+                        .criterion("wood", conditionsFromItem(MoonBlocks.CURVE_PLANKS))
+                        .offerTo(exporter);
+                createFenceGateRecipe(Darkness.DARKNESS_PLANKS_FENCE_GATE, Ingredient.ofItem(Darkness.DARKNESS_PLANKS))
+                        .group("wooden_fence_gate")
+                        .criterion("wood", conditionsFromItem(Darkness.DARKNESS_PLANKS))
                         .offerTo(exporter);
 
                 // Moon Rock
