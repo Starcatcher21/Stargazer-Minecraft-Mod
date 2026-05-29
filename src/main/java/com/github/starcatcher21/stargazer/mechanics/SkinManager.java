@@ -54,7 +54,7 @@ public class SkinManager {
                 false
                 );
 
-        // 3. Combine into SkinTextures when both are ready
+        // 3. Combine into SkinTextures when both are ready.MOD_ID, "capes/" + uu
         CompletableFuture.allOf(skinFuture, capeFuture).thenAccept(v -> {
             SkinTextures.Model model = (entry.model == 1) ? SkinTextures.Model.SLIM : SkinTextures.Model.WIDE;
 

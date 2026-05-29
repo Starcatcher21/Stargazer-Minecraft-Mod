@@ -54,6 +54,7 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
         addDrop(ModBlock.GRAVE);
         addDrop(ModBlock.INFESTED_CALCITE, oreDrops(ModBlock.INFESTED_CALCITE, Blocks.CALCITE.asItem(), 1.0f, 1.0f));
         addDrop(ModBlock.BONE_LEAVES, customLeavesDrop(ModBlock.BONE_LEAVES, Items.BONE, 0f, 3.0f));
+        addDrop(ModBlock.BONEFLOWER);
         addDrop(ModBlock.SPRINKLER);
         addDrop(MoonBlocks.STAR_FORGE);
         addDrop(MoonBlocks.STAR_STONE);
@@ -144,6 +145,7 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
         addDrop(StarBlocks.STAR_LOG);
         addDrop(StarBlocks.STRIPPED_STAR_LOG);
         addDrop(StarBlocks.STAR_PLANKS);
+        doorDrops(StarBlocks.STAR_PLANKS_DOOR);
         addDrop(StarBlocks.STAR_PLANKS_STAIRS);
         addDrop(StarBlocks.STAR_PLANKS_SLAB);
         addDrop(StarBlocks.STAR_PLANKS_BUTTON);
@@ -153,6 +155,7 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
         addDrop(StarBlocks.STAR_FLOWER);
         addDrop(StarBlocks.CELESTIAL_STAR_FLOWER);
         // Darkness
+        doorDrops(Darkness.DARKNESS_PLANKS_DOOR);
         addDrop(Darkness.LOG_OF_DARKNESS);
         addDrop(Darkness.STRIPPED_LOG_OF_DARKNESS);
         addDrop(Darkness.DARKNESS_PLANKS);
@@ -161,5 +164,34 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
         addDrop(Darkness.DARKNESS_PLANKS_BUTTON);
         addDrop(Darkness.DARKNESS_PLANKS_FENCE);
         addDrop(Darkness.DARKNESS_PLANKS_FENCE_GATE);
+        // Nebulas
+        addDrop(Nebulas.YELLOW_NEBULA_LOG);
+        addDrop(Nebulas.BLUE_NEBULA_LOG);
+        addDrop(Nebulas.RED_NEBULA_LOG);
+        addDrop(Nebulas.PURPLE_NEBULA_LOG);
+        addDrop(Nebulas.YELLOW_NEBULA_PLANKS);
+        addDrop(Nebulas.BLUE_NEBULA_PLANKS);
+        addDrop(Nebulas.RED_NEBULA_PLANKS);
+        addDrop(Nebulas.PURPLE_NEBULA_PLANKS);
+        addDrop(Nebulas.YELLOW_NEBULA_PLANKS_BUTTON);
+        addDrop(Nebulas.BLUE_NEBULA_PLANKS_BUTTON);
+        addDrop(Nebulas.RED_NEBULA_PLANKS_BUTTON);
+        addDrop(Nebulas.PURPLE_NEBULA_PLANKS_BUTTON);
+        addDrop(Nebulas.YELLOW_NEBULA_PLANKS_FENCE);
+        addDrop(Nebulas.BLUE_NEBULA_PLANKS_FENCE);
+        addDrop(Nebulas.RED_NEBULA_PLANKS_FENCE);
+        addDrop(Nebulas.PURPLE_NEBULA_PLANKS_FENCE);
+        addDrop(Nebulas.YELLOW_NEBULA_PLANKS_FENCE_GATE);
+        addDrop(Nebulas.BLUE_NEBULA_PLANKS_FENCE_GATE);
+        addDrop(Nebulas.RED_NEBULA_PLANKS_FENCE_GATE);
+        addDrop(Nebulas.PURPLE_NEBULA_PLANKS_FENCE_GATE);
+        addDrop(Nebulas.YELLOW_NEBULA_PLANKS_SLAB);
+        addDrop(Nebulas.BLUE_NEBULA_PLANKS_SLAB);
+        addDrop(Nebulas.RED_NEBULA_PLANKS_SLAB);
+        addDrop(Nebulas.PURPLE_NEBULA_PLANKS_SLAB);
+        addDrop(Nebulas.YELLOW_NEBULA_PLANKS_STAIRS);
+        addDrop(Nebulas.BLUE_NEBULA_PLANKS_STAIRS);
+        addDrop(Nebulas.RED_NEBULA_PLANKS_STAIRS);
+        addDrop(Nebulas.PURPLE_NEBULA_PLANKS_STAIRS);
     }
 }

@@ -1,13 +1,13 @@
 // 1.21.5	-999999999-01-01T00:00:00	STARGAZER/Tags for minecraft:block
-ebdd3e739d356f9156df9593bec69e676c6e1666 data/minecraft/tags/block/fence_gates.json
-037db94bcc927454eae7d1e0f3ac20f6124c54c4 data/minecraft/tags/block/fences.json
-2873c5a5adb3a9f570e229c1709f2fb93b551b03 data/minecraft/tags/block/leaves.json
-4b63fc5cde26743006e4bdb7cb42248efc6778e9 data/minecraft/tags/block/logs.json
+d4736e517bc9d32f5a4b3f58498245db75856012 data/minecraft/tags/block/fence_gates.json
+45b0cfb2107071575b6aa8f943349235b4cd23db data/minecraft/tags/block/fences.json
+610c93064e91f70b215c955c5d3127bc0dba6d12 data/minecraft/tags/block/leaves.json
+1e9f4189ef729f501eb369886bd7b0d700dd0638 data/minecraft/tags/block/logs.json
 af49fc199cb2707bde95deedf70518af904d9a70 data/minecraft/tags/block/mineable/axe.json
 fd8275b9f8b978020ef2de1124773bae1568c217 data/minecraft/tags/block/mineable/hoe.json
-52e92ef231a154f057bf2e5da10c64e1ef827f72 data/minecraft/tags/block/mineable/pickaxe.json
+122bec3d8b11b7d2fb87a2b0b66cd57d83d81426 data/minecraft/tags/block/mineable/pickaxe.json
 64e19493d67ca70e8940798545c45e5e94a379d8 data/minecraft/tags/block/mushroom_grow_block.json
 0e8bfcfe20282e1ad57c27203cf9c6f98fb7d792 data/minecraft/tags/block/needs_iron_tool.json
-9f2e0a277bf7664d681af8a60f050438463bb9a9 data/minecraft/tags/block/needs_stone_tool.json
-037db94bcc927454eae7d1e0f3ac20f6124c54c4 data/minecraft/tags/block/wooden_fences.json
+3998e1cbb0294909d9bd18004d5bd7e27b921dca data/minecraft/tags/block/needs_stone_tool.json
+45b0cfb2107071575b6aa8f943349235b4cd23db data/minecraft/tags/block/wooden_fences.json
 f57977ee1c8f1b0f85284a353d76104fca0a4e0c data/stargazer/tags/block/copper_block.json

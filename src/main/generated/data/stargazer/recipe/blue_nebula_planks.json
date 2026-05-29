@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "planks",
+  "ingredients": [
+    "stargazer:blue_nebula_log"
+  ],
+  "result": {
+    "count": 4,
+    "id": "stargazer:blue_nebula_planks"
+  }
+}

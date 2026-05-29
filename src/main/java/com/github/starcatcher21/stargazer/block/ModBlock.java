@@ -1,6 +1,7 @@
 package com.github.starcatcher21.stargazer.block;
 
 import com.github.starcatcher21.stargazer.Stargazer;
+import com.github.starcatcher21.stargazer.block.clases.CosmicFlower;
 import com.github.starcatcher21.stargazer.block.clases.InfestedCalcite;
 import com.github.starcatcher21.stargazer.block.clases.Sprinkler;
 import com.github.starcatcher21.stargazer.block.clases.grave.Grave;
@@ -10,6 +11,7 @@ import com.github.starcatcher21.stargazer.block.register.*;
 import it.unimi.dsi.fastutil.objects.ObjectArraySet;
 import net.minecraft.block.*;
 import net.minecraft.block.piston.PistonBehavior;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
@@ -45,6 +47,15 @@ public class ModBlock {
             .strength(0.2F)
             .mapColor(MapColor.WHITE)
     );
+    public static final Block BONEFLOWER = register("boneflower", settings -> new CosmicFlower(StatusEffects.BLINDNESS, 5.0f, settings), AbstractBlock.Settings.create()
+            .mapColor(MapColor.PURPLE)
+            .noCollision()
+            .breakInstantly()
+            .sounds(BlockSoundGroup.GRASS)
+            .offset(AbstractBlock.OffsetType.XZ)
+            .pistonBehavior(PistonBehavior.DESTROY)
+    );
+    public static final Block POTTED_BONEFLOWER = registerWoItem("potted_boneflower", settings -> new FlowerPotBlock(BONEFLOWER, settings), AbstractBlock.Settings.copy(Blocks.POTTED_ALLIUM).nonOpaque());
 
     public static final Block COPPER_TELEPORTER = registerWoItem("copper_teleporter", CopperTeleporter::new, AbstractBlock.Settings.create()
             .solid()
@@ -79,6 +90,7 @@ public class ModBlock {
         EyeBloodBlocks.init();
         Crops.init();
         Darkness.init();
+        Nebulas.init();
         saplings.add(StarBlocks.STAR_SAPLING);
         saplings.add(MoonBlocks.MOON_SAPLING);
     }

@@ -1,6 +1,0 @@
-{
-  "parent": "stargazer:item/star",
-  "textures": {
-    "0": "stargazer:item/red_star"
-  }
-}

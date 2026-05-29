@@ -1,0 +1,10 @@
+{
+  "type": "stargazer:nebula_trees",
+  "config": {
+    "blacklist": false,
+    "names": ["blue"],
+    "grow_on": [
+      {"Name":  "minecraft:air"}
+    ]
+  }
+}

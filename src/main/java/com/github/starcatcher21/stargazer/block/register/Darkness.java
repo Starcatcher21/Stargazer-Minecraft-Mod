@@ -42,6 +42,14 @@ public class Darkness {
             .strength(2.0F)
             .mapColor(MapColor.GRAY)
     );
+    public static final Block DARKNESS_PLANKS_DOOR = register("darkness_planks_door", (settings) -> new DoorBlock(BlockSetType.OAK, (AbstractBlock.Settings)  settings), AbstractBlock.Settings.create()
+            .solid()
+            .nonOpaque()
+            .sounds(BlockSoundGroup.WOOD)
+            .instrument(NoteBlockInstrument.BASS)
+            .strength(2.0F)
+            .mapColor(MapColor.BLACK)
+    );
     public static final Block DARKNESS_PLANKS_SLAB = register("darkness_planks_slab", SlabBlock::new, AbstractBlock.Settings.create()
             .solid()
             .sounds(BlockSoundGroup.WOOD)

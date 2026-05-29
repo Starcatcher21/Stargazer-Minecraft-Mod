@@ -2,6 +2,7 @@ package com.github.starcatcher21.stargazer.datagen;
 
 import com.github.starcatcher21.stargazer.block.register.Darkness;
 import com.github.starcatcher21.stargazer.block.register.MoonBlocks;
+import com.github.starcatcher21.stargazer.block.register.Nebulas;
 import com.github.starcatcher21.stargazer.block.register.StarBlocks;
 import com.github.starcatcher21.stargazer.CustomTags;
 import com.github.starcatcher21.stargazer.item.ModItems;
@@ -147,6 +148,14 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .group("wooden_door")
                         .criterion("wood", conditionsFromItem(MoonBlocks.MOON_PLANKS))
                         .offerTo(exporter);
+                createDoorRecipe(StarBlocks.STAR_PLANKS_DOOR, Ingredient.ofItem(StarBlocks.STAR_PLANKS))
+                        .group("wooden_door")
+                        .criterion("wood", conditionsFromItem(StarBlocks.STAR_PLANKS))
+                        .offerTo(exporter);
+                createDoorRecipe(Darkness.DARKNESS_PLANKS_DOOR, Ingredient.ofItem(Darkness.DARKNESS_PLANKS))
+                        .group("wooden_door")
+                        .criterion("wood", conditionsFromItem(Darkness.DARKNESS_PLANKS))
+                        .offerTo(exporter);
                 // Star Tree
                 createShapeless(RecipeCategory.BUILDING_BLOCKS, StarBlocks.STAR_PLANKS, 4)
                         .input(CustomTags.STAR_LOG)
@@ -225,6 +234,111 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 createFenceGateRecipe(Darkness.DARKNESS_PLANKS_FENCE_GATE, Ingredient.ofItem(Darkness.DARKNESS_PLANKS))
                         .group("wooden_fence_gate")
                         .criterion("wood", conditionsFromItem(Darkness.DARKNESS_PLANKS))
+                        .offerTo(exporter);
+
+                // Nebulas
+                createShapeless(RecipeCategory.BUILDING_BLOCKS, Nebulas.BLUE_NEBULA_PLANKS, 4)
+                        .input(Nebulas.BLUE_NEBULA_LOG)
+                        .group("planks")
+                        .criterion("has_log", this.conditionsFromItem(Nebulas.BLUE_NEBULA_LOG))
+                        .offerTo(this.exporter);
+                createSlabRecipe(RecipeCategory.BUILDING_BLOCKS, Nebulas.BLUE_NEBULA_PLANKS_SLAB, Ingredient.ofItem(StarBlocks.STAR_PLANKS))
+                        .group("wooden_slab")
+                        .criterion("wood", conditionsFromItem(Nebulas.BLUE_NEBULA_PLANKS))
+                        .offerTo(exporter);
+                createStairsRecipe(Nebulas.BLUE_NEBULA_PLANKS_STAIRS, Ingredient.ofItem(StarBlocks.STAR_PLANKS))
+                        .group("wooden_stairs")
+                        .criterion("wood", conditionsFromItem(Nebulas.BLUE_NEBULA_PLANKS))
+                        .offerTo(exporter);
+                createButtonRecipe(Nebulas.BLUE_NEBULA_PLANKS_BUTTON, Ingredient.ofItem(StarBlocks.STAR_PLANKS))
+                        .group("wooden_button")
+                        .criterion("wood", conditionsFromItem(Nebulas.BLUE_NEBULA_PLANKS))
+                        .offerTo(exporter);
+                createFenceRecipe(Nebulas.BLUE_NEBULA_PLANKS_FENCE, Ingredient.ofItem(StarBlocks.STAR_PLANKS))
+                        .group("wooden_fence")
+                        .criterion("wood", conditionsFromItem(Nebulas.BLUE_NEBULA_PLANKS))
+                        .offerTo(exporter);
+                createFenceGateRecipe(Nebulas.BLUE_NEBULA_PLANKS_FENCE_GATE, Ingredient.ofItem(StarBlocks.STAR_PLANKS))
+                        .group("wooden_fence_gate")
+                        .criterion("wood", conditionsFromItem(Nebulas.BLUE_NEBULA_PLANKS))
+                        .offerTo(exporter);
+
+                createShapeless(RecipeCategory.BUILDING_BLOCKS, Nebulas.RED_NEBULA_PLANKS, 4)
+                        .input(Nebulas.RED_NEBULA_LOG)
+                        .group("planks")
+                        .criterion("has_log", this.conditionsFromItem(Nebulas.RED_NEBULA_LOG))
+                        .offerTo(this.exporter);
+                createSlabRecipe(RecipeCategory.BUILDING_BLOCKS, Nebulas.RED_NEBULA_PLANKS_SLAB, Ingredient.ofItem(StarBlocks.STAR_PLANKS))
+                        .group("wooden_slab")
+                        .criterion("wood", conditionsFromItem(Nebulas.RED_NEBULA_PLANKS))
+                        .offerTo(exporter);
+                createStairsRecipe(Nebulas.RED_NEBULA_PLANKS_STAIRS, Ingredient.ofItem(StarBlocks.STAR_PLANKS))
+                        .group("wooden_stairs")
+                        .criterion("wood", conditionsFromItem(Nebulas.RED_NEBULA_PLANKS))
+                        .offerTo(exporter);
+                createButtonRecipe(Nebulas.RED_NEBULA_PLANKS_BUTTON, Ingredient.ofItem(StarBlocks.STAR_PLANKS))
+                        .group("wooden_button")
+                        .criterion("wood", conditionsFromItem(Nebulas.RED_NEBULA_PLANKS))
+                        .offerTo(exporter);
+                createFenceRecipe(Nebulas.RED_NEBULA_PLANKS_FENCE, Ingredient.ofItem(StarBlocks.STAR_PLANKS))
+                        .group("wooden_fence")
+                        .criterion("wood", conditionsFromItem(Nebulas.RED_NEBULA_PLANKS))
+                        .offerTo(exporter);
+                createFenceGateRecipe(Nebulas.RED_NEBULA_PLANKS_FENCE_GATE, Ingredient.ofItem(StarBlocks.STAR_PLANKS))
+                        .group("wooden_fence_gate")
+                        .criterion("wood", conditionsFromItem(Nebulas.RED_NEBULA_PLANKS))
+                        .offerTo(exporter);
+
+                createShapeless(RecipeCategory.BUILDING_BLOCKS, Nebulas.PURPLE_NEBULA_PLANKS, 4)
+                        .input(Nebulas.PURPLE_NEBULA_LOG)
+                        .group("planks")
+                        .criterion("has_log", this.conditionsFromItem(Nebulas.PURPLE_NEBULA_LOG))
+                        .offerTo(this.exporter);
+                createSlabRecipe(RecipeCategory.BUILDING_BLOCKS, Nebulas.PURPLE_NEBULA_PLANKS_SLAB, Ingredient.ofItem(StarBlocks.STAR_PLANKS))
+                        .group("wooden_slab")
+                        .criterion("wood", conditionsFromItem(Nebulas.PURPLE_NEBULA_PLANKS))
+                        .offerTo(exporter);
+                createStairsRecipe(Nebulas.PURPLE_NEBULA_PLANKS_STAIRS, Ingredient.ofItem(StarBlocks.STAR_PLANKS))
+                        .group("wooden_stairs")
+                        .criterion("wood", conditionsFromItem(Nebulas.PURPLE_NEBULA_PLANKS))
+                        .offerTo(exporter);
+                createButtonRecipe(Nebulas.PURPLE_NEBULA_PLANKS_BUTTON, Ingredient.ofItem(StarBlocks.STAR_PLANKS))
+                        .group("wooden_button")
+                        .criterion("wood", conditionsFromItem(Nebulas.PURPLE_NEBULA_PLANKS))
+                        .offerTo(exporter);
+                createFenceRecipe(Nebulas.PURPLE_NEBULA_PLANKS_FENCE, Ingredient.ofItem(StarBlocks.STAR_PLANKS))
+                        .group("wooden_fence")
+                        .criterion("wood", conditionsFromItem(Nebulas.PURPLE_NEBULA_PLANKS))
+                        .offerTo(exporter);
+                createFenceGateRecipe(Nebulas.PURPLE_NEBULA_PLANKS_FENCE_GATE, Ingredient.ofItem(StarBlocks.STAR_PLANKS))
+                        .group("wooden_fence_gate")
+                        .criterion("wood", conditionsFromItem(Nebulas.PURPLE_NEBULA_PLANKS))
+                        .offerTo(exporter);
+
+                createShapeless(RecipeCategory.BUILDING_BLOCKS, Nebulas.YELLOW_NEBULA_PLANKS, 4)
+                        .input(Nebulas.YELLOW_NEBULA_LOG)
+                        .group("planks")
+                        .criterion("has_log", this.conditionsFromItem(Nebulas.YELLOW_NEBULA_LOG))
+                        .offerTo(this.exporter);
+                createSlabRecipe(RecipeCategory.BUILDING_BLOCKS, Nebulas.YELLOW_NEBULA_PLANKS_SLAB, Ingredient.ofItem(StarBlocks.STAR_PLANKS))
+                        .group("wooden_slab")
+                        .criterion("wood", conditionsFromItem(Nebulas.YELLOW_NEBULA_PLANKS))
+                        .offerTo(exporter);
+                createStairsRecipe(Nebulas.YELLOW_NEBULA_PLANKS_STAIRS, Ingredient.ofItem(StarBlocks.STAR_PLANKS))
+                        .group("wooden_stairs")
+                        .criterion("wood", conditionsFromItem(Nebulas.YELLOW_NEBULA_PLANKS))
+                        .offerTo(exporter);
+                createButtonRecipe(Nebulas.YELLOW_NEBULA_PLANKS_BUTTON, Ingredient.ofItem(StarBlocks.STAR_PLANKS))
+                        .group("wooden_button")
+                        .criterion("wood", conditionsFromItem(Nebulas.YELLOW_NEBULA_PLANKS))
+                        .offerTo(exporter);
+                createFenceRecipe(Nebulas.YELLOW_NEBULA_PLANKS_FENCE, Ingredient.ofItem(StarBlocks.STAR_PLANKS))
+                        .group("wooden_fence")
+                        .criterion("wood", conditionsFromItem(Nebulas.YELLOW_NEBULA_PLANKS))
+                        .offerTo(exporter);
+                createFenceGateRecipe(Nebulas.YELLOW_NEBULA_PLANKS_FENCE_GATE, Ingredient.ofItem(StarBlocks.STAR_PLANKS))
+                        .group("wooden_fence_gate")
+                        .criterion("wood", conditionsFromItem(Nebulas.YELLOW_NEBULA_PLANKS))
                         .offerTo(exporter);
 
                 // Moon Rock

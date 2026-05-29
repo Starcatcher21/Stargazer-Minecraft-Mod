@@ -4,6 +4,7 @@
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
 		"PlayerClassMixin",
+		"CapeMixin",
 		"FluidBlockMixin",
 		"BrewingRecipeRegMixin",
 		"WorldRendererMixin",

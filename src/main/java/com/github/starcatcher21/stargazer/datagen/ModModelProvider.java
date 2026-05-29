@@ -5,6 +5,7 @@ import com.github.starcatcher21.stargazer.block.ModBlock;
 import com.github.starcatcher21.stargazer.block.clases.moon.plants.MoonCrop;
 import com.github.starcatcher21.stargazer.block.register.*;
 import com.github.starcatcher21.stargazer.item.ModItems;
+import com.ibm.icu.text.Normalizer2;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.block.Block;
@@ -62,6 +63,7 @@ public class ModModelProvider extends FabricModelProvider {
                 .fence(StarBlocks.STAR_PLANKS_FENCE)
                 .fenceGate(StarBlocks.STAR_PLANKS_FENCE_GATE)
                 .slab(StarBlocks.STAR_PLANKS_SLAB);
+        blockStateModelGenerator.registerDoor(StarBlocks.STAR_PLANKS_DOOR);
         // CURVE
         blockStateModelGenerator.registerCubeAllModelTexturePool(MoonBlocks.CURVE_PLANKS)
                 .stairs(MoonBlocks.CURVE_PLANKS_STAIRS)
@@ -100,6 +102,7 @@ public class ModModelProvider extends FabricModelProvider {
                 .fence(Darkness.DARKNESS_PLANKS_FENCE)
                 .fenceGate(Darkness.DARKNESS_PLANKS_FENCE_GATE)
                 .slab(Darkness.DARKNESS_PLANKS_SLAB);
+        blockStateModelGenerator.registerDoor(Darkness.DARKNESS_PLANKS_DOOR);
         // Eye blood
         blockStateModelGenerator.registerAxisRotated(EyeBloodBlocks.STRIPPED_EYE_LOG, TexturedModel.CUBE_COLUMN);
         blockStateModelGenerator.registerSimpleCubeAll(EyeBloodBlocks.EYE_LEAVES);
@@ -113,11 +116,49 @@ public class ModModelProvider extends FabricModelProvider {
         // flowers
         registerCustomFlowerPotPlant(blockStateModelGenerator, StarBlocks.STAR_FLOWER, StarBlocks.POTTED_STAR_FLOWER, MoonBlocks.MOON_ROCK, BlockStateModelGenerator.CrossType.NOT_TINTED);
         registerCustomFlowerPotPlant(blockStateModelGenerator, StarBlocks.CELESTIAL_STAR_FLOWER, StarBlocks.POTTED_CELESTIAL_STAR_FLOWER, MoonBlocks.MOON_ROCK, BlockStateModelGenerator.CrossType.NOT_TINTED);
+        registerCustomFlowerPotPlant(blockStateModelGenerator, ModBlock.BONEFLOWER, ModBlock.POTTED_BONEFLOWER, MoonBlocks.MOON_ROCK, BlockStateModelGenerator.CrossType.NOT_TINTED);
         blockStateModelGenerator.registerTintableCross(MoonBlocks.MOON_GRASS, BlockStateModelGenerator.CrossType.NOT_TINTED);
         blockStateModelGenerator.registerDoubleBlock(MoonBlocks.TALL_MOON_GRASS, BlockStateModelGenerator.CrossType.NOT_TINTED);
         blockStateModelGenerator.registerTintableCross(MoonBlocks.MOON_FERN, BlockStateModelGenerator.CrossType.NOT_TINTED);
         // crops
         blockStateModelGenerator.registerCrop(Crops.DRAGON_CARROT_BLOCK, MoonCrop.AGE, 0, 1, 2, 3, 4, 5, 6, 7);
+        // Nebulas
+        blockStateModelGenerator.registerAxisRotated(Nebulas.BLUE_NEBULA_LOG, TexturedModel.CUBE_COLUMN);
+        blockStateModelGenerator.registerAxisRotated(Nebulas.RED_NEBULA_LOG, TexturedModel.CUBE_COLUMN);
+        blockStateModelGenerator.registerAxisRotated(Nebulas.PURPLE_NEBULA_LOG, TexturedModel.CUBE_COLUMN);
+        blockStateModelGenerator.registerAxisRotated(Nebulas.YELLOW_NEBULA_LOG, TexturedModel.CUBE_COLUMN);
+        blockStateModelGenerator.registerSimpleCubeAll(Nebulas.BLUE_NEBULA_LEAVES);
+        blockStateModelGenerator.registerCubeAllModelTexturePool(Nebulas.BLUE_NEBULA_PLANKS)
+                .stairs(Nebulas.BLUE_NEBULA_PLANKS_STAIRS)
+                .button(Nebulas.BLUE_NEBULA_PLANKS_BUTTON)
+                .fence(Nebulas.BLUE_NEBULA_PLANKS_FENCE)
+                .fenceGate(Nebulas.BLUE_NEBULA_PLANKS_FENCE_GATE)
+                .slab(Nebulas.BLUE_NEBULA_PLANKS_SLAB);
+        blockStateModelGenerator.registerSimpleCubeAll(Nebulas.PURPLE_NEBULA_LEAVES);
+        blockStateModelGenerator.registerCubeAllModelTexturePool(Nebulas.PURPLE_NEBULA_PLANKS)
+                .stairs(Nebulas.PURPLE_NEBULA_PLANKS_STAIRS)
+                .button(Nebulas.PURPLE_NEBULA_PLANKS_BUTTON)
+                .fence(Nebulas.PURPLE_NEBULA_PLANKS_FENCE)
+                .fenceGate(Nebulas.PURPLE_NEBULA_PLANKS_FENCE_GATE)
+                .slab(Nebulas.PURPLE_NEBULA_PLANKS_SLAB);
+        blockStateModelGenerator.registerSimpleCubeAll(Nebulas.RED_NEBULA_LEAVES);
+        blockStateModelGenerator.registerCubeAllModelTexturePool(Nebulas.RED_NEBULA_PLANKS)
+                .stairs(Nebulas.RED_NEBULA_PLANKS_STAIRS)
+                .button(Nebulas.RED_NEBULA_PLANKS_BUTTON)
+                .fence(Nebulas.RED_NEBULA_PLANKS_FENCE)
+                .fenceGate(Nebulas.RED_NEBULA_PLANKS_FENCE_GATE)
+                .slab(Nebulas.RED_NEBULA_PLANKS_SLAB);
+        blockStateModelGenerator.registerSimpleCubeAll(Nebulas.YELLOW_NEBULA_LEAVES);
+        blockStateModelGenerator.registerCubeAllModelTexturePool(Nebulas.YELLOW_NEBULA_PLANKS)
+                .stairs(Nebulas.YELLOW_NEBULA_PLANKS_STAIRS)
+                .button(Nebulas.YELLOW_NEBULA_PLANKS_BUTTON)
+                .fence(Nebulas.YELLOW_NEBULA_PLANKS_FENCE)
+                .fenceGate(Nebulas.YELLOW_NEBULA_PLANKS_FENCE_GATE)
+                .slab(Nebulas.YELLOW_NEBULA_PLANKS_SLAB);
+        blockStateModelGenerator.registerSimpleCubeAll(Nebulas.BLUE_NEBULA_REGROW_CORE);
+        blockStateModelGenerator.registerSimpleCubeAll(Nebulas.PURPLE_NEBULA_REGROW_CORE);
+        blockStateModelGenerator.registerSimpleCubeAll(Nebulas.RED_NEBULA_REGROW_CORE);
+        blockStateModelGenerator.registerSimpleCubeAll(Nebulas.YELLOW_NEBULA_REGROW_CORE);
     }
 
     @Override
@@ -125,10 +166,10 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModItems.LODESTAR, Models.GENERATED);
         itemModelGenerator.register(ModItems.STARDUST, Models.GENERATED);
         itemModelGenerator.register(ModItems.GEODE_FRUIT, Models.GENERATED);
-        itemModelGenerator.register(ModItems.BLUE_STAR);
-        itemModelGenerator.register(ModItems.RED_STAR);
-        itemModelGenerator.register(ModItems.YELLOW_STAR);
-        itemModelGenerator.register(ModItems.PURPLE_STAR);
+        itemModelGenerator.register(ModItems.BLUE_STAR, Models.GENERATED);
+        itemModelGenerator.register(ModItems.RED_STAR, Models.GENERATED);
+        itemModelGenerator.register(ModItems.YELLOW_STAR, Models.GENERATED);
+        itemModelGenerator.register(ModItems.PURPLE_STAR, Models.GENERATED);
         itemModelGenerator.register(MoonBlocks.TALL_MOON_GRASS.asItem(), Models.GENERATED);
         blockGeneratedItem(itemModelGenerator, StarBlocks.STAR_FLOWER);
         blockGeneratedItem(itemModelGenerator, StarBlocks.CELESTIAL_STAR_FLOWER);

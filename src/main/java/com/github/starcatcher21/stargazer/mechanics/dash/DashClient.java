@@ -37,7 +37,7 @@ public class DashClient {
         if (player == null) return;
 
         if ((canRefresh(player) && groundCooldown == 0) || player.isInCreativeMode()) {
-            groundCooldown = 4;
+            groundCooldown = 6;
             refresh(player);
         }
 

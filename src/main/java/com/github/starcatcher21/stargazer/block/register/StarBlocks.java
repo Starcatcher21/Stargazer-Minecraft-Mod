@@ -1,8 +1,8 @@
 package com.github.starcatcher21.stargazer.block.register;
 
 import com.github.starcatcher21.stargazer.Helpers;
+import com.github.starcatcher21.stargazer.block.clases.CosmicFlower;
 import com.github.starcatcher21.stargazer.block.clases.CustomSapling;
-import com.github.starcatcher21.stargazer.block.clases.star.StarFlower;
 import com.github.starcatcher21.stargazer.block.clases.star.celestial.CelestialFlowerBlock;
 import com.github.starcatcher21.stargazer.block.clases.star.barrier.StarBarrierBlock;
 import com.github.starcatcher21.stargazer.block.clases.star.border.BorderBlock;
@@ -58,6 +58,15 @@ public class StarBlocks {
             .strength(2.0F)
             .mapColor(MapColor.BLACK)
     );
+    public static final Block STAR_PLANKS_DOOR = register("star_planks_door", (settings) -> new DoorBlock(BlockSetType.OAK, (AbstractBlock.Settings)  settings), AbstractBlock.Settings.create()
+            .solid()
+            .nonOpaque()
+            .sounds(BlockSoundGroup.WOOD)
+            .instrument(NoteBlockInstrument.BASS)
+            .strength(2.0F)
+            .mapColor(MapColor.WHITE)
+    );
+
     public static final Block STAR_PLANKS_SLAB = register("star_planks_slab", SlabBlock::new, AbstractBlock.Settings.create()
             .solid()
             .sounds(BlockSoundGroup.WOOD)
@@ -106,7 +115,7 @@ public class StarBlocks {
             .breakInstantly()
     );
     public static final Block POTTED_STAR_SAPLING = registerWoItem("potted_star_sapling", settings -> new FlowerPotBlock(STAR_SAPLING, settings), AbstractBlock.Settings.copy(Blocks.POTTED_ALLIUM).nonOpaque());
-    public static final Block STAR_FLOWER = register("star_flower", settings -> new StarFlower(StatusEffects.COSMO, 5.0f, settings), AbstractBlock.Settings.create()
+    public static final Block STAR_FLOWER = register("star_flower", settings -> new CosmicFlower(StatusEffects.COSMO, 5.0f, settings), AbstractBlock.Settings.create()
             .mapColor(MapColor.YELLOW)
             .noCollision()
             .breakInstantly()

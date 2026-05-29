@@ -4,6 +4,10 @@
     "stargazer:curve_leaves",
     "stargazer:eye_leaves",
     "stargazer:star_leaves",
+    "stargazer:blue_nebula_leaves",
+    "stargazer:red_nebula_leaves",
+    "stargazer:purple_nebula_leaves",
+    "stargazer:yellow_nebula_leaves",
     "stargazer:darkness_leaves"
   ]
 }
