@@ -1,12 +1,7 @@
 package com.github.starcatcher21.stargazer.block.clases;
 
-import com.github.starcatcher21.stargazer.block.register.MoonBlocks;
-import com.google.common.collect.ImmutableList;
-import com.mojang.datafixers.kinds.Applicative;
-import com.mojang.datafixers.kinds.K1;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-
 import net.minecraft.block.*;
 import net.minecraft.component.type.SuspiciousStewEffectsComponent;
 import net.minecraft.entity.effect.StatusEffect;

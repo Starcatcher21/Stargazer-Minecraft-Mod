@@ -4,7 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.dynamic.Codecs;
-import net.minecraft.world.gen.feature.*;
+import net.minecraft.world.gen.feature.FeatureConfig;
 
 import java.util.List;
 

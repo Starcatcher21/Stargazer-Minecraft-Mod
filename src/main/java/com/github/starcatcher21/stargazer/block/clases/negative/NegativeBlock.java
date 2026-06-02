@@ -2,7 +2,9 @@ package com.github.starcatcher21.stargazer.block.clases.negative;
 
 import com.github.starcatcher21.stargazer.Stargazer;
 import com.mojang.serialization.MapCodec;
-import net.minecraft.block.*;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.BlockWithEntity;
+import net.minecraft.block.ShapeContext;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;

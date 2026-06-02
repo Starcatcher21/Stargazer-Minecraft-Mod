@@ -4,7 +4,8 @@ import com.github.starcatcher21.stargazer.entity.Ghost;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
-import net.minecraft.entity.ai.brain.*;
+import net.minecraft.entity.ai.brain.Activity;
+import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.ai.brain.task.*;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
 

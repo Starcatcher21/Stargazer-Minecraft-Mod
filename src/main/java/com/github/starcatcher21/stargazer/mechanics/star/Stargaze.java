@@ -4,7 +4,6 @@ import com.github.starcatcher21.stargazer.StargazerDataLoader;
 import com.github.starcatcher21.stargazer.mechanics.advancements.Criterias;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.world.LightType;
 import net.minecraft.world.World;

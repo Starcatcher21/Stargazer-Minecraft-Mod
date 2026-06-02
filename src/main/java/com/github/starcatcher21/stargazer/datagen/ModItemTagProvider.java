@@ -1,9 +1,8 @@
 package com.github.starcatcher21.stargazer.datagen;
 
-import com.github.starcatcher21.stargazer.block.register.*;
 import com.github.starcatcher21.stargazer.CustomTags;
+import com.github.starcatcher21.stargazer.block.register.*;
 import com.github.starcatcher21.stargazer.item.ModItems;
-import dev.architectury.platform.Mod;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.item.Items;

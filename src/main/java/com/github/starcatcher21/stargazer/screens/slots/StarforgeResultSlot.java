@@ -1,7 +1,6 @@
 package com.github.starcatcher21.stargazer.screens.slots;
 
 import com.github.starcatcher21.stargazer.mechanics.advancements.Criterias;
-import com.github.starcatcher21.stargazer.mechanics.advancements.ForgeCraft;
 import com.github.starcatcher21.stargazer.screens.recipe.RecipeTypes;
 import com.github.starcatcher21.stargazer.screens.recipe.StarforgeRecipe;
 import com.github.starcatcher21.stargazer.screens.recipe.StarforgeRecipeInput;

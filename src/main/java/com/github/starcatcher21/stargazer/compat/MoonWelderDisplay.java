@@ -1,14 +1,15 @@
 package com.github.starcatcher21.stargazer.compat;
 
-import com.github.starcatcher21.stargazer.screens.recipe.serializer.RawStarforgeShapedRecipe;
-import com.github.starcatcher21.stargazer.screens.recipe.serializer.ShapedStarforgeRecipe;
-import com.github.starcatcher21.stargazer.screens.recipe.serializer.ShapedStarforgeRecipeDisplay;
+import com.github.starcatcher21.stargazer.screens.recipe.serializer.RawMoonWelderShapedRecipe;
+import com.github.starcatcher21.stargazer.screens.recipe.serializer.ShapedMoonWelderRecipe;
+import com.github.starcatcher21.stargazer.screens.recipe.serializer.ShapedMoonWelderRecipeDisplay;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.display.Display;
 import me.shedaniel.rei.api.common.display.DisplaySerializer;
 import me.shedaniel.rei.api.common.display.basic.BasicDisplay;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
+import net.minecraft.block.Blocks;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.*;
@@ -22,68 +23,68 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-public class StarforgeDisplay extends BasicDisplay {
+public class MoonWelderDisplay extends BasicDisplay {
     private List<EntryIngredient> in;
     @Nullable
     private List<Optional<Ingredient>> place;
     @Nullable
-    private ShapedStarforgeRecipe recipe;
+    private ShapedMoonWelderRecipe recipe;
     private EntryIngredient out;
-    public StarforgeDisplay(ShapedStarforgeRecipe recipe) {
+    public MoonWelderDisplay(ShapedMoonWelderRecipe recipe) {
         this(recipe.getIngredientPlacement(), Collections.singletonList(EntryIngredients.of(recipe.getResult())), recipe.getIngredients());
         this.recipe = recipe;
     }
 
-    public StarforgeDisplay(List<EntryIngredient> inputs, EntryIngredient outputs) {
+    public MoonWelderDisplay(List<EntryIngredient> inputs, EntryIngredient outputs) {
         this(inputs, Collections.singletonList(outputs));
     }
 
-    public StarforgeDisplay(IngredientPlacement placement, List<EntryIngredient> outputs, List<Optional<Ingredient>> ingredient) {
+    public MoonWelderDisplay(IngredientPlacement placement, List<EntryIngredient> outputs, List<Optional<Ingredient>> ingredient) {
         super(EntryIngredients.ofIngredients(placement.getIngredients()), outputs);
         this.in = EntryIngredients.ofIngredients(placement.getIngredients());
         this.place = ingredient;
         this.out = outputs.getFirst();
     }
 
-    public StarforgeDisplay(List<EntryIngredient> inputs, List<EntryIngredient> outputs) {
+    public MoonWelderDisplay(List<EntryIngredient> inputs, List<EntryIngredient> outputs) {
         super(inputs, outputs);
         this.in = inputs;
         this.out = outputs.getFirst();
     }
 
-    public StarforgeDisplay(ShapedStarforgeRecipeDisplay shapedStarforgeRecipeDisplay, Optional<NetworkRecipeId> networkRecipeId) {
+    public MoonWelderDisplay(ShapedMoonWelderRecipeDisplay shapedMoonWelderRecipeDisplay, Optional<NetworkRecipeId> networkRecipeId) {
         this(getRecipe(networkRecipeId));
     }
 
-    public StarforgeDisplay(Recipe<?> recipe) {
-        this((ShapedStarforgeRecipe) recipe);
+    public MoonWelderDisplay(Recipe<?> recipe) {
+        this((ShapedMoonWelderRecipe) recipe);
     }
 
-    public static ShapedStarforgeRecipe getRecipe(Optional<NetworkRecipeId> networkRecipeId) {
+    public static ShapedMoonWelderRecipe getRecipe(Optional<NetworkRecipeId> networkRecipeId) {
         if (networkRecipeId.isPresent() && MinecraftClient.getInstance().getServer() != null) {
             ServerRecipeManager.ServerRecipe recip = MinecraftClient.getInstance().getServer().getRecipeManager().get(networkRecipeId.get());
-            if (recip != null && recip.parent().value() instanceof ShapedStarforgeRecipe ssr) {
+            if (recip != null && recip.parent().value() instanceof ShapedMoonWelderRecipe ssr) {
                 return ssr;
             }
         }
-        return new ShapedStarforgeRecipe("", new RawStarforgeShapedRecipe(0,0, List.of(Optional.empty()), Optional.empty()), ItemStack.EMPTY);
+        return new ShapedMoonWelderRecipe("", new RawMoonWelderShapedRecipe(0,0, Ingredient.ofItem(Blocks.AIR.asItem()), Ingredient.ofItem(Blocks.AIR.asItem()), 0, Optional.empty()), ItemStack.EMPTY);
     }
 
-    public static ShapedStarforgeRecipe getRecipe(Identifier id) {
+    public static ShapedMoonWelderRecipe getRecipe(Identifier id) {
         if (MinecraftClient.getInstance().getServer() != null) {
             Optional<RecipeEntry<?>> recip = MinecraftClient.getInstance().getServer().getRecipeManager().get(RegistryKey.of(RegistryKeys.RECIPE, id));
-            if (recip.isPresent() && recip.get().value() instanceof ShapedStarforgeRecipe ssr) {
+            if (recip.isPresent() && recip.get().value() instanceof ShapedMoonWelderRecipe ssr) {
                 return ssr;
             }
         }
-        return new ShapedStarforgeRecipe("", new RawStarforgeShapedRecipe(0,0, List.of(Optional.empty()), Optional.empty()), ItemStack.EMPTY);
+        return new ShapedMoonWelderRecipe("", new RawMoonWelderShapedRecipe(0,0, Ingredient.ofItem(Blocks.AIR.asItem()), Ingredient.ofItem(Blocks.AIR.asItem()), 0, Optional.empty()), ItemStack.EMPTY);
     }
 
     @Nullable
-    public static StarforgeDisplay of(RecipeEntry<? extends Recipe<?>> holder) {
+    public static MoonWelderDisplay of(RecipeEntry<? extends Recipe<?>> holder) {
         Recipe<?> recipe = holder.value();
-        if (recipe instanceof ShapedStarforgeRecipe ssr) {
-            return new StarforgeDisplay(ssr);
+        if (recipe instanceof ShapedMoonWelderRecipe ssr) {
+            return new MoonWelderDisplay(ssr);
         }
 
         return null;
@@ -95,7 +96,7 @@ public class StarforgeDisplay extends BasicDisplay {
 
         List<EntryIngredient> inputEntries = getInputEntries();
 
-        for (int i = 0; i < 14; i++) {
+        for (int i = 0; i < 2; i++) {
             EntryIngredient stacks;
             try {
                 stacks = inputEntries.get(i);
@@ -107,7 +108,7 @@ public class StarforgeDisplay extends BasicDisplay {
 
     @Override
     public CategoryIdentifier<?> getCategoryIdentifier() {
-        return StarforgeCategory.STARFORGE;
+        return MoonWelderCategory.STARFORGE;
     }
 
     public EntryIngredient result() {
@@ -121,13 +122,13 @@ public class StarforgeDisplay extends BasicDisplay {
     public List<EntryIngredient> ingredients() {
         return this.in;
     }
-    public ShapedStarforgeRecipe recipe() {
+    public ShapedMoonWelderRecipe recipe() {
         return this.recipe;
     }
 
 
     @Override
     public @Nullable DisplaySerializer<? extends Display> getSerializer() {
-        return StargazerREICommon.STARFORGE;
+        return StargazerREICommon.MOONWELDER;
     }
 }

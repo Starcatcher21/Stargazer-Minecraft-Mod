@@ -3,7 +3,6 @@ package com.github.starcatcher21.stargazer.screens.recipeInputs;
 import com.github.starcatcher21.stargazer.screens.recipe.MoonWelderRecipeInput;
 import com.github.starcatcher21.stargazer.screens.recipe.MoonWelderRecipeInventory;
 import com.github.starcatcher21.stargazer.screens.recipe.StarforgeRecipeInput;
-import com.github.starcatcher21.stargazer.screens.recipe.StarforgeRecipeInventory;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.item.ItemStack;

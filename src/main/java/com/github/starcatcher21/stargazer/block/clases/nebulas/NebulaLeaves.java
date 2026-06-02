@@ -1,12 +1,10 @@
 package com.github.starcatcher21.stargazer.block.clases.nebulas;
 
-import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.particle.Particles;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.TintedParticleLeavesBlock;
 import net.minecraft.particle.EntityEffectParticleEffect;
-import net.minecraft.particle.ParticleTypes;
 import net.minecraft.particle.ParticleUtil;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;

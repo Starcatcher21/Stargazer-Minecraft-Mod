@@ -1,11 +1,8 @@
 package com.github.starcatcher21.stargazer.worldgen.features.trees.nebulas;
 
-import com.github.starcatcher21.stargazer.block.register.Nebulas;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.Tree;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.math.Direction;
 
 public class Blue {
     public static void init(Tree tree) {

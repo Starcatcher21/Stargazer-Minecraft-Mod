@@ -4,8 +4,6 @@ import com.github.starcatcher21.stargazer.StargazerAttributes;
 import com.github.starcatcher21.stargazer.item.ModItems;
 import com.github.starcatcher21.stargazer.particle.Particles;
 import net.minecraft.entity.*;
-import net.minecraft.entity.attribute.AttributeContainer;
-import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.mob.CreakingEntity;
 import net.minecraft.entity.mob.WaterCreatureEntity;
 import net.minecraft.entity.player.PlayerEntity;

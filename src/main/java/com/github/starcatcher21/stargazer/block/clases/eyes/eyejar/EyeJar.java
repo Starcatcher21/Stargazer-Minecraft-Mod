@@ -1,7 +1,9 @@
 package com.github.starcatcher21.stargazer.block.clases.eyes.eyejar;
 
 import com.mojang.serialization.MapCodec;
-import net.minecraft.block.*;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.BlockWithEntity;
+import net.minecraft.block.ShapeContext;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.shape.VoxelShape;

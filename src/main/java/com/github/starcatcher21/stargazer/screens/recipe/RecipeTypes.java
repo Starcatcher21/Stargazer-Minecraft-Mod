@@ -1,7 +1,6 @@
 package com.github.starcatcher21.stargazer.screens.recipe;
 
 import com.github.starcatcher21.stargazer.Stargazer;
-import com.github.starcatcher21.stargazer.screens.recipe.serializer.RawMoonWelderShapedRecipe;
 import com.github.starcatcher21.stargazer.screens.recipe.serializer.ShapedMoonWelderRecipe;
 import com.github.starcatcher21.stargazer.screens.recipe.serializer.ShapedStarforgeRecipe;
 import net.minecraft.recipe.Recipe;

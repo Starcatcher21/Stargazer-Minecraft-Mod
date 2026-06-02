@@ -18,8 +18,8 @@ import com.github.starcatcher21.stargazer.entity.renderers.GhostRenderer;
 import com.github.starcatcher21.stargazer.entity.renderers.StarRenderer;
 import com.github.starcatcher21.stargazer.mechanics.PlayerCosmicGrav;
 import com.github.starcatcher21.stargazer.mechanics.SkinManager;
-import com.github.starcatcher21.stargazer.mechanics.star.Stargaze;
 import com.github.starcatcher21.stargazer.mechanics.dash.DashClient;
+import com.github.starcatcher21.stargazer.mechanics.star.Stargaze;
 import com.github.starcatcher21.stargazer.particle.Particles;
 import com.github.starcatcher21.stargazer.screens.ScreenHandlerTypes;
 import com.github.starcatcher21.stargazer.screens.handled.MoonWelderHandled;
@@ -35,9 +35,7 @@ import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
-import net.minecraft.world.World;
 
-import java.net.http.HttpRequest;
 import java.util.Objects;
 
 @Environment(EnvType.CLIENT)

@@ -8,8 +8,10 @@ import com.google.gson.JsonParser;
 import com.mojang.serialization.JsonOps;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
-import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.registry.*;
+import net.minecraft.registry.Registerable;
+import net.minecraft.registry.RegistryBuilder;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.world.biome.Biome;
 
 import java.io.IOException;

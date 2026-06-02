@@ -2,12 +2,12 @@ package com.github.starcatcher21.stargazer.block;
 
 import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.block.clases.eyes.eyejar.EyeJarEntity;
+import com.github.starcatcher21.stargazer.block.clases.grave.GraveEntity;
 import com.github.starcatcher21.stargazer.block.clases.moon.star_trap.StarTrapEntity;
+import com.github.starcatcher21.stargazer.block.clases.negative.NegativeBlockEntity;
 import com.github.starcatcher21.stargazer.block.clases.star.barrier.StarBarrierBlockEntity;
 import com.github.starcatcher21.stargazer.block.clases.star.border.BorderBlockEntity;
 import com.github.starcatcher21.stargazer.block.clases.star.cosmic.CosmicBlockEntity;
-import com.github.starcatcher21.stargazer.block.clases.grave.GraveEntity;
-import com.github.starcatcher21.stargazer.block.clases.negative.NegativeBlockEntity;
 import com.github.starcatcher21.stargazer.block.clases.star.leaves.StarLeavesEntity;
 import com.github.starcatcher21.stargazer.block.register.EyeBloodBlocks;
 import com.github.starcatcher21.stargazer.block.register.MoonBlocks;

@@ -12,9 +12,11 @@ import net.minecraft.util.Identifier;
 
 public class StargazerREICommon implements REICommonPlugin {
     public static DisplaySerializer<StarforgeDisplay> STARFORGE = new StarforgeDisplaySerializer();
+    public static DisplaySerializer<MoonWelderDisplay> MOONWELDER = new MoonWelderDisplaySerializer();
     @Override
     public void registerDisplaySerializer(DisplaySerializerRegistry registry) {
         registry.register(Identifier.of(Stargazer.MOD_ID, "starforge_display_serializer"), STARFORGE);
+        registry.register(Identifier.of(Stargazer.MOD_ID, "moon_welder_display_serializer"), MOONWELDER);
         REICommonPlugin.super.registerDisplaySerializer(registry);
     }
 
@@ -23,6 +25,9 @@ public class StargazerREICommon implements REICommonPlugin {
         registry.beginRecipeFiller(ShapedStarforgeRecipe.class)
                 .filterType(RecipeTypes.STARFORGE)
                 .fill(StarforgeDisplay::of);
+        registry.beginRecipeFiller(ShapedMoonWelderRecipe.class)
+                .filterType(RecipeTypes.MOON_WELDER)
+                .fill(MoonWelderDisplay::of);
         REICommonPlugin.super.registerDisplays(registry);
     }
 

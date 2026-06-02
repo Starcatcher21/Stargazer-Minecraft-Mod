@@ -1,7 +1,10 @@
 package com.github.starcatcher21.stargazer.screens.slots;
 
 import com.github.starcatcher21.stargazer.mechanics.advancements.Criterias;
-import com.github.starcatcher21.stargazer.screens.recipe.*;
+import com.github.starcatcher21.stargazer.screens.recipe.MoonWelderRecipe;
+import com.github.starcatcher21.stargazer.screens.recipe.MoonWelderRecipeInput;
+import com.github.starcatcher21.stargazer.screens.recipe.MoonWelderRecipeInventory;
+import com.github.starcatcher21.stargazer.screens.recipe.RecipeTypes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;

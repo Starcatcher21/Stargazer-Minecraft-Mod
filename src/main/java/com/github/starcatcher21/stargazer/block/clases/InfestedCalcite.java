@@ -1,7 +1,9 @@
 package com.github.starcatcher21.stargazer.block.clases;
 
 import com.mojang.serialization.MapCodec;
-import net.minecraft.block.*;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.SpreadableBlock;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;

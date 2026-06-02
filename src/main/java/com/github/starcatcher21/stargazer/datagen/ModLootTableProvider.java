@@ -212,9 +212,9 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
         addDrop(Nebulas.BLUE_NEBULA_PLANKS_STAIRS);
         addDrop(Nebulas.RED_NEBULA_PLANKS_STAIRS);
         addDrop(Nebulas.PURPLE_NEBULA_PLANKS_STAIRS);
-        addDrop(Nebulas.RED_NEBULA_LEAVES, customLeavesDrop(Nebulas.RED_NEBULA_LEAVES, ModItems.RED_STAR, 0f, 5.0f));
-        addDrop(Nebulas.BLUE_NEBULA_LEAVES, customLeavesDrop(Nebulas.BLUE_NEBULA_LEAVES, ModItems.BLUE_STAR, 0f, 5.0f));
-        addDrop(Nebulas.YELLOW_NEBULA_LEAVES, customLeavesDrop(Nebulas.YELLOW_NEBULA_LEAVES, ModItems.YELLOW_STAR, 0f, 5.0f));
-        addDrop(Nebulas.PURPLE_NEBULA_LEAVES, customLeavesDrop(Nebulas.PURPLE_NEBULA_LEAVES, ModItems.PURPLE_STAR, 0f, 5.0f));
+        addDrop(Nebulas.RED_NEBULA_LEAVES, customLeavesDrop(Nebulas.RED_NEBULA_LEAVES, ModItems.RED_STAR, 0f, 3.0f));
+        addDrop(Nebulas.BLUE_NEBULA_LEAVES, customLeavesDrop(Nebulas.BLUE_NEBULA_LEAVES, ModItems.BLUE_STAR, 0f, 3.0f));
+        addDrop(Nebulas.YELLOW_NEBULA_LEAVES, customLeavesDrop(Nebulas.YELLOW_NEBULA_LEAVES, ModItems.YELLOW_STAR, 0f, 3.0f));
+        addDrop(Nebulas.PURPLE_NEBULA_LEAVES, customLeavesDrop(Nebulas.PURPLE_NEBULA_LEAVES, ModItems.PURPLE_STAR, 0f, 3.0f));
     }
 }

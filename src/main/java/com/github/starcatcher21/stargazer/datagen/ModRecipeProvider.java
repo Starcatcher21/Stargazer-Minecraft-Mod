@@ -1,10 +1,10 @@
 package com.github.starcatcher21.stargazer.datagen;
 
+import com.github.starcatcher21.stargazer.CustomTags;
 import com.github.starcatcher21.stargazer.block.register.Darkness;
 import com.github.starcatcher21.stargazer.block.register.MoonBlocks;
 import com.github.starcatcher21.stargazer.block.register.Nebulas;
 import com.github.starcatcher21.stargazer.block.register.StarBlocks;
-import com.github.starcatcher21.stargazer.CustomTags;
 import com.github.starcatcher21.stargazer.item.ModItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
@@ -14,7 +14,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.book.RecipeCategory;
-import net.minecraft.registry.*;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.RegistryWrapper;
 
 import java.util.concurrent.CompletableFuture;
 

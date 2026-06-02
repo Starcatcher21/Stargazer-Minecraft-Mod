@@ -5,7 +5,6 @@ import com.github.starcatcher21.stargazer.block.ModBlock;
 import com.github.starcatcher21.stargazer.block.clases.moon.plants.MoonCrop;
 import com.github.starcatcher21.stargazer.block.register.*;
 import com.github.starcatcher21.stargazer.item.ModItems;
-import com.ibm.icu.text.Normalizer2;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.block.Block;

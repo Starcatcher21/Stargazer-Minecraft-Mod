@@ -2,7 +2,9 @@ package com.github.starcatcher21.stargazer.particle;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.particle.*;
+import net.minecraft.client.particle.Particle;
+import net.minecraft.client.particle.ParticleFactory;
+import net.minecraft.client.particle.SpriteProvider;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.particle.EntityEffectParticleEffect;
 import net.minecraft.particle.SimpleParticleType;

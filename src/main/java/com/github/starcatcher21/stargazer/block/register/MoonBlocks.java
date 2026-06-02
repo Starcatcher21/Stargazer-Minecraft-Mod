@@ -2,6 +2,7 @@ package com.github.starcatcher21.stargazer.block.register;
 
 import com.github.starcatcher21.stargazer.Helpers;
 import com.github.starcatcher21.stargazer.block.clases.CustomLeaves;
+import com.github.starcatcher21.stargazer.block.clases.CustomSapling;
 import com.github.starcatcher21.stargazer.block.clases.moon.*;
 import com.github.starcatcher21.stargazer.block.clases.moon.geode_fruit.GeodeFruit;
 import com.github.starcatcher21.stargazer.block.clases.moon.leaves.MoonLeaves;
@@ -10,7 +11,6 @@ import com.github.starcatcher21.stargazer.block.clases.moon.log.StrippedMoonLog;
 import com.github.starcatcher21.stargazer.block.clases.moon.star_stone.StarStone;
 import com.github.starcatcher21.stargazer.block.clases.moon.star_trap.StarTrap;
 import com.github.starcatcher21.stargazer.block.clases.moon.starforge.Starforge;
-import com.github.starcatcher21.stargazer.block.clases.CustomSapling;
 import com.github.starcatcher21.stargazer.item.ModItems;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.NoteBlockInstrument;

@@ -2,10 +2,10 @@ package com.github.starcatcher21.stargazer.entity;
 
 import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.entity.models.GhostModel;
-import com.github.starcatcher21.stargazer.mechanics.advancements.Criterias;
-import dev.architectury.event.events.common.TickEvent;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.entity.*;
+import net.minecraft.entity.EntityPose;
+import net.minecraft.entity.EntityStatuses;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.control.FlightMoveControl;
 import net.minecraft.entity.ai.pathing.BirdNavigation;
 import net.minecraft.entity.ai.pathing.EntityNavigation;
@@ -16,9 +16,6 @@ import net.minecraft.entity.mob.FlyingEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.math.Vec3d;
@@ -33,11 +30,7 @@ import software.bernie.geckolib.animatable.processing.AnimationController;
 import software.bernie.geckolib.animatable.processing.AnimationTest;
 import software.bernie.geckolib.animation.PlayState;
 import software.bernie.geckolib.animation.RawAnimation;
-
 import software.bernie.geckolib.util.GeckoLibUtil;
-
-import java.util.Locale;
-import java.util.Objects;
 
 public class Ghost extends FlyingEntity implements GeoEntity {
     protected static final RawAnimation FLY_ANIM = RawAnimation.begin().thenLoop("animation.ghost_move");

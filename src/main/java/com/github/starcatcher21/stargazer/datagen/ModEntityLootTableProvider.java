@@ -5,7 +5,6 @@ import com.github.starcatcher21.stargazer.item.ModItems;
 import com.mojang.serialization.Codec;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricEntityLootTableProvider;
-import net.minecraft.client.render.entity.model.PlayerCapeModel;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.condition.EntityPropertiesLootCondition;

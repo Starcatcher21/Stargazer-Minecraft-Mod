@@ -1,7 +1,5 @@
 package com.github.starcatcher21.stargazer.block.clases.nebulas;
 
-import com.github.starcatcher21.stargazer.Stargazer;
-import com.github.starcatcher21.stargazer.block.register.StarBlocks;
 import com.github.starcatcher21.stargazer.worldgen.dimensions.Dimensions;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;

@@ -12,7 +12,9 @@ import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.util.FeatureContext;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Random;
 
 public class ForgetMeNow extends Feature<DefaultFeatureConfig> {
     public ForgetMeNow(Codec<DefaultFeatureConfig> codec) {

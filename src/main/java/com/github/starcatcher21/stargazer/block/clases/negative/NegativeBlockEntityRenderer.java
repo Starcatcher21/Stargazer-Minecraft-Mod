@@ -2,7 +2,9 @@ package com.github.starcatcher21.stargazer.block.clases.negative;
 
 import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.renderer.CustomRenderLayers;
-import net.minecraft.block.*;
+import net.minecraft.block.AirBlock;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;

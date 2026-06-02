@@ -2,8 +2,6 @@ package com.github.starcatcher21.stargazer.CreativeTab;
 
 import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.block.ModBlock;
-import com.github.starcatcher21.stargazer.block.clases.MoonWelder;
-import com.github.starcatcher21.stargazer.block.clases.moon.plants.MoonCrop;
 import com.github.starcatcher21.stargazer.block.register.*;
 import com.github.starcatcher21.stargazer.item.ModItems;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;

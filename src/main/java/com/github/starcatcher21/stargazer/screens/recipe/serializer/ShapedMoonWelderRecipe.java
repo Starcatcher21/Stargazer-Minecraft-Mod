@@ -1,10 +1,8 @@
 package com.github.starcatcher21.stargazer.screens.recipe.serializer;
 
-import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.screens.recipe.MoonWelderRecipe;
 import com.github.starcatcher21.stargazer.screens.recipe.MoonWelderRecipeInput;
 import com.github.starcatcher21.stargazer.screens.recipe.RecipeTypes;
-import com.github.starcatcher21.stargazer.screens.recipe.StarforgeRecipeInput;
 import com.google.common.annotations.VisibleForTesting;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;

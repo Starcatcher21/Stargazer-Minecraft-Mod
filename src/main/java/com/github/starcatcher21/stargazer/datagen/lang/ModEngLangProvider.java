@@ -6,7 +6,6 @@ import com.github.starcatcher21.stargazer.block.register.*;
 import com.github.starcatcher21.stargazer.effects.Potions;
 import com.github.starcatcher21.stargazer.entity.EntityRegistry;
 import com.github.starcatcher21.stargazer.item.ModItems;
-import dev.architectury.platform.Mod;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 import net.minecraft.registry.Registries;

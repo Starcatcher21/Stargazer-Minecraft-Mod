@@ -7,7 +7,8 @@ import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.server.world.ServerWorld;
 
-import static com.github.starcatcher21.stargazer.mechanics.dash.DashClient.*;
+import static com.github.starcatcher21.stargazer.mechanics.dash.DashClient.canRefresh;
+import static com.github.starcatcher21.stargazer.mechanics.dash.DashClient.refresh;
 
 public class CosmoFeeling extends StatusEffect {
     public CosmoFeeling(StatusEffectCategory category, int color) {

@@ -4,16 +4,14 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.recipe.display.RecipeDisplay;
 import net.minecraft.recipe.display.SlotDisplay;
 import net.minecraft.resource.featuretoggle.FeatureSet;
 
-import java.util.List;
-
-public record ShapedMoonWelderRecipeDisplay(List<SlotDisplay> ingredients, SlotDisplay result, SlotDisplay craftingStation) implements RecipeDisplay {
+public record ShapedMoonWelderRecipeDisplay(SlotDisplay item1, SlotDisplay item2, SlotDisplay result, SlotDisplay craftingStation) implements RecipeDisplay {
     public static final MapCodec<ShapedMoonWelderRecipeDisplay> CODEC = RecordCodecBuilder.mapCodec((instance) -> instance.group(
-            SlotDisplay.CODEC.listOf().fieldOf("ingredients").forGetter(ShapedMoonWelderRecipeDisplay::ingredients),
+            SlotDisplay.CODEC.fieldOf("item1").forGetter(ShapedMoonWelderRecipeDisplay::item1),
+            SlotDisplay.CODEC.fieldOf("item2").forGetter(ShapedMoonWelderRecipeDisplay::item2),
             SlotDisplay.CODEC.fieldOf("result").forGetter(ShapedMoonWelderRecipeDisplay::result),
             SlotDisplay.CODEC.fieldOf("crafting_station").forGetter(ShapedMoonWelderRecipeDisplay::craftingStation))
             .apply(instance, ShapedMoonWelderRecipeDisplay::new));
@@ -21,9 +19,6 @@ public record ShapedMoonWelderRecipeDisplay(List<SlotDisplay> ingredients, SlotD
     public static final Serializer<ShapedMoonWelderRecipeDisplay> SERIALIZER;
 
     public ShapedMoonWelderRecipeDisplay {
-        if (ingredients.size() != 14) {
-            throw new IllegalArgumentException("Invalid shaped recipe display contents");
-        }
     }
 
     public Serializer<ShapedMoonWelderRecipeDisplay> serializer() {
@@ -31,13 +26,15 @@ public record ShapedMoonWelderRecipeDisplay(List<SlotDisplay> ingredients, SlotD
     }
 
     public boolean isEnabled(FeatureSet features) {
-        return this.ingredients.stream().allMatch((ingredient) -> ingredient.isEnabled(features));
+        return true;
     }
 
     static {
         PACKET_CODEC = PacketCodec.tuple(
-                SlotDisplay.PACKET_CODEC.collect(PacketCodecs.toList()),
-                ShapedMoonWelderRecipeDisplay::ingredients,
+                SlotDisplay.PACKET_CODEC, // <-- Fixed here
+                ShapedMoonWelderRecipeDisplay::item1,
+                SlotDisplay.PACKET_CODEC,
+                ShapedMoonWelderRecipeDisplay::item2,
                 SlotDisplay.PACKET_CODEC,
                 ShapedMoonWelderRecipeDisplay::result,
                 SlotDisplay.PACKET_CODEC,

@@ -1,7 +1,6 @@
 package com.github.starcatcher21.stargazer.screens;
 
 import com.github.starcatcher21.stargazer.block.register.MoonBlocks;
-import com.github.starcatcher21.stargazer.mechanics.advancements.Criterias;
 import com.github.starcatcher21.stargazer.screens.recipe.RecipeTypes;
 import com.github.starcatcher21.stargazer.screens.recipe.StarforgeRecipe;
 import com.github.starcatcher21.stargazer.screens.recipe.StarforgeRecipeInput;
@@ -14,8 +13,9 @@ import net.minecraft.inventory.CraftingResultInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.packet.s2c.play.ScreenHandlerSlotUpdateS2CPacket;
-import net.minecraft.recipe.*;
-import net.minecraft.screen.*;
+import net.minecraft.recipe.RecipeEntry;
+import net.minecraft.screen.ScreenHandler;
+import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;

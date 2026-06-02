@@ -1,16 +1,10 @@
 package com.github.starcatcher21.stargazer.worldgen.features.trees.darkness;
 
-import com.github.starcatcher21.stargazer.block.clases.moon.geode_fruit.GeodeFruit;
-import com.github.starcatcher21.stargazer.block.clases.moon.geode_fruit.GeodeFruitStage;
 import com.github.starcatcher21.stargazer.block.register.Darkness;
 import com.github.starcatcher21.stargazer.block.register.MoonBlocks;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.DirectionalTree;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.Tree;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.TreeConfig;
-import com.github.starcatcher21.stargazer.worldgen.features.trees.moon.MoonBase;
-import com.github.starcatcher21.stargazer.worldgen.features.trees.moon.MoonTree1;
-import com.github.starcatcher21.stargazer.worldgen.features.trees.moon.MoonTree2;
-import com.github.starcatcher21.stargazer.worldgen.features.trees.moon.MoonTree3;
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
 import net.minecraft.block.AbstractBlock;

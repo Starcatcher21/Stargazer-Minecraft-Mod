@@ -1,7 +1,9 @@
 package com.github.starcatcher21.stargazer.block.clases.moon.plants;
 
 import com.mojang.serialization.MapCodec;
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.ShapeContext;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
