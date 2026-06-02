@@ -201,6 +201,9 @@ public class ItemGroup {
             itemGroup.add(Nebulas.YELLOW_NEBULA_REGROW_CORE);
             itemGroup.add(ModItems.LODESTAR);
             itemGroup.add(ModItems.GEODE_FRUIT);
+            itemGroup.add(ModItems.COOKED_GEODE_FRUIT);
+            itemGroup.add(ModItems.FULL_COOKED_GEODE_FRUIT);
+            itemGroup.add(ModItems.BLACK_COOKED_GEODE_FRUIT);
             itemGroup.add(ModItems.ECTOPLASM);
             itemGroup.add(ModItems.COOLER_ECTOPLASM);
             // SpawnEggs

@@ -185,6 +185,9 @@ public class ModEngLangProvider extends FabricLanguageProvider {
         translationBuilder.add(Nebulas.PURPLE_NEBULA_LEAVES, "Purple Nebula Stars");
         translationBuilder.add(ModItems.LODESTAR, "Lodestar");
         translationBuilder.add(ModItems.GEODE_FRUIT, "Geode Fruit");
+        translationBuilder.add(ModItems.COOKED_GEODE_FRUIT, "Cooked Geode Fruit");
+        translationBuilder.add(ModItems.FULL_COOKED_GEODE_FRUIT, "Cooked Geode Fruit");
+        translationBuilder.add(ModItems.BLACK_COOKED_GEODE_FRUIT, "Cooked Geode Fruit");
         translationBuilder.add(ModItems.PRISMATIC_SHARD, "Prismatic Shard");
         translationBuilder.add(ModItems.ECTOPLASM, "Ectoplasm");
         translationBuilder.add(ModItems.COOLER_ECTOPLASM, "Ectoplasm but 20% Cooler");

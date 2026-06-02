@@ -5,7 +5,7 @@ d4736e517bc9d32f5a4b3f58498245db75856012 data/minecraft/tags/block/fence_gates.j
 1e9f4189ef729f501eb369886bd7b0d700dd0638 data/minecraft/tags/block/logs.json
 697008bcbaf7983e4706f55143f0edd646b8c7cd data/minecraft/tags/block/mineable/axe.json
 fd8275b9f8b978020ef2de1124773bae1568c217 data/minecraft/tags/block/mineable/hoe.json
-e9a4758f42d5eebba03efef4f67fdcee999dfb0f data/minecraft/tags/block/mineable/pickaxe.json
+50d7463b59d7527e5ea1fefe497a1da7c9e12e26 data/minecraft/tags/block/mineable/pickaxe.json
 64e19493d67ca70e8940798545c45e5e94a379d8 data/minecraft/tags/block/mushroom_grow_block.json
 77dff466b34b9a7e9861a22b67b094b176a5bdc3 data/minecraft/tags/block/needs_iron_tool.json
 3998e1cbb0294909d9bd18004d5bd7e27b921dca data/minecraft/tags/block/needs_stone_tool.json

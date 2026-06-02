@@ -181,6 +181,9 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModItems.LODESTAR, Models.GENERATED);
         itemModelGenerator.register(ModItems.STARDUST, Models.GENERATED);
         itemModelGenerator.register(ModItems.GEODE_FRUIT, Models.GENERATED);
+        itemModelGenerator.register(ModItems.COOKED_GEODE_FRUIT, Models.GENERATED);
+        itemModelGenerator.register(ModItems.FULL_COOKED_GEODE_FRUIT, Models.GENERATED);
+        itemModelGenerator.register(ModItems.BLACK_COOKED_GEODE_FRUIT, Models.GENERATED);
         itemModelGenerator.register(ModItems.BLUE_STAR, Models.GENERATED);
         itemModelGenerator.register(ModItems.RED_STAR, Models.GENERATED);
         itemModelGenerator.register(ModItems.YELLOW_STAR, Models.GENERATED);

@@ -1,6 +1,5 @@
 package com.github.starcatcher21.stargazer.entity;
 
-import com.github.starcatcher21.stargazer.StargazerAttributes;
 import com.github.starcatcher21.stargazer.item.ModItems;
 import com.github.starcatcher21.stargazer.particle.Particles;
 import net.minecraft.entity.*;
@@ -71,7 +70,7 @@ public class Star extends AbstractBoatEntity implements GeoEntity {
         super.addPassenger(passenger);
         if (passenger instanceof PlayerEntity pe) {
             pe.getAbilities().allowFlying = true;
-            pe.getAttributes().getCustomInstance(StargazerAttributes.DASH_LEVEL).setBaseValue(0.0);
+            pe.getAbilities().flying = true;
         }
     }
 
@@ -81,7 +80,7 @@ public class Star extends AbstractBoatEntity implements GeoEntity {
         if (passenger instanceof PlayerEntity pe) {
             if (pe.isInCreativeMode()) return;
             pe.getAbilities().allowFlying = false;
-            pe.getAttributes().resetToBaseValue(StargazerAttributes.DASH_LEVEL);
+            pe.getAbilities().flying = false;
         }
     }
 
@@ -110,34 +109,19 @@ public class Star extends AbstractBoatEntity implements GeoEntity {
         } else {
             this.setVelocity(Vec3d.ZERO);
         }
-        this.tickBlockCollision();
-        this.tickBlockCollision();
-        List<Entity> list = this.getWorld().getOtherEntities(this, this.getBoundingBox(), EntityPredicates.canBePushedBy(this));
-        if (!list.isEmpty()) {
-            boolean bl = !this.getWorld().isClient && !(this.getControllingPassenger() instanceof PlayerEntity);
-            for (Entity entity : list) {
-                if (entity.hasPassenger(this)) continue;
-                if (bl && this.getPassengerList().size() < this.getMaxPassengers() && !entity.hasVehicle() && this.isSmallerThanBoat(entity) && entity instanceof LivingEntity && !(entity instanceof WaterCreatureEntity) && !(entity instanceof PlayerEntity) && !(entity instanceof CreakingEntity)) {
-                    entity.startRiding(this);
-                    continue;
-                }
-                this.pushAwayFrom(entity);
-            }
-        }
         pt += 1;
         if (pt >= 5) {
             EntityEffectParticleEffect entityEffectParticleEffect = EntityEffectParticleEffect.create(Particles.TINTED_STAR, 0xFFFF00);
             ParticleUtil.spawnParticle(this.getWorld(), this.getBlockPos(), random, entityEffectParticleEffect);
             pt = 0;
         }
-
     }
 
     @Override
     public void updateVelocity(float speed, Vec3d movementInput) {
         Vec3d vec3d;
         if (movementInput.y != 0) {
-            vec3d = Entity.movementInputToVelocity(movementInput, 1.0f, this.getYaw());
+            vec3d = Entity.movementInputToVelocity(movementInput, speed*2, this.getYaw());
             this.addVelocity(vec3d);
             this.addVelocity(0.0, this.getFinalGravity(), 0.0);
         } else {

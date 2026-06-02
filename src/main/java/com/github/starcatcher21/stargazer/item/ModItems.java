@@ -1,12 +1,14 @@
 package com.github.starcatcher21.stargazer.item;
 
 import com.github.starcatcher21.stargazer.Stargazer;
+import com.github.starcatcher21.stargazer.effects.StatusEffects;
 import com.github.starcatcher21.stargazer.entity.EntityRegistry;
 import com.github.starcatcher21.stargazer.item.classes.LodeStar;
 import net.minecraft.block.Block;
 import net.minecraft.component.type.ConsumableComponent;
 import net.minecraft.component.type.FoodComponent;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.item.*;
 import net.minecraft.item.consume.ConsumeEffect;
 import net.minecraft.registry.RegistryKey;
@@ -44,6 +46,61 @@ public final class ModItems {
 
                                 @Override
                                 public boolean onConsume(World world, ItemStack stack, LivingEntity user) {
+                                    return true;
+                                }
+                            })
+                            .build()
+            )
+    );
+    public static final Item COOKED_GEODE_FRUIT = register("cooked_geode_fruit", Item::new, new Item.Settings()
+            .food(new FoodComponent(8, 4, true),
+                    ConsumableComponent.builder()
+                            .consumeEffect(new ConsumeEffect() {
+                                @Override
+                                public Type<? extends ConsumeEffect> getType() {
+                                    return null;
+                                }
+
+                                @Override
+                                public boolean onConsume(World world, ItemStack stack, LivingEntity user) {
+                                    return true;
+                                }
+                            })
+                            .build()
+            )
+    );
+    public static final Item FULL_COOKED_GEODE_FRUIT = register("full_cooked_geode_fruit", Item::new, new Item.Settings()
+            .food(new FoodComponent(14, 20, true),
+                    ConsumableComponent.builder()
+                            .consumeEffect(new ConsumeEffect() {
+                                @Override
+                                public Type<? extends ConsumeEffect> getType() {
+                                    return null;
+                                }
+
+                                @Override
+                                public boolean onConsume(World world, ItemStack stack, LivingEntity user) {
+                                    user.addStatusEffect(new StatusEffectInstance(StatusEffects.COSMO, 1200));
+                                    user.addStatusEffect(new StatusEffectInstance(net.minecraft.entity.effect.StatusEffects.ABSORPTION, 1200, 2));
+                                    return true;
+                                }
+                            })
+                            .build()
+            )
+    );
+    public static final Item BLACK_COOKED_GEODE_FRUIT = register("black_cooked_geode_fruit", Item::new, new Item.Settings()
+            .food(new FoodComponent(4, 0, true),
+                    ConsumableComponent.builder()
+                            .consumeEffect(new ConsumeEffect() {
+                                @Override
+                                public Type<? extends ConsumeEffect> getType() {
+                                    return null;
+                                }
+
+                                @Override
+                                public boolean onConsume(World world, ItemStack stack, LivingEntity user) {
+                                    user.addStatusEffect(new StatusEffectInstance(net.minecraft.entity.effect.StatusEffects.DARKNESS, 1200));
+                                    user.addStatusEffect(new StatusEffectInstance(net.minecraft.entity.effect.StatusEffects.INSTANT_DAMAGE, 1));
                                     return true;
                                 }
                             })

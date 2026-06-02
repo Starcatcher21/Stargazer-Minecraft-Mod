@@ -33,6 +33,22 @@
       },
       "trigger": "minecraft:location"
     },
+    "visited_darkness_forest": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "biomes": "stargazer:darkness_forest"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    },
     "visited_eye_birch_forest": {
       "conditions": {
         "player": [
@@ -125,6 +141,9 @@
     ],
     [
       "visited_purple_shroom_forest"
+    ],
+    [
+      "visited_darkness_forest"
     ]
   ],
   "rewards": {

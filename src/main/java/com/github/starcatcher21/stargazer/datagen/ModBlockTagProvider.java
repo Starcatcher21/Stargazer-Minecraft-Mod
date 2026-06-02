@@ -2,6 +2,7 @@ package com.github.starcatcher21.stargazer.datagen;
 
 import com.github.starcatcher21.stargazer.CustomTags;
 import com.github.starcatcher21.stargazer.block.ModBlock;
+import com.github.starcatcher21.stargazer.block.clases.MoonWelder;
 import com.github.starcatcher21.stargazer.block.register.*;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
@@ -169,6 +170,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(Nebulas.PURPLE_NEBULA_REGROW_CORE)
                 .add(Nebulas.YELLOW_NEBULA_REGROW_CORE)
                 .add(MoonBlocks.PRISMATIC_SHARD_BLOCK)
+                .add(Darkness.DYLIUM)
                 .add(MoonBlocks.PRISMATIC_ORE);
         getOrCreateTagBuilder(BlockTags.NEEDS_STONE_TOOL)
                 .add(MoonBlocks.BLACK_MOON_ROCK)
