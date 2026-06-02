@@ -3,6 +3,7 @@ package com.github.starcatcher21.stargazer.block;
 import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.block.clases.CosmicFlower;
 import com.github.starcatcher21.stargazer.block.clases.InfestedCalcite;
+import com.github.starcatcher21.stargazer.block.clases.MoonWelder;
 import com.github.starcatcher21.stargazer.block.clases.Sprinkler;
 import com.github.starcatcher21.stargazer.block.clases.grave.Grave;
 import com.github.starcatcher21.stargazer.block.clases.negative.NegativeBlock;
@@ -59,11 +60,18 @@ public class ModBlock {
 
     public static final Block COPPER_TELEPORTER = registerWoItem("copper_teleporter", CopperTeleporter::new, AbstractBlock.Settings.create()
             .solid()
+            .requiresTool().strength(3.0f, 40.0f)
             .nonOpaque()
             .sounds(BlockSoundGroup.COPPER)
     );
 
     public static final Block SPRINKLER = register("sprinkler", Sprinkler::new, AbstractBlock.Settings.create()
+            .solid()
+            .nonOpaque()
+            .sounds(BlockSoundGroup.METAL)
+    );
+
+    public static final Block MOON_WELDER = register("moon_welder", MoonWelder::new, AbstractBlock.Settings.create()
             .solid()
             .nonOpaque()
             .sounds(BlockSoundGroup.METAL)

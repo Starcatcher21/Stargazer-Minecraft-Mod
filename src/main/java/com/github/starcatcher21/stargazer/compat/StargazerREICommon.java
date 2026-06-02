@@ -2,6 +2,7 @@ package com.github.starcatcher21.stargazer.compat;
 
 import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.screens.recipe.RecipeTypes;
+import com.github.starcatcher21.stargazer.screens.recipe.serializer.ShapedMoonWelderRecipe;
 import com.github.starcatcher21.stargazer.screens.recipe.serializer.ShapedStarforgeRecipe;
 import me.shedaniel.rei.api.common.display.DisplaySerializer;
 import me.shedaniel.rei.api.common.display.DisplaySerializerRegistry;

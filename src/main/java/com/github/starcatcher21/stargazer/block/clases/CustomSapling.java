@@ -1,5 +1,6 @@
 package com.github.starcatcher21.stargazer.block.clases;
 
+import com.github.starcatcher21.stargazer.block.register.Darkness;
 import com.github.starcatcher21.stargazer.block.register.MoonBlocks;
 import com.github.starcatcher21.stargazer.block.register.StarBlocks;
 import com.google.common.collect.ImmutableList;
@@ -21,7 +22,7 @@ import java.util.Optional;
 
 public class CustomSapling extends PlantBlock implements Fertilizable {
     public static final ImmutableList<Block> PLACE = ImmutableList.of(
-            MoonBlocks.MOON_ROCK, Blocks.END_STONE, MoonBlocks.MOON_ROCK_NYLIUM
+            MoonBlocks.MOON_ROCK, Blocks.END_STONE, MoonBlocks.MOON_ROCK_NYLIUM, Darkness.DYLIUM
     );
 
     private final RegistryKey<ConfiguredFeature<?, ?>> featureKey;
@@ -77,6 +78,7 @@ public class CustomSapling extends PlantBlock implements Fertilizable {
 
     public void instantGrow(ServerWorld world, BlockPos pos, BlockState state, Random random) {
         Optional<RegistryEntry.Reference<ConfiguredFeature<?, ?>>> optional = world.getRegistryManager().getOrThrow(RegistryKeys.CONFIGURED_FEATURE).getOptional(this.featureKey);
+        if (optional.isEmpty()) return;
         ((ConfiguredFeature)((RegistryEntry)optional.get()).value()).generate(world, world.getChunkManager().getChunkGenerator(), random, pos);
     }
 }

@@ -1,0 +1,19 @@
+{
+  "type": "stargazer:starforge",
+  "pattern": [
+    "  P  ",
+    " BBB ",
+    "P I P",
+    " III ",
+    "P   P"
+  ],
+  "key": {
+    "B": "minecraft:iron_block",
+    "I": "minecraft:iron_ingot",
+    "P": "stargazer:purple_star"
+  },
+  "result": {
+    "count": 1,
+    "id": "stargazer:moon_welder"
+  }
+}

@@ -156,6 +156,10 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .group("wooden_door")
                         .criterion("wood", conditionsFromItem(Darkness.DARKNESS_PLANKS))
                         .offerTo(exporter);
+                createDoorRecipe(MoonBlocks.CURVE_PLANKS_DOOR, Ingredient.ofItem(MoonBlocks.CURVE_PLANKS))
+                        .group("wooden_door")
+                        .criterion("wood", conditionsFromItem(MoonBlocks.CURVE_PLANKS))
+                        .offerTo(exporter);
                 // Star Tree
                 createShapeless(RecipeCategory.BUILDING_BLOCKS, StarBlocks.STAR_PLANKS, 4)
                         .input(CustomTags.STAR_LOG)
@@ -347,6 +351,36 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .pattern("##")
                         .pattern("##")
                         .criterion(hasItem(MoonBlocks.MOON_ROCK), this.conditionsFromItem(MoonBlocks.MOON_ROCK))
+                        .offerTo(this.exporter);
+                createShaped(RecipeCategory.BUILDING_BLOCKS, MoonBlocks.POLISHED_SUN_ENRICHED_MOON_ROCK, 4)
+                        .input('#', MoonBlocks.SUN_ENRICHED_MOON_ROCK)
+                        .pattern("##")
+                        .pattern("##")
+                        .criterion(hasItem(MoonBlocks.SUN_ENRICHED_MOON_ROCK), this.conditionsFromItem(MoonBlocks.SUN_ENRICHED_MOON_ROCK))
+                        .offerTo(this.exporter);
+                createShaped(RecipeCategory.BUILDING_BLOCKS, MoonBlocks.PRISMATIC_SHARD_BLOCK, 1)
+                        .input('#', Ingredient.ofItem(ModItems.PRISMATIC_SHARD))
+                        .pattern("###")
+                        .pattern("###")
+                        .pattern("###")
+                        .criterion(hasItem(ModItems.PRISMATIC_SHARD), this.conditionsFromItem(ModItems.PRISMATIC_SHARD))
+                        .offerTo(this.exporter);
+                createShapeless(RecipeCategory.MISC, ModItems.RED_STAR)
+                        .input(Nebulas.RED_TENTACLE_FLOWER)
+                        .criterion(hasItem(Nebulas.RED_TENTACLE_FLOWER), this.conditionsFromItem(Nebulas.RED_TENTACLE_FLOWER))
+                        .offerTo(this.exporter);
+
+                createShapeless(RecipeCategory.MISC, ModItems.BLUE_STAR)
+                        .input(Nebulas.BLUE_TENTACLE_FLOWER)
+                        .criterion(hasItem(Nebulas.BLUE_TENTACLE_FLOWER), this.conditionsFromItem(Nebulas.RED_TENTACLE_FLOWER))
+                        .offerTo(this.exporter);
+                createShapeless(RecipeCategory.MISC, ModItems.PURPLE_STAR)
+                        .input(Nebulas.PURPLE_TENTACLE_FLOWER)
+                        .criterion(hasItem(Nebulas.PURPLE_TENTACLE_FLOWER), this.conditionsFromItem(Nebulas.RED_TENTACLE_FLOWER))
+                        .offerTo(this.exporter);
+                createShapeless(RecipeCategory.MISC, ModItems.YELLOW_STAR)
+                        .input(Nebulas.YELLOW_TENTACLE_FLOWER)
+                        .criterion(hasItem(Nebulas.YELLOW_TENTACLE_FLOWER), this.conditionsFromItem(Nebulas.RED_TENTACLE_FLOWER))
                         .offerTo(this.exporter);
                 createSlabRecipe(RecipeCategory.BUILDING_BLOCKS, MoonBlocks.MOON_ROCK_BRICKS_SLAB, Ingredient.ofItem(MoonBlocks.MOON_ROCK_BRICKS))
                         .criterion("rock", conditionsFromItem(MoonBlocks.MOON_ROCK_BRICKS))

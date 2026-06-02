@@ -1,5 +1,6 @@
 package com.github.starcatcher21.stargazer.block.clases.moon;
 
+import com.github.starcatcher21.stargazer.block.clases.CustomSapling;
 import com.github.starcatcher21.stargazer.block.register.MoonBlocks;
 import net.minecraft.block.*;
 import net.minecraft.state.property.EnumProperty;
@@ -25,7 +26,7 @@ public class ForgetMeNow extends FlowerbedBlock {
 
     @Override
     protected boolean canPlantOnTop(BlockState floor, BlockView world, BlockPos pos) {
-        return floor.isOf(MoonBlocks.MOON_ROCK_NYLIUM) || floor.isOf(MoonBlocks.MOON_ROCK);
+        return CustomSapling.PLACE.contains(floor.getBlock());
     }
 
     @Override

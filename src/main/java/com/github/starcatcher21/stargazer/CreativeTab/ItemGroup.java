@@ -2,6 +2,8 @@ package com.github.starcatcher21.stargazer.CreativeTab;
 
 import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.block.ModBlock;
+import com.github.starcatcher21.stargazer.block.clases.MoonWelder;
+import com.github.starcatcher21.stargazer.block.clases.moon.plants.MoonCrop;
 import com.github.starcatcher21.stargazer.block.register.*;
 import com.github.starcatcher21.stargazer.item.ModItems;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
@@ -30,6 +32,7 @@ public class ItemGroup {
             itemGroup.add(ModBlock.INFESTED_CALCITE);
             itemGroup.add(ModBlock.BONE_LEAVES);
             itemGroup.add(ModBlock.SPRINKLER);
+            itemGroup.add(ModBlock.MOON_WELDER);
             // Crops
             itemGroup.add(Crops.DRAGON_CARROT);
             // Star Blocks
@@ -51,6 +54,8 @@ public class ItemGroup {
             itemGroup.add(MoonBlocks.MOON_ROCK);
             itemGroup.add(MoonBlocks.POLISHED_MOON_ROCK);
             itemGroup.add(MoonBlocks.MOON_ROCK_NYLIUM);
+            itemGroup.add(Darkness.DYLIUM);
+            itemGroup.add(Darkness.ROSE_OF_PAIN);
             itemGroup.add(MoonBlocks.BLACK_MOON_ROCK);
             itemGroup.add(MoonBlocks.POLISHED_BLACK_MOON_ROCK);
             itemGroup.add(MoonBlocks.POLISHED_BLACK_MOON_ROCK_PURPLE);
@@ -65,6 +70,13 @@ public class ItemGroup {
             itemGroup.add(MoonBlocks.STAR_STONE);
             itemGroup.add(MoonBlocks.PRISMATIC_ORE);
             itemGroup.add(ModItems.PRISMATIC_SHARD);
+            itemGroup.add(MoonBlocks.PRISMATIC_SHARD_BLOCK);
+            itemGroup.add(ModItems.PRISMATIC_INGOT);
+            itemGroup.add(ModItems.MOON_GLASS_SHARD);
+            itemGroup.add(MoonBlocks.SUN_ENRICHED_MOON_ROCK);
+            itemGroup.add(MoonBlocks.POLISHED_SUN_ENRICHED_MOON_ROCK);
+            itemGroup.add(ModItems.SUN_ENRICHED_YELLOW_STAR);
+            itemGroup.add(ModItems.WISHING_STAR);
             // Moon Trees
             itemGroup.add(MoonBlocks.MOON_LOG);
             itemGroup.add(MoonBlocks.STRIPPED_MOON_LOG);
@@ -107,6 +119,7 @@ public class ItemGroup {
             itemGroup.add(MoonBlocks.CURVE_LEAVES);
             itemGroup.add(MoonBlocks.CURVE_SAPLING);
             itemGroup.add(MoonBlocks.CURVE_PLANKS);
+            itemGroup.add(MoonBlocks.CURVE_PLANKS_DOOR);
             itemGroup.add(MoonBlocks.CURVE_PLANKS_SLAB);
             itemGroup.add(MoonBlocks.CURVE_PLANKS_STAIRS);
             itemGroup.add(MoonBlocks.CURVE_PLANKS_BUTTON);
@@ -124,6 +137,7 @@ public class ItemGroup {
             itemGroup.add(Darkness.LOG_OF_DARKNESS);
             itemGroup.add(Darkness.STRIPPED_LOG_OF_DARKNESS);
             itemGroup.add(Darkness.DARKNESS_LEAVES);
+            itemGroup.add(Darkness.DARKNESS_SAPLING);
             itemGroup.add(Darkness.DARKNESS_PLANKS);
             itemGroup.add(Darkness.DARKNESS_PLANKS_SLAB);
             itemGroup.add(Darkness.DARKNESS_PLANKS_STAIRS);
@@ -140,6 +154,10 @@ public class ItemGroup {
             itemGroup.add(MoonBlocks.FORGET_ME_NOW);
             itemGroup.add(EyeBloodBlocks.EYE_FERN);
             itemGroup.add(EyeBloodBlocks.EYES);
+            itemGroup.add(Nebulas.PURPLE_TENTACLE_FLOWER);
+            itemGroup.add(Nebulas.BLUE_TENTACLE_FLOWER);
+            itemGroup.add(Nebulas.RED_TENTACLE_FLOWER);
+            itemGroup.add(Nebulas.YELLOW_TENTACLE_FLOWER);
             // Items
             itemGroup.add(ModItems.GRAVICE);
             itemGroup.add(ModItems.STARDUST);

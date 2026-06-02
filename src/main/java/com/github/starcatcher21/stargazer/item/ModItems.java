@@ -24,8 +24,12 @@ import java.util.function.Function;
 
 public final class ModItems {
     public static final Item STARDUST = register("stardust", Item::new, new Item.Settings());
+    public static final Item MOON_GLASS_SHARD = register("moon_glass_shard", Item::new, new Item.Settings());
     public static final Item PRISMATIC_SHARD = register("prismatic_shard", Item::new, new Item.Settings());
+    public static final Item PRISMATIC_INGOT = register("prismatic_ingot", Item::new, new Item.Settings());
     public static final Item YELLOW_STAR = register("yellow_star", Item::new, new Item.Settings());
+    public static final Item SUN_ENRICHED_YELLOW_STAR = register("sun_enriched_yellow_star", Item::new, new Item.Settings());
+    public static final Item WISHING_STAR = register("wishing_star", (Item.Settings settings) -> new BoatItem(EntityRegistry.STAR_ENTITY, settings), new Item.Settings());
     public static final Item RED_STAR = register("red_star", Item::new, new Item.Settings());
     public static final Item BLUE_STAR = register("blue_star", Item::new, new Item.Settings());
     public static final Item PURPLE_STAR = register("purple_star", Item::new, new Item.Settings());
@@ -45,14 +49,6 @@ public final class ModItems {
 
                                 @Override
                                 public boolean onConsume(World world, ItemStack stack, LivingEntity user) {
-                                    if (!world.isClient && user instanceof ServerPlayerEntity serverPlayerEntity) {
-                                        float f = MathHelper.clamp(user.getPitch(), -90.0F, 90.0F);
-                                        double destX = user.getX();
-                                        double destY = user.getY();
-                                        double destZ = user.getZ();
-                                        TeleportTarget target = new TeleportTarget(world.getServer().getWorld(Dimensions.REG_COSMIC_WORLD), new Vec3d(destX, destY, destZ), Vec3d.ZERO, user.getYaw(), f, TeleportTarget.NO_OP);
-                                        user.teleportTo(target);
-                                    }
                                     return true;
                                 }
                             })

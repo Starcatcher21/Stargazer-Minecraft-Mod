@@ -25,6 +25,7 @@ public class ModEngLangProvider extends FabricLanguageProvider {
         // misc
         translationBuilder.add(ModBlock.COPPER_TELEPORTER, "Copper Teleporter");
         translationBuilder.add(MoonBlocks.GEODE_FRUIT, "Geode Fruit");
+        translationBuilder.add(ModBlock.MOON_WELDER, "Moon Welder");
         // Blocks
         translationBuilder.add(ModBlock.GRAVE, "Grave");
         translationBuilder.add(ModBlock.NEGATIVE_BLOCK, "Negative Block");
@@ -49,14 +50,18 @@ public class ModEngLangProvider extends FabricLanguageProvider {
         translationBuilder.add(MoonBlocks.CHISELED_MOON_ROCK_BRICKS, "Chiseled Moon Rock Bricks");
         translationBuilder.add(MoonBlocks.STAR_FORGE, "Star Forge");
         translationBuilder.add(MoonBlocks.PRISMATIC_ORE, "Prismatic Ore");
+        translationBuilder.add(MoonBlocks.PRISMATIC_SHARD_BLOCK, "Prismatic Shard Block");
+        translationBuilder.add(ModItems.MOON_GLASS_SHARD, "Moon Glass Shard");
+        translationBuilder.add(MoonBlocks.SUN_ENRICHED_MOON_ROCK, "Sun Enriched Moon Rock");
+        translationBuilder.add(MoonBlocks.POLISHED_SUN_ENRICHED_MOON_ROCK, "Polished Sun Enriched Moon Rock");
         // Moon Tree
         translationBuilder.add(MoonBlocks.MOON_LEAVES, "Moon Leaves");
         translationBuilder.add(MoonBlocks.MOON_LOG, "Moon Log");
         translationBuilder.add(MoonBlocks.STRIPPED_MOON_LOG, "Stripped Moon Log");
         translationBuilder.add(MoonBlocks.MOON_SAPLING, "Moon Sapling");
         translationBuilder.add(MoonBlocks.MOON_PLANKS, "Moon Planks");
-        translationBuilder.add(MoonBlocks.MOON_PLANKS_DOOR, "Moon Planks Door");
-        translationBuilder.add(StarBlocks.STAR_PLANKS_DOOR, "Star Planks Door");
+        translationBuilder.add(MoonBlocks.MOON_PLANKS_DOOR, "Moon Door");
+        translationBuilder.add(StarBlocks.STAR_PLANKS_DOOR, "Star Door");
         translationBuilder.add(MoonBlocks.MOON_PLANKS_SLAB, "Moon Planks Slab");
         translationBuilder.add(MoonBlocks.MOON_PLANKS_STAIRS, "Moon Planks Stairs");
         translationBuilder.add(MoonBlocks.MOON_PLANKS_BUTTON, "Moon Planks Button");
@@ -107,11 +112,12 @@ public class ModEngLangProvider extends FabricLanguageProvider {
         translationBuilder.add(MoonBlocks.CURVE_LEAVES, "Curve Leaves");
         translationBuilder.add(MoonBlocks.CURVE_SAPLING, "Curve Sapling");
         translationBuilder.add(MoonBlocks.CURVE_PLANKS, "Curve Planks");
-        translationBuilder.add(MoonBlocks.CURVE_PLANKS_SLAB, "Curve Slab");
-        translationBuilder.add(MoonBlocks.CURVE_PLANKS_STAIRS, "Curve Stairs");
-        translationBuilder.add(MoonBlocks.CURVE_PLANKS_FENCE, "Curve Fence");
-        translationBuilder.add(MoonBlocks.CURVE_PLANKS_FENCE_GATE, "Curve Fence Gate");
-        translationBuilder.add(MoonBlocks.CURVE_PLANKS_BUTTON, "Curve Button");
+        translationBuilder.add(MoonBlocks.CURVE_PLANKS_DOOR, "Curve Door");
+        translationBuilder.add(MoonBlocks.CURVE_PLANKS_SLAB, "Curve Planks Slab");
+        translationBuilder.add(MoonBlocks.CURVE_PLANKS_STAIRS, "Curve Planks Stairs");
+        translationBuilder.add(MoonBlocks.CURVE_PLANKS_FENCE, "Curve Planks Fence");
+        translationBuilder.add(MoonBlocks.CURVE_PLANKS_FENCE_GATE, "Curve Planks Fence Gate");
+        translationBuilder.add(MoonBlocks.CURVE_PLANKS_BUTTON, "Curve Planks Button");
         // Shroom
         translationBuilder.add(MoonBlocks.PURPLE_MUSHROOM_BLOCK, "Purple Mushroom Block");
         translationBuilder.add(MoonBlocks.PURPLE_MUSHROOM, "Purple Mushroom");
@@ -121,19 +127,24 @@ public class ModEngLangProvider extends FabricLanguageProvider {
         translationBuilder.add(EyeBloodBlocks.EYE_LEAVES, "Eye Birch Leaves");
         // Darkness
         translationBuilder.add(Darkness.LOG_OF_DARKNESS, "Log of Darkness");
+        translationBuilder.add(Darkness.DYLIUM, "Dylium");
+        translationBuilder.add(Darkness.ROSE_OF_PAIN, "Rose of Pain");
         translationBuilder.add(Darkness.STRIPPED_LOG_OF_DARKNESS, "Stripped Log of Darkness");
         translationBuilder.add(Darkness.DARKNESS_LEAVES, "Darkness Leaves");
+        translationBuilder.add(Darkness.DARKNESS_SAPLING, "Darkness Sapling");
         translationBuilder.add(Darkness.DARKNESS_PLANKS, "Darkness Planks");
-        translationBuilder.add(Darkness.DARKNESS_PLANKS_DOOR, "Darkness Planks Door");
-        translationBuilder.add(Darkness.DARKNESS_PLANKS_SLAB, "Darkness Slab");
-        translationBuilder.add(Darkness.DARKNESS_PLANKS_STAIRS, "Darkness Stairs");
-        translationBuilder.add(Darkness.DARKNESS_PLANKS_FENCE, "Darkness Fence");
-        translationBuilder.add(Darkness.DARKNESS_PLANKS_FENCE_GATE, "Darkness Fence Gate");
-        translationBuilder.add(Darkness.DARKNESS_PLANKS_BUTTON, "Darkness Button");
+        translationBuilder.add(Darkness.DARKNESS_PLANKS_DOOR, "Darkness Door");
+        translationBuilder.add(Darkness.DARKNESS_PLANKS_SLAB, "Darkness Planks Slab");
+        translationBuilder.add(Darkness.DARKNESS_PLANKS_STAIRS, "Darkness Planks Stairs");
+        translationBuilder.add(Darkness.DARKNESS_PLANKS_FENCE, "Darkness Planks Fence");
+        translationBuilder.add(Darkness.DARKNESS_PLANKS_FENCE_GATE, "Darkness Planks Fence Gate");
+        translationBuilder.add(Darkness.DARKNESS_PLANKS_BUTTON, "Darkness Planks Button");
         // Items
         translationBuilder.add(ModItems.GRAVICE, "Gravel Ice");
         translationBuilder.add(ModItems.STARDUST, "Stardust");
         translationBuilder.add(ModItems.YELLOW_STAR, "Yellow Star");
+        translationBuilder.add(ModItems.WISHING_STAR, "Wishing Star");
+        translationBuilder.add(ModItems.SUN_ENRICHED_YELLOW_STAR, "Sun Enriched Yellow Star");
         translationBuilder.add(Nebulas.YELLOW_NEBULA_LOG, "Yellow Nebula Core");
         translationBuilder.add(Nebulas.YELLOW_NEBULA_PLANKS, "Yellow Nebula Planks");
         translationBuilder.add(Nebulas.YELLOW_NEBULA_PLANKS_BUTTON, "Yellow Nebula Button");
@@ -142,6 +153,7 @@ public class ModEngLangProvider extends FabricLanguageProvider {
         translationBuilder.add(Nebulas.YELLOW_NEBULA_PLANKS_SLAB, "Yellow Nebula Slab");
         translationBuilder.add(Nebulas.YELLOW_NEBULA_PLANKS_STAIRS, "Yellow Nebula Stairs");
         translationBuilder.add(Nebulas.YELLOW_NEBULA_REGROW_CORE, "Yellow Nebula Regrow Core");
+        translationBuilder.add(Nebulas.YELLOW_NEBULA_LEAVES, "Yellow Nebula Stars");
         translationBuilder.add(ModItems.RED_STAR, "Red Star");
         translationBuilder.add(Nebulas.RED_NEBULA_LOG, "Red Nebula Core");
         translationBuilder.add(Nebulas.RED_NEBULA_PLANKS, "Red Nebula Planks");
@@ -151,6 +163,7 @@ public class ModEngLangProvider extends FabricLanguageProvider {
         translationBuilder.add(Nebulas.RED_NEBULA_PLANKS_SLAB, "Red Nebula Slab");
         translationBuilder.add(Nebulas.RED_NEBULA_PLANKS_STAIRS, "Red Nebula Stairs");
         translationBuilder.add(Nebulas.RED_NEBULA_REGROW_CORE, "Red Nebula Regrow Core");
+        translationBuilder.add(Nebulas.RED_NEBULA_LEAVES, "Red Nebula Stars");
         translationBuilder.add(ModItems.BLUE_STAR, "Blue Star");
         translationBuilder.add(Nebulas.BLUE_NEBULA_LOG, "Blue Nebula Core");
         translationBuilder.add(Nebulas.BLUE_NEBULA_PLANKS, "Blue Nebula Planks");
@@ -160,6 +173,7 @@ public class ModEngLangProvider extends FabricLanguageProvider {
         translationBuilder.add(Nebulas.BLUE_NEBULA_PLANKS_SLAB, "Blue Nebula Slab");
         translationBuilder.add(Nebulas.BLUE_NEBULA_PLANKS_STAIRS, "Blue Nebula Stairs");
         translationBuilder.add(Nebulas.BLUE_NEBULA_REGROW_CORE, "Blue Nebula Regrow Core");
+        translationBuilder.add(Nebulas.BLUE_NEBULA_LEAVES, "Blue Nebula Stars");
         translationBuilder.add(ModItems.PURPLE_STAR, "Purple Star");
         translationBuilder.add(Nebulas.PURPLE_NEBULA_LOG, "Purple Nebula Core");
         translationBuilder.add(Nebulas.PURPLE_NEBULA_PLANKS, "Purple Nebula Planks");
@@ -169,11 +183,13 @@ public class ModEngLangProvider extends FabricLanguageProvider {
         translationBuilder.add(Nebulas.PURPLE_NEBULA_PLANKS_SLAB, "Purple Nebula Slab");
         translationBuilder.add(Nebulas.PURPLE_NEBULA_PLANKS_STAIRS, "Purple Nebula Stairs");
         translationBuilder.add(Nebulas.PURPLE_NEBULA_REGROW_CORE, "Purple Nebula Regrow Core");
+        translationBuilder.add(Nebulas.PURPLE_NEBULA_LEAVES, "Purple Nebula Stars");
         translationBuilder.add(ModItems.LODESTAR, "Lodestar");
         translationBuilder.add(ModItems.GEODE_FRUIT, "Geode Fruit");
         translationBuilder.add(ModItems.PRISMATIC_SHARD, "Prismatic Shard");
         translationBuilder.add(ModItems.ECTOPLASM, "Ectoplasm");
         translationBuilder.add(ModItems.COOLER_ECTOPLASM, "Ectoplasm but 20% Cooler");
+        translationBuilder.add(ModItems.PRISMATIC_INGOT, "Prismatic Ingot");
         // Spawn Eggs
         translationBuilder.add(ModItems.GHOST_SPAWN_EGG, "Ghost Spawn Egg");
         translationBuilder.add(ModItems.AMETHYST_TURTLE_SPAWN_EGG, "Amethyst Turtle Spawn Egg");
@@ -193,6 +209,10 @@ public class ModEngLangProvider extends FabricLanguageProvider {
         translationBuilder.add(EyeBloodBlocks.EYES, "Eyes");
         translationBuilder.add(MoonBlocks.FORGET_ME_NOW, "Forget Me Now");
         translationBuilder.add(ModBlock.BONEFLOWER, "Boneflower");
+        translationBuilder.add(Nebulas.RED_TENTACLE_FLOWER, "Red Tentacle flower");
+        translationBuilder.add(Nebulas.BLUE_TENTACLE_FLOWER, "Blue Tentacle flower");
+        translationBuilder.add(Nebulas.YELLOW_TENTACLE_FLOWER, "Yellow Tentacle flower");
+        translationBuilder.add(Nebulas.PURPLE_TENTACLE_FLOWER, "Purple Tentacle flower");
         // Crops
         translationBuilder.add(Crops.DRAGON_CARROT, "Dragon Carrot");
         translationBuilder.add(Crops.GIANT_DRAGON_CARROT, "Giant Dragon Carrot");
@@ -212,6 +232,7 @@ public class ModEngLangProvider extends FabricLanguageProvider {
         translationBuilder.add("effect.stargazer.glasshands", "Glass Hands");
         // Screens
         translationBuilder.add("container.starforge", "Starforge");
+        translationBuilder.add("container.moon_welder", "Moon Welder");
         // Death
         translationBuilder.add("death.attack.star_trap", "%s was bitten by Star Trap");
         translationBuilder.add("death.attack.water", "%s was burn alive by water");

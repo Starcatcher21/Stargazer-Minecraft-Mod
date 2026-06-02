@@ -22,7 +22,9 @@ import com.github.starcatcher21.stargazer.mechanics.star.Stargaze;
 import com.github.starcatcher21.stargazer.mechanics.dash.DashClient;
 import com.github.starcatcher21.stargazer.particle.Particles;
 import com.github.starcatcher21.stargazer.screens.ScreenHandlerTypes;
+import com.github.starcatcher21.stargazer.screens.handled.MoonWelderHandled;
 import com.github.starcatcher21.stargazer.screens.handled.StarforgeHandled;
+import com.github.starcatcher21.stargazer.worldgen.dimensions.Dimensions;
 import dev.architectury.registry.client.rendering.BlockEntityRendererRegistry;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
@@ -33,8 +35,10 @@ import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
+import net.minecraft.world.World;
 
 import java.net.http.HttpRequest;
+import java.util.Objects;
 
 @Environment(EnvType.CLIENT)
 public class StargazerClient implements ClientModInitializer {
@@ -49,6 +53,7 @@ public class StargazerClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(MoonBlocks.MOON_SAPLING, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(MoonBlocks.MOON_PLANKS_DOOR, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(StarBlocks.STAR_SAPLING, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(Darkness.DARKNESS_SAPLING, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(StarBlocks.STAR_FLOWER, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(StarBlocks.CELESTIAL_STAR_FLOWER, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(MoonBlocks.CURVE_LEAVES, RenderLayer.getCutout());
@@ -72,10 +77,23 @@ public class StargazerClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(MoonBlocks.POTTED_MOON_SAPLING, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(MoonBlocks.POTTED_PURPLE_MUSHROOM, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(StarBlocks.POTTED_STAR_SAPLING, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(Darkness.POTTED_DARKNESS_SAPLING, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(StarBlocks.STAR_PLANKS_DOOR, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(Darkness.DARKNESS_PLANKS_DOOR, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlock.BONEFLOWER, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlock.POTTED_BONEFLOWER, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(Nebulas.RED_TENTACLE_FLOWER, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(Nebulas.PURPLE_TENTACLE_FLOWER, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(Nebulas.BLUE_TENTACLE_FLOWER, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(Nebulas.YELLOW_TENTACLE_FLOWER, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(Nebulas.POTTED_RED_TENTACLE_FLOWER, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(Nebulas.POTTED_YELLOW_TENTACLE_FLOWER, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(Nebulas.POTTED_BLUE_TENTACLE_FLOWER, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(Nebulas.POTTED_PURPLE_TENTACLE_FLOWER, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlock.MOON_WELDER, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(MoonBlocks.CURVE_PLANKS_DOOR, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(Darkness.ROSE_OF_PAIN, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(Darkness.POTTED_ROSE_OF_PAIN, RenderLayer.getCutout());
         BlockEntityRendererFactories.register(BlockTypes.COSMIC_BLOCK, CosmicBlockEntityRenderer::new);
         BlockEntityRendererFactories.register(BlockTypes.STAR_BARRIER_BLOCK, StarBarrierBlockEntityRenderer::new);
         BlockEntityRendererFactories.register(BlockTypes.NEGATIVE_BLOCK, NegativeBlockEntityRenderer::new);
@@ -95,6 +113,7 @@ public class StargazerClient implements ClientModInitializer {
 
         // Screens
         HandledScreens.register(ScreenHandlerTypes.STARFORGE_HANDLER, StarforgeHandled::new);
+        HandledScreens.register(ScreenHandlerTypes.MOON_WELDER_HANDLER, MoonWelderHandled::new);
 
         // Tick Events
         Stargazer.LOGGER.info("Loading End Client Tick Events");
@@ -104,6 +123,16 @@ public class StargazerClient implements ClientModInitializer {
                     DashClient.tick();
                     PlayerCosmicGrav.tick(client);
                     Stargaze.tick(client);
+                    if (!Objects.requireNonNull(client.player.getControllingVehicle()).isLiving()) {
+                        if (Dimensions.REG_COSMIC_WORLD.getValue().equals(client.world.getRegistryKey().getValue())) {
+                            client.player.getAttributeInstance(StargazerAttributes.DASH_LEVEL).addTemporaryModifier(PlayerCosmicGrav.dash_modifier);
+                        }
+                    }
+                    if (Objects.requireNonNull(client.player.getControllingVehicle()).isLiving()) {
+                        if (Dimensions.REG_COSMIC_WORLD.getValue().equals(client.world.getRegistryKey().getValue())) {
+                            client.player.getAttributeInstance(StargazerAttributes.DASH_LEVEL).removeModifier(PlayerCosmicGrav.dash_modifier);
+                        }
+                    }
                 }
             } catch (Exception ignored) {
 

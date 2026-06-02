@@ -1,0 +1,10 @@
+{
+  "type": "stargazer:moon_welder",
+  "item1": "stargazer:moon_rock",
+  "item2": "minecraft:glass",
+  "moon_phase": 8,
+  "result": {
+    "count": 4,
+    "id": "stargazer:sun_enriched_moon_rock"
+  }
+}

@@ -13,8 +13,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class BrewingRecipeRegMixin {
     @Inject(method = "registerDefaults", at = @At("HEAD"), cancellable = true)
     private static void reg(BrewingRecipeRegistry.Builder builder, CallbackInfo ci) {
-        builder.registerRecipes(ModItems.YELLOW_STAR, Potions.CosmoFeel);
-        builder.registerRecipes(Items.GLASS, Potions.GlassHands);
-        builder.registerRecipes(Items.WATER_BUCKET, Potions.Hydro);
+        builder.registerRecipes(ModItems.SUN_ENRICHED_YELLOW_STAR, Potions.CosmoFeel);
+        builder.registerRecipes(ModItems.MOON_GLASS_SHARD, Potions.GlassHands);
+        builder.registerRecipes(Items.ENDER_PEARL, Potions.Hydro);
     }
 }

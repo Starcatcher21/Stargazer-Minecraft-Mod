@@ -1,5 +1,6 @@
 package com.github.starcatcher21.stargazer.block.clases.moon;
 
+import com.github.starcatcher21.stargazer.block.clases.CustomSapling;
 import com.github.starcatcher21.stargazer.block.register.MoonBlocks;
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.MapCodec;
@@ -17,10 +18,6 @@ public class MoonGrass
         implements Fertilizable {
     public static final MapCodec<MoonGrass> CODEC = MoonGrass.createCodec(MoonGrass::new);
     private static final VoxelShape SHAPE = Block.createColumnShape(12.0, 0.0, 13.0);
-    public static final ImmutableList<Block> PLACE = ImmutableList.of(
-            MoonBlocks.MOON_ROCK_NYLIUM,
-            MoonBlocks.MOON_ROCK
-    );
 
     public MapCodec<MoonGrass> getCodec() {
         return CODEC;
@@ -32,7 +29,7 @@ public class MoonGrass
 
     @Override
     protected boolean canPlantOnTop(BlockState floor, BlockView world, BlockPos pos) {
-        return PLACE.contains(floor.getBlock());
+        return CustomSapling.PLACE.contains(floor.getBlock());
     }
 
     @Override

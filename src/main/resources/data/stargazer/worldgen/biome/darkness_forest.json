@@ -1,0 +1,67 @@
+{
+  "creature_spawn_probability": 0.3,
+  "carvers": [],
+  "downfall": 0.5,
+  "effects": {
+    "sky_color": 6184036,
+    "fog_color": 589824,
+    "water_color": 10076657,
+    "water_fog_color": 589824,
+    "grass_color": 14453469,
+    "foliage_color": 12607947,
+    "mood_sound": {
+      "sound": "minecraft:ambient.cave",
+      "tick_delay": 6000,
+      "block_search_extent": 8,
+      "offset": 2
+    },
+    "music": [
+      {
+        "data": {
+          "max_delay": 24000,
+          "min_delay": 12000,
+          "replace_current_music": false,
+          "sound": "stargazer:ost.adventure_of_the_moon"
+        },
+        "weight": 1
+      },
+      {
+        "data": {
+          "max_delay": 24000,
+          "min_delay": 12000,
+          "replace_current_music": false,
+          "sound": "stargazer:ost.ballad_of_the_stars"
+        },
+        "weight": 1
+      },
+      {
+        "data": {
+          "max_delay": 24000,
+          "min_delay": 12000,
+          "replace_current_music": false,
+          "sound": "stargazer:ost.from_the_stars"
+        },
+        "weight": 1
+      }
+    ],
+    "music_volume": 1
+  },
+  "features": [
+    [
+      "stargazer:darkness_trees"
+    ],
+    [
+      "stargazer:darkness_trees_top"
+    ],
+    [
+      "stargazer:dark_grass"
+    ],
+    [
+      "stargazer:dark_grass_top"
+    ]
+  ],
+  "has_precipitation": true,
+  "spawn_costs": {},
+  "spawners": {},
+  "temperature": -0.9
+}

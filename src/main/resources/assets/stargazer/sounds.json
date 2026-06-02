@@ -4,5 +4,11 @@
   "block.cosmic_place":
   {"sounds": ["stargazer:block/star_place"]},
   "block.cosmic_land":
-  {"sounds": ["stargazer:block/star_land"]}
+  {"sounds": ["stargazer:block/star_land"]},
+	"ost.adventure_of_the_moon":
+	{"sounds": ["stargazer:adventure_of_the_moon"]},
+	"ost.ballad_of_the_stars":
+	{"sounds": ["stargazer:ballad_of_the_stars"]},
+	"ost.from_the_stars":
+	{"sounds": ["stargazer:from_the_stars"]}
 }

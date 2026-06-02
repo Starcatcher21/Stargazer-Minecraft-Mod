@@ -9,6 +9,7 @@ import net.minecraft.util.Identifier;
 
 public class ScreenHandlerTypes {
     public static final ScreenHandlerType<StarforgeScreenHandler> STARFORGE_HANDLER = Registry.register(Registries.SCREEN_HANDLER, Identifier.of(Stargazer.MOD_ID, "starforge_handler"), new ScreenHandlerType<>(StarforgeScreenHandler::new, FeatureSet.empty()));
+    public static final ScreenHandlerType<MoonWelderScreenHandler> MOON_WELDER_HANDLER = Registry.register(Registries.SCREEN_HANDLER, Identifier.of(Stargazer.MOD_ID, "moon_welder_handler"), new ScreenHandlerType<>(MoonWelderScreenHandler::new, FeatureSet.empty()));
 
     public static void init() {}
 }

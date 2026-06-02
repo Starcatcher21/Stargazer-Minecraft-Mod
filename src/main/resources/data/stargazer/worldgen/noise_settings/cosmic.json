@@ -183,6 +183,21 @@
                           "if_true": {
                             "type": "minecraft:biome",
                             "biome_is": [
+                              "stargazer:darkness_forest"
+                            ]
+                          },
+                          "then_run": {
+                            "type": "minecraft:block",
+                            "result_state": {
+                              "Name": "stargazer:dylium"
+                            }
+                          }
+                        },
+                        {
+                          "type": "minecraft:condition",
+                          "if_true": {
+                            "type": "minecraft:biome",
+                            "biome_is": [
                               "stargazer:bone_forest"
                             ]
                           },

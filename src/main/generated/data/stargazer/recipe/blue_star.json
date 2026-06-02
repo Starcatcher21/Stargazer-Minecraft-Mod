@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "stargazer:blue_tentacle_flower"
+  ],
+  "result": {
+    "count": 1,
+    "id": "stargazer:blue_star"
+  }
+}

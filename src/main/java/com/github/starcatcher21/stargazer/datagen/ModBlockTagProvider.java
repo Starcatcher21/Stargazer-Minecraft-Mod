@@ -74,6 +74,9 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(StarBlocks.STAR_PLANKS_FENCE_GATE)
                 .add(StarBlocks.STRIPPED_STAR_LOG)
                 .add(Darkness.LOG_OF_DARKNESS)
+                .add(Darkness.DARKNESS_PLANKS_DOOR)
+                .add(MoonBlocks.CURVE_PLANKS_DOOR)
+                .add(StarBlocks.STAR_PLANKS_DOOR)
                 .add(Darkness.STRIPPED_LOG_OF_DARKNESS);
 //                .add(Bonsai.LIVING_BONSAI_LOG)
 //                .add(Bonsai.BONSAI_LOG);
@@ -114,6 +117,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(Darkness.DARKNESS_LEAVES);
         // Rock
         getOrCreateTagBuilder(BlockTags.PICKAXE_MINEABLE)
+                .add(ModBlock.COPPER_TELEPORTER)
                 .add(MoonBlocks.STAR_FORGE)
                 .add(MoonBlocks.MOON_ROCK)
                 .add(MoonBlocks.POLISHED_MOON_ROCK)
@@ -121,6 +125,11 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(MoonBlocks.MOON_ROCK_BRICKS)
                 .add(MoonBlocks.MOON_ROCK_BRICKS_SLAB)
                 .add(MoonBlocks.MOON_ROCK_BRICKS_STAIRS)
+                .add(MoonBlocks.MOON_ROCK_TILES)
+                .add(MoonBlocks.PURPLE_MOON_ROCK_TILES)
+                .add(MoonBlocks.POLISHED_MOON_ROCK)
+                .add(MoonBlocks.POLISHED_BLACK_MOON_ROCK)
+                .add(MoonBlocks.POLISHED_BLACK_MOON_ROCK_PURPLE)
                 .add(MoonBlocks.CHISELED_MOON_ROCK_BRICKS)
                 .add(MoonBlocks.CRACKED_MOON_ROCK_BRICKS)
                 .add(ModBlock.INFESTED_CALCITE)
@@ -159,6 +168,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(Nebulas.RED_NEBULA_REGROW_CORE)
                 .add(Nebulas.PURPLE_NEBULA_REGROW_CORE)
                 .add(Nebulas.YELLOW_NEBULA_REGROW_CORE)
+                .add(MoonBlocks.PRISMATIC_SHARD_BLOCK)
                 .add(MoonBlocks.PRISMATIC_ORE);
         getOrCreateTagBuilder(BlockTags.NEEDS_STONE_TOOL)
                 .add(MoonBlocks.BLACK_MOON_ROCK)
@@ -198,6 +208,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 //                .add(MoonBlocks.CHISELED_MOON_ROCK_BRICKS)
 //                .add(MoonBlocks.CRACKED_MOON_ROCK_BRICKS);
         getOrCreateTagBuilder(BlockTags.NEEDS_IRON_TOOL)
+                .add(MoonBlocks.PRISMATIC_SHARD_BLOCK)
                 .add(MoonBlocks.PRISMATIC_ORE);
         // Fence
         getOrCreateTagBuilder(BlockTags.FENCES)

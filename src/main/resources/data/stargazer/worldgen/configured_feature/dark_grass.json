@@ -1,0 +1,50 @@
+{
+  "type": "minecraft:flower",
+  "config": {
+    "tries": 8,
+    "xz_spread": 7,
+    "y_spread": 6,
+    "feature": {
+      "feature": {
+        "config": {
+          "to_place": {
+            "type": "minecraft:noise_threshold_provider",
+            "seed": 2345,
+            "noise": {
+              "firstOctave": 0,
+              "amplitudes": [
+                1
+              ]
+            },
+            "scale": 0.005,
+            "threshold": -0.8,
+            "high_chance": 0.35,
+            "default_state": {
+              "Name": "stargazer:moon_grass"
+            },
+            "low_states": [
+              {
+                "Name": "stargazer:moon_grass"
+              }
+            ],
+            "high_states": [
+              {
+                "Name": "stargazer:rose_of_pain"
+              }
+            ]
+          }
+        },
+        "type": "minecraft:simple_block"
+      },
+      "placement": [
+        {
+          "type": "minecraft:block_predicate_filter",
+          "predicate": {
+            "type": "minecraft:matching_blocks",
+            "blocks": "minecraft:air"
+          }
+        }
+      ]
+    }
+  }
+}

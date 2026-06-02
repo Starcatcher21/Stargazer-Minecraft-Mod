@@ -1,11 +1,17 @@
 package com.github.starcatcher21.stargazer.entity;
 
+import com.github.starcatcher21.stargazer.StargazerAttributes;
 import com.github.starcatcher21.stargazer.item.ModItems;
+import com.github.starcatcher21.stargazer.particle.Particles;
 import net.minecraft.entity.*;
+import net.minecraft.entity.attribute.AttributeContainer;
+import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.mob.CreakingEntity;
 import net.minecraft.entity.mob.WaterCreatureEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.vehicle.AbstractBoatEntity;
+import net.minecraft.particle.EntityEffectParticleEffect;
+import net.minecraft.particle.ParticleUtil;
 import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -29,7 +35,8 @@ public class Star extends AbstractBoatEntity implements GeoEntity {
     private final PositionInterpolator interpolator = new PositionInterpolator((Entity)this, 3);
 
     public Star(EntityType<? extends Star> type, World world) {
-        super(type, world, () -> ModItems.YELLOW_STAR);
+        super(type, world, () -> ModItems.WISHING_STAR);
+        this.setNoGravity(true);
     }
 
     @Override
@@ -47,13 +54,37 @@ public class Star extends AbstractBoatEntity implements GeoEntity {
     }
 
     @Override
+    public void initPosition(double x, double y, double z) {
+        super.initPosition(x, y, z);
+    }
+
+    @Override
     protected double getPassengerAttachmentY(EntityDimensions dimensions) {
         return 0.3;
     }
 
     @Override
     public void onPassengerLookAround(Entity passenger) {
-//        this.setYaw(passenger.getYaw());
+        this.setYaw(passenger.getYaw());
+    }
+
+    @Override
+    protected void addPassenger(Entity passenger) {
+        super.addPassenger(passenger);
+        if (passenger instanceof PlayerEntity pe) {
+            pe.getAbilities().allowFlying = true;
+            pe.getAttributes().getCustomInstance(StargazerAttributes.DASH_LEVEL).setBaseValue(0.0);
+        }
+    }
+
+    @Override
+    protected void removePassenger(Entity passenger) {
+        super.removePassenger(passenger);
+        if (passenger instanceof PlayerEntity pe) {
+            if (pe.isInCreativeMode()) return;
+            pe.getAbilities().allowFlying = false;
+            pe.getAttributes().resetToBaseValue(StargazerAttributes.DASH_LEVEL);
+        }
     }
 
     @Override
@@ -68,13 +99,14 @@ public class Star extends AbstractBoatEntity implements GeoEntity {
         positionUpdater.accept(passenger, vec3d.x - vec3d2.x, vec3d.y - vec3d2.y, vec3d.z - vec3d2.z);
     }
 
+    private int pt = 0;
     @Override
     public void tick() {
         super.tick();
         this.interpolator.tick();
         if (this.isLogicalSideForUpdatingMovement()) {
             if (this.getControllingPassenger() != null) {
-                this.updateVelocity(1.0f, this.getControllingPassenger().getMovement());
+                this.updateVelocity(this.getControllingPassenger().getMovementSpeed(), this.getControllingPassenger().getMovement());
                 this.move(MovementType.SELF, this.getVelocity());
             }
         } else {
@@ -82,7 +114,7 @@ public class Star extends AbstractBoatEntity implements GeoEntity {
         }
         this.tickBlockCollision();
         this.tickBlockCollision();
-        List<Entity> list = this.getWorld().getOtherEntities(this, this.getBoundingBox().expand(0.2f, -0.01f, 0.2f), EntityPredicates.canBePushedBy(this));
+        List<Entity> list = this.getWorld().getOtherEntities(this, this.getBoundingBox(), EntityPredicates.canBePushedBy(this));
         if (!list.isEmpty()) {
             boolean bl = !this.getWorld().isClient && !(this.getControllingPassenger() instanceof PlayerEntity);
             for (Entity entity : list) {
@@ -94,12 +126,26 @@ public class Star extends AbstractBoatEntity implements GeoEntity {
                 this.pushAwayFrom(entity);
             }
         }
+        pt += 1;
+        if (pt >= 5) {
+            EntityEffectParticleEffect entityEffectParticleEffect = EntityEffectParticleEffect.create(Particles.TINTED_STAR, 0xFFFF00);
+            ParticleUtil.spawnParticle(this.getWorld(), this.getBlockPos(), random, entityEffectParticleEffect);
+            pt = 0;
+        }
+
     }
 
     @Override
     public void updateVelocity(float speed, Vec3d movementInput) {
-        Vec3d vec3d = Entity.movementInputToVelocity(movementInput, speed, this.getControllingPassenger() != null ? this.getControllingPassenger().getYaw() : this.getYaw());
-        this.setVelocity(this.getVelocity().add(vec3d));
+        Vec3d vec3d;
+        if (movementInput.y != 0) {
+            vec3d = Entity.movementInputToVelocity(movementInput, 1.0f, this.getYaw());
+            this.addVelocity(vec3d);
+            this.addVelocity(0.0, this.getFinalGravity(), 0.0);
+        } else {
+            vec3d = Entity.movementInputToVelocity(movementInput, speed, this.getYaw());
+            this.addVelocity(vec3d);
+            this.addVelocity(0.0, -1.0f, 0.0);
+        }
     }
-
 }

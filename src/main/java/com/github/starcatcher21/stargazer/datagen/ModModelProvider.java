@@ -71,6 +71,7 @@ public class ModModelProvider extends FabricModelProvider {
                 .fence(MoonBlocks.CURVE_PLANKS_FENCE)
                 .fenceGate(MoonBlocks.CURVE_PLANKS_FENCE_GATE)
                 .slab(MoonBlocks.CURVE_PLANKS_SLAB);
+        blockStateModelGenerator.registerDoor(MoonBlocks.CURVE_PLANKS_DOOR);
         // rock
         blockStateModelGenerator.registerCubeAllModelTexturePool(MoonBlocks.MOON_ROCK);
         blockStateModelGenerator.registerCubeAllModelTexturePool(MoonBlocks.POLISHED_MOON_ROCK);
@@ -83,6 +84,7 @@ public class ModModelProvider extends FabricModelProvider {
         blockStateModelGenerator.registerCubeAllModelTexturePool(MoonBlocks.POLISHED_BLACK_MOON_ROCK);
         blockStateModelGenerator.registerCubeAllModelTexturePool(MoonBlocks.POLISHED_BLACK_MOON_ROCK_PURPLE);
         blockStateModelGenerator.registerCubeAllModelTexturePool(MoonBlocks.PRISMATIC_ORE);
+        blockStateModelGenerator.registerCubeAllModelTexturePool(MoonBlocks.PRISMATIC_SHARD_BLOCK);
         // tree
         blockStateModelGenerator.registerSimpleCubeAll(MoonBlocks.MOON_LEAVES);
         blockStateModelGenerator.registerAxisRotated(MoonBlocks.MOON_LOG, TexturedModel.CUBE_COLUMN);
@@ -113,10 +115,15 @@ public class ModModelProvider extends FabricModelProvider {
         registerCustomFlowerPotPlant(blockStateModelGenerator, MoonBlocks.MOON_SAPLING, MoonBlocks.POTTED_MOON_SAPLING, MoonBlocks.MOON_ROCK, BlockStateModelGenerator.CrossType.NOT_TINTED);
         registerCustomFlowerPotPlant(blockStateModelGenerator, MoonBlocks.CURVE_SAPLING, MoonBlocks.POTTED_CURVE_SAPLING, MoonBlocks.MOON_ROCK, BlockStateModelGenerator.CrossType.NOT_TINTED);
         registerCustomFlowerPotPlant(blockStateModelGenerator, StarBlocks.STAR_SAPLING, StarBlocks.POTTED_STAR_SAPLING, MoonBlocks.MOON_ROCK, BlockStateModelGenerator.CrossType.NOT_TINTED);
+        registerCustomFlowerPotPlant(blockStateModelGenerator, Darkness.DARKNESS_SAPLING, Darkness.POTTED_DARKNESS_SAPLING, MoonBlocks.MOON_ROCK, BlockStateModelGenerator.CrossType.NOT_TINTED);
         // flowers
         registerCustomFlowerPotPlant(blockStateModelGenerator, StarBlocks.STAR_FLOWER, StarBlocks.POTTED_STAR_FLOWER, MoonBlocks.MOON_ROCK, BlockStateModelGenerator.CrossType.NOT_TINTED);
         registerCustomFlowerPotPlant(blockStateModelGenerator, StarBlocks.CELESTIAL_STAR_FLOWER, StarBlocks.POTTED_CELESTIAL_STAR_FLOWER, MoonBlocks.MOON_ROCK, BlockStateModelGenerator.CrossType.NOT_TINTED);
         registerCustomFlowerPotPlant(blockStateModelGenerator, ModBlock.BONEFLOWER, ModBlock.POTTED_BONEFLOWER, MoonBlocks.MOON_ROCK, BlockStateModelGenerator.CrossType.NOT_TINTED);
+        registerCustomFlowerPotPlant(blockStateModelGenerator, Nebulas.RED_TENTACLE_FLOWER, Nebulas.POTTED_RED_TENTACLE_FLOWER, MoonBlocks.MOON_ROCK, BlockStateModelGenerator.CrossType.NOT_TINTED);
+        registerCustomFlowerPotPlant(blockStateModelGenerator, Nebulas.YELLOW_TENTACLE_FLOWER, Nebulas.POTTED_YELLOW_TENTACLE_FLOWER, MoonBlocks.MOON_ROCK, BlockStateModelGenerator.CrossType.NOT_TINTED);
+        registerCustomFlowerPotPlant(blockStateModelGenerator, Nebulas.BLUE_TENTACLE_FLOWER, Nebulas.POTTED_BLUE_TENTACLE_FLOWER, MoonBlocks.MOON_ROCK, BlockStateModelGenerator.CrossType.NOT_TINTED);
+        registerCustomFlowerPotPlant(blockStateModelGenerator, Nebulas.PURPLE_TENTACLE_FLOWER, Nebulas.POTTED_PURPLE_TENTACLE_FLOWER, MoonBlocks.MOON_ROCK, BlockStateModelGenerator.CrossType.NOT_TINTED);
         blockStateModelGenerator.registerTintableCross(MoonBlocks.MOON_GRASS, BlockStateModelGenerator.CrossType.NOT_TINTED);
         blockStateModelGenerator.registerDoubleBlock(MoonBlocks.TALL_MOON_GRASS, BlockStateModelGenerator.CrossType.NOT_TINTED);
         blockStateModelGenerator.registerTintableCross(MoonBlocks.MOON_FERN, BlockStateModelGenerator.CrossType.NOT_TINTED);
@@ -159,6 +166,15 @@ public class ModModelProvider extends FabricModelProvider {
         blockStateModelGenerator.registerSimpleCubeAll(Nebulas.PURPLE_NEBULA_REGROW_CORE);
         blockStateModelGenerator.registerSimpleCubeAll(Nebulas.RED_NEBULA_REGROW_CORE);
         blockStateModelGenerator.registerSimpleCubeAll(Nebulas.YELLOW_NEBULA_REGROW_CORE);
+        blockStateModelGenerator.registerSimpleCubeAll(MoonBlocks.SUN_ENRICHED_MOON_ROCK);
+        blockStateModelGenerator.registerSimpleCubeAll(MoonBlocks.POLISHED_SUN_ENRICHED_MOON_ROCK);
+        TextureMap dyliumMap = new TextureMap()
+                .put(TextureKey.TOP, Identifier.of(Stargazer.MOD_ID, "block/dylium_top"))
+                .put(TextureKey.BOTTOM, Identifier.of(Stargazer.MOD_ID, "block/moon_rock"))
+                .put(TextureKey.SIDE, Identifier.of(Stargazer.MOD_ID, "block/dylium_side"));
+
+        registerTopBottom(blockStateModelGenerator, Darkness.DYLIUM, dyliumMap);
+        registerCustomFlowerPotPlant(blockStateModelGenerator, Darkness.ROSE_OF_PAIN, Darkness.POTTED_ROSE_OF_PAIN, MoonBlocks.MOON_ROCK, BlockStateModelGenerator.CrossType.NOT_TINTED);
     }
 
     @Override
@@ -170,13 +186,24 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModItems.RED_STAR, Models.GENERATED);
         itemModelGenerator.register(ModItems.YELLOW_STAR, Models.GENERATED);
         itemModelGenerator.register(ModItems.PURPLE_STAR, Models.GENERATED);
+        itemModelGenerator.register(ModItems.MOON_GLASS_SHARD, Models.GENERATED);
+        itemModelGenerator.register(ModItems.PRISMATIC_INGOT, Models.GENERATED);
+        itemModelGenerator.register(ModItems.WISHING_STAR, Models.GENERATED);
+        itemModelGenerator.register(ModItems.SUN_ENRICHED_YELLOW_STAR, Models.GENERATED);
         itemModelGenerator.register(MoonBlocks.TALL_MOON_GRASS.asItem(), Models.GENERATED);
         blockGeneratedItem(itemModelGenerator, StarBlocks.STAR_FLOWER);
         blockGeneratedItem(itemModelGenerator, StarBlocks.CELESTIAL_STAR_FLOWER);
+        blockGeneratedItem(itemModelGenerator, ModBlock.BONEFLOWER);
+        blockGeneratedItem(itemModelGenerator, Nebulas.RED_TENTACLE_FLOWER);
+        blockGeneratedItem(itemModelGenerator, Nebulas.BLUE_TENTACLE_FLOWER);
+        blockGeneratedItem(itemModelGenerator, Nebulas.PURPLE_TENTACLE_FLOWER);
+        blockGeneratedItem(itemModelGenerator, Nebulas.YELLOW_TENTACLE_FLOWER);
         blockGeneratedItem(itemModelGenerator, MoonBlocks.PURPLE_MUSHROOM);
         blockGeneratedItem(itemModelGenerator, MoonBlocks.MOON_SAPLING);
         blockGeneratedItem(itemModelGenerator, MoonBlocks.CURVE_SAPLING);
         blockGeneratedItem(itemModelGenerator, StarBlocks.STAR_SAPLING);
+        blockGeneratedItem(itemModelGenerator, Darkness.DARKNESS_SAPLING);
+        blockGeneratedItem(itemModelGenerator, Darkness.ROSE_OF_PAIN);
 
         itemModelGenerator.register(ModItems.PRISMATIC_SHARD, Models.GENERATED);
         itemModelGenerator.register(ModItems.ECTOPLASM, Models.GENERATED);
@@ -195,6 +222,11 @@ public class ModModelProvider extends FabricModelProvider {
         TextureMap potTextureMap = getCustomPotTextureMap(plantBlock, dirt);
         WeightedVariant weightedVariant = BlockStateModelGenerator.createWeightedVariant(CUSTOM_POT_CROSS.upload(flowerPotBlock, potTextureMap, blockStateModelGenerator.modelCollector));
         blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator.createSingletonBlockState(flowerPotBlock, weightedVariant));
+    }
+
+    public final void registerTopBottom(BlockStateModelGenerator blockStateModelGenerator, Block block, TextureMap texureMap) {
+        WeightedVariant weightedVariant = BlockStateModelGenerator.createWeightedVariant(Models.CUBE_BOTTOM_TOP.upload(block, texureMap, blockStateModelGenerator.modelCollector));
+        blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator.createSingletonBlockState(block, weightedVariant));
     }
 
     public TextureMap getCustomPotTextureMap(Block block, Block dirt) {

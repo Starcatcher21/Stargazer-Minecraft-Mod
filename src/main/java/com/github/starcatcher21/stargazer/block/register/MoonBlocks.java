@@ -35,7 +35,28 @@ public class MoonBlocks {
             .requiresTool()
             .mapColor(MapColor.WHITE)
     );
+    public static final Block SUN_ENRICHED_MOON_ROCK = register("sun_enriched_moon_rock", MoonRock::new, AbstractBlock.Settings.create()
+            .solid()
+            .sounds(BlockSoundGroup.STONE)
+            .strength(1.5f)
+            .requiresTool()
+            .mapColor(MapColor.YELLOW)
+    );
+    public static final Block POLISHED_SUN_ENRICHED_MOON_ROCK = register("polished_sun_enriched_moon_rock", MoonRock::new, AbstractBlock.Settings.create()
+            .solid()
+            .sounds(BlockSoundGroup.STONE)
+            .strength(1.5f)
+            .requiresTool()
+            .mapColor(MapColor.YELLOW)
+    );
     public static final Block PRISMATIC_ORE = register("prismatic_ore", Block::new, AbstractBlock.Settings.create()
+            .solid()
+            .sounds(BlockSoundGroup.STONE)
+            .strength(1.25f, 7.5f)
+            .requiresTool()
+            .mapColor(MapColor.DIAMOND_BLUE)
+    );
+    public static final Block PRISMATIC_SHARD_BLOCK = register("prismatic_shard_block", Block::new, AbstractBlock.Settings.create()
             .solid()
             .sounds(BlockSoundGroup.STONE)
             .strength(1.25f, 7.5f)
@@ -448,6 +469,14 @@ public class MoonBlocks {
     // CURVE PLANKS
     public static final Block CURVE_PLANKS = register("curve_planks", Block::new, AbstractBlock.Settings.create()
             .solid()
+            .sounds(BlockSoundGroup.WOOD)
+            .instrument(NoteBlockInstrument.BASS)
+            .strength(2.0F)
+            .mapColor(MapColor.PURPLE)
+    );
+    public static final Block CURVE_PLANKS_DOOR = register("curve_planks_door", (settings) -> new DoorBlock(BlockSetType.OAK, (AbstractBlock.Settings)  settings), AbstractBlock.Settings.create()
+            .solid()
+            .nonOpaque()
             .sounds(BlockSoundGroup.WOOD)
             .instrument(NoteBlockInstrument.BASS)
             .strength(2.0F)

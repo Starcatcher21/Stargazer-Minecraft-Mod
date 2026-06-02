@@ -3,11 +3,11 @@ d4736e517bc9d32f5a4b3f58498245db75856012 data/minecraft/tags/block/fence_gates.j
 45b0cfb2107071575b6aa8f943349235b4cd23db data/minecraft/tags/block/fences.json
 610c93064e91f70b215c955c5d3127bc0dba6d12 data/minecraft/tags/block/leaves.json
 1e9f4189ef729f501eb369886bd7b0d700dd0638 data/minecraft/tags/block/logs.json
-af49fc199cb2707bde95deedf70518af904d9a70 data/minecraft/tags/block/mineable/axe.json
+697008bcbaf7983e4706f55143f0edd646b8c7cd data/minecraft/tags/block/mineable/axe.json
 fd8275b9f8b978020ef2de1124773bae1568c217 data/minecraft/tags/block/mineable/hoe.json
-122bec3d8b11b7d2fb87a2b0b66cd57d83d81426 data/minecraft/tags/block/mineable/pickaxe.json
+e9a4758f42d5eebba03efef4f67fdcee999dfb0f data/minecraft/tags/block/mineable/pickaxe.json
 64e19493d67ca70e8940798545c45e5e94a379d8 data/minecraft/tags/block/mushroom_grow_block.json
-0e8bfcfe20282e1ad57c27203cf9c6f98fb7d792 data/minecraft/tags/block/needs_iron_tool.json
+77dff466b34b9a7e9861a22b67b094b176a5bdc3 data/minecraft/tags/block/needs_iron_tool.json
 3998e1cbb0294909d9bd18004d5bd7e27b921dca data/minecraft/tags/block/needs_stone_tool.json
 45b0cfb2107071575b6aa8f943349235b4cd23db data/minecraft/tags/block/wooden_fences.json
 f57977ee1c8f1b0f85284a353d76104fca0a4e0c data/stargazer/tags/block/copper_block.json

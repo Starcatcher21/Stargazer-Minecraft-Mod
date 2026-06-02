@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_sun_enriched_moon_rock": {
+      "conditions": {
+        "items": [
+          {
+            "items": "stargazer:sun_enriched_moon_rock"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "stargazer:polished_sun_enriched_moon_rock"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_sun_enriched_moon_rock"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "stargazer:polished_sun_enriched_moon_rock"
+    ]
+  }
+}

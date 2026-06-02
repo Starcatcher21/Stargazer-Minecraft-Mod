@@ -17,17 +17,24 @@ import java.util.Optional;
 
 public class NebulaCore extends Block {
     private final RegistryKey<ConfiguredFeature<?, ?>> featureKey;
+    private final Block flower;
 
-    public NebulaCore(RegistryKey<ConfiguredFeature<?, ?>> featureKey, Settings settings) {
+    public NebulaCore(RegistryKey<ConfiguredFeature<?, ?>> featureKey, Block flower, Settings settings) {
         super(settings);
         this.featureKey = featureKey;
+        this.flower = flower;
     }
 
     @Override
     protected void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-        if (Dimensions.REG_COSMIC_WORLD.getValue().equals(world.getRegistryKey().getValue()) && random.nextInt(7) == 0) {
-            Stargazer.LOGGER.error("try to spawn");
-            this.instantGrow(world, pos.up(), state, random);
+        if (random.nextInt(7) == 0) {
+            if (Dimensions.REG_COSMIC_WORLD.getValue().equals(world.getRegistryKey().getValue())) {
+                this.instantGrow(world, pos.up(), state, random);
+            } else {
+                if (world.getBlockState(pos.up()).isAir()) {
+                    world.setBlockState(pos.up(), flower.getDefaultState());
+                }
+            }
         }
     }
 

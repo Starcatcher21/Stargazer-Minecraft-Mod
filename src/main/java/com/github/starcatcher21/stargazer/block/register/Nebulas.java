@@ -1,10 +1,13 @@
 package com.github.starcatcher21.stargazer.block.register;
 
 import com.github.starcatcher21.stargazer.Stargazer;
+import com.github.starcatcher21.stargazer.block.clases.CosmicFlower;
 import com.github.starcatcher21.stargazer.block.clases.nebulas.NebulaCore;
 import com.github.starcatcher21.stargazer.block.clases.nebulas.NebulaLeaves;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.NoteBlockInstrument;
+import net.minecraft.block.piston.PistonBehavior;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.sound.BlockSoundGroup;
@@ -12,8 +15,45 @@ import net.minecraft.util.Colors;
 import net.minecraft.util.Identifier;
 
 import static com.github.starcatcher21.stargazer.block.ModBlock.register;
+import static com.github.starcatcher21.stargazer.block.ModBlock.registerWoItem;
 
 public class Nebulas {
+    public static final Block RED_TENTACLE_FLOWER = register("red_tentacle_flower", settings -> new CosmicFlower(StatusEffects.INSTANT_DAMAGE, 5.0f, settings), AbstractBlock.Settings.create()
+            .mapColor(MapColor.RED)
+            .noCollision()
+            .breakInstantly()
+            .sounds(BlockSoundGroup.GRASS)
+            .offset(AbstractBlock.OffsetType.XZ)
+            .pistonBehavior(PistonBehavior.DESTROY)
+    );
+    public static final Block POTTED_RED_TENTACLE_FLOWER = registerWoItem("potted_red_tentacle_flower", settings -> new FlowerPotBlock(RED_TENTACLE_FLOWER, settings), AbstractBlock.Settings.copy(Blocks.POTTED_ALLIUM).nonOpaque());
+    public static final Block BLUE_TENTACLE_FLOWER = register("blue_tentacle_flower", settings -> new CosmicFlower(StatusEffects.INSTANT_DAMAGE, 5.0f, settings), AbstractBlock.Settings.create()
+            .mapColor(MapColor.CYAN)
+            .noCollision()
+            .breakInstantly()
+            .sounds(BlockSoundGroup.GRASS)
+            .offset(AbstractBlock.OffsetType.XZ)
+            .pistonBehavior(PistonBehavior.DESTROY)
+    );
+    public static final Block POTTED_BLUE_TENTACLE_FLOWER = registerWoItem("potted_blue_tentacle_flower", settings -> new FlowerPotBlock(BLUE_TENTACLE_FLOWER, settings), AbstractBlock.Settings.copy(Blocks.POTTED_ALLIUM).nonOpaque());
+    public static final Block PURPLE_TENTACLE_FLOWER = register("purple_tentacle_flower", settings -> new CosmicFlower(StatusEffects.INSTANT_DAMAGE, 5.0f, settings), AbstractBlock.Settings.create()
+            .mapColor(MapColor.PURPLE)
+            .noCollision()
+            .breakInstantly()
+            .sounds(BlockSoundGroup.GRASS)
+            .offset(AbstractBlock.OffsetType.XZ)
+            .pistonBehavior(PistonBehavior.DESTROY)
+    );
+    public static final Block POTTED_PURPLE_TENTACLE_FLOWER = registerWoItem("potted_purple_tentacle_flower", settings -> new FlowerPotBlock(PURPLE_TENTACLE_FLOWER, settings), AbstractBlock.Settings.copy(Blocks.POTTED_ALLIUM).nonOpaque());
+    public static final Block YELLOW_TENTACLE_FLOWER = register("yellow_tentacle_flower", settings -> new CosmicFlower(StatusEffects.INSTANT_DAMAGE, 5.0f, settings), AbstractBlock.Settings.create()
+            .mapColor(MapColor.YELLOW)
+            .noCollision()
+            .breakInstantly()
+            .sounds(BlockSoundGroup.GRASS)
+            .offset(AbstractBlock.OffsetType.XZ)
+            .pistonBehavior(PistonBehavior.DESTROY)
+    );
+    public static final Block POTTED_YELLOW_TENTACLE_FLOWER = registerWoItem("potted_yellow_tentacle_flower", settings -> new FlowerPotBlock(YELLOW_TENTACLE_FLOWER, settings), AbstractBlock.Settings.copy(Blocks.POTTED_ALLIUM).nonOpaque());
 
     public static final Block BLUE_NEBULA_LOG = register("blue_nebula_log", PillarBlock::new, AbstractBlock.Settings.create()
             .solid()
@@ -64,7 +104,7 @@ public class Nebulas {
             .mapColor(MapColor.CYAN)
     );
 
-    public static final Block BLUE_NEBULA_REGROW_CORE = register("blue_nebula_regrow_core", settings -> new NebulaCore(RegistryKey.of(RegistryKeys.CONFIGURED_FEATURE, Identifier.of(Stargazer.MOD_ID, "blue_nebula_trees")), settings), AbstractBlock.Settings.create()
+    public static final Block BLUE_NEBULA_REGROW_CORE = register("blue_nebula_regrow_core", settings -> new NebulaCore(RegistryKey.of(RegistryKeys.CONFIGURED_FEATURE, Identifier.of(Stargazer.MOD_ID, "blue_nebula_trees")), BLUE_TENTACLE_FLOWER, settings), AbstractBlock.Settings.create()
             .solid()
             .ticksRandomly()
             .sounds(BlockSoundGroup.WOOD)
@@ -137,7 +177,7 @@ public class Nebulas {
             .mapColor(MapColor.RED)
     );
 
-    public static final Block RED_NEBULA_REGROW_CORE = register("red_nebula_regrow_core", settings -> new NebulaCore(RegistryKey.of(RegistryKeys.CONFIGURED_FEATURE, Identifier.of(Stargazer.MOD_ID, "red_nebula_trees")), settings), AbstractBlock.Settings.create()
+    public static final Block RED_NEBULA_REGROW_CORE = register("red_nebula_regrow_core", settings -> new NebulaCore(RegistryKey.of(RegistryKeys.CONFIGURED_FEATURE, Identifier.of(Stargazer.MOD_ID, "red_nebula_trees")), RED_TENTACLE_FLOWER, settings), AbstractBlock.Settings.create()
             .solid()
             .ticksRandomly()
             .sounds(BlockSoundGroup.WOOD)
@@ -194,7 +234,7 @@ public class Nebulas {
             .mapColor(MapColor.PURPLE)
     );
 
-    public static final Block PURPLE_NEBULA_REGROW_CORE = register("purple_nebula_regrow_core", settings -> new NebulaCore(RegistryKey.of(RegistryKeys.CONFIGURED_FEATURE, Identifier.of(Stargazer.MOD_ID, "purple_nebula_trees")), settings), AbstractBlock.Settings.create()
+    public static final Block PURPLE_NEBULA_REGROW_CORE = register("purple_nebula_regrow_core", settings -> new NebulaCore(RegistryKey.of(RegistryKeys.CONFIGURED_FEATURE, Identifier.of(Stargazer.MOD_ID, "purple_nebula_trees")), PURPLE_TENTACLE_FLOWER, settings), AbstractBlock.Settings.create()
             .solid()
             .ticksRandomly()
             .sounds(BlockSoundGroup.WOOD)
@@ -267,7 +307,7 @@ public class Nebulas {
             .mapColor(MapColor.YELLOW)
     );
 
-    public static final Block YELLOW_NEBULA_REGROW_CORE = register("yellow_nebula_regrow_core", settings -> new NebulaCore(RegistryKey.of(RegistryKeys.CONFIGURED_FEATURE, Identifier.of(Stargazer.MOD_ID, "yellow_nebula_trees")), settings), AbstractBlock.Settings.create()
+    public static final Block YELLOW_NEBULA_REGROW_CORE = register("yellow_nebula_regrow_core", settings -> new NebulaCore(RegistryKey.of(RegistryKeys.CONFIGURED_FEATURE, Identifier.of(Stargazer.MOD_ID, "yellow_nebula_trees")), YELLOW_TENTACLE_FLOWER, settings), AbstractBlock.Settings.create()
             .solid()
             .ticksRandomly()
             .sounds(BlockSoundGroup.WOOD)

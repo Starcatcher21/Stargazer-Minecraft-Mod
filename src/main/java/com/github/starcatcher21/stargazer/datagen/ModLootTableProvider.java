@@ -66,10 +66,16 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
         addPottedPlantDrops(MoonBlocks.POTTED_CURVE_SAPLING);
         addPottedPlantDrops(MoonBlocks.POTTED_PURPLE_MUSHROOM);
         addPottedPlantDrops(StarBlocks.POTTED_STAR_SAPLING);
+        addDrop(ModBlock.MOON_WELDER);
         // Moon
         addDrop(MoonBlocks.MOON_LEAVES, leavesDrops(MoonBlocks.MOON_LEAVES, MoonBlocks.MOON_SAPLING, 0.035F));
+        addDrop(MoonBlocks.SUN_ENRICHED_MOON_ROCK);
+        addDrop(MoonBlocks.POLISHED_SUN_ENRICHED_MOON_ROCK);
         addDrop(MoonBlocks.CURVE_LEAVES, leavesDrops(MoonBlocks.CURVE_LEAVES, MoonBlocks.CURVE_SAPLING, 0.035F));
         addDrop(MoonBlocks.MOON_ROCK_NYLIUM, drops(MoonBlocks.MOON_ROCK_NYLIUM, MoonBlocks.MOON_ROCK));
+        addDrop(Darkness.DYLIUM, drops(Darkness.DYLIUM, MoonBlocks.MOON_ROCK));
+        addDrop(Darkness.ROSE_OF_PAIN);
+        addPottedPlantDrops(Darkness.POTTED_ROSE_OF_PAIN);
         addDrop(MoonBlocks.MOON_GRASS, dropsWithSilkTouchOrShears(MoonBlocks.MOON_GRASS));
         addDrop(MoonBlocks.TALL_MOON_GRASS, dropsWithSilkTouchOrShears(MoonBlocks.TALL_MOON_GRASS));
         addDrop(MoonBlocks.MOON_FERN, dropsWithSilkTouchOrShears(MoonBlocks.MOON_FERN));
@@ -86,6 +92,7 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
         addDrop(MoonBlocks.CURVE_LOG);
         addDrop(MoonBlocks.STRIPPED_CURVE_LOG);
         addDrop(MoonBlocks.CURVE_PLANKS);
+        addDrop(MoonBlocks.CURVE_PLANKS_DOOR, doorDrops(MoonBlocks.CURVE_PLANKS_DOOR));
         addDrop(MoonBlocks.CURVE_PLANKS_SLAB);
         addDrop(MoonBlocks.CURVE_PLANKS_STAIRS);
         addDrop(MoonBlocks.CURVE_PLANKS_BUTTON);
@@ -139,13 +146,24 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
                 mushroomBlockDrops(MoonBlocks.PURPLE_MUSHROOM_BLOCK, MoonBlocks.PURPLE_MUSHROOM)
         );
         addDrop(MoonBlocks.PRISMATIC_ORE, oreDrops(MoonBlocks.PRISMATIC_ORE, ModItems.PRISMATIC_SHARD, 1, 2));
+        addDrop(MoonBlocks.PRISMATIC_SHARD_BLOCK);
+        addDrop(ModBlock.BONEFLOWER);
+        addPottedPlantDrops(ModBlock.POTTED_BONEFLOWER);
+        addDrop(Nebulas.RED_TENTACLE_FLOWER);
+        addDrop(Nebulas.BLUE_TENTACLE_FLOWER);
+        addDrop(Nebulas.YELLOW_TENTACLE_FLOWER);
+        addDrop(Nebulas.PURPLE_TENTACLE_FLOWER);
+        addPottedPlantDrops(Nebulas.POTTED_BLUE_TENTACLE_FLOWER);
+        addPottedPlantDrops(Nebulas.POTTED_RED_TENTACLE_FLOWER);
+        addPottedPlantDrops(Nebulas.POTTED_YELLOW_TENTACLE_FLOWER);
+        addPottedPlantDrops(Nebulas.POTTED_PURPLE_TENTACLE_FLOWER);
         // Star
         addDrop(StarBlocks.COSMIC_BLOCK);
         addDrop(StarBlocks.STAR_LEAVES, leavesDrops(StarBlocks.STAR_LEAVES, StarBlocks.STAR_SAPLING, 0.035F));
         addDrop(StarBlocks.STAR_LOG);
         addDrop(StarBlocks.STRIPPED_STAR_LOG);
         addDrop(StarBlocks.STAR_PLANKS);
-        doorDrops(StarBlocks.STAR_PLANKS_DOOR);
+        addDrop(StarBlocks.STAR_PLANKS_DOOR, doorDrops(StarBlocks.STAR_PLANKS_DOOR));
         addDrop(StarBlocks.STAR_PLANKS_STAIRS);
         addDrop(StarBlocks.STAR_PLANKS_SLAB);
         addDrop(StarBlocks.STAR_PLANKS_BUTTON);
@@ -155,7 +173,7 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
         addDrop(StarBlocks.STAR_FLOWER);
         addDrop(StarBlocks.CELESTIAL_STAR_FLOWER);
         // Darkness
-        doorDrops(Darkness.DARKNESS_PLANKS_DOOR);
+        addDrop(Darkness.DARKNESS_PLANKS_DOOR, doorDrops(Darkness.DARKNESS_PLANKS_DOOR));
         addDrop(Darkness.LOG_OF_DARKNESS);
         addDrop(Darkness.STRIPPED_LOG_OF_DARKNESS);
         addDrop(Darkness.DARKNESS_PLANKS);
@@ -164,6 +182,7 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
         addDrop(Darkness.DARKNESS_PLANKS_BUTTON);
         addDrop(Darkness.DARKNESS_PLANKS_FENCE);
         addDrop(Darkness.DARKNESS_PLANKS_FENCE_GATE);
+        addDrop(Darkness.DARKNESS_LEAVES, leavesDrops(Darkness.DARKNESS_LEAVES, Darkness.DARKNESS_SAPLING, 0.035F));
         // Nebulas
         addDrop(Nebulas.YELLOW_NEBULA_LOG);
         addDrop(Nebulas.BLUE_NEBULA_LOG);
@@ -193,5 +212,9 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
         addDrop(Nebulas.BLUE_NEBULA_PLANKS_STAIRS);
         addDrop(Nebulas.RED_NEBULA_PLANKS_STAIRS);
         addDrop(Nebulas.PURPLE_NEBULA_PLANKS_STAIRS);
+        addDrop(Nebulas.RED_NEBULA_LEAVES, customLeavesDrop(Nebulas.RED_NEBULA_LEAVES, ModItems.RED_STAR, 0f, 5.0f));
+        addDrop(Nebulas.BLUE_NEBULA_LEAVES, customLeavesDrop(Nebulas.BLUE_NEBULA_LEAVES, ModItems.BLUE_STAR, 0f, 5.0f));
+        addDrop(Nebulas.YELLOW_NEBULA_LEAVES, customLeavesDrop(Nebulas.YELLOW_NEBULA_LEAVES, ModItems.YELLOW_STAR, 0f, 5.0f));
+        addDrop(Nebulas.PURPLE_NEBULA_LEAVES, customLeavesDrop(Nebulas.PURPLE_NEBULA_LEAVES, ModItems.PURPLE_STAR, 0f, 5.0f));
     }
 }

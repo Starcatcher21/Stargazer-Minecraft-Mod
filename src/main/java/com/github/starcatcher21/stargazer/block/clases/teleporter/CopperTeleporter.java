@@ -85,8 +85,9 @@ public class CopperTeleporter extends Block {
         }
     }
 
+
     @Override
-    public void onBroken(WorldAccess world, BlockPos pos, BlockState state) {
+    public BlockState onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
         if (state.get(STATE).equals(CopperTeleporterState.middle)) {
             breakPortal(world, pos);
         }
@@ -163,24 +164,24 @@ public class CopperTeleporter extends Block {
                 breakPortal(world, pos.north().east().down());
             }
         }
-        super.onBroken(world, pos, state);
+        return super.onBreak(world, pos, world.getBlockState(pos), player);
     }
 
 
     public void breakPortal(WorldAccess world, BlockPos root) {
-        world.breakBlock(root, false);
-        world.breakBlock(root.north(), false);
-        world.breakBlock(root.south(), false);
-        world.breakBlock(root.west(), false);
-        world.breakBlock(root.east(), false);
-        world.breakBlock(root.north().west(), false);
-        world.breakBlock(root.north().east(), false);
-        world.breakBlock(root.south().west(), false);
-        world.breakBlock(root.south().east(), false);
-        world.breakBlock(root.north().west().up(), false);
-        world.breakBlock(root.north().east().up(), false);
-        world.breakBlock(root.south().west().up(), false);
-        world.breakBlock(root.south().east().up(), false);
+        world.setBlockState(root, Blocks.CUT_COPPER.getDefaultState(), Block.NOTIFY_ALL);
+        world.setBlockState(root.north(), Blocks.CUT_COPPER_STAIRS.getDefaultState().with(HorizontalFacingBlock.FACING, Direction.NORTH.getOpposite()), Block.NOTIFY_ALL);
+        world.setBlockState(root.south(), Blocks.CUT_COPPER_STAIRS.getDefaultState().with(HorizontalFacingBlock.FACING, Direction.SOUTH.getOpposite()), Block.NOTIFY_ALL);
+        world.setBlockState(root.west(), Blocks.CUT_COPPER_STAIRS.getDefaultState().with(HorizontalFacingBlock.FACING, Direction.WEST.getOpposite()), Block.NOTIFY_ALL);
+        world.setBlockState(root.east(), Blocks.CUT_COPPER_STAIRS.getDefaultState().with(HorizontalFacingBlock.FACING, Direction.EAST.getOpposite()), Block.NOTIFY_ALL);
+        world.setBlockState(root.north().west(), Blocks.CHISELED_COPPER.getDefaultState(), Block.NOTIFY_ALL);
+        world.setBlockState(root.north().east(), Blocks.CHISELED_COPPER.getDefaultState(), Block.NOTIFY_ALL);
+        world.setBlockState(root.south().west(), Blocks.CHISELED_COPPER.getDefaultState(), Block.NOTIFY_ALL);
+        world.setBlockState(root.south().east(), Blocks.CHISELED_COPPER.getDefaultState(), Block.NOTIFY_ALL);
+        world.setBlockState(root.north().west().up(), Blocks.CUT_COPPER.getDefaultState(), Block.NOTIFY_ALL);
+        world.setBlockState(root.north().east().up(), Blocks.CUT_COPPER.getDefaultState(), Block.NOTIFY_ALL);
+        world.setBlockState(root.south().west().up(), Blocks.CUT_COPPER.getDefaultState(), Block.NOTIFY_ALL);
+        world.setBlockState(root.south().east().up(), Blocks.CUT_COPPER.getDefaultState(), Block.NOTIFY_ALL);
     }
 
     @Override
@@ -344,6 +345,7 @@ public class CopperTeleporter extends Block {
     public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
         portalPlace(world, pos, false, false);
     }
+
 
     public static void portalPlace(World world, BlockPos root, Boolean isAir, Boolean isPlatform) {
         world.setBlockState(root, ModBlock.COPPER_TELEPORTER.getDefaultState().with(CopperTeleporter.STATE, CopperTeleporterState.middle));

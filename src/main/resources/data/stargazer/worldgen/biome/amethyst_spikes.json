@@ -20,7 +20,25 @@
           "max_delay": 24000,
           "min_delay": 12000,
           "replace_current_music": false,
-          "sound": "minecraft:ambient.warped_forest.loop"
+          "sound": "stargazer:ost.adventure_of_the_moon"
+        },
+        "weight": 1
+      },
+      {
+        "data": {
+          "max_delay": 24000,
+          "min_delay": 12000,
+          "replace_current_music": false,
+          "sound": "stargazer:ost.ballad_of_the_stars"
+        },
+        "weight": 1
+      },
+      {
+        "data": {
+          "max_delay": 24000,
+          "min_delay": 12000,
+          "replace_current_music": false,
+          "sound": "stargazer:ost.from_the_stars"
         },
         "weight": 1
       }

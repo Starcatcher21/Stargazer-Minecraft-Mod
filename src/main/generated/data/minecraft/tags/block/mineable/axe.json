@@ -54,6 +54,9 @@
     "stargazer:star_planks_fence_gate",
     "stargazer:stripped_star_log",
     "stargazer:log_of_darkness",
+    "stargazer:darkness_planks_door",
+    "stargazer:curve_planks_door",
+    "stargazer:star_planks_door",
     "stargazer:stripped_log_of_darkness"
   ]
 }

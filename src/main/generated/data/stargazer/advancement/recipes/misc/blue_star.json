@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_blue_tentacle_flower": {
+      "conditions": {
+        "items": [
+          {
+            "items": "stargazer:red_tentacle_flower"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "stargazer:blue_star"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_blue_tentacle_flower"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "stargazer:blue_star"
+    ]
+  }
+}

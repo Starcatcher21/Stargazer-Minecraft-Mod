@@ -3,7 +3,6 @@ package com.github.starcatcher21.stargazer.block.register;
 import com.github.starcatcher21.stargazer.Helpers;
 import com.github.starcatcher21.stargazer.block.clases.CosmicFlower;
 import com.github.starcatcher21.stargazer.block.clases.CustomSapling;
-import com.github.starcatcher21.stargazer.block.clases.star.celestial.CelestialFlowerBlock;
 import com.github.starcatcher21.stargazer.block.clases.star.barrier.StarBarrierBlock;
 import com.github.starcatcher21.stargazer.block.clases.star.border.BorderBlock;
 import com.github.starcatcher21.stargazer.block.clases.star.cosmic.CosmicBlock;
@@ -124,7 +123,7 @@ public class StarBlocks {
             .pistonBehavior(PistonBehavior.DESTROY)
     );
     public static final Block POTTED_STAR_FLOWER = registerWoItem("potted_star_flower", settings -> new FlowerPotBlock(STAR_FLOWER, settings), AbstractBlock.Settings.copy(Blocks.POTTED_ALLIUM).nonOpaque());
-    public static final Block CELESTIAL_STAR_FLOWER = register("celestial_star_flower", settings -> new CelestialFlowerBlock(StatusEffects.COSMO, 5.0f, settings), AbstractBlock.Settings.create()
+    public static final Block CELESTIAL_STAR_FLOWER = register("celestial_star_flower", settings -> new CosmicFlower(StatusEffects.COSMO, 5.0f, settings), AbstractBlock.Settings.create()
             .mapColor(MapColor.YELLOW)
             .noCollision()
             .breakInstantly()

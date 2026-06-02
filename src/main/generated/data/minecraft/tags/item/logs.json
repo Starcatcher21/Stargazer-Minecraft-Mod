@@ -8,6 +8,10 @@
     "stargazer:star_log",
     "stargazer:stripped_star_log",
     "stargazer:log_of_darkness",
+    "stargazer:blue_nebula_log",
+    "stargazer:red_nebula_log",
+    "stargazer:purple_nebula_log",
+    "stargazer:yellow_nebula_log",
     "stargazer:stripped_log_of_darkness"
   ]
 }

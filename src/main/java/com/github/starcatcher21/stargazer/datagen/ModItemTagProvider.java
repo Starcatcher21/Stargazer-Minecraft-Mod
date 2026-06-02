@@ -1,9 +1,6 @@
 package com.github.starcatcher21.stargazer.datagen;
 
-import com.github.starcatcher21.stargazer.block.register.Darkness;
-import com.github.starcatcher21.stargazer.block.register.EyeBloodBlocks;
-import com.github.starcatcher21.stargazer.block.register.MoonBlocks;
-import com.github.starcatcher21.stargazer.block.register.StarBlocks;
+import com.github.starcatcher21.stargazer.block.register.*;
 import com.github.starcatcher21.stargazer.CustomTags;
 import com.github.starcatcher21.stargazer.item.ModItems;
 import dev.architectury.platform.Mod;
@@ -36,10 +33,15 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(StarBlocks.STAR_LOG.asItem())
                 .add(StarBlocks.STRIPPED_STAR_LOG.asItem())
                 .add(Darkness.LOG_OF_DARKNESS.asItem())
+                .add(Nebulas.BLUE_NEBULA_LOG.asItem())
+                .add(Nebulas.RED_NEBULA_LOG.asItem())
+                .add(Nebulas.PURPLE_NEBULA_LOG.asItem())
+                .add(Nebulas.YELLOW_NEBULA_LOG.asItem())
                 .add(Darkness.STRIPPED_LOG_OF_DARKNESS.asItem());
         getOrCreateTagBuilder(ItemTags.SAPLINGS)
                 .add(MoonBlocks.MOON_SAPLING.asItem())
                 .add(StarBlocks.STAR_SAPLING.asItem())
+                .add(Darkness.DARKNESS_SAPLING.asItem())
                 .add(MoonBlocks.CURVE_SAPLING.asItem());
         getOrCreateTagBuilder(STARDUST)
                 .add(ModItems.STARDUST);

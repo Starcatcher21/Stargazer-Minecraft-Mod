@@ -1,5 +1,6 @@
 package com.github.starcatcher21.stargazer.block.clases.moon.star_trap;
 
+import com.github.starcatcher21.stargazer.block.clases.CustomSapling;
 import com.github.starcatcher21.stargazer.block.clases.moon.MoonGrass;
 import com.github.starcatcher21.stargazer.mechanics.DamageTypeRegistry;
 import com.github.starcatcher21.stargazer.mechanics.advancements.Criterias;
@@ -72,7 +73,7 @@ public class StarTrap extends BlockWithEntity {
     @Override
     protected boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
         BlockState state2 = world.getBlockState(pos.down());
-        return MoonGrass.PLACE.contains(state2.getBlock());
+        return CustomSapling.PLACE.contains(state2.getBlock());
     }
 
     @Override

@@ -1,5 +1,6 @@
 {
   "values": [
+    "stargazer:copper_teleporter",
     "stargazer:star_forge",
     "stargazer:moon_rock",
     "stargazer:polished_moon_rock",
@@ -7,6 +8,11 @@
     "stargazer:moon_rock_bricks",
     "stargazer:moon_rock_bricks_slab",
     "stargazer:moon_rock_bricks_stairs",
+    "stargazer:moon_rock_tiles",
+    "stargazer:purple_moon_rock_tiles",
+    "stargazer:polished_moon_rock",
+    "stargazer:polished_black_moon_rock",
+    "stargazer:polished_black_moon_rock_purple",
     "stargazer:chiseled_moon_rock_bricks",
     "stargazer:cracked_moon_rock_bricks",
     "stargazer:infested_calcite",
@@ -45,6 +51,7 @@
     "stargazer:red_nebula_regrow_core",
     "stargazer:purple_nebula_regrow_core",
     "stargazer:yellow_nebula_regrow_core",
+    "stargazer:prismatic_shard_block",
     "stargazer:prismatic_ore"
   ]
 }
