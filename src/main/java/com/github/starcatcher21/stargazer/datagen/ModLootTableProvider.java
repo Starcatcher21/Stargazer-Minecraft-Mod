@@ -11,6 +11,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.CropBlock;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
@@ -18,6 +19,7 @@ import net.minecraft.loot.LootPool;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.condition.BlockStatePropertyLootCondition;
 import net.minecraft.loot.condition.LootCondition;
+import net.minecraft.loot.condition.TableBonusLootCondition;
 import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.loot.entry.LeafEntry;
 import net.minecraft.loot.entry.LootPoolEntry;
@@ -50,6 +52,12 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
         return this.applyExplosionDecay(crop, LootTable.builder().pool(LootPool.builder().with(((LeafEntry.Builder)ItemEntry.builder(product).conditionally(condition)))));
     }
 
+    public LootTable.Builder cropDrops(Block leaves, Item crop, float ... cropChance) {
+        RegistryEntryLookup impl = this.registries.getOrThrow(RegistryKeys.ENCHANTMENT);
+        return this.dropsWithSilkTouchOrShears(leaves, (LootPoolEntry.Builder<?>)((LeafEntry.Builder)this.addSurvivesExplosionCondition(leaves, ItemEntry.builder(crop))).conditionally(TableBonusLootCondition.builder(impl.getOrThrow(Enchantments.FORTUNE), cropChance))).pool(LootPool.builder().rolls(ConstantLootNumberProvider.create(1.0f)).conditionally(this.createWithoutShearsOrSilkTouchCondition()));
+    }
+
+
     @Override
     public void generate() {
         addDrop(ModBlock.NEGATIVE_BLOCK);
@@ -78,9 +86,9 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
         addDrop(Darkness.DYLIUM, drops(Darkness.DYLIUM, MoonBlocks.MOON_ROCK));
         addDrop(Darkness.ROSE_OF_PAIN);
         addPottedPlantDrops(Darkness.POTTED_ROSE_OF_PAIN);
-        addDrop(MoonBlocks.MOON_GRASS, dropsWithSilkTouchOrShears(MoonBlocks.MOON_GRASS));
+        addDrop(MoonBlocks.MOON_GRASS, cropDrops(MoonBlocks.MOON_GRASS, Crops.DRAGON_CARROT, 0.035F));
         addDrop(MoonBlocks.TALL_MOON_GRASS, dropsWithSilkTouchOrShears(MoonBlocks.TALL_MOON_GRASS));
-        addDrop(MoonBlocks.MOON_FERN, dropsWithSilkTouchOrShears(MoonBlocks.MOON_FERN));
+        addDrop(MoonBlocks.MOON_FERN, cropDrops(MoonBlocks.MOON_FERN, Crops.BROODY, 0.035F));
         addDrop(MoonBlocks.STAR_TRAP, dropsWithSilkTouchOrShears(MoonBlocks.STAR_TRAP));
         addDrop(MoonBlocks.GEODE_FRUIT, conditionDrop(MoonBlocks.GEODE_FRUIT, ModItems.GEODE_FRUIT, BlockStatePropertyLootCondition.builder(MoonBlocks.GEODE_FRUIT).properties(StatePredicate.Builder.create().exactMatch(GeodeFruit.STAGE, GeodeFruitStage.grown))));
         addDrop(Crops.DRAGON_CARROT_BLOCK, cropDrops(Crops.DRAGON_CARROT_BLOCK, Crops.DRAGON_CARROT, Crops.DRAGON_CARROT, BlockStatePropertyLootCondition.builder(Crops.DRAGON_CARROT_BLOCK).properties(StatePredicate.Builder.create().exactMatch(MoonCrop.AGE, 7))));
