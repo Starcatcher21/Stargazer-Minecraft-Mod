@@ -1,6 +1,10 @@
 {
   "values": [
     "stargazer:copper_teleporter",
+    "stargazer:blue_star_block",
+    "stargazer:red_star_block",
+    "stargazer:purple_star_block",
+    "stargazer:yellow_star_block",
     "stargazer:star_forge",
     "stargazer:moon_rock",
     "stargazer:polished_moon_rock",

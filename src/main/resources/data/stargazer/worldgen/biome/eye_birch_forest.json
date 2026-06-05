@@ -50,8 +50,8 @@
     ["stargazer:eye_birch_trees_top"],
     ["stargazer:star_flowers"],
     ["stargazer:star_flowers_top"],
-    ["stargazer:moon_grass"],
-    ["stargazer:moon_grass_top"]
+    ["stargazer:eye_grass"],
+    ["stargazer:eye_grass_top"]
   ],
   "has_precipitation": true,
   "spawn_costs": {},

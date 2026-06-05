@@ -132,6 +132,10 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
         // Rock
         getOrCreateTagBuilder(BlockTags.PICKAXE_MINEABLE)
                 .add(ModBlock.COPPER_TELEPORTER)
+                .add(StarBlocks.BLUE_STAR_BLOCK)
+                .add(StarBlocks.RED_STAR_BLOCK)
+                .add(StarBlocks.PURPLE_STAR_BLOCK)
+                .add(StarBlocks.YELLOW_STAR_BLOCK)
                 .add(MoonBlocks.STAR_FORGE)
                 .add(MoonBlocks.MOON_ROCK)
                 .add(MoonBlocks.POLISHED_MOON_ROCK)

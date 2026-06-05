@@ -1,0 +1,10 @@
+{
+  "type": "stargazer:moon_welder",
+  "item1": "stargazer:polished_moon_rock",
+  "item2": "minecraft:black_dye",
+  "moon_phase": 4,
+  "result": {
+    "count": 1,
+    "id": "stargazer:black_chessboard"
+  }
+}

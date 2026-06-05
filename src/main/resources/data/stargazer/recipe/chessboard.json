@@ -1,0 +1,10 @@
+{
+  "type": "stargazer:moon_welder",
+  "item1": "stargazer:white_chessboard",
+  "item2": "stargazer:black_chessboard",
+  "moon_phase": 4,
+  "result": {
+    "count": 1,
+    "id": "stargazer:chessboard"
+  }
+}

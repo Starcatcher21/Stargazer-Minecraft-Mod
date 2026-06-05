@@ -23,6 +23,7 @@ import net.minecraft.loot.entry.LeafEntry;
 import net.minecraft.loot.entry.LootPoolEntry;
 import net.minecraft.loot.function.ApplyBonusLootFunction;
 import net.minecraft.loot.function.SetCountLootFunction;
+import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
 import net.minecraft.loot.provider.number.UniformLootNumberProvider;
 import net.minecraft.predicate.StatePredicate;
 import net.minecraft.registry.RegistryEntryLookup;
@@ -88,8 +89,6 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
         addDrop(MoonBlocks.MOON_LOG);
         addDrop(MoonBlocks.FULL_MOON_CORE);
         addDrop(MoonBlocks.FULL_MOON_LOG);
-        addDrop(Chess.BLACK_CHESSBOARD);
-        addDrop(Chess.WHITE_CHESSBOARD);
         addDrop(MoonBlocks.MOON_SAPLING);
         addDrop(MoonBlocks.STRIPPED_MOON_LOG);
         addDrop(MoonBlocks.MOON_PLANKS_DOOR, doorDrops(MoonBlocks.MOON_PLANKS_DOOR));
@@ -236,9 +235,13 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
         addDrop(Hedges.PALE_HEDGE);
         addDrop(Hedges.SPRUCE_HEDGE);
         addDrop(Hedges.STAR_HEDGE);
-        addDrop(StarBlocks.RED_STAR_BLOCK);
-        addDrop(StarBlocks.BLUE_STAR_BLOCK);
-        addDrop(StarBlocks.YELLOW_STAR_BLOCK);
-        addDrop(StarBlocks.PURPLE_STAR_BLOCK);
+        addDrop(StarBlocks.RED_STAR_BLOCK, drops(ModItems.RED_STAR, ConstantLootNumberProvider.create(14)));
+        addDrop(StarBlocks.BLUE_STAR_BLOCK, drops(ModItems.BLUE_STAR, ConstantLootNumberProvider.create(14)));
+        addDrop(StarBlocks.YELLOW_STAR_BLOCK, drops(ModItems.YELLOW_STAR, ConstantLootNumberProvider.create(14)));
+        addDrop(StarBlocks.PURPLE_STAR_BLOCK, drops(ModItems.PURPLE_STAR, ConstantLootNumberProvider.create(14)));
+        // Chess
+        addDrop(Chess.CHESSBOARD);
+        addDrop(Chess.BLACK_CHESSBOARD);
+        addDrop(Chess.WHITE_CHESSBOARD);
     }
 }

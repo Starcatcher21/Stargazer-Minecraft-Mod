@@ -251,6 +251,7 @@ public class ModEngLangProvider extends FabricLanguageProvider {
         // Chess
         translationBuilder.add(Chess.BLACK_CHESSBOARD, "Black Chessboard");
         translationBuilder.add(Chess.WHITE_CHESSBOARD, "White Chessboard");
+        translationBuilder.add(Chess.CHESSBOARD, "Chessboard");
         // Hedge
         translationBuilder.add(Hedges.ACACIA_HEDGE, "Acacia Hedge");
         translationBuilder.add(Hedges.BIRCH_HEDGE, "Birch Hedge");

@@ -221,6 +221,7 @@ public class ItemGroup {
             // Chess
             itemGroup.add(Chess.BLACK_CHESSBOARD);
             itemGroup.add(Chess.WHITE_CHESSBOARD);
+            itemGroup.add(Chess.CHESSBOARD);
             // Hedge
             itemGroup.add(Hedges.OAK_HEDGE);
             itemGroup.add(Hedges.BIRCH_HEDGE);
