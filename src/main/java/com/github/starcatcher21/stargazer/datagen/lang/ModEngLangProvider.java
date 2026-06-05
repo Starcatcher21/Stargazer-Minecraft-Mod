@@ -56,6 +56,8 @@ public class ModEngLangProvider extends FabricLanguageProvider {
         // Moon Tree
         translationBuilder.add(MoonBlocks.MOON_LEAVES, "Moon Leaves");
         translationBuilder.add(MoonBlocks.MOON_LOG, "Moon Log");
+        translationBuilder.add(MoonBlocks.FULL_MOON_LOG, "Full Moon Log");
+        translationBuilder.add(MoonBlocks.FULL_MOON_CORE, "Full Moon Core");
         translationBuilder.add(MoonBlocks.STRIPPED_MOON_LOG, "Stripped Moon Log");
         translationBuilder.add(MoonBlocks.MOON_SAPLING, "Moon Sapling");
         translationBuilder.add(MoonBlocks.MOON_PLANKS, "Moon Planks");
@@ -143,6 +145,11 @@ public class ModEngLangProvider extends FabricLanguageProvider {
         translationBuilder.add(ModItems.STARDUST, "Stardust");
         translationBuilder.add(ModItems.YELLOW_STAR, "Yellow Star");
         translationBuilder.add(ModItems.WISHING_STAR, "Wishing Star");
+        translationBuilder.add(ModItems.DREAM_STAR, "Dream Star");
+        translationBuilder.add(StarBlocks.RED_STAR_BLOCK, "Red Star Block");
+        translationBuilder.add(StarBlocks.BLUE_STAR_BLOCK, "Blue Star Block");
+        translationBuilder.add(StarBlocks.YELLOW_STAR_BLOCK, "Yellow Star Block");
+        translationBuilder.add(StarBlocks.PURPLE_STAR_BLOCK, "Purple Star Block");
         translationBuilder.add(ModItems.SUN_ENRICHED_YELLOW_STAR, "Sun Enriched Yellow Star");
         translationBuilder.add(Nebulas.YELLOW_NEBULA_LOG, "Yellow Nebula Core");
         translationBuilder.add(Nebulas.YELLOW_NEBULA_PLANKS, "Yellow Nebula Planks");
@@ -209,6 +216,8 @@ public class ModEngLangProvider extends FabricLanguageProvider {
         translationBuilder.add(MoonBlocks.MOON_FERN, "Moon Fern");
         translationBuilder.add(EyeBloodBlocks.EYE_FERN, "Eye Fern");
         translationBuilder.add(EyeBloodBlocks.EYES, "Eyes");
+        translationBuilder.add(ModItems.DEAD_EYE_BAT, "Dead Eye Bat");
+        translationBuilder.add(ModItems.LIVING_EYE, "Living Eye");
         translationBuilder.add(MoonBlocks.FORGET_ME_NOW, "Forget Me Now");
         translationBuilder.add(ModBlock.BONEFLOWER, "Boneflower");
         translationBuilder.add(Nebulas.RED_TENTACLE_FLOWER, "Red Tentacle flower");
@@ -217,6 +226,7 @@ public class ModEngLangProvider extends FabricLanguageProvider {
         translationBuilder.add(Nebulas.PURPLE_TENTACLE_FLOWER, "Purple Tentacle flower");
         // Crops
         translationBuilder.add(Crops.DRAGON_CARROT, "Dragon Carrot");
+        translationBuilder.add(Crops.BROODY, "Broody");
         translationBuilder.add(Crops.GIANT_DRAGON_CARROT, "Giant Dragon Carrot");
         // Potions
         translationBuilder.add("item.minecraft.potion.effect."+Registries.POTION.get(Potions.CosmoFeel.getKey().get()).getBaseName(), "Potion of Cosmic Feeling");
@@ -238,5 +248,22 @@ public class ModEngLangProvider extends FabricLanguageProvider {
         // Death
         translationBuilder.add("death.attack.star_trap", "%s was bitten by Star Trap");
         translationBuilder.add("death.attack.water", "%s was burn alive by water");
+        // Chess
+        translationBuilder.add(Chess.BLACK_CHESSBOARD, "Black Chessboard");
+        translationBuilder.add(Chess.WHITE_CHESSBOARD, "White Chessboard");
+        // Hedge
+        translationBuilder.add(Hedges.ACACIA_HEDGE, "Acacia Hedge");
+        translationBuilder.add(Hedges.BIRCH_HEDGE, "Birch Hedge");
+        translationBuilder.add(Hedges.CHERRY_HEDGE, "Cherry Hedge");
+        translationBuilder.add(Hedges.CURVE_HEDGE, "Curve Hedge");
+        translationBuilder.add(Hedges.DARK_OAK_HEDGE, "Dark Oak Hedge");
+        translationBuilder.add(Hedges.DARKNESS_HEDGE, "Darkness Hedge");
+        translationBuilder.add(Hedges.JUNGLE_HEDGE, "Jungle Hedge");
+        translationBuilder.add(Hedges.MANGROVE_HEDGE, "Mangrove Hedge");
+        translationBuilder.add(Hedges.MOON_HEDGE, "Moon Hedge");
+        translationBuilder.add(Hedges.OAK_HEDGE, "Oak Hedge");
+        translationBuilder.add(Hedges.PALE_HEDGE, "Pale Oak Hedge");
+        translationBuilder.add(Hedges.SPRUCE_HEDGE, "Spruce Hedge");
+        translationBuilder.add(Hedges.STAR_HEDGE, "Star Hedge");
     }
 }

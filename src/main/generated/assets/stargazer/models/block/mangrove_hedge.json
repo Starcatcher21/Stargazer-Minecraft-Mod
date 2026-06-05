@@ -1,0 +1,7 @@
+{
+  "parent": "stargazer:block/hedge",
+  "textures": {
+    "side": "minecraft:block/mangrove_log",
+    "top": "minecraft:block/mangrove_log_top"
+  }
+}

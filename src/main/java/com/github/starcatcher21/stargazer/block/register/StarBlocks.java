@@ -132,6 +132,38 @@ public class StarBlocks {
             .pistonBehavior(PistonBehavior.DESTROY)
     );
     public static final Block POTTED_CELESTIAL_STAR_FLOWER = registerWoItem("potted_celestial_star_flower", settings -> new FlowerPotBlock(CELESTIAL_STAR_FLOWER, settings), AbstractBlock.Settings.copy(Blocks.POTTED_ALLIUM).nonOpaque());
+
+    public static final Block RED_STAR_BLOCK = register("red_star_block", Block::new, AbstractBlock.Settings.create()
+            .solid()
+            .sounds(BlockSoundGroup.STONE)
+            .requiresTool()
+            .strength(0.75f)
+            .mapColor(MapColor.BRIGHT_RED)
+    );
+
+    public static final Block BLUE_STAR_BLOCK = register("blue_star_block", Block::new, AbstractBlock.Settings.create()
+            .solid()
+            .sounds(BlockSoundGroup.STONE)
+            .requiresTool()
+            .strength(0.75f)
+            .mapColor(MapColor.CYAN)
+    );
+
+    public static final Block YELLOW_STAR_BLOCK = register("yellow_star_block", Block::new, AbstractBlock.Settings.create()
+            .solid()
+            .sounds(BlockSoundGroup.STONE)
+            .requiresTool()
+            .strength(0.75f)
+            .mapColor(MapColor.YELLOW)
+    );
+
+    public static final Block PURPLE_STAR_BLOCK = register("purple_star_block", Block::new, AbstractBlock.Settings.create()
+            .solid()
+            .sounds(BlockSoundGroup.STONE)
+            .requiresTool()
+            .strength(0.75f)
+            .mapColor(MapColor.PURPLE)
+    );
     public static void init() {
     }
 }

@@ -35,14 +35,14 @@ public class MoonBlocks {
             .requiresTool()
             .mapColor(MapColor.WHITE)
     );
-    public static final Block SUN_ENRICHED_MOON_ROCK = register("sun_enriched_moon_rock", MoonRock::new, AbstractBlock.Settings.create()
+    public static final Block SUN_ENRICHED_MOON_ROCK = register("sun_enriched_moon_rock", Block::new, AbstractBlock.Settings.create()
             .solid()
             .sounds(BlockSoundGroup.STONE)
             .strength(1.5f)
             .requiresTool()
             .mapColor(MapColor.YELLOW)
     );
-    public static final Block POLISHED_SUN_ENRICHED_MOON_ROCK = register("polished_sun_enriched_moon_rock", MoonRock::new, AbstractBlock.Settings.create()
+    public static final Block POLISHED_SUN_ENRICHED_MOON_ROCK = register("polished_sun_enriched_moon_rock", Block::new, AbstractBlock.Settings.create()
             .solid()
             .sounds(BlockSoundGroup.STONE)
             .strength(1.5f)
@@ -83,6 +83,7 @@ public class MoonBlocks {
             .sounds(BlockSoundGroup.NYLIUM)
             .strength(0.5f)
             .requiresTool()
+            .ticksRandomly()
             .strength(1.5F, 6.0F)
             .mapColor(MapColor.PALE_PURPLE)
     );
@@ -180,6 +181,18 @@ public class MoonBlocks {
             .sounds(BlockSoundGroup.WOOD)
             .strength(2.0F)
             .mapColor(blockState -> blockState.get(Properties.AXIS).equals(Direction.Axis.Y) ? MapColor.WHITE : MapColor.PURPLE)
+    );
+    public static final Block FULL_MOON_LOG = register("full_moon_log", (settings) -> new MoonLog(null, settings), AbstractBlock.Settings.create()
+            .solid()
+            .sounds(BlockSoundGroup.WOOD)
+            .strength(2.0F)
+            .mapColor(blockState -> blockState.get(Properties.AXIS).equals(Direction.Axis.Y) ? MapColor.WHITE : MapColor.PURPLE)
+    );
+    public static final Block FULL_MOON_CORE = register("full_moon_core", Block::new, AbstractBlock.Settings.create()
+            .solid()
+            .sounds(BlockSoundGroup.WOOD)
+            .strength(2.0F)
+            .mapColor(MapColor.PURPLE)
     );
     public static final Block CURVE_LOG = register("curve_log", (settings) -> new MoonLog(STRIPPED_CURVE_LOG, settings), AbstractBlock.Settings.create()
             .solid()

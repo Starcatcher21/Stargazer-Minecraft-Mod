@@ -1,7 +1,9 @@
 package com.github.starcatcher21.stargazer.worldgen;
 
 import com.github.starcatcher21.stargazer.Stargazer;
+import com.github.starcatcher21.stargazer.block.register.Chess;
 import com.github.starcatcher21.stargazer.worldgen.features.ForgetMeNow;
+import com.github.starcatcher21.stargazer.worldgen.features.chess.ChessTrees;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.TreeConfig;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.amertylst.Amertylst;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.amertylst.AmertylstConfig;
@@ -32,6 +34,7 @@ public class CustomFeatures {
     public static final Feature forget_me_now = register("forget_me_now", new ForgetMeNow(DefaultFeatureConfig.CODEC));
     public static final Feature darkness_trees = register("darkness_trees", new DarknessTrees(TreeConfig.CODEC));
     public static final Feature nebula_trees = register("nebula_trees", new NebulaTrees(TreeConfig.CODEC));
+    public static final Feature chess_trees = register("chess_trees", new ChessTrees(TreeConfig.CODEC));
 
     public static Feature register(String id, Feature<?> entry) {
         return Registry.register(

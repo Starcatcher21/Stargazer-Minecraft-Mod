@@ -55,6 +55,15 @@
   ],
   "has_precipitation": true,
   "spawn_costs": {},
-  "spawners": {},
+  "spawners": {
+    "creature": [
+      {
+        "type": "stargazer:eye_bat",
+        "weight": 1,
+        "minCount": 5,
+        "maxCount": 10
+      }
+    ]
+  },
   "temperature": 0.6
 }

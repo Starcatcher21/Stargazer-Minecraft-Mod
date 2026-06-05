@@ -13,6 +13,19 @@
     "stargazer:yellow_nebula_log",
     "stargazer:red_nebula_log",
     "stargazer:purple_nebula_log",
+    "stargazer:acacia_hedge",
+    "stargazer:birch_hedge",
+    "stargazer:cherry_hedge",
+    "stargazer:dark_oak_hedge",
+    "stargazer:jungle_hedge",
+    "stargazer:mangrove_hedge",
+    "stargazer:oak_hedge",
+    "stargazer:pale_oak_hedge",
+    "stargazer:spruce_hedge",
+    "stargazer:moon_hedge",
+    "stargazer:curve_hedge",
+    "stargazer:star_hedge",
+    "stargazer:darkness_hedge",
     "stargazer:stripped_log_of_darkness"
   ]
 }

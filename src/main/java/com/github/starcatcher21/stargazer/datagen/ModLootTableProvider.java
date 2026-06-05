@@ -5,6 +5,7 @@ import com.github.starcatcher21.stargazer.block.clases.moon.geode_fruit.GeodeFru
 import com.github.starcatcher21.stargazer.block.clases.moon.geode_fruit.GeodeFruitStage;
 import com.github.starcatcher21.stargazer.block.clases.moon.plants.MoonCrop;
 import com.github.starcatcher21.stargazer.block.register.*;
+import com.github.starcatcher21.stargazer.entity.Star;
 import com.github.starcatcher21.stargazer.item.ModItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
@@ -82,8 +83,13 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
         addDrop(MoonBlocks.STAR_TRAP, dropsWithSilkTouchOrShears(MoonBlocks.STAR_TRAP));
         addDrop(MoonBlocks.GEODE_FRUIT, conditionDrop(MoonBlocks.GEODE_FRUIT, ModItems.GEODE_FRUIT, BlockStatePropertyLootCondition.builder(MoonBlocks.GEODE_FRUIT).properties(StatePredicate.Builder.create().exactMatch(GeodeFruit.STAGE, GeodeFruitStage.grown))));
         addDrop(Crops.DRAGON_CARROT_BLOCK, cropDrops(Crops.DRAGON_CARROT_BLOCK, Crops.DRAGON_CARROT, Crops.DRAGON_CARROT, BlockStatePropertyLootCondition.builder(Crops.DRAGON_CARROT_BLOCK).properties(StatePredicate.Builder.create().exactMatch(MoonCrop.AGE, 7))));
+        addDrop(Crops.BROODY_BLOCK, cropDrops(Crops.BROODY_BLOCK, Crops.BROODY, Crops.BROODY, BlockStatePropertyLootCondition.builder(Crops.BROODY_BLOCK).properties(StatePredicate.Builder.create().exactMatch(MoonCrop.AGE, 7))));
         addDrop(EyeBloodBlocks.EYE_JAR);
         addDrop(MoonBlocks.MOON_LOG);
+        addDrop(MoonBlocks.FULL_MOON_CORE);
+        addDrop(MoonBlocks.FULL_MOON_LOG);
+        addDrop(Chess.BLACK_CHESSBOARD);
+        addDrop(Chess.WHITE_CHESSBOARD);
         addDrop(MoonBlocks.MOON_SAPLING);
         addDrop(MoonBlocks.STRIPPED_MOON_LOG);
         addDrop(MoonBlocks.MOON_PLANKS_DOOR, doorDrops(MoonBlocks.MOON_PLANKS_DOOR));
@@ -216,5 +222,23 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
         addDrop(Nebulas.BLUE_NEBULA_LEAVES, customLeavesDrop(Nebulas.BLUE_NEBULA_LEAVES, ModItems.BLUE_STAR, 0f, 3.0f));
         addDrop(Nebulas.YELLOW_NEBULA_LEAVES, customLeavesDrop(Nebulas.YELLOW_NEBULA_LEAVES, ModItems.YELLOW_STAR, 0f, 3.0f));
         addDrop(Nebulas.PURPLE_NEBULA_LEAVES, customLeavesDrop(Nebulas.PURPLE_NEBULA_LEAVES, ModItems.PURPLE_STAR, 0f, 3.0f));
+        // Hedge
+        addDrop(Hedges.ACACIA_HEDGE);
+        addDrop(Hedges.BIRCH_HEDGE);
+        addDrop(Hedges.CHERRY_HEDGE);
+        addDrop(Hedges.CURVE_HEDGE);
+        addDrop(Hedges.DARK_OAK_HEDGE);
+        addDrop(Hedges.DARKNESS_HEDGE);
+        addDrop(Hedges.JUNGLE_HEDGE);
+        addDrop(Hedges.MANGROVE_HEDGE);
+        addDrop(Hedges.MOON_HEDGE);
+        addDrop(Hedges.OAK_HEDGE);
+        addDrop(Hedges.PALE_HEDGE);
+        addDrop(Hedges.SPRUCE_HEDGE);
+        addDrop(Hedges.STAR_HEDGE);
+        addDrop(StarBlocks.RED_STAR_BLOCK);
+        addDrop(StarBlocks.BLUE_STAR_BLOCK);
+        addDrop(StarBlocks.YELLOW_STAR_BLOCK);
+        addDrop(StarBlocks.PURPLE_STAR_BLOCK);
     }
 }

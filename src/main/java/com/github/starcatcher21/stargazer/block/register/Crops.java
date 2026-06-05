@@ -17,7 +17,7 @@ public class Crops {
     public static final Block GIANT_DRAGON_CARROT = register("giant_dragon_carrot", GiantDragonCarrot::new, AbstractBlock.Settings.create()
     );
 
-    public static final Block DRAGON_CARROT_BLOCK = registerWoItem("dragon_carrot_block", (settings) -> new MoonCrop(settings, GIANT_DRAGON_CARROT), AbstractBlock.Settings.create()
+    public static final Block DRAGON_CARROT_BLOCK = registerWoItem("dragon_carrot_block", (settings) -> new MoonCrop(settings, null), AbstractBlock.Settings.create()
             .noCollision()
             .breakInstantly()
             .sounds(BlockSoundGroup.GRASS)
@@ -26,6 +26,17 @@ public class Crops {
 
     public static Item DRAGON_CARROT = ModItems.register("dragon_carrot", ModItems.createBlockItemWithUniqueName(DRAGON_CARROT_BLOCK), new Item.Settings()
             .food(new FoodComponent(6, 12, false))
+    );
+
+    public static final Block BROODY_BLOCK = registerWoItem("broody_block", (settings) -> new MoonCrop(settings, null), AbstractBlock.Settings.create()
+            .noCollision()
+            .breakInstantly()
+            .sounds(BlockSoundGroup.GRASS)
+            .pistonBehavior(PistonBehavior.DESTROY)
+    );
+
+    public static Item BROODY = ModItems.register("broody", ModItems.createBlockItemWithUniqueName(BROODY_BLOCK), new Item.Settings()
+            .food(new FoodComponent(2, 4, false))
     );
 
     public static void init() {

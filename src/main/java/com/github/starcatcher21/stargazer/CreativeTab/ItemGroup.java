@@ -33,6 +33,7 @@ public class ItemGroup {
             itemGroup.add(ModBlock.MOON_WELDER);
             // Crops
             itemGroup.add(Crops.DRAGON_CARROT);
+            itemGroup.add(Crops.BROODY);
             // Star Blocks
             itemGroup.add(StarBlocks.COSMIC_BLOCK);
             itemGroup.add(StarBlocks.STAR_BARRIER_BLOCK);
@@ -75,11 +76,14 @@ public class ItemGroup {
             itemGroup.add(MoonBlocks.POLISHED_SUN_ENRICHED_MOON_ROCK);
             itemGroup.add(ModItems.SUN_ENRICHED_YELLOW_STAR);
             itemGroup.add(ModItems.WISHING_STAR);
+            itemGroup.add(ModItems.DREAM_STAR);
             // Moon Trees
             itemGroup.add(MoonBlocks.MOON_LOG);
             itemGroup.add(MoonBlocks.STRIPPED_MOON_LOG);
             itemGroup.add(MoonBlocks.MOON_LEAVES);
             itemGroup.add(MoonBlocks.MOON_SAPLING);
+            itemGroup.add(MoonBlocks.FULL_MOON_LOG);
+            itemGroup.add(MoonBlocks.FULL_MOON_CORE);
             itemGroup.add(MoonBlocks.MOON_PLANKS);
             itemGroup.add(MoonBlocks.MOON_PLANKS_DOOR);
             itemGroup.add(MoonBlocks.MOON_PLANKS_SLAB);
@@ -160,6 +164,7 @@ public class ItemGroup {
             itemGroup.add(ModItems.GRAVICE);
             itemGroup.add(ModItems.STARDUST);
             itemGroup.add(ModItems.PURPLE_STAR);
+            itemGroup.add(StarBlocks.PURPLE_STAR_BLOCK);
             itemGroup.add(Nebulas.PURPLE_NEBULA_LOG);
             itemGroup.add(Nebulas.PURPLE_NEBULA_PLANKS);
             itemGroup.add(Nebulas.PURPLE_NEBULA_PLANKS_BUTTON);
@@ -170,6 +175,7 @@ public class ItemGroup {
             itemGroup.add(Nebulas.PURPLE_NEBULA_LEAVES);
             itemGroup.add(Nebulas.PURPLE_NEBULA_REGROW_CORE);
             itemGroup.add(ModItems.BLUE_STAR);
+            itemGroup.add(StarBlocks.BLUE_STAR_BLOCK);
             itemGroup.add(Nebulas.BLUE_NEBULA_LOG);
             itemGroup.add(Nebulas.BLUE_NEBULA_PLANKS);
             itemGroup.add(Nebulas.BLUE_NEBULA_PLANKS_BUTTON);
@@ -180,6 +186,7 @@ public class ItemGroup {
             itemGroup.add(Nebulas.BLUE_NEBULA_LEAVES);
             itemGroup.add(Nebulas.BLUE_NEBULA_REGROW_CORE);
             itemGroup.add(ModItems.RED_STAR);
+            itemGroup.add(StarBlocks.RED_STAR_BLOCK);
             itemGroup.add(Nebulas.RED_NEBULA_LOG);
             itemGroup.add(Nebulas.RED_NEBULA_PLANKS);
             itemGroup.add(Nebulas.RED_NEBULA_PLANKS_BUTTON);
@@ -190,6 +197,7 @@ public class ItemGroup {
             itemGroup.add(Nebulas.RED_NEBULA_LEAVES);
             itemGroup.add(Nebulas.RED_NEBULA_REGROW_CORE);
             itemGroup.add(ModItems.YELLOW_STAR);
+            itemGroup.add(StarBlocks.YELLOW_STAR_BLOCK);
             itemGroup.add(Nebulas.YELLOW_NEBULA_LOG);
             itemGroup.add(Nebulas.YELLOW_NEBULA_PLANKS);
             itemGroup.add(Nebulas.YELLOW_NEBULA_PLANKS_BUTTON);
@@ -210,6 +218,23 @@ public class ItemGroup {
             itemGroup.add(ModItems.GHOST_SPAWN_EGG);
             itemGroup.add(ModItems.AMETHYST_TURTLE_SPAWN_EGG);
             itemGroup.add(ModItems.EYE_BAT_SPAWN_EGG);
+            // Chess
+            itemGroup.add(Chess.BLACK_CHESSBOARD);
+            itemGroup.add(Chess.WHITE_CHESSBOARD);
+            // Hedge
+            itemGroup.add(Hedges.OAK_HEDGE);
+            itemGroup.add(Hedges.BIRCH_HEDGE);
+            itemGroup.add(Hedges.ACACIA_HEDGE);
+            itemGroup.add(Hedges.CHERRY_HEDGE);
+            itemGroup.add(Hedges.DARK_OAK_HEDGE);
+            itemGroup.add(Hedges.JUNGLE_HEDGE);
+            itemGroup.add(Hedges.MANGROVE_HEDGE);
+            itemGroup.add(Hedges.PALE_HEDGE);
+            itemGroup.add(Hedges.SPRUCE_HEDGE);
+            itemGroup.add(Hedges.MOON_HEDGE);
+            itemGroup.add(Hedges.CURVE_HEDGE);
+            itemGroup.add(Hedges.STAR_HEDGE);
+            itemGroup.add(Hedges.DARKNESS_HEDGE);
         });
     }
 }

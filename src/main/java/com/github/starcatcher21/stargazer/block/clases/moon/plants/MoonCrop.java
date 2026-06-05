@@ -45,7 +45,7 @@ public class MoonCrop
         this.setDefaultState((BlockState)((BlockState)this.stateManager.getDefaultState()).with(this.getAgeProperty(), 0));
     }
 
-    public MoonCrop(AbstractBlock.Settings settings, Block crop) {
+    public MoonCrop(AbstractBlock.Settings settings, @Nullable  Block crop) {
         super(settings);
         this.setDefaultState((BlockState)((BlockState)this.stateManager.getDefaultState()).with(this.getAgeProperty(), 0));
         this.giantCrop = crop;

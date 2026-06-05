@@ -30,11 +30,14 @@ public final class ModItems {
     public static final Item RED_STAR = register("red_star", Item::new, new Item.Settings());
     public static final Item BLUE_STAR = register("blue_star", Item::new, new Item.Settings());
     public static final Item PURPLE_STAR = register("purple_star", Item::new, new Item.Settings());
+    public static final Item DREAM_STAR = register("dream_star", Item::new, new Item.Settings());
     public static final Item LODESTAR = register("lodestar", LodeStar::new, new Item.Settings().rarity(Rarity.UNCOMMON).maxCount(1));
     public static final Item GEODE_FRUIT = register("geode_fruit", Item::new, new Item.Settings());
     public static final Item GHOST_SPAWN_EGG = register("ghost_spawn_egg", (Item.Settings settings) -> new SpawnEggItem(EntityRegistry.GHOST_ENTITY, settings), new Item.Settings());
     public static final Item EYE_BAT_SPAWN_EGG = register("eye_bat_spawn_egg", (Item.Settings settings) -> new SpawnEggItem(EntityRegistry.EYE_BAT_ENTITY, settings), new Item.Settings());
     public static final Item AMETHYST_TURTLE_SPAWN_EGG = register("amethyst_turtle_spawn_egg", (Item.Settings settings) -> new SpawnEggItem(EntityRegistry.AMETHYST_TURTLE_ENTITY, settings), new Item.Settings());
+    public static final Item DEAD_EYE_BAT = register("dead_eye_bat", Item::new, new Item.Settings());
+    public static final Item LIVING_EYE = register("living_eye", Item::new, new Item.Settings());
     public static final Item GRAVICE = register("gravice", Item::new, new Item.Settings()
             .food(new FoodComponent(6, 6, true),
                     ConsumableComponent.builder()

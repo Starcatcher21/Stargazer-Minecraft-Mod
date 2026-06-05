@@ -24,6 +24,7 @@ public class Darkness {
             .solid()
             .sounds(BlockSoundGroup.NYLIUM)
             .strength(0.5f)
+            .ticksRandomly()
             .requiresTool()
             .strength(1.5F, 6.0F)
             .mapColor(MapColor.DEEPSLATE_GRAY)

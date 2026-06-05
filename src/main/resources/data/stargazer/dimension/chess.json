@@ -1,0 +1,15 @@
+{
+  "type": "stargazer:chess",
+  "generator": {
+    "type": "minecraft:noise",
+    "settings": "stargazer:chess",
+    "biome_source": {
+      "type": "minecraft:checkerboard",
+      "scale": -0,
+      "biomes": [
+        "stargazer:black",
+        "stargazer:white"
+      ]
+    }
+  }
+}

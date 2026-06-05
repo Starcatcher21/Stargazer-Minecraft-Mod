@@ -1,5 +1,6 @@
 package com.github.starcatcher21.stargazer.worldgen.features.trees;
 
+import com.github.starcatcher21.stargazer.worldgen.features.chess.ChessTrees;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.bones.BoneTrees;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.curve.CurveTrees;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.darkness.DarknessTrees;
@@ -25,5 +26,6 @@ public class TreesRegistry {
         PrismaticOre.init();
         DarknessTrees.init();
         NebulaTrees.init();
+        ChessTrees.init();
     }
 }

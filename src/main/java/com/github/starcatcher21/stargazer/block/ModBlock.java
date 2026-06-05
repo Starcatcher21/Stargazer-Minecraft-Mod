@@ -91,7 +91,6 @@ public class ModBlock {
         return block;
     }
 
-    public static Set<Block> saplings = new ObjectArraySet<>();
     public static void init() {
         MoonBlocks.init();
         StarBlocks.init();
@@ -99,7 +98,7 @@ public class ModBlock {
         Crops.init();
         Darkness.init();
         Nebulas.init();
-        saplings.add(StarBlocks.STAR_SAPLING);
-        saplings.add(MoonBlocks.MOON_SAPLING);
+        Chess.init();
+        Hedges.init();
     }
 }

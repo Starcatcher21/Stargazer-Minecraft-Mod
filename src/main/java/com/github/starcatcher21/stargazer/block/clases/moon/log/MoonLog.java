@@ -21,8 +21,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
+import org.jetbrains.annotations.Nullable;
 
 public class MoonLog extends FacingBlock {
+    @Nullable
     protected Block STRIP;
     @Override
     protected MapCodec<? extends FacingBlock> getCodec() {
@@ -31,6 +33,9 @@ public class MoonLog extends FacingBlock {
 
     @Override
     protected ActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+        if (STRIP == null) {
+            return ActionResult.PASS;
+        }
         if (stack.streamTags().toList().contains(ItemTags.AXES)) {
             BlockState newState = STRIP.getDefaultState().with(Properties.AXIS, state.get(Properties.AXIS));
             world.playSound(player, pos, SoundEvents.ITEM_AXE_STRIP, SoundCategory.BLOCKS, 1.0F, 1.0F);
@@ -50,7 +55,7 @@ public class MoonLog extends FacingBlock {
         }
     }
 
-    public MoonLog(Block strip, Settings settings) {
+    public MoonLog(@Nullable Block strip, Settings settings) {
         super(settings);
         this.setDefaultState(this.getDefaultState().with(Properties.AXIS, Direction.Axis.Y));
         STRIP = strip;

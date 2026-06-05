@@ -2,6 +2,7 @@ package com.github.starcatcher21.stargazer.entity.goals;
 
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.mob.FlyingEntity;
+import net.minecraft.entity.passive.BatEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;

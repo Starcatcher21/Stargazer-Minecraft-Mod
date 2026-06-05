@@ -49,5 +49,9 @@ public class ModEntityLootTableProvider extends FabricEntityLootTableProvider {
                                         })))
                         ))
                 ));
+        this.register(EntityRegistry.EYE_BAT_ENTITY, LootTable.builder()
+                .pool(LootPool.builder().rolls(ConstantLootNumberProvider.create(1.0f)).with(ItemEntry.builder(ModItems.DEAD_EYE_BAT))
+                        .apply(SetCountLootFunction.builder(ConstantLootNumberProvider.create(1.0f)))
+                ));
     }
 }

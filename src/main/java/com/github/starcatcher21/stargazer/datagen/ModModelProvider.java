@@ -2,12 +2,15 @@ package com.github.starcatcher21.stargazer.datagen;
 
 import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.block.ModBlock;
+import com.github.starcatcher21.stargazer.block.clases.Hedge;
 import com.github.starcatcher21.stargazer.block.clases.moon.plants.MoonCrop;
 import com.github.starcatcher21.stargazer.block.register.*;
+import com.github.starcatcher21.stargazer.entity.Star;
 import com.github.starcatcher21.stargazer.item.ModItems;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.client.data.*;
 import net.minecraft.client.render.model.json.WeightedVariant;
 import net.minecraft.item.Item;
@@ -87,6 +90,8 @@ public class ModModelProvider extends FabricModelProvider {
         // tree
         blockStateModelGenerator.registerSimpleCubeAll(MoonBlocks.MOON_LEAVES);
         blockStateModelGenerator.registerAxisRotated(MoonBlocks.MOON_LOG, TexturedModel.CUBE_COLUMN);
+        blockStateModelGenerator.registerAxisRotated(MoonBlocks.FULL_MOON_LOG, TexturedModel.CUBE_COLUMN);
+        blockStateModelGenerator.registerSimpleCubeAll(MoonBlocks.FULL_MOON_CORE);
         blockStateModelGenerator.registerAxisRotated(MoonBlocks.STRIPPED_MOON_LOG, TexturedModel.CUBE_COLUMN);
         blockStateModelGenerator.registerAxisRotated(MoonBlocks.CURVE_LOG, TexturedModel.CUBE_COLUMN);
         blockStateModelGenerator.registerAxisRotated(MoonBlocks.STRIPPED_CURVE_LOG, TexturedModel.CUBE_COLUMN);
@@ -128,6 +133,7 @@ public class ModModelProvider extends FabricModelProvider {
         blockStateModelGenerator.registerTintableCross(MoonBlocks.MOON_FERN, BlockStateModelGenerator.CrossType.NOT_TINTED);
         // crops
         blockStateModelGenerator.registerCrop(Crops.DRAGON_CARROT_BLOCK, MoonCrop.AGE, 0, 1, 2, 3, 4, 5, 6, 7);
+        blockStateModelGenerator.registerCrop(Crops.BROODY_BLOCK, MoonCrop.AGE, 0, 1, 2, 3, 4, 5, 6, 7);
         // Nebulas
         blockStateModelGenerator.registerAxisRotated(Nebulas.BLUE_NEBULA_LOG, TexturedModel.CUBE_COLUMN);
         blockStateModelGenerator.registerAxisRotated(Nebulas.RED_NEBULA_LOG, TexturedModel.CUBE_COLUMN);
@@ -174,6 +180,28 @@ public class ModModelProvider extends FabricModelProvider {
 
         registerTopBottom(blockStateModelGenerator, Darkness.DYLIUM, dyliumMap);
         registerCustomFlowerPotPlant(blockStateModelGenerator, Darkness.ROSE_OF_PAIN, Darkness.POTTED_ROSE_OF_PAIN, MoonBlocks.MOON_ROCK, BlockStateModelGenerator.CrossType.NOT_TINTED);
+        // Chess
+        blockStateModelGenerator.registerSimpleCubeAll(Chess.BLACK_CHESSBOARD);
+        blockStateModelGenerator.registerSimpleCubeAll(Chess.WHITE_CHESSBOARD);
+        // Other
+        blockStateModelGenerator.registerSimpleCubeAll(StarBlocks.RED_STAR_BLOCK);
+        blockStateModelGenerator.registerSimpleCubeAll(StarBlocks.BLUE_STAR_BLOCK);
+        blockStateModelGenerator.registerSimpleCubeAll(StarBlocks.YELLOW_STAR_BLOCK);
+        blockStateModelGenerator.registerSimpleCubeAll(StarBlocks.PURPLE_STAR_BLOCK);
+        // Hedge
+        registerHedge(blockStateModelGenerator, Hedges.OAK_HEDGE, Blocks.OAK_LOG);
+        registerHedge(blockStateModelGenerator, Hedges.BIRCH_HEDGE, Blocks.BIRCH_LOG);
+        registerHedge(blockStateModelGenerator, Hedges.JUNGLE_HEDGE, Blocks.JUNGLE_LOG);
+        registerHedge(blockStateModelGenerator, Hedges.MANGROVE_HEDGE, Blocks.MANGROVE_LOG);
+        registerHedge(blockStateModelGenerator, Hedges.DARK_OAK_HEDGE, Blocks.DARK_OAK_LOG);
+        registerHedge(blockStateModelGenerator, Hedges.ACACIA_HEDGE, Blocks.ACACIA_LOG);
+        registerHedge(blockStateModelGenerator, Hedges.PALE_HEDGE, Blocks.PALE_OAK_LOG);
+        registerHedge(blockStateModelGenerator, Hedges.CHERRY_HEDGE, Blocks.CHERRY_LOG);
+        registerHedge(blockStateModelGenerator, Hedges.SPRUCE_HEDGE, Blocks.SPRUCE_LOG);
+        registerHedgeSide(blockStateModelGenerator, Hedges.MOON_HEDGE, MoonBlocks.MOON_LOG);
+        registerHedgeSide(blockStateModelGenerator, Hedges.CURVE_HEDGE, MoonBlocks.CURVE_LOG);
+        registerHedgeSide(blockStateModelGenerator, Hedges.STAR_HEDGE, StarBlocks.STAR_LOG);
+        registerHedgeSide(blockStateModelGenerator, Hedges.DARKNESS_HEDGE, Darkness.LOG_OF_DARKNESS);
     }
 
     @Override
@@ -188,6 +216,7 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModItems.RED_STAR, Models.GENERATED);
         itemModelGenerator.register(ModItems.YELLOW_STAR, Models.GENERATED);
         itemModelGenerator.register(ModItems.PURPLE_STAR, Models.GENERATED);
+        itemModelGenerator.register(ModItems.DREAM_STAR, Models.GENERATED);
         itemModelGenerator.register(ModItems.MOON_GLASS_SHARD, Models.GENERATED);
         itemModelGenerator.register(ModItems.PRISMATIC_INGOT, Models.GENERATED);
         itemModelGenerator.register(ModItems.WISHING_STAR, Models.GENERATED);
@@ -207,6 +236,8 @@ public class ModModelProvider extends FabricModelProvider {
         blockGeneratedItem(itemModelGenerator, Darkness.DARKNESS_SAPLING);
         blockGeneratedItem(itemModelGenerator, Darkness.ROSE_OF_PAIN);
 
+        itemModelGenerator.register(ModItems.DEAD_EYE_BAT, Models.GENERATED);
+        itemModelGenerator.register(ModItems.LIVING_EYE, Models.GENERATED);
         itemModelGenerator.register(ModItems.PRISMATIC_SHARD, Models.GENERATED);
         itemModelGenerator.register(ModItems.ECTOPLASM, Models.GENERATED);
         itemModelGenerator.register(ModItems.COOLER_ECTOPLASM, Models.GENERATED);
@@ -218,12 +249,24 @@ public class ModModelProvider extends FabricModelProvider {
     }
 
     public static final Model CUSTOM_POT_CROSS = new Model(Optional.of(Identifier.of(Stargazer.MOD_ID, "block/potted_plant_custom")), Optional.empty(), TextureKey.PLANT, TextureKey.DIRT);
+    public static final Model HEDGE = new Model(Optional.of(Identifier.of(Stargazer.MOD_ID, "block/hedge")), Optional.empty(), TextureKey.TOP, TextureKey.SIDE);
 
     public final void registerCustomFlowerPotPlant(BlockStateModelGenerator blockStateModelGenerator, Block plantBlock, Block flowerPotBlock, Block dirt, BlockStateModelGenerator.CrossType tintType) {
         blockStateModelGenerator.registerTintableCrossBlockState(plantBlock, tintType);
         TextureMap potTextureMap = getCustomPotTextureMap(plantBlock, dirt);
         WeightedVariant weightedVariant = BlockStateModelGenerator.createWeightedVariant(CUSTOM_POT_CROSS.upload(flowerPotBlock, potTextureMap, blockStateModelGenerator.modelCollector));
         blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator.createSingletonBlockState(flowerPotBlock, weightedVariant));
+    }
+
+    public final void registerHedge(BlockStateModelGenerator blockStateModelGenerator, Block hedge, Block log) {
+        TextureMap potTextureMap = getHedgeMap(log);
+        WeightedVariant weightedVariant = BlockStateModelGenerator.createWeightedVariant(HEDGE.upload(hedge, potTextureMap, blockStateModelGenerator.modelCollector));
+        blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator.createSingletonBlockState(hedge, weightedVariant));
+    }
+    public final void registerHedgeSide(BlockStateModelGenerator blockStateModelGenerator, Block hedge, Block log) {
+        TextureMap potTextureMap = getHedgeSideMap(log);
+        WeightedVariant weightedVariant = BlockStateModelGenerator.createWeightedVariant(HEDGE.upload(hedge, potTextureMap, blockStateModelGenerator.modelCollector));
+        blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator.createSingletonBlockState(hedge, weightedVariant));
     }
 
     public final void registerTopBottom(BlockStateModelGenerator blockStateModelGenerator, Block block, TextureMap texureMap) {
@@ -235,6 +278,20 @@ public class ModModelProvider extends FabricModelProvider {
         TextureMap map = new TextureMap();
         map.put(TextureKey.PLANT, getBlockTexture(block));
         map.put(TextureKey.DIRT, getBlockTexture(dirt));
+        return map;
+    }
+
+    public TextureMap getHedgeMap(Block block) {
+        TextureMap map = new TextureMap();
+        map.put(TextureKey.TOP, getBlockTexture(block).withSuffixedPath("_top"));
+        map.put(TextureKey.SIDE, getBlockTexture(block));
+        return map;
+    }
+
+    public TextureMap getHedgeSideMap(Block block) {
+        TextureMap map = new TextureMap();
+        map.put(TextureKey.TOP, getBlockTexture(block).withSuffixedPath("_top"));
+        map.put(TextureKey.SIDE, getBlockTexture(block).withSuffixedPath("_side"));
         return map;
     }
 
