@@ -9,7 +9,6 @@ import com.github.starcatcher21.stargazer.block.clases.grave.Grave;
 import com.github.starcatcher21.stargazer.block.clases.negative.NegativeBlock;
 import com.github.starcatcher21.stargazer.block.clases.teleporter.CopperTeleporter;
 import com.github.starcatcher21.stargazer.block.register.*;
-import it.unimi.dsi.fastutil.objects.ObjectArraySet;
 import net.minecraft.block.*;
 import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.entity.effect.StatusEffects;
@@ -19,7 +18,6 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 
-import java.util.Set;
 import java.util.function.Function;
 
 public class ModBlock {
@@ -99,7 +97,7 @@ public class ModBlock {
         Darkness.init();
         Nebulas.init();
         Chess.init();
-        Hedges.init();
         RedOrbBlocks.init();
+        Hedges.init();
     }
 }

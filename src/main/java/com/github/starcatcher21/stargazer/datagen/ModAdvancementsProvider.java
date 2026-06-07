@@ -3,6 +3,7 @@ package com.github.starcatcher21.stargazer.datagen;
 import com.github.starcatcher21.stargazer.CustomTags;
 import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.block.register.MoonBlocks;
+import com.github.starcatcher21.stargazer.block.register.RedOrbBlocks;
 import com.github.starcatcher21.stargazer.entity.EntityRegistry;
 import com.github.starcatcher21.stargazer.item.ModItems;
 import com.github.starcatcher21.stargazer.mechanics.DamageTypeRegistry;
@@ -253,6 +254,20 @@ public class ModAdvancementsProvider extends FabricAdvancementProvider {
                 )
                 .criterion("craft", Criterias.forgeCraft.create(new ForgeCraft.Conditions(Optional.empty(), Optional.of(ItemPredicate.Builder.create().tag(registryEntryLookupItem, CustomTags.COSMIC).build()))))
                 .build(consumer, Stargazer.MOD_ID + ":home");
+        AdvancementEntry Red = Advancement.Builder.create()
+                .parent(portal)
+                .display(
+                        RedOrbBlocks.RED_ROCK, // The display icon
+                        Text.literal("Red Planet"), // The title
+                        Text.literal("What next Green™ Planet"), // The description
+                        null,
+                        AdvancementFrame.TASK, // TASK, CHALLENGE, or GOAL
+                        true, // Show the toast when completing it
+                        true, // Announce it to chat
+                        false // Hide it in the advancement tab until it's achieved
+                )
+                .criterion("craft", Criterias.moonWeld.create(new MoonWeld.Conditions(Optional.empty(), Optional.of(ItemPredicate.Builder.create().items(registryEntryLookupItem, RedOrbBlocks.RED_ORB_PLATFORM.asItem()).build()))))
+                .build(consumer, Stargazer.MOD_ID + ":red");
     }
 
     protected static Advancement.Builder requireListedBiomesVisited(Advancement.Builder builder, RegistryWrapper.WrapperLookup registries, List<RegistryKey<Biome>> biomes) {

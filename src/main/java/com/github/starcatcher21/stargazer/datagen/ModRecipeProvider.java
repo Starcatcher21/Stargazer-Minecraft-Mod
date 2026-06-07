@@ -1,10 +1,7 @@
 package com.github.starcatcher21.stargazer.datagen;
 
 import com.github.starcatcher21.stargazer.CustomTags;
-import com.github.starcatcher21.stargazer.block.register.Darkness;
-import com.github.starcatcher21.stargazer.block.register.MoonBlocks;
-import com.github.starcatcher21.stargazer.block.register.Nebulas;
-import com.github.starcatcher21.stargazer.block.register.StarBlocks;
+import com.github.starcatcher21.stargazer.block.register.*;
 import com.github.starcatcher21.stargazer.item.ModItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
@@ -353,6 +350,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .pattern("##")
                         .criterion(hasItem(MoonBlocks.MOON_ROCK), this.conditionsFromItem(MoonBlocks.MOON_ROCK))
                         .offerTo(this.exporter);
+
                 createShaped(RecipeCategory.BUILDING_BLOCKS, MoonBlocks.POLISHED_SUN_ENRICHED_MOON_ROCK, 4)
                         .input('#', MoonBlocks.SUN_ENRICHED_MOON_ROCK)
                         .pattern("##")
@@ -424,6 +422,45 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .input('s', CustomTags.STAR)
                         .group("starforge")
                         .criterion(hasItem(MoonBlocks.MOON_ROCK), conditionsFromTag(CustomTags.STAR))
+                        .offerTo(exporter);
+                createShaped(RecipeCategory.BUILDING_BLOCKS, RedOrbBlocks.POLISHED_RED_ROCK, 4)
+                        .input('#', RedOrbBlocks.RED_ROCK)
+                        .pattern("##")
+                        .pattern("##")
+                        .criterion(hasItem(RedOrbBlocks.RED_ROCK), this.conditionsFromItem(RedOrbBlocks.RED_ROCK))
+                        .offerTo(this.exporter);
+                createSlabRecipe(RecipeCategory.BUILDING_BLOCKS, RedOrbBlocks.RED_ROCK_SLAB, Ingredient.ofItem(RedOrbBlocks.RED_ROCK))
+                        .criterion("rock", conditionsFromItem(RedOrbBlocks.RED_ROCK))
+                        .offerTo(exporter);
+                createStairsRecipe(RedOrbBlocks.RED_ROCK_STAIRS, Ingredient.ofItem(RedOrbBlocks.RED_ROCK))
+                        .criterion("rock", conditionsFromItem(RedOrbBlocks.RED_ROCK))
+                        .offerTo(exporter);
+
+                createShapeless(RecipeCategory.BUILDING_BLOCKS, RedOrbBlocks.YERI_PLANKS, 4)
+                        .input(RedOrbBlocks.YERI_LOG)
+                        .group("planks")
+                        .criterion("has_log", this.conditionsFromItem(RedOrbBlocks.YERI_LOG))
+                        .offerTo(this.exporter);
+
+                createSlabRecipe(RecipeCategory.BUILDING_BLOCKS, RedOrbBlocks.YERI_PLANKS_SLAB, Ingredient.ofItem(RedOrbBlocks.YERI_PLANKS))
+                        .group("wooden_slab")
+                        .criterion("wood", conditionsFromItem(RedOrbBlocks.YERI_PLANKS))
+                        .offerTo(exporter);
+                createStairsRecipe(RedOrbBlocks.YERI_PLANKS_STAIRS, Ingredient.ofItem(RedOrbBlocks.YERI_PLANKS))
+                        .group("wooden_stairs")
+                        .criterion("wood", conditionsFromItem(RedOrbBlocks.YERI_PLANKS))
+                        .offerTo(exporter);
+                createButtonRecipe(RedOrbBlocks.YERI_PLANKS_BUTTON, Ingredient.ofItem(RedOrbBlocks.YERI_PLANKS))
+                        .group("wooden_button")
+                        .criterion("wood", conditionsFromItem(RedOrbBlocks.YERI_PLANKS))
+                        .offerTo(exporter);
+                createFenceRecipe(RedOrbBlocks.YERI_PLANKS_FENCE, Ingredient.ofItem(RedOrbBlocks.YERI_PLANKS))
+                        .group("wooden_fence")
+                        .criterion("wood", conditionsFromItem(RedOrbBlocks.YERI_PLANKS))
+                        .offerTo(exporter);
+                createFenceGateRecipe(RedOrbBlocks.YERI_PLANKS_FENCE_GATE, Ingredient.ofItem(RedOrbBlocks.YERI_PLANKS))
+                        .group("wooden_fence_gate")
+                        .criterion("wood", conditionsFromItem(RedOrbBlocks.YERI_PLANKS))
                         .offerTo(exporter);
             }
         };

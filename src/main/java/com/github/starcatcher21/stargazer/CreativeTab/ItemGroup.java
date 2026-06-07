@@ -84,7 +84,9 @@ public class ItemGroup {
             itemGroup.add(MoonBlocks.MOON_LEAVES);
             itemGroup.add(MoonBlocks.MOON_SAPLING);
             itemGroup.add(MoonBlocks.FULL_MOON_LOG);
+            itemGroup.add(MoonBlocks.FULL_MOON_LEAVES);
             itemGroup.add(MoonBlocks.FULL_MOON_CORE);
+            itemGroup.add(MoonBlocks.FULL_MOON_SAPLING);
             itemGroup.add(MoonBlocks.MOON_PLANKS);
             itemGroup.add(MoonBlocks.MOON_PLANKS_DOOR);
             itemGroup.add(MoonBlocks.MOON_PLANKS_SLAB);
@@ -238,6 +240,19 @@ public class ItemGroup {
             itemGroup.add(Hedges.CURVE_HEDGE);
             itemGroup.add(Hedges.STAR_HEDGE);
             itemGroup.add(Hedges.DARKNESS_HEDGE);
+            itemGroup.add(Hedges.YERI_HEDGE);
+            // Red Orb
+            itemGroup.add(RedOrbBlocks.RED_ROCK);
+            itemGroup.add(RedOrbBlocks.RED_ROCK_SLAB);
+            itemGroup.add(RedOrbBlocks.RED_ROCK_STAIRS);
+            itemGroup.add(RedOrbBlocks.POLISHED_RED_ROCK);
+            itemGroup.add(RedOrbBlocks.YERI_LOG);
+            itemGroup.add(RedOrbBlocks.YERI_LEAVES);
+            itemGroup.add(RedOrbBlocks.YERI_SAPLING);
+            itemGroup.add(ModItems.RED_ORB_PLATFORM_BASE);
+            itemGroup.add(RedOrbBlocks.RED_ORB_PLATFORM);
+            itemGroup.add(RedOrbBlocks.GREEN_ROCK);
+            itemGroup.add(RedOrbBlocks.BLUE_GRASS);
         });
     }
 }

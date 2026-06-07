@@ -81,10 +81,10 @@ public class FallingObject {
             world.addParticleClient((SimpleParticleType) fallParticle, true, true, X + 0.5F, Y + 200+ 0.5F, Z + 0.5F, 0.0, -amount/4.0F, 0.0);
         }
     }
-    public void spawn(MinecraftClient client, int X, int Y, int Z) {
-        fallParticles(client.world, X, Y, Z);
-        hitParticles(client.world, X, Y, Z);
-        client.getServer().getOverworld().spawnEntity(new ItemEntity(client.getServer().getOverworld(), X+0.5, Y+0.5, Z+0.5, new ItemStack(item)));
+    public void spawn(MinecraftClient client, World world, int X, int Y, int Z) {
+        fallParticles(world, X, Y, Z);
+        hitParticles(world, X, Y, Z);
+        client.getServer().getWorld(world.getRegistryKey()).spawnEntity(new ItemEntity(client.getServer().getWorld(world.getRegistryKey()), X+0.5, Y+0.5, Z+0.5, new ItemStack(item)));
     }
     public int airEnd(World world, BlockPos pos) {
         if (world.isAir(pos)) {
@@ -97,11 +97,11 @@ public class FallingObject {
             return airEnd(world, pos.up(1));
         }
     }
-    public void spawn(MinecraftClient client, PlayerEntity player) {
+    public void spawn(MinecraftClient client, PlayerEntity player, World world) {
         int X = (int) player.getX() - range + random.nextInt(range * 2);
         int Y = (int) player.getY();
         int Z = (int) player.getZ() - range + random.nextInt(range * 2);
-        Y = airEnd(client.world, new BlockPos(X, Y, Z));
-        spawn(client, X, Y, Z);
+        Y = airEnd(world, new BlockPos(X, Y, Z));
+        spawn(client, world, X, Y, Z);
     }
 }

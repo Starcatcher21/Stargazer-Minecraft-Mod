@@ -1,0 +1,48 @@
+{
+  "type": "stargazer:red_orb",
+  "generator": {
+    "type": "minecraft:noise",
+    "settings": "stargazer:red_orb",
+    "biome_source": {
+      "type": "minecraft:multi_noise",
+      "biomes": [
+        {
+          "biome": "stargazer:redness",
+          "parameters": {
+            "temperature": 0,
+            "humidity": 0,
+            "continentalness": 0.08,
+            "erosion": 0,
+            "weirdness": 0,
+            "depth": 0,
+            "offset": 0
+          }
+        },
+        {
+          "biome": "stargazer:green_rock_valley",
+          "parameters": {
+            "temperature": 0.2,
+            "humidity": 0.125,
+            "continentalness": 0.08,
+            "erosion": 0,
+            "weirdness": 0,
+            "depth": 0,
+            "offset": 0
+          }
+        },
+        {
+          "biome": "stargazer:yeri_forest",
+          "parameters": {
+            "temperature": 0.3,
+            "humidity": 0.2,
+            "continentalness": 0.3,
+            "erosion": 0,
+            "weirdness": 0,
+            "depth": 0,
+            "offset": 0
+          }
+        }
+      ]
+    }
+  }
+}

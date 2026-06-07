@@ -32,6 +32,9 @@ public class Stargaze {
                 World world = client.getServer().getWorld(list.world);
                 if (timer != 0 ) {
                     timer -= 1;
+                    if (timer < 0) {
+                        timer = 0;
+                    }
                     return;
                 }
                 if (world.getLightLevel(LightType.SKY, player.getBlockPos()) == list.lightLevel) {
@@ -44,7 +47,7 @@ public class Stargaze {
                             FallingObject star = list.weightedList.get(random.nextInt(list.weightedList.size()));
                             ServerPlayerEntity spe = client.getServer().getPlayerManager().getPlayer(player.getUuid());
                             Criterias.starcatching.trigger(spe, star.item.value());
-                            star.spawn(client, player);
+                            star.spawn(client, player, client.world);
                         }
                     }
                 }

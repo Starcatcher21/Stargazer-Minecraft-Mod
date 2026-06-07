@@ -1,7 +1,6 @@
 package com.github.starcatcher21.stargazer.worldgen;
 
 import com.github.starcatcher21.stargazer.Stargazer;
-import com.github.starcatcher21.stargazer.block.register.Chess;
 import com.github.starcatcher21.stargazer.worldgen.features.Eyes;
 import com.github.starcatcher21.stargazer.worldgen.features.ForgetMeNow;
 import com.github.starcatcher21.stargazer.worldgen.features.chess.ChessTrees;
@@ -12,11 +11,14 @@ import com.github.starcatcher21.stargazer.worldgen.features.trees.bones.BoneTree
 import com.github.starcatcher21.stargazer.worldgen.features.trees.curve.CurveTrees;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.darkness.DarknessTrees;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.eyeblodbirch.EyeBirchTrees;
+import com.github.starcatcher21.stargazer.worldgen.features.trees.fullmoon.FullMoonTrees;
+import com.github.starcatcher21.stargazer.worldgen.features.trees.green_rocks.GreenRocks;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.moon.MoonTrees;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.nebulas.NebulaTrees;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.prismaticore.PrismaticOre;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.purple_shroom.PurpleShrooms;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.star.StarTrees;
+import com.github.starcatcher21.stargazer.worldgen.features.trees.yeri.YeriTrees;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
@@ -37,6 +39,9 @@ public class CustomFeatures {
     public static final Feature darkness_trees = register("darkness_trees", new DarknessTrees(TreeConfig.CODEC));
     public static final Feature nebula_trees = register("nebula_trees", new NebulaTrees(TreeConfig.CODEC));
     public static final Feature chess_trees = register("chess_trees", new ChessTrees(TreeConfig.CODEC));
+    public static final Feature yeri_trees = register("yeri_trees", new YeriTrees(TreeConfig.CODEC));
+    public static final Feature green_rocks = register("green_rocks", new GreenRocks(TreeConfig.CODEC));
+    public static final Feature full_moon_trees = register("full_moon_trees", new FullMoonTrees(TreeConfig.CODEC));
 
     public static Feature register(String id, Feature<?> entry) {
         return Registry.register(

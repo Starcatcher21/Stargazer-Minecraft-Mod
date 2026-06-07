@@ -1,0 +1,27 @@
+{
+  "parent": "stargazer:portal",
+  "criteria": {
+    "craft": {
+      "conditions": {
+        "output": {
+          "items": "stargazer:red_orb_platform"
+        }
+      },
+      "trigger": "stargazer:moon_weld"
+    }
+  },
+  "display": {
+    "description": "What next Green™ Planet",
+    "icon": {
+      "count": 1,
+      "id": "stargazer:red_rock"
+    },
+    "title": "Red Planet"
+  },
+  "requirements": [
+    [
+      "craft"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

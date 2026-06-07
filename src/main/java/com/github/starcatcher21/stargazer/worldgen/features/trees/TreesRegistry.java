@@ -5,11 +5,14 @@ import com.github.starcatcher21.stargazer.worldgen.features.trees.bones.BoneTree
 import com.github.starcatcher21.stargazer.worldgen.features.trees.curve.CurveTrees;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.darkness.DarknessTrees;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.eyeblodbirch.EyeBirchTrees;
+import com.github.starcatcher21.stargazer.worldgen.features.trees.fullmoon.FullMoonTrees;
+import com.github.starcatcher21.stargazer.worldgen.features.trees.green_rocks.GreenRocks;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.moon.MoonTrees;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.nebulas.NebulaTrees;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.prismaticore.PrismaticOre;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.purple_shroom.PurpleShrooms;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.star.StarTrees;
+import com.github.starcatcher21.stargazer.worldgen.features.trees.yeri.YeriTrees;
 
 // North negative Z
 // South positive Z
@@ -27,5 +30,8 @@ public class TreesRegistry {
         DarknessTrees.init();
         NebulaTrees.init();
         ChessTrees.init();
+        YeriTrees.init();
+        GreenRocks.init();
+        FullMoonTrees.init();
     }
 }

@@ -84,6 +84,7 @@ public final class ModItems {
     );
     public static final Item ECTOPLASM = register("ectoplasm", Item::new, new Item.Settings().maxCount(16));
     public static final Item COOLER_ECTOPLASM = register("cooler_ectoplasm", Item::new, new Item.Settings().maxCount(16));
+    public static final Item RED_ORB_PLATFORM_BASE = register("red_orb_platform_base", Item::new, new Item.Settings());
 
     public static Item register(String path, Function<Item.Settings, Item> factory, Item.Settings settings) {
         final RegistryKey<Item> registryKey = RegistryKey.of(RegistryKeys.ITEM, Identifier.of(Stargazer.MOD_ID, path));

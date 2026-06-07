@@ -190,6 +190,13 @@ public class MoonBlocks {
             .strength(2.0F)
             .mapColor(blockState -> blockState.get(Properties.AXIS).equals(Direction.Axis.Y) ? MapColor.WHITE : MapColor.PURPLE)
     );
+    public static final Block FULL_MOON_LEAVES = register("full_moon_leaves", (settings) -> new CustomLeaves(0xffffff, settings), AbstractBlock.Settings.create()
+            .solid()
+            .nonOpaque()
+            .sounds(BlockSoundGroup.GRASS)
+            .strength(0.2F)
+            .mapColor(MapColor.PINK)
+    );
     public static final Block FULL_MOON_CORE = register("full_moon_core", Block::new, AbstractBlock.Settings.create()
             .solid()
             .sounds(BlockSoundGroup.WOOD)
@@ -450,6 +457,14 @@ public class MoonBlocks {
             .breakInstantly()
     );
     public static final Block POTTED_MOON_SAPLING = registerWoItem("potted_moon_sapling", settings -> new FlowerPotBlock(MOON_SAPLING, settings), AbstractBlock.Settings.copy(Blocks.POTTED_ALLIUM).nonOpaque());
+
+    public static final Block FULL_MOON_SAPLING = register("full_moon_sapling", (AbstractBlock.Settings settings) -> new CustomSapling(Helpers.configuredFeatureOf("full_moon_trees"), settings), AbstractBlock.Settings.create()
+            .noCollision()
+            .sounds(BlockSoundGroup.GRASS)
+            .ticksRandomly()
+            .breakInstantly()
+    );
+    public static final Block POTTED_FULL_MOON_SAPLING = registerWoItem("potted_full_moon_sapling", settings -> new FlowerPotBlock(FULL_MOON_SAPLING, settings), AbstractBlock.Settings.copy(Blocks.POTTED_ALLIUM).nonOpaque());
     public static final Block CURVE_SAPLING = register("curve_sapling", (AbstractBlock.Settings settings) -> new CustomSapling(Helpers.configuredFeatureOf("curve_trees"), settings), AbstractBlock.Settings.create()
             .noCollision()
             .sounds(BlockSoundGroup.GRASS)
@@ -548,7 +563,7 @@ public class MoonBlocks {
             .noCollision()
     );
     public static final Block POTTED_PURPLE_MUSHROOM = registerWoItem("potted_purple_mushroom", settings -> new FlowerPotBlock(PURPLE_MUSHROOM, settings), AbstractBlock.Settings.copy(Blocks.POTTED_ALLIUM).nonOpaque());
-    public static final Block GEODE_FRUIT = register("geode_fruit_block", GeodeFruit::new, AbstractBlock.Settings.create()
+    public static final Block GEODE_FRUIT = registerWoItem("geode_fruit_block", GeodeFruit::new, AbstractBlock.Settings.create()
             .strength(1.0f)
             .noCollision()
             .ticksRandomly()

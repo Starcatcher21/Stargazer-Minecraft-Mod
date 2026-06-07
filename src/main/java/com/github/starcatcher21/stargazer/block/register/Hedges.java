@@ -101,6 +101,20 @@ public class Hedges {
             .strength(2.0F)
             .mapColor(MapColor.BROWN)
     );
+    public static final Block YERI_HEDGE = register("yeri_hedge", settings -> new Hedge(RedOrbBlocks.YERI_LEAVES, settings), AbstractBlock.Settings.create()
+            .solid()
+            .sounds(BlockSoundGroup.WOOD)
+            .ticksRandomly()
+            .strength(2.0F)
+            .mapColor(MapColor.WHITE)
+    );
+    public static final Block FULL_MOON_HEDGE = register("full_moon_hedge", settings -> new Hedge(MoonBlocks.FULL_MOON_LEAVES, settings), AbstractBlock.Settings.create()
+            .solid()
+            .sounds(BlockSoundGroup.WOOD)
+            .ticksRandomly()
+            .strength(2.0F)
+            .mapColor(MapColor.WHITE)
+    );
     public static void init() {
     }
 }

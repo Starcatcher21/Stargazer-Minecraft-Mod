@@ -19,7 +19,7 @@ public class FallingObjectsList {
             World.CODEC.fieldOf("world").forGetter(FallingObjectsList::getWorld),
             Identifier.CODEC.listOf().fieldOf("objects").forGetter(FallingObjectsList::getIdList),
             Codecs.POSITIVE_INT.listOf().fieldOf("chances").forGetter(FallingObjectsList::getChanceList),
-            Codecs.POSITIVE_INT.optionalFieldOf("light").forGetter(FallingObjectsList::getLightLevel),
+            Codecs.NON_NEGATIVE_INT.optionalFieldOf("light").forGetter(FallingObjectsList::getLightLevel),
             FallingObjectDayState.CODEC.optionalFieldOf("daystate").forGetter(FallingObjectsList::getDayState)
     ).apply(instance, FallingObjectsList::new));
 

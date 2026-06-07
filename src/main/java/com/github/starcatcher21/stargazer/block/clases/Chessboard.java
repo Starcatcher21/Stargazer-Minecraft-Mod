@@ -1,27 +1,21 @@
 package com.github.starcatcher21.stargazer.block.clases;
 
 import com.github.starcatcher21.stargazer.CustomWorlds;
-import com.github.starcatcher21.stargazer.block.ModBlock;
-import com.github.starcatcher21.stargazer.block.clases.teleporter.CopperTeleporterState;
-import com.github.starcatcher21.stargazer.block.register.MoonBlocks;
 import com.github.starcatcher21.stargazer.mechanics.PointOfIntrests;
-import com.github.starcatcher21.stargazer.particle.Particles;
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.ShapeContext;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.item.ItemStack;
 import net.minecraft.network.packet.s2c.play.PositionFlag;
-import net.minecraft.particle.SimpleParticleType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.hit.BlockHitResult;
@@ -37,7 +31,6 @@ import net.minecraft.world.tick.ScheduledTickView;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 public class Chessboard extends Block {
@@ -104,7 +97,7 @@ public class Chessboard extends Block {
         PointOfInterestStorage pointOfInterestStorage = world.getPointOfInterestStorage();
         ChunkPos chunkPos = world.getChunk(pos).getPos();
         pointOfInterestStorage.preloadChunks(world, pos, 16);
-        return pointOfInterestStorage.getInChunk(poiType -> poiType.matchesKey(Registries.POINT_OF_INTEREST_TYPE.getKey(PointOfIntrests.COPPER_TELEPORTER).get()), chunkPos, PointOfInterestStorage.OccupationStatus.ANY)
+        return pointOfInterestStorage.getInChunk(poiType -> poiType.matchesKey(Registries.POINT_OF_INTEREST_TYPE.getKey(PointOfIntrests.CHESS_TELEPORTER).get()), chunkPos, PointOfInterestStorage.OccupationStatus.ANY)
                 .map(PointOfInterest::getPos)
                 .filter(worldBorder::contains)
                 .toList();
@@ -193,12 +186,7 @@ public class Chessboard extends Block {
         }
         if (d == -1.0) {
             int p = i - 9;
-            int o;
-            if (worldKey.equals(CustomWorlds.COSMIC)) {
-                o = Math.max(world.getBottomY() - -1, 120);
-            } else {
-                o = Math.max(world.getBottomY() - -1, 70);
-            }
+            int o = Math.max(world.getBottomY() - -1, 70);
             if (p < o) {
                 return Optional.empty();
             }

@@ -1,7 +1,7 @@
 // 1.21.5	-999999999-01-01T00:00:00	STARGAZER/Tags for minecraft:item
-0a22b599c040592ec06b1f1ad62a96a525e043a9 data/minecraft/tags/item/logs.json
-9058c1ece682a8d622d4c659d572425d15282687 data/minecraft/tags/item/planks.json
-00133d7d30cd3f3105f98963e00ab80625abb8da data/minecraft/tags/item/saplings.json
+cc7c4a69f538615d189c64e08ed0a79fab8abf84 data/minecraft/tags/item/logs.json
+e0afc958b8668f74d441236208e4c0a2aaa4526d data/minecraft/tags/item/planks.json
+ed79819773e716f6f93fd027259e9bd0fc5f14e9 data/minecraft/tags/item/saplings.json
 1b05312e5e8ed17cdd31b6b7d72dc70fa26b8686 data/minecraft/tags/item/stone_tool_materials.json
 cb34386497d3aa2f1d016a1e3c70e4c5b0e7f004 data/stargazer/tags/item/blue_star.json
 21c1d6335b0aa5e376a8952ab31c3c50f229857c data/stargazer/tags/item/cosmic.json

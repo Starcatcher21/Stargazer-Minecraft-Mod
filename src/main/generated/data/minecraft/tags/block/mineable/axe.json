@@ -2,6 +2,7 @@
   "values": [
     "stargazer:moon_log",
     "stargazer:moon_planks_door",
+    "stargazer:yeri_log",
     "stargazer:stripped_moon_log",
     "stargazer:curve_log",
     "stargazer:stripped_curve_log",
@@ -55,8 +56,20 @@
     "stargazer:stripped_star_log",
     "stargazer:log_of_darkness",
     "stargazer:darkness_planks_door",
+    "stargazer:darkness_planks",
+    "stargazer:darkness_planks_slab",
+    "stargazer:darkness_planks_stairs",
+    "stargazer:darkness_planks_button",
+    "stargazer:darkness_planks_fence",
+    "stargazer:darkness_planks_fence_gate",
     "stargazer:curve_planks_door",
     "stargazer:star_planks_door",
+    "stargazer:yeri_planks",
+    "stargazer:yeri_planks_slab",
+    "stargazer:yeri_planks_stairs",
+    "stargazer:yeri_planks_button",
+    "stargazer:yeri_planks_fence_gate",
+    "stargazer:yeri_planks_fence_gate",
     "stargazer:stripped_log_of_darkness"
   ]
 }

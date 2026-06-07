@@ -11,12 +11,14 @@ import com.github.starcatcher21.stargazer.block.clases.star.barrier.StarBarrierB
 import com.github.starcatcher21.stargazer.block.clases.star.cosmic.CosmicBlockEntityRenderer;
 import com.github.starcatcher21.stargazer.block.clases.star.leaves.StarLeavesEntityRenderer;
 import com.github.starcatcher21.stargazer.block.register.*;
+import com.github.starcatcher21.stargazer.effects.StatusEffects;
 import com.github.starcatcher21.stargazer.entity.EntityRegistry;
 import com.github.starcatcher21.stargazer.entity.renderers.AmethystTurtleRenderer;
 import com.github.starcatcher21.stargazer.entity.renderers.EyeBatRenderer;
 import com.github.starcatcher21.stargazer.entity.renderers.GhostRenderer;
 import com.github.starcatcher21.stargazer.entity.renderers.StarRenderer;
 import com.github.starcatcher21.stargazer.mechanics.PlayerCosmicGrav;
+import com.github.starcatcher21.stargazer.mechanics.PlayerRedOrbGrav;
 import com.github.starcatcher21.stargazer.mechanics.SkinManager;
 import com.github.starcatcher21.stargazer.mechanics.dash.DashClient;
 import com.github.starcatcher21.stargazer.mechanics.star.Stargaze;
@@ -32,12 +34,9 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
-import net.fabricmc.fabric.mixin.biome.NetherBiomePresetMixin;
-import net.minecraft.block.Block;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
-import net.minecraft.world.biome.source.MultiNoiseBiomeSource;
 
 import java.util.Objects;
 
@@ -99,6 +98,13 @@ public class StargazerClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(Crops.EYE_BALLS_BLOCK, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(MoonBlocks.SPRUNGUS, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(MoonBlocks.POTTED_SPRUNGUS, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(RedOrbBlocks.YERI_LEAVES, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(RedOrbBlocks.YERI_SAPLING, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(RedOrbBlocks.POTTED_YERI_SAPLING, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(RedOrbBlocks.BLUE_GRASS, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(MoonBlocks.FULL_MOON_LEAVES, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(MoonBlocks.FULL_MOON_SAPLING, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(MoonBlocks.POTTED_FULL_MOON_SAPLING, RenderLayer.getCutout());
         BlockEntityRendererFactories.register(BlockTypes.COSMIC_BLOCK, CosmicBlockEntityRenderer::new);
         BlockEntityRendererFactories.register(BlockTypes.STAR_BARRIER_BLOCK, StarBarrierBlockEntityRenderer::new);
         BlockEntityRendererFactories.register(BlockTypes.NEGATIVE_BLOCK, NegativeBlockEntityRenderer::new);
@@ -127,6 +133,7 @@ public class StargazerClient implements ClientModInitializer {
                 if (client != null && client.world != null && client.player != null) {
                     DashClient.tick();
                     PlayerCosmicGrav.tick(client);
+                    PlayerRedOrbGrav.tick(client);
                     Stargaze.tick(client);
                     if (!Objects.requireNonNull(client.player.getControllingVehicle()).isLiving()) {
                         if (Dimensions.REG_COSMIC_WORLD.getValue().equals(client.world.getRegistryKey().getValue())) {
@@ -135,7 +142,9 @@ public class StargazerClient implements ClientModInitializer {
                     }
                     if (Objects.requireNonNull(client.player.getControllingVehicle()).isLiving()) {
                         if (Dimensions.REG_COSMIC_WORLD.getValue().equals(client.world.getRegistryKey().getValue())) {
-                            client.player.getAttributeInstance(StargazerAttributes.DASH_LEVEL).removeModifier(PlayerCosmicGrav.dash_modifier);
+                            if (!client.player.getStatusEffects().contains(StatusEffects.COSMO)) {
+                                client.player.getAttributeInstance(StargazerAttributes.DASH_LEVEL).removeModifier(PlayerCosmicGrav.dash_modifier);
+                            }
                         }
                     }
                 }

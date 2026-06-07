@@ -36,12 +36,15 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(Nebulas.RED_NEBULA_LOG.asItem())
                 .add(Nebulas.PURPLE_NEBULA_LOG.asItem())
                 .add(Nebulas.YELLOW_NEBULA_LOG.asItem())
+                .add(RedOrbBlocks.YERI_LOG.asItem())
                 .add(Darkness.STRIPPED_LOG_OF_DARKNESS.asItem());
         getOrCreateTagBuilder(ItemTags.SAPLINGS)
                 .add(MoonBlocks.MOON_SAPLING.asItem())
                 .add(StarBlocks.STAR_SAPLING.asItem())
                 .add(Darkness.DARKNESS_SAPLING.asItem())
-                .add(MoonBlocks.CURVE_SAPLING.asItem());
+                .add(MoonBlocks.CURVE_SAPLING.asItem())
+                .add(MoonBlocks.FULL_MOON_SAPLING.asItem())
+                .add(RedOrbBlocks.YERI_SAPLING.asItem());
         getOrCreateTagBuilder(STARDUST)
                 .add(ModItems.STARDUST);
         getOrCreateTagBuilder(CustomTags.ICECREAM)
@@ -79,6 +82,11 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(MoonBlocks.YELLOW_MOON_PLANKS.asItem())
                 .add(StarBlocks.STAR_PLANKS.asItem())
                 .add(MoonBlocks.CURVE_PLANKS.asItem())
+                .add(Nebulas.BLUE_NEBULA_PLANKS.asItem())
+                .add(Nebulas.PURPLE_NEBULA_PLANKS.asItem())
+                .add(Nebulas.RED_NEBULA_PLANKS.asItem())
+                .add(Nebulas.YELLOW_NEBULA_PLANKS.asItem())
+                .add(RedOrbBlocks.YERI_PLANKS.asItem())
                 .add(MoonBlocks.MOON_PLANKS.asItem());
         getOrCreateTagBuilder(net.minecraft.registry.tag.ItemTags.STONE_TOOL_MATERIALS)
                 .add(MoonBlocks.MOON_ROCK.asItem());

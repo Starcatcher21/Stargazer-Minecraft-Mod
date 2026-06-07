@@ -57,6 +57,7 @@ public class ModEngLangProvider extends FabricLanguageProvider {
         translationBuilder.add(MoonBlocks.MOON_LEAVES, "Moon Leaves");
         translationBuilder.add(MoonBlocks.MOON_LOG, "Moon Log");
         translationBuilder.add(MoonBlocks.FULL_MOON_LOG, "Full Moon Log");
+        translationBuilder.add(MoonBlocks.FULL_MOON_LEAVES, "Full Moon Leaves");
         translationBuilder.add(MoonBlocks.FULL_MOON_CORE, "Full Moon Core");
         translationBuilder.add(MoonBlocks.STRIPPED_MOON_LOG, "Stripped Moon Log");
         translationBuilder.add(MoonBlocks.MOON_SAPLING, "Moon Sapling");
@@ -268,7 +269,26 @@ public class ModEngLangProvider extends FabricLanguageProvider {
         translationBuilder.add(Hedges.PALE_HEDGE, "Pale Oak Hedge");
         translationBuilder.add(Hedges.SPRUCE_HEDGE, "Spruce Hedge");
         translationBuilder.add(Hedges.STAR_HEDGE, "Star Hedge");
+        translationBuilder.add(Hedges.YERI_HEDGE, "Yeri Hedge");
+        translationBuilder.add(Hedges.FULL_MOON_HEDGE, "Full Moon Hedge");
         // Red Orb
         translationBuilder.add(RedOrbBlocks.RED_ROCK, "Red Rock");
+        translationBuilder.add(RedOrbBlocks.RED_ROCK_SLAB, "Red Rock Slab");
+        translationBuilder.add(RedOrbBlocks.RED_ROCK_STAIRS, "Red Rock Stairs");
+        translationBuilder.add(RedOrbBlocks.POLISHED_RED_ROCK, "Polished Red Rock");
+        translationBuilder.add(RedOrbBlocks.YERI_LOG, "Yeri Log");
+        translationBuilder.add(RedOrbBlocks.YERI_LEAVES, "Yeri Leaves");
+        translationBuilder.add(RedOrbBlocks.YERI_SAPLING, "Yeri Sapling");
+        translationBuilder.add(RedOrbBlocks.YERI_PLANKS, "Yeri Planks");
+        translationBuilder.add(RedOrbBlocks.YERI_PLANKS_SLAB, "Yeri Slab");
+        translationBuilder.add(RedOrbBlocks.YERI_PLANKS_STAIRS, "Yeri Stairs");
+        translationBuilder.add(RedOrbBlocks.YERI_PLANKS_BUTTON, "Yeri Button");
+        translationBuilder.add(RedOrbBlocks.YERI_PLANKS_FENCE, "Yeri Fence");
+        translationBuilder.add(RedOrbBlocks.YERI_PLANKS_FENCE_GATE, "Yeri Fence Gate");
+        translationBuilder.add(RedOrbBlocks.RED_ORB_PLATFORM, "Red Orb Platform");
+        translationBuilder.add(RedOrbBlocks.GREEN_ROCK, "Green Rock");
+        translationBuilder.add(RedOrbBlocks.BLUE_GRASS, "Blue Grass");
+        translationBuilder.add(ModItems.RED_ORB_PLATFORM_BASE, "Red Orb Platform Base");
+        translationBuilder.add(MoonBlocks.FULL_MOON_SAPLING, "Full Moon Sapling");
     }
 }

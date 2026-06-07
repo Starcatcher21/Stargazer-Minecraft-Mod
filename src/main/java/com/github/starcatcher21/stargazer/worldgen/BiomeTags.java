@@ -8,6 +8,7 @@ import net.minecraft.world.biome.Biome;
 
 public class BiomeTags {
     public static final TagKey<Biome> MOON = register("moon");
+    public static final TagKey<Biome> RED_ORB = register("red_orb");
 
     private static TagKey<Biome> register(String name) {
         return TagKey.of(RegistryKeys.BIOME, Identifier.of(Stargazer.MOD_ID, name));

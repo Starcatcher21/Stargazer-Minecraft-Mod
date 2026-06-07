@@ -22,7 +22,7 @@ public class IceBlockMixin {
             target = "Lnet/minecraft/world/World;setBlockState(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;)Z"
     ), cancellable = true)
     private void notMelt(World world, PlayerEntity player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack tool, CallbackInfo ci) {
-        if (world.getDimension().effects().equals(Identifier.of(Stargazer.MOD_ID, "cosmic"))) {
+        if (world.getDimension().effects().equals(Identifier.of(Stargazer.MOD_ID, "cosmic")) || world.getDimension().effects().equals(Identifier.of(Stargazer.MOD_ID, "red_orb"))) {
             ci.cancel();
         }
     }

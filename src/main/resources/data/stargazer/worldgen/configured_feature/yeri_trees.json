@@ -1,0 +1,10 @@
+{
+  "type": "stargazer:yeri_trees",
+  "config": {
+    "blacklist": true,
+    "names": [],
+    "grow_on": [
+      {"Name":  "stargazer:red_rock"}
+    ]
+  }
+}

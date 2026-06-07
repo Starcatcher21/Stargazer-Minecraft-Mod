@@ -9,13 +9,11 @@ import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.component.type.ConsumableComponent;
 import net.minecraft.component.type.FoodComponent;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.consume.ConsumeEffect;
-import net.minecraft.item.consume.UseAction;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.world.World;
 

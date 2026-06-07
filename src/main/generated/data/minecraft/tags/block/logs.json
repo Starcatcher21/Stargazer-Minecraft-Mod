@@ -10,6 +10,7 @@
     "stargazer:stripped_star_log",
     "stargazer:log_of_darkness",
     "stargazer:blue_nebula_log",
+    "stargazer:yeri_log",
     "stargazer:yellow_nebula_log",
     "stargazer:red_nebula_log",
     "stargazer:purple_nebula_log",
@@ -26,6 +27,8 @@
     "stargazer:curve_hedge",
     "stargazer:star_hedge",
     "stargazer:darkness_hedge",
+    "stargazer:yeri_hedge",
+    "stargazer:full_moon_log",
     "stargazer:stripped_log_of_darkness"
   ]
 }

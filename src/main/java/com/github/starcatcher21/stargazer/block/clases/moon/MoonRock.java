@@ -3,7 +3,6 @@ package com.github.starcatcher21.stargazer.block.clases.moon;
 import com.github.starcatcher21.stargazer.block.register.MoonBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;

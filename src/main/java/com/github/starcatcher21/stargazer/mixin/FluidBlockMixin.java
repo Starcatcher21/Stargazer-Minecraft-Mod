@@ -29,6 +29,12 @@ public class FluidBlockMixin {
             }
             ci.cancel();
         }
+        if (world.getDimension().effects().equals(Identifier.of(Stargazer.MOD_ID, "red_orb"))) {
+            if (state.getFluidState().isIn(FluidTags.WATER)) {
+                world.setBlockState(pos, Blocks.FIRE.getDefaultState());
+            }
+            ci.cancel();
+        }
     }
     @Inject(method = "receiveNeighborFluids", at = @At("HEAD"), cancellable = true)
     private void water(World world, BlockPos pos, BlockState state, CallbackInfoReturnable<Boolean> cir) {

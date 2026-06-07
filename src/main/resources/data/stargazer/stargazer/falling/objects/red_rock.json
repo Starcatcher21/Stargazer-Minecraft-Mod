@@ -1,0 +1,7 @@
+{
+  "item": "stargazer:red_rock",
+  "fall_particle": "minecraft:campfire_cosy_smoke",
+  "hit_particle": "minecraft:campfire_cosy_smoke",
+  "particle_amount": 200,
+  "velocity": 0.06
+}

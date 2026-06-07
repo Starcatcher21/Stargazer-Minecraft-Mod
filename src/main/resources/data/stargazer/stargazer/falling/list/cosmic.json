@@ -1,0 +1,14 @@
+{
+  "world": "stargazer:cosmic",
+  "objects": [
+    "stargazer:yellow_star",
+    "stargazer:blue_star",
+    "stargazer:red_star",
+    "stargazer:purple_star",
+    "stargazer:red_rock"
+  ],
+  "chances": [
+    20, 10, 10, 5, 10
+  ],
+  "light": 0
+}

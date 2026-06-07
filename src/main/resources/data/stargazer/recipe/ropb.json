@@ -1,0 +1,20 @@
+{
+  "type": "stargazer:starforge",
+  "pattern": [
+    "  S  ",
+    "  P  ",
+    "SIMIS",
+    "  P  ",
+    "S   S"
+  ],
+  "key": {
+    "M": "stargazer:lodestar",
+    "I": "minecraft:iron_ingot",
+    "S": "stargazer:purple_star",
+    "P": "stargazer:prismatic_ingot"
+  },
+  "result": {
+    "count": 1,
+    "id": "stargazer:red_orb_platform_base"
+  }
+}

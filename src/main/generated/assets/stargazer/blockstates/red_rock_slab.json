@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "stargazer:block/red_rock_slab"
+    },
+    "type=double": {
+      "model": "stargazer:block/red_rock"
+    },
+    "type=top": {
+      "model": "stargazer:block/red_rock_slab_top"
+    }
+  }
+}

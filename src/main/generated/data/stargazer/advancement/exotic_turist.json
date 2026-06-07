@@ -65,6 +65,22 @@
       },
       "trigger": "minecraft:location"
     },
+    "visited_moon_field": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "biomes": "stargazer:moon_field"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    },
     "visited_moon_forest": {
       "conditions": {
         "player": [
@@ -74,6 +90,22 @@
             "predicate": {
               "location": {
                 "biomes": "stargazer:moon_forest"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    },
+    "visited_moon_void": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "biomes": "stargazer:moon_void"
               }
             }
           }
@@ -144,6 +176,12 @@
     ],
     [
       "visited_darkness_forest"
+    ],
+    [
+      "visited_moon_field"
+    ],
+    [
+      "visited_moon_void"
     ]
   ],
   "rewards": {
