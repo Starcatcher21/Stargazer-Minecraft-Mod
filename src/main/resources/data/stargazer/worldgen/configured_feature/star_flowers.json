@@ -30,7 +30,11 @@
             "high_states": [
               {
                 "Name": "stargazer:star_flower"
+              },
+              {
+                "Name": "stargazer:sprungus"
               }
+
             ]
           }
         },

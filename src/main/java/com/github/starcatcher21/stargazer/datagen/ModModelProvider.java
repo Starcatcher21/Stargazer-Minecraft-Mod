@@ -134,6 +134,7 @@ public class ModModelProvider extends FabricModelProvider {
         // crops
         blockStateModelGenerator.registerCrop(Crops.DRAGON_CARROT_BLOCK, MoonCrop.AGE, 0, 1, 2, 3, 4, 5, 6, 7);
         blockStateModelGenerator.registerCrop(Crops.BROODY_BLOCK, MoonCrop.AGE, 0, 1, 2, 3, 4, 5, 6, 7);
+        blockStateModelGenerator.registerCrop(Crops.EYE_BALLS_BLOCK, MoonCrop.AGE, 0, 1, 2, 3, 4, 5, 6, 7);
         // Nebulas
         blockStateModelGenerator.registerAxisRotated(Nebulas.BLUE_NEBULA_LOG, TexturedModel.CUBE_COLUMN);
         blockStateModelGenerator.registerAxisRotated(Nebulas.RED_NEBULA_LOG, TexturedModel.CUBE_COLUMN);
@@ -180,6 +181,7 @@ public class ModModelProvider extends FabricModelProvider {
 
         registerTopBottom(blockStateModelGenerator, Darkness.DYLIUM, dyliumMap);
         registerCustomFlowerPotPlant(blockStateModelGenerator, Darkness.ROSE_OF_PAIN, Darkness.POTTED_ROSE_OF_PAIN, MoonBlocks.MOON_ROCK, BlockStateModelGenerator.CrossType.NOT_TINTED);
+        registerCustomFlowerPotPlant(blockStateModelGenerator, MoonBlocks.SPRUNGUS, MoonBlocks.POTTED_SPRUNGUS, MoonBlocks.MOON_ROCK, BlockStateModelGenerator.CrossType.NOT_TINTED);
         // Chess
         blockStateModelGenerator.registerSimpleCubeAll(Chess.BLACK_CHESSBOARD);
         blockStateModelGenerator.registerSimpleCubeAll(Chess.WHITE_CHESSBOARD);
@@ -202,6 +204,8 @@ public class ModModelProvider extends FabricModelProvider {
         registerHedgeSide(blockStateModelGenerator, Hedges.CURVE_HEDGE, MoonBlocks.CURVE_LOG);
         registerHedgeSide(blockStateModelGenerator, Hedges.STAR_HEDGE, StarBlocks.STAR_LOG);
         registerHedgeSide(blockStateModelGenerator, Hedges.DARKNESS_HEDGE, Darkness.LOG_OF_DARKNESS);
+        // Red Orb
+        blockStateModelGenerator.registerSimpleCubeAll(RedOrbBlocks.RED_ROCK);
     }
 
     @Override
@@ -235,6 +239,7 @@ public class ModModelProvider extends FabricModelProvider {
         blockGeneratedItem(itemModelGenerator, StarBlocks.STAR_SAPLING);
         blockGeneratedItem(itemModelGenerator, Darkness.DARKNESS_SAPLING);
         blockGeneratedItem(itemModelGenerator, Darkness.ROSE_OF_PAIN);
+        blockGeneratedItem(itemModelGenerator, MoonBlocks.SPRUNGUS);
 
         itemModelGenerator.register(ModItems.DEAD_EYE_BAT, Models.GENERATED);
         itemModelGenerator.register(ModItems.LIVING_EYE, Models.GENERATED);

@@ -51,7 +51,8 @@
     ["stargazer:star_flowers"],
     ["stargazer:star_flowers_top"],
     ["stargazer:eye_grass"],
-    ["stargazer:eye_grass_top"]
+    ["stargazer:eye_grass_top"],
+    ["stargazer:eyes"]
   ],
   "has_precipitation": true,
   "spawn_costs": {},

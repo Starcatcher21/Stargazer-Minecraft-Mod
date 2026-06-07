@@ -17,7 +17,7 @@
   "noise_router": {
     "barrier": 0,
     "continents": "minecraft:overworld/continents",
-    "depth": "stargazer:cosmic",
+    "depth": "minecraft:overworld/depth",
     "erosion": "minecraft:overworld/erosion",
     "final_density": {
       "type": "minecraft:squeeze",
@@ -153,7 +153,8 @@
                             "biome_is": [
                               "stargazer:moon_forest",
                               "stargazer:purple_shroom_forest",
-                              "stargazer:eye_birch_forest"
+                              "stargazer:eye_birch_forest",
+                              "stargazer:moon_field"
                             ]
                           },
                           "then_run": {

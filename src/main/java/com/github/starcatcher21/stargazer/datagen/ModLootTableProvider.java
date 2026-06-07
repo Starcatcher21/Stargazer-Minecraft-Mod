@@ -12,6 +12,7 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.CropBlock;
+import net.minecraft.block.FlowerbedBlock;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
@@ -68,7 +69,8 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
         addDrop(ModBlock.SPRINKLER);
         addDrop(MoonBlocks.STAR_FORGE);
         addDrop(MoonBlocks.STAR_STONE);
-        addDrop(MoonBlocks.FORGET_ME_NOW);
+        addDrop(MoonBlocks.FORGET_ME_NOW, addFlowerbedDrop(MoonBlocks.FORGET_ME_NOW));
+        addDrop(EyeBloodBlocks.EYES, addFlowerbedDrop(EyeBloodBlocks.EYES));
         addPottedPlantDrops(MoonBlocks.POTTED_FORGET_ME_NOW);
         addPottedPlantDrops(StarBlocks.POTTED_CELESTIAL_STAR_FLOWER);
         addPottedPlantDrops(StarBlocks.POTTED_STAR_FLOWER);
@@ -76,6 +78,8 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
         addPottedPlantDrops(MoonBlocks.POTTED_CURVE_SAPLING);
         addPottedPlantDrops(MoonBlocks.POTTED_PURPLE_MUSHROOM);
         addPottedPlantDrops(StarBlocks.POTTED_STAR_SAPLING);
+        addPottedPlantDrops(MoonBlocks.POTTED_SPRUNGUS);
+        addDrop(MoonBlocks.SPRUNGUS);
         addDrop(ModBlock.MOON_WELDER);
         // Moon
         addDrop(MoonBlocks.MOON_LEAVES, leavesDrops(MoonBlocks.MOON_LEAVES, MoonBlocks.MOON_SAPLING, 0.035F));
@@ -89,10 +93,12 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
         addDrop(MoonBlocks.MOON_GRASS, cropDrops(MoonBlocks.MOON_GRASS, Crops.DRAGON_CARROT, 0.035F));
         addDrop(MoonBlocks.TALL_MOON_GRASS, dropsWithSilkTouchOrShears(MoonBlocks.TALL_MOON_GRASS));
         addDrop(MoonBlocks.MOON_FERN, cropDrops(MoonBlocks.MOON_FERN, Crops.BROODY, 0.035F));
+        addDrop(EyeBloodBlocks.EYE_FERN, cropDrops(EyeBloodBlocks.EYE_FERN, Crops.EYE_BALLS, 0.035F));
         addDrop(MoonBlocks.STAR_TRAP, dropsWithSilkTouchOrShears(MoonBlocks.STAR_TRAP));
         addDrop(MoonBlocks.GEODE_FRUIT, conditionDrop(MoonBlocks.GEODE_FRUIT, ModItems.GEODE_FRUIT, BlockStatePropertyLootCondition.builder(MoonBlocks.GEODE_FRUIT).properties(StatePredicate.Builder.create().exactMatch(GeodeFruit.STAGE, GeodeFruitStage.grown))));
         addDrop(Crops.DRAGON_CARROT_BLOCK, cropDrops(Crops.DRAGON_CARROT_BLOCK, Crops.DRAGON_CARROT, Crops.DRAGON_CARROT, BlockStatePropertyLootCondition.builder(Crops.DRAGON_CARROT_BLOCK).properties(StatePredicate.Builder.create().exactMatch(MoonCrop.AGE, 7))));
         addDrop(Crops.BROODY_BLOCK, cropDrops(Crops.BROODY_BLOCK, Crops.BROODY, Crops.BROODY, BlockStatePropertyLootCondition.builder(Crops.BROODY_BLOCK).properties(StatePredicate.Builder.create().exactMatch(MoonCrop.AGE, 7))));
+        addDrop(Crops.EYE_BALLS_BLOCK, cropDrops(Crops.EYE_BALLS_BLOCK, Crops.EYE_BALLS, Crops.EYE_BALLS, BlockStatePropertyLootCondition.builder(Crops.EYE_BALLS_BLOCK).properties(StatePredicate.Builder.create().exactMatch(MoonCrop.AGE, 7))));
         addDrop(EyeBloodBlocks.EYE_JAR);
         addDrop(MoonBlocks.MOON_LOG);
         addDrop(MoonBlocks.FULL_MOON_CORE);
@@ -251,5 +257,42 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
         addDrop(Chess.CHESSBOARD);
         addDrop(Chess.BLACK_CHESSBOARD);
         addDrop(Chess.WHITE_CHESSBOARD);
+        // Red Orb
+        addDrop(RedOrbBlocks.RED_ROCK);
+    }
+
+    public LootTable.Builder addFlowerbedDrop(net.minecraft.block.Block block) {
+        return LootTable.builder().pool(
+                LootPool.builder()
+                        .rolls(ConstantLootNumberProvider.create(1.0F))
+                        .with(
+                                ItemEntry.builder(block)
+                                        .apply(
+                                                // This function checks the FLOWER_AMOUNT property and scales the drop count accordingly
+                                                SetCountLootFunction.builder(ConstantLootNumberProvider.create(1.0F))
+                                                        .conditionally(BlockStatePropertyLootCondition.builder(block)
+                                                                .properties(net.minecraft.predicate.StatePredicate.Builder.create()
+                                                                        .exactMatch(FlowerbedBlock.FLOWER_AMOUNT, 1)))
+                                        )
+                                        .apply(
+                                                SetCountLootFunction.builder(ConstantLootNumberProvider.create(2.0F))
+                                                        .conditionally(BlockStatePropertyLootCondition.builder(block)
+                                                                .properties(net.minecraft.predicate.StatePredicate.Builder.create()
+                                                                        .exactMatch(FlowerbedBlock.FLOWER_AMOUNT, 2)))
+                                        )
+                                        .apply(
+                                                SetCountLootFunction.builder(ConstantLootNumberProvider.create(3.0F))
+                                                        .conditionally(BlockStatePropertyLootCondition.builder(block)
+                                                                .properties(net.minecraft.predicate.StatePredicate.Builder.create()
+                                                                        .exactMatch(FlowerbedBlock.FLOWER_AMOUNT, 3)))
+                                        )
+                                        .apply(
+                                                SetCountLootFunction.builder(ConstantLootNumberProvider.create(4.0F))
+                                                        .conditionally(BlockStatePropertyLootCondition.builder(block)
+                                                                .properties(net.minecraft.predicate.StatePredicate.Builder.create()
+                                                                        .exactMatch(FlowerbedBlock.FLOWER_AMOUNT, 4)))
+                                        )
+                        )
+        );
     }
 }

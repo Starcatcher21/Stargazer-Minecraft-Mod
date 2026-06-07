@@ -17,7 +17,7 @@
   "noise_router": {
     "barrier": 0,
     "continents": "minecraft:overworld/continents",
-    "depth": "stargazer:cosmic",
+    "depth": "minecraft:overworld/depth",
     "erosion": "minecraft:overworld/erosion",
     "final_density": {
       "type": "minecraft:squeeze",
@@ -86,7 +86,15 @@
     "vegetation": {
       "type": "minecraft:shifted_noise",
       "noise": "minecraft:vegetation",
-      "shift_x": "minecraft:shift_x",
+      "shift_x": {
+        "type": "minecraft:squeeze",
+        "argument": {
+          "type": "minecraft:cache_all_in_cell",
+          "argument": {
+            "type": "minecraft:end_islands"
+          }
+        }
+      },
       "shift_y": 0,
       "shift_z": "minecraft:shift_z",
       "xz_scale": 0.25,
@@ -143,22 +151,9 @@
                           "if_true": {
                             "type": "minecraft:biome",
                             "biome_is": [
-                              "stargazer:moon_forest"
-                            ]
-                          },
-                          "then_run": {
-                            "type": "minecraft:block",
-                            "result_state": {
-                              "Name": "stargazer:moon_rock_nylium"
-                            }
-                          }
-                        },
-                        {
-                          "type": "minecraft:condition",
-                          "if_true": {
-                            "type": "minecraft:biome",
-                            "biome_is": [
-                              "stargazer:purple_shroom_forest"
+                              "stargazer:moon_forest",
+                              "stargazer:purple_shroom_forest",
+                              "stargazer:eye_birch_forest"
                             ]
                           },
                           "then_run": {
@@ -180,6 +175,21 @@
                             "type": "minecraft:block",
                             "result_state": {
                               "Name": "stargazer:moon_rock"
+                            }
+                          }
+                        },
+                        {
+                          "type": "minecraft:condition",
+                          "if_true": {
+                            "type": "minecraft:biome",
+                            "biome_is": [
+                              "stargazer:darkness_forest"
+                            ]
+                          },
+                          "then_run": {
+                            "type": "minecraft:block",
+                            "result_state": {
+                              "Name": "stargazer:dylium"
                             }
                           }
                         },

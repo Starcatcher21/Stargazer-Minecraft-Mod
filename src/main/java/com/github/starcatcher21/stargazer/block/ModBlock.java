@@ -100,5 +100,6 @@ public class ModBlock {
         Nebulas.init();
         Chess.init();
         Hedges.init();
+        RedOrbBlocks.init();
     }
 }

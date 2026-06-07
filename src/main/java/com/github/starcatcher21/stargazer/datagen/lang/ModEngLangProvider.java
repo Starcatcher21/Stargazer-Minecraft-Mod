@@ -209,6 +209,7 @@ public class ModEngLangProvider extends FabricLanguageProvider {
         translationBuilder.add(EntityRegistry.EYE_BAT_ENTITY, "Eye Bat");
         // Vegetation
         translationBuilder.add(StarBlocks.STAR_FLOWER, "Star Flower");
+        translationBuilder.add(MoonBlocks.SPRUNGUS, "Sprungus");
         translationBuilder.add(StarBlocks.CELESTIAL_STAR_FLOWER, "Celestial Star Flower");
         translationBuilder.add(MoonBlocks.MOON_GRASS, "Moon Grass");
         translationBuilder.add(MoonBlocks.TALL_MOON_GRASS, "Tall Moon Grass");
@@ -227,6 +228,7 @@ public class ModEngLangProvider extends FabricLanguageProvider {
         // Crops
         translationBuilder.add(Crops.DRAGON_CARROT, "Dragon Carrot");
         translationBuilder.add(Crops.BROODY, "Broody");
+        translationBuilder.add(Crops.EYE_BALLS, "Eye Balls");
         translationBuilder.add(Crops.GIANT_DRAGON_CARROT, "Giant Dragon Carrot");
         // Potions
         translationBuilder.add("item.minecraft.potion.effect."+Registries.POTION.get(Potions.CosmoFeel.getKey().get()).getBaseName(), "Potion of Cosmic Feeling");
@@ -266,5 +268,7 @@ public class ModEngLangProvider extends FabricLanguageProvider {
         translationBuilder.add(Hedges.PALE_HEDGE, "Pale Oak Hedge");
         translationBuilder.add(Hedges.SPRUCE_HEDGE, "Spruce Hedge");
         translationBuilder.add(Hedges.STAR_HEDGE, "Star Hedge");
+        // Red Orb
+        translationBuilder.add(RedOrbBlocks.RED_ROCK, "Red Rock");
     }
 }

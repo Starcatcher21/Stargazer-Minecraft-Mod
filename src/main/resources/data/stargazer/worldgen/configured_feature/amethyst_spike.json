@@ -1,11 +1,12 @@
 {
-  "type": "stargazer:spike",
+  "type": "stargazer:spikes",
   "config": {
     "offset": 1,
     "size": 7,
     "grow_on": [
       {"Name": "minecraft:amethyst_block"},
-      {"Name": "stargazer:infested_calcite"}
+      {"Name": "stargazer:infested_calcite"},
+      {"Name":  "minecraft:calcite"}
     ],
     "main_block": [
       {"Name": "minecraft:amethyst_block"},

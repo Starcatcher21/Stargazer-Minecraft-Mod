@@ -1,5 +1,6 @@
 package com.github.starcatcher21.stargazer.worldgen.features.trees.amertylst;
 
+import com.github.starcatcher21.stargazer.Stargazer;
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
 import net.minecraft.block.BlockState;

@@ -34,6 +34,7 @@ public class ItemGroup {
             // Crops
             itemGroup.add(Crops.DRAGON_CARROT);
             itemGroup.add(Crops.BROODY);
+            itemGroup.add(Crops.EYE_BALLS);
             // Star Blocks
             itemGroup.add(StarBlocks.COSMIC_BLOCK);
             itemGroup.add(StarBlocks.STAR_BARRIER_BLOCK);
@@ -160,6 +161,7 @@ public class ItemGroup {
             itemGroup.add(Nebulas.BLUE_TENTACLE_FLOWER);
             itemGroup.add(Nebulas.RED_TENTACLE_FLOWER);
             itemGroup.add(Nebulas.YELLOW_TENTACLE_FLOWER);
+            itemGroup.add(MoonBlocks.SPRUNGUS);
             // Items
             itemGroup.add(ModItems.GRAVICE);
             itemGroup.add(ModItems.STARDUST);

@@ -1,6 +1,7 @@
 package com.github.starcatcher21.stargazer.block.register;
 
 import com.github.starcatcher21.stargazer.Helpers;
+import com.github.starcatcher21.stargazer.block.clases.CosmicFlower;
 import com.github.starcatcher21.stargazer.block.clases.CustomLeaves;
 import com.github.starcatcher21.stargazer.block.clases.CustomSapling;
 import com.github.starcatcher21.stargazer.block.clases.moon.*;
@@ -11,6 +12,7 @@ import com.github.starcatcher21.stargazer.block.clases.moon.log.StrippedMoonLog;
 import com.github.starcatcher21.stargazer.block.clases.moon.star_stone.StarStone;
 import com.github.starcatcher21.stargazer.block.clases.moon.star_trap.StarTrap;
 import com.github.starcatcher21.stargazer.block.clases.moon.starforge.Starforge;
+import com.github.starcatcher21.stargazer.effects.StatusEffects;
 import com.github.starcatcher21.stargazer.item.ModItems;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.NoteBlockInstrument;
@@ -78,7 +80,7 @@ public class MoonBlocks {
             .requiresTool()
             .mapColor(MapColor.WHITE)
     );
-    public static final Block MOON_ROCK_NYLIUM = register("moon_rock_nylium", MoonRock::new, AbstractBlock.Settings.create()
+    public static final Block MOON_ROCK_NYLIUM = register("moon_rock_nylium", MoonRockNylium::new, AbstractBlock.Settings.create()
             .solid()
             .sounds(BlockSoundGroup.NYLIUM)
             .strength(0.5f)
@@ -567,6 +569,16 @@ public class MoonBlocks {
             .pistonBehavior(PistonBehavior.DESTROY)
     );
     public static final Block POTTED_FORGET_ME_NOW = registerWoItem("potted_forget_me_now", (AbstractBlock.Settings settings) -> new FlowerPotBlock(FORGET_ME_NOW, settings), AbstractBlock.Settings.copy(Blocks.POTTED_ALLIUM).nonOpaque());
+
+    public static final Block SPRUNGUS = register("sprungus", settings -> new CosmicFlower(StatusEffects.COSMO, 5.0f, settings), AbstractBlock.Settings.create()
+            .mapColor(MapColor.CYAN)
+            .noCollision()
+            .breakInstantly()
+            .sounds(BlockSoundGroup.GRASS)
+            .offset(AbstractBlock.OffsetType.XZ)
+            .pistonBehavior(PistonBehavior.DESTROY)
+    );
+    public static final Block POTTED_SPRUNGUS = registerWoItem("potted_sprungus", settings -> new FlowerPotBlock(SPRUNGUS, settings), AbstractBlock.Settings.copy(Blocks.POTTED_ALLIUM).nonOpaque());
     public static void init() {
         COLORED_PLANKS.put(ModItems.RED_STAR, MoonBlocks.RED_MOON_PLANKS.getDefaultState());
         COLORED_PLANKS.put(ModItems.BLUE_STAR, MoonBlocks.BLUE_MOON_PLANKS.getDefaultState());

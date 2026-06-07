@@ -39,38 +39,10 @@ public final class ModItems {
     public static final Item DEAD_EYE_BAT = register("dead_eye_bat", Item::new, new Item.Settings());
     public static final Item LIVING_EYE = register("living_eye", Item::new, new Item.Settings());
     public static final Item GRAVICE = register("gravice", Item::new, new Item.Settings()
-            .food(new FoodComponent(6, 6, true),
-                    ConsumableComponent.builder()
-                            .consumeEffect(new ConsumeEffect() {
-                                @Override
-                                public Type<? extends ConsumeEffect> getType() {
-                                    return null;
-                                }
-
-                                @Override
-                                public boolean onConsume(World world, ItemStack stack, LivingEntity user) {
-                                    return true;
-                                }
-                            })
-                            .build()
-            )
+            .food(new FoodComponent(6, 6, true))
     );
     public static final Item COOKED_GEODE_FRUIT = register("cooked_geode_fruit", Item::new, new Item.Settings()
-            .food(new FoodComponent(8, 4, true),
-                    ConsumableComponent.builder()
-                            .consumeEffect(new ConsumeEffect() {
-                                @Override
-                                public Type<? extends ConsumeEffect> getType() {
-                                    return null;
-                                }
-
-                                @Override
-                                public boolean onConsume(World world, ItemStack stack, LivingEntity user) {
-                                    return true;
-                                }
-                            })
-                            .build()
-            )
+            .food(new FoodComponent(8, 4, true))
     );
     public static final Item FULL_COOKED_GEODE_FRUIT = register("full_cooked_geode_fruit", Item::new, new Item.Settings()
             .food(new FoodComponent(14, 20, true),
@@ -78,7 +50,7 @@ public final class ModItems {
                             .consumeEffect(new ConsumeEffect() {
                                 @Override
                                 public Type<? extends ConsumeEffect> getType() {
-                                    return null;
+                                    return Type.APPLY_EFFECTS;
                                 }
 
                                 @Override
@@ -97,7 +69,7 @@ public final class ModItems {
                             .consumeEffect(new ConsumeEffect() {
                                 @Override
                                 public Type<? extends ConsumeEffect> getType() {
-                                    return null;
+                                    return Type.APPLY_EFFECTS;
                                 }
 
                                 @Override
