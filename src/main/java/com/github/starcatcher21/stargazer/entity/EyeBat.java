@@ -18,10 +18,10 @@ import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animatable.manager.AnimatableManager;
-import software.bernie.geckolib.animatable.processing.AnimationController;
-import software.bernie.geckolib.animatable.processing.AnimationTest;
-import software.bernie.geckolib.animation.PlayState;
+import software.bernie.geckolib.animation.AnimationController;
 import software.bernie.geckolib.animation.RawAnimation;
+import software.bernie.geckolib.animation.object.PlayState;
+import software.bernie.geckolib.animation.state.AnimationTest;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 public class EyeBat extends PathAwareEntity implements GeoEntity {
@@ -54,7 +54,7 @@ public class EyeBat extends PathAwareEntity implements GeoEntity {
 
     protected EntityNavigation createNavigation(World world) {
         BirdNavigation birdNavigation = new BirdNavigation(this, world);
-        birdNavigation.setCanPathThroughDoors(false);
+        birdNavigation.setCanOpenDoors(false);
         birdNavigation.setCanSwim(true);
         birdNavigation.setMaxFollowRange(48.0F);
         return birdNavigation;
@@ -62,7 +62,7 @@ public class EyeBat extends PathAwareEntity implements GeoEntity {
 
     @Override
     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>("MovementController", 5, this::AnimController));
+        controllers.add(new AnimationController<GeoAnimatable>("MovementController", 5, this::AnimController));
     }
 
     private PlayState AnimController(AnimationTest<GeoAnimatable> animTest) {

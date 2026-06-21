@@ -15,10 +15,21 @@
     "water_fog_color": 329011
   },
   "features": [
-    ["stargazer:chess_trees"]
+    [
+      "stargazer:chess_trees"
+    ]
   ],
   "has_precipitation": true,
   "spawn_costs": {},
-  "spawners": {},
+  "spawners": {
+    "creature": [
+      {
+        "type": "stargazer:rook",
+        "weight": 1,
+        "minCount": 1,
+        "maxCount": 2
+      }
+    ]
+  },
   "temperature": 0.8
 }

@@ -1,10 +1,9 @@
 #version 150
 
 #moj_import <minecraft:matrix.glsl>
+#moj_import <minecraft:globals.glsl>
 
 uniform sampler2D Sampler0;
-
-uniform float GameTime;
 
 in vec4 texProj0;
 
@@ -37,7 +36,7 @@ const mat4 SCALE_TRANSLATE = mat4(
 mat4 star_layer(float layer) {
     mat4 translate = mat4(
         1.0, 0.0, 0.0, 1.0 / layer,
-        0.0, 1.0, 0.0, (2.0 + layer) * (GameTime * 32),
+        0.0, 1.0, 0.0, (2.0 + layer) * (GameTime * 16),
         0.0, 0.0, 1.0, 0.0,
         0.0, 0.0, 0.0, 1.0
     );

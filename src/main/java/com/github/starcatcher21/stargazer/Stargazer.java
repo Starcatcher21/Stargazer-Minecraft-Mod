@@ -31,6 +31,7 @@ public class Stargazer implements ModInitializer {
 	public static void main(String[] string) {}
 
 	public void onInitialize() {
+		GameRules.init();
 		ScreenHandlerTypes.init();
 		RecipeTypes.init();
 		CustomFeatures.init();

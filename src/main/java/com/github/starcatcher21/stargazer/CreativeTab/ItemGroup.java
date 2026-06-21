@@ -25,8 +25,12 @@ public class ItemGroup {
 
         ItemGroupEvents.modifyEntriesEvent(STAR_GROUP_KEY).register(itemGroup -> {
             // Blocks
+            itemGroup.add(ModItems.STAR_HAMMER);
             itemGroup.add(ModBlock.GRAVE);
             itemGroup.add(ModBlock.NEGATIVE_BLOCK);
+            itemGroup.add(ModBlock.NORED_BLOCK);
+            itemGroup.add(ModBlock.NOGREEN_BLOCK);
+            itemGroup.add(ModBlock.NOBLUE_BLOCK);
             itemGroup.add(ModBlock.INFESTED_CALCITE);
             itemGroup.add(ModBlock.BONE_LEAVES);
             itemGroup.add(ModBlock.SPRINKLER);
@@ -78,6 +82,7 @@ public class ItemGroup {
             itemGroup.add(ModItems.SUN_ENRICHED_YELLOW_STAR);
             itemGroup.add(ModItems.WISHING_STAR);
             itemGroup.add(ModItems.DREAM_STAR);
+            itemGroup.add(ModItems.WINGED_STAR);
             // Moon Trees
             itemGroup.add(MoonBlocks.MOON_LOG);
             itemGroup.add(MoonBlocks.STRIPPED_MOON_LOG);
@@ -157,6 +162,7 @@ public class ItemGroup {
             itemGroup.add(MoonBlocks.STAR_TRAP);
             itemGroup.add(MoonBlocks.MOON_FERN);
             itemGroup.add(MoonBlocks.FORGET_ME_NOW);
+            itemGroup.add(Darkness.GRADI);
             itemGroup.add(EyeBloodBlocks.EYE_FERN);
             itemGroup.add(EyeBloodBlocks.EYES);
             itemGroup.add(Nebulas.PURPLE_TENTACLE_FLOWER);
@@ -165,7 +171,6 @@ public class ItemGroup {
             itemGroup.add(Nebulas.YELLOW_TENTACLE_FLOWER);
             itemGroup.add(MoonBlocks.SPRUNGUS);
             // Items
-            itemGroup.add(ModItems.GRAVICE);
             itemGroup.add(ModItems.STARDUST);
             itemGroup.add(ModItems.PURPLE_STAR);
             itemGroup.add(StarBlocks.PURPLE_STAR_BLOCK);
@@ -222,10 +227,17 @@ public class ItemGroup {
             itemGroup.add(ModItems.GHOST_SPAWN_EGG);
             itemGroup.add(ModItems.AMETHYST_TURTLE_SPAWN_EGG);
             itemGroup.add(ModItems.EYE_BAT_SPAWN_EGG);
+            itemGroup.add(ModItems.ROOK_SPAWN_EGG);
+            itemGroup.add(ModItems.BLACK_ROOK_SPAWN_EGG);
+            itemGroup.add(ModItems.SCRUBY_SPAWN_EGG);
             // Chess
             itemGroup.add(Chess.BLACK_CHESSBOARD);
             itemGroup.add(Chess.WHITE_CHESSBOARD);
             itemGroup.add(Chess.CHESSBOARD);
+            itemGroup.add(ModItems.WHITE_BRICK);
+            itemGroup.add(ModItems.BLACK_BRICK);
+            itemGroup.add(Chess.WHITE_BRICKS);
+            itemGroup.add(Chess.BLACK_BRICKS);
             // Hedge
             itemGroup.add(Hedges.OAK_HEDGE);
             itemGroup.add(Hedges.BIRCH_HEDGE);
@@ -241,6 +253,8 @@ public class ItemGroup {
             itemGroup.add(Hedges.STAR_HEDGE);
             itemGroup.add(Hedges.DARKNESS_HEDGE);
             itemGroup.add(Hedges.YERI_HEDGE);
+            itemGroup.add(Hedges.SPIRO_HEDGE);
+            itemGroup.add(Hedges.TRUNN_HEDGE);
             // Red Orb
             itemGroup.add(RedOrbBlocks.RED_ROCK);
             itemGroup.add(RedOrbBlocks.RED_ROCK_SLAB);
@@ -253,6 +267,17 @@ public class ItemGroup {
             itemGroup.add(RedOrbBlocks.RED_ORB_PLATFORM);
             itemGroup.add(RedOrbBlocks.GREEN_ROCK);
             itemGroup.add(RedOrbBlocks.BLUE_GRASS);
+            itemGroup.add(RedOrbBlocks.POINTY);
+            itemGroup.add(RedOrbBlocks.SPIRO_LOG);
+            itemGroup.add(RedOrbBlocks.SPIRO_LEAVES);
+            itemGroup.add(RedOrbBlocks.SPIRO_SAPLING);
+            // Wander
+            itemGroup.add(ModItems.DARKSTAR);
+            itemGroup.add(Wander.BORIL);
+            itemGroup.add(Wander.PUROIL);
+            itemGroup.add(Wander.TRUNN_LOG);
+            itemGroup.add(Wander.TRUNN_LEAVES);
+            itemGroup.add(Wander.TRUNN_SAPLING);
         });
     }
 }

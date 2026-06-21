@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "stargazer:block/spiro_sapling"
+  }
+}

@@ -2,6 +2,7 @@ package com.github.starcatcher21.stargazer.datagen;
 
 import com.github.starcatcher21.stargazer.CustomTags;
 import com.github.starcatcher21.stargazer.Stargazer;
+import com.github.starcatcher21.stargazer.block.ModBlock;
 import com.github.starcatcher21.stargazer.block.register.MoonBlocks;
 import com.github.starcatcher21.stargazer.block.register.RedOrbBlocks;
 import com.github.starcatcher21.stargazer.entity.EntityRegistry;
@@ -81,6 +82,34 @@ public class ModAdvancementsProvider extends FabricAdvancementProvider {
                 )
                 .criterion("watch_stars", Criterias.starcatching.create(new Starcatching.Conditions(Optional.empty(), Optional.empty())))
                 .build(consumer, Stargazer.MOD_ID + ":airplane");
+        AdvancementEntry negative = Advancement.Builder.create()
+                .parent(stars)
+                .display(
+                        ModBlock.NEGATIVE_BLOCK.asItem(), // The display icon
+                        Text.literal("evitageN"), // The title
+                        Text.literal("I see in negative"), // The description
+                        null,
+                        AdvancementFrame.TASK, // TASK, CHALLENGE, or GOAL
+                        true, // Show the toast when completing it
+                        true, // Announce it to chat
+                        true // Hide it in the advancement tab until it's achieved
+                )
+                .criterion("negative", Criterias.negative.create(new Negative.Conditions(Optional.empty())))
+                .build(consumer, Stargazer.MOD_ID + ":negative");
+        AdvancementEntry brick = Advancement.Builder.create()
+                .parent(airplane)
+                .display(
+                        Items.SPYGLASS, // The display icon
+                        Text.literal("Is that a BRICK!!!"), // The title
+                        Text.literal("BRICK B R I C K BRICK It's fun"), // The description
+                        null,
+                        AdvancementFrame.TASK, // TASK, CHALLENGE, or GOAL
+                        true, // Show the toast when completing it
+                        true, // Announce it to chat
+                        false // Hide it in the advancement tab until it's achieved
+                )
+                .criterion("watch_stars", Criterias.starcatching.create(new Starcatching.Conditions(Optional.empty(), Optional.of(ItemPredicate.Builder.create().tag(registryEntryLookupItem, CustomTags.CHESS_BRICK).build()))))
+                .build(consumer, Stargazer.MOD_ID + ":brick");
 
         AdvancementEntry portal = Advancement.Builder.create()
                 .parent(airplane)

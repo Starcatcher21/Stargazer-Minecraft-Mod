@@ -12,12 +12,14 @@ import net.minecraft.entity.ai.pathing.EntityNavigation;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.mob.FlyingEntity;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
@@ -26,13 +28,13 @@ import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animatable.manager.AnimatableManager;
-import software.bernie.geckolib.animatable.processing.AnimationController;
-import software.bernie.geckolib.animatable.processing.AnimationTest;
-import software.bernie.geckolib.animation.PlayState;
+import software.bernie.geckolib.animation.AnimationController;
 import software.bernie.geckolib.animation.RawAnimation;
+import software.bernie.geckolib.animation.object.PlayState;
+import software.bernie.geckolib.animation.state.AnimationTest;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class Ghost extends FlyingEntity implements GeoEntity {
+public class Ghost extends PathAwareEntity implements GeoEntity {
     protected static final RawAnimation FLY_ANIM = RawAnimation.begin().thenLoop("animation.ghost_move");
     protected static final RawAnimation IDLE_ANIM = RawAnimation.begin().thenPlay("animation.ghost_idle");
     protected static final RawAnimation IDLE2_ANIM = RawAnimation.begin().thenLoop("animation.ghost_idle2");
@@ -58,7 +60,7 @@ public class Ghost extends FlyingEntity implements GeoEntity {
 
     protected EntityNavigation createNavigation(World world) {
         BirdNavigation birdNavigation = new BirdNavigation(this, world);
-        birdNavigation.setCanPathThroughDoors(false);
+        birdNavigation.setCanOpenDoors(false);
         birdNavigation.setCanSwim(true);
         birdNavigation.setMaxFollowRange(48.0F);
         return birdNavigation;
@@ -71,7 +73,7 @@ public class Ghost extends FlyingEntity implements GeoEntity {
 
     @Override
     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>("MovementController", 5, this::AnimController));
+        controllers.add(new AnimationController<GeoAnimatable>("MovementController", 5, this::AnimController));
     }
 
     private PlayState AnimController(AnimationTest<GeoAnimatable> animTest) {
@@ -103,12 +105,12 @@ public class Ghost extends FlyingEntity implements GeoEntity {
         if (this.isSleeping()) {
             this.wakeUp();
         }
-        if (!this.getWorld().isClient && this.hasCustomName()) {
+        if (!this.getEntityWorld().isClient() && this.hasCustomName()) {
             Stargazer.LOGGER.info("Named entity {} died: {}", (Object)this, (Object)this.getDamageTracker().getDeathMessage().getString());
         }
         this.dead = true;
         this.getDamageTracker().update();
-        World world = this.getWorld();
+        World world = this.getEntityWorld();
         this.emitGameEvent(GameEvent.ENTITY_DIE);
         if (world instanceof ServerWorld serverWorld) {
             this.drop(serverWorld, damageSource);
@@ -116,7 +118,7 @@ public class Ghost extends FlyingEntity implements GeoEntity {
         if (GhostModel.pacman.contains(this.getDisplayName().getString())) {
             return;
         }
-        this.getWorld().sendEntityStatus(this, EntityStatuses.PLAY_DEATH_SOUND_OR_ADD_PROJECTILE_HIT_PARTICLES);
+        this.getEntityWorld().sendEntityStatus(this, EntityStatuses.PLAY_DEATH_SOUND_OR_ADD_PROJECTILE_HIT_PARTICLES);
         this.setPose(EntityPose.DYING);
     }
 
@@ -145,14 +147,14 @@ public class Ghost extends FlyingEntity implements GeoEntity {
     public void tick() {
         super.tick();
         if (!this.hasPositionTarget() && this.random.nextInt(32) > 24) {
-            this.setTargetPos(this.getPos().add(random.nextFloat() * 10 - 5, random.nextFloat() * 10 - 5, random.nextFloat() * 10 - 5));
+            this.setTargetPos(this.getEntityPos().add(random.nextFloat() * 10 - 5, random.nextFloat() * 10 - 5, random.nextFloat() * 10 - 5));
         }
         if (this.hasCustomName()) {
-            if (GhostModel.pacman.contains(this.getCustomName().getString().toLowerCase())) {
+            if (GhostModel.pacman.contains(this.getStringifiedName().toLowerCase())) {
                 if (!getTag().equals("pacman")) setTag("pacman");
-            } else if (GhostModel.bill.contains(this.getCustomName().getString().toLowerCase())) {
+            } else if (GhostModel.bill.contains(this.getStringifiedName().toLowerCase())) {
                 if (!getTag().equals("bill")) setTag("bill");
-            } else if (GhostModel.adventure.contains(this.getCustomName().getString().toLowerCase())){
+            } else if (GhostModel.adventure.contains(this.getStringifiedName().toLowerCase())){
                 if (!getTag().equals("adventure")) setTag("adventure");
             } else {
                 if (!getTag().isEmpty()) setTag("");
@@ -169,14 +171,14 @@ public class Ghost extends FlyingEntity implements GeoEntity {
     }
 
     @Override
-    public void writeCustomDataToNbt(NbtCompound nbt) {
-        super.writeCustomDataToNbt(nbt);
+    public void writeCustomData(WriteView nbt) {
+        super.writeCustomData(nbt);
         nbt.putString("tag", TAG);
     }
 
     @Override
-    public void readCustomDataFromNbt(NbtCompound nbt) {
-        super.readCustomDataFromNbt(nbt);
+    public void readCustomData(ReadView nbt) {
+        super.readCustomData(nbt);
         TAG = nbt.getString("tag", "");
     }
 

@@ -31,6 +31,18 @@
           }
         },
         {
+          "biome": "stargazer:blackstone_pillars",
+          "parameters": {
+            "temperature": 0.1,
+            "humidity": -0.25,
+            "continentalness": 0.0,
+            "erosion": 0,
+            "weirdness": 1,
+            "depth": 0,
+            "offset": 0
+          }
+        },
+        {
           "biome": "stargazer:yeri_forest",
           "parameters": {
             "temperature": 0.3,
@@ -38,6 +50,18 @@
             "continentalness": 0.3,
             "erosion": 0,
             "weirdness": 0,
+            "depth": 0,
+            "offset": 0
+          }
+        },
+        {
+          "biome": "stargazer:spiro_forest",
+          "parameters": {
+            "temperature": 0.6,
+            "humidity": 0.6,
+            "continentalness": 0.7,
+            "erosion": 0,
+            "weirdness": 0.1,
             "depth": 0,
             "offset": 0
           }

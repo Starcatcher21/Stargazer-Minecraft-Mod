@@ -12,20 +12,36 @@ public class Chess {
     public static final Block WHITE_CHESSBOARD = register("white_chessboard", Block::new, AbstractBlock.Settings.create()
             .solid()
             .sounds(BlockSoundGroup.STONE)
-            .strength(2.0F)
+            .requiresTool()
+            .strength(1.0F)
             .mapColor(MapColor.WHITE)
     );
     public static final Block BLACK_CHESSBOARD = register("black_chessboard", Block::new, AbstractBlock.Settings.create()
             .solid()
             .sounds(BlockSoundGroup.STONE)
-            .strength(2.0F)
-            .mapColor(MapColor.WHITE)
+            .requiresTool()
+            .strength(1.0F)
+            .mapColor(MapColor.BLACK)
     );
     public static final Block CHESSBOARD = register("chessboard", Chessboard::new, AbstractBlock.Settings.create()
             .solid()
             .sounds(BlockSoundGroup.WOOD)
             .strength(0.4f)
             .mapColor(MapColor.SPRUCE_BROWN)
+    );
+    public static final Block WHITE_BRICKS = register("white_bricks", Block::new, AbstractBlock.Settings.create()
+            .solid()
+            .sounds(BlockSoundGroup.STONE)
+            .requiresTool()
+            .strength(1.0F)
+            .mapColor(MapColor.WHITE)
+    );
+    public static final Block BLACK_BRICKS = register("black_bricks", Block::new, AbstractBlock.Settings.create()
+            .solid()
+            .sounds(BlockSoundGroup.STONE)
+            .requiresTool()
+            .strength(1.0F)
+            .mapColor(MapColor.BLACK)
     );
 
     public static void init() {

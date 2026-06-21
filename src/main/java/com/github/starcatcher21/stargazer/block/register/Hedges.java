@@ -115,6 +115,20 @@ public class Hedges {
             .strength(2.0F)
             .mapColor(MapColor.WHITE)
     );
+    public static final Block SPIRO_HEDGE = register("spiro_hedge", settings -> new Hedge(RedOrbBlocks.SPIRO_LEAVES, settings), AbstractBlock.Settings.create()
+            .solid()
+            .sounds(BlockSoundGroup.WOOD)
+            .ticksRandomly()
+            .strength(2.0F)
+            .mapColor(MapColor.PINK)
+    );
+    public static final Block TRUNN_HEDGE = register("trunn_hedge", settings -> new Hedge(Wander.TRUNN_LEAVES, settings), AbstractBlock.Settings.create()
+            .solid()
+            .sounds(BlockSoundGroup.WOOD)
+            .ticksRandomly()
+            .strength(2.0F)
+            .mapColor(MapColor.PINK)
+    );
     public static void init() {
     }
 }

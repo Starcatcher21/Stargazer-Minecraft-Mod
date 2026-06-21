@@ -85,7 +85,7 @@ public class StarforgeResultSlot
 
         StarforgeRecipeInput craftingRecipeInput = this.input.createRecipeInput();
 
-        World world = player.getWorld();
+        World world = player.getEntityWorld();
         DefaultedList<ItemStack> recipeRemainders = this.getRecipeRemainders(craftingRecipeInput, world);
 
         for (int i = 0; i < this.input.size(); ++i) {

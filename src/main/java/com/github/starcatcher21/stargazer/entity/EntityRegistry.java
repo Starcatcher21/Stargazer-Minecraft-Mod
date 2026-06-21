@@ -60,9 +60,46 @@ public class EntityRegistry {
                     .build(STAR_KEY)
     );
 
+    public static final Identifier ROOK_ID = Identifier.of(Stargazer.MOD_ID, "rook");
+    public static final RegistryKey<EntityType<?>> ROOK_KEY = RegistryKey.of(RegistryKeys.ENTITY_TYPE, ROOK_ID);
+
+    public static final EntityType<Rook> ROOK_ENTITY = Registry.register(
+            Registries.ENTITY_TYPE,
+            ROOK_ID,
+            EntityType.Builder.create(Rook::new, SpawnGroup.CREATURE)
+                    .dimensions(1.0f, 1.0f)
+                    .makeFireImmune()
+                    .build(ROOK_KEY)
+    );
+    public static final Identifier BLACK_ROOK_ID = Identifier.of(Stargazer.MOD_ID, "black_rook");
+    public static final RegistryKey<EntityType<?>> BLACK_ROOK_KEY = RegistryKey.of(RegistryKeys.ENTITY_TYPE, BLACK_ROOK_ID);
+
+    public static final EntityType<BlackRook> BLACK_ROOK_ENTITY = Registry.register(
+            Registries.ENTITY_TYPE,
+            BLACK_ROOK_ID,
+            EntityType.Builder.create(BlackRook::new, SpawnGroup.CREATURE)
+                    .dimensions(1.0f, 1.0f)
+                    .makeFireImmune()
+                    .build(BLACK_ROOK_KEY)
+    );
+    public static final Identifier SCRUBY_ID = Identifier.of(Stargazer.MOD_ID, "scruby");
+    public static final RegistryKey<EntityType<?>> SCRUBY_KEY = RegistryKey.of(RegistryKeys.ENTITY_TYPE, SCRUBY_ID);
+
+    public static final EntityType<Scruby> SCRUBY_ENTITY = Registry.register(
+            Registries.ENTITY_TYPE,
+            SCRUBY_ID,
+            EntityType.Builder.create(Scruby::new, SpawnGroup.CREATURE)
+                    .dimensions(0.75f, 0.5f)
+                    .makeFireImmune()
+                    .build(SCRUBY_KEY)
+    );
+
     public static void init() {
         FabricDefaultAttributeRegistry.register(GHOST_ENTITY, Ghost.createFlyingCreatureAttributes());
         FabricDefaultAttributeRegistry.register(AMETHYST_TURTLE_ENTITY, AmethystTurtle.createCreatureAttributes());
         FabricDefaultAttributeRegistry.register(EYE_BAT_ENTITY, EyeBat.createFlyingCreatureAttributes());
+        FabricDefaultAttributeRegistry.register(ROOK_ENTITY, Rook.createCreatureAttributes());
+        FabricDefaultAttributeRegistry.register(BLACK_ROOK_ENTITY, BlackRook.createCreatureAttributes());
+        FabricDefaultAttributeRegistry.register(SCRUBY_ENTITY, Scruby.createCreatureAttributes());
     }
 }

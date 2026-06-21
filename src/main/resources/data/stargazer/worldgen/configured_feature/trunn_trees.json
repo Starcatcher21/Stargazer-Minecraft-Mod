@@ -1,0 +1,11 @@
+{
+  "type": "stargazer:trunn_trees",
+  "config": {
+    "blacklist": true,
+    "names": [],
+    "grow_on": [
+      {"Name": "stargazer:puroil"},
+      {"Name": "stargazer:boril"}
+    ]
+  }
+}

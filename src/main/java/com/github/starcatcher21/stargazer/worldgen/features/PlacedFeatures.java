@@ -1,6 +1,8 @@
 package com.github.starcatcher21.stargazer.worldgen.features;
 
 import com.github.starcatcher21.stargazer.Stargazer;
+import com.github.starcatcher21.stargazer.worldgen.BiomeReg;
+import com.github.starcatcher21.stargazer.worldgen.BiomeTags;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.minecraft.registry.RegistryKey;
@@ -17,7 +19,7 @@ public class PlacedFeatures {
 
     public static void init() {
         BiomeModifications.addFeature(
-                BiomeSelectors.all(), // Or use BiomeSelectors.includeByKey(Biomes.PLAINS)
+                BiomeSelectors.tag(BiomeTags.MOON), // Or use BiomeSelectors.includeByKey(Biomes.PLAINS)
                 GenerationStep.Feature.UNDERGROUND_ORES, // The Step
                 PRISMATIC_ORE // The Registry Key
         );

@@ -1,0 +1,27 @@
+{
+  "parent": "stargazer:airplane",
+  "criteria": {
+    "watch_stars": {
+      "conditions": {
+        "output": {
+          "items": "#stargazer:chess_brick"
+        }
+      },
+      "trigger": "stargazer:starcatching"
+    }
+  },
+  "display": {
+    "description": "BRICK B R I C K BRICK It's fun",
+    "icon": {
+      "count": 1,
+      "id": "minecraft:spyglass"
+    },
+    "title": "Is that a BRICK!!!"
+  },
+  "requirements": [
+    [
+      "watch_stars"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

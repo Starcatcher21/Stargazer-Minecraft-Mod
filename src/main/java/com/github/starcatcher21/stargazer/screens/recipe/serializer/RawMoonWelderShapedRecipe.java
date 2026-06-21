@@ -79,7 +79,7 @@ public class RawMoonWelderShapedRecipe {
             if (world.isNight()) return false;
             return Ingredient.matches(Optional.of(item1), stack) && Ingredient.matches(Optional.of(item2), stack2);
         }
-        if (this.getMoonPhase() != world.getMoonPhase() || world.isDay()) return false;
+//        if (this.getMoonPhase() != world.getMoonPhase() || world.isDay()) return false;
         return Ingredient.matches(Optional.of(item1), stack) && Ingredient.matches(Optional.of(item2), stack2);
     }
 

@@ -26,17 +26,6 @@ public class CosmoFeeling extends StatusEffect {
     }
 
     @Override
-    public boolean applyUpdateEffect(ServerWorld world, LivingEntity entity, int amplifier) {
-        return super.applyUpdateEffect(world, entity, amplifier);
-    }
-
-    @Override
-    public boolean canApplyUpdateEffect(int duration, int amplifier) {
-        return true;
-    }
-
-
-    @Override
     public void onRemoved(AttributeContainer attributeContainer) {
         super.onRemoved(attributeContainer);
         Objects.requireNonNull(attributeContainer.getCustomInstance(StargazerAttributes.DASH_LEVEL)).removeModifier(dash_modifier);

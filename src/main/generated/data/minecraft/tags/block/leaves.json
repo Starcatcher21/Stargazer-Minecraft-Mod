@@ -1,5 +1,6 @@
 {
   "values": [
+    "stargazer:trunn_leaves",
     "stargazer:moon_leaves",
     "stargazer:curve_leaves",
     "stargazer:eye_leaves",
@@ -10,6 +11,7 @@
     "stargazer:yellow_nebula_leaves",
     "stargazer:yeri_leaves",
     "stargazer:full_moon_leaves",
+    "stargazer:spiro_leaves",
     "stargazer:darkness_leaves"
   ]
 }

@@ -2,9 +2,96 @@
   "type": "minecraft:chest",
   "pools": [
     {
-      "rolls": 7,
+      "rolls": 6,
       "bonus_rolls": 4,
       "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "stargazer:stardust",
+          "weight": 2,
+          "quality": 7,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 0,
+                "max": 12
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:group",
+          "children": [
+            {
+              "type": "minecraft:item",
+              "name": "stargazer:red_star",
+              "weight": 1,
+              "quality": 16,
+              "functions": [
+                {
+                  "function": "minecraft:set_count",
+                  "count": {
+                    "type": "minecraft:uniform",
+                    "min": 0,
+                    "max": 4
+                  }
+                }
+              ]
+            },
+            {
+              "type": "minecraft:item",
+              "name": "stargazer:blue_star",
+              "weight": 1,
+              "quality": 10,
+              "functions": [
+                {
+                  "function": "minecraft:set_count",
+                  "count": {
+                    "type": "minecraft:uniform",
+                    "min": 0,
+                    "max": 6
+                  }
+                }
+              ]
+            },
+            {
+              "type": "minecraft:item",
+              "name": "stargazer:purple_star",
+              "weight": 1,
+              "quality": 19,
+              "functions": [
+                {
+                  "function": "minecraft:set_count",
+                  "count": {
+                    "type": "minecraft:uniform",
+                    "min": 0,
+                    "max": 3
+                  }
+                }
+              ]
+            },
+            {
+              "type": "minecraft:item",
+              "name": "stargazer:yellow_star",
+              "weight": 1,
+              "quality": 8,
+              "conditions": [],
+              "functions": [
+                {
+                  "function": "minecraft:set_count",
+                  "count": {
+                    "type": "minecraft:uniform",
+                    "min": 0,
+                    "max": 6
+                  }
+                }
+              ]
+            }
+          ],
+          "conditions": []
+        },
         {
           "type": "minecraft:item",
           "name": "stargazer:prismatic_shard",

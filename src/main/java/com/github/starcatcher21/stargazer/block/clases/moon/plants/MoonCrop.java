@@ -16,7 +16,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
-import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
@@ -198,14 +197,14 @@ public class MoonCrop
     }
 
     @Override
-    protected void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity, EntityCollisionHandler handler) {
+    protected void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity, EntityCollisionHandler handler, boolean bl) {
         if (world instanceof ServerWorld) {
             ServerWorld serverWorld = (ServerWorld)world;
-            if (entity instanceof RavagerEntity && serverWorld.getGameRules().getBoolean(GameRules.DO_MOB_GRIEFING)) {
+            if (entity instanceof RavagerEntity && serverWorld.getGameRules().getValue(net.minecraft.world.rule.GameRules.DO_MOB_GRIEFING)) {
                 serverWorld.breakBlock(pos, true, entity);
             }
         }
-        super.onEntityCollision(state, world, pos, entity, handler);
+        super.onEntityCollision(state, world, pos, entity, handler, bl);
     }
 
     @Override

@@ -26,16 +26,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
         return new RecipeGenerator(wrapperLookup, recipeExporter) {
             @Override
             public void generate() {
-                RegistryWrapper.Impl<Item> itemLookup = registries.getOrThrow(RegistryKeys.ITEM);
-                createShaped(RecipeCategory.FOOD, ModItems.GRAVICE, 1)
-                        .pattern("#")
-                        .pattern("#")
-                        .pattern("I")
-                        .input('#', Items.GRAVEL)
-                        .input('I', Items.STICK)
-                        .group("ice")
-                        .criterion(hasItem(Items.GRAVEL), conditionsFromItem(ModItems.GRAVICE))
-                        .offerTo(exporter);
                 // Moon Tree
                 createShapeless(RecipeCategory.BUILDING_BLOCKS, MoonBlocks.MOON_PLANKS, 4)
                         .input(CustomTags.MOON_LOG)
@@ -392,6 +382,12 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .offerTo(exporter);
                 createCutCopperRecipe(RecipeCategory.BUILDING_BLOCKS, MoonBlocks.POLISHED_BLACK_MOON_ROCK, Ingredient.ofItem(MoonBlocks.BLACK_MOON_ROCK))
                         .criterion("rock", conditionsFromItem(MoonBlocks.BLACK_MOON_ROCK))
+                        .offerTo(exporter);
+                createCutCopperRecipe(RecipeCategory.BUILDING_BLOCKS, Chess.BLACK_BRICKS, Ingredient.ofItem(ModItems.BLACK_BRICK))
+                        .criterion("rock", conditionsFromItem(ModItems.BLACK_BRICK))
+                        .offerTo(exporter);
+                createCutCopperRecipe(RecipeCategory.BUILDING_BLOCKS, Chess.WHITE_BRICKS, Ingredient.ofItem(ModItems.WHITE_BRICK))
+                        .criterion("rock", conditionsFromItem(ModItems.WHITE_BRICK))
                         .offerTo(exporter);
                 createShaped(RecipeCategory.BUILDING_BLOCKS, MoonBlocks.POLISHED_BLACK_MOON_ROCK_PURPLE, 8)
                         .pattern("pb")

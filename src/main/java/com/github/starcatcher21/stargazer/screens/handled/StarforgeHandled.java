@@ -2,6 +2,7 @@ package com.github.starcatcher21.stargazer.screens.handled;
 
 import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.screens.StarforgeScreenHandler;
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.render.RenderLayer;
@@ -35,6 +36,6 @@ public class StarforgeHandled extends HandledScreen<StarforgeScreenHandler> {
     protected void drawBackground(DrawContext context, float deltaTicks, int mouseX, int mouseY) {
         int i = this.x;
         int j = (this.height - this.backgroundHeight) / 2;
-        context.drawTexture(RenderLayer::getGuiTextured, TEXTURE, i, j, 0.0f, 0.0f, this.backgroundWidth, this.backgroundHeight , 256, 256);
+        context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, i, j, 0.0F, 0.0F, this.backgroundWidth, this.backgroundHeight, 256, 256);
     }
 }

@@ -7,6 +7,7 @@ import com.github.starcatcher21.stargazer.screens.recipe.MoonWelderRecipeInvento
 import com.github.starcatcher21.stargazer.screens.recipe.RecipeTypes;
 import com.github.starcatcher21.stargazer.screens.recipeInputs.MoonWelderInventory;
 import com.github.starcatcher21.stargazer.screens.slots.MoonWelderResultSlot;
+import net.minecraft.client.render.state.SkyRenderState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.CraftingResultInventory;
@@ -19,6 +20,8 @@ import net.minecraft.screen.slot.Slot;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.World;
+import net.minecraft.world.attribute.EnvironmentAttributes;
+import net.minecraft.world.attribute.WorldEnvironmentAttributeAccess;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -62,7 +65,9 @@ public class MoonWelderScreenHandler
                 if (craftingRecipe.getMoonPhase() > 7 && world.isDay() && world.isSkyVisible(player.getBlockPos())) {
                     itemStack = itemStack2;
                 }
-                if (world.isNight() && craftingRecipe.getMoonPhase() == world.getMoonPhase() && world.isSkyVisible(player.getBlockPos())) {
+                WorldEnvironmentAttributeAccess envAccess = world.getEnvironmentAttributes();
+                int moonPhase = envAccess.getAttributeValue(EnvironmentAttributes.MOON_PHASE_VISUAL).getIndex();
+                if (world.isNight() && craftingRecipe.getMoonPhase() == moonPhase && world.isSkyVisible(player.getBlockPos())) {
                     itemStack = itemStack2;
                 }
             }

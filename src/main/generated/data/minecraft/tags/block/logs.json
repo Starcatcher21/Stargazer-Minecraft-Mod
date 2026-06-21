@@ -1,8 +1,10 @@
 {
   "values": [
+    "stargazer:trunn_log",
     "stargazer:moon_log",
     "stargazer:curve_log",
     "stargazer:stripped_curve_log",
+    "stargazer:spiro_log",
     "stargazer:stripped_moon_log",
     "stargazer:eye_log",
     "stargazer:stripped_eye_log",
@@ -28,6 +30,8 @@
     "stargazer:star_hedge",
     "stargazer:darkness_hedge",
     "stargazer:yeri_hedge",
+    "stargazer:spiro_hedge",
+    "stargazer:trunn_hedge",
     "stargazer:full_moon_log",
     "stargazer:stripped_log_of_darkness"
   ]

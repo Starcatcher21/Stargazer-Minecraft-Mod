@@ -5,6 +5,9 @@ import com.github.starcatcher21.stargazer.block.clases.eyes.eyejar.EyeJarEntity;
 import com.github.starcatcher21.stargazer.block.clases.grave.GraveEntity;
 import com.github.starcatcher21.stargazer.block.clases.moon.star_trap.StarTrapEntity;
 import com.github.starcatcher21.stargazer.block.clases.negative.NegativeBlockEntity;
+import com.github.starcatcher21.stargazer.block.clases.noblue.NoBlueBlockEntity;
+import com.github.starcatcher21.stargazer.block.clases.nogreen.NoGreenBlockEntity;
+import com.github.starcatcher21.stargazer.block.clases.nored.NoRedBlockEntity;
 import com.github.starcatcher21.stargazer.block.clases.star.barrier.StarBarrierBlockEntity;
 import com.github.starcatcher21.stargazer.block.clases.star.border.BorderBlockEntity;
 import com.github.starcatcher21.stargazer.block.clases.star.cosmic.CosmicBlockEntity;
@@ -30,6 +33,18 @@ public class BlockTypes {
     public static final BlockEntityType<NegativeBlockEntity> NEGATIVE_BLOCK = register(
             "negativeblock",
             FabricBlockEntityTypeBuilder.create(NegativeBlockEntity::new, ModBlock.NEGATIVE_BLOCK).build()
+    );
+    public static final BlockEntityType<NoRedBlockEntity> NORED_BLOCK = register(
+            "noredblock",
+            FabricBlockEntityTypeBuilder.create(NoRedBlockEntity::new, ModBlock.NORED_BLOCK).build()
+    );
+    public static final BlockEntityType<NoGreenBlockEntity> NOGREEN_BLOCK = register(
+            "nogreenblock",
+            FabricBlockEntityTypeBuilder.create(NoGreenBlockEntity::new, ModBlock.NOGREEN_BLOCK).build()
+    );
+    public static final BlockEntityType<NoBlueBlockEntity> NOBLUE_BLOCK = register(
+            "noblueblock",
+            FabricBlockEntityTypeBuilder.create(NoBlueBlockEntity::new, ModBlock.NOBLUE_BLOCK).build()
     );
     public static final BlockEntityType<CosmicBlockEntity> COSMIC_BLOCK = register(
             "cosmicblock",

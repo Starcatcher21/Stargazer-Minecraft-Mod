@@ -34,6 +34,7 @@
     "vegetation": 0,
     "vein_gap": 0,
     "vein_ridged": 0,
+    "preliminary_surface_level": 16,
     "vein_toggle": 0
   },
   "ore_veins_enabled": false,

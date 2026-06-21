@@ -1,10 +1,9 @@
 #version 150
 
 #moj_import <minecraft:matrix.glsl>
+#moj_import <minecraft:globals.glsl>
 
 uniform sampler2D Sampler0;
-
-uniform float GameTime;
 
 in vec4 texProj0;
 

@@ -1,0 +1,15 @@
+{
+  "world": "stargazer:chess",
+  "objects": [
+    "stargazer:yellow_star",
+    "stargazer:blue_star",
+    "stargazer:red_star",
+    "stargazer:purple_star",
+    "stargazer:white_brick",
+    "stargazer:black_brick"
+  ],
+  "chances": [
+    20, 10, 10, 5, 5, 5
+  ],
+  "daystate": "night"
+}

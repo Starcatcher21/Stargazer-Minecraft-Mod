@@ -14,6 +14,8 @@ import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.packet.s2c.play.PositionFlag;
+import net.minecraft.particle.ParticleEffect;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.particle.SimpleParticleType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKey;
@@ -79,9 +81,16 @@ public class CopperTeleporter extends Block {
     @Override
     public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
         if (state.get(STATE).equals(CopperTeleporterState.middle)) {
-            float velocity = 0.12f;
-            java.util.Random random1 = new java.util.Random();
-            world.addParticleClient((SimpleParticleType) Particles.STAR, pos.up().getX() + 0.5d, pos.up().getY(), pos.up().getZ() + 0.5d, -velocity + random1.nextFloat(velocity * 2), 0.15, -velocity + random1.nextFloat(velocity * 2));
+            for (int i = 0; i < 4; i++) {
+                double d = pos.up().getX() + 0.5;
+                double e = pos.up().getY();
+                double f = pos.up().getZ() + 0.5;
+                double g = (random.nextFloat() - 0.5) / 50.0f;
+                double h = (random.nextFloat() / 50.0f);
+                double j = (random.nextFloat() - 0.5) / 50.0f;
+
+                world.addParticleClient(Particles.STAR, d, e, f, g, h, j);
+            }
         }
     }
 

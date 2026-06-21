@@ -1,0 +1,6 @@
+{
+  "fluid": "#minecraft:water",
+  "lava": {"Name": "stargazer:no_green_block"},
+  "obsidian": {"Name": "stargazer:green_rock"},
+  "cobble": {"Name": "stargazer:green_rock"}
+}

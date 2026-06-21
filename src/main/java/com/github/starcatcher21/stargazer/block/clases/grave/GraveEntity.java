@@ -7,6 +7,8 @@ import net.minecraft.inventory.Inventories;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 
@@ -21,10 +23,10 @@ public class GraveEntity extends BlockEntity {
 	}
 
 	@Override
-	protected void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
-		super.readNbt(nbt, registryLookup);
-		TYPE = nbt.getString("type");
-		Inventories.readNbt(nbt, items, registryLookup);
+	protected void readData(ReadView nbt) {
+		super.readData(nbt);
+		TYPE = nbt.getOptionalString("type");
+		Inventories.readData(nbt, items);
 
 		if (world != null) {
 			world.updateListeners(pos, getCachedState(), getCachedState(), 0);
@@ -32,10 +34,10 @@ public class GraveEntity extends BlockEntity {
 	}
 
 	@Override
-	protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
-		super.writeNbt(nbt, registryLookup);
+	protected void writeData(WriteView nbt) {
+		super.writeData(nbt);
 		nbt.putString("type", TYPE.orElse(null));
-		Inventories.writeNbt(nbt, items, registryLookup);
+		Inventories.writeData(nbt, items);
 	}
 
 	public Optional<String> getNbtType() {

@@ -1,14 +1,14 @@
-// 1.21.5	-999999999-01-01T00:00:00	STARGAZER/Tags for minecraft:item
-cc7c4a69f538615d189c64e08ed0a79fab8abf84 data/minecraft/tags/item/logs.json
+// 1.21.11	-999999999-01-01T00:00:00	STARGAZER/Tags for minecraft:item
+7b1baab5c580c528459c613a442a4f3fbf83f09c data/minecraft/tags/item/logs.json
 e0afc958b8668f74d441236208e4c0a2aaa4526d data/minecraft/tags/item/planks.json
-ed79819773e716f6f93fd027259e9bd0fc5f14e9 data/minecraft/tags/item/saplings.json
+fc0d2414754b6010f5d00709a461d20f6fa8fe79 data/minecraft/tags/item/saplings.json
 1b05312e5e8ed17cdd31b6b7d72dc70fa26b8686 data/minecraft/tags/item/stone_tool_materials.json
 cb34386497d3aa2f1d016a1e3c70e4c5b0e7f004 data/stargazer/tags/item/blue_star.json
+78becf676bd05d2ff4b4b82f6084337e2575cf91 data/stargazer/tags/item/chess_brick.json
 21c1d6335b0aa5e376a8952ab31c3c50f229857c data/stargazer/tags/item/cosmic.json
 1f5bc73cb0b97929bfd43fa674c07161ea029c5a data/stargazer/tags/item/curve_log.json
 73ba17ed3f422f357baeaf7f0e8fea4a5900bfeb data/stargazer/tags/item/darkness_log.json
 f07a969735a3040cdb4d9523486f4997d51adb9b data/stargazer/tags/item/ectoplasm.json
-cd34982ed3cf5667c2d666fc0fd62b8d12cde010 data/stargazer/tags/item/icecream.json
 7d28ae06364be68c37696734f13a6b28b93070b9 data/stargazer/tags/item/moon_log.json
 543df3d2b0e965c11684207fe4da6482a55ed194 data/stargazer/tags/item/purple_star.json
 18879cf5bf70e23d21d6b4807aea50f6123d7bdc data/stargazer/tags/item/red_star.json

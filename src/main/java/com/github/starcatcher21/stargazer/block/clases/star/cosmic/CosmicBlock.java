@@ -1,6 +1,7 @@
 package com.github.starcatcher21.stargazer.block.clases.star.cosmic;
 
 import com.github.starcatcher21.stargazer.Stargazer;
+import com.github.starcatcher21.stargazer.item.ModItems;
 import com.github.starcatcher21.stargazer.particle.Particles;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.block.BlockState;
@@ -19,6 +20,7 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
+import net.minecraft.world.event.GameEvent;
 
 import java.util.Random;
 
@@ -39,7 +41,7 @@ public class CosmicBlock extends BlockWithEntity {
 
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView view, BlockPos pos, ShapeContext context) {
-        if (context.isHolding(Registries.ITEM.get(Identifier.of(Stargazer.MOD_ID, "cosmic_block")))) {
+        if (context.isHolding(Registries.ITEM.get(Identifier.of(Stargazer.MOD_ID, "cosmic_block"))) || context.isHolding(ModItems.STAR_HAMMER)) {
             return VoxelShapes.fullCube();
         } else {
             return VoxelShapes.cuboid(0.0, 0.0, 0.0, 0.01, 0.01, 0.01);
@@ -57,6 +59,7 @@ public class CosmicBlock extends BlockWithEntity {
             sw.spawnParticles((SimpleParticleType) Particles.STAR, pos.getX() + 0.5d, pos.getY() + 0.5d, pos.getZ() + 0.5d, 5, -velocity + random.nextFloat(velocity*2), -velocity + random.nextFloat(velocity*2), -velocity + random.nextFloat(velocity*2), 0.02d);
         }
         world.playSoundAtBlockCenterClient(pos, this.soundGroup.getBreakSound(), SoundCategory.BLOCKS, this.soundGroup.volume*2, this.soundGroup.pitch, true);
+        world.emitGameEvent(GameEvent.BLOCK_DESTROY, pos, GameEvent.Emitter.of(player, state));
         return state;
     }
 

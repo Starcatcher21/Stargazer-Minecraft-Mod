@@ -1,9 +1,11 @@
 {
   "values": [
+    "stargazer:trunn_log",
     "stargazer:moon_log",
     "stargazer:moon_planks_door",
     "stargazer:yeri_log",
     "stargazer:stripped_moon_log",
+    "stargazer:spiro_log",
     "stargazer:curve_log",
     "stargazer:stripped_curve_log",
     "stargazer:eye_log",

@@ -1,0 +1,10 @@
+{
+  "type": "stargazer:moon_welder",
+  "item1": "minecraft:elytra",
+  "item2": "stargazer:sun_enriched_yellow_star",
+  "moon_phase": 0,
+  "result": {
+    "count": 1,
+    "id": "stargazer:winged_star"
+  }
+}

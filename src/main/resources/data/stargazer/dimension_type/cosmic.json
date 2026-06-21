@@ -1,11 +1,8 @@
 {
   "ambient_light": 0.4,
-  "fixed_time": 18000,
-  "bed_works": false,
+  "has_fixed_time": true,
   "coordinate_scale": 1.0,
-  "effects": "stargazer:cosmic",
   "has_ceiling": true,
-  "has_raids": true,
   "has_skylight": false,
   "height": 384,
   "infiniburn": "#minecraft:infiniburn_end",
@@ -16,9 +13,5 @@
     "type": "minecraft:uniform",
     "max_inclusive": 7,
     "min_inclusive": 0
-  },
-  "natural": false,
-  "piglin_safe": false,
-  "respawn_anchor_works": false,
-  "ultrawarm": false
+  }
 }

@@ -8,6 +8,7 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.ItemTags;
+import net.minecraft.registry.tag.TagEntry;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -21,9 +22,11 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
-        getOrCreateTagBuilder(CustomTags.COSMIC)
+        valueLookupBuilder(CustomTags.COSMIC)
                 .add(StarBlocks.COSMIC_BLOCK.asItem());
-        getOrCreateTagBuilder(net.minecraft.registry.tag.ItemTags.LOGS)
+        valueLookupBuilder(CustomTags.CHESS_BRICK)
+                .add(ModItems.WHITE_BRICK, ModItems.BLACK_BRICK);
+        valueLookupBuilder(net.minecraft.registry.tag.ItemTags.LOGS)
                 .add(MoonBlocks.MOON_LOG.asItem())
                 .add(MoonBlocks.STRIPPED_MOON_LOG.asItem())
                 .add(MoonBlocks.CURVE_LOG.asItem())
@@ -37,45 +40,46 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(Nebulas.PURPLE_NEBULA_LOG.asItem())
                 .add(Nebulas.YELLOW_NEBULA_LOG.asItem())
                 .add(RedOrbBlocks.YERI_LOG.asItem())
+                .add(MoonBlocks.FULL_MOON_LOG.asItem())
+                .add(RedOrbBlocks.SPIRO_LOG.asItem())
                 .add(Darkness.STRIPPED_LOG_OF_DARKNESS.asItem());
-        getOrCreateTagBuilder(ItemTags.SAPLINGS)
+        valueLookupBuilder(ItemTags.SAPLINGS)
                 .add(MoonBlocks.MOON_SAPLING.asItem())
                 .add(StarBlocks.STAR_SAPLING.asItem())
                 .add(Darkness.DARKNESS_SAPLING.asItem())
                 .add(MoonBlocks.CURVE_SAPLING.asItem())
                 .add(MoonBlocks.FULL_MOON_SAPLING.asItem())
+                .add(RedOrbBlocks.SPIRO_SAPLING.asItem())
                 .add(RedOrbBlocks.YERI_SAPLING.asItem());
-        getOrCreateTagBuilder(STARDUST)
+        valueLookupBuilder(STARDUST)
                 .add(ModItems.STARDUST);
-        getOrCreateTagBuilder(CustomTags.ICECREAM)
-                .add(ModItems.GRAVICE);
-        getOrCreateTagBuilder(CustomTags.STAR)
+        valueLookupBuilder(CustomTags.STAR)
                 .add(Items.NETHER_STAR)
                 .add(ModItems.PURPLE_STAR)
                 .add(ModItems.RED_STAR)
                 .add(ModItems.BLUE_STAR)
                 .add(ModItems.YELLOW_STAR);
-       getOrCreateTagBuilder(CustomTags.PURPLE_STAR)
+       valueLookupBuilder(CustomTags.PURPLE_STAR)
                 .add(ModItems.PURPLE_STAR);
-       getOrCreateTagBuilder(CustomTags.RED_STAR)
+       valueLookupBuilder(CustomTags.RED_STAR)
                 .add(ModItems.RED_STAR);
-       getOrCreateTagBuilder(CustomTags.BLUE_STAR)
+       valueLookupBuilder(CustomTags.BLUE_STAR)
                 .add(ModItems.BLUE_STAR);
-       getOrCreateTagBuilder(CustomTags.YELLOW_STAR)
+       valueLookupBuilder(CustomTags.YELLOW_STAR)
                 .add(ModItems.YELLOW_STAR);
-        getOrCreateTagBuilder(CustomTags.MOON_LOG)
+        valueLookupBuilder(CustomTags.MOON_LOG)
                 .add(MoonBlocks.MOON_LOG.asItem())
                 .add(MoonBlocks.STRIPPED_MOON_LOG.asItem());
-        getOrCreateTagBuilder(CustomTags.STAR_LOG)
+        valueLookupBuilder(CustomTags.STAR_LOG)
                 .add(StarBlocks.STAR_LOG.asItem())
                 .add(StarBlocks.STRIPPED_STAR_LOG.asItem());
-        getOrCreateTagBuilder(CustomTags.CURVE_LOG)
+        valueLookupBuilder(CustomTags.CURVE_LOG)
                 .add(MoonBlocks.CURVE_LOG.asItem())
                 .add(MoonBlocks.STRIPPED_CURVE_LOG.asItem());
-        getOrCreateTagBuilder(CustomTags.DARKNESS_LOG)
+        valueLookupBuilder(CustomTags.DARKNESS_LOG)
                 .add(Darkness.LOG_OF_DARKNESS.asItem())
                 .add(Darkness.STRIPPED_LOG_OF_DARKNESS.asItem());
-        getOrCreateTagBuilder(net.minecraft.registry.tag.ItemTags.PLANKS)
+        valueLookupBuilder(net.minecraft.registry.tag.ItemTags.PLANKS)
                 .add(MoonBlocks.RED_MOON_PLANKS.asItem())
                 .add(MoonBlocks.BLUE_MOON_PLANKS.asItem())
                 .add(MoonBlocks.PURPLE_MOON_PLANKS.asItem())
@@ -88,11 +92,11 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(Nebulas.YELLOW_NEBULA_PLANKS.asItem())
                 .add(RedOrbBlocks.YERI_PLANKS.asItem())
                 .add(MoonBlocks.MOON_PLANKS.asItem());
-        getOrCreateTagBuilder(net.minecraft.registry.tag.ItemTags.STONE_TOOL_MATERIALS)
+        valueLookupBuilder(net.minecraft.registry.tag.ItemTags.STONE_TOOL_MATERIALS)
                 .add(MoonBlocks.MOON_ROCK.asItem());
-        getOrCreateTagBuilder(CustomTags.STAR_FLOWER)
+        valueLookupBuilder(CustomTags.STAR_FLOWER)
                 .add(StarBlocks.STAR_FLOWER.asItem());
-        getOrCreateTagBuilder(CustomTags.ECTOPLASM)
+        valueLookupBuilder(CustomTags.ECTOPLASM)
                 .add(ModItems.ECTOPLASM)
                 .add(ModItems.COOLER_ECTOPLASM);
     }

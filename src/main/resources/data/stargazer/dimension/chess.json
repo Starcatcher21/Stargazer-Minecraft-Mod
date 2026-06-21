@@ -1,5 +1,5 @@
 {
-  "type": "stargazer:chess",
+  "type": "minecraft:overworld",
   "generator": {
     "type": "minecraft:noise",
     "settings": "stargazer:chess",

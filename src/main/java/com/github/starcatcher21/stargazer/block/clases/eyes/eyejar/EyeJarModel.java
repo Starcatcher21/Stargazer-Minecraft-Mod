@@ -6,7 +6,7 @@ import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.renderer.base.GeoRenderState;
 
 public class EyeJarModel extends GeoModel<EyeJarEntity> {
-    private final Identifier model = Identifier.of(Stargazer.MOD_ID, "geckolib/models/block/eye_jar");
+    private final Identifier model = Identifier.of(Stargazer.MOD_ID, "block/eye_jar");
     private final Identifier texture = Identifier.of(Stargazer.MOD_ID, "textures/block/eye_jar.png");
 
     @Override

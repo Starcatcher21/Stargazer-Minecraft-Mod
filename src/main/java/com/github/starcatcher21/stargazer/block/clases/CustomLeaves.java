@@ -3,7 +3,6 @@ package com.github.starcatcher21.stargazer.block.clases;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.TintedParticleLeavesBlock;
-import net.minecraft.particle.EntityEffectParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.particle.ParticleUtil;
 import net.minecraft.util.math.BlockPos;
@@ -32,7 +31,7 @@ public class CustomLeaves extends TintedParticleLeavesBlock {
 
     @Override
     protected void spawnLeafParticle(World world, BlockPos pos, Random random) {
-        EntityEffectParticleEffect entityEffectParticleEffect = EntityEffectParticleEffect.create(ParticleTypes.TINTED_LEAVES, this.tint);
-        ParticleUtil.spawnParticle(world, pos, random, entityEffectParticleEffect);
+//        EntityEffectParticleEffect entityEffectParticleEffect = EntityEffectParticleEffect.create(ParticleTypes.TINTED_LEAVES, this.tint);
+//        ParticleUtil.spawnParticle(world, pos, random, entityEffectParticleEffect);
     }
 }

@@ -81,7 +81,7 @@ public class StarTrap extends BlockWithEntity {
     }
 
     @Override
-    protected void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity, EntityCollisionHandler handler) {
+    protected void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity, EntityCollisionHandler handler, boolean bl) {
         if (entity instanceof PlayerEntity pe) {
             if (!pe.getAbilities().allowModifyWorld && pe.getGameMode() != GameMode.ADVENTURE) {
                 return;

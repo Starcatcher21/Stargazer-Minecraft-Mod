@@ -23,11 +23,15 @@ public class ModEngLangProvider extends FabricLanguageProvider {
         translationBuilder.add(ItemGroup.STAR_GROUP_KEY, "Stargazer");
         // misc
         translationBuilder.add(ModBlock.COPPER_TELEPORTER, "Copper Teleporter");
+        translationBuilder.add(ModBlock.DARK_TELEPORTER, "Wander Teleporter");
         translationBuilder.add(MoonBlocks.GEODE_FRUIT, "Geode Fruit");
         translationBuilder.add(ModBlock.MOON_WELDER, "Moon Welder");
         // Blocks
         translationBuilder.add(ModBlock.GRAVE, "Grave");
         translationBuilder.add(ModBlock.NEGATIVE_BLOCK, "Negative Block");
+        translationBuilder.add(ModBlock.NORED_BLOCK, "Red Block");
+        translationBuilder.add(ModBlock.NOGREEN_BLOCK, "Green Block");
+        translationBuilder.add(ModBlock.NOBLUE_BLOCK, "Blue Block");
         translationBuilder.add(ModBlock.INFESTED_CALCITE, "Infested Calcite");
         translationBuilder.add(ModBlock.BONE_LEAVES, "Bone Leaves");
         translationBuilder.add(EyeBloodBlocks.EYE_JAR, "Eye Jar");
@@ -141,8 +145,9 @@ public class ModEngLangProvider extends FabricLanguageProvider {
         translationBuilder.add(Darkness.DARKNESS_PLANKS_FENCE, "Darkness Planks Fence");
         translationBuilder.add(Darkness.DARKNESS_PLANKS_FENCE_GATE, "Darkness Planks Fence Gate");
         translationBuilder.add(Darkness.DARKNESS_PLANKS_BUTTON, "Darkness Planks Button");
+        translationBuilder.add(Darkness.GRADI, "Gradi");
+        translationBuilder.add(ModItems.DARKSTAR, "DarkStar");
         // Items
-        translationBuilder.add(ModItems.GRAVICE, "Gravel Ice");
         translationBuilder.add(ModItems.STARDUST, "Stardust");
         translationBuilder.add(ModItems.YELLOW_STAR, "Yellow Star");
         translationBuilder.add(ModItems.WISHING_STAR, "Wishing Star");
@@ -204,10 +209,16 @@ public class ModEngLangProvider extends FabricLanguageProvider {
         translationBuilder.add(ModItems.GHOST_SPAWN_EGG, "Ghost Spawn Egg");
         translationBuilder.add(ModItems.AMETHYST_TURTLE_SPAWN_EGG, "Amethyst Turtle Spawn Egg");
         translationBuilder.add(ModItems.EYE_BAT_SPAWN_EGG, "Eye Bat Spawn Egg");
+        translationBuilder.add(ModItems.ROOK_SPAWN_EGG, "Rook Spawn Egg");
+        translationBuilder.add(ModItems.BLACK_ROOK_SPAWN_EGG, "Black Rook Spawn Egg");
+        translationBuilder.add(ModItems.SCRUBY_SPAWN_EGG, "Scruby Spawn Egg");
         // Entity
         translationBuilder.add(EntityRegistry.GHOST_ENTITY, "Ghost");
         translationBuilder.add(EntityRegistry.AMETHYST_TURTLE_ENTITY, "Amethyst Turtle");
         translationBuilder.add(EntityRegistry.EYE_BAT_ENTITY, "Eye Bat");
+        translationBuilder.add(EntityRegistry.ROOK_ENTITY, "Rook");
+        translationBuilder.add(EntityRegistry.BLACK_ROOK_ENTITY, "Black Rook");
+        translationBuilder.add(EntityRegistry.SCRUBY_ENTITY, "Scruby");
         // Vegetation
         translationBuilder.add(StarBlocks.STAR_FLOWER, "Star Flower");
         translationBuilder.add(MoonBlocks.SPRUNGUS, "Sprungus");
@@ -255,6 +266,10 @@ public class ModEngLangProvider extends FabricLanguageProvider {
         translationBuilder.add(Chess.BLACK_CHESSBOARD, "Black Chessboard");
         translationBuilder.add(Chess.WHITE_CHESSBOARD, "White Chessboard");
         translationBuilder.add(Chess.CHESSBOARD, "Chessboard");
+        translationBuilder.add(Chess.BLACK_BRICKS, "Black Bricks");
+        translationBuilder.add(Chess.WHITE_BRICKS, "White Bricks");
+        translationBuilder.add(ModItems.BLACK_BRICK, "Black Brick");
+        translationBuilder.add(ModItems.WHITE_BRICK, "White Brick");
         // Hedge
         translationBuilder.add(Hedges.ACACIA_HEDGE, "Acacia Hedge");
         translationBuilder.add(Hedges.BIRCH_HEDGE, "Birch Hedge");
@@ -271,6 +286,7 @@ public class ModEngLangProvider extends FabricLanguageProvider {
         translationBuilder.add(Hedges.STAR_HEDGE, "Star Hedge");
         translationBuilder.add(Hedges.YERI_HEDGE, "Yeri Hedge");
         translationBuilder.add(Hedges.FULL_MOON_HEDGE, "Full Moon Hedge");
+        translationBuilder.add(Hedges.SPIRO_HEDGE, "Spiro Hedge");
         // Red Orb
         translationBuilder.add(RedOrbBlocks.RED_ROCK, "Red Rock");
         translationBuilder.add(RedOrbBlocks.RED_ROCK_SLAB, "Red Rock Slab");
@@ -290,5 +306,17 @@ public class ModEngLangProvider extends FabricLanguageProvider {
         translationBuilder.add(RedOrbBlocks.BLUE_GRASS, "Blue Grass");
         translationBuilder.add(ModItems.RED_ORB_PLATFORM_BASE, "Red Orb Platform Base");
         translationBuilder.add(MoonBlocks.FULL_MOON_SAPLING, "Full Moon Sapling");
+        translationBuilder.add(RedOrbBlocks.POINTY, "Pointy");
+        translationBuilder.add(ModItems.STAR_HAMMER, "Star Hammer");
+        translationBuilder.add(RedOrbBlocks.SPIRO_LOG, "Spiro Log");
+        translationBuilder.add(RedOrbBlocks.SPIRO_SAPLING, "Spiro Sapling");
+        translationBuilder.add(RedOrbBlocks.SPIRO_LEAVES, "Spiro Leaves");
+        translationBuilder.add(ModItems.WINGED_STAR, "Winged Star");
+        translationBuilder.add(Wander.BORIL, "Boril");
+        translationBuilder.add(Wander.PUROIL, "Puroil");
+        translationBuilder.add(Wander.TRUNN_LOG, "Trunn Log");
+        translationBuilder.add(Wander.TRUNN_LEAVES, "Trunn Leaves");
+        translationBuilder.add(Wander.TRUNN_SAPLING, "Trunn Sapling");
+        translationBuilder.add(Hedges.TRUNN_HEDGE, "Trunn Hedge");
     }
 }

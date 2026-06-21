@@ -28,9 +28,9 @@ public class MoonRock extends Block {
     protected ActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         if (stack.isIn(ItemTags.HOES)) {
             world.playSound((Entity)player, pos, SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1.0f, 1.0f);
-            if (!world.isClient) {
+            if (!world.isClient()) {
                 if (player != null) {
-                    stack.damage(1, player, LivingEntity.getSlotForHand(hand));
+                    stack.damage(1, player, hand);
                 }
             }
             world.setBlockState(pos, MoonBlocks.MOON_FARMLAND.getDefaultState());

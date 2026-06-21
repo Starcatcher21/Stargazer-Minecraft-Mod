@@ -27,6 +27,15 @@
   ],
   "has_precipitation": true,
   "spawn_costs": {},
-  "spawners": {},
+  "spawners": {
+    "creature": [
+      {
+        "type": "stargazer:scruby",
+        "weight": 1,
+        "minCount": 1,
+        "maxCount": 9
+      }
+    ]
+  },
   "temperature": 0.8
 }

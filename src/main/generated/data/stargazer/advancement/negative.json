@@ -1,0 +1,23 @@
+{
+  "parent": "stargazer:stars",
+  "criteria": {
+    "negative": {
+      "trigger": "stargazer:negative"
+    }
+  },
+  "display": {
+    "description": "I see in negative",
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "stargazer:negative_block"
+    },
+    "title": "evitageN"
+  },
+  "requirements": [
+    [
+      "negative"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -1,0 +1,16 @@
+{
+  "carvers": [],
+  "downfall": 0.4,
+  "effects": {
+    "water_color": 10076657,
+    "grass_color": 14453469,
+    "foliage_color": 12607947
+  },
+  "features": [
+    ["stargazer:trunn_trees"]
+  ],
+  "has_precipitation": true,
+  "spawn_costs": {},
+  "spawners": {},
+  "temperature": 0.7
+}

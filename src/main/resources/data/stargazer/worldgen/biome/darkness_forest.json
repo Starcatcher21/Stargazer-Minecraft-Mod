@@ -58,6 +58,9 @@
     ],
     [
       "stargazer:dark_grass_top"
+    ],
+    [
+      "stargazer:gradi"
     ]
   ],
   "has_precipitation": true,

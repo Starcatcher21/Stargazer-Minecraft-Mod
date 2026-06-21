@@ -16,6 +16,7 @@
   },
   "noise_router": {
     "barrier": 0,
+    "preliminary_surface_level": 192,
     "continents": "minecraft:overworld/continents",
     "depth": "minecraft:overworld/depth",
     "erosion": "minecraft:overworld/erosion",

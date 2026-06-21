@@ -25,17 +25,23 @@ import static com.github.starcatcher21.stargazer.block.ModBlock.registerWoItem;
 public class StarBlocks {
     public static final Block COSMIC_BLOCK = register("cosmic_block", CosmicBlock::new, AbstractBlock.Settings.create()
             .nonOpaque()
+            .requiresTool()
+            .strength(0.2f)
             .sounds(SoundGroups.STAR)
             .pistonBehavior(PistonBehavior.BLOCK)
     );
     public static final Block STAR_BARRIER_BLOCK = register("star_barrier_block", StarBarrierBlock::new, AbstractBlock.Settings.create()
             .nonOpaque()
+            .requiresTool()
             .sounds(SoundGroups.STAR)
+            .strength(0.2f)
             .pistonBehavior(PistonBehavior.BLOCK)
     );
     public static final Block BORDER_BLOCK = register("border_block", BorderBlock::new, AbstractBlock.Settings.create()
             .nonOpaque()
+            .requiresTool()
             .solid()
+            .strength(0.2f)
             .pistonBehavior(PistonBehavior.BLOCK)
     );
     public static final Block STAR_LOG = register("star_log", StarLog::new, AbstractBlock.Settings.create()

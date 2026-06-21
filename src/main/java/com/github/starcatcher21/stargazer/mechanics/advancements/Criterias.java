@@ -1,6 +1,7 @@
 package com.github.starcatcher21.stargazer.mechanics.advancements;
 
 import com.github.starcatcher21.stargazer.Stargazer;
+import com.github.starcatcher21.stargazer.block.register.Nebulas;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.util.Identifier;
 
@@ -10,6 +11,7 @@ public class Criterias {
     public static final StarTrap starTrap = Criteria.register(Identifier.of(Stargazer.MOD_ID, "star_trap").toString(), new StarTrap());
     public static final ForgeCraft forgeCraft = Criteria.register(Identifier.of(Stargazer.MOD_ID, "forge_craft").toString(), new ForgeCraft());
     public static final MoonWeld moonWeld = Criteria.register(Identifier.of(Stargazer.MOD_ID, "moon_weld").toString(), new MoonWeld());
+    public static final Negative negative = Criteria.register(Identifier.of(Stargazer.MOD_ID, "negative").toString(), new Negative());
 
     public static void init() {
     }

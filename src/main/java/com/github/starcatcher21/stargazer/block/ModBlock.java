@@ -7,7 +7,12 @@ import com.github.starcatcher21.stargazer.block.clases.MoonWelder;
 import com.github.starcatcher21.stargazer.block.clases.Sprinkler;
 import com.github.starcatcher21.stargazer.block.clases.grave.Grave;
 import com.github.starcatcher21.stargazer.block.clases.negative.NegativeBlock;
+import com.github.starcatcher21.stargazer.block.clases.noblue.NoBlueBlock;
+import com.github.starcatcher21.stargazer.block.clases.noblue.NoBlueBlockEntity;
+import com.github.starcatcher21.stargazer.block.clases.nogreen.NoGreenBlock;
+import com.github.starcatcher21.stargazer.block.clases.nored.NoRedBlock;
 import com.github.starcatcher21.stargazer.block.clases.teleporter.CopperTeleporter;
+import com.github.starcatcher21.stargazer.block.clases.teleporter.DarkTeleporter;
 import com.github.starcatcher21.stargazer.block.register.*;
 import net.minecraft.block.*;
 import net.minecraft.block.piston.PistonBehavior;
@@ -30,6 +35,29 @@ public class ModBlock {
     public static final Block NEGATIVE_BLOCK = register("negative_block", NegativeBlock::new, AbstractBlock.Settings.create()
             .nonOpaque()
             .noCollision()
+            .requiresTool()
+            .strength(0.2f)
+            .pistonBehavior(PistonBehavior.BLOCK)
+    );
+    public static final Block NORED_BLOCK = register("no_red_block", NoRedBlock::new, AbstractBlock.Settings.create()
+            .nonOpaque()
+            .noCollision()
+            .requiresTool()
+            .strength(0.2f)
+            .pistonBehavior(PistonBehavior.BLOCK)
+    );
+    public static final Block NOGREEN_BLOCK = register("no_green_block", NoGreenBlock::new, AbstractBlock.Settings.create()
+            .nonOpaque()
+            .noCollision()
+            .requiresTool()
+            .strength(0.2f)
+            .pistonBehavior(PistonBehavior.BLOCK)
+    );
+    public static final Block NOBLUE_BLOCK = register("no_blue_block", NoBlueBlock::new, AbstractBlock.Settings.create()
+            .nonOpaque()
+            .noCollision()
+            .requiresTool()
+            .strength(0.2f)
             .pistonBehavior(PistonBehavior.BLOCK)
     );
     public static final Block INFESTED_CALCITE = register("infested_calcite", InfestedCalcite::new, AbstractBlock.Settings.create()
@@ -61,6 +89,13 @@ public class ModBlock {
             .requiresTool().strength(3.0f, 40.0f)
             .nonOpaque()
             .sounds(BlockSoundGroup.COPPER)
+    );
+
+    public static final Block DARK_TELEPORTER = registerWoItem("dark_teleporter", DarkTeleporter::new, AbstractBlock.Settings.create()
+            .solid()
+            .requiresTool().strength(3.0f, 40.0f)
+            .nonOpaque()
+            .sounds(BlockSoundGroup.NETHER_BRICKS)
     );
 
     public static final Block SPRINKLER = register("sprinkler", Sprinkler::new, AbstractBlock.Settings.create()
@@ -99,5 +134,6 @@ public class ModBlock {
         Chess.init();
         RedOrbBlocks.init();
         Hedges.init();
+        Wander.init();
     }
 }

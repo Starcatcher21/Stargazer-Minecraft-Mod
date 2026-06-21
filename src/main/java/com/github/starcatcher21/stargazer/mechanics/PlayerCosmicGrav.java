@@ -1,5 +1,6 @@
 package com.github.starcatcher21.stargazer.mechanics;
 
+import com.github.starcatcher21.stargazer.GameRules;
 import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.StargazerAttributes;
 import com.github.starcatcher21.stargazer.block.register.StarBlocks;
@@ -22,9 +23,15 @@ public class PlayerCosmicGrav {
         World world = player.getEntityWorld();
         if (world.getBiome(player.getBlockPos()).isIn(BiomeTags.MOON)) {
             applyEffect(player);
+            if (player.getAttributeValue(StargazerAttributes.DASH_LEVEL) != 1) {
+                player.getAttributeInstance(StargazerAttributes.DASH_LEVEL).addTemporaryModifier(dash_modifier);
+            }
         } else {
             if (world.getBlockState(player.getBlockPos()).getBlock().equals(StarBlocks.COSMIC_BLOCK)) {
                 applyEffect(player);
+                if (player.getAttributeValue(StargazerAttributes.DASH_LEVEL) != 1) {
+                    player.getAttributeInstance(StargazerAttributes.DASH_LEVEL).addTemporaryModifier(dash_modifier);
+                }
             } else {
                 removeEffect(player);
             }

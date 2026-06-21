@@ -3,6 +3,7 @@ package com.github.starcatcher21.stargazer.block.register;
 import com.github.starcatcher21.stargazer.Helpers;
 import com.github.starcatcher21.stargazer.block.clases.CosmicFlower;
 import com.github.starcatcher21.stargazer.block.clases.CustomSapling;
+import com.github.starcatcher21.stargazer.block.clases.moon.ForgetMeNow;
 import com.github.starcatcher21.stargazer.block.clases.moon.MoonRock;
 import com.github.starcatcher21.stargazer.block.clases.moon.leaves.MoonLeaves;
 import com.github.starcatcher21.stargazer.block.clases.moon.log.MoonLog;
@@ -117,6 +118,14 @@ public class Darkness {
             .strength(1.0F)
             .mapColor(MapColor.GRAY)
     );
+
+    public static final Block GRADI = register("gradi", ForgetMeNow::new, AbstractBlock.Settings.create()
+            .mapColor(MapColor.WHITE)
+            .noCollision()
+            .sounds(BlockSoundGroup.FLOWERBED)
+            .pistonBehavior(PistonBehavior.DESTROY)
+    );
+    public static final Block POTTED_GRADI = registerWoItem("potted_gradi", (AbstractBlock.Settings settings) -> new FlowerPotBlock(GRADI, settings), AbstractBlock.Settings.copy(Blocks.POTTED_ALLIUM).nonOpaque());
 
     public static void init() {}
 }

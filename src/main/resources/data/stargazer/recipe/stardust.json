@@ -1,0 +1,10 @@
+{
+  "type": "stargazer:moon_welder",
+  "item1": "#stargazer:star",
+  "item2": "#stargazer:star",
+  "moon_phase": 4,
+  "result": {
+    "count": 4,
+    "id": "stargazer:stardust"
+  }
+}

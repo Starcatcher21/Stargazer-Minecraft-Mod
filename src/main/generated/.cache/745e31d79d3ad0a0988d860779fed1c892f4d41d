@@ -1,11 +1,13 @@
-// 1.21.5	-999999999-01-01T00:00:00	STARGAZER/Advancements
+// 1.21.11	-999999999-01-01T00:00:00	STARGAZER/Advancements
 f55e4f700ab395fe43b82be99a7aea8f88b4577a data/stargazer/advancement/adventure.json
 a5d06c81024dada322f7ca190ee5ad23e16f9d42 data/stargazer/advancement/airplane.json
 69c52c7ae3373385a9cf65f9134fa20528e32eff data/stargazer/advancement/bill.json
+ace026355c766988bf31f36743f335ab8354902b data/stargazer/advancement/brick.json
 5fad0083ade4171856bc7fe8196a51668daf0a5f data/stargazer/advancement/exotic_turist.json
 f04a9672c9ca706926b1f0694f30b52af247ffdf data/stargazer/advancement/ghost.json
 4ccfdf674786c576749e2da0c4d3cc3fc07c9485 data/stargazer/advancement/gravity.json
 f0ac5c88a202c62e2d39258c5d0b78d59243e218 data/stargazer/advancement/home.json
+5985d1476b871a9cbdd05101c08b57d4ce24177a data/stargazer/advancement/negative.json
 59e6a7068fcbf5468ec60ced79b409fa7d9dffc2 data/stargazer/advancement/pac.json
 69b9452b504154492eeac4d8153b0da8964ae694 data/stargazer/advancement/portal.json
 f70586a88f38f2d37ad78c21b29de189fa54ebc8 data/stargazer/advancement/red.json

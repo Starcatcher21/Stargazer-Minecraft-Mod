@@ -3,13 +3,17 @@ package com.github.starcatcher21.stargazer;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.client.texture.TextureManager;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.particle.ParticleEffect;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
@@ -18,9 +22,14 @@ import net.minecraft.world.gen.feature.ConfiguredFeature;
 import org.jetbrains.annotations.Nullable;
 
 public class Helpers {
-
     public static RegistryKey<ConfiguredFeature<?, ?>> configuredFeatureOf(String id) {
         return RegistryKey.of(RegistryKeys.CONFIGURED_FEATURE, Identifier.of(Stargazer.MOD_ID, id));
+    }
+    public static void spawnParticle(World world, Vec3d pos, Random random, ParticleEffect effect) {
+        double d = pos.getX() + random.nextDouble();
+        double e = pos.getY() - 0.05;
+        double f = pos.getZ() + random.nextDouble();
+        world.addParticleClient(effect, d, e, f, 0.0, 0.0, 0.0);
     }
     public static VoxelShape getVox(LivingEntity entity, BlockPos pos) {
         Box entBox = entity.getBoundingBox();

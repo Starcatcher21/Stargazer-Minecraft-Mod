@@ -1,8 +1,11 @@
 package com.github.starcatcher21.stargazer.datagen;
 
 import com.github.starcatcher21.stargazer.CustomTags;
+import com.github.starcatcher21.stargazer.Helpers;
 import com.github.starcatcher21.stargazer.block.ModBlock;
+import com.github.starcatcher21.stargazer.block.clases.Hedge;
 import com.github.starcatcher21.stargazer.block.register.*;
+import com.github.starcatcher21.stargazer.entity.Star;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.block.Blocks;
@@ -18,12 +21,18 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
+        // DIRT
+        valueLookupBuilder(BlockTags.SHOVEL_MINEABLE)
+                .add(Wander.BORIL)
+                .add(Wander.PUROIL);
         // Wood
-        getOrCreateTagBuilder(BlockTags.AXE_MINEABLE)
+        valueLookupBuilder(BlockTags.AXE_MINEABLE)
+                .add(Wander.TRUNN_LOG)
                 .add(MoonBlocks.MOON_LOG)
                 .add(MoonBlocks.MOON_PLANKS_DOOR)
                 .add(RedOrbBlocks.YERI_LOG)
                 .add(MoonBlocks.STRIPPED_MOON_LOG)
+                .add(RedOrbBlocks.SPIRO_LOG)
                 .add(MoonBlocks.CURVE_LOG)
                 .add(MoonBlocks.STRIPPED_CURVE_LOG)
                 .add(EyeBloodBlocks.EYE_LOG)
@@ -93,10 +102,12 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(Darkness.STRIPPED_LOG_OF_DARKNESS);
 //                .add(Bonsai.LIVING_BONSAI_LOG)
 //                .add(Bonsai.BONSAI_LOG);
-        getOrCreateTagBuilder(BlockTags.LOGS)
+        valueLookupBuilder(BlockTags.LOGS)
+                .add(Wander.TRUNN_LOG)
                 .add(MoonBlocks.MOON_LOG)
                 .add(MoonBlocks.CURVE_LOG)
                 .add(MoonBlocks.STRIPPED_CURVE_LOG)
+                .add(RedOrbBlocks.SPIRO_LOG)
                 .add(MoonBlocks.STRIPPED_MOON_LOG)
                 .add(EyeBloodBlocks.EYE_LOG)
                 .add(EyeBloodBlocks.STRIPPED_EYE_LOG)
@@ -122,11 +133,14 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(Hedges.STAR_HEDGE)
                 .add(Hedges.DARKNESS_HEDGE)
                 .add(Hedges.YERI_HEDGE)
+                .add(Hedges.SPIRO_HEDGE)
+                .add(Hedges.TRUNN_HEDGE)
                 .add(MoonBlocks.FULL_MOON_LOG)
                 .add(Darkness.STRIPPED_LOG_OF_DARKNESS);
 //                .add(Bonsai.LIVING_BONSAI_LOG)
 //                .add(Bonsai.BONSAI_LOG);
-        getOrCreateTagBuilder(BlockTags.LEAVES)
+        valueLookupBuilder(BlockTags.LEAVES)
+                .add(Wander.TRUNN_LEAVES)
                 .add(MoonBlocks.MOON_LEAVES)
                 .add(MoonBlocks.CURVE_LEAVES)
                 .add(EyeBloodBlocks.EYE_LEAVES)
@@ -137,8 +151,9 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(Nebulas.YELLOW_NEBULA_LEAVES)
                 .add(RedOrbBlocks.YERI_LEAVES)
                 .add(MoonBlocks.FULL_MOON_LEAVES)
+                .add(RedOrbBlocks.SPIRO_LEAVES)
                 .add(Darkness.DARKNESS_LEAVES);
-        getOrCreateTagBuilder(BlockTags.HOE_MINEABLE)
+        valueLookupBuilder(BlockTags.HOE_MINEABLE)
                 .add(MoonBlocks.MOON_LEAVES)
                 .add(ModBlock.BONE_LEAVES)
                 .add(MoonBlocks.CURVE_LEAVES)
@@ -146,11 +161,17 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(StarBlocks.STAR_LEAVES)
                 .add(MoonBlocks.PURPLE_MUSHROOM_BLOCK)
                 .add(RedOrbBlocks.YERI_LEAVES)
+                .add(MoonBlocks.FULL_MOON_LEAVES)
+                .add(RedOrbBlocks.SPIRO_LEAVES)
                 .add(Darkness.DARKNESS_LEAVES);
         // Rock
-        getOrCreateTagBuilder(BlockTags.PICKAXE_MINEABLE)
+        valueLookupBuilder(BlockTags.PICKAXE_MINEABLE)
                 .add(ModBlock.COPPER_TELEPORTER)
                 .add(RedOrbBlocks.GREEN_ROCK)
+                .add(Chess.BLACK_BRICKS)
+                .add(Chess.WHITE_BRICKS)
+                .add(Chess.BLACK_CHESSBOARD)
+                .add(Chess.WHITE_CHESSBOARD)
                 .add(RedOrbBlocks.RED_ORB_PLATFORM)
                 .add(RedOrbBlocks.POLISHED_RED_ROCK)
                 .add(RedOrbBlocks.RED_ROCK)
@@ -213,7 +234,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(MoonBlocks.PRISMATIC_SHARD_BLOCK)
                 .add(Darkness.DYLIUM)
                 .add(MoonBlocks.PRISMATIC_ORE);
-        getOrCreateTagBuilder(BlockTags.NEEDS_STONE_TOOL)
+        valueLookupBuilder(BlockTags.NEEDS_STONE_TOOL)
                 .add(MoonBlocks.BLACK_MOON_ROCK)
                 .add(MoonBlocks.POLISHED_BLACK_MOON_ROCK)
                 .add(Nebulas.BLUE_NEBULA_LOG)
@@ -250,11 +271,11 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 //                .add(MoonBlocks.MOON_ROCK_BRICKS)
 //                .add(MoonBlocks.CHISELED_MOON_ROCK_BRICKS)
 //                .add(MoonBlocks.CRACKED_MOON_ROCK_BRICKS);
-        getOrCreateTagBuilder(BlockTags.NEEDS_IRON_TOOL)
+        valueLookupBuilder(BlockTags.NEEDS_IRON_TOOL)
                 .add(MoonBlocks.PRISMATIC_SHARD_BLOCK)
                 .add(MoonBlocks.PRISMATIC_ORE);
         // Fence
-        getOrCreateTagBuilder(BlockTags.FENCES)
+        valueLookupBuilder(BlockTags.FENCES)
                 .add(MoonBlocks.BLUE_MOON_PLANKS_FENCE)
                 .add(MoonBlocks.YELLOW_MOON_PLANKS_FENCE)
                 .add(MoonBlocks.MOON_PLANKS_FENCE)
@@ -267,7 +288,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(Nebulas.PURPLE_NEBULA_PLANKS_FENCE)
                 .add(RedOrbBlocks.YERI_PLANKS_FENCE)
                 .add(MoonBlocks.RED_MOON_PLANKS_FENCE);
-        getOrCreateTagBuilder(BlockTags.WOODEN_FENCES)
+        valueLookupBuilder(BlockTags.WOODEN_FENCES)
                 .add(MoonBlocks.BLUE_MOON_PLANKS_FENCE)
                 .add(MoonBlocks.YELLOW_MOON_PLANKS_FENCE)
                 .add(MoonBlocks.MOON_PLANKS_FENCE)
@@ -280,7 +301,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(Nebulas.PURPLE_NEBULA_PLANKS_FENCE)
                 .add(RedOrbBlocks.YERI_PLANKS_FENCE)
                 .add(MoonBlocks.RED_MOON_PLANKS_FENCE);
-        getOrCreateTagBuilder(BlockTags.FENCE_GATES)
+        valueLookupBuilder(BlockTags.FENCE_GATES)
                 .add(MoonBlocks.BLUE_MOON_PLANKS_FENCE_GATE)
                 .add(MoonBlocks.MOON_PLANKS_FENCE_GATE)
                 .add(MoonBlocks.PURPLE_MOON_PLANKS_FENCE_GATE)
@@ -293,7 +314,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(Nebulas.PURPLE_NEBULA_PLANKS_FENCE_GATE)
                 .add(RedOrbBlocks.YERI_PLANKS_FENCE_GATE)
                 .add(MoonBlocks.YELLOW_MOON_PLANKS_FENCE_GATE);
-        getOrCreateTagBuilder(CustomTags.COPPER_BLOCKS)
+        valueLookupBuilder(CustomTags.COPPER_BLOCKS)
                 .add(Blocks.COPPER_BLOCK)
                 .add(Blocks.WAXED_COPPER_BLOCK)
                 .add(Blocks.CUT_COPPER)
@@ -303,8 +324,17 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(Blocks.CUT_COPPER_STAIRS)
                 .add(Blocks.WAXED_CUT_COPPER_STAIRS);
         // other
-        getOrCreateTagBuilder(BlockTags.MUSHROOM_GROW_BLOCK)
+        valueLookupBuilder(BlockTags.MUSHROOM_GROW_BLOCK)
                 .add(MoonBlocks.MOON_ROCK_NYLIUM)
                 .add(Darkness.DYLIUM);
+        valueLookupBuilder(CustomTags.STAR_HAMMER_MINABLE)
+                .add(StarBlocks.COSMIC_BLOCK)
+                .add(ModBlock.NEGATIVE_BLOCK)
+                .add(StarBlocks.STAR_LEAVES)
+                .add(StarBlocks.STAR_BARRIER_BLOCK)
+                .add(ModBlock.NORED_BLOCK)
+                .add(ModBlock.NOGREEN_BLOCK)
+                .add(ModBlock.NOBLUE_BLOCK)
+                .add(StarBlocks.BORDER_BLOCK);
     }
 }

@@ -1,11 +1,13 @@
 package com.github.starcatcher21.stargazer.datagen;
 
 import com.github.starcatcher21.stargazer.block.ModBlock;
+import com.github.starcatcher21.stargazer.block.clases.Hedge;
 import com.github.starcatcher21.stargazer.block.clases.moon.geode_fruit.GeodeFruit;
 import com.github.starcatcher21.stargazer.block.clases.moon.geode_fruit.GeodeFruitStage;
 import com.github.starcatcher21.stargazer.block.clases.moon.plants.MoonCrop;
 import com.github.starcatcher21.stargazer.block.register.*;
 import com.github.starcatcher21.stargazer.item.ModItems;
+import com.github.starcatcher21.stargazer.worldgen.features.trees.nebulas.Red;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.minecraft.block.Block;
@@ -60,6 +62,13 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
     @Override
     public void generate() {
         addDrop(ModBlock.NEGATIVE_BLOCK);
+        addDrop(ModBlock.NORED_BLOCK);
+        addDrop(ModBlock.NOGREEN_BLOCK);
+        addDrop(ModBlock.NOBLUE_BLOCK);
+        addDrop(Wander.PUROIL);
+        addDrop(Wander.BORIL, oreDrops(Wander.BORIL, Wander.PUROIL.asItem(), 1.0f, 1.0f));
+        addDrop(Wander.TRUNN_LOG);
+        addDrop(Wander.TRUNN_LEAVES, leavesDrops(Wander.TRUNN_LEAVES, Wander.TRUNN_SAPLING, 0.035F));
         addDrop(ModBlock.GRAVE);
         addDrop(ModBlock.INFESTED_CALCITE, oreDrops(ModBlock.INFESTED_CALCITE, Blocks.CALCITE.asItem(), 1.0f, 1.0f));
         addDrop(ModBlock.BONE_LEAVES, customLeavesDrop(ModBlock.BONE_LEAVES, Items.BONE, 0f, 3.0f));
@@ -78,6 +87,8 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
         addPottedPlantDrops(MoonBlocks.POTTED_PURPLE_MUSHROOM);
         addPottedPlantDrops(StarBlocks.POTTED_STAR_SAPLING);
         addPottedPlantDrops(MoonBlocks.POTTED_SPRUNGUS);
+        addPottedPlantDrops(Darkness.POTTED_GRADI);
+        addDrop(Darkness.GRADI, addFlowerbedDrop(Darkness.GRADI));
         addDrop(MoonBlocks.SPRUNGUS);
         addDrop(ModBlock.MOON_WELDER);
         // Moon
@@ -105,6 +116,7 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
         addDrop(MoonBlocks.FULL_MOON_LOG);
         addDrop(MoonBlocks.MOON_SAPLING);
         addDrop(MoonBlocks.FULL_MOON_SAPLING);
+        addDrop(RedOrbBlocks.POINTY);
         addDrop(MoonBlocks.STRIPPED_MOON_LOG);
         addDrop(MoonBlocks.MOON_PLANKS_DOOR, doorDrops(MoonBlocks.MOON_PLANKS_DOOR));
         addDrop(EyeBloodBlocks.EYE_LOG);
@@ -169,6 +181,7 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
         addDrop(MoonBlocks.PRISMATIC_SHARD_BLOCK);
         addDrop(ModBlock.BONEFLOWER);
         addPottedPlantDrops(ModBlock.POTTED_BONEFLOWER);
+        addPottedPlantDrops(RedOrbBlocks.POTTED_POINTY);
         addDrop(Nebulas.RED_TENTACLE_FLOWER);
         addDrop(Nebulas.BLUE_TENTACLE_FLOWER);
         addDrop(Nebulas.YELLOW_TENTACLE_FLOWER);
@@ -251,6 +264,8 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
         addDrop(Hedges.SPRUCE_HEDGE);
         addDrop(Hedges.STAR_HEDGE);
         addDrop(Hedges.YERI_HEDGE);
+        addDrop(Hedges.SPIRO_HEDGE);
+        addDrop(Hedges.TRUNN_HEDGE);
         addDrop(StarBlocks.RED_STAR_BLOCK, drops(ModItems.RED_STAR, ConstantLootNumberProvider.create(14)));
         addDrop(StarBlocks.BLUE_STAR_BLOCK, drops(ModItems.BLUE_STAR, ConstantLootNumberProvider.create(14)));
         addDrop(StarBlocks.YELLOW_STAR_BLOCK, drops(ModItems.YELLOW_STAR, ConstantLootNumberProvider.create(14)));
@@ -259,6 +274,8 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
         addDrop(Chess.CHESSBOARD);
         addDrop(Chess.BLACK_CHESSBOARD);
         addDrop(Chess.WHITE_CHESSBOARD);
+        addDrop(Chess.BLACK_BRICKS);
+        addDrop(Chess.WHITE_BRICKS);
         // Red Orb
         addDrop(RedOrbBlocks.RED_ROCK);
         addDrop(RedOrbBlocks.RED_ROCK_SLAB, slabDrops(RedOrbBlocks.RED_ROCK_SLAB));
@@ -276,6 +293,10 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
         addDrop(RedOrbBlocks.YERI_PLANKS_BUTTON);
         addDrop(RedOrbBlocks.RED_ORB_PLATFORM);
         addDrop(RedOrbBlocks.GREEN_ROCK);
+        addDrop(RedOrbBlocks.SPIRO_LOG);
+        addDrop(RedOrbBlocks.SPIRO_SAPLING);
+        addPottedPlantDrops(RedOrbBlocks.POTTED_SPIRO_SAPLING);
+        addDrop(Hedges.SPIRO_HEDGE);
     }
 
     public LootTable.Builder leavesDrops(Block leaves, Block sapling, Item itemDrop, float ... saplingChance) {

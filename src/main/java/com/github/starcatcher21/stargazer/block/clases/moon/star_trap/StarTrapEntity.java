@@ -5,15 +5,17 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.math.BlockPos;
 import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.GeoBlockEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animatable.manager.AnimatableManager;
-import software.bernie.geckolib.animatable.processing.AnimationController;
-import software.bernie.geckolib.animatable.processing.AnimationTest;
-import software.bernie.geckolib.animation.PlayState;
+import software.bernie.geckolib.animation.AnimationController;
 import software.bernie.geckolib.animation.RawAnimation;
+import software.bernie.geckolib.animation.object.PlayState;
+import software.bernie.geckolib.animation.state.AnimationTest;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 public class StarTrapEntity extends BlockEntity implements GeoBlockEntity {
@@ -57,9 +59,9 @@ public class StarTrapEntity extends BlockEntity implements GeoBlockEntity {
     }
 
     @Override
-    protected void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
-        super.readNbt(nbt, registryLookup);
-        active = nbt.getBoolean("active").orElse(false);
+    protected void readData(ReadView nbt) {
+        super.readData(nbt);
+        active = nbt.getBoolean("active", false);
 
         if (world != null) {
             world.updateListeners(pos, getCachedState(), getCachedState(), 0);
@@ -67,8 +69,8 @@ public class StarTrapEntity extends BlockEntity implements GeoBlockEntity {
     }
 
     @Override
-    protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
-        super.writeNbt(nbt, registryLookup);
+    protected void writeData(WriteView nbt) {
+        super.writeData(nbt);
         nbt.putBoolean("active", active);
     }
 }

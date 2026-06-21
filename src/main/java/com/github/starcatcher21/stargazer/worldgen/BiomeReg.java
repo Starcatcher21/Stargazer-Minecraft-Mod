@@ -23,6 +23,8 @@ public class BiomeReg {
     public static final RegistryKey<Biome> YERI_FOREST = register("yeri_forest");
     public static final RegistryKey<Biome> GREEN_ROCK_VALLEY = register("green_rock_valley");
 
+    public static final RegistryKey<Biome> BUBBLES_FIELD = register("bubbles_field");
+
     public static final List<RegistryKey<Biome>> MoonList = List.of(MOON_FOREST, MOON_WASTE, AMETHYST_SPIKES, BONE_FOREST, EYE_BIRCH_FOREST, PURPLE_SHROOM_FOREST, DARKNESS_FOREST, MOON_FIELD, MOON_VOID);
     public static final List<RegistryKey<Biome>> RedList = List.of(REDNESS, YERI_FOREST, GREEN_ROCK_VALLEY);
 

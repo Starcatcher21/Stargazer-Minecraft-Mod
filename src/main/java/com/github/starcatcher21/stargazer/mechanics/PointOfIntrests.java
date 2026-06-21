@@ -12,6 +12,7 @@ public class PointOfIntrests {
     public static final PointOfInterestType COPPER_TELEPORTER = PointOfInterestHelper.register(Identifier.of(Stargazer.MOD_ID, "copper_teleporter"), 0, 1, ModBlock.COPPER_TELEPORTER);
     public static final PointOfInterestType CHESS_TELEPORTER = PointOfInterestHelper.register(Identifier.of(Stargazer.MOD_ID, "chessboard"), 0, 1, Chess.CHESSBOARD);
     public static final PointOfInterestType RED_ORB_TELEPORTER = PointOfInterestHelper.register(Identifier.of(Stargazer.MOD_ID, "red_orb_platform"), 0, 1, RedOrbBlocks.RED_ORB_PLATFORM);
+    public static final PointOfInterestType DARK_TELEPORTER = PointOfInterestHelper.register(Identifier.of(Stargazer.MOD_ID, "dark_teleporter"), 0, 1, ModBlock.DARK_TELEPORTER);
 
     public static void init() {}
 }

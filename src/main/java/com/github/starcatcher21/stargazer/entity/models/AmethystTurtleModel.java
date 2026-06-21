@@ -7,8 +7,8 @@ import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.renderer.base.GeoRenderState;
 
 public class AmethystTurtleModel extends GeoModel<AmethystTurtle> {
-    private final Identifier model = Identifier.of(Stargazer.MOD_ID, "geckolib/models/entity/amethyst_turtle");
-    private final Identifier animations = Identifier.of(Stargazer.MOD_ID, "geckolib/animations/entity/amethyst_turtle");
+    private final Identifier model = Identifier.of(Stargazer.MOD_ID, "entity/amethyst_turtle");
+    private final Identifier animations = Identifier.of(Stargazer.MOD_ID, "entity/amethyst_turtle");
     private final Identifier texture = Identifier.of(Stargazer.MOD_ID, "textures/entity/turtle.png");
 
     @Override
