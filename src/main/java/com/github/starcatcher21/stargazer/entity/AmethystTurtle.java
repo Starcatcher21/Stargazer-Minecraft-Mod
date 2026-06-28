@@ -20,6 +20,7 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 public class AmethystTurtle extends PathAwareEntity implements GeoEntity {
     protected static final RawAnimation WALK_ANIM = RawAnimation.begin().thenLoop("animation.amethyst_turtle.walk");
+    protected static final RawAnimation LOOK_ANIM = RawAnimation.begin().thenLoop("animation.amethyst_turtle.look");
 
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
 
@@ -43,7 +44,7 @@ public class AmethystTurtle extends PathAwareEntity implements GeoEntity {
         if (animTest.isMoving()) {
             return animTest.setAndContinue(WALK_ANIM);
         }
-        return PlayState.STOP;
+        return animTest.setAndContinue(LOOK_ANIM);
     }
 
     @Override

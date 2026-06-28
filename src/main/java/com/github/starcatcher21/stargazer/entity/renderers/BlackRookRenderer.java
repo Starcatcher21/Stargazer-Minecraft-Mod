@@ -1,9 +1,7 @@
 package com.github.starcatcher21.stargazer.entity.renderers;
 
 import com.github.starcatcher21.stargazer.entity.BlackRook;
-import com.github.starcatcher21.stargazer.entity.Rook;
 import com.github.starcatcher21.stargazer.entity.models.BlackRookModel;
-import com.github.starcatcher21.stargazer.entity.models.RookModel;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.state.LivingEntityRenderState;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;

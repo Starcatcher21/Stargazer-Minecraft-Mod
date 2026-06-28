@@ -1,18 +1,10 @@
 package com.github.starcatcher21.stargazer.worldgen.features.trees.bubbles;
 
-import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.block.ModBlock;
-import com.github.starcatcher21.stargazer.block.register.RedOrbBlocks;
-import com.github.starcatcher21.stargazer.entity.Star;
-import com.github.starcatcher21.stargazer.worldgen.features.trees.DirectionalTree;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.Tree;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.TreeConfig;
-import com.github.starcatcher21.stargazer.worldgen.features.trees.green_rocks.*;
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
-import dev.architectury.platform.Mod;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;

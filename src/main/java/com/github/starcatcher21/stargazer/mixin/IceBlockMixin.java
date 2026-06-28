@@ -1,14 +1,12 @@
 package com.github.starcatcher21.stargazer.mixin;
 
 import com.github.starcatcher21.stargazer.CustomWorlds;
-import com.github.starcatcher21.stargazer.Stargazer;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.IceBlock;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.RegistryKey;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;

@@ -7,7 +7,6 @@ import com.github.starcatcher21.stargazer.screens.recipe.MoonWelderRecipeInvento
 import com.github.starcatcher21.stargazer.screens.recipe.RecipeTypes;
 import com.github.starcatcher21.stargazer.screens.recipeInputs.MoonWelderInventory;
 import com.github.starcatcher21.stargazer.screens.slots.MoonWelderResultSlot;
-import net.minecraft.client.render.state.SkyRenderState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.CraftingResultInventory;

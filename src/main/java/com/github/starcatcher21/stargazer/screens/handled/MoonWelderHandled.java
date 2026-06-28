@@ -2,22 +2,16 @@ package com.github.starcatcher21.stargazer.screens.handled;
 
 import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.screens.MoonWelderScreenHandler;
-import net.fabricmc.fabric.api.client.rendering.v1.RenderStateDataKey;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.screen.ingame.CraftingScreen;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.state.SkyRenderState;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.screen.CraftingScreenHandler;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.attribute.WorldEnvironmentAttributeAccess;
-import net.minecraft.world.attribute.timeline.Timelines;
 
 public class MoonWelderHandled extends HandledScreen<MoonWelderScreenHandler> {
     private static final Identifier TEXTURE = Identifier.of(Stargazer.MOD_ID, "textures/gui/moon_welder/moon_welder.png");

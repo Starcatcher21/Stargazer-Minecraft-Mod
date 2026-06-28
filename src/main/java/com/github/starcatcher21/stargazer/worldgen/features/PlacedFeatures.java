@@ -1,7 +1,6 @@
 package com.github.starcatcher21.stargazer.worldgen.features;
 
 import com.github.starcatcher21.stargazer.Stargazer;
-import com.github.starcatcher21.stargazer.worldgen.BiomeReg;
 import com.github.starcatcher21.stargazer.worldgen.BiomeTags;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;

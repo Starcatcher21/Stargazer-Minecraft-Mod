@@ -1,7 +1,6 @@
 package com.github.starcatcher21.stargazer.entity.models;
 
 import com.github.starcatcher21.stargazer.Stargazer;
-import com.github.starcatcher21.stargazer.entity.AmethystTurtle;
 import com.github.starcatcher21.stargazer.entity.Rook;
 import net.minecraft.util.Identifier;
 import software.bernie.geckolib.model.GeoModel;

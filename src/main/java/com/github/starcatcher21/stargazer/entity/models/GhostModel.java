@@ -1,13 +1,10 @@
 package com.github.starcatcher21.stargazer.entity.models;
 
 import com.github.starcatcher21.stargazer.Stargazer;
+import com.github.starcatcher21.stargazer.entity.DataTickets;
 import com.github.starcatcher21.stargazer.entity.Ghost;
-import com.github.starcatcher21.stargazer.entity.rederStates.GhostEntityRenderState;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.entity.state.LivingEntityRenderState;
 import net.minecraft.util.Identifier;
-import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib.constant.dataticket.DataTicket;
 import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.renderer.base.GeoRenderState;
 
@@ -40,7 +37,7 @@ public class GhostModel extends GeoModel<Ghost> {
 
     @Override
     public Identifier getTextureResource(GeoRenderState renderState) {
-        String name = renderState.getGeckolibData(DataTicket.create("name", String.class)).toLowerCase();
+        String name = renderState.getGeckolibData(DataTickets.CUSTOM_NAME).toLowerCase();
         if (renderState instanceof LivingEntityRenderState entityState) {
             if (pacman.contains(name) && entityState.deathTime > 0) {
                 return texture_dead;

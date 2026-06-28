@@ -4,7 +4,6 @@ import com.github.starcatcher21.stargazer.GameRules;
 import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.block.ModBlock;
 import com.github.starcatcher21.stargazer.block.clases.MoonWelder;
-import com.github.starcatcher21.stargazer.screens.handled.MoonWelderHandled;
 import com.google.common.collect.Lists;
 import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
@@ -18,7 +17,6 @@ import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.recipe.Ingredient;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 

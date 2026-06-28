@@ -56,6 +56,21 @@
 							"vector": [0, 25, 0]
 						}
 					}
+				},
+				"head": {
+					"rotation": {
+						"vector": ["-query.head_x_rotation * -1", "-query.head_y_rotation * -1", 0]
+					}
+				}
+			}
+		},
+		"animation.amethyst_turtle.look": {
+			"loop": true,
+			"bones": {
+				"head": {
+					"rotation": {
+						"vector": ["-q.head_x_rotation * -1", "-q.head_y_rotation * -1", 0]
+					}
 				}
 			}
 		}

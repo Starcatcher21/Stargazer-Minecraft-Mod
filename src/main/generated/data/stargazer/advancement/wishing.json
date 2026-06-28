@@ -1,0 +1,27 @@
+{
+  "parent": "stargazer:portal",
+  "criteria": {
+    "craft": {
+      "conditions": {
+        "output": {
+          "items": "stargazer:wishing_star"
+        }
+      },
+      "trigger": "stargazer:forge_craft"
+    }
+  },
+  "display": {
+    "description": "Create Wishing Star",
+    "icon": {
+      "count": 1,
+      "id": "stargazer:wishing_star"
+    },
+    "title": "Make a Wish"
+  },
+  "requirements": [
+    [
+      "craft"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

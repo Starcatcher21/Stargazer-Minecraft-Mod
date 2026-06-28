@@ -15,7 +15,6 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.storage.ReadView;
@@ -40,6 +39,7 @@ public class Ghost extends PathAwareEntity implements GeoEntity {
     protected static final RawAnimation IDLE2_ANIM = RawAnimation.begin().thenLoop("animation.ghost_idle2");
 
     private String TAG;
+    public String CustomName = "";
 
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
 
@@ -150,6 +150,7 @@ public class Ghost extends PathAwareEntity implements GeoEntity {
             this.setTargetPos(this.getEntityPos().add(random.nextFloat() * 10 - 5, random.nextFloat() * 10 - 5, random.nextFloat() * 10 - 5));
         }
         if (this.hasCustomName()) {
+            CustomName = this.getStringifiedName().toLowerCase();
             if (GhostModel.pacman.contains(this.getStringifiedName().toLowerCase())) {
                 if (!getTag().equals("pacman")) setTag("pacman");
             } else if (GhostModel.bill.contains(this.getStringifiedName().toLowerCase())) {
@@ -174,12 +175,14 @@ public class Ghost extends PathAwareEntity implements GeoEntity {
     public void writeCustomData(WriteView nbt) {
         super.writeCustomData(nbt);
         nbt.putString("tag", TAG);
+        nbt.putString("name", CustomName);
     }
 
     @Override
     public void readCustomData(ReadView nbt) {
         super.readCustomData(nbt);
         TAG = nbt.getString("tag", "");
+        CustomName = nbt.getString("name", "");
     }
 
     public void setTargetPos(Vec3d pos) {

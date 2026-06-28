@@ -24,12 +24,12 @@ import java.util.List;
 import java.util.Optional;
 
 public class MoonWelderDisplay extends BasicDisplay {
-    private List<EntryIngredient> in;
+    private final List<EntryIngredient> in;
     @Nullable
     private List<Optional<Ingredient>> place;
     @Nullable
     private ShapedMoonWelderRecipe recipe;
-    private EntryIngredient out;
+    private final EntryIngredient out;
     public MoonWelderDisplay(ShapedMoonWelderRecipe recipe) {
         this(recipe.getIngredientPlacement(), Collections.singletonList(EntryIngredients.of(recipe.getResult())), recipe.getIngredients());
         this.recipe = recipe;

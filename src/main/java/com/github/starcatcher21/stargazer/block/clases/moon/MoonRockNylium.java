@@ -8,7 +8,6 @@ import net.minecraft.block.Fertilizable;
 import net.minecraft.block.GrassBlock;
 import net.minecraft.block.SpreadableBlock;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.RegistryKey;

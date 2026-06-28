@@ -9,6 +9,7 @@ import com.github.starcatcher21.stargazer.block.clases.star.cosmic.CosmicBlock;
 import com.github.starcatcher21.stargazer.block.clases.star.leaves.StarLeaves;
 import com.github.starcatcher21.stargazer.block.clases.star.log.StarLog;
 import com.github.starcatcher21.stargazer.block.clases.star.log.StrippedStarLog;
+import com.github.starcatcher21.stargazer.block.clases.star.star_display.StarDisplay;
 import com.github.starcatcher21.stargazer.effects.StatusEffects;
 import com.github.starcatcher21.stargazer.sound.SoundGroups;
 import net.minecraft.block.*;
@@ -169,6 +170,11 @@ public class StarBlocks {
             .requiresTool()
             .strength(0.75f)
             .mapColor(MapColor.PURPLE)
+    );
+    public static final Block STAR_DISPLAY = register("star_display", StarDisplay::new, AbstractBlock.Settings.create()
+            .solid()
+            .sounds(BlockSoundGroup.METAL)
+            .strength(0.175F)
     );
     public static void init() {
     }

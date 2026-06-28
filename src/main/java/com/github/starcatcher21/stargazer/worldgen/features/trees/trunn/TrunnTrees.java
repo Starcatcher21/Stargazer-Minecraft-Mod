@@ -1,10 +1,7 @@
 package com.github.starcatcher21.stargazer.worldgen.features.trees.trunn;
 
-import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.block.register.MoonBlocks;
-import com.github.starcatcher21.stargazer.block.register.RedOrbBlocks;
 import com.github.starcatcher21.stargazer.block.register.Wander;
-import com.github.starcatcher21.stargazer.entity.Star;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.DirectionalTree;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.Tree;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.TreeConfig;

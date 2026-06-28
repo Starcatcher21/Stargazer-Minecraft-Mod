@@ -5,11 +5,17 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.block.BlockState;
 import net.minecraft.fluid.Fluid;
+import net.minecraft.network.RegistryByteBuf;
+import net.minecraft.network.codec.PacketCodec;
+import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static net.minecraft.block.FluidBlock.FLOW_DIRECTIONS;
 
@@ -21,6 +27,8 @@ public class CobbleGen {
             BlockState.CODEC.fieldOf("cobble").forGetter(CobbleGen::getCobble)
     ).apply(instance, CobbleGen::new));
 
+    public static final PacketCodec<RegistryByteBuf, CobbleGen> PACKET_CODEC = PacketCodecs.registryCodec(CODEC);
+    public static List<CobbleGen> list = new ArrayList<>();
 
     public final BlockState LAVA;
     public final BlockState BLOCKOBS;
@@ -48,6 +56,7 @@ public class CobbleGen {
         BLOCKCOBBLE = Cobble;
         BLOCKOBS = Obs;
         FLUID = fluid;
+        list.add(this);
     }
 
     public boolean gen(World world, BlockPos pos) {

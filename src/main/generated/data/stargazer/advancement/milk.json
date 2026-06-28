@@ -1,0 +1,28 @@
+{
+  "parent": "stargazer:wishing",
+  "criteria": {
+    "milk": {
+      "conditions": {
+        "output": {
+          "items": "minecraft:milk_bucket"
+        }
+      },
+      "trigger": "stargazer:star_modifier"
+    }
+  },
+  "display": {
+    "description": "Create Transgendere Wishing Star",
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "stargazer:wishing_star"
+    },
+    "title": "This isn't a milk"
+  },
+  "requirements": [
+    [
+      "milk"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

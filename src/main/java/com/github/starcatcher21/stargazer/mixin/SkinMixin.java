@@ -1,6 +1,5 @@
 package com.github.starcatcher21.stargazer.mixin;
 
-import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.mechanics.SkinManager;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.client.network.PlayerListEntry;

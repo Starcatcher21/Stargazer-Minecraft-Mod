@@ -1,19 +1,10 @@
 package com.github.starcatcher21.stargazer.block.clases.star.barrier;
 
-import com.github.starcatcher21.stargazer.Stargazer;
-import com.github.starcatcher21.stargazer.block.clases.star.border.BorderBlock;
-import com.github.starcatcher21.stargazer.block.clases.star.cosmic.CosmicBlockEntityRenderState;
 import com.github.starcatcher21.stargazer.renderer.CustomRenderLayers;
-import net.minecraft.block.AirBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
-import net.minecraft.client.render.block.entity.state.BlockEntityRenderState;
 import net.minecraft.client.render.command.ModelCommandRenderer;
 import net.minecraft.client.render.command.OrderedRenderCommandQueue;
 import net.minecraft.client.render.state.CameraRenderState;

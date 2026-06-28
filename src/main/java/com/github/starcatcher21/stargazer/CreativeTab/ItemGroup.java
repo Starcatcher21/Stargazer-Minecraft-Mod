@@ -4,6 +4,7 @@ import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.block.ModBlock;
 import com.github.starcatcher21.stargazer.block.register.*;
 import com.github.starcatcher21.stargazer.item.ModItems;
+import com.github.starcatcher21.stargazer.item.WishingStars;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.item.ItemStack;
@@ -80,9 +81,26 @@ public class ItemGroup {
             itemGroup.add(MoonBlocks.SUN_ENRICHED_MOON_ROCK);
             itemGroup.add(MoonBlocks.POLISHED_SUN_ENRICHED_MOON_ROCK);
             itemGroup.add(ModItems.SUN_ENRICHED_YELLOW_STAR);
-            itemGroup.add(ModItems.WISHING_STAR);
+            itemGroup.add(WishingStars.WISHING_STAR);
+            itemGroup.add(WishingStars.WHITE_WISHING_STAR);
+            itemGroup.add(WishingStars.LIGHT_GRAY_WISHING_STAR);
+            itemGroup.add(WishingStars.GRAY_WISHING_STAR);
+            itemGroup.add(WishingStars.BLACK_WISHING_STAR);
+            itemGroup.add(WishingStars.BROWN_WISHING_STAR);
+            itemGroup.add(WishingStars.RED_WISHING_STAR);
+            itemGroup.add(WishingStars.ORANGE_WISHING_STAR);
+            itemGroup.add(WishingStars.LIME_WISHING_STAR);
+            itemGroup.add(WishingStars.GREEN_WISHING_STAR);
+            itemGroup.add(WishingStars.CYAN_WISHING_STAR);
+            itemGroup.add(WishingStars.LIGHT_BLUE_WISHING_STAR);
+            itemGroup.add(WishingStars.BLUE_WISHING_STAR);
+            itemGroup.add(WishingStars.PURPLE_WISHING_STAR);
+            itemGroup.add(WishingStars.MAGENTA_WISHING_STAR);
+            itemGroup.add(WishingStars.PINK_WISHING_STAR);
             itemGroup.add(ModItems.DREAM_STAR);
             itemGroup.add(ModItems.WINGED_STAR);
+            itemGroup.add(ModItems.THROWABLE_STAR);
+            itemGroup.add(StarBlocks.STAR_DISPLAY);
             // Moon Trees
             itemGroup.add(MoonBlocks.MOON_LOG);
             itemGroup.add(MoonBlocks.STRIPPED_MOON_LOG);
@@ -143,6 +161,8 @@ public class ItemGroup {
             itemGroup.add(EyeBloodBlocks.STRIPPED_EYE_LOG);
             itemGroup.add(EyeBloodBlocks.EYE_LEAVES);
             itemGroup.add(EyeBloodBlocks.EYE_JAR);
+            itemGroup.add(ModItems.DEAD_EYE_BAT);
+            itemGroup.add(ModItems.LIVING_EYE);
             // Darkness
             itemGroup.add(Darkness.LOG_OF_DARKNESS);
             itemGroup.add(Darkness.STRIPPED_LOG_OF_DARKNESS);
@@ -223,6 +243,7 @@ public class ItemGroup {
             itemGroup.add(ModItems.BLACK_COOKED_GEODE_FRUIT);
             itemGroup.add(ModItems.ECTOPLASM);
             itemGroup.add(ModItems.COOLER_ECTOPLASM);
+            itemGroup.add(ModItems.STAR_BANNER_PATTERN);
             // SpawnEggs
             itemGroup.add(ModItems.GHOST_SPAWN_EGG);
             itemGroup.add(ModItems.AMETHYST_TURTLE_SPAWN_EGG);
@@ -278,6 +299,7 @@ public class ItemGroup {
             itemGroup.add(Wander.TRUNN_LOG);
             itemGroup.add(Wander.TRUNN_LEAVES);
             itemGroup.add(Wander.TRUNN_SAPLING);
+            itemGroup.add(ModItems.DREAM_BUCKET);
         });
     }
 }

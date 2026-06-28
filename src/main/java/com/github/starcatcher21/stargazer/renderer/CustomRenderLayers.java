@@ -3,10 +3,8 @@ package com.github.starcatcher21.stargazer.renderer;
 import com.github.starcatcher21.stargazer.block.clases.star.barrier.StarBarrierBlock;
 import com.github.starcatcher21.stargazer.block.clases.star.cosmic.CosmicBlock;
 import com.github.starcatcher21.stargazer.block.clases.star.leaves.StarLeaves;
-import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.RenderSetup;
-import net.minecraft.client.render.block.entity.AbstractEndPortalBlockEntityRenderer;
 
 public class CustomRenderLayers {
     public static final RenderLayer COSMIC = RenderLayer.of(

@@ -3,8 +3,6 @@ package com.github.starcatcher21.stargazer.block.clases.moon.star_trap;
 import com.github.starcatcher21.stargazer.block.BlockTypes;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
 import net.minecraft.util.math.BlockPos;

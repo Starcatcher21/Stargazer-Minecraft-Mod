@@ -12,6 +12,7 @@ import com.github.starcatcher21.stargazer.block.clases.star.barrier.StarBarrierB
 import com.github.starcatcher21.stargazer.block.clases.star.border.BorderBlockEntity;
 import com.github.starcatcher21.stargazer.block.clases.star.cosmic.CosmicBlockEntity;
 import com.github.starcatcher21.stargazer.block.clases.star.leaves.StarLeavesEntity;
+import com.github.starcatcher21.stargazer.block.clases.star.star_display.StarDisplayEntity;
 import com.github.starcatcher21.stargazer.block.register.EyeBloodBlocks;
 import com.github.starcatcher21.stargazer.block.register.MoonBlocks;
 import com.github.starcatcher21.stargazer.block.register.StarBlocks;
@@ -69,6 +70,10 @@ public class BlockTypes {
     public static final BlockEntityType<EyeJarEntity> EYE_JAR = register(
             "eyejar",
             FabricBlockEntityTypeBuilder.create(EyeJarEntity::new, EyeBloodBlocks.EYE_JAR).build()
+    );
+    public static final BlockEntityType<StarDisplayEntity> STAR_DISPLAY = register(
+            "stardisplay",
+            FabricBlockEntityTypeBuilder.create(StarDisplayEntity::new, StarBlocks.STAR_DISPLAY).build()
     );
     public static void init() {
     }

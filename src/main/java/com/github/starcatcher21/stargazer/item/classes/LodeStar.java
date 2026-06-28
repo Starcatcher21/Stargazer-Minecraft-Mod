@@ -2,6 +2,8 @@ package com.github.starcatcher21.stargazer.item.classes;
 
 import com.github.starcatcher21.stargazer.CustomTags;
 import com.github.starcatcher21.stargazer.block.clases.teleporter.CopperTeleporter;
+import com.github.starcatcher21.stargazer.block.clases.teleporter.RedTeleporter;
+import com.github.starcatcher21.stargazer.block.register.RedOrbBlocks;
 import com.github.starcatcher21.stargazer.mechanics.advancements.Criterias;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
@@ -34,10 +36,33 @@ public class LodeStar extends Item {
             }
             return ActionResult.SUCCESS;
         }
+        if (isProperRedTeleporter(world, root)) {
+            RedTeleporter.portalPlace(world, root, false, false);
+            LightningEntity lightning = new LightningEntity(EntityType.LIGHTNING_BOLT, world);
+            lightning.setPos(root.getX(), root.getY()+1, root.getZ());
+            world.spawnEntity(lightning);
+            return ActionResult.SUCCESS;
+        }
         if (world.getBlockState(root).isIn(CustomTags.COPPER_BLOCKS)) {
             return ActionResult.SUCCESS;
         }
         return ActionResult.FAIL;
+    }
+
+    public static Boolean isProperRedTeleporter(World world, BlockPos pos) {
+        if (!(world.getBlockState(pos).getBlock().equals(RedOrbBlocks.POLISHED_RED_ROCK))) {
+            return false;
+        }
+        if (!(world.getBlockState(pos.offset(Direction.NORTH, 1)).equals(RedOrbBlocks.RED_ROCK_STAIRS.getDefaultState().with(Properties.HORIZONTAL_FACING, Direction.SOUTH)))) {
+            return false;
+        }
+        if (!(world.getBlockState(pos.offset(Direction.SOUTH, 1)).equals(RedOrbBlocks.RED_ROCK_STAIRS.getDefaultState().with(Properties.HORIZONTAL_FACING, Direction.NORTH)))) {
+            return false;
+        }
+        if (!(world.getBlockState(pos.offset(Direction.WEST, 1)).equals(RedOrbBlocks.RED_ROCK_STAIRS.getDefaultState().with(Properties.HORIZONTAL_FACING, Direction.EAST)))) {
+            return false;
+        }
+        return world.getBlockState(pos.offset(Direction.EAST, 1)).equals(RedOrbBlocks.RED_ROCK_STAIRS.getDefaultState().with(Properties.HORIZONTAL_FACING, Direction.WEST));
     }
 
     public static Boolean isProperTeleporter(World world, BlockPos pos) {

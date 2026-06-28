@@ -5,7 +5,7 @@ import com.github.starcatcher21.stargazer.block.ModBlock;
 import com.github.starcatcher21.stargazer.block.clases.moon.plants.MoonCrop;
 import com.github.starcatcher21.stargazer.block.register.*;
 import com.github.starcatcher21.stargazer.item.ModItems;
-import com.github.starcatcher21.stargazer.worldgen.features.trees.nebulas.Red;
+import com.github.starcatcher21.stargazer.item.WishingStars;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.block.Block;
@@ -246,6 +246,7 @@ public class ModModelProvider extends FabricModelProvider {
     @Override
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
         itemModelGenerator.register(ModItems.LODESTAR, Models.GENERATED);
+        itemModelGenerator.register(ModItems.DREAM_BUCKET, Models.GENERATED);
         itemModelGenerator.register(ModItems.DARKSTAR, Models.GENERATED);
         itemModelGenerator.register(ModItems.STARDUST, Models.GENERATED);
         itemModelGenerator.register(ModItems.GEODE_FRUIT, Models.GENERATED);
@@ -260,7 +261,24 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModItems.DREAM_STAR, Models.GENERATED);
         itemModelGenerator.register(ModItems.MOON_GLASS_SHARD, Models.GENERATED);
         itemModelGenerator.register(ModItems.PRISMATIC_INGOT, Models.GENERATED);
-        itemModelGenerator.register(ModItems.WISHING_STAR, Models.GENERATED);
+        itemModelGenerator.register(WishingStars.WISHING_STAR, Models.GENERATED);
+        itemModelGenerator.register(WishingStars.WHITE_WISHING_STAR, Models.GENERATED);
+        itemModelGenerator.register(WishingStars.LIGHT_GRAY_WISHING_STAR, Models.GENERATED);
+        itemModelGenerator.register(WishingStars.GRAY_WISHING_STAR, Models.GENERATED);
+        itemModelGenerator.register(WishingStars.BLACK_WISHING_STAR, Models.GENERATED);
+        itemModelGenerator.register(WishingStars.BROWN_WISHING_STAR, Models.GENERATED);
+        itemModelGenerator.register(WishingStars.RED_WISHING_STAR, Models.GENERATED);
+        itemModelGenerator.register(WishingStars.ORANGE_WISHING_STAR, Models.GENERATED);
+        itemModelGenerator.register(WishingStars.LIME_WISHING_STAR, Models.GENERATED);
+        itemModelGenerator.register(WishingStars.GREEN_WISHING_STAR, Models.GENERATED);
+        itemModelGenerator.register(WishingStars.CYAN_WISHING_STAR, Models.GENERATED);
+        itemModelGenerator.register(WishingStars.LIGHT_BLUE_WISHING_STAR, Models.GENERATED);
+        itemModelGenerator.register(WishingStars.BLUE_WISHING_STAR, Models.GENERATED);
+        itemModelGenerator.register(WishingStars.PURPLE_WISHING_STAR, Models.GENERATED);
+        itemModelGenerator.register(WishingStars.MAGENTA_WISHING_STAR, Models.GENERATED);
+        itemModelGenerator.register(WishingStars.PINK_WISHING_STAR, Models.GENERATED);
+        itemModelGenerator.register(ModItems.THROWABLE_STAR, Models.GENERATED);
+        itemModelGenerator.register(ModItems.STAR_BANNER_PATTERN, Models.GENERATED);
         itemModelGenerator.register(ModItems.STAR_HAMMER, Models.GENERATED);
         itemModelGenerator.register(ModItems.SUN_ENRICHED_YELLOW_STAR, Models.GENERATED);
         itemModelGenerator.register(ModItems.WINGED_STAR, Models.GENERATED);
@@ -291,6 +309,7 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModItems.COOLER_ECTOPLASM, Models.GENERATED);
         itemModelGenerator.register(ModItems.BLACK_BRICK, Models.GENERATED);
         itemModelGenerator.register(ModItems.WHITE_BRICK, Models.GENERATED);
+        itemModelGenerator.register(StarBlocks.STAR_DISPLAY.asItem(), Models.GENERATED);
 
         // Spawn Eggs
         itemModelGenerator.register(ModItems.GHOST_SPAWN_EGG, Models.GENERATED);

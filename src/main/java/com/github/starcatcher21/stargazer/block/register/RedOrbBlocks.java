@@ -2,7 +2,6 @@ package com.github.starcatcher21.stargazer.block.register;
 
 import com.github.starcatcher21.stargazer.Helpers;
 import com.github.starcatcher21.stargazer.block.clases.*;
-import com.github.starcatcher21.stargazer.block.clases.moon.MoonGrass;
 import com.github.starcatcher21.stargazer.block.clases.moon.MoonPlanks;
 import com.github.starcatcher21.stargazer.block.clases.moon.log.MoonLog;
 import net.minecraft.block.*;

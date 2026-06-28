@@ -2,6 +2,7 @@ package com.github.starcatcher21.stargazer.compat;
 
 import com.github.starcatcher21.stargazer.block.ModBlock;
 import com.github.starcatcher21.stargazer.block.register.MoonBlocks;
+import com.github.starcatcher21.stargazer.mechanics.star.FallingObjectsList;
 import com.github.starcatcher21.stargazer.screens.handled.MoonWelderHandled;
 import com.github.starcatcher21.stargazer.screens.handled.StarforgeHandled;
 import com.github.starcatcher21.stargazer.screens.recipe.serializer.ShapedMoonWelderRecipeDisplay;
@@ -12,6 +13,7 @@ import me.shedaniel.rei.api.client.registry.category.CategoryRegistry;
 import me.shedaniel.rei.api.client.registry.display.DisplayRegistry;
 import me.shedaniel.rei.api.client.registry.screen.ScreenRegistry;
 import me.shedaniel.rei.api.common.util.EntryStacks;
+import net.minecraft.item.Items;
 
 public class StargazerREIClient implements REIClientPlugin {
     @Override
@@ -20,6 +22,8 @@ public class StargazerREIClient implements REIClientPlugin {
         registry.addWorkstations(StarforgeCategory.STARFORGE, EntryStacks.of(MoonBlocks.STAR_FORGE.asItem().getDefaultStack()));
         registry.add(new MoonWelderCategory());
         registry.addWorkstations(MoonWelderCategory.STARFORGE, EntryStacks.of(ModBlock.MOON_WELDER.asItem().getDefaultStack()));
+        registry.add(new StargazingCategory());
+        registry.addWorkstations(StargazingCategory.STARFORGE, EntryStacks.of(Items.SPYGLASS.getDefaultStack()));
     }
 
     @Override
@@ -30,6 +34,10 @@ public class StargazerREIClient implements REIClientPlugin {
         registry.beginRecipeFiller(ShapedMoonWelderRecipeDisplay.class)
                 .filterType(ShapedMoonWelderRecipeDisplay.SERIALIZER)
                 .fill(MoonWelderDisplay::new);
+
+        for (FallingObjectsList objectsList : FallingObjectsList.list2) {
+            registry.add(new StargazingDisplay(objectsList));
+        }
     }
 
     @Override

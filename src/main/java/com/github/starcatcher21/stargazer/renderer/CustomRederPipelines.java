@@ -1,18 +1,12 @@
 package com.github.starcatcher21.stargazer.renderer;
 
 import com.github.starcatcher21.stargazer.Stargazer;
-import com.github.starcatcher21.stargazer.entity.Star;
-import com.github.starcatcher21.stargazer.mechanics.star.Stargaze;
 import com.mojang.blaze3d.pipeline.BlendFunction;
 import com.mojang.blaze3d.pipeline.RenderPipeline;
 import com.mojang.blaze3d.platform.DepthTestFunction;
-import com.mojang.blaze3d.platform.LogicOp;
 import com.mojang.blaze3d.vertex.VertexFormat;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.RenderPipelines;
-import net.minecraft.client.gl.UniformType;
 import net.minecraft.client.render.VertexFormats;
-import net.minecraft.client.render.fog.FogData;
 import net.minecraft.util.Identifier;
 
 import static net.minecraft.client.gl.RenderPipelines.*;

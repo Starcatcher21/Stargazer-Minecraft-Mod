@@ -3,8 +3,6 @@ package com.github.starcatcher21.stargazer.block.clases;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.TintedParticleLeavesBlock;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.particle.ParticleUtil;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;

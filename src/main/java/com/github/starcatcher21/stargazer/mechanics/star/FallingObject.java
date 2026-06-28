@@ -7,6 +7,9 @@ import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.RegistryByteBuf;
+import net.minecraft.network.codec.PacketCodec;
+import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.particle.ParticleType;
 import net.minecraft.particle.SimpleParticleType;
 import net.minecraft.registry.Registries;
@@ -16,6 +19,8 @@ import net.minecraft.util.dynamic.Codecs;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import static com.github.starcatcher21.stargazer.mechanics.star.Stargaze.range;
@@ -29,6 +34,9 @@ public class FallingObject {
             Codecs.POSITIVE_INT.fieldOf("particle_amount").forGetter(FallingObject::getAmount),
             Codecs.POSITIVE_FLOAT.fieldOf("velocity").forGetter(FallingObject::getVelocity)
     ).apply(instance, FallingObject::new));
+    public static final PacketCodec<RegistryByteBuf, FallingObject> PACKET_CODEC = PacketCodecs.registryCodec(CODEC);
+
+    public static List<FallingObject> list = new ArrayList<>();
 
     private ParticleType<?> getHitParticle() {
         return this.getHitParticle();
@@ -62,6 +70,7 @@ public class FallingObject {
         velocity = particleVelocity;
         fallParticle = fallParticleType;
         hitParticle = hitParticleType;
+        list.add(this);
     }
 
     public void hitParticles(World world, int X, int Y, int Z) {

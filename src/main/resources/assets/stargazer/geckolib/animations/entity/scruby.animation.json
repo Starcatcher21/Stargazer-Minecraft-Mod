@@ -69,8 +69,122 @@
 							"easing": "linear"
 						}
 					}
+				},
+				"head": {
+					"rotation": {
+						"vector": ["-q.head_x_rotation * -1", "-q.head_y_rotation * -1", 0]
+					}
+				}
+			}
+		},
+		"look": {
+			"animation_length": 51.9583,
+			"bones": {
+				"head": {
+					"rotation": {
+						"0.0": {
+							"vector": ["-q.head_x_rotation * -1", "-q.head_y_rotation * -1", 0]
+						},
+						"19.5417": {
+							"pre": {
+								"vector": [0, 0, 0]
+							},
+							"post": {
+								"vector": [0, 0, 0]
+							},
+							"lerp_mode": "catmullrom"
+						},
+						"19.875": {
+							"post": {
+								"vector": [-2.5, 0, 0]
+							},
+							"lerp_mode": "catmullrom"
+						},
+						"20.0417": {
+							"post": {
+								"vector": [-7.5, 0, 0]
+							},
+							"lerp_mode": "catmullrom"
+						},
+						"20.3333": {
+							"post": {
+								"vector": [9.6, 0, 0]
+							},
+							"lerp_mode": "catmullrom"
+						},
+						"20.4167": {
+							"post": {
+								"vector": [4, 0, 0]
+							},
+							"lerp_mode": "catmullrom"
+						},
+						"20.625": {
+							"post": {
+								"vector": [0, 0, 0]
+							},
+							"lerp_mode": "catmullrom"
+						},
+						"29.3333": {
+							"vector": ["-math.sin(query.anim_time * 120) * 6", 0, "math.cos(query.anim_time * 100) * 4"]
+						},
+						"51.9583": {
+							"vector": ["-query.target_x_rotation", "-query.target_y_rotation", 0],
+							"easing": "easeInQuad"
+						}
+					},
+					"position": {
+						"19.5417": {
+							"pre": {
+								"vector": [0, 0, 0]
+							},
+							"post": {
+								"vector": [0, 0, 0]
+							},
+							"lerp_mode": "catmullrom"
+						},
+						"19.875": {
+							"post": {
+								"vector": [0, -3, 0]
+							},
+							"lerp_mode": "catmullrom"
+						},
+						"19.9583": {
+							"post": {
+								"vector": [0, 3.07, -3.25]
+							},
+							"lerp_mode": "catmullrom"
+						},
+						"20.0833": {
+							"post": {
+								"vector": [0, 7, -13]
+							},
+							"lerp_mode": "catmullrom"
+						},
+						"20.2083": {
+							"post": {
+								"vector": [0, 4.77, -22.85]
+							},
+							"lerp_mode": "catmullrom"
+						},
+						"20.3333": {
+							"post": {
+								"vector": [0, -2, -29.5]
+							},
+							"lerp_mode": "catmullrom"
+						},
+						"20.625": {
+							"post": {
+								"vector": [0, 0, -30]
+							},
+							"lerp_mode": "catmullrom"
+						},
+						"29.3333": {
+							"vector": [0, "math.sin(query.anim_time * 90) * 1", 0]
+						}
+					}
 				}
 			}
 		}
-	}
+	},
+	"geckolib_format_version": 2
 }

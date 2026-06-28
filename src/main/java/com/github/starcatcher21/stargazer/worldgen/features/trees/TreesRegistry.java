@@ -15,7 +15,6 @@ import com.github.starcatcher21.stargazer.worldgen.features.trees.prismaticore.P
 import com.github.starcatcher21.stargazer.worldgen.features.trees.purple_shroom.PurpleShrooms;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.spiro.SpiroTrees;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.star.StarTrees;
-import com.github.starcatcher21.stargazer.worldgen.features.trees.trunn.TrunnTree;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.trunn.TrunnTrees;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.yeri.YeriTrees;
 

@@ -1,12 +1,10 @@
 package com.github.starcatcher21.stargazer.mixin;
 
 import com.github.starcatcher21.stargazer.CustomWorlds;
-import com.github.starcatcher21.stargazer.Stargazer;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.level.ServerWorldProperties;

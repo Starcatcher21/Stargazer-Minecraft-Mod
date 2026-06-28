@@ -2,13 +2,11 @@ package com.github.starcatcher21.stargazer.mixin;
 
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayers;
-import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.command.OrderedRenderCommandQueue;
 import net.minecraft.client.render.entity.equipment.EquipmentModel;
 import net.minecraft.client.render.entity.feature.CapeFeatureRenderer;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.render.entity.state.PlayerEntityRenderState;
-import net.minecraft.client.texture.AbstractTexture;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.SkinTextures;
 import net.minecraft.item.ItemStack;

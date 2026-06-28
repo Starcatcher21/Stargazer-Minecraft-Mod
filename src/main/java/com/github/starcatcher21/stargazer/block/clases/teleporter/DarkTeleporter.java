@@ -3,7 +3,6 @@ package com.github.starcatcher21.stargazer.block.clases.teleporter;
 import com.github.starcatcher21.stargazer.CustomWorlds;
 import com.github.starcatcher21.stargazer.block.ModBlock;
 import com.github.starcatcher21.stargazer.block.register.Chess;
-import com.github.starcatcher21.stargazer.block.register.MoonBlocks;
 import com.github.starcatcher21.stargazer.mechanics.PointOfIntrests;
 import com.github.starcatcher21.stargazer.particle.Particles;
 import net.minecraft.block.*;

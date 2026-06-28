@@ -1,6 +1,5 @@
 package com.github.starcatcher21.stargazer.mechanics.star;
 
-import com.github.starcatcher21.stargazer.StargazerDataLoader;
 import com.github.starcatcher21.stargazer.mechanics.advancements.Criterias;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
@@ -15,7 +14,7 @@ public class Stargaze {
     private static int timer = 0;
     public static int range = 12;
     public static void tick(MinecraftClient client) {
-        for (FallingObjectsList list : StargazerDataLoader.getFallingObjectsListData().values()) {
+        for (FallingObjectsList list : FallingObjectsList.list2) {
             if (client.world.getRegistryKey().equals(list.world)) {
                 if (list.dayState.equals(FallingObjectDayState.Day)) {
                     if (!client.getServer().getOverworld().isDay()) {

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "stargazer:item/cyan_wishing_star"
+  }
+}

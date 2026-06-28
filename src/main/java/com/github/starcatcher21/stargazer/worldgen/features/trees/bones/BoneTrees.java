@@ -27,6 +27,12 @@ public class BoneTrees extends Feature<TreeConfig> {
     public static ArrayList<Tree> TREELIST = new ArrayList<>();
     public static Tree Cinema = register("CinemaTree");
     public static Tree NotCinema = register("NotCinemaTree");
+    public static Tree BALD1 = register("Bald1");
+    public static Tree BALD2 = register("Bald2");
+    public static Tree BALD3 = register("Bald3");
+    public static Tree PCROWN = register("PCrown");
+    public static Tree ECROWN = register("ECrown");
+    public static Tree ICROWN = register("ICrown");
 
     public BoneTrees(Codec<TreeConfig> configCodec) {
         super(configCodec);
@@ -41,6 +47,21 @@ public class BoneTrees extends Feature<TreeConfig> {
     public static void init() {
         CinemaTree.CinemaInit(Cinema);
         NotCinemaTree.CinemaInit(NotCinema);
+        bald1.CinemaInit(BALD1);
+        bald2.CinemaInit(BALD2);
+        bald3.CinemaInit(BALD3);
+        crown.CinemaInit(PCROWN, MoonBlocks.PRISMATIC_SHARD_BLOCK);
+        crown.CinemaInit(ECROWN, Blocks.EMERALD_BLOCK);
+        crown.CinemaInit(ICROWN, Blocks.IRON_BLOCK);
+        TREELIST.add(Cinema);
+        TREELIST.add(Cinema);
+        TREELIST.add(Cinema);
+        TREELIST.add(NotCinema);
+        TREELIST.add(NotCinema);
+        TREELIST.add(NotCinema);
+        TREELIST.add(BALD1);
+        TREELIST.add(BALD2);
+        TREELIST.add(BALD3);
     }
 
     @Override

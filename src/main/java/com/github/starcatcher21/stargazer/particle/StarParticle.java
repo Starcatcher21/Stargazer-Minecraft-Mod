@@ -8,11 +8,9 @@ import net.minecraft.client.particle.ParticleFactory;
 import net.minecraft.client.particle.SpriteProvider;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.world.ClientWorld;
-import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.SimpleParticleType;
 import net.minecraft.particle.TintedParticleEffect;
 import net.minecraft.util.math.random.Random;
-import org.jspecify.annotations.Nullable;
 
 @Environment(EnvType.CLIENT)
 public class StarParticle extends BillboardParticle {

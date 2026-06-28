@@ -1,5 +1,5 @@
 {
-  "item": "stargazer:white_brick",
+  "item": "stargazer:black_brick",
   "fall_particle": "minecraft:campfire_cosy_smoke",
   "hit_particle": "minecraft:campfire_cosy_smoke",
   "particle_amount": 200,

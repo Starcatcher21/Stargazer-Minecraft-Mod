@@ -2,7 +2,6 @@ package com.github.starcatcher21.stargazer.entity.models;
 
 import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.entity.BlackRook;
-import com.github.starcatcher21.stargazer.entity.Rook;
 import net.minecraft.util.Identifier;
 import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.renderer.base.GeoRenderState;

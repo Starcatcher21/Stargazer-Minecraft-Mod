@@ -44,7 +44,6 @@ public class EntityRegistry {
             EYE_BAT_ID,
             EntityType.Builder.create(EyeBat::new, SpawnGroup.CREATURE)
                     .dimensions(0.65f, 0.65f)
-                    .makeFireImmune()
                     .build(EYE_BAT_KEY)
     );
 
@@ -60,6 +59,18 @@ public class EntityRegistry {
                     .build(STAR_KEY)
     );
 
+    public static final Identifier THROWABLE_STAR_ID = Identifier.of(Stargazer.MOD_ID, "throwable_star");
+    public static final RegistryKey<EntityType<?>> THROWABLE_STAR_KEY = RegistryKey.of(RegistryKeys.ENTITY_TYPE, THROWABLE_STAR_ID);
+
+    public static final EntityType<ThrowableStarEntity> THROWABLE_STAR_ENTITY = Registry.register(
+            Registries.ENTITY_TYPE,
+            THROWABLE_STAR_ID,
+            EntityType.Builder.<ThrowableStarEntity>create(ThrowableStarEntity::new, SpawnGroup.MISC)
+                    .dimensions(1.25f, 0.25f)
+                    .makeFireImmune()
+                    .build(THROWABLE_STAR_KEY)
+    );
+
     public static final Identifier ROOK_ID = Identifier.of(Stargazer.MOD_ID, "rook");
     public static final RegistryKey<EntityType<?>> ROOK_KEY = RegistryKey.of(RegistryKeys.ENTITY_TYPE, ROOK_ID);
 
@@ -68,7 +79,6 @@ public class EntityRegistry {
             ROOK_ID,
             EntityType.Builder.create(Rook::new, SpawnGroup.CREATURE)
                     .dimensions(1.0f, 1.0f)
-                    .makeFireImmune()
                     .build(ROOK_KEY)
     );
     public static final Identifier BLACK_ROOK_ID = Identifier.of(Stargazer.MOD_ID, "black_rook");
@@ -79,7 +89,6 @@ public class EntityRegistry {
             BLACK_ROOK_ID,
             EntityType.Builder.create(BlackRook::new, SpawnGroup.CREATURE)
                     .dimensions(1.0f, 1.0f)
-                    .makeFireImmune()
                     .build(BLACK_ROOK_KEY)
     );
     public static final Identifier SCRUBY_ID = Identifier.of(Stargazer.MOD_ID, "scruby");
@@ -90,7 +99,6 @@ public class EntityRegistry {
             SCRUBY_ID,
             EntityType.Builder.create(Scruby::new, SpawnGroup.CREATURE)
                     .dimensions(0.75f, 0.5f)
-                    .makeFireImmune()
                     .build(SCRUBY_KEY)
     );
 

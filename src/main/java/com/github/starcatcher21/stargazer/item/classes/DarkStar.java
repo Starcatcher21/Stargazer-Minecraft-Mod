@@ -1,7 +1,5 @@
 package com.github.starcatcher21.stargazer.item.classes;
 
-import com.github.starcatcher21.stargazer.CustomTags;
-import com.github.starcatcher21.stargazer.block.clases.teleporter.CopperTeleporter;
 import com.github.starcatcher21.stargazer.block.clases.teleporter.DarkTeleporter;
 import com.github.starcatcher21.stargazer.block.register.Chess;
 import com.github.starcatcher21.stargazer.mechanics.advancements.Criterias;

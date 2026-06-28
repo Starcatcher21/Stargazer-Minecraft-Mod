@@ -1,30 +1,36 @@
 package com.github.starcatcher21.stargazer.mechanics.star;
 
-import com.github.starcatcher21.stargazer.Stargazer;
-import com.github.starcatcher21.stargazer.StargazerDataLoader;
+import com.github.starcatcher21.stargazer.RegistryKeys;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.network.RegistryByteBuf;
+import net.minecraft.network.codec.PacketCodec;
+import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.registry.RegistryKey;
-import net.minecraft.util.Identifier;
+import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.registry.entry.RegistryFixedCodec;
 import net.minecraft.util.dynamic.Codecs;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 public class FallingObjectsList {
     public static final Codec<FallingObjectsList> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             World.CODEC.fieldOf("world").forGetter(FallingObjectsList::getWorld),
-            Identifier.CODEC.listOf().fieldOf("objects").forGetter(FallingObjectsList::getIdList),
+            RegistryFixedCodec.of(RegistryKeys.FALLING_OBJECTS).listOf()
+                    .fieldOf("objects")
+                    .forGetter(FallingObjectsList::getIdList),
             Codecs.POSITIVE_INT.listOf().fieldOf("chances").forGetter(FallingObjectsList::getChanceList),
             Codecs.NON_NEGATIVE_INT.optionalFieldOf("light").forGetter(FallingObjectsList::getLightLevel),
             FallingObjectDayState.CODEC.optionalFieldOf("daystate").forGetter(FallingObjectsList::getDayState)
     ).apply(instance, FallingObjectsList::new));
+    public static final PacketCodec<RegistryByteBuf, FallingObjectsList> PACKET_CODEC = PacketCodecs.registryCodec(CODEC);
 
+    public static List<FallingObjectsList> list2 = new ArrayList<>();
 
-    public List<Identifier> idList;
+    public List<RegistryEntry<FallingObject>> idList;
     public List<FallingObject> list;
     public RegistryKey<World> world;
     public List<Integer> chanceList;
@@ -32,18 +38,10 @@ public class FallingObjectsList {
     public int lightLevel = 15;
     public FallingObjectDayState dayState = FallingObjectDayState.Both;
 
-    public FallingObjectsList(RegistryKey<World> world, List<Identifier> idList, List<Integer> chanceList, Optional<Integer> light, Optional<FallingObjectDayState> dstate) {
+    public FallingObjectsList(RegistryKey<World> world, List<RegistryEntry<FallingObject>> idList, List<Integer> chanceList, Optional<Integer> light, Optional<FallingObjectDayState> dstate) {
         this.idList = idList;
-        this.list = new ArrayList<>();
+        this.list = idList.stream().map(sas -> sas.value()).toList();
 
-        Map<Identifier, FallingObject> map = StargazerDataLoader.getFallingObjectData();
-        for (Identifier id : idList) {
-            if (map.containsKey(id)) {
-                this.list.add(map.get(id));
-            } else {
-                Stargazer.LOGGER.warn("There's no Falling Object with id: " + id);
-            }
-        }
         this.world = world;
         this.chanceList = chanceList;
         this.weightedList = new ArrayList<>();
@@ -60,9 +58,10 @@ public class FallingObjectsList {
         }
         light.ifPresent(integer -> this.lightLevel = integer);
         dstate.ifPresent(s -> this.dayState = s);
+        list2.add(this);
     }
 
-    private List<Identifier> getIdList() {
+    private List<RegistryEntry<FallingObject>> getIdList() {
         return this.idList;
     }
     private List<FallingObject> getList() {
@@ -80,4 +79,5 @@ public class FallingObjectsList {
     private Optional<FallingObjectDayState> getDayState() {
         return Optional.of(this.dayState);
     }
+
 }

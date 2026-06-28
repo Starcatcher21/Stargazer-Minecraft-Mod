@@ -1,18 +1,13 @@
 package com.github.starcatcher21.stargazer.mechanics;
 
 import com.github.starcatcher21.stargazer.Stargazer;
-import com.github.starcatcher21.stargazer.mechanics.star.Stargaze;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.entity.model.PlayerEntityModel;
-import net.minecraft.client.texture.PlayerSkinProvider;
 import net.minecraft.client.texture.PlayerSkinTextureDownloader;
-import net.minecraft.client.texture.TextureManager;
 import net.minecraft.entity.player.PlayerSkinType;
 import net.minecraft.entity.player.SkinTextures;
-import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.AssetInfo;
 import net.minecraft.util.Identifier;
 
@@ -27,9 +22,6 @@ import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Executor;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class SkinManager {
     public static final Map<String, SkinTextures> CACHE = new HashMap<>();

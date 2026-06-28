@@ -2,10 +2,8 @@ package com.github.starcatcher21.stargazer.worldgen.features.trees.fullmoon;
 
 import com.github.starcatcher21.stargazer.block.register.StarBlocks;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.Tree;
-import com.github.starcatcher21.stargazer.worldgen.features.trees.moon.MoonBase;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.util.math.Direction;
 
 public class FullMoonTree1 {
     public static void init(Tree tree) {

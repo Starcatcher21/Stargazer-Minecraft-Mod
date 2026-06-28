@@ -1,13 +1,11 @@
 package com.github.starcatcher21.stargazer.datagen;
 
 import com.github.starcatcher21.stargazer.block.ModBlock;
-import com.github.starcatcher21.stargazer.block.clases.Hedge;
 import com.github.starcatcher21.stargazer.block.clases.moon.geode_fruit.GeodeFruit;
 import com.github.starcatcher21.stargazer.block.clases.moon.geode_fruit.GeodeFruitStage;
 import com.github.starcatcher21.stargazer.block.clases.moon.plants.MoonCrop;
 import com.github.starcatcher21.stargazer.block.register.*;
 import com.github.starcatcher21.stargazer.item.ModItems;
-import com.github.starcatcher21.stargazer.worldgen.features.trees.nebulas.Red;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.minecraft.block.Block;
@@ -76,6 +74,7 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
         addDrop(ModBlock.SPRINKLER);
         addDrop(MoonBlocks.STAR_FORGE);
         addDrop(MoonBlocks.STAR_STONE);
+        addDrop(StarBlocks.STAR_DISPLAY);
         addDrop(MoonBlocks.FORGET_ME_NOW, addFlowerbedDrop(MoonBlocks.FORGET_ME_NOW));
         addDrop(EyeBloodBlocks.EYES, addFlowerbedDrop(EyeBloodBlocks.EYES));
         addPottedPlantDrops(MoonBlocks.POTTED_FORGET_ME_NOW);

@@ -2,11 +2,14 @@ package com.github.starcatcher21.stargazer.item;
 
 import com.github.starcatcher21.stargazer.CustomTags;
 import com.github.starcatcher21.stargazer.Stargazer;
+import com.github.starcatcher21.stargazer.block.ModFluids;
 import com.github.starcatcher21.stargazer.effects.StatusEffects;
 import com.github.starcatcher21.stargazer.entity.EntityRegistry;
 import com.github.starcatcher21.stargazer.item.classes.DarkStar;
 import com.github.starcatcher21.stargazer.item.classes.LodeStar;
+import com.github.starcatcher21.stargazer.item.classes.ThrowableStar;
 import net.minecraft.block.Block;
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.ConsumableComponent;
 import net.minecraft.component.type.FoodComponent;
 import net.minecraft.entity.LivingEntity;
@@ -15,7 +18,6 @@ import net.minecraft.item.*;
 import net.minecraft.item.consume.ConsumeEffect;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
@@ -31,7 +33,6 @@ public final class ModItems {
     public static final Item YELLOW_STAR = register("yellow_star", Item::new, new Item.Settings());
     public static final Item SUN_ENRICHED_YELLOW_STAR = register("sun_enriched_yellow_star", Item::new, new Item.Settings());
     public static final Item WINGED_STAR = register("winged_star", Item::new, new Item.Settings());
-    public static final Item WISHING_STAR = register("wishing_star", (Item.Settings settings) -> new BoatItem(EntityRegistry.STAR_ENTITY, settings), new Item.Settings());
     public static final Item RED_STAR = register("red_star", Item::new, new Item.Settings());
     public static final Item BLUE_STAR = register("blue_star", Item::new, new Item.Settings());
     public static final Item PURPLE_STAR = register("purple_star", Item::new, new Item.Settings());
@@ -94,6 +95,16 @@ public final class ModItems {
     public static final Item WHITE_BRICK = register("white_brick", Item::new, new Item.Settings());
     public static final Item BLACK_BRICK = register("black_brick", Item::new, new Item.Settings());
     public static final Item STAR_HAMMER = register("star_hammer", Item::new, star_hammer(ToolMaterial.WOOD, 1.0f, 1.0f).repairable(STARDUST).maxCount(1).maxDamage(500));
+    public static final Item DREAM_BUCKET = register(
+            "dream_bucket",
+            props -> new BucketItem(ModFluids.DREAM, props),
+            new Item.Settings()
+                    .maxCount(1)
+                    .recipeRemainder(Items.BUCKET)
+    );
+    public static final Item THROWABLE_STAR = register("throwable_star", ThrowableStar::new, new Item.Settings().maxCount(16));
+
+    public static final Item STAR_BANNER_PATTERN = register("star_banner_pattern", Item::new, new Item.Settings().maxCount(1).component(DataComponentTypes.PROVIDES_BANNER_PATTERNS, CustomTags.STAR_PATTERNS));
 
     public static Item.Settings tool(ToolMaterial material, TagKey<Block> effectiveBlocks, float attackDamage, float attackSpeed, float disableBlockingForSeconds) {
         Item.Settings settings = new Item.Settings();
@@ -112,5 +123,7 @@ public final class ModItems {
         return settings -> new BlockItem(block, settings.useItemPrefixedTranslationKey());
     }
 
-    public static void init() {}
+    public static void init() {
+        WishingStars.init();
+    }
 }

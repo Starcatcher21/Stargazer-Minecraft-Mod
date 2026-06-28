@@ -1,6 +1,5 @@
 package com.github.starcatcher21.stargazer.block.clases;
 
-import com.github.starcatcher21.stargazer.block.register.RedOrbBlocks;
 import com.github.starcatcher21.stargazer.block.register.Wander;
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.MapCodec;

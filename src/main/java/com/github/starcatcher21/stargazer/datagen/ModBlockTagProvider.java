@@ -1,11 +1,8 @@
 package com.github.starcatcher21.stargazer.datagen;
 
 import com.github.starcatcher21.stargazer.CustomTags;
-import com.github.starcatcher21.stargazer.Helpers;
 import com.github.starcatcher21.stargazer.block.ModBlock;
-import com.github.starcatcher21.stargazer.block.clases.Hedge;
 import com.github.starcatcher21.stargazer.block.register.*;
-import com.github.starcatcher21.stargazer.entity.Star;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.block.Blocks;
@@ -167,6 +164,9 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
         // Rock
         valueLookupBuilder(BlockTags.PICKAXE_MINEABLE)
                 .add(ModBlock.COPPER_TELEPORTER)
+                .add(ModBlock.RED_TELEPORTER)
+                .add(ModBlock.DARK_TELEPORTER)
+                .add(ModBlock.MOON_WELDER)
                 .add(RedOrbBlocks.GREEN_ROCK)
                 .add(Chess.BLACK_BRICKS)
                 .add(Chess.WHITE_BRICKS)

@@ -3,7 +3,6 @@ package com.github.starcatcher21.stargazer;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.texture.TextureManager;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.registry.RegistryKey;

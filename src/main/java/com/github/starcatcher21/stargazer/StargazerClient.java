@@ -2,6 +2,7 @@ package com.github.starcatcher21.stargazer;
 
 import com.github.starcatcher21.stargazer.block.BlockTypes;
 import com.github.starcatcher21.stargazer.block.ModBlock;
+import com.github.starcatcher21.stargazer.block.ModFluids;
 import com.github.starcatcher21.stargazer.block.clases.eyes.eyejar.EyeJarModel;
 import com.github.starcatcher21.stargazer.block.clases.moon.star_trap.StarTrapModel;
 import com.github.starcatcher21.stargazer.block.clases.negative.NegativeBlockEntityRenderer;
@@ -11,6 +12,8 @@ import com.github.starcatcher21.stargazer.block.clases.nored.NoRedBlockEntityRen
 import com.github.starcatcher21.stargazer.block.clases.star.barrier.StarBarrierBlockEntityRenderer;
 import com.github.starcatcher21.stargazer.block.clases.star.cosmic.CosmicBlockEntityRenderer;
 import com.github.starcatcher21.stargazer.block.clases.star.leaves.StarLeavesEntityRenderer;
+import com.github.starcatcher21.stargazer.block.clases.star.star_display.StarDisplayModel;
+import com.github.starcatcher21.stargazer.block.clases.star.star_display.StarDisplayRenderer;
 import com.github.starcatcher21.stargazer.block.register.*;
 import com.github.starcatcher21.stargazer.effects.StatusEffects;
 import com.github.starcatcher21.stargazer.entity.EntityRegistry;
@@ -29,11 +32,15 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry;
+import net.fabricmc.fabric.api.client.render.fluid.v1.SimpleFluidRenderHandler;
 import net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.render.BlockRenderLayer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
+import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
+import net.minecraft.util.Identifier;
 import software.bernie.geckolib.renderer.GeoBlockRenderer;
 
 @Environment(EnvType.CLIENT)
@@ -118,15 +125,30 @@ public class StargazerClient implements ClientModInitializer {
 
         BlockEntityRendererRegistry.register(BlockTypes.STAR_TRAP, (context) -> new GeoBlockRenderer<>(new StarTrapModel()));
         BlockEntityRendererRegistry.register(BlockTypes.EYE_JAR, (context) -> new GeoBlockRenderer<>(new EyeJarModel()));
+        BlockEntityRendererRegistry.register(BlockTypes.STAR_DISPLAY, (context) -> new StarDisplayRenderer(new StarDisplayModel()));
 
         // Particles
         Particles.clientInit();
+
+        // Fluids
+        BlockRenderLayerMap.putBlock(Fluids.DREAM, BlockRenderLayer.TRANSLUCENT);
+        FluidRenderHandlerRegistry.INSTANCE.register(
+                ModFluids.DREAM,
+                ModFluids.DREAM_FLOWING,
+                new SimpleFluidRenderHandler(
+                        // Source texture
+                        Identifier.of(Stargazer.MOD_ID, "block/dream_still"),
+                        // Flowing texture
+                        Identifier.of(Stargazer.MOD_ID, "block/dream_flow")
+                )
+        );
 
         // Entity
         EntityRendererRegistry.register(EntityRegistry.GHOST_ENTITY, GhostRenderer::new);
         EntityRendererRegistry.register(EntityRegistry.AMETHYST_TURTLE_ENTITY, AmethystTurtleRenderer::new);
         EntityRendererRegistry.register(EntityRegistry.EYE_BAT_ENTITY, EyeBatRenderer::new);
         EntityRendererRegistry.register(EntityRegistry.STAR_ENTITY, StarRenderer::new);
+        EntityRendererRegistry.register(EntityRegistry.THROWABLE_STAR_ENTITY, FlyingItemEntityRenderer::new);
         EntityRendererRegistry.register(EntityRegistry.ROOK_ENTITY, RookRenderer::new);
         EntityRendererRegistry.register(EntityRegistry.BLACK_ROOK_ENTITY, BlackRookRenderer::new);
         EntityRendererRegistry.register(EntityRegistry.SCRUBY_ENTITY, ScrubyRenderer::new);

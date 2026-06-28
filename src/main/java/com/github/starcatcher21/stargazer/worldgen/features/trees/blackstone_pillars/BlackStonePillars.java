@@ -1,7 +1,6 @@
 package com.github.starcatcher21.stargazer.worldgen.features.trees.blackstone_pillars;
 
 import com.github.starcatcher21.stargazer.block.register.MoonBlocks;
-import com.github.starcatcher21.stargazer.block.register.RedOrbBlocks;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.DirectionalTree;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.Tree;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.TreeConfig;
@@ -10,7 +9,6 @@ import com.mojang.serialization.Codec;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.gen.feature.Feature;

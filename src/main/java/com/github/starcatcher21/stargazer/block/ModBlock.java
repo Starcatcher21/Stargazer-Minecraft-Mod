@@ -8,11 +8,11 @@ import com.github.starcatcher21.stargazer.block.clases.Sprinkler;
 import com.github.starcatcher21.stargazer.block.clases.grave.Grave;
 import com.github.starcatcher21.stargazer.block.clases.negative.NegativeBlock;
 import com.github.starcatcher21.stargazer.block.clases.noblue.NoBlueBlock;
-import com.github.starcatcher21.stargazer.block.clases.noblue.NoBlueBlockEntity;
 import com.github.starcatcher21.stargazer.block.clases.nogreen.NoGreenBlock;
 import com.github.starcatcher21.stargazer.block.clases.nored.NoRedBlock;
 import com.github.starcatcher21.stargazer.block.clases.teleporter.CopperTeleporter;
 import com.github.starcatcher21.stargazer.block.clases.teleporter.DarkTeleporter;
+import com.github.starcatcher21.stargazer.block.clases.teleporter.RedTeleporter;
 import com.github.starcatcher21.stargazer.block.register.*;
 import net.minecraft.block.*;
 import net.minecraft.block.piston.PistonBehavior;
@@ -86,27 +86,35 @@ public class ModBlock {
 
     public static final Block COPPER_TELEPORTER = registerWoItem("copper_teleporter", CopperTeleporter::new, AbstractBlock.Settings.create()
             .solid()
-            .requiresTool().strength(3.0f, 40.0f)
+            .requiresTool().strength(2.0f, 40.0f)
             .nonOpaque()
             .sounds(BlockSoundGroup.COPPER)
     );
 
     public static final Block DARK_TELEPORTER = registerWoItem("dark_teleporter", DarkTeleporter::new, AbstractBlock.Settings.create()
             .solid()
-            .requiresTool().strength(3.0f, 40.0f)
+            .requiresTool().strength(2.0f, 40.0f)
             .nonOpaque()
             .sounds(BlockSoundGroup.NETHER_BRICKS)
+    );
+    public static final Block RED_TELEPORTER = registerWoItem("red_teleporter", RedTeleporter::new, AbstractBlock.Settings.create()
+            .solid()
+            .requiresTool().strength(2.0f, 40.0f)
+            .nonOpaque()
+            .sounds(BlockSoundGroup.STONE)
     );
 
     public static final Block SPRINKLER = register("sprinkler", Sprinkler::new, AbstractBlock.Settings.create()
             .solid()
             .nonOpaque()
+            .requiresTool().strength(2.0f, 40.0f)
             .sounds(BlockSoundGroup.METAL)
     );
 
     public static final Block MOON_WELDER = register("moon_welder", MoonWelder::new, AbstractBlock.Settings.create()
             .solid()
             .nonOpaque()
+            .requiresTool().strength(2.0f, 2.0f)
             .sounds(BlockSoundGroup.METAL)
     );
 
@@ -125,6 +133,7 @@ public class ModBlock {
     }
 
     public static void init() {
+        Fluids.init();
         MoonBlocks.init();
         StarBlocks.init();
         EyeBloodBlocks.init();

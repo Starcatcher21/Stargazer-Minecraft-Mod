@@ -3,14 +3,18 @@ package com.github.starcatcher21.stargazer.datagen.lang;
 import com.github.starcatcher21.stargazer.CreativeTab.ItemGroup;
 import com.github.starcatcher21.stargazer.block.ModBlock;
 import com.github.starcatcher21.stargazer.block.register.*;
+import com.github.starcatcher21.stargazer.compat.StargazingCategory;
 import com.github.starcatcher21.stargazer.effects.Potions;
 import com.github.starcatcher21.stargazer.entity.EntityRegistry;
 import com.github.starcatcher21.stargazer.item.ModItems;
+import com.github.starcatcher21.stargazer.item.WishingStars;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.util.DyeColor;
 
+import java.util.Arrays;
 import java.util.concurrent.CompletableFuture;
 
 public class ModEngLangProvider extends FabricLanguageProvider {
@@ -21,11 +25,40 @@ public class ModEngLangProvider extends FabricLanguageProvider {
     @Override
     public void generateTranslations(RegistryWrapper.WrapperLookup wrapperLookup, TranslationBuilder translationBuilder) {
         translationBuilder.add(ItemGroup.STAR_GROUP_KEY, "Stargazer");
+        // Patterns
+        translationBuilder.add("stargazer.star_pattern.base", "Base");
+        translationBuilder.add("stargazer.star_pattern.brick", "Brick");
+        translationBuilder.add("stargazer.star_pattern.creeper", "Creeper");
+        translationBuilder.add("stargazer.star_pattern.eye", "Eye");
+        translationBuilder.add("stargazer.star_pattern.fire", "Fire");
+        translationBuilder.add("stargazer.star_pattern.fish", "Fish");
+        translationBuilder.add("stargazer.star_pattern.meteor", "Meteor");
+        translationBuilder.add("stargazer.star_pattern.moon", "Moon");
+        translationBuilder.add("stargazer.star_pattern.pacman", "Pacman");
+        translationBuilder.add("stargazer.star_pattern.ponk", "Ponk");
+        translationBuilder.add("stargazer.star_pattern.sun", "Sun");
+        translationBuilder.add("stargazer.star_pattern.transgender", "Transgender");
+        translationBuilder.add("stargazer.star_pattern.villager", "Villager");
+
+        // Banner
+        for (DyeColor color : Arrays.asList(DyeColor.values())) {
+            translationBuilder.add("stargazer.bannerpattern.moon." + color.asString().toLowerCase(), color.asString().substring(0, 1).toUpperCase() + color.asString().substring(1) + " Moon");
+            translationBuilder.add("stargazer.bannerpattern.star." + color.asString().toLowerCase(), color.asString().substring(0, 1).toUpperCase() + color.asString().substring(1) + " Star");
+            translationBuilder.add("stargazer.bannerpattern.flower." + color.asString().toLowerCase(), color.asString().substring(0, 1).toUpperCase() + color.asString().substring(1) + " Flower");
+            translationBuilder.add("stargazer.bannerpattern.shine." + color.asString().toLowerCase(), color.asString().substring(0, 1).toUpperCase() + color.asString().substring(1) + " Shine");
+            translationBuilder.add("stargazer.bannerpattern.ghost." + color.asString().toLowerCase(), color.asString().substring(0, 1).toUpperCase() + color.asString().substring(1) + " Ghost");
+        }
+        translationBuilder.add(ModItems.STAR_BANNER_PATTERN, "Star Banner Pattern");
         // misc
+        translationBuilder.add("entity.minecraft.villager.stargazer.astrologists", "Astrologists");
+        translationBuilder.add(StargazingCategory.TranslationKey, "Stargazing");
         translationBuilder.add(ModBlock.COPPER_TELEPORTER, "Copper Teleporter");
         translationBuilder.add(ModBlock.DARK_TELEPORTER, "Wander Teleporter");
         translationBuilder.add(MoonBlocks.GEODE_FRUIT, "Geode Fruit");
         translationBuilder.add(ModBlock.MOON_WELDER, "Moon Welder");
+        translationBuilder.add(ModItems.DREAM_BUCKET, "Dream Bucket");
+        translationBuilder.add(ModItems.THROWABLE_STAR, "Throwable Star");
+        translationBuilder.add(StarBlocks.STAR_DISPLAY, "Star Display");
         // Blocks
         translationBuilder.add(ModBlock.GRAVE, "Grave");
         translationBuilder.add(ModBlock.NEGATIVE_BLOCK, "Negative Block");
@@ -150,8 +183,22 @@ public class ModEngLangProvider extends FabricLanguageProvider {
         // Items
         translationBuilder.add(ModItems.STARDUST, "Stardust");
         translationBuilder.add(ModItems.YELLOW_STAR, "Yellow Star");
-        translationBuilder.add(ModItems.WISHING_STAR, "Wishing Star");
-        translationBuilder.add(ModItems.DREAM_STAR, "Dream Star");
+        translationBuilder.add(WishingStars.WISHING_STAR, "Wishing Star"); // Default / Yellow
+        translationBuilder.add(WishingStars.WHITE_WISHING_STAR, "White Wishing Star");
+        translationBuilder.add(WishingStars.LIGHT_GRAY_WISHING_STAR, "Light Gray Wishing Star");
+        translationBuilder.add(WishingStars.GRAY_WISHING_STAR, "Gray Wishing Star");
+        translationBuilder.add(WishingStars.BLACK_WISHING_STAR, "Black Wishing Star");
+        translationBuilder.add(WishingStars.BROWN_WISHING_STAR, "Brown Wishing Star");
+        translationBuilder.add(WishingStars.RED_WISHING_STAR, "Red Wishing Star");
+        translationBuilder.add(WishingStars.ORANGE_WISHING_STAR, "Orange Wishing Star");
+        translationBuilder.add(WishingStars.LIME_WISHING_STAR, "Lime Wishing Star");
+        translationBuilder.add(WishingStars.GREEN_WISHING_STAR, "Green Wishing Star");
+        translationBuilder.add(WishingStars.CYAN_WISHING_STAR, "Cyan Wishing Star");
+        translationBuilder.add(WishingStars.LIGHT_BLUE_WISHING_STAR, "Light Blue Wishing Star");
+        translationBuilder.add(WishingStars.BLUE_WISHING_STAR, "Blue Wishing Star");
+        translationBuilder.add(WishingStars.PURPLE_WISHING_STAR, "Purple Wishing Star");
+        translationBuilder.add(WishingStars.MAGENTA_WISHING_STAR, "Magenta Wishing Star");
+        translationBuilder.add(WishingStars.PINK_WISHING_STAR, "Pink Wishing Star");        translationBuilder.add(ModItems.DREAM_STAR, "Dream Star");
         translationBuilder.add(StarBlocks.RED_STAR_BLOCK, "Red Star Block");
         translationBuilder.add(StarBlocks.BLUE_STAR_BLOCK, "Blue Star Block");
         translationBuilder.add(StarBlocks.YELLOW_STAR_BLOCK, "Yellow Star Block");

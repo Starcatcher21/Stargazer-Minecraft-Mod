@@ -7,6 +7,7 @@ import com.github.starcatcher21.stargazer.block.register.MoonBlocks;
 import com.github.starcatcher21.stargazer.block.register.RedOrbBlocks;
 import com.github.starcatcher21.stargazer.entity.EntityRegistry;
 import com.github.starcatcher21.stargazer.item.ModItems;
+import com.github.starcatcher21.stargazer.item.WishingStars;
 import com.github.starcatcher21.stargazer.mechanics.DamageTypeRegistry;
 import com.github.starcatcher21.stargazer.mechanics.advancements.*;
 import com.github.starcatcher21.stargazer.worldgen.BiomeReg;
@@ -268,6 +269,35 @@ public class ModAdvancementsProvider extends FabricAdvancementProvider {
                 )
                 .rewards(AdvancementRewards.Builder.experience(500))
                 .build(consumer, Stargazer.MOD_ID + ":exotic_turist");
+        AdvancementEntry Wishing = Advancement.Builder.create()
+                .parent(portal)
+                .criterion("craft", Criterias.forgeCraft.create(new ForgeCraft.Conditions(Optional.empty(), Optional.of(ItemPredicate.Builder.create().items(registryEntryLookupItem, WishingStars.WISHING_STAR).build()))))
+                .display(
+                        WishingStars.WISHING_STAR,
+                        Text.literal("Make a Wish"),
+                        Text.literal("Create Wishing Star"),
+                        null,
+                        AdvancementFrame.TASK,
+                        true,
+                        true,
+                        false
+                )
+                .build(consumer, Stargazer.MOD_ID + ":wishing");
+
+        AdvancementEntry Milk = Advancement.Builder.create()
+                .parent(Wishing)
+                .criterion("milk", Criterias.starModifier.create(new StarModifier.Conditions(Optional.empty(), Optional.of(ItemPredicate.Builder.create().items(registryEntryLookupItem, Items.MILK_BUCKET).build()))))
+                .display(
+                        WishingStars.WISHING_STAR,
+                        Text.literal("This isn't a milk"),
+                        Text.literal("Create Transgendere Wishing Star"),
+                        null,
+                        AdvancementFrame.TASK,
+                        true,
+                        true,
+                        true
+                )
+                .build(consumer, Stargazer.MOD_ID + ":milk");
 
         AdvancementEntry Home = Advancement.Builder.create()
                 .parent(portal)
