@@ -5,6 +5,7 @@ import com.github.starcatcher21.stargazer.block.register.*;
 import com.github.starcatcher21.stargazer.item.ModItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
+import net.minecraft.block.Blocks;
 import net.minecraft.data.recipe.RecipeExporter;
 import net.minecraft.data.recipe.RecipeGenerator;
 import net.minecraft.recipe.Ingredient;
@@ -28,6 +29,11 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .input(CustomTags.MOON_LOG)
                         .group("planks")
                         .criterion("has_log", this.conditionsFromTag(CustomTags.MOON_LOG))
+                        .offerTo(this.exporter);
+                createShapeless(RecipeCategory.BUILDING_BLOCKS, Blocks.BIRCH_PLANKS, 4)
+                        .input(CustomTags.EYE_LOG)
+                        .group("planks")
+                        .criterion("has_log", this.conditionsFromTag(CustomTags.EYE_LOG))
                         .offerTo(this.exporter);
                 createSlabRecipe(RecipeCategory.BUILDING_BLOCKS, MoonBlocks.MOON_PLANKS_SLAB, Ingredient.ofItem(MoonBlocks.MOON_PLANKS))
                         .group("wooden_slab")
@@ -371,7 +377,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 createSlabRecipe(RecipeCategory.BUILDING_BLOCKS, MoonBlocks.MOON_ROCK_BRICKS_SLAB, Ingredient.ofItem(MoonBlocks.MOON_ROCK_BRICKS))
                         .criterion("rock", conditionsFromItem(MoonBlocks.MOON_ROCK_BRICKS))
                         .offerTo(exporter);
-                createStairsRecipe(MoonBlocks.MOON_ROCK_BRICKS_STAIRS, Ingredient.ofItem(MoonBlocks.MOON_ROCK))
+                createStairsRecipe(MoonBlocks.MOON_ROCK_BRICKS_STAIRS, Ingredient.ofItem(MoonBlocks.MOON_ROCK_BRICKS))
                         .criterion("rock", conditionsFromItem(MoonBlocks.MOON_ROCK_BRICKS))
                         .offerTo(exporter);
                 createCutCopperRecipe(RecipeCategory.BUILDING_BLOCKS, MoonBlocks.POLISHED_MOON_ROCK, Ingredient.ofItem(MoonBlocks.MOON_ROCK))

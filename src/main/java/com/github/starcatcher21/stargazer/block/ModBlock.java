@@ -12,6 +12,7 @@ import com.github.starcatcher21.stargazer.block.clases.nogreen.NoGreenBlock;
 import com.github.starcatcher21.stargazer.block.clases.nored.NoRedBlock;
 import com.github.starcatcher21.stargazer.block.clases.teleporter.CopperTeleporter;
 import com.github.starcatcher21.stargazer.block.clases.teleporter.DarkTeleporter;
+import com.github.starcatcher21.stargazer.block.clases.teleporter.EndTeleporter;
 import com.github.starcatcher21.stargazer.block.clases.teleporter.RedTeleporter;
 import com.github.starcatcher21.stargazer.block.register.*;
 import net.minecraft.block.*;
@@ -96,6 +97,12 @@ public class ModBlock {
             .requiresTool().strength(2.0f, 40.0f)
             .nonOpaque()
             .sounds(BlockSoundGroup.NETHER_BRICKS)
+    );
+    public static final Block END_TELEPORTER = registerWoItem("end_teleporter", EndTeleporter::new, AbstractBlock.Settings.create()
+            .solid()
+            .requiresTool().strength(2.0f, 40.0f)
+            .nonOpaque()
+            .sounds(BlockSoundGroup.STONE)
     );
     public static final Block RED_TELEPORTER = registerWoItem("red_teleporter", RedTeleporter::new, AbstractBlock.Settings.create()
             .solid()

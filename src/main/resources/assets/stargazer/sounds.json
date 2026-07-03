@@ -10,5 +10,22 @@
 	"ost.ballad_of_the_stars":
 	{"sounds": ["stargazer:ballad_of_the_stars"]},
 	"ost.from_the_stars":
-	{"sounds": ["stargazer:from_the_stars"]}
+    {"sounds": ["stargazer:from_the_stars"]},
+  "cosmic.music": {
+    "sounds": [
+      {
+        "type": "event",
+        "name": "stargazer:ost.adventures_of_the_moon"
+      },
+      {
+        "type": "event",
+        "name": "stargazer:ost.ballad_of_the_stars"
+      },
+      {
+        "type": "event",
+        "name": "stargazer:ost.from_the_stars"
+      }
+    ],
+    "replace": false
+  }
 }

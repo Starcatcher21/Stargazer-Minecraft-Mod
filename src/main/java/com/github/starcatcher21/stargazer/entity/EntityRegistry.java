@@ -102,6 +102,17 @@ public class EntityRegistry {
                     .build(SCRUBY_KEY)
     );
 
+    public static final Identifier BLACK_FOX_ID = Identifier.of(Stargazer.MOD_ID, "black_fox");
+    public static final RegistryKey<EntityType<?>> BLACK_FOX_KEY = RegistryKey.of(RegistryKeys.ENTITY_TYPE, BLACK_FOX_ID);
+
+    public static final EntityType<BlackFox> BLACK_FOX_ENTITY = Registry.register(
+            Registries.ENTITY_TYPE,
+            BLACK_FOX_ID,
+            EntityType.Builder.create(BlackFox::new, SpawnGroup.CREATURE)
+                    .dimensions(0.75f, 0.5f)
+                    .build(BLACK_FOX_KEY)
+    );
+
     public static void init() {
         FabricDefaultAttributeRegistry.register(GHOST_ENTITY, Ghost.createFlyingCreatureAttributes());
         FabricDefaultAttributeRegistry.register(AMETHYST_TURTLE_ENTITY, AmethystTurtle.createCreatureAttributes());
@@ -109,5 +120,6 @@ public class EntityRegistry {
         FabricDefaultAttributeRegistry.register(ROOK_ENTITY, Rook.createCreatureAttributes());
         FabricDefaultAttributeRegistry.register(BLACK_ROOK_ENTITY, BlackRook.createCreatureAttributes());
         FabricDefaultAttributeRegistry.register(SCRUBY_ENTITY, Scruby.createCreatureAttributes());
+        FabricDefaultAttributeRegistry.register(BLACK_FOX_ENTITY, BlackFox.createCreatureAttributes());
     }
 }

@@ -38,6 +38,12 @@ public class FluidBlockMixin {
             }
             ci.cancel();
         }
+        if (dim.isPresent() && dim.get().equals(CustomWorlds.WANDER_TYPE)) {
+            if (state.getFluidState().isIn(FluidTags.LAVA)) {
+                world.setBlockState(pos, Blocks.WATER.getDefaultState());
+            }
+            ci.cancel();
+        }
     }
     @Inject(method = "receiveNeighborFluids", at = @At("HEAD"), cancellable = true)
     private void water(World world, BlockPos pos, BlockState state, CallbackInfoReturnable<Boolean> cir) {

@@ -35,7 +35,7 @@ public abstract class WorldMixin {
         World world = MinecraftClient.getInstance().world;
         if (world != null) {
             Optional<RegistryKey<DimensionType>> dim = world.getDimensionEntry().getKey();
-            if (dim.isPresent() && dim.get().equals(CustomWorlds.COSMIC_TYPE)) {
+            if (dim.isPresent() && (dim.get().equals(CustomWorlds.COSMIC_TYPE) || dim.get().equals(CustomWorlds.WANDER_TYPE) || dim.get().equals(CustomWorlds.RED_ORB_TYPE))) {
                 ci.cancel();
             }
         }

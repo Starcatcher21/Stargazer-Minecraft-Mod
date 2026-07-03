@@ -1,0 +1,75 @@
+{
+  "type": "minecraft:fishing",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "stargazer:gummy_fish",
+          "weight": 60
+        },
+        {
+          "type": "minecraft:item",
+          "name": "stargazer:gummy_worm",
+          "weight": 40
+        },
+        {
+          "type": "minecraft:item",
+          "name": "stargazer:cosmo_fish",
+          "weight": 30
+        },
+        {
+          "type": "minecraft:item",
+          "name": "stargazer:ender_fish",
+          "weight": 30
+        },
+        {
+          "type": "minecraft:item",
+          "name": "stargazer:golden_crucian",
+          "weight": 20
+        }
+      ],
+      "rolls": 1.0
+    },
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:empty",
+          "weight": 40
+        },
+        {
+          "type": "minecraft:item",
+          "name": "stargazer:red_star",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "stargazer:yellow_star",
+          "weight": 15
+        },
+        {
+          "type": "minecraft:item",
+          "name": "stargazer:purple_star",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "stargazer:blue_star",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "name": "stargazer:dream_star",
+          "weight": 5
+        }
+      ],
+      "rolls": {
+        "type": "minecraft:uniform",
+        "max": 1.0,
+        "min": 0.0
+      }
+    }
+  ]
+}

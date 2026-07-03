@@ -39,6 +39,7 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(Nebulas.PURPLE_NEBULA_LOG.asItem())
                 .add(Nebulas.YELLOW_NEBULA_LOG.asItem())
                 .add(RedOrbBlocks.YERI_LOG.asItem())
+                .add(Wander.TRUNN_LOG.asItem())
                 .add(MoonBlocks.FULL_MOON_LOG.asItem())
                 .add(RedOrbBlocks.SPIRO_LOG.asItem())
                 .add(Darkness.STRIPPED_LOG_OF_DARKNESS.asItem());
@@ -78,6 +79,9 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
         valueLookupBuilder(CustomTags.DARKNESS_LOG)
                 .add(Darkness.LOG_OF_DARKNESS.asItem())
                 .add(Darkness.STRIPPED_LOG_OF_DARKNESS.asItem());
+        valueLookupBuilder(CustomTags.EYE_LOG)
+                .add(EyeBloodBlocks.EYE_LOG.asItem())
+                .add(EyeBloodBlocks.STRIPPED_EYE_LOG.asItem());
         valueLookupBuilder(net.minecraft.registry.tag.ItemTags.PLANKS)
                 .add(MoonBlocks.RED_MOON_PLANKS.asItem())
                 .add(MoonBlocks.BLUE_MOON_PLANKS.asItem())
@@ -85,6 +89,7 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(MoonBlocks.YELLOW_MOON_PLANKS.asItem())
                 .add(StarBlocks.STAR_PLANKS.asItem())
                 .add(MoonBlocks.CURVE_PLANKS.asItem())
+                .add(Darkness.DARKNESS_PLANKS.asItem())
                 .add(Nebulas.BLUE_NEBULA_PLANKS.asItem())
                 .add(Nebulas.PURPLE_NEBULA_PLANKS.asItem())
                 .add(Nebulas.RED_NEBULA_PLANKS.asItem())

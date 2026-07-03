@@ -1,4 +1,14 @@
 {
+  "attributes": {
+    "minecraft:audio/background_music": {
+      "default": {
+        "sound": "stargazer:cosmic.music",
+        "min_delay": 0,
+        "max_delay": 0,
+        "replace_current_music": false
+      }
+    }
+  },
   "carvers": [],
   "downfall": 0.4,
   "effects": {

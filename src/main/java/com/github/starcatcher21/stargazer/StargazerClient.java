@@ -9,6 +9,7 @@ import com.github.starcatcher21.stargazer.block.clases.negative.NegativeBlockEnt
 import com.github.starcatcher21.stargazer.block.clases.noblue.NoBlueBlockEntityRenderer;
 import com.github.starcatcher21.stargazer.block.clases.nogreen.NoGreenBlockEntityRenderer;
 import com.github.starcatcher21.stargazer.block.clases.nored.NoRedBlockEntityRenderer;
+import com.github.starcatcher21.stargazer.block.clases.star.aurora.leaves.AuroraEntityRenderer;
 import com.github.starcatcher21.stargazer.block.clases.star.barrier.StarBarrierBlockEntityRenderer;
 import com.github.starcatcher21.stargazer.block.clases.star.cosmic.CosmicBlockEntityRenderer;
 import com.github.starcatcher21.stargazer.block.clases.star.leaves.StarLeavesEntityRenderer;
@@ -25,6 +26,7 @@ import com.github.starcatcher21.stargazer.mechanics.star.Stargaze;
 import com.github.starcatcher21.stargazer.particle.Particles;
 import com.github.starcatcher21.stargazer.screens.ScreenHandlerTypes;
 import com.github.starcatcher21.stargazer.screens.handled.MoonWelderHandled;
+import com.github.starcatcher21.stargazer.screens.handled.StarBookHandled;
 import com.github.starcatcher21.stargazer.screens.handled.StarforgeHandled;
 import com.github.starcatcher21.stargazer.worldgen.dimensions.Dimensions;
 import dev.architectury.registry.client.rendering.BlockEntityRendererRegistry;
@@ -118,6 +120,7 @@ public class StargazerClient implements ClientModInitializer {
         BlockEntityRendererFactories.register(BlockTypes.COSMIC_BLOCK, CosmicBlockEntityRenderer::new);
         BlockEntityRendererFactories.register(BlockTypes.STAR_BARRIER_BLOCK, StarBarrierBlockEntityRenderer::new);
         BlockEntityRendererFactories.register(BlockTypes.NEGATIVE_BLOCK, NegativeBlockEntityRenderer::new);
+        BlockEntityRendererFactories.register(BlockTypes.AURORA, AuroraEntityRenderer::new);
         BlockEntityRendererFactories.register(BlockTypes.NORED_BLOCK, NoRedBlockEntityRenderer::new);
         BlockEntityRendererFactories.register(BlockTypes.NOGREEN_BLOCK, NoGreenBlockEntityRenderer::new);
         BlockEntityRendererFactories.register(BlockTypes.NOBLUE_BLOCK, NoBlueBlockEntityRenderer::new);
@@ -152,10 +155,12 @@ public class StargazerClient implements ClientModInitializer {
         EntityRendererRegistry.register(EntityRegistry.ROOK_ENTITY, RookRenderer::new);
         EntityRendererRegistry.register(EntityRegistry.BLACK_ROOK_ENTITY, BlackRookRenderer::new);
         EntityRendererRegistry.register(EntityRegistry.SCRUBY_ENTITY, ScrubyRenderer::new);
+        EntityRendererRegistry.register(EntityRegistry.BLACK_FOX_ENTITY, BlackFoxRenderer::new);
 
         // Screens
         HandledScreens.register(ScreenHandlerTypes.STARFORGE_HANDLER, StarforgeHandled::new);
         HandledScreens.register(ScreenHandlerTypes.MOON_WELDER_HANDLER, MoonWelderHandled::new);
+        HandledScreens.register(ScreenHandlerTypes.STARBOOK_HANDLER, StarBookHandled::new);
 
         // Tick Events
         Stargazer.LOGGER.info("Loading End Client Tick Events");

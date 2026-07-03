@@ -282,6 +282,15 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModItems.STAR_HAMMER, Models.GENERATED);
         itemModelGenerator.register(ModItems.SUN_ENRICHED_YELLOW_STAR, Models.GENERATED);
         itemModelGenerator.register(ModItems.WINGED_STAR, Models.GENERATED);
+        itemModelGenerator.register(ModItems.GUMMY_FISH, Models.GENERATED);
+        itemModelGenerator.register(ModItems.GUMMY_WORM, Models.GENERATED);
+        itemModelGenerator.register(ModItems.COSMO_FISH, Models.GENERATED);
+        itemModelGenerator.register(ModItems.ENDER_FISH, Models.GENERATED);
+        itemModelGenerator.register(ModItems.GOLDEN_CRUCIAN, Models.GENERATED);
+        itemModelGenerator.register(ModItems.LUCKY_COMET, Models.GENERATED);
+        itemModelGenerator.register(ModItems.COMET_FRAGMENT, Models.GENERATED);
+        itemModelGenerator.register(ModItems.AURORA_FRAGMENT, Models.GENERATED);
+        itemModelGenerator.register(ModItems.STAR_BOOK.asItem(), Models.GENERATED);
         itemModelGenerator.register(MoonBlocks.TALL_MOON_GRASS.asItem(), Models.GENERATED);
         blockGeneratedItem(itemModelGenerator, StarBlocks.STAR_FLOWER);
         blockGeneratedItem(itemModelGenerator, StarBlocks.CELESTIAL_STAR_FLOWER);
@@ -318,6 +327,7 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModItems.SCRUBY_SPAWN_EGG, Models.GENERATED);
         itemModelGenerator.register(ModItems.ROOK_SPAWN_EGG, Models.GENERATED);
         itemModelGenerator.register(ModItems.BLACK_ROOK_SPAWN_EGG, Models.GENERATED);
+        itemModelGenerator.register(ModItems.BLACK_FOX_SPAWN_EGG, Models.GENERATED);
     }
 
     public static final Model CUSTOM_POT_CROSS = new Model(Optional.of(Identifier.of(Stargazer.MOD_ID, "block/potted_plant_custom")), Optional.empty(), TextureKey.PLANT, TextureKey.DIRT);

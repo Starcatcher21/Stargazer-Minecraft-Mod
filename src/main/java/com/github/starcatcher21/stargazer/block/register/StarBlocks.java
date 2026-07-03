@@ -3,6 +3,7 @@ package com.github.starcatcher21.stargazer.block.register;
 import com.github.starcatcher21.stargazer.Helpers;
 import com.github.starcatcher21.stargazer.block.clases.CosmicFlower;
 import com.github.starcatcher21.stargazer.block.clases.CustomSapling;
+import com.github.starcatcher21.stargazer.block.clases.star.aurora.leaves.Aurora;
 import com.github.starcatcher21.stargazer.block.clases.star.barrier.StarBarrierBlock;
 import com.github.starcatcher21.stargazer.block.clases.star.border.BorderBlock;
 import com.github.starcatcher21.stargazer.block.clases.star.cosmic.CosmicBlock;
@@ -113,6 +114,12 @@ public class StarBlocks {
             .sounds(BlockSoundGroup.GRASS)
             .strength(0.2F)
             .mapColor(MapColor.YELLOW)
+    );
+    public static final Block AURORA = register("aurora", Aurora::new, AbstractBlock.Settings.create()
+            .nonOpaque()
+            .sounds(BlockSoundGroup.GRASS)
+            .strength(0.2F)
+            .mapColor(MapColor.CYAN)
     );
     public static final Block STAR_SAPLING = register("star_sapling", (AbstractBlock.Settings settings) -> new CustomSapling(Helpers.configuredFeatureOf("star_trees"), settings), AbstractBlock.Settings.create()
             .noCollision()

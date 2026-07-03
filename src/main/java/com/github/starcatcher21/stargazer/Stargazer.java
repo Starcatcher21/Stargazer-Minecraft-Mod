@@ -6,6 +6,7 @@ import com.github.starcatcher21.stargazer.block.ModBlock;
 import com.github.starcatcher21.stargazer.effects.Potions;
 import com.github.starcatcher21.stargazer.effects.StatusEffects;
 import com.github.starcatcher21.stargazer.entity.EntityRegistry;
+import com.github.starcatcher21.stargazer.item.ConsumeEffectsRegistry;
 import com.github.starcatcher21.stargazer.item.ModItems;
 import com.github.starcatcher21.stargazer.mechanics.DamageTypeRegistry;
 import com.github.starcatcher21.stargazer.mechanics.Generators.CobbleGen;
@@ -19,6 +20,8 @@ import com.github.starcatcher21.stargazer.nbt.StarPattern;
 import com.github.starcatcher21.stargazer.particle.Particles;
 import com.github.starcatcher21.stargazer.screens.ScreenHandlerTypes;
 import com.github.starcatcher21.stargazer.screens.recipe.RecipeTypes;
+import com.github.starcatcher21.stargazer.sound.SoundEffects;
+import com.github.starcatcher21.stargazer.stats.ModStats;
 import com.github.starcatcher21.stargazer.villager.ModTraids;
 import com.github.starcatcher21.stargazer.worldgen.BiomeReg;
 import com.github.starcatcher21.stargazer.worldgen.BiomeTags;
@@ -42,6 +45,7 @@ public class Stargazer implements ModInitializer {
 	public static void main(String[] string) {}
 
 	public void onInitialize() {
+		SoundEffects.init();
 		RegistryKeys.init();
 		ComponentTypes.init();
 		StarPattern.init();
@@ -54,6 +58,7 @@ public class Stargazer implements ModInitializer {
 		DamageTypeRegistry.init();
 		BiomeReg.init();
 		BiomeTags.init();
+		ConsumeEffectsRegistry.init();
 		ModItems.init();
 		BlockTypes.init();
 		ModBlock.init();
@@ -67,6 +72,7 @@ public class Stargazer implements ModInitializer {
 		StatusEffects.init();
 		EntityRegistry.init();
 		PlacedFeatures.init();
+		ModStats.init();
 		init();
 		Criterias.init();
 		ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new StargazerDataLoader());

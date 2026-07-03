@@ -286,6 +286,18 @@ public class CopperTeleporter extends Block {
     }
 
     @Override
+    protected ItemStack getPickStack(WorldView world, BlockPos pos, BlockState state, boolean includeData) {
+        CopperTeleporterState cts = state.get(STATE);
+        if (cts.equals(CopperTeleporterState.middle) || cts.equals(CopperTeleporterState.ne_up) || cts.equals(CopperTeleporterState.nw_up) || cts.equals(CopperTeleporterState.se_up) || cts.equals(CopperTeleporterState.sw_up)) {
+            return Blocks.CUT_COPPER.asItem().getDefaultStack();
+        }
+        if (cts.equals(CopperTeleporterState.north) || cts.equals(CopperTeleporterState.south) || cts.equals(CopperTeleporterState.west) || cts.equals(CopperTeleporterState.east)) {
+            return Blocks.CUT_COPPER_STAIRS.asItem().getDefaultStack();
+        }
+        return Blocks.CHISELED_COPPER.asItem().getDefaultStack();
+    }
+
+    @Override
     protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         return collision(state,world,pos,context);
     }

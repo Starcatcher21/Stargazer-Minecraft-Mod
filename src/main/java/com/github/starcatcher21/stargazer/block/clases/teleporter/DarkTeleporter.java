@@ -3,6 +3,7 @@ package com.github.starcatcher21.stargazer.block.clases.teleporter;
 import com.github.starcatcher21.stargazer.CustomWorlds;
 import com.github.starcatcher21.stargazer.block.ModBlock;
 import com.github.starcatcher21.stargazer.block.register.Chess;
+import com.github.starcatcher21.stargazer.block.register.RedOrbBlocks;
 import com.github.starcatcher21.stargazer.mechanics.PointOfIntrests;
 import com.github.starcatcher21.stargazer.particle.Particles;
 import net.minecraft.block.*;
@@ -156,6 +157,17 @@ public class DarkTeleporter extends Block {
         world.setBlockState(root.north().east(), Chess.BLACK_BRICKS.getDefaultState(), Block.NOTIFY_ALL);
         world.setBlockState(root.south().west(), Chess.BLACK_BRICKS.getDefaultState(), Block.NOTIFY_ALL);
         world.setBlockState(root.south().east(), Chess.BLACK_BRICKS.getDefaultState(), Block.NOTIFY_ALL);
+    }
+    @Override
+    protected ItemStack getPickStack(WorldView world, BlockPos pos, BlockState state, boolean includeData) {
+        DarkTeleporterState cts = state.get(STATE);
+        if (cts.equals(DarkTeleporterState.middle)) {
+            return Blocks.OBSIDIAN.asItem().getDefaultStack();
+        }
+        if (cts.equals(DarkTeleporterState.north) || cts.equals(DarkTeleporterState.south) || cts.equals(DarkTeleporterState.west) || cts.equals(DarkTeleporterState.east)) {
+            return Blocks.POLISHED_BLACKSTONE_BRICK_STAIRS.asItem().getDefaultStack();
+        }
+        return Chess.BLACK_BRICKS.asItem().getDefaultStack();
     }
 
     @Override

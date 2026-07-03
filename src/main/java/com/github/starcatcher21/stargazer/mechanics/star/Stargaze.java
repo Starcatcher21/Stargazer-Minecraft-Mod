@@ -1,6 +1,7 @@
 package com.github.starcatcher21.stargazer.mechanics.star;
 
 import com.github.starcatcher21.stargazer.mechanics.advancements.Criterias;
+import com.github.starcatcher21.stargazer.stats.ModStats;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -47,6 +48,7 @@ public class Stargaze {
                             ServerPlayerEntity spe = client.getServer().getPlayerManager().getPlayer(player.getUuid());
                             Criterias.starcatching.trigger(spe, star.item.value());
                             star.spawn(client, player, client.world);
+                            spe.incrementStat(ModStats.STAR_CATCHED);
                         }
                     }
                 }

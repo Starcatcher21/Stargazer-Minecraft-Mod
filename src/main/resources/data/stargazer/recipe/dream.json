@@ -1,0 +1,10 @@
+{
+  "type": "stargazer:moon_welder",
+  "item1": "minecraft:water_bucket",
+  "item2": "stargazer:stardust",
+  "moon_phase": 0,
+  "result": {
+    "count": 1,
+    "id": "stargazer:dream_bucket"
+  }
+}

@@ -64,7 +64,6 @@ public class LodeStar extends Item {
         }
         return world.getBlockState(pos.offset(Direction.EAST, 1)).equals(RedOrbBlocks.RED_ROCK_STAIRS.getDefaultState().with(Properties.HORIZONTAL_FACING, Direction.WEST));
     }
-
     public static Boolean isProperTeleporter(World world, BlockPos pos) {
         if (!(world.getBlockState(pos).getBlock().equals(Blocks.CUT_COPPER) || world.getBlockState(pos).getBlock().equals(Blocks.WAXED_CUT_COPPER))) {
             return false;

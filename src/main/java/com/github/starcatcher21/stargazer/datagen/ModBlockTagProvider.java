@@ -166,6 +166,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(ModBlock.COPPER_TELEPORTER)
                 .add(ModBlock.RED_TELEPORTER)
                 .add(ModBlock.DARK_TELEPORTER)
+                .add(ModBlock.END_TELEPORTER)
                 .add(ModBlock.MOON_WELDER)
                 .add(RedOrbBlocks.GREEN_ROCK)
                 .add(Chess.BLACK_BRICKS)

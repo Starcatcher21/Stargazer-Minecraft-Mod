@@ -25,6 +25,13 @@ public class ModEngLangProvider extends FabricLanguageProvider {
     @Override
     public void generateTranslations(RegistryWrapper.WrapperLookup wrapperLookup, TranslationBuilder translationBuilder) {
         translationBuilder.add(ItemGroup.STAR_GROUP_KEY, "Stargazer");
+        translationBuilder.add(ModItems.STAR_BOOK, "Book of Stars 1");
+        translationBuilder.add("stat.stargazer.star_catched", "Star Catched");
+
+        // music
+        translationBuilder.add("stargazer.adventure_of_the_moon", "Starcatcher - Adventures of the Moon");
+        translationBuilder.add("stargazer.ballad_of_the_stars", "Starcatcher - Ballad of the Stars");
+        translationBuilder.add("stargazer.from_the_stars", "Starcatcher - From the Stars");
         // Patterns
         translationBuilder.add("stargazer.star_pattern.base", "Base");
         translationBuilder.add("stargazer.star_pattern.brick", "Brick");
@@ -54,11 +61,22 @@ public class ModEngLangProvider extends FabricLanguageProvider {
         translationBuilder.add(StargazingCategory.TranslationKey, "Stargazing");
         translationBuilder.add(ModBlock.COPPER_TELEPORTER, "Copper Teleporter");
         translationBuilder.add(ModBlock.DARK_TELEPORTER, "Wander Teleporter");
+        translationBuilder.add(ModBlock.RED_TELEPORTER, "Red Obr Teleporter");
+        translationBuilder.add(ModBlock.END_TELEPORTER, "End Teleporter");
         translationBuilder.add(MoonBlocks.GEODE_FRUIT, "Geode Fruit");
         translationBuilder.add(ModBlock.MOON_WELDER, "Moon Welder");
         translationBuilder.add(ModItems.DREAM_BUCKET, "Dream Bucket");
         translationBuilder.add(ModItems.THROWABLE_STAR, "Throwable Star");
         translationBuilder.add(StarBlocks.STAR_DISPLAY, "Star Display");
+        translationBuilder.add(ModItems.GUMMY_FISH, "Gummy Fish");
+        translationBuilder.add(ModItems.GUMMY_WORM, "Gummy Worm");
+        translationBuilder.add(ModItems.COSMO_FISH, "Cosmo fish");
+        translationBuilder.add(ModItems.ENDER_FISH, "Ender fish");
+        translationBuilder.add(ModItems.GOLDEN_CRUCIAN, "Golden Crucian");
+        translationBuilder.add(ModItems.LUCKY_COMET, "Lucky Comet");
+        translationBuilder.add(ModItems.COMET_FRAGMENT, "Comet Fragment");
+        translationBuilder.add(ModItems.AURORA_FRAGMENT, "Aurora Fragment");
+        translationBuilder.add(StarBlocks.AURORA, "Aurora Block");
         // Blocks
         translationBuilder.add(ModBlock.GRAVE, "Grave");
         translationBuilder.add(ModBlock.NEGATIVE_BLOCK, "Negative Block");
@@ -259,6 +277,7 @@ public class ModEngLangProvider extends FabricLanguageProvider {
         translationBuilder.add(ModItems.ROOK_SPAWN_EGG, "Rook Spawn Egg");
         translationBuilder.add(ModItems.BLACK_ROOK_SPAWN_EGG, "Black Rook Spawn Egg");
         translationBuilder.add(ModItems.SCRUBY_SPAWN_EGG, "Scruby Spawn Egg");
+        translationBuilder.add(ModItems.BLACK_FOX_SPAWN_EGG, "Black Fox Spawn Egg");
         // Entity
         translationBuilder.add(EntityRegistry.GHOST_ENTITY, "Ghost");
         translationBuilder.add(EntityRegistry.AMETHYST_TURTLE_ENTITY, "Amethyst Turtle");
@@ -266,6 +285,7 @@ public class ModEngLangProvider extends FabricLanguageProvider {
         translationBuilder.add(EntityRegistry.ROOK_ENTITY, "Rook");
         translationBuilder.add(EntityRegistry.BLACK_ROOK_ENTITY, "Black Rook");
         translationBuilder.add(EntityRegistry.SCRUBY_ENTITY, "Scruby");
+        translationBuilder.add(EntityRegistry.BLACK_FOX_ENTITY, "Black Fox");
         // Vegetation
         translationBuilder.add(StarBlocks.STAR_FLOWER, "Star Flower");
         translationBuilder.add(MoonBlocks.SPRUNGUS, "Sprungus");

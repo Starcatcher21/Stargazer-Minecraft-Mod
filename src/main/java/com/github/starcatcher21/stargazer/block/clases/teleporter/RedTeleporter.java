@@ -222,6 +222,14 @@ public class RedTeleporter extends Block {
     }
 
     @Override
+    protected ItemStack getPickStack(WorldView world, BlockPos pos, BlockState state, boolean includeData) {
+        if (state.get(STATE).equals(RedTeleporterState.middle)) {
+            return RedOrbBlocks.POLISHED_RED_ROCK.asItem().getDefaultStack();
+        }
+        return RedOrbBlocks.RED_ROCK_STAIRS.asItem().getDefaultStack();
+    }
+
+    @Override
     protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         return collision(state,world,pos,context);
     }

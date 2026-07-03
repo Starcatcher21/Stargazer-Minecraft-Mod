@@ -27,7 +27,10 @@ public class StargazerDataGenerator implements DataGeneratorEntrypoint {
 
 		pack.addProvider(ModBlockTagProvider::new);
 		pack.addProvider(ModItemTagProvider::new);
+		pack.addProvider(ModFluidTagProvider::new);
 		pack.addProvider(ModLootTableProvider::new);
+		pack.addProvider(FishingLootPrivider::new);
+		pack.addProvider(ChestLootPrivider::new);
 		pack.addProvider(ModRecipeProvider::new);
 		pack.addProvider(ModWorldGenerator::new);
 		pack.addProvider(ModModelProvider::new);
@@ -52,14 +55,12 @@ public class StargazerDataGenerator implements DataGeneratorEntrypoint {
 	}
 
 	private static Biome loadBiomeFromJson(String fileName) {
-		// Path to your manual JSON files
 		Path root = Path.of("").toAbsolutePath().getParent().getParent();
 		Path path = Paths.get(root + "/src/main/resources/data/stargazer/worldgen/biome/" + fileName);
 		Stargazer.LOGGER.info("Parsing: " + path);
 
 		try (Reader reader = Files.newBufferedReader(path)) {
 			JsonElement json = JsonParser.parseReader(reader);
-			// Use Minecraft's Biome Codec to turn JSON into a Biome Object
 			return Biome.CODEC.parse(JsonOps.INSTANCE, json)
 					.getPartialOrThrow(error -> new RuntimeException("Failed to parse biome: " + error));
 		} catch (IOException e) {

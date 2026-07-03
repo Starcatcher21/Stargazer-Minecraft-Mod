@@ -3,6 +3,7 @@ package com.github.starcatcher21.stargazer.block.fluids;
 import com.github.starcatcher21.stargazer.block.ModFluids;
 import com.github.starcatcher21.stargazer.block.register.Fluids;
 import com.github.starcatcher21.stargazer.item.ModItems;
+import com.github.starcatcher21.stargazer.particle.Particles;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FluidBlock;
@@ -10,16 +11,20 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.CollisionEvent;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCollisionHandler;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.fluid.FlowableFluid;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.item.Item;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
@@ -28,7 +33,7 @@ import net.minecraft.world.WorldView;
 import java.util.Optional;
 
 public class DreamFlowable extends FlowableFluid {
-    @Override
+	@Override
 	public Fluid getFlowing() {
 		return ModFluids.DREAM_FLOWING;
 	}
@@ -44,8 +49,50 @@ public class DreamFlowable extends FlowableFluid {
 	}
 
 	@Override
+	protected void randomDisplayTick(World world, BlockPos pos, FluidState state, Random random) {
+		if (!state.isStill() && !(Boolean)state.get(FALLING)) {
+			if (random.nextInt(64) == 0) {
+				world.playSoundClient(
+						pos.getX() + 0.5,
+						pos.getY() + 0.5,
+						pos.getZ() + 0.5,
+						SoundEvents.BLOCK_WATER_AMBIENT,
+						SoundCategory.AMBIENT,
+						random.nextFloat() * 0.25F + 0.75F,
+						random.nextFloat() + 0.5F,
+						false
+				);
+			}
+		} else if (random.nextInt(10) == 0) {
+			world.addParticleClient(
+					Particles.STAR, pos.getX() + random.nextDouble(), pos.getY() + random.nextDouble(), pos.getZ() + random.nextDouble(), 0.0, 0.0, 0.0
+			);
+		}
+	}
+
+	@Override
 	protected void onEntityCollision(World world, BlockPos pos, Entity entity, EntityCollisionHandler handler) {
-		handler.addEvent(CollisionEvent.FREEZE);
+
+		Vec3d currentVelocity = entity.getVelocity();
+
+		entity.setVelocity(
+				currentVelocity.x * 0.2,
+				(currentVelocity.y * -0.8),
+				currentVelocity.z * 0.2
+		);
+
+		if (entity instanceof LivingEntity living) {
+			if (living.isJumping()) {
+				entity.addVelocity(0, 0.08, 0);
+			}
+			if (living.isSneaking()) {
+				entity.addVelocity(0, -0.08, 0);
+			}
+		}
+		handler.addEvent(CollisionEvent.EXTINGUISH);
+		if (entity.canFreeze()) {
+			handler.addEvent(CollisionEvent.FREEZE);
+		}
 	}
 
 	@Override

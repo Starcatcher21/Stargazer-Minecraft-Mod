@@ -2,14 +2,15 @@
   "type": "stargazer:starforge",
   "pattern": [
     "  Y  ",
-    " YYY ",
+    " GYG ",
     "YYSYY",
-    " YYY ",
+    " GYG ",
     "Y   Y"
   ],
   "key": {
     "S": "minecraft:paper",
-    "Y": "stargazer:yellow_star"
+    "Y": "stargazer:yellow_star",
+    "G": "minecraft:glass"
   },
   "result": {
     "count": 1,

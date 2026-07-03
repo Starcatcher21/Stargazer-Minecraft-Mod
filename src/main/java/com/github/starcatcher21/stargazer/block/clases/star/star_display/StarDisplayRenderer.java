@@ -1,6 +1,7 @@
 package com.github.starcatcher21.stargazer.block.clases.star.star_display;
 
 import com.github.starcatcher21.stargazer.entity.DataTickets;
+import net.minecraft.block.Blocks;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.item.ItemModelManager;
@@ -52,6 +53,19 @@ public class StarDisplayRenderer<R extends BlockEntityRenderState & GeoRenderSta
 
         int overlay = OverlayTexture.DEFAULT_UV;
         itemRenderState.render(matrices, queue, state.lightmapCoordinates, overlay, 0);
+        matrices.pop();
+
+
+        ItemModelManager modelManager2 = MinecraftClient.getInstance().getItemModelManager();
+        ItemRenderState itemRenderState2 = new ItemRenderState();
+        modelManager2.update(itemRenderState2, Blocks.GLASS.asItem().getDefaultStack(), ItemDisplayContext.GROUND, null, null, 0);
+
+        matrices.push();
+        matrices.translate(0.5f, 0.35f, 0.5f);
+        matrices.scale(2f, 2f, 2f);
+        matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(state.getGeckolibData(DataTickets.ROTATION) * -1));
+
+        itemRenderState2.render(matrices, queue, state.lightmapCoordinates, overlay, 0);
         matrices.pop();
 
 

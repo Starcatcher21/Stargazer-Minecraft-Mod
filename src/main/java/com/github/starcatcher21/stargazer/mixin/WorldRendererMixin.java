@@ -2,8 +2,9 @@ package com.github.starcatcher21.stargazer.mixin;
 
 import com.github.starcatcher21.stargazer.CustomWorlds;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.*;
-import net.minecraft.client.render.state.WorldRenderState;
+import net.minecraft.client.render.FramePass;
+import net.minecraft.client.render.SkyRendering;
+import net.minecraft.client.render.WorldRenderer;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
@@ -20,15 +21,6 @@ public class WorldRendererMixin {
     @Shadow @Final private MinecraftClient client;
 
     @Shadow private SkyRendering skyRendering;
-    @Shadow private CloudRenderer cloudRenderer;
-
-    @Shadow
-    @Final
-    private DefaultFramebufferSet framebufferSet;
-
-    @Shadow
-    @Final
-    private WorldRenderState worldRenderState;
 
     @Redirect(
             method = "renderSky",

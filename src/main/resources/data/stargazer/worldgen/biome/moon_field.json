@@ -1,4 +1,14 @@
 {
+  "attributes": {
+    "minecraft:audio/background_music": {
+      "default": {
+        "sound": "stargazer:cosmic.music",
+        "min_delay": 0,
+        "max_delay": 0,
+        "replace_current_music": false
+      }
+    }
+  },
   "carvers": [],
   "downfall": 0.4,
   "effects": {
@@ -7,43 +17,7 @@
     "water_color": 10076657,
     "water_fog_color": 589824,
     "grass_color": 14453469,
-    "foliage_color": 12607947,
-    "mood_sound": {
-      "block_search_extent": 8,
-      "offset": 2,
-      "sound": "minecraft:ambient.cave",
-      "tick_delay": 6000
-    },
-    "music": [
-      {
-        "data": {
-          "max_delay": 24000,
-          "min_delay": 12000,
-          "replace_current_music": false,
-          "sound": "stargazer:ost.adventure_of_the_moon"
-        },
-        "weight": 1
-      },
-      {
-        "data": {
-          "max_delay": 24000,
-          "min_delay": 12000,
-          "replace_current_music": false,
-          "sound": "stargazer:ost.ballad_of_the_stars"
-        },
-        "weight": 1
-      },
-      {
-        "data": {
-          "max_delay": 24000,
-          "min_delay": 12000,
-          "replace_current_music": false,
-          "sound": "stargazer:ost.from_the_stars"
-        },
-        "weight": 1
-      }
-    ],
-    "music_volume": 1
+    "foliage_color": 12607947
   },
   "features": [
     ["stargazer:star_flowers"],

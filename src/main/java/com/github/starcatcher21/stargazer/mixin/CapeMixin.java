@@ -42,7 +42,6 @@ public abstract class CapeMixin {
                     if (this.hasCustomModelForLayer(playerEntityRenderState.equippedChestStack, EquipmentModel.LayerType.HUMANOID)) {
                         matrixStack.translate(0.0F, -0.053125F, 0.06875F);
                     }
-
                     orderedRenderCommandQueue.submitModel(
                             this.model,
                             playerEntityRenderState,

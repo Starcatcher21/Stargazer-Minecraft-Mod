@@ -2,10 +2,10 @@ package com.github.starcatcher21.stargazer.block.register;
 
 import com.github.starcatcher21.stargazer.Helpers;
 import com.github.starcatcher21.stargazer.block.clases.CosmicFlower;
+import com.github.starcatcher21.stargazer.block.clases.CustomLeaves;
 import com.github.starcatcher21.stargazer.block.clases.CustomSapling;
 import com.github.starcatcher21.stargazer.block.clases.moon.ForgetMeNow;
 import com.github.starcatcher21.stargazer.block.clases.moon.MoonRock;
-import com.github.starcatcher21.stargazer.block.clases.moon.leaves.MoonLeaves;
 import com.github.starcatcher21.stargazer.block.clases.moon.log.MoonLog;
 import com.github.starcatcher21.stargazer.block.clases.moon.log.StrippedMoonLog;
 import net.minecraft.block.*;
@@ -59,7 +59,7 @@ public class Darkness {
             .mapColor(blockState -> blockState.get(Properties.AXIS).equals(Direction.Axis.Y) ? MapColor.DEEPSLATE_GRAY : MapColor.BLACK)
     );
 
-    public static final Block DARKNESS_LEAVES = register("darkness_leaves", (settings) -> new MoonLeaves(Colors.BLACK, settings), AbstractBlock.Settings.create()
+    public static final Block DARKNESS_LEAVES = register("darkness_leaves", (settings) -> new CustomLeaves(Colors.BLACK, settings), AbstractBlock.Settings.create()
             .solid()
             .nonOpaque()
             .ticksRandomly()

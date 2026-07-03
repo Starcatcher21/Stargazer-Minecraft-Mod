@@ -24,6 +24,16 @@ public class CustomRederPipelines {
             .withVertexFormat(VertexFormats.POSITION, VertexFormat.DrawMode.QUADS)
             .withDepthTestFunction(DepthTestFunction.LEQUAL_DEPTH_TEST)
             .buildSnippet();
+    public static final RenderPipeline.Snippet RENDERTYPE_AURORA_SNIPPET = RenderPipeline.builder(
+                    TRANSFORMS_AND_PROJECTION_SNIPPET, FOG_SNIPPET, GLOBALS_SNIPPET
+            )
+            .withVertexShader(Identifier.of(Stargazer.MOD_ID, "core/rendertype_translucent"))
+            .withFragmentShader(Identifier.of(Stargazer.MOD_ID, "core/rendertype_aurora"))
+            .withSampler("Sampler0")
+            .withSampler("Sampler2")
+            .withVertexFormat(VertexFormats.POSITION, VertexFormat.DrawMode.QUADS)
+            .withDepthTestFunction(DepthTestFunction.LEQUAL_DEPTH_TEST)
+            .buildSnippet();
     public static final RenderPipeline.Snippet RENDERTYPE_STAR_LEAVES_SNIPPET = RenderPipeline.builder(
                     TRANSFORMS_AND_PROJECTION_SNIPPET, FOG_SNIPPET, GLOBALS_SNIPPET
             )
@@ -73,9 +83,10 @@ public class CustomRederPipelines {
     public static final RenderPipeline.Snippet RENDERTYPE_NEGATIVE_SNIPPET = RenderPipeline.builder(
                     TRANSFORMS_AND_PROJECTION_SNIPPET, FOG_SNIPPET, GLOBALS_SNIPPET
             )
-            .withVertexShader("core/position_tex_color")
+            .withVertexShader(Identifier.of(Stargazer.MOD_ID, "core/rendertype_cube"))
 		    .withFragmentShader(Identifier.of(Stargazer.MOD_ID, "core/position_tex_color"))
 		    .withSampler("Sampler0")
+            .withSampler("Sampler2")
             .withBlend(BlendFunction.INVERT)
             .withVertexFormat(VertexFormats.POSITION, VertexFormat.DrawMode.QUADS)
             .buildSnippet();
@@ -83,9 +94,10 @@ public class CustomRederPipelines {
     public static final RenderPipeline.Snippet RENDERTYPE_NO_RED_SNIPPET = RenderPipeline.builder(
                     TRANSFORMS_AND_PROJECTION_SNIPPET
             )
-            .withVertexShader("core/position_tex_color")
+            .withVertexShader(Identifier.of(Stargazer.MOD_ID, "core/rendertype_cube"))
             .withFragmentShader(Identifier.of(Stargazer.MOD_ID, "core/position_tex_color_red"))
             .withSampler("Sampler0")
+            .withSampler("Sampler2")
             .withBlend(BlendFunction.INVERT)
             .withVertexFormat(VertexFormats.POSITION, VertexFormat.DrawMode.QUADS)
             .buildSnippet();
@@ -93,9 +105,10 @@ public class CustomRederPipelines {
     public static final RenderPipeline.Snippet RENDERTYPE_NO_GREEN_SNIPPET = RenderPipeline.builder(
                     TRANSFORMS_AND_PROJECTION_SNIPPET, FOG_SNIPPET, GLOBALS_SNIPPET
             )
-            .withVertexShader("core/position_tex_color")
+            .withVertexShader(Identifier.of(Stargazer.MOD_ID, "core/rendertype_cube"))
             .withFragmentShader(Identifier.of(Stargazer.MOD_ID, "core/position_tex_color_green"))
             .withSampler("Sampler0")
+            .withSampler("Sampler2")
             .withBlend(BlendFunction.INVERT)
             .withVertexFormat(VertexFormats.POSITION, VertexFormat.DrawMode.QUADS)
             .buildSnippet();
@@ -103,9 +116,10 @@ public class CustomRederPipelines {
     public static final RenderPipeline.Snippet RENDERTYPE_NO_BLUE_SNIPPET = RenderPipeline.builder(
                     TRANSFORMS_AND_PROJECTION_SNIPPET, FOG_SNIPPET, GLOBALS_SNIPPET
             )
-            .withVertexShader("core/position_tex_color")
+            .withVertexShader(Identifier.of(Stargazer.MOD_ID, "core/rendertype_cube"))
             .withFragmentShader(Identifier.of(Stargazer.MOD_ID, "core/position_tex_color_blue"))
             .withSampler("Sampler0")
+            .withSampler("Sampler2")
             .withBlend(BlendFunction.INVERT)
             .withVertexFormat(VertexFormats.POSITION, VertexFormat.DrawMode.QUADS)
             .buildSnippet();
@@ -146,6 +160,8 @@ public class CustomRederPipelines {
                     .withShaderDefine("STAR_LAYERS", 16).build());
     public static final RenderPipeline STAR_BARRIER = RenderPipelines.register(
             RenderPipeline.builder(RENDERTYPE_STAR_BARIER_SNIPPET).withLocation("pipeline/star_barrier").build());
+    public static final RenderPipeline AURORA = RenderPipelines.register(
+            RenderPipeline.builder(RENDERTYPE_AURORA_SNIPPET).withLocation("pipeline/aurora").build());
     public static final RenderPipeline NEGATIVE = RenderPipelines.register(
             RenderPipeline.builder(RENDERTYPE_NEGATIVE_SNIPPET).withLocation("pipeline/negative").build());
 

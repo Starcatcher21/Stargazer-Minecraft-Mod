@@ -33,7 +33,7 @@ public class ModEntityLootTableProvider extends FabricEntityLootTableProvider {
                 .pool(LootPool.builder().rolls(ConstantLootNumberProvider.create(1.0f)).with(ItemEntry.builder(ModItems.ECTOPLASM))
                         .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(0.0f, 2.0f)))
                         .conditionally(EntityPropertiesLootCondition.builder(
-                                LootContext.EntityReference.THIS, // Check the entity that died
+                                LootContext.EntityReference.THIS,
                                 EntityPredicate.Builder.create()
                                         .nbt(new NbtPredicate(Util.make(new NbtCompound(), nbt -> {
                                             nbt.put("tag", Codec.STRING, "");
@@ -42,7 +42,7 @@ public class ModEntityLootTableProvider extends FabricEntityLootTableProvider {
                 ).pool(LootPool.builder().rolls(ConstantLootNumberProvider.create(1.0f)).with(ItemEntry.builder(ModItems.COOLER_ECTOPLASM))
                         .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(0.0f, 2.0f)))
                         .conditionally(EntityPropertiesLootCondition.builder(
-                                LootContext.EntityReference.THIS, // Check the entity that died
+                                LootContext.EntityReference.THIS,
                                 EntityPredicate.Builder.create()
                                         .nbt(new NbtPredicate(Util.make(new NbtCompound(), nbt -> {
                                             nbt.put("tag", Codec.STRING, "pacman");

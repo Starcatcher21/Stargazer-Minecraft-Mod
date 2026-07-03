@@ -1,5 +1,6 @@
 // 1.21.11	-999999999-01-01T00:00:00	STARGAZER/Block Loot Tables
 92fa3231f836ed32ce54b60f62efac225288a66d data/stargazer/loot_table/blocks/acacia_hedge.json
+43dcd61982652975d505591231b8cf84b3b82204 data/stargazer/loot_table/blocks/aurora.json
 2cca65a8c92f955a77b166bb591a1aca4ac01e71 data/stargazer/loot_table/blocks/birch_hedge.json
 590df45dd7f08de307cb49532bd4ae76c248cccf data/stargazer/loot_table/blocks/black_bricks.json
 a85b5de0768a83adbd423525cf1c8f84969979a0 data/stargazer/loot_table/blocks/black_chessboard.json

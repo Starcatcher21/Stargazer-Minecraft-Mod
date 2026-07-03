@@ -5,10 +5,12 @@
     "stargazer:blue_star",
     "stargazer:red_star",
     "stargazer:purple_star",
-    "stargazer:moon_rock"
+    "stargazer:moon_rock",
+    "stargazer:comet_fragment",
+    "stargazer:star_book"
   ],
   "chances": [
-    20, 10, 10, 5, 10
+    20, 10, 10, 5, 10, 5, 1
   ],
   "daystate": "night"
 }

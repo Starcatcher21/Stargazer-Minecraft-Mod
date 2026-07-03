@@ -12,7 +12,9 @@
 		"FarmlandMixin",
         "WorldMixin",
         "IceBlockMixin",
-        "SkinMixin"
+        "SkinMixin",
+		"EntityMixin",
+		"FishingBobberEntityMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

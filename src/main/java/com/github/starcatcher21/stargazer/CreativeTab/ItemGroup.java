@@ -25,6 +25,7 @@ public class ItemGroup {
         Registry.register(Registries.ITEM_GROUP, STAR_GROUP_KEY, STAR_GROUP);
 
         ItemGroupEvents.modifyEntriesEvent(STAR_GROUP_KEY).register(itemGroup -> {
+            itemGroup.add(ModItems.STAR_BOOK);
             // Blocks
             itemGroup.add(ModItems.STAR_HAMMER);
             itemGroup.add(ModBlock.GRAVE);
@@ -40,6 +41,16 @@ public class ItemGroup {
             itemGroup.add(Crops.DRAGON_CARROT);
             itemGroup.add(Crops.BROODY);
             itemGroup.add(Crops.EYE_BALLS);
+            // Fish
+            itemGroup.add(ModItems.GUMMY_FISH);
+            itemGroup.add(ModItems.GUMMY_WORM);
+            itemGroup.add(ModItems.COSMO_FISH);
+            itemGroup.add(ModItems.ENDER_FISH);
+            itemGroup.add(ModItems.GOLDEN_CRUCIAN);
+            itemGroup.add(ModItems.LUCKY_COMET);
+            itemGroup.add(ModItems.COMET_FRAGMENT);
+            itemGroup.add(ModItems.AURORA_FRAGMENT);
+            itemGroup.add(StarBlocks.AURORA);
             // Star Blocks
             itemGroup.add(StarBlocks.COSMIC_BLOCK);
             itemGroup.add(StarBlocks.STAR_BARRIER_BLOCK);
@@ -251,6 +262,7 @@ public class ItemGroup {
             itemGroup.add(ModItems.ROOK_SPAWN_EGG);
             itemGroup.add(ModItems.BLACK_ROOK_SPAWN_EGG);
             itemGroup.add(ModItems.SCRUBY_SPAWN_EGG);
+            itemGroup.add(ModItems.BLACK_FOX_SPAWN_EGG);
             // Chess
             itemGroup.add(Chess.BLACK_CHESSBOARD);
             itemGroup.add(Chess.WHITE_CHESSBOARD);

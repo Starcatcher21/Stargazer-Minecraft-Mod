@@ -64,6 +64,7 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
         addDrop(ModBlock.NOGREEN_BLOCK);
         addDrop(ModBlock.NOBLUE_BLOCK);
         addDrop(Wander.PUROIL);
+        addDrop(StarBlocks.AURORA);
         addDrop(Wander.BORIL, oreDrops(Wander.BORIL, Wander.PUROIL.asItem(), 1.0f, 1.0f));
         addDrop(Wander.TRUNN_LOG);
         addDrop(Wander.TRUNN_LEAVES, leavesDrops(Wander.TRUNN_LEAVES, Wander.TRUNN_SAPLING, 0.035F));

@@ -8,6 +8,7 @@ import com.github.starcatcher21.stargazer.block.clases.negative.NegativeBlockEnt
 import com.github.starcatcher21.stargazer.block.clases.noblue.NoBlueBlockEntity;
 import com.github.starcatcher21.stargazer.block.clases.nogreen.NoGreenBlockEntity;
 import com.github.starcatcher21.stargazer.block.clases.nored.NoRedBlockEntity;
+import com.github.starcatcher21.stargazer.block.clases.star.aurora.leaves.AuroraEntity;
 import com.github.starcatcher21.stargazer.block.clases.star.barrier.StarBarrierBlockEntity;
 import com.github.starcatcher21.stargazer.block.clases.star.border.BorderBlockEntity;
 import com.github.starcatcher21.stargazer.block.clases.star.cosmic.CosmicBlockEntity;
@@ -54,6 +55,10 @@ public class BlockTypes {
     public static final BlockEntityType<StarLeavesEntity> STAR_LEAVES = register(
             "star_leaves",
             FabricBlockEntityTypeBuilder.create(StarLeavesEntity::new, StarBlocks.STAR_LEAVES).build()
+    );
+    public static final BlockEntityType<AuroraEntity> AURORA = register(
+            "aurora",
+            FabricBlockEntityTypeBuilder.create(AuroraEntity::new, StarBlocks.AURORA).build()
     );
     public static final BlockEntityType<StarBarrierBlockEntity> STAR_BARRIER_BLOCK = register(
             "starbarrierblock",

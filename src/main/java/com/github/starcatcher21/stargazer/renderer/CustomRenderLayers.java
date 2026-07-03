@@ -1,5 +1,6 @@
 package com.github.starcatcher21.stargazer.renderer;
 
+import com.github.starcatcher21.stargazer.block.clases.star.aurora.leaves.Aurora;
 import com.github.starcatcher21.stargazer.block.clases.star.barrier.StarBarrierBlock;
 import com.github.starcatcher21.stargazer.block.clases.star.cosmic.CosmicBlock;
 import com.github.starcatcher21.stargazer.block.clases.star.leaves.StarLeaves;
@@ -20,4 +21,5 @@ public class CustomRenderLayers {
     public static final RenderLayer NO_RED = RenderLayer.of("no_red", RenderSetup.builder(CustomRederPipelines.NO_RED).build());
     public static final RenderLayer NO_GREEN = RenderLayer.of("no_green", RenderSetup.builder(CustomRederPipelines.NO_GREEN).build());
     public static final RenderLayer NO_BLUE = RenderLayer.of("no_blue", RenderSetup.builder(CustomRederPipelines.NO_BLUE).build());
+    public static final RenderLayer AURORA = RenderLayer.of("aurora", RenderSetup.builder(CustomRederPipelines.AURORA).texture("aurora", Aurora.TEXTURE).build());
 }

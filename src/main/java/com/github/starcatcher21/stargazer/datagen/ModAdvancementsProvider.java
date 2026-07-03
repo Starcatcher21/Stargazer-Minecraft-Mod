@@ -83,6 +83,20 @@ public class ModAdvancementsProvider extends FabricAdvancementProvider {
                 )
                 .criterion("watch_stars", Criterias.starcatching.create(new Starcatching.Conditions(Optional.empty(), Optional.empty())))
                 .build(consumer, Stargazer.MOD_ID + ":airplane");
+        AdvancementEntry book = Advancement.Builder.create()
+                .parent(airplane)
+                .display(
+                        Items.SPYGLASS, // The display icon
+                        Text.literal("Old Book"), // The title
+                        Text.literal("I found this wierd old book"), // The description
+                        null,
+                        AdvancementFrame.TASK, // TASK, CHALLENGE, or GOAL
+                        true, // Show the toast when completing it
+                        true, // Announce it to chat
+                        false // Hide it in the advancement tab until it's achieved
+                )
+                .criterion("watch_stars", Criterias.starcatching.create(new Starcatching.Conditions(Optional.empty(), Optional.of(ItemPredicate.Builder.create().items(registryEntryLookupItem, ModItems.STAR_BOOK).build()))))
+                .build(consumer, Stargazer.MOD_ID + ":book");
         AdvancementEntry negative = Advancement.Builder.create()
                 .parent(stars)
                 .display(

@@ -5,12 +5,11 @@ import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.block.ModFluids;
 import com.github.starcatcher21.stargazer.effects.StatusEffects;
 import com.github.starcatcher21.stargazer.entity.EntityRegistry;
-import com.github.starcatcher21.stargazer.item.classes.DarkStar;
-import com.github.starcatcher21.stargazer.item.classes.LodeStar;
-import com.github.starcatcher21.stargazer.item.classes.ThrowableStar;
+import com.github.starcatcher21.stargazer.item.classes.*;
 import net.minecraft.block.Block;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.ConsumableComponent;
+import net.minecraft.component.type.ConsumableComponents;
 import net.minecraft.component.type.FoodComponent;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -46,6 +45,7 @@ public final class ModItems {
     public static final Item ROOK_SPAWN_EGG = register("rook_spawn_egg", SpawnEggItem::new, new Item.Settings().spawnEgg(EntityRegistry.ROOK_ENTITY));
     public static final Item BLACK_ROOK_SPAWN_EGG = register("black_rook_spawn_egg", SpawnEggItem::new, new Item.Settings().spawnEgg(EntityRegistry.BLACK_ROOK_ENTITY));
     public static final Item SCRUBY_SPAWN_EGG = register("scruby_spawn_egg", SpawnEggItem::new, new Item.Settings().spawnEgg(EntityRegistry.SCRUBY_ENTITY));
+    public static final Item BLACK_FOX_SPAWN_EGG = register("black_fox_spawn_egg", SpawnEggItem::new, new Item.Settings().spawnEgg(EntityRegistry.BLACK_FOX_ENTITY));
     public static final Item DEAD_EYE_BAT = register("dead_eye_bat", Item::new, new Item.Settings());
     public static final Item LIVING_EYE = register("living_eye", Item::new, new Item.Settings());
     public static final Item COOKED_GEODE_FRUIT = register("cooked_geode_fruit", Item::new, new Item.Settings()
@@ -89,6 +89,23 @@ public final class ModItems {
                             .build()
             )
     );
+    public static final Item GUMMY_FISH = register("gummy_fish", Item::new, new Item.Settings()
+            .food(new FoodComponent(1, 2, false))
+    );
+    public static final Item GUMMY_WORM = register("gummy_worm", Item::new, new Item.Settings()
+            .food(new FoodComponent(1, 2, false))
+    );
+    public static final Item COSMO_FISH = register("cosmo_fish", Item::new, new Item.Settings()
+            .food(new FoodComponent(3, 6, false),
+                    com.github.starcatcher21.stargazer.item.ConsumableComponents.STARGAZE)
+    );
+    public static final Item ENDER_FISH = register("ender_fish", Item::new, new Item.Settings()
+            .food(new FoodComponent(3, 6, false),
+                    ConsumableComponents.CHORUS_FRUIT)
+    );
+    public static final Item GOLDEN_CRUCIAN = register("golden_crucian", Item::new, new Item.Settings()
+            .food(new FoodComponent(2, 4, false))
+    );
     public static final Item ECTOPLASM = register("ectoplasm", Item::new, new Item.Settings().maxCount(16));
     public static final Item COOLER_ECTOPLASM = register("cooler_ectoplasm", Item::new, new Item.Settings().maxCount(16));
     public static final Item RED_ORB_PLATFORM_BASE = register("red_orb_platform_base", Item::new, new Item.Settings());
@@ -105,6 +122,11 @@ public final class ModItems {
     public static final Item THROWABLE_STAR = register("throwable_star", ThrowableStar::new, new Item.Settings().maxCount(16));
 
     public static final Item STAR_BANNER_PATTERN = register("star_banner_pattern", Item::new, new Item.Settings().maxCount(1).component(DataComponentTypes.PROVIDES_BANNER_PATTERNS, CustomTags.STAR_PATTERNS));
+
+    public static final Item LUCKY_COMET = register("lucky_comet", LuckyComet::new, new Item.Settings());
+    public static final Item COMET_FRAGMENT = register("comet_fragment", Item::new, new Item.Settings());
+    public static final Item AURORA_FRAGMENT = register("aurora_fragment", Item::new, new Item.Settings());
+    public static final Item STAR_BOOK = register("star_book", StarBook::new, new Item.Settings());
 
     public static Item.Settings tool(ToolMaterial material, TagKey<Block> effectiveBlocks, float attackDamage, float attackSpeed, float disableBlockingForSeconds) {
         Item.Settings settings = new Item.Settings();
