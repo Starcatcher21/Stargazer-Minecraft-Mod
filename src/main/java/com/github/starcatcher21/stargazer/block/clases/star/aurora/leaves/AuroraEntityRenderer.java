@@ -62,7 +62,8 @@ public class AuroraEntityRenderer<T extends AuroraEntity> implements BlockEntity
                 matrices, this.getLayer(), (pose, vertexConsumer) -> this.renderSides(state.sides, pose.pose(), vertexConsumer)
         );
     }
-    public void updateRenderState(
+    @Override
+    public void extractRenderState(
             T entity,
             AuroraBlockEntityRenderState cosmicBlockEntityRenderState,
             float f,

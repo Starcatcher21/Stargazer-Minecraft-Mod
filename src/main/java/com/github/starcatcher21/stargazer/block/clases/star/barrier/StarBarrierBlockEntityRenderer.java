@@ -63,7 +63,8 @@ public class StarBarrierBlockEntityRenderer<T extends StarBarrierBlockEntity> im
                 (matricesEntry, vertexConsumer) -> this.renderSides(state.sides, matricesEntry.pose(), vertexConsumer)
         );
     }
-    public void updateRenderState(
+    @Override
+    public void extractRenderState(
             T entity,
             StarBarrierBlockEntityRenderState cosmicBlockEntityRenderState,
             float f,
