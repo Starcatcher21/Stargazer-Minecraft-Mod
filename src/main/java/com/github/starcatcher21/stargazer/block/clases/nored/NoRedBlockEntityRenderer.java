@@ -93,8 +93,7 @@ public class NoRedBlockEntityRenderer<T extends NoRedBlockEntity> implements Blo
                 (matricesEntry, vertexConsumer) -> this.renderSides(state.sides, matricesEntry.pose(), vertexConsumer)
         );
     }
-    @Override
-    public void extractRenderState(
+    public void updateRenderState(
             T entity,
             NoRedBlockEntityRenderState cosmicBlockEntityRenderState,
             float f,

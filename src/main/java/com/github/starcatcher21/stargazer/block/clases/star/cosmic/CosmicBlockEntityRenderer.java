@@ -74,8 +74,7 @@ public class CosmicBlockEntityRenderer<T extends CosmicBlockEntity>
                 (matricesEntry, vertexConsumer) -> this.renderSides(state.sides, matricesEntry.pose(), vertexConsumer)
         );
     }
-    @Override
-    public void extractRenderState(
+    public void updateRenderState(
             T entity,
             CosmicBlockEntityRenderState cosmicBlockEntityRenderState,
             float f,
