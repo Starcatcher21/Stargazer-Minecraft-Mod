@@ -2,15 +2,15 @@ package com.github.starcatcher21.stargazer.worldgen.features.trees.bones;
 
 import com.github.starcatcher21.stargazer.block.register.StarBlocks;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.Tree;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 
 public class crown {
     public static void CinemaInit(Tree tree, Block fruit) {
         tree.addReplacableBlock(StarBlocks.COSMIC_BLOCK);
         tree.addReplacableBlock(Blocks.AIR);
-        tree.addFruit(fruit.getDefaultState());
+        tree.addFruit(fruit.defaultBlockState());
         tree.setFruitChange(100);
         for (BlockState state : tree.leave) {
             tree.addReplacableBlock(state.getBlock());

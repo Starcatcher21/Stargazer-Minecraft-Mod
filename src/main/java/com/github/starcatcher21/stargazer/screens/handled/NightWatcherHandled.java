@@ -3,24 +3,24 @@ package com.github.starcatcher21.stargazer.screens.handled;
 import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.screens.NightWatcherScreenHandler;
 import com.github.starcatcher21.stargazer.screens.StarGeneratorScreenHandler;
-import net.minecraft.client.gl.RenderPipelines;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.screen.ingame.HandledScreen;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.player.Inventory;
 
-public class NightWatcherHandled extends HandledScreen<NightWatcherScreenHandler> {
-    private static final Identifier TEXTURE = Identifier.of(Stargazer.MOD_ID, "textures/gui/nightwatcher.png");
-    private static final Identifier ARROW_TEXTURE = Identifier.of(Stargazer.MOD_ID, "textures/gui/arrow_progress_down.png");
+public class NightWatcherHandled extends AbstractContainerScreen<NightWatcherScreenHandler> {
+    private static final Identifier TEXTURE = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/nightwatcher.png");
+    private static final Identifier ARROW_TEXTURE = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/arrow_progress_down.png");
 
-    public NightWatcherHandled(NightWatcherScreenHandler handler, PlayerInventory inventory, Text title) {
+    public NightWatcherHandled(NightWatcherScreenHandler handler, Inventory inventory, Component title) {
         super(handler, inventory, title);
-        this.titleX = 83;
-        this.titleY = 10;
-        this.playerInventoryTitleY = 108;
-        this.backgroundHeight = 200;
+        this.titleLabelX = 83;
+        this.titleLabelY = 10;
+        this.inventoryLabelY = 108;
+        this.imageHeight = 200;
     }
 
     @Override
@@ -29,29 +29,29 @@ public class NightWatcherHandled extends HandledScreen<NightWatcherScreenHandler
     }
 
     @Override
-    public void render(DrawContext context, int mouseX, int mouseY, float deltaTicks) {
+    public void render(GuiGraphics context, int mouseX, int mouseY, float deltaTicks) {
         super.render(context, mouseX, mouseY, deltaTicks);
-        this.drawMouseoverTooltip(context, mouseX, mouseY);
+        this.renderTooltip(context, mouseX, mouseY);
     }
 
     @Override
-    protected void drawBackground(DrawContext context, float deltaTicks, int mouseX, int mouseY) {
-        int i = this.x;
-        int j = (this.height - this.backgroundHeight) / 2;
-        context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, i, j, 0.0F, 0.0F, this.backgroundWidth, this.backgroundHeight, 256, 256);
-        int energyBarSize = MathHelper.ceil((this.handler.getEnergyPercent()) * 84);
+    protected void renderBg(GuiGraphics context, float deltaTicks, int mouseX, int mouseY) {
+        int i = this.leftPos;
+        int j = (this.height - this.imageHeight) / 2;
+        context.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, i, j, 0.0F, 0.0F, this.imageWidth, this.imageHeight, 256, 256);
+        int energyBarSize = Mth.ceil((this.menu.getEnergyPercent()) * 84);
         context.fill(i+10, j+13 + 84 - energyBarSize, i+19, j + 13 + 84, 0xAAFF0000);
         if (mouseX > i+10 && mouseX < i+19) {
             if (mouseY > j+13 && mouseY < j+13+84) {
-                context.drawTooltip(Text.of(""+this.handler.getEnergy()+"/"+this.handler.getMaxEnergy()), mouseX, mouseY);
+                context.setTooltipForNextFrame(Component.nullToEmpty(""+this.menu.getEnergy()+"/"+this.menu.getMaxEnergy()), mouseX, mouseY);
             }
         }
         renderProgressArrow(context, i, j);
     }
 
-    private void renderProgressArrow(DrawContext context, int x, int y) {
-        if(handler.isCrafting()) {
-            context.drawTexture(RenderPipelines.GUI_TEXTURED, ARROW_TEXTURE, x + 53, y + 31, 0, 0, 6, handler.getScaledArrowProgress(), 6, 56);
+    private void renderProgressArrow(GuiGraphics context, int x, int y) {
+        if(menu.isCrafting()) {
+            context.blit(RenderPipelines.GUI_TEXTURED, ARROW_TEXTURE, x + 53, y + 31, 0, 0, 6, menu.getScaledArrowProgress(), 6, 56);
         }
     }
 }

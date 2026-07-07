@@ -7,10 +7,9 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBlockTags;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
-import net.minecraft.item.Items;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.registry.tag.ItemTags;
-
+import net.minecraft.core.HolderLookup;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.Items;
 import java.util.concurrent.CompletableFuture;
 
 import static com.github.starcatcher21.stargazer.CustomTags.COPPER_DUST;
@@ -18,12 +17,12 @@ import static com.github.starcatcher21.stargazer.CustomTags.STARDUST;
 
 public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
-    public ModItemTagProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> completableFuture) {
+    public ModItemTagProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> completableFuture) {
         super(output, completableFuture);
     }
 
     @Override
-    protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
+    protected void addTags(HolderLookup.Provider wrapperLookup) {
         valueLookupBuilder(ConventionalItemTags.DUSTS)
                 .add(ModItems.IRON_DUST)
                 .add(ModItems.COPPER_DUST)
@@ -40,7 +39,7 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(StarBlocks.COSMIC_BLOCK.asItem());
         valueLookupBuilder(CustomTags.CHESS_BRICK)
                 .add(ModItems.WHITE_BRICK, ModItems.BLACK_BRICK);
-        valueLookupBuilder(net.minecraft.registry.tag.ItemTags.LOGS)
+        valueLookupBuilder(net.minecraft.tags.ItemTags.LOGS)
                 .add(MoonBlocks.MOON_LOG.asItem())
                 .add(MoonBlocks.STRIPPED_MOON_LOG.asItem())
                 .add(MoonBlocks.CURVE_LOG.asItem())
@@ -97,7 +96,7 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
         valueLookupBuilder(CustomTags.EYE_LOG)
                 .add(EyeBloodBlocks.EYE_LOG.asItem())
                 .add(EyeBloodBlocks.STRIPPED_EYE_LOG.asItem());
-        valueLookupBuilder(net.minecraft.registry.tag.ItemTags.PLANKS)
+        valueLookupBuilder(net.minecraft.tags.ItemTags.PLANKS)
                 .add(MoonBlocks.RED_MOON_PLANKS.asItem())
                 .add(MoonBlocks.BLUE_MOON_PLANKS.asItem())
                 .add(MoonBlocks.PURPLE_MOON_PLANKS.asItem())
@@ -111,7 +110,7 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
                 .add(Nebulas.YELLOW_NEBULA_PLANKS.asItem())
                 .add(RedOrbBlocks.YERI_PLANKS.asItem())
                 .add(MoonBlocks.MOON_PLANKS.asItem());
-        valueLookupBuilder(net.minecraft.registry.tag.ItemTags.STONE_TOOL_MATERIALS)
+        valueLookupBuilder(net.minecraft.tags.ItemTags.STONE_TOOL_MATERIALS)
                 .add(MoonBlocks.MOON_ROCK.asItem());
         valueLookupBuilder(CustomTags.STAR_FLOWER)
                 .add(StarBlocks.STAR_FLOWER.asItem());

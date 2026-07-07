@@ -4,8 +4,8 @@ import com.github.starcatcher21.stargazer.screens.recipe.serializer.ShapedStarfo
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.shedaniel.rei.api.common.display.DisplaySerializer;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 
 public class StarforgeDisplaySerializer implements DisplaySerializer<StarforgeDisplay> {
     public final MapCodec<StarforgeDisplay> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
@@ -13,8 +13,8 @@ public class StarforgeDisplaySerializer implements DisplaySerializer<StarforgeDi
             .apply(instance, StarforgeDisplay::new)
     );
 
-    public final PacketCodec<RegistryByteBuf, StarforgeDisplay> PACKET_CODEC = PacketCodec.tuple(
-            ShapedStarforgeRecipe.PACKET_CODEC,
+    public final StreamCodec<RegistryFriendlyByteBuf, StarforgeDisplay> PACKET_CODEC = StreamCodec.composite(
+            ShapedStarforgeRecipe.STREAM_CODEC,
             StarforgeDisplay::recipe,
             StarforgeDisplay::new
     );
@@ -24,7 +24,7 @@ public class StarforgeDisplaySerializer implements DisplaySerializer<StarforgeDi
     }
 
     @Override
-    public PacketCodec<RegistryByteBuf, StarforgeDisplay> streamCodec() {
+    public StreamCodec<RegistryFriendlyByteBuf, StarforgeDisplay> streamCodec() {
         return PACKET_CODEC;
     }
 }

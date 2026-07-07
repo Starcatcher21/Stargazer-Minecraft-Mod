@@ -2,13 +2,13 @@ package com.github.starcatcher21.stargazer.worldgen.features.trees.star;
 
 import com.github.starcatcher21.stargazer.block.register.StarBlocks;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.Tree;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.util.math.Direction;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 
 public class StarTree {
     public static Tree NewStarTree(Boolean rotatable, String name, int height) {
-        Tree tree = new Tree(rotatable, name, StarBlocks.STAR_LOG.getDefaultState(), StarBlocks.STAR_LEAVES.getDefaultState());
+        Tree tree = new Tree(rotatable, name, StarBlocks.STAR_LOG.defaultBlockState(), StarBlocks.STAR_LEAVES.defaultBlockState());
         init(tree, height);
         return tree;
     }

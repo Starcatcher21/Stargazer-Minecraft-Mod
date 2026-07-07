@@ -1,17 +1,17 @@
 package com.github.starcatcher21.stargazer.block.clases.star.star_display;
 
 import com.github.starcatcher21.stargazer.block.BlockTypes;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.inventory.Inventories;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.NonNullList;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.world.ContainerHelper;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.GeoBlockEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
@@ -25,7 +25,7 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 public class StarDisplayEntity extends BlockEntity implements GeoBlockEntity {
 
 
-    private DefaultedList<ItemStack> inventory = DefaultedList.ofSize(1, ItemStack.EMPTY);
+    private NonNullList<ItemStack> inventory = NonNullList.withSize(1, ItemStack.EMPTY);
     protected static final RawAnimation ROTATO = RawAnimation.begin().thenLoop("star.rotate");
     private float rotation = 360;
 
@@ -47,40 +47,40 @@ public class StarDisplayEntity extends BlockEntity implements GeoBlockEntity {
         return rotation;
     }
 
-    public DefaultedList<ItemStack> getItems() {
+    public NonNullList<ItemStack> getItems() {
         return inventory;
     }
 
-    public void setItems(DefaultedList<ItemStack> stack) {
+    public void setItems(NonNullList<ItemStack> stack) {
         this.inventory = stack;
-        markDirty();
+        setChanged();
 
-        if (this.world != null) {
+        if (this.level != null) {
             // This forces the server to sync the packet to all nearby clients
-            this.world.updateListeners(this.pos, this.getCachedState(), this.getCachedState(), 3);
+            this.level.sendBlockUpdated(this.worldPosition, this.getBlockState(), this.getBlockState(), 3);
         }
     }
 
     @Override
-    public BlockEntityUpdateS2CPacket toUpdatePacket() {
-        return BlockEntityUpdateS2CPacket.create(this);
+    public ClientboundBlockEntityDataPacket getUpdatePacket() {
+        return ClientboundBlockEntityDataPacket.create(this);
     }
 
     @Override
-    public NbtCompound toInitialChunkDataNbt(RegistryWrapper.WrapperLookup registryLookup) {
-        return this.createNbt(registryLookup);
+    public CompoundTag getUpdateTag(HolderLookup.Provider registryLookup) {
+        return this.saveWithoutMetadata(registryLookup);
     }
 
     @Override
-    protected void readData(ReadView view) {
-        super.readData(view);
-        Inventories.readData(view, inventory);
+    protected void loadAdditional(ValueInput view) {
+        super.loadAdditional(view);
+        ContainerHelper.loadAllItems(view, inventory);
     }
 
     @Override
-    protected void writeData(WriteView view) {
-        super.writeData(view);
-        Inventories.writeData(view, inventory);
+    protected void saveAdditional(ValueOutput view) {
+        super.saveAdditional(view);
+        ContainerHelper.saveAllItems(view, inventory);
     }
 
     public ItemStack getItem() {

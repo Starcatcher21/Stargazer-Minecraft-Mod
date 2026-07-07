@@ -7,21 +7,21 @@ import com.google.common.annotations.VisibleForTesting;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.IngredientPlacement;
-import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.recipe.book.RecipeBookCategories;
-import net.minecraft.recipe.book.RecipeBookCategory;
-import net.minecraft.registry.DynamicRegistryManager;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Optional;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.PlacementInfo;
+import net.minecraft.world.item.crafting.RecipeBookCategories;
+import net.minecraft.world.item.crafting.RecipeBookCategory;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.level.Level;
 
 public class ShapedStarforgeRecipe
         implements StarforgeRecipe {
@@ -30,7 +30,7 @@ public class ShapedStarforgeRecipe
     final String group;
     final boolean showNotification;
     @Nullable
-    private IngredientPlacement ingredientPlacement;
+    private PlacementInfo ingredientPlacement;
 
     public ShapedStarforgeRecipe(String group, RawStarforgeShapedRecipe raw, ItemStack result, boolean showNotification) {
         this.group = group;
@@ -49,12 +49,12 @@ public class ShapedStarforgeRecipe
     }
 
     @Override
-    public String getGroup() {
+    public String group() {
         return this.group;
     }
 
     @Override
-    public ItemStack craft(StarforgeRecipeInput craftingRecipeInput, DynamicRegistryManager registryManager) {
+    public ItemStack craft(StarforgeRecipeInput craftingRecipeInput, RegistryAccess registryManager) {
         return this.result.copy();
     }
 
@@ -69,9 +69,9 @@ public class ShapedStarforgeRecipe
     }
 
     @Override
-    public IngredientPlacement getIngredientPlacement() {
+    public PlacementInfo placementInfo() {
         if (this.ingredientPlacement == null) {
-            this.ingredientPlacement = IngredientPlacement.forMultipleSlots(this.raw.getIngredients());
+            this.ingredientPlacement = PlacementInfo.createFromOptionals(this.raw.getIngredients());
         }
         return this.ingredientPlacement;
     }
@@ -86,15 +86,15 @@ public class ShapedStarforgeRecipe
     }
 
     @Override
-    public boolean matches(StarforgeRecipeInput craftingRecipeInput, World world) {
-        if (world.isClient()) {
+    public boolean matches(StarforgeRecipeInput craftingRecipeInput, Level world) {
+        if (world.isClientSide()) {
             return false;
         }
         return this.raw.matches(craftingRecipeInput);
     }
 
     @Override
-    public ItemStack craft(StarforgeRecipeInput craftingRecipeInput, RegistryWrapper.WrapperLookup wrapperLookup) {
+    public ItemStack assemble(StarforgeRecipeInput craftingRecipeInput, HolderLookup.Provider wrapperLookup) {
         return this.result.copy();
     }
 
@@ -107,7 +107,7 @@ public class ShapedStarforgeRecipe
     }
 
     @Override
-    public RecipeBookCategory getRecipeBookCategory() {
+    public RecipeBookCategory recipeBookCategory() {
         return RecipeBookCategories.CAMPFIRE;
     }
 
@@ -116,9 +116,9 @@ public class ShapedStarforgeRecipe
         public static final MapCodec<ShapedStarforgeRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
                 Codec.STRING.optionalFieldOf("group", "").forGetter(recipe -> recipe.group),
                 RawStarforgeShapedRecipe.CODEC.forGetter(recipe -> recipe.raw),
-                ItemStack.VALIDATED_CODEC.fieldOf("result").forGetter(recipe -> recipe.result)
+                ItemStack.STRICT_CODEC.fieldOf("result").forGetter(recipe -> recipe.result)
         ).apply(instance, (group, raw, result) -> new ShapedStarforgeRecipe(group, raw, result)));
-        public static final PacketCodec<RegistryByteBuf, ShapedStarforgeRecipe> PACKET_CODEC = PacketCodec.ofStatic(ShapedStarforgeRecipe.Serializer::write, ShapedStarforgeRecipe.Serializer::read);
+        public static final StreamCodec<RegistryFriendlyByteBuf, ShapedStarforgeRecipe> PACKET_CODEC = StreamCodec.of(ShapedStarforgeRecipe.Serializer::write, ShapedStarforgeRecipe.Serializer::read);
 
         @Override
         public MapCodec<ShapedStarforgeRecipe> codec() {
@@ -126,22 +126,22 @@ public class ShapedStarforgeRecipe
         }
 
         @Override
-        public PacketCodec<RegistryByteBuf, ShapedStarforgeRecipe> packetCodec() {
+        public StreamCodec<RegistryFriendlyByteBuf, ShapedStarforgeRecipe> streamCodec() {
             return PACKET_CODEC;
         }
 
-        private static ShapedStarforgeRecipe read(RegistryByteBuf buf) {
-            String string = buf.readString();
+        private static ShapedStarforgeRecipe read(RegistryFriendlyByteBuf buf) {
+            String string = buf.readUtf();
             RawStarforgeShapedRecipe rawShapedRecipe = (RawStarforgeShapedRecipe)RawStarforgeShapedRecipe.PACKET_CODEC.decode(buf);
-            ItemStack itemStack = (ItemStack)ItemStack.PACKET_CODEC.decode(buf);
+            ItemStack itemStack = (ItemStack)ItemStack.STREAM_CODEC.decode(buf);
             boolean bl = buf.readBoolean();
             return new ShapedStarforgeRecipe(string, rawShapedRecipe, itemStack, bl);
         }
 
-        private static void write(RegistryByteBuf buf, ShapedStarforgeRecipe recipe) {
-            buf.writeString(recipe.group);
+        private static void write(RegistryFriendlyByteBuf buf, ShapedStarforgeRecipe recipe) {
+            buf.writeUtf(recipe.group);
             RawStarforgeShapedRecipe.PACKET_CODEC.encode(buf, recipe.raw);
-            ItemStack.PACKET_CODEC.encode(buf, recipe.result);
+            ItemStack.STREAM_CODEC.encode(buf, recipe.result);
             buf.writeBoolean(recipe.showNotification);
         }
     }

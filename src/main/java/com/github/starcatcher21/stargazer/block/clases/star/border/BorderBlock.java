@@ -1,23 +1,23 @@
 package com.github.starcatcher21.stargazer.block.clases.star.border;
 
 import com.mojang.serialization.MapCodec;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.BlockWithEntity;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 
-public class BorderBlock extends BlockWithEntity {
+public class BorderBlock extends BaseEntityBlock {
     @Override
-    protected MapCodec<? extends BorderBlock> getCodec() {
-        return createCodec(BorderBlock::new);
+    protected MapCodec<? extends BorderBlock> codec() {
+        return simpleCodec(BorderBlock::new);
     }
 
     @Override
-    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new BorderBlockEntity(pos, state);
     }
 
-    public BorderBlock(Settings settings) {
+    public BorderBlock(Properties settings) {
         super(settings);
     }
 }

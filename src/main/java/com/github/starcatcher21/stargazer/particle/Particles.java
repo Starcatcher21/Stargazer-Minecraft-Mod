@@ -3,12 +3,12 @@ package com.github.starcatcher21.stargazer.particle;
 import com.github.starcatcher21.stargazer.Stargazer;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
-import net.minecraft.particle.ParticleType;
-import net.minecraft.particle.SimpleParticleType;
-import net.minecraft.particle.TintedParticleEffect;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.util.Identifier;
+import net.minecraft.core.Registry;
+import net.minecraft.core.particles.ColorParticleOption;
+import net.minecraft.core.particles.ParticleType;
+import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.Identifier;
 
 public class Particles {
 //    public static final ParticleType<SimpleParticleType> YELLOW_STAR = FabricParticleTypes.simple();
@@ -21,10 +21,10 @@ public class Particles {
     public static final SimpleParticleType BLUE_STAR = register("blue_star", false);
     public static final SimpleParticleType PURPLE_STAR = register("purple_star", false);
     public static final SimpleParticleType STAR = register("star", false);
-    public static final ParticleType<TintedParticleEffect> TINTED_STAR = FabricParticleTypes.complex(TintedParticleEffect::createCodec, TintedParticleEffect::createPacketCodec);
+    public static final ParticleType<ColorParticleOption> TINTED_STAR = FabricParticleTypes.complex(ColorParticleOption::codec, ColorParticleOption::streamCodec);
 
     private static SimpleParticleType register(String name, boolean alwaysShow) {
-        return Registry.register(Registries.PARTICLE_TYPE, Identifier.of(Stargazer.MOD_ID, name), FabricParticleTypes.simple(alwaysShow));
+        return Registry.register(BuiltInRegistries.PARTICLE_TYPE, Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, name), FabricParticleTypes.simple(alwaysShow));
     }
 
     public static void init() {
@@ -33,7 +33,7 @@ public class Particles {
 //        Registry.register(Registries.PARTICLE_TYPE, Identifier.of(Stargazer.MOD_ID, "blue_star"), BLUE_STAR);
 //        Registry.register(Registries.PARTICLE_TYPE, Identifier.of(Stargazer.MOD_ID, "purple_star"), PURPLE_STAR);
 //        Registry.register(Registries.PARTICLE_TYPE, Identifier.of(Stargazer.MOD_ID, "star"), STAR);
-        Registry.register(Registries.PARTICLE_TYPE, Identifier.of(Stargazer.MOD_ID, "tinted_star"), TINTED_STAR);
+        Registry.register(BuiltInRegistries.PARTICLE_TYPE, Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "tinted_star"), TINTED_STAR);
     }
 
 

@@ -4,21 +4,20 @@ import com.github.starcatcher21.stargazer.block.register.EyeBloodBlocks;
 import com.github.starcatcher21.stargazer.block.register.MoonBlocks;
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.FlowerbedBlock;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.StructureWorldAccess;
-import net.minecraft.world.gen.feature.DefaultFeatureConfig;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.util.FeatureContext;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.block.FlowerBedBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
+import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 
-public class Eyes extends Feature<DefaultFeatureConfig> {
-    public Eyes(Codec<DefaultFeatureConfig> codec) {
+public class Eyes extends Feature<NoneFeatureConfiguration> {
+    public Eyes(Codec<NoneFeatureConfiguration> codec) {
         super(codec);
     }
     public static final ImmutableList<Direction> DIRECTIONS = ImmutableList.of(
@@ -26,22 +25,22 @@ public class Eyes extends Feature<DefaultFeatureConfig> {
     );
 
     @Override
-    public boolean generate(FeatureContext<DefaultFeatureConfig> context) {
+    public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
         Random rand = new Random();
-        BlockPos origin = context.getOrigin();
-        StructureWorldAccess world = context.getWorld();
+        BlockPos origin = context.origin();
+        WorldGenLevel world = context.level();
         for (int o = 0; o < origin.getY()/10; o++) {
-            BlockPos newori = origin.down(o*10);
-            BlockState neworiunderstate = world.getBlockState(newori.down());
-            if (world.isValidForSetBlock(newori) && world.isAir(newori) && (neworiunderstate.equals(MoonBlocks.MOON_ROCK_NYLIUM.getDefaultState()) || neworiunderstate.equals(MoonBlocks.MOON_ROCK.getDefaultState()))) {
-                this.setBlockState(world, newori, getState());
+            BlockPos newori = origin.below(o*10);
+            BlockState neworiunderstate = world.getBlockState(newori.below());
+            if (world.ensureCanWrite(newori) && world.isEmptyBlock(newori) && (neworiunderstate.equals(MoonBlocks.MOON_ROCK_NYLIUM.defaultBlockState()) || neworiunderstate.equals(MoonBlocks.MOON_ROCK.defaultBlockState()))) {
+                this.setBlock(world, newori, getState());
                 for (int i = 0; i <= 3; i++) {
                     Direction dir = DIRECTIONS.get(i);
                     for (int j = 0; j < 4; j++) {
                         Direction randir = DIRECTIONS.get(rand.nextInt(4));
-                        ArrayList<BlockPos> nex = next(world, newori.offset(dir, 1).offset(randir, 1));
-                        if (!nex.isEmpty() && world.isValidForSetBlock(nex.getFirst())) {
-                            this.setBlockState(world, nex.getFirst(), getState());
+                        ArrayList<BlockPos> nex = next(world, newori.relative(dir, 1).relative(randir, 1));
+                        if (!nex.isEmpty() && world.ensureCanWrite(nex.getFirst())) {
+                            this.setBlock(world, nex.getFirst(), getState());
                         }
                     }
                 }
@@ -52,22 +51,22 @@ public class Eyes extends Feature<DefaultFeatureConfig> {
 
     private BlockState getState() {
         Random rand = new Random();
-        Direction direction = FlowerbedBlock.HORIZONTAL_FACING.getValues().get(rand.nextInt(FlowerbedBlock.HORIZONTAL_FACING.getValues().toArray().length));
-        BlockState forgor = EyeBloodBlocks.EYES.getDefaultState().with(FlowerbedBlock.HORIZONTAL_FACING, direction).with(FlowerbedBlock.FLOWER_AMOUNT, rand.nextInt(1,4));
+        Direction direction = FlowerBedBlock.FACING.getPossibleValues().get(rand.nextInt(FlowerBedBlock.FACING.getPossibleValues().toArray().length));
+        BlockState forgor = EyeBloodBlocks.EYES.defaultBlockState().setValue(FlowerBedBlock.FACING, direction).setValue(FlowerBedBlock.AMOUNT, rand.nextInt(1,4));
         return forgor;
     }
 
-    private ArrayList<BlockPos> next(StructureWorldAccess world, BlockPos pos) {
+    private ArrayList<BlockPos> next(WorldGenLevel world, BlockPos pos) {
         for (int i = 0; i < 3; i++) {
-            if (world.isValidForSetBlock(pos.down(i)) && world.isAir(pos.down(i))) {
-                BlockState state = world.getBlockState(pos.down(i+1));
-                if (state.equals(MoonBlocks.MOON_ROCK.getDefaultState()) || state.equals(MoonBlocks.MOON_ROCK_NYLIUM.getDefaultState())) {
-                    return new ArrayList<BlockPos>(Collections.singleton(pos.down(i)));
+            if (world.ensureCanWrite(pos.below(i)) && world.isEmptyBlock(pos.below(i))) {
+                BlockState state = world.getBlockState(pos.below(i+1));
+                if (state.equals(MoonBlocks.MOON_ROCK.defaultBlockState()) || state.equals(MoonBlocks.MOON_ROCK_NYLIUM.defaultBlockState())) {
+                    return new ArrayList<BlockPos>(Collections.singleton(pos.below(i)));
                 }
-            } else if (world.isValidForSetBlock(pos.up(i)) && world.isAir(pos.up(i))) {
-                BlockState state = world.getBlockState(pos.up(i).down());
-                if (state.equals(MoonBlocks.MOON_ROCK.getDefaultState()) || state.equals(MoonBlocks.MOON_ROCK_NYLIUM.getDefaultState())) {
-                    return new ArrayList<BlockPos>(Collections.singleton(pos.up(i)));
+            } else if (world.ensureCanWrite(pos.above(i)) && world.isEmptyBlock(pos.above(i))) {
+                BlockState state = world.getBlockState(pos.above(i).below());
+                if (state.equals(MoonBlocks.MOON_ROCK.defaultBlockState()) || state.equals(MoonBlocks.MOON_ROCK_NYLIUM.defaultBlockState())) {
+                    return new ArrayList<BlockPos>(Collections.singleton(pos.above(i)));
                 }
             }
         }

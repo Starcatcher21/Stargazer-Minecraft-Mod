@@ -9,11 +9,11 @@ import me.shedaniel.rei.api.common.display.DisplaySerializer;
 import me.shedaniel.rei.api.common.display.basic.BasicDisplay;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
-import net.minecraft.item.Items;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.util.Identifier;
-import net.minecraft.world.World;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -22,7 +22,7 @@ public class StargazingDisplay extends BasicDisplay {
     private final List<EntryIngredient> in;
     @Nullable
     private final List<EntryIngredient> out;
-    private RegistryKey<World> world;
+    private ResourceKey<Level> world;
     private FallingObjectsList list;
     private FallingObjectDayState dayState;
 
@@ -30,12 +30,12 @@ public class StargazingDisplay extends BasicDisplay {
         super(inputs, outputs);
         this.in = inputs;
         this.out = outputs;
-        this.world = RegistryKey.of(RegistryKeys.WORLD, Identifier.ofVanilla("overworld"));
+        this.world = ResourceKey.create(Registries.DIMENSION, Identifier.withDefaultNamespace("overworld"));
         this.dayState = FallingObjectDayState.Night;
     }
 
     public StargazingDisplay(List<FallingObject> list) {
-        this(List.of(EntryIngredients.of(Items.SPYGLASS.getDefaultStack())), list.stream().map(fallingObject -> EntryIngredients.of(fallingObject.item.value().getDefaultStack())).toList());
+        this(List.of(EntryIngredients.of(Items.SPYGLASS.getDefaultInstance())), list.stream().map(fallingObject -> EntryIngredients.of(fallingObject.item.value().getDefaultInstance())).toList());
     }
 
     public StargazingDisplay(FallingObjectsList fallingObjectsList) {
@@ -49,7 +49,7 @@ public class StargazingDisplay extends BasicDisplay {
         return this.list;
     }
 
-    public RegistryKey<World> getWorld() {
+    public ResourceKey<Level> getWorld() {
         return this.world;
     }
 

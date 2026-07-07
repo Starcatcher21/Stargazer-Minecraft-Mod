@@ -6,29 +6,28 @@ import com.github.starcatcher21.stargazer.block.register.*;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBlockTags;
-import net.minecraft.block.Blocks;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.registry.tag.BlockTags;
-
+import net.minecraft.core.HolderLookup;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.world.level.block.Blocks;
 import java.util.concurrent.CompletableFuture;
 
 public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
-    public ModBlockTagProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+    public ModBlockTagProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
         super(output, registriesFuture);
     }
 
     @Override
-    protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
+    protected void addTags(HolderLookup.Provider wrapperLookup) {
         valueLookupBuilder(BlockTags.DRAGON_IMMUNE)
                 .add(MoonBlocks.MOON_ROCK)
                 .add(MoonBlocks.MOON_FARMLAND)
                 .add(MoonBlocks.BLACK_MOON_ROCK);
         // DIRT
-        valueLookupBuilder(BlockTags.SHOVEL_MINEABLE)
+        valueLookupBuilder(BlockTags.MINEABLE_WITH_SHOVEL)
                 .add(Wander.BORIL)
                 .add(Wander.PUROIL);
         // Wood
-        valueLookupBuilder(BlockTags.AXE_MINEABLE)
+        valueLookupBuilder(BlockTags.MINEABLE_WITH_AXE)
                 .add(Wander.TRUNN_LOG)
                 .add(MoonBlocks.MOON_LOG)
                 .add(MoonBlocks.MOON_PLANKS_DOOR)
@@ -155,7 +154,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(MoonBlocks.FULL_MOON_LEAVES)
                 .add(RedOrbBlocks.SPIRO_LEAVES)
                 .add(Darkness.DARKNESS_LEAVES);
-        valueLookupBuilder(BlockTags.HOE_MINEABLE)
+        valueLookupBuilder(BlockTags.MINEABLE_WITH_HOE)
                 .add(MoonBlocks.MOON_LEAVES)
                 .add(ModBlock.BONE_LEAVES)
                 .add(MoonBlocks.CURVE_LEAVES)
@@ -167,7 +166,7 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(RedOrbBlocks.SPIRO_LEAVES)
                 .add(Darkness.DARKNESS_LEAVES);
         // Rock
-        valueLookupBuilder(BlockTags.PICKAXE_MINEABLE)
+        valueLookupBuilder(BlockTags.MINEABLE_WITH_PICKAXE)
                 .add(MoonBlocks.COMET_BLOCK)
                 .add(Energy.STARGENERATOR)
                 .add(ModBlock.COPPER_TELEPORTER)

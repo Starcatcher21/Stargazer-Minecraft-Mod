@@ -8,12 +8,11 @@ import com.google.gson.JsonParser;
 import com.mojang.serialization.JsonOps;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
-import net.minecraft.registry.Registerable;
-import net.minecraft.registry.RegistryBuilder;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.world.biome.Biome;
-
+import net.minecraft.core.RegistrySetBuilder;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.level.biome.Biome;
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
@@ -42,15 +41,15 @@ public class StargazerDataGenerator implements DataGeneratorEntrypoint {
 	}
 
 	@Override
-	public void buildRegistry(RegistryBuilder registryBuilder) {
+	public void buildRegistry(RegistrySetBuilder registryBuilder) {
 		DataGeneratorEntrypoint.super.buildRegistry(registryBuilder);
-		registryBuilder.addRegistry(RegistryKeys.BIOME, StargazerDataGenerator::biomeBootstrap);
+		registryBuilder.add(Registries.BIOME, StargazerDataGenerator::biomeBootstrap);
 	}
 
-	public static void biomeBootstrap(Registerable<Biome> registerable) {
+	public static void biomeBootstrap(BootstrapContext<Biome> registerable) {
 
-		for (RegistryKey<Biome> key : BiomeReg.MoonList) {
-			Biome myBiome = loadBiomeFromJson(key.getValue().getPath()+".json");
+		for (ResourceKey<Biome> key : BiomeReg.MoonList) {
+			Biome myBiome = loadBiomeFromJson(key.identifier().getPath()+".json");
 			registerable.register(key, myBiome);
 		}
 	}
@@ -62,7 +61,7 @@ public class StargazerDataGenerator implements DataGeneratorEntrypoint {
 
 		try (Reader reader = Files.newBufferedReader(path)) {
 			JsonElement json = JsonParser.parseReader(reader);
-			return Biome.CODEC.parse(JsonOps.INSTANCE, json)
+			return Biome.DIRECT_CODEC.parse(JsonOps.INSTANCE, json)
 					.getPartialOrThrow(error -> new RuntimeException("Failed to parse biome: " + error));
 		} catch (IOException e) {
 			throw new RuntimeException("Could not find biome file: " + path, e);

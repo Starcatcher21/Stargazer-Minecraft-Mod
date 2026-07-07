@@ -1,10 +1,9 @@
 package com.github.starcatcher21.stargazer.screens.recipe;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.RecipeFinder;
-import net.minecraft.recipe.input.RecipeInput;
-
 import java.util.List;
+import net.minecraft.world.entity.player.StackedItemContents;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeInput;
 
 public class StarforgeRecipeInput
         implements RecipeInput {
@@ -12,7 +11,7 @@ public class StarforgeRecipeInput
     private final int width;
     private final int height;
     private final List<ItemStack> stacks;
-    private final RecipeFinder matcher = new RecipeFinder();
+    private final StackedItemContents matcher = new StackedItemContents();
     private final int stackCount;
 
     private StarforgeRecipeInput(int width, int height, List<ItemStack> stacks) {
@@ -23,7 +22,7 @@ public class StarforgeRecipeInput
         for (ItemStack itemStack : stacks) {
             if (itemStack.isEmpty()) continue;
             ++i;
-            this.matcher.addInput(itemStack, 1);
+            this.matcher.accountStack(itemStack, 1);
         }
         this.stackCount = i;
     }
@@ -37,7 +36,7 @@ public class StarforgeRecipeInput
     }
 
     @Override
-    public ItemStack getStackInSlot(int slot) {
+    public ItemStack getItem(int slot) {
         return this.stacks.get(slot);
     }
 
@@ -55,7 +54,7 @@ public class StarforgeRecipeInput
         return this.stackCount == 0;
     }
 
-    public RecipeFinder getRecipeMatcher() {
+    public StackedItemContents getRecipeMatcher() {
         return this.matcher;
     }
 
@@ -81,13 +80,13 @@ public class StarforgeRecipeInput
         }
         if (o instanceof StarforgeRecipeInput) {
             StarforgeRecipeInput craftingRecipeInput = (StarforgeRecipeInput) o;
-            return this.width == craftingRecipeInput.width && this.height == craftingRecipeInput.height && this.stackCount == craftingRecipeInput.stackCount && ItemStack.stacksEqual(this.stacks, craftingRecipeInput.stacks);
+            return this.width == craftingRecipeInput.width && this.height == craftingRecipeInput.height && this.stackCount == craftingRecipeInput.stackCount && ItemStack.listMatches(this.stacks, craftingRecipeInput.stacks);
         }
         return false;
     }
 
     public int hashCode() {
-        int i = ItemStack.listHashCode(this.stacks);
+        int i = ItemStack.hashStackList(this.stacks);
         i = 31 * i + this.width;
         i = 31 * i + this.height;
         return i;

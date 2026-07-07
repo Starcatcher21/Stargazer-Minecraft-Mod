@@ -9,17 +9,16 @@ import me.shedaniel.rei.api.client.gui.widgets.Widgets;
 import me.shedaniel.rei.api.client.registry.display.DisplayCategory;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.util.EntryStacks;
-import net.minecraft.item.Items;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.Items;
 import java.util.LinkedList;
 import java.util.List;
 
 public class StargazingCategory implements DisplayCategory<StargazingDisplay> {
-    public static final Identifier NIGHT_TEXTURE = Identifier.of(Stargazer.MOD_ID, "textures/gui/stargazing_night.png");
-    public static final Identifier DAY_TEXTURE = Identifier.of(Stargazer.MOD_ID, "textures/gui/stargazing_day.png");
-    public static final Identifier TEXTURE = Identifier.of(Stargazer.MOD_ID, "textures/gui/stargazing.png");
+    public static final Identifier NIGHT_TEXTURE = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/stargazing_night.png");
+    public static final Identifier DAY_TEXTURE = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/stargazing_day.png");
+    public static final Identifier TEXTURE = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/stargazing.png");
     public static final CategoryIdentifier<StargazingDisplay> STARFORGE = CategoryIdentifier.of(Stargazer.MOD_ID, "stargazing");
     public static final String TranslationKey = "category.rei.stargazer.stargazing";
     @Override
@@ -28,13 +27,13 @@ public class StargazingCategory implements DisplayCategory<StargazingDisplay> {
     }
 
     @Override
-    public Text getTitle() {
-        return Text.translatable(TranslationKey);
+    public Component getTitle() {
+        return Component.translatable(TranslationKey);
     }
 
     @Override
     public Renderer getIcon() {
-        return EntryStacks.of(Items.SPYGLASS.getDefaultStack());
+        return EntryStacks.of(Items.SPYGLASS.getDefaultInstance());
     }
 
     @Override
@@ -65,8 +64,8 @@ public class StargazingCategory implements DisplayCategory<StargazingDisplay> {
                 .backgroundEnabled(false)
                 .entries(totalOutputs) // This allows the output slot to cycle through all falling objects
                 .markOutput());
-        String path = display.getWorld().getValue().getPath();
-        Text text = Text.of(path.substring(0, 1).toUpperCase() + path.substring(1));
+        String path = display.getWorld().identifier().getPath();
+        Component text = Component.nullToEmpty(path.substring(0, 1).toUpperCase() + path.substring(1));
         widgets.add(Widgets.createLabel(new Point(startPoint.x + 70, startPoint.y), text));
 
         return widgets;

@@ -1,10 +1,10 @@
 package com.github.starcatcher21.stargazer.block.clases.moon.star_stone;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 
 public class StarStone extends Block {
-    public StarStone(Settings settings) {
+    public StarStone(Properties settings) {
         super(settings);
     }
 

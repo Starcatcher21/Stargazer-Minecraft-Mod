@@ -1,3 +1,5 @@
+// TODO(Ravel): Failed to fully resolve file: null cannot be cast to non-null type com.intellij.psi.PsiClass
+// TODO(Ravel): Failed to fully resolve file: null cannot be cast to non-null type com.intellij.psi.PsiClass
 package com.github.starcatcher21.stargazer.block.register;
 
 import com.github.starcatcher21.stargazer.Helpers;
@@ -13,174 +15,186 @@ import com.github.starcatcher21.stargazer.block.clases.star.log.StrippedStarLog;
 import com.github.starcatcher21.stargazer.block.clases.star.star_display.StarDisplay;
 import com.github.starcatcher21.stargazer.effects.StatusEffects;
 import com.github.starcatcher21.stargazer.sound.SoundGroups;
-import net.minecraft.block.*;
-import net.minecraft.block.enums.NoteBlockInstrument;
-import net.minecraft.block.piston.PistonBehavior;
-import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.DyeColor;
-import net.minecraft.util.math.Direction;
+import net.minecraft.core.Direction;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.ButtonBlock;
+import net.minecraft.world.level.block.DoorBlock;
+import net.minecraft.world.level.block.FenceBlock;
+import net.minecraft.world.level.block.FenceGateBlock;
+import net.minecraft.world.level.block.FlowerPotBlock;
+import net.minecraft.world.level.block.SlabBlock;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.StairBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.properties.BlockSetType;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
+import net.minecraft.world.level.block.state.properties.WoodType;
+import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.PushReaction;
 
 import static com.github.starcatcher21.stargazer.block.ModBlock.register;
 import static com.github.starcatcher21.stargazer.block.ModBlock.registerWoItem;
 
 public class StarBlocks {
-    public static final Block COSMIC_BLOCK = register("cosmic_block", CosmicBlock::new, AbstractBlock.Settings.create()
-            .nonOpaque()
-            .requiresTool()
+    public static final Block COSMIC_BLOCK = register("cosmic_block", CosmicBlock::new, BlockBehaviour.Properties.of()
+            .noOcclusion()
+            .requiresCorrectToolForDrops()
             .strength(0.2f)
-            .sounds(SoundGroups.STAR)
-            .pistonBehavior(PistonBehavior.BLOCK)
+            .sound(SoundGroups.STAR)
+            .pushReaction(PushReaction.BLOCK)
     );
-    public static final Block STAR_BARRIER_BLOCK = register("star_barrier_block", StarBarrierBlock::new, AbstractBlock.Settings.create()
-            .nonOpaque()
-            .requiresTool()
-            .sounds(SoundGroups.STAR)
+    public static final Block STAR_BARRIER_BLOCK = register("star_barrier_block", StarBarrierBlock::new, BlockBehaviour.Properties.of()
+            .noOcclusion()
+            .requiresCorrectToolForDrops()
+            .sound(SoundGroups.STAR)
             .strength(0.2f)
-            .pistonBehavior(PistonBehavior.BLOCK)
+            .pushReaction(PushReaction.BLOCK)
     );
-    public static final Block BORDER_BLOCK = register("border_block", BorderBlock::new, AbstractBlock.Settings.create()
-            .nonOpaque()
-            .requiresTool()
-            .solid()
+    public static final Block BORDER_BLOCK = register("border_block", BorderBlock::new, BlockBehaviour.Properties.of()
+            .noOcclusion()
+            .requiresCorrectToolForDrops()
+            .forceSolidOn()
             .strength(0.2f)
-            .pistonBehavior(PistonBehavior.BLOCK)
+            .pushReaction(PushReaction.BLOCK)
     );
-    public static final Block STAR_LOG = register("star_log", StarLog::new, AbstractBlock.Settings.create()
-            .solid()
-            .sounds(BlockSoundGroup.WOOD)
+    public static final Block STAR_LOG = register("star_log", StarLog::new, BlockBehaviour.Properties.of()
+            .forceSolidOn()
+            .sound(SoundType.WOOD)
             .strength(2.0F)
-            .mapColor(blockState -> blockState.get(Properties.AXIS).equals(Direction.Axis.Y) ? MapColor.WHITE : MapColor.PURPLE)
+            .mapColor(blockState -> blockState.getValue(BlockStateProperties.AXIS).equals(Direction.Axis.Y) ? MapColor.SNOW : MapColor.COLOR_PURPLE)
     );
-    public static final Block STRIPPED_STAR_LOG = register("stripped_star_log", StrippedStarLog::new, AbstractBlock.Settings.create()
-            .solid()
-            .sounds(BlockSoundGroup.WOOD)
+    public static final Block STRIPPED_STAR_LOG = register("stripped_star_log", StrippedStarLog::new, BlockBehaviour.Properties.of()
+            .forceSolidOn()
+            .sound(SoundType.WOOD)
             .strength(2.0F)
             .mapColor(DyeColor.BLACK)
     );
-    public static final Block STAR_PLANKS = register("star_planks", Block::new, AbstractBlock.Settings.create()
-            .solid()
-            .sounds(BlockSoundGroup.WOOD)
+    public static final Block STAR_PLANKS = register("star_planks", Block::new, BlockBehaviour.Properties.of()
+            .forceSolidOn()
+            .sound(SoundType.WOOD)
             .instrument(NoteBlockInstrument.BASS)
             .strength(2.0F)
-            .mapColor(MapColor.BLACK)
+            .mapColor(MapColor.COLOR_BLACK)
     );
-    public static final Block STAR_PLANKS_DOOR = register("star_planks_door", (settings) -> new DoorBlock(BlockSetType.OAK, (AbstractBlock.Settings)  settings), AbstractBlock.Settings.create()
-            .solid()
-            .nonOpaque()
-            .sounds(BlockSoundGroup.WOOD)
+    public static final Block STAR_PLANKS_DOOR = register("star_planks_door", (settings) -> new DoorBlock(BlockSetType.OAK, (BlockBehaviour.Properties)  settings), BlockBehaviour.Properties.of()
+            .forceSolidOn()
+            .noOcclusion()
+            .sound(SoundType.WOOD)
             .instrument(NoteBlockInstrument.BASS)
             .strength(2.0F)
-            .mapColor(MapColor.WHITE)
+            .mapColor(MapColor.SNOW)
     );
 
-    public static final Block STAR_PLANKS_SLAB = register("star_planks_slab", SlabBlock::new, AbstractBlock.Settings.create()
-            .solid()
-            .sounds(BlockSoundGroup.WOOD)
+    public static final Block STAR_PLANKS_SLAB = register("star_planks_slab", SlabBlock::new, BlockBehaviour.Properties.of()
+            .forceSolidOn()
+            .sound(SoundType.WOOD)
             .instrument(NoteBlockInstrument.BASS)
             .strength(2.0F)
-            .mapColor(MapColor.BLACK)
+            .mapColor(MapColor.COLOR_BLACK)
     );
-    public static final Block STAR_PLANKS_STAIRS = register("star_planks_stairs", (AbstractBlock.Settings settings) -> new StairsBlock(STAR_PLANKS.getDefaultState(), (AbstractBlock.Settings)settings), AbstractBlock.Settings.create()
-            .solid()
-            .sounds(BlockSoundGroup.WOOD)
+    public static final Block STAR_PLANKS_STAIRS = register("star_planks_stairs", (BlockBehaviour.Properties settings) -> new StairBlock(STAR_PLANKS.defaultBlockState(), (BlockBehaviour.Properties)settings), BlockBehaviour.Properties.of()
+            .forceSolidOn()
+            .sound(SoundType.WOOD)
             .instrument(NoteBlockInstrument.BASS)
             .strength(2.0F)
-            .mapColor(MapColor.BLACK)
+            .mapColor(MapColor.COLOR_BLACK)
     );
-    public static final Block STAR_PLANKS_FENCE = register("star_planks_fence", FenceBlock::new, AbstractBlock.Settings.create()
-            .solid()
-            .sounds(BlockSoundGroup.WOOD)
+    public static final Block STAR_PLANKS_FENCE = register("star_planks_fence", FenceBlock::new, BlockBehaviour.Properties.of()
+            .forceSolidOn()
+            .sound(SoundType.WOOD)
             .instrument(NoteBlockInstrument.BASS)
             .strength(2.0F)
-            .mapColor(MapColor.BLACK)
+            .mapColor(MapColor.COLOR_BLACK)
     );
-    public static final Block STAR_PLANKS_FENCE_GATE = register("star_planks_fence_gate", (AbstractBlock.Settings settings) -> new FenceGateBlock(WoodType.OAK, (AbstractBlock.Settings)settings), AbstractBlock.Settings.create()
-            .solid()
-            .sounds(BlockSoundGroup.WOOD)
+    public static final Block STAR_PLANKS_FENCE_GATE = register("star_planks_fence_gate", (BlockBehaviour.Properties settings) -> new FenceGateBlock(WoodType.OAK, (BlockBehaviour.Properties)settings), BlockBehaviour.Properties.of()
+            .forceSolidOn()
+            .sound(SoundType.WOOD)
             .instrument(NoteBlockInstrument.BASS)
             .strength(2.0F)
-            .mapColor(MapColor.BLACK)
+            .mapColor(MapColor.COLOR_BLACK)
     );
-    public static final Block STAR_PLANKS_BUTTON = register("star_planks_button", (AbstractBlock.Settings settings) -> new ButtonBlock(BlockSetType.OAK, 30, (AbstractBlock.Settings) settings), AbstractBlock.Settings.create()
+    public static final Block STAR_PLANKS_BUTTON = register("star_planks_button", (BlockBehaviour.Properties settings) -> new ButtonBlock(BlockSetType.OAK, 30, (BlockBehaviour.Properties) settings), BlockBehaviour.Properties.of()
             .noCollision()
-            .sounds(BlockSoundGroup.WOOD)
+            .sound(SoundType.WOOD)
             .instrument(NoteBlockInstrument.BASS)
             .strength(1.0F)
-            .mapColor(MapColor.BLACK)
+            .mapColor(MapColor.COLOR_BLACK)
     );
-    public static final Block STAR_LEAVES = register("star_leaves", StarLeaves::new, AbstractBlock.Settings.create()
-            .nonOpaque()
-            .sounds(BlockSoundGroup.GRASS)
+    public static final Block STAR_LEAVES = register("star_leaves", StarLeaves::new, BlockBehaviour.Properties.of()
+            .noOcclusion()
+            .sound(SoundType.GRASS)
             .strength(0.2F)
-            .mapColor(MapColor.YELLOW)
+            .mapColor(MapColor.COLOR_YELLOW)
     );
-    public static final Block AURORA = register("aurora", Aurora::new, AbstractBlock.Settings.create()
-            .nonOpaque()
-            .sounds(BlockSoundGroup.GRASS)
+    public static final Block AURORA = register("aurora", Aurora::new, BlockBehaviour.Properties.of()
+            .noOcclusion()
+            .sound(SoundType.GRASS)
             .strength(0.2F)
-            .mapColor(MapColor.CYAN)
+            .mapColor(MapColor.COLOR_CYAN)
     );
-    public static final Block STAR_SAPLING = register("star_sapling", (AbstractBlock.Settings settings) -> new CustomSapling(Helpers.configuredFeatureOf("star_trees"), settings), AbstractBlock.Settings.create()
+    public static final Block STAR_SAPLING = register("star_sapling", (BlockBehaviour.Properties settings) -> new CustomSapling(Helpers.configuredFeatureOf("star_trees"), settings), BlockBehaviour.Properties.of()
             .noCollision()
-            .sounds(BlockSoundGroup.GRASS)
-            .ticksRandomly()
-            .breakInstantly()
+            .sound(SoundType.GRASS)
+            .randomTicks()
+            .instabreak()
     );
-    public static final Block POTTED_STAR_SAPLING = registerWoItem("potted_star_sapling", settings -> new FlowerPotBlock(STAR_SAPLING, settings), AbstractBlock.Settings.copy(Blocks.POTTED_ALLIUM).nonOpaque());
-    public static final Block STAR_FLOWER = register("star_flower", settings -> new CosmicFlower(StatusEffects.COSMO, 5.0f, settings), AbstractBlock.Settings.create()
-            .mapColor(MapColor.YELLOW)
+    public static final Block POTTED_STAR_SAPLING = registerWoItem("potted_star_sapling", settings -> new FlowerPotBlock(STAR_SAPLING, settings), BlockBehaviour.Properties.ofFullCopy(Blocks.POTTED_ALLIUM).noOcclusion());
+    public static final Block STAR_FLOWER = register("star_flower", settings -> new CosmicFlower(StatusEffects.COSMO, 5.0f, settings), BlockBehaviour.Properties.of()
+            .mapColor(MapColor.COLOR_YELLOW)
             .noCollision()
-            .breakInstantly()
-            .sounds(BlockSoundGroup.GRASS)
-            .offset(AbstractBlock.OffsetType.XZ)
-            .pistonBehavior(PistonBehavior.DESTROY)
+            .instabreak()
+            .sound(SoundType.GRASS)
+            .offsetType(BlockBehaviour.OffsetType.XZ)
+            .pushReaction(PushReaction.DESTROY)
     );
-    public static final Block POTTED_STAR_FLOWER = registerWoItem("potted_star_flower", settings -> new FlowerPotBlock(STAR_FLOWER, settings), AbstractBlock.Settings.copy(Blocks.POTTED_ALLIUM).nonOpaque());
-    public static final Block CELESTIAL_STAR_FLOWER = register("celestial_star_flower", settings -> new CosmicFlower(StatusEffects.COSMO, 5.0f, settings), AbstractBlock.Settings.create()
-            .mapColor(MapColor.YELLOW)
+    public static final Block POTTED_STAR_FLOWER = registerWoItem("potted_star_flower", settings -> new FlowerPotBlock(STAR_FLOWER, settings), BlockBehaviour.Properties.ofFullCopy(Blocks.POTTED_ALLIUM).noOcclusion());
+    public static final Block CELESTIAL_STAR_FLOWER = register("celestial_star_flower", settings -> new CosmicFlower(StatusEffects.COSMO, 5.0f, settings), BlockBehaviour.Properties.of()
+            .mapColor(MapColor.COLOR_YELLOW)
             .noCollision()
-            .breakInstantly()
-            .sounds(BlockSoundGroup.GRASS)
-            .offset(AbstractBlock.OffsetType.XZ)
-            .pistonBehavior(PistonBehavior.DESTROY)
+            .instabreak()
+            .sound(SoundType.GRASS)
+            .offsetType(BlockBehaviour.OffsetType.XZ)
+            .pushReaction(PushReaction.DESTROY)
     );
-    public static final Block POTTED_CELESTIAL_STAR_FLOWER = registerWoItem("potted_celestial_star_flower", settings -> new FlowerPotBlock(CELESTIAL_STAR_FLOWER, settings), AbstractBlock.Settings.copy(Blocks.POTTED_ALLIUM).nonOpaque());
+    public static final Block POTTED_CELESTIAL_STAR_FLOWER = registerWoItem("potted_celestial_star_flower", settings -> new FlowerPotBlock(CELESTIAL_STAR_FLOWER, settings), BlockBehaviour.Properties.ofFullCopy(Blocks.POTTED_ALLIUM).noOcclusion());
 
-    public static final Block RED_STAR_BLOCK = register("red_star_block", Block::new, AbstractBlock.Settings.create()
-            .solid()
-            .sounds(BlockSoundGroup.STONE)
-            .requiresTool()
+    public static final Block RED_STAR_BLOCK = register("red_star_block", Block::new, BlockBehaviour.Properties.of()
+            .forceSolidOn()
+            .sound(SoundType.STONE)
+            .requiresCorrectToolForDrops()
             .strength(0.75f)
-            .mapColor(MapColor.BRIGHT_RED)
-    );
-
-    public static final Block BLUE_STAR_BLOCK = register("blue_star_block", Block::new, AbstractBlock.Settings.create()
-            .solid()
-            .sounds(BlockSoundGroup.STONE)
-            .requiresTool()
-            .strength(0.75f)
-            .mapColor(MapColor.CYAN)
+            .mapColor(MapColor.FIRE)
     );
 
-    public static final Block YELLOW_STAR_BLOCK = register("yellow_star_block", Block::new, AbstractBlock.Settings.create()
-            .solid()
-            .sounds(BlockSoundGroup.STONE)
-            .requiresTool()
+    public static final Block BLUE_STAR_BLOCK = register("blue_star_block", Block::new, BlockBehaviour.Properties.of()
+            .forceSolidOn()
+            .sound(SoundType.STONE)
+            .requiresCorrectToolForDrops()
             .strength(0.75f)
-            .mapColor(MapColor.YELLOW)
+            .mapColor(MapColor.COLOR_CYAN)
     );
 
-    public static final Block PURPLE_STAR_BLOCK = register("purple_star_block", Block::new, AbstractBlock.Settings.create()
-            .solid()
-            .sounds(BlockSoundGroup.STONE)
-            .requiresTool()
+    public static final Block YELLOW_STAR_BLOCK = register("yellow_star_block", Block::new, BlockBehaviour.Properties.of()
+            .forceSolidOn()
+            .sound(SoundType.STONE)
+            .requiresCorrectToolForDrops()
             .strength(0.75f)
-            .mapColor(MapColor.PURPLE)
+            .mapColor(MapColor.COLOR_YELLOW)
     );
-    public static final Block STAR_DISPLAY = register("star_display", StarDisplay::new, AbstractBlock.Settings.create()
-            .solid()
-            .sounds(BlockSoundGroup.METAL)
+
+    public static final Block PURPLE_STAR_BLOCK = register("purple_star_block", Block::new, BlockBehaviour.Properties.of()
+            .forceSolidOn()
+            .sound(SoundType.STONE)
+            .requiresCorrectToolForDrops()
+            .strength(0.75f)
+            .mapColor(MapColor.COLOR_PURPLE)
+    );
+    public static final Block STAR_DISPLAY = register("star_display", StarDisplay::new, BlockBehaviour.Properties.of()
+            .forceSolidOn()
+            .sound(SoundType.METAL)
             .strength(0.175F)
     );
     public static void init() {

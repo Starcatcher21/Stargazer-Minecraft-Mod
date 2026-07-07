@@ -2,125 +2,122 @@ package com.github.starcatcher21.stargazer.particle;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.particle.BillboardParticle;
-import net.minecraft.client.particle.Particle;
-import net.minecraft.client.particle.ParticleFactory;
-import net.minecraft.client.particle.SpriteProvider;
-import net.minecraft.client.texture.Sprite;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.particle.SimpleParticleType;
-import net.minecraft.particle.TintedParticleEffect;
-import net.minecraft.util.math.random.Random;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.particle.*;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.core.particles.ColorParticleOption;
+import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.util.RandomSource;
 
 @Environment(EnvType.CLIENT)
-public class StarParticle extends BillboardParticle {
-    private static final float SPEED_SCALE = 0.0025F;
-    private static final int field_43373 = 300;
-    private static final int field_43366 = 300;
-    private float angularVelocity = (float)Math.toRadians(this.random.nextBoolean() ? -30.0 : 30.0);
-    private final float angularAcceleration = (float)Math.toRadians(this.random.nextBoolean() ? -5.0 : 5.0);
-    private final float field_55127;
-    private final boolean field_55128;
-    private final boolean field_55129;
-    private final double field_55130;
-    private final double field_55131;
-    private final double field_55132;
+public class StarParticle extends SingleQuadParticle {
+    private static final float ACCELERATION_SCALE = 0.0025F;
+    private static final int INITIAL_LIFETIME = 300;
+    private static final int CURVE_ENDPOINT_TIME = 300;
+    private float rotSpeed;
+    private final float spinAcceleration;
+    private final float windBig;
+    private final boolean swirl;
+    private final boolean flowAway;
+    private final double xaFlowScale;
+    private final double zaFlowScale;
+    private final double swirlPeriod;
 
-    protected StarParticle(
-            ClientWorld world, double x, double y, double z, Sprite sprite, float gravity, float f, boolean bl, boolean bl2, float size, float initialYVelocity
-    ) {
-        super(world, x, y, z, sprite);
-        this.field_55127 = f;
-        this.field_55128 = bl;
-        this.field_55129 = bl2;
-        this.maxAge = 300;
-        this.gravityStrength = gravity * 1.2F * 0.0025F;
-        float g = size * (this.random.nextBoolean() ? 0.05F : 0.075F);
-        this.scale = g;
-        this.setBoundingBoxSpacing(g, g);
-        this.velocityMultiplier = 1.0F;
-        this.velocityY = -initialYVelocity;
-        float h = this.random.nextFloat();
-        this.field_55130 = Math.cos(Math.toRadians(h * 60.0F)) * this.field_55127;
-        this.field_55131 = Math.sin(Math.toRadians(h * 60.0F)) * this.field_55127;
-        this.field_55132 = Math.toRadians(1000.0F + h * 3000.0F);
+    protected StarParticle(ClientLevel clientLevel, double d, double e, double f, TextureAtlasSprite textureAtlasSprite, float g, float h, boolean bl, boolean bl2, float i, float j) {
+        super(clientLevel, d, e, f, textureAtlasSprite);
+        this.rotSpeed = (float)Math.toRadians(this.random.nextBoolean() ? (double)-30.0F : (double)30.0F);
+        this.spinAcceleration = (float)Math.toRadians(this.random.nextBoolean() ? (double)-5.0F : (double)5.0F);
+        this.windBig = h;
+        this.swirl = bl;
+        this.flowAway = bl2;
+        this.lifetime = 300;
+        this.gravity = g * 1.2F * 0.0025F;
+        float k = i * (this.random.nextBoolean() ? 0.05F : 0.075F);
+        this.quadSize = k;
+        this.setSize(k, k);
+        this.friction = 1.0F;
+        this.yd = (double)(-j);
+        float l = this.random.nextFloat();
+        this.xaFlowScale = Math.cos(Math.toRadians((double)(l * 60.0F))) * (double)this.windBig;
+        this.zaFlowScale = Math.sin(Math.toRadians((double)(l * 60.0F))) * (double)this.windBig;
+        this.swirlPeriod = Math.toRadians((double)(1000.0F + l * 3000.0F));
     }
 
     @Override
-    public BillboardParticle.RenderType getRenderType() {
-        return BillboardParticle.RenderType.PARTICLE_ATLAS_OPAQUE;
+    public SingleQuadParticle.Layer getLayer() {
+        return SingleQuadParticle.Layer.OPAQUE;
     }
 
     @Override
     public void tick() {
-        this.lastX = this.x;
-        this.lastY = this.y;
-        this.lastZ = this.z;
-        if (this.maxAge-- <= 0) {
-            this.markDead();
+        this.xo = this.x;
+        this.yo = this.y;
+        this.zo = this.z;
+        if (this.lifetime-- <= 0) {
+            this.remove();
         }
 
-        if (!this.dead) {
-            float f = 300 - this.maxAge;
+        if (!this.removed) {
+            float f = (float)(300 - this.lifetime);
             float g = Math.min(f / 300.0F, 1.0F);
-            double d = 0.0;
-            double e = 0.0;
-            if (this.field_55129) {
-                d += this.field_55130 * Math.pow(g, 1.25);
-                e += this.field_55131 * Math.pow(g, 1.25);
+            double d = (double)0.0F;
+            double e = (double)0.0F;
+            if (this.flowAway) {
+                d += this.xaFlowScale * Math.pow((double)g, (double)1.25F);
+                e += this.zaFlowScale * Math.pow((double)g, (double)1.25F);
             }
 
-            if (this.field_55128) {
-                d += g * Math.cos(g * this.field_55132) * this.field_55127;
-                e += g * Math.sin(g * this.field_55132) * this.field_55127;
+            if (this.swirl) {
+                d += (double)g * Math.cos((double)g * this.swirlPeriod) * (double)this.windBig;
+                e += (double)g * Math.sin((double)g * this.swirlPeriod) * (double)this.windBig;
             }
 
-            this.velocityX += d * 0.0025F;
-            this.velocityZ += e * 0.0025F;
-            this.velocityY = this.velocityY - this.gravityStrength;
-            this.angularVelocity = this.angularVelocity + this.angularAcceleration / 20.0F;
-            this.lastZRotation = this.zRotation;
-            this.zRotation = this.zRotation + this.angularVelocity / 20.0F;
-            this.move(this.velocityX, this.velocityY, this.velocityZ);
-            if (this.onGround || this.maxAge < 299 && (this.velocityX == 0.0 || this.velocityZ == 0.0)) {
-                this.markDead();
+            this.xd += d * (double)0.0025F;
+            this.zd += e * (double)0.0025F;
+            this.yd -= (double)this.gravity;
+            this.rotSpeed += this.spinAcceleration / 20.0F;
+            this.oRoll = this.roll;
+            this.roll += this.rotSpeed / 20.0F;
+            this.move(this.xd, this.yd, this.zd);
+            if (this.onGround || this.lifetime < 299 && (this.xd == (double)0.0F || this.zd == (double)0.0F)) {
+                this.remove();
             }
 
-            if (!this.dead) {
-                this.velocityX = this.velocityX * this.velocityMultiplier;
-                this.velocityY = this.velocityY * this.velocityMultiplier;
-                this.velocityZ = this.velocityZ * this.velocityMultiplier;
+            if (!this.removed) {
+                this.xd *= (double)this.friction;
+                this.yd *= (double)this.friction;
+                this.zd *= (double)this.friction;
             }
         }
     }
 
     @Environment(EnvType.CLIENT)
-    public static class Factory implements ParticleFactory<SimpleParticleType> {
-        private final SpriteProvider spriteProvider;
+    public static class Factory implements ParticleProvider<SimpleParticleType> {
+        private final SpriteSet spriteProvider;
 
-        public Factory(SpriteProvider spriteProvider) {
+        public Factory(SpriteSet spriteProvider) {
             this.spriteProvider = spriteProvider;
         }
 
         public Particle createParticle(
-                SimpleParticleType simpleParticleType, ClientWorld clientWorld, double d, double e, double f, double g, double h, double i, Random random
+                SimpleParticleType simpleParticleType, ClientLevel clientWorld, double d, double e, double f, double g, double h, double i, RandomSource random
         ) {
-            return new StarParticle(clientWorld, d, e, f, this.spriteProvider.getSprite(random), 0.07F, 10.0F, true, false, 2.0F, 0.021F);
+            return new StarParticle(clientWorld, d, e, f, this.spriteProvider.get(random), 0.07F, 10.0F, true, false, 2.0F, 0.021F);
         }
     }
 
     @Environment(EnvType.CLIENT)
-    public static class TintedLeavesFactory implements ParticleFactory<TintedParticleEffect> {
-        private final SpriteProvider spriteProvider;
+    public static class TintedLeavesFactory implements ParticleProvider<ColorParticleOption> {
+        private final SpriteSet spriteProvider;
 
-        public TintedLeavesFactory(SpriteProvider spriteProvider) {
+        public TintedLeavesFactory(SpriteSet spriteProvider) {
             this.spriteProvider = spriteProvider;
         }
 
         public Particle createParticle(
-                TintedParticleEffect tintedParticleEffect, ClientWorld clientWorld, double d, double e, double f, double g, double h, double i, Random random
+                ColorParticleOption tintedParticleEffect, ClientLevel clientWorld, double d, double e, double f, double g, double h, double i, RandomSource random
         ) {
-            StarParticle leavesParticle = new StarParticle(clientWorld, d, e, f, this.spriteProvider.getSprite(random), 0.07F, 10.0F, true, false, 2.0F, 0.021F);
+            StarParticle leavesParticle = new StarParticle(clientWorld, d, e, f, this.spriteProvider.get(random), 0.07F, 10.0F, true, false, 2.0F, 0.021F);
             leavesParticle.setColor(tintedParticleEffect.getRed(), tintedParticleEffect.getGreen(), tintedParticleEffect.getBlue());
             return leavesParticle;
         }

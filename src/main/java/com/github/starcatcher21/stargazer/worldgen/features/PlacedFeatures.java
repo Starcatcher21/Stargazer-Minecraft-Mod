@@ -4,22 +4,22 @@ import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.worldgen.BiomeTags;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.util.Identifier;
-import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.feature.PlacedFeature;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.level.levelgen.GenerationStep;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
 public class PlacedFeatures {
-    public static final RegistryKey<PlacedFeature> PRISMATIC_ORE = RegistryKey.of(
-            RegistryKeys.PLACED_FEATURE,
-            Identifier.of(Stargazer.MOD_ID, "prismatic_ore")
+    public static final ResourceKey<PlacedFeature> PRISMATIC_ORE = ResourceKey.create(
+            Registries.PLACED_FEATURE,
+            Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "prismatic_ore")
     );
 
     public static void init() {
         BiomeModifications.addFeature(
                 BiomeSelectors.tag(BiomeTags.MOON), // Or use BiomeSelectors.includeByKey(Biomes.PLAINS)
-                GenerationStep.Feature.UNDERGROUND_ORES, // The Step
+                GenerationStep.Decoration.UNDERGROUND_ORES, // The Step
                 PRISMATIC_ORE // The Registry Key
         );
     }

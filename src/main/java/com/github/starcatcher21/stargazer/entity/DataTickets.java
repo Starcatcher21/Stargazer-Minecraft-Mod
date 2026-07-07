@@ -1,8 +1,8 @@
 package com.github.starcatcher21.stargazer.entity;
 
 import com.github.starcatcher21.stargazer.nbt.StarPatternsComponent;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.DyeColor;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.ItemStack;
 import software.bernie.geckolib.constant.dataticket.DataTicket;
 
 public class DataTickets {

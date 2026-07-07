@@ -2,90 +2,99 @@ package com.github.starcatcher21.stargazer.block.clases;
 
 import com.github.starcatcher21.stargazer.CustomWorlds;
 import com.github.starcatcher21.stargazer.mechanics.PointOfIntrests;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.ShapeContext;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.network.packet.s2c.play.PositionFlag;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.*;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.util.shape.VoxelShapes;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.BlockUtil;
+import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.*;
-import net.minecraft.world.border.WorldBorder;
-import net.minecraft.world.poi.PointOfInterest;
-import net.minecraft.world.poi.PointOfInterestStorage;
-import net.minecraft.world.tick.ScheduledTickView;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.Relative;
+import net.minecraft.world.entity.ai.village.poi.PoiManager;
+import net.minecraft.world.entity.ai.village.poi.PoiRecord;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.border.WorldBorder;
+import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.level.portal.TeleportTransition;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Optional;
 
 public class Chessboard extends Block {
-    public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
+    public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
-    public Chessboard(Settings settings) {
+    public Chessboard(Properties settings) {
         super(settings);
-        this.setDefaultState(
-                this.stateManager.getDefaultState().with(WATERLOGGED, Boolean.FALSE)
+        this.registerDefaultState(
+                this.stateDefinition.any().setValue(WATERLOGGED, Boolean.FALSE)
         );
     }
 
     @Override
-    protected BlockState getStateForNeighborUpdate(
+    protected BlockState updateShape(
             BlockState state,
-            WorldView world,
-            ScheduledTickView tickView,
+            LevelReader world,
+            ScheduledTickAccess tickView,
             BlockPos pos,
             Direction direction,
             BlockPos neighborPos,
             BlockState neighborState,
-            Random random
+            RandomSource random
     ) {
-        if ((Boolean)state.get(WATERLOGGED)) {
-            tickView.scheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
+        if ((Boolean)state.getValue(WATERLOGGED)) {
+            tickView.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
         }
 
         return state;
     }
 
     @Override
-    protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-        if (world instanceof ServerWorld sw) {
-            TeleportTarget target = createTeleportTarget(sw, player, pos);
-            player.teleportTo(target);
+    protected InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit) {
+        if (world instanceof ServerLevel sw) {
+            TeleportTransition target = createTeleportTarget(sw, player, pos);
+            player.teleport(target);
         }
-        return ActionResult.PASS;
+        return InteractionResult.PASS;
     }
 
     @Override
-    public void onSteppedOn(World world, BlockPos pos, BlockState state, Entity entity) {
-        if (!(entity instanceof PlayerEntity)) {
-            if (world instanceof ServerWorld sw) {
-                TeleportTarget target = createTeleportTarget(sw, entity, pos);
-                TeleportTarget newTarget = target.withPosition(target.position().offset(Direction.NORTH, 1));
-                entity.teleportTo(newTarget);
+    public void stepOn(Level world, BlockPos pos, BlockState state, Entity entity) {
+        if (!(entity instanceof Player)) {
+            if (world instanceof ServerLevel sw) {
+                TeleportTransition target = createTeleportTarget(sw, entity, pos);
+                TeleportTransition newTarget = target.withPosition(target.position().relative(Direction.NORTH, 1));
+                entity.teleport(newTarget);
             }
         }
-        super.onSteppedOn(world, pos, state, entity);
+        super.stepOn(world, pos, state, entity);
     }
 
     @Nullable
-    public TeleportTarget createTeleportTarget(ServerWorld world, Entity entity, BlockPos pos) {
-        RegistryKey<World> registryKey = world.getRegistryKey() == CustomWorlds.CHESS ? World.OVERWORLD : CustomWorlds.CHESS;
-        ServerWorld serverWorld = world.getServer().getWorld(registryKey);
+    public TeleportTransition createTeleportTarget(ServerLevel world, Entity entity, BlockPos pos) {
+        ResourceKey<Level> registryKey = world.dimension() == CustomWorlds.CHESS ? Level.OVERWORLD : CustomWorlds.CHESS;
+        ServerLevel serverWorld = world.getServer().getLevel(registryKey);
         if (serverWorld == null) {
             return null;
         }
@@ -93,59 +102,59 @@ public class Chessboard extends Block {
         return this.getOrCreateExitPortalTarget(registryKey, serverWorld, entity, pos, worldBorder);
     }
 
-    public List<BlockPos> getPortalPos(BlockPos pos, ServerWorld world, WorldBorder worldBorder) {
-        PointOfInterestStorage pointOfInterestStorage = world.getPointOfInterestStorage();
+    public List<BlockPos> getPortalPos(BlockPos pos, ServerLevel world, WorldBorder worldBorder) {
+        PoiManager pointOfInterestStorage = world.getPoiManager();
         ChunkPos chunkPos = world.getChunk(pos).getPos();
-        pointOfInterestStorage.preloadChunks(world, pos, 16);
-        return pointOfInterestStorage.getInChunk(poiType -> poiType.matchesKey(Registries.POINT_OF_INTEREST_TYPE.getKey(PointOfIntrests.CHESS_TELEPORTER).get()), chunkPos, PointOfInterestStorage.OccupationStatus.ANY)
-                .map(PointOfInterest::getPos)
-                .filter(worldBorder::contains)
+        pointOfInterestStorage.ensureLoadedAndValid(world, pos, 16);
+        return pointOfInterestStorage.getInChunk(poiType -> poiType.is(BuiltInRegistries.POINT_OF_INTEREST_TYPE.getResourceKey(PointOfIntrests.CHESS_TELEPORTER).get()), chunkPos, PoiManager.Occupancy.ANY)
+                .map(PoiRecord::getPos)
+                .filter(worldBorder::isWithinBounds)
                 .toList();
     }
 
-    private TeleportTarget getOrCreateExitPortalTarget(RegistryKey<World> worldKey, ServerWorld world, Entity entity2, BlockPos pos, WorldBorder worldBorder) {
-        TeleportTarget.PostDimensionTransition postDimensionTransition;
-        BlockLocating.Rectangle rectangle;
+    private TeleportTransition getOrCreateExitPortalTarget(ResourceKey<Level> worldKey, ServerLevel world, Entity entity2, BlockPos pos, WorldBorder worldBorder) {
+        TeleportTransition.PostTeleportTransition postDimensionTransition;
+        BlockUtil.FoundRectangle rectangle;
         List<BlockPos> optional = getPortalPos(pos, world, worldBorder);
         if (!optional.isEmpty()) {
             BlockPos blockPos = optional.getFirst();
-            rectangle = new BlockLocating.Rectangle(blockPos, 1, 3);
-            postDimensionTransition = TeleportTarget.SEND_TRAVEL_THROUGH_PORTAL_PACKET.then(entity -> entity.addPortalChunkTicketAt(pos));
+            rectangle = new BlockUtil.FoundRectangle(blockPos, 1, 3);
+            postDimensionTransition = TeleportTransition.PLAY_PORTAL_SOUND.then(entity -> entity.placePortalTicket(pos));
         } else {
             if (worldKey.equals(CustomWorlds.COSMIC) && pos.getY() < 100) {
                 rectangle = createPortal(worldKey, world, new BlockPos(pos.getX(), 100, pos.getZ())).get();
             } else {
                 rectangle = createPortal(worldKey, world, new BlockPos(pos.getX(), 60, pos.getZ())).get();
             }
-            postDimensionTransition = TeleportTarget.SEND_TRAVEL_THROUGH_PORTAL_PACKET.then(TeleportTarget.ADD_PORTAL_CHUNK_TICKET);
+            postDimensionTransition = TeleportTransition.PLAY_PORTAL_SOUND.then(TeleportTransition.PLACE_PORTAL_TICKET);
         }
-        return new TeleportTarget(world, rectangle.lowerLeft.up().toCenterPos(), Vec3d.ZERO, entity2.getYaw(), entity2.getPitch(), PositionFlag.combine(PositionFlag.DELTA, PositionFlag.ROT), postDimensionTransition);
+        return new TeleportTransition(world, rectangle.minCorner.above().getCenter(), Vec3.ZERO, entity2.getYRot(), entity2.getXRot(), Relative.union(Relative.DELTA, Relative.ROTATION), postDimensionTransition);
     }
 
     @Override
     protected FluidState getFluidState(BlockState state) {
-        return state.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(state);
+        return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
     }
 
     @Override
-    protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return VoxelShapes.cuboid(0, 0, 0, 1, 0.125, 1);
+    protected VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
+        return Shapes.box(0, 0, 0, 1, 0.125, 1);
     }
 
     @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(WATERLOGGED);
     }
 
     @Override
-    public BlockState getPlacementState(ItemPlacementContext ctx) {
-        FluidState fluidState = ctx.getWorld().getFluidState(ctx.getBlockPos());
-        BlockState blockState = this.getDefaultState()
-                .with(WATERLOGGED, Boolean.valueOf(fluidState.getFluid() == Fluids.WATER));
+    public BlockState getStateForPlacement(BlockPlaceContext ctx) {
+        FluidState fluidState = ctx.getLevel().getFluidState(ctx.getClickedPos());
+        BlockState blockState = this.defaultBlockState()
+                .setValue(WATERLOGGED, Boolean.valueOf(fluidState.getType() == Fluids.WATER));
         return blockState;
     }
 
-    public Optional<BlockLocating.Rectangle> createPortal(RegistryKey<World> worldKey, World world, BlockPos pos) {
+    public Optional<BlockUtil.FoundRectangle> createPortal(ResourceKey<Level> worldKey, Level world, BlockPos pos) {
         int n;
         int m;
         int l;
@@ -154,30 +163,30 @@ public class Chessboard extends Block {
         double e = -1.0;
         BlockPos blockPos2 = null;
         WorldBorder worldBorder = world.getWorldBorder();
-        int i = Math.min(world.getTopYInclusive(), world.getBottomY() + world.getHeight() - 1);
+        int i = Math.min(world.getMaxY(), world.getMinY() + world.getHeight() - 1);
         boolean j = true;
-        BlockPos.Mutable mutable = pos.mutableCopy();
-        for (BlockPos.Mutable mutable2 : BlockPos.iterateInSquare(pos, 0, Direction.EAST, Direction.SOUTH)) {
-            int k = Math.min(i, world.getTopY(Heightmap.Type.MOTION_BLOCKING, mutable2.getX(), mutable2.getZ()));
-            if (!worldBorder.contains(mutable2)) continue;
-            for (l = k; l >= world.getBottomY(); --l) {
+        BlockPos.MutableBlockPos mutable = pos.mutable();
+        for (BlockPos.MutableBlockPos mutable2 : BlockPos.spiralAround(pos, 0, Direction.EAST, Direction.SOUTH)) {
+            int k = Math.min(i, world.getHeight(Heightmap.Types.MOTION_BLOCKING, mutable2.getX(), mutable2.getZ()));
+            if (!worldBorder.isWithinBounds(mutable2)) continue;
+            for (l = k; l >= world.getMinY(); --l) {
                 mutable2.setY(l);
                 if (!this.isBlockStateValid(world, mutable2)) continue;
                 m = l;
-                while (l > world.getBottomY() && this.isBlockStateValid(world, mutable2.move(Direction.DOWN))) {
+                while (l > world.getMinY() && this.isBlockStateValid(world, mutable2.move(Direction.DOWN))) {
                     --l;
                 }
                 if (l + 4 > i || (n = m - l) > 0 && n < 3) continue;
                 mutable2.setY(l);
                 if (!isValidPortalPos(world, mutable2)) continue;
-                double f = pos.getSquaredDistance(mutable2);
+                double f = pos.distSqr(mutable2);
                 if (isValidPortalPos(world, mutable2) && isValidPortalPos(world, mutable2) && (d == -1.0 || d > f)) {
                     d = f;
-                    blockPos = mutable2.toImmutable();
+                    blockPos = mutable2.immutable();
                 }
                 if (d != -1.0 || e != -1.0 && !(e > f)) continue;
                 e = f;
-                blockPos2 = mutable2.toImmutable();
+                blockPos2 = mutable2.immutable();
             }
         }
         if (d == -1.0 && e != -1.0) {
@@ -186,25 +195,25 @@ public class Chessboard extends Block {
         }
         if (d == -1.0) {
             int p = i - 9;
-            int o = Math.max(world.getBottomY() - -1, 70);
+            int o = Math.max(world.getMinY() - -1, 70);
             if (p < o) {
                 return Optional.empty();
             }
-            blockPos = new BlockPos(pos.getX(), MathHelper.clamp(pos.getY(), o, p), pos.getZ()).toImmutable();
-            blockPos = worldBorder.clampFloored(blockPos);
+            blockPos = new BlockPos(pos.getX(), Mth.clamp(pos.getY(), o, p), pos.getZ()).immutable();
+            blockPos = worldBorder.clampToBounds(blockPos);
         }
-        if (!world.getBlockState(blockPos.down()).equals(this.getDefaultState())) {
-            world.setBlockState(blockPos, this.getDefaultState());
+        if (!world.getBlockState(blockPos.below()).equals(this.defaultBlockState())) {
+            world.setBlockAndUpdate(blockPos, this.defaultBlockState());
         }
-        return Optional.of(new BlockLocating.Rectangle(blockPos.toImmutable(), 1, 2));
+        return Optional.of(new BlockUtil.FoundRectangle(blockPos.immutable(), 1, 2));
     }
 
-    private boolean isBlockStateValid(World world, BlockPos.Mutable pos) {
+    private boolean isBlockStateValid(Level world, BlockPos.MutableBlockPos pos) {
         BlockState blockState = world.getBlockState(pos);
-        return blockState.isReplaceable() && blockState.getFluidState().isEmpty();
+        return blockState.canBeReplaced() && blockState.getFluidState().isEmpty();
     }
 
-    private boolean isValidPortalPos(World world, BlockPos pos) {
-        return world.getBlockState(pos.up()).isAir();
+    private boolean isValidPortalPos(Level world, BlockPos pos) {
+        return world.getBlockState(pos.above()).isAir();
     }
 }

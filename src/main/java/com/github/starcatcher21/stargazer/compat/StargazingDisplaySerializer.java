@@ -4,8 +4,8 @@ import com.github.starcatcher21.stargazer.mechanics.star.FallingObjectsList;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.shedaniel.rei.api.common.display.DisplaySerializer;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 
 public class StargazingDisplaySerializer implements DisplaySerializer<StargazingDisplay> {
     public final MapCodec<StargazingDisplay> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
@@ -13,7 +13,7 @@ public class StargazingDisplaySerializer implements DisplaySerializer<Stargazing
             .apply(instance, StargazingDisplay::new)
     );
 
-    public final PacketCodec<RegistryByteBuf, StargazingDisplay> PACKET_CODEC = PacketCodec.tuple(
+    public final StreamCodec<RegistryFriendlyByteBuf, StargazingDisplay> PACKET_CODEC = StreamCodec.composite(
             FallingObjectsList.PACKET_CODEC,
             StargazingDisplay::getList,
             StargazingDisplay::new
@@ -24,7 +24,7 @@ public class StargazingDisplaySerializer implements DisplaySerializer<Stargazing
     }
 
     @Override
-    public PacketCodec<RegistryByteBuf, StargazingDisplay> streamCodec() {
+    public StreamCodec<RegistryFriendlyByteBuf, StargazingDisplay> streamCodec() {
         return PACKET_CODEC;
     }
 }

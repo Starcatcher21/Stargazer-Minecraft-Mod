@@ -1,13 +1,13 @@
 package com.github.starcatcher21.stargazer.entity;
 
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ai.goal.LookAroundGoal;
-import net.minecraft.entity.ai.goal.WanderAroundGoal;
-import net.minecraft.entity.attribute.DefaultAttributeContainer;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.mob.PathAwareEntity;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
+import net.minecraft.world.level.Level;
 import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
@@ -18,21 +18,21 @@ import software.bernie.geckolib.animation.object.PlayState;
 import software.bernie.geckolib.animation.state.AnimationTest;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class AmethystTurtle extends PathAwareEntity implements GeoEntity {
+public class AmethystTurtle extends PathfinderMob implements GeoEntity {
     protected static final RawAnimation WALK_ANIM = RawAnimation.begin().thenLoop("animation.amethyst_turtle.walk");
     protected static final RawAnimation LOOK_ANIM = RawAnimation.begin().thenLoop("animation.amethyst_turtle.look");
 
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
 
-    public AmethystTurtle(EntityType<? extends AmethystTurtle> type, World world) {
+    public AmethystTurtle(EntityType<? extends AmethystTurtle> type, Level world) {
         super(type, world);
     }
 
-    public static DefaultAttributeContainer.Builder createCreatureAttributes() {
-        return MobEntity.createMobAttributes()
-                .add(EntityAttributes.MAX_HEALTH, 10.0)
-                .add(EntityAttributes.MOVEMENT_SPEED, 0.15)
-                .add(EntityAttributes.FLYING_SPEED, 0.3);
+    public static AttributeSupplier.Builder createCreatureAttributes() {
+        return Mob.createMobAttributes()
+                .add(Attributes.MAX_HEALTH, 10.0)
+                .add(Attributes.MOVEMENT_SPEED, 0.15)
+                .add(Attributes.FLYING_SPEED, 0.3);
     }
 
     @Override
@@ -53,8 +53,8 @@ public class AmethystTurtle extends PathAwareEntity implements GeoEntity {
     }
 
     @Override
-    protected void initGoals() {
-        this.goalSelector.add(0, new WanderAroundGoal(this, 0.6D));
-        this.goalSelector.add(1, new LookAroundGoal(this));
+    protected void registerGoals() {
+        this.goalSelector.addGoal(0, new RandomStrollGoal(this, 0.6D));
+        this.goalSelector.addGoal(1, new RandomLookAroundGoal(this));
     }
 }

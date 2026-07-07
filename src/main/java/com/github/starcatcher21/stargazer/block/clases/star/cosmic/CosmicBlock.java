@@ -4,77 +4,76 @@ import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.item.ModItems;
 import com.github.starcatcher21.stargazer.particle.Particles;
 import com.mojang.serialization.MapCodec;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.BlockWithEntity;
-import net.minecraft.block.ShapeContext;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.particle.SimpleParticleType;
-import net.minecraft.registry.Registries;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.util.shape.VoxelShapes;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
-import net.minecraft.world.event.GameEvent;
-
 import java.util.Random;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class CosmicBlock extends BlockWithEntity {
+public class CosmicBlock extends BaseEntityBlock {
     private final static Random random = new Random();
     private final static float velocity = 0.06F;
-    public static final Identifier TEXTURE = Identifier.of(Stargazer.MOD_ID, "textures/block/dream_block.png");
+    public static final Identifier TEXTURE = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/block/dream_block.png");
     @Override
-    protected MapCodec<? extends CosmicBlock> getCodec() {
-        return createCodec(CosmicBlock::new);
+    protected MapCodec<? extends CosmicBlock> codec() {
+        return simpleCodec(CosmicBlock::new);
     }
 
     @Override
-    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new CosmicBlockEntity(pos, state);
     }
 
 
     @Override
-    public VoxelShape getOutlineShape(BlockState state, BlockView view, BlockPos pos, ShapeContext context) {
-        if (context.isHolding(Registries.ITEM.get(Identifier.of(Stargazer.MOD_ID, "cosmic_block"))) || context.isHolding(ModItems.STAR_HAMMER)) {
-            return VoxelShapes.fullCube();
+    public VoxelShape getShape(BlockState state, BlockGetter view, BlockPos pos, CollisionContext context) {
+        if (context.isHoldingItem(BuiltInRegistries.ITEM.getValue(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "cosmic_block"))) || context.isHoldingItem(ModItems.STAR_HAMMER)) {
+            return Shapes.block();
         } else {
-            return VoxelShapes.cuboid(0.0, 0.0, 0.0, 0.01, 0.01, 0.01);
+            return Shapes.box(0.0, 0.0, 0.0, 0.01, 0.01, 0.01);
         }
     }
 
     @Override
-    protected VoxelShape getCollisionShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return VoxelShapes.empty();
+    protected VoxelShape getCollisionShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
+        return Shapes.empty();
     }
 
     @Override
-    public BlockState onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
-        if (world instanceof ServerWorld sw) {
-            sw.spawnParticles((SimpleParticleType) Particles.STAR, pos.getX() + 0.5d, pos.getY() + 0.5d, pos.getZ() + 0.5d, 5, -velocity + random.nextFloat(velocity*2), -velocity + random.nextFloat(velocity*2), -velocity + random.nextFloat(velocity*2), 0.02d);
+    public BlockState playerWillDestroy(Level world, BlockPos pos, BlockState state, Player player) {
+        if (world instanceof ServerLevel sw) {
+            sw.sendParticles((SimpleParticleType) Particles.STAR, pos.getX() + 0.5d, pos.getY() + 0.5d, pos.getZ() + 0.5d, 5, -velocity + random.nextFloat(velocity*2), -velocity + random.nextFloat(velocity*2), -velocity + random.nextFloat(velocity*2), 0.02d);
         }
-        world.playSoundAtBlockCenterClient(pos, this.soundGroup.getBreakSound(), SoundCategory.BLOCKS, this.soundGroup.volume*2, this.soundGroup.pitch, true);
-        world.emitGameEvent(GameEvent.BLOCK_DESTROY, pos, GameEvent.Emitter.of(player, state));
+        world.playLocalSound(pos, this.soundType.getBreakSound(), SoundSource.BLOCKS, this.soundType.volume*2, this.soundType.pitch, true);
+        world.gameEvent(GameEvent.BLOCK_DESTROY, pos, GameEvent.Context.of(player, state));
         return state;
     }
 
 
-    public CosmicBlock(Settings settings) {
+    public CosmicBlock(Properties settings) {
         super(settings);
     }
 
     @Override
-    protected boolean canReplace(BlockState state, ItemPlacementContext context) {
-        return (context.getStack().isEmpty() || !context.getStack().isOf(this.asItem()));
+    protected boolean canBeReplaced(BlockState state, BlockPlaceContext context) {
+        return (context.getItemInHand().isEmpty() || !context.getItemInHand().is(this.asItem()));
     }
 
     @Override
-    public boolean canMobSpawnInside(BlockState state) {
+    public boolean isPossibleToRespawnInThis(BlockState state) {
         return true;
     }
 }

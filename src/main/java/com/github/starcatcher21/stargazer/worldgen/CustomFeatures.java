@@ -24,11 +24,11 @@ import com.github.starcatcher21.stargazer.worldgen.features.trees.spiro.SpiroTre
 import com.github.starcatcher21.stargazer.worldgen.features.trees.star.StarTrees;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.trunn.TrunnTrees;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.yeri.YeriTrees;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.util.Identifier;
-import net.minecraft.world.gen.feature.DefaultFeatureConfig;
-import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 
 public class CustomFeatures {
     public static final Feature spike = register("spikes", new Amertylst(AmertylstConfig.CODEC));
@@ -39,9 +39,9 @@ public class CustomFeatures {
     public static final Feature purple_shroom = register("purple_shroom", new PurpleShrooms(TreeConfig.CODEC));
     public static final Feature bone_trees = register("bone_trees", new BoneTrees(TreeConfig.CODEC));
     public static final Feature prismatic_ore = register("prismatic_ore", new PrismaticOre(TreeConfig.CODEC));
-    public static final Feature forget_me_now = register("forget_me_now", new ForgetMeNow(DefaultFeatureConfig.CODEC));
-    public static final Feature gradi = register("gradi", new Gradi(DefaultFeatureConfig.CODEC));
-    public static final Feature eyes = register("eyes", new Eyes(DefaultFeatureConfig.CODEC));
+    public static final Feature forget_me_now = register("forget_me_now", new ForgetMeNow(NoneFeatureConfiguration.CODEC));
+    public static final Feature gradi = register("gradi", new Gradi(NoneFeatureConfiguration.CODEC));
+    public static final Feature eyes = register("eyes", new Eyes(NoneFeatureConfiguration.CODEC));
     public static final Feature darkness_trees = register("darkness_trees", new DarknessTrees(TreeConfig.CODEC));
     public static final Feature nebula_trees = register("nebula_trees", new NebulaTrees(TreeConfig.CODEC));
     public static final Feature chess_trees = register("chess_trees", new ChessTrees(TreeConfig.CODEC));
@@ -55,8 +55,8 @@ public class CustomFeatures {
 
     public static Feature register(String id, Feature<?> entry) {
         return Registry.register(
-                Registries.FEATURE,
-                Identifier.of(Stargazer.MOD_ID, id),
+                BuiltInRegistries.FEATURE,
+                Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, id),
                 entry
         );
     }

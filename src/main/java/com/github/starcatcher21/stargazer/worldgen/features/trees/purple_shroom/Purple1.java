@@ -2,8 +2,8 @@ package com.github.starcatcher21.stargazer.worldgen.features.trees.purple_shroom
 
 import com.github.starcatcher21.stargazer.block.register.StarBlocks;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.Tree;
-import net.minecraft.block.Blocks;
-import net.minecraft.util.math.Direction;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.block.Blocks;
 
 public class Purple1 {
     public static void init(Tree tree) {

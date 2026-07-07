@@ -1,0 +1,74 @@
+package com.github.starcatcher21.stargazer.block.clases.moon.star_trap;
+
+import com.github.starcatcher21.stargazer.block.BlockTypes;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
+import net.minecraft.util.math.BlockPos;
+import software.bernie.geckolib.animatable.GeoAnimatable;
+import software.bernie.geckolib.animatable.GeoBlockEntity;
+import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.animatable.manager.AnimatableManager;
+import software.bernie.geckolib.animation.AnimationController;
+import software.bernie.geckolib.animation.RawAnimation;
+import software.bernie.geckolib.animation.object.PlayState;
+import software.bernie.geckolib.animation.state.AnimationTest;
+import software.bernie.geckolib.util.GeckoLibUtil;
+
+public class StarTrapEntity extends BlockEntity implements GeoBlockEntity {
+    private boolean active;
+
+    protected static final RawAnimation ACTIVE = RawAnimation.begin().thenPlayAndHold("animation.star_trap.activated");
+    protected static final RawAnimation NOTACTIVE = RawAnimation.begin().thenPlay("animation.star_trap.disactivate");
+
+    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+
+    public StarTrapEntity(BlockPos pos, BlockState state) {
+        super(BlockTypes.STAR_TRAP, pos, state);
+        this.active = state.get(StarTrap.ACTIVE);
+    }
+
+    public void setActive(Boolean ac) {
+        active = ac;
+        markDirty();
+    }
+    public boolean getActive() {
+        return active;
+    }
+
+    @Override
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<GeoAnimatable>(this::animControler));
+    }
+
+    protected <E extends StarTrap> PlayState animControler(final AnimationTest<?> animTest) {
+        if (this.getActive()) {
+            animTest.setAnimation(ACTIVE);
+        } else {
+            animTest.setAnimation(NOTACTIVE);
+        }
+        return  PlayState.CONTINUE;
+    }
+
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return cache;
+    }
+
+    @Override
+    protected void readData(ReadView nbt) {
+        super.readData(nbt);
+        active = nbt.getBoolean("active", false);
+
+        if (world != null) {
+            world.updateListeners(pos, getCachedState(), getCachedState(), 0);
+        }
+    }
+
+    @Override
+    protected void writeData(WriteView nbt) {
+        super.writeData(nbt);
+        nbt.putBoolean("active", active);
+    }
+}

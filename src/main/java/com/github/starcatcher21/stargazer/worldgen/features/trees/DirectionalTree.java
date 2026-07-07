@@ -1,10 +1,9 @@
 package com.github.starcatcher21.stargazer.worldgen.features.trees;
 
 import it.unimi.dsi.fastutil.objects.ObjectArraySet;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-
 import java.util.Set;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 
 // North negative Z
 // South positive Z

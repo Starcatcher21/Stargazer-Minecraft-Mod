@@ -7,86 +7,86 @@ import com.github.starcatcher21.stargazer.screens.recipe.MoonWelderRecipeInvento
 import com.github.starcatcher21.stargazer.screens.recipe.RecipeTypes;
 import com.github.starcatcher21.stargazer.screens.recipeInputs.MoonWelderInventory;
 import com.github.starcatcher21.stargazer.screens.slots.MoonWelderResultSlot;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.CraftingResultInventory;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.screen.ScreenHandlerContext;
-import net.minecraft.screen.slot.Slot;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.world.World;
 import net.minecraft.world.attribute.EnvironmentAttributes;
-import net.minecraft.world.attribute.WorldEnvironmentAttributeAccess;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Optional;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.Container;
+import net.minecraft.world.attribute.EnvironmentAttributeSystem;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.inventory.ResultContainer;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.level.Level;
 
 public class MoonWelderScreenHandler
-        extends ScreenHandler {
+        extends AbstractContainerMenu {
 
-    private final ScreenHandlerContext context;
-    private final PlayerEntity player;
+    private final ContainerLevelAccess context;
+    private final Player player;
     private boolean filling;
 
     protected final MoonWelderRecipeInventory craftingInventory;
-    protected final CraftingResultInventory craftingResultInventory = new CraftingResultInventory();
+    protected final ResultContainer craftingResultInventory = new ResultContainer();
 
-    public MoonWelderScreenHandler(int syncId, PlayerInventory playerInventory) {
-        this(syncId, playerInventory, ScreenHandlerContext.EMPTY);
+    public MoonWelderScreenHandler(int syncId, Inventory playerInventory) {
+        this(syncId, playerInventory, ContainerLevelAccess.NULL);
     }
 
-    public MoonWelderScreenHandler(int syncId, PlayerInventory playerInventory, ScreenHandlerContext context) {
+    public MoonWelderScreenHandler(int syncId, Inventory playerInventory, ContainerLevelAccess context) {
         super(ScreenHandlerTypes.MOON_WELDER_HANDLER, syncId);
         this.craftingInventory = new MoonWelderInventory(this, 3);
         this.context = context;
         this.player = playerInventory.player;
         this.addResultSlot(this.player, 112, 40);
         this.addInputSlots(36, 40);
-        this.addPlayerSlots(playerInventory, 8, 95);
+        this.addStandardInventorySlots(playerInventory, 8, 95);
     }
 
-    protected static void updateResult(ScreenHandler handler, ServerWorld world, PlayerEntity player, MoonWelderRecipeInventory craftingInventory, CraftingResultInventory resultInventory, @Nullable RecipeEntry<?> recipe) {
+    protected static void updateResult(AbstractContainerMenu handler, ServerLevel world, Player player, MoonWelderRecipeInventory craftingInventory, ResultContainer resultInventory, @Nullable RecipeHolder<?> recipe) {
         MoonWelderRecipeInput craftingRecipeInput = craftingInventory.createRecipeInput();
-        ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity)player;
+        ServerPlayer serverPlayerEntity = (ServerPlayer)player;
         ItemStack itemStack = ItemStack.EMPTY;
-        Optional<RecipeEntry<MoonWelderRecipe>> optional = world.getRecipeManager().getFirstMatch
-                (RecipeTypes.MOON_WELDER, craftingRecipeInput, (World)world);
+        Optional<RecipeHolder<MoonWelderRecipe>> optional = world.recipeAccess().getRecipeFor
+                (RecipeTypes.MOON_WELDER, craftingRecipeInput, (Level)world);
         if (optional.isPresent()) {
             ItemStack itemStack2;
-            RecipeEntry<MoonWelderRecipe> recipeEntry = optional.get();
+            RecipeHolder<MoonWelderRecipe> recipeEntry = optional.get();
             MoonWelderRecipe craftingRecipe = recipeEntry.value();
-            if (resultInventory.shouldCraftRecipe(serverPlayerEntity, recipeEntry) && (itemStack2 = craftingRecipe.craft(craftingRecipeInput, world.getRegistryManager())).isItemEnabled(world.getEnabledFeatures())) {
-                if (craftingRecipe.getMoonPhase() > 7 && world.isDay() && world.isSkyVisible(player.getBlockPos())) {
+            if (resultInventory.setRecipeUsed(serverPlayerEntity, recipeEntry) && (itemStack2 = craftingRecipe.assemble(craftingRecipeInput, world.registryAccess())).isItemEnabled(world.enabledFeatures())) {
+                if (craftingRecipe.getMoonPhase() > 7 && world.isBrightOutside() && world.canSeeSky(player.blockPosition())) {
                     itemStack = itemStack2;
                 }
-                WorldEnvironmentAttributeAccess envAccess = world.getEnvironmentAttributes();
-                int moonPhase = envAccess.getAttributeValue(EnvironmentAttributes.MOON_PHASE_VISUAL).getIndex();
-                if (world.isNight() && craftingRecipe.getMoonPhase() == moonPhase && world.isSkyVisible(player.getBlockPos())) {
+                EnvironmentAttributeSystem envAccess = world.environmentAttributes();
+                int moonPhase = envAccess.getDimensionValue(EnvironmentAttributes.MOON_PHASE).index();
+                if (world.isDarkOutside() && craftingRecipe.getMoonPhase() == moonPhase && world.canSeeSky(player.blockPosition())) {
                     itemStack = itemStack2;
                 }
             }
         }
-        resultInventory.setStack(2, itemStack);
+        resultInventory.setItem(2, itemStack);
     }
 
     @Override
-    public void onContentChanged(Inventory inventory) {
+    public void slotsChanged(Container inventory) {
         if (!this.filling) {
-            this.context.run((world, pos) -> {
-                if (world instanceof ServerWorld) {
-                    ServerWorld serverWorld = (ServerWorld)world;
+            this.context.execute((world, pos) -> {
+                if (world instanceof ServerLevel) {
+                    ServerLevel serverWorld = (ServerLevel)world;
                     updateResult(this, serverWorld, this.player, this.craftingInventory, this.craftingResultInventory, null);
                 }
             });
         }
     }
 
-    protected Slot addResultSlot(PlayerEntity player, int x, int y) {
+    protected Slot addResultSlot(Player player, int x, int y) {
         return this.addSlot(new MoonWelderResultSlot(player, this.craftingInventory, this.craftingResultInventory, 2, x, y));
     }
 
@@ -99,48 +99,48 @@ public class MoonWelderScreenHandler
         this.filling = true;
     }
 
-    public void onInputSlotFillFinish(ServerWorld world, RecipeEntry<MoonWelderRecipe> recipe) {
+    public void onInputSlotFillFinish(ServerLevel world, RecipeHolder<MoonWelderRecipe> recipe) {
         this.filling = false;
         updateResult(this, world, this.player, this.craftingInventory, this.craftingResultInventory, recipe);
     }
 
     @Override
-    public void onClosed(PlayerEntity player) {
-        super.onClosed(player);
-        this.context.run((world, pos) -> this.dropInventory(player, this.craftingInventory));
+    public void removed(Player player) {
+        super.removed(player);
+        this.context.execute((world, pos) -> this.clearContainer(player, this.craftingInventory));
     }
 
     @Override
-    public boolean canUse(PlayerEntity player) {
-        return canUse(this.context, player, ModBlock.MOON_WELDER);
+    public boolean stillValid(Player player) {
+        return stillValid(this.context, player, ModBlock.MOON_WELDER);
     }
 
     @Override
-    public ItemStack quickMove(PlayerEntity player, int slot) {
+    public ItemStack quickMoveStack(Player player, int slot) {
         ItemStack itemStack = ItemStack.EMPTY;
         Slot slot2 = (Slot)this.slots.get(slot);
-        if (slot2 != null && slot2.hasStack()) {
-            ItemStack itemStack2 = slot2.getStack();
+        if (slot2 != null && slot2.hasItem()) {
+            ItemStack itemStack2 = slot2.getItem();
             itemStack = itemStack2.copy();
-            ItemStack itemStack3 = this.getInputSlots().get(0).getStack();
-            ItemStack itemStack4 = this.getInputSlots().get(1).getStack();
+            ItemStack itemStack3 = this.getInputSlots().get(0).getItem();
+            ItemStack itemStack4 = this.getInputSlots().get(1).getItem();
             if (slot == 2) {
-                if (!this.insertItem(itemStack2, 3, 39, true)) {
+                if (!this.moveItemStackTo(itemStack2, 3, 39, true)) {
                     return ItemStack.EMPTY;
                 }
-                slot2.onQuickTransfer(itemStack2, itemStack);
-            } else if (slot == 0 || slot == 1 ? !this.insertItem(itemStack2, 3, 39, false) : (itemStack3.isEmpty() || itemStack4.isEmpty() ? !this.insertItem(itemStack2, 0, 3, false) : (slot >= 3 && slot < 30 ? !this.insertItem(itemStack2, 30, 39, false) : slot >= 30 && slot < 39 && !this.insertItem(itemStack2, 3, 30, false)))) {
+                slot2.onQuickCraft(itemStack2, itemStack);
+            } else if (slot == 0 || slot == 1 ? !this.moveItemStackTo(itemStack2, 3, 39, false) : (itemStack3.isEmpty() || itemStack4.isEmpty() ? !this.moveItemStackTo(itemStack2, 0, 3, false) : (slot >= 3 && slot < 30 ? !this.moveItemStackTo(itemStack2, 30, 39, false) : slot >= 30 && slot < 39 && !this.moveItemStackTo(itemStack2, 3, 30, false)))) {
                 return ItemStack.EMPTY;
             }
             if (itemStack2.isEmpty()) {
-                slot2.setStack(ItemStack.EMPTY);
+                slot2.setByPlayer(ItemStack.EMPTY);
             } else {
-                slot2.markDirty();
+                slot2.setChanged();
             }
             if (itemStack2.getCount() == itemStack.getCount()) {
                 return ItemStack.EMPTY;
             }
-            slot2.onTakeItem(player, itemStack2);
+            slot2.onTake(player, itemStack2);
         }
         return itemStack;
     }
@@ -169,8 +169,8 @@ public class MoonWelderScreenHandler
     }
 
     @Override
-    public boolean canInsertIntoSlot(ItemStack stack, Slot slot) {
-        return slot.inventory != this.craftingResultInventory && super.canInsertIntoSlot(stack, slot);
+    public boolean canTakeItemForPickAll(ItemStack stack, Slot slot) {
+        return slot.container != this.craftingResultInventory && super.canTakeItemForPickAll(stack, slot);
     }
 
     public Slot getOutputSlot() {
@@ -181,7 +181,7 @@ public class MoonWelderScreenHandler
         return this.slots.subList(0, 2);
     }
 
-    protected PlayerEntity getPlayer() {
+    protected Player getPlayer() {
         return this.player;
     }
 }

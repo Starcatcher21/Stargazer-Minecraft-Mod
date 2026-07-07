@@ -2,123 +2,126 @@ package com.github.starcatcher21.stargazer.block.clases.star.leaves;
 
 import com.github.starcatcher21.stargazer.Stargazer;
 import com.mojang.serialization.MapCodec;
-import net.minecraft.block.*;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.particle.ParticleUtil;
-import net.minecraft.registry.tag.BlockTags;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.IntProperty;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.util.shape.VoxelShapes;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
-import net.minecraft.world.WorldView;
-import net.minecraft.world.tick.ScheduledTickView;
-
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.resources.Identifier;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.util.ParticleUtils;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
+import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SimpleWaterloggedBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import java.util.OptionalInt;
 
-public class StarLeaves extends BlockWithEntity implements Waterloggable {
-    public static final Identifier TEXTURE = Identifier.of(Stargazer.MOD_ID, "textures/block/star_leaves.png");
+public class StarLeaves extends BaseEntityBlock implements SimpleWaterloggedBlock {
+    public static final Identifier TEXTURE = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/block/star_leaves.png");
     protected final float leafParticleChance = 0.5F;
     public static final int MAX_DISTANCE = 7;
-    public static final IntProperty DISTANCE = Properties.DISTANCE_1_7;
-    public static final BooleanProperty PERSISTENT = Properties.PERSISTENT;
-    public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
+    public static final IntegerProperty DISTANCE = BlockStateProperties.DISTANCE;
+    public static final BooleanProperty PERSISTENT = BlockStateProperties.PERSISTENT;
+    public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
     private static final int field_31112 = 1;
 
     @Override
-    public MapCodec<? extends StarLeaves> getCodec() {
+    public MapCodec<? extends StarLeaves> codec() {
         return null;
     }
 
-    public StarLeaves(AbstractBlock.Settings settings) {
+    public StarLeaves(BlockBehaviour.Properties settings) {
         super(settings);
-        this.setDefaultState(
-                this.stateManager.getDefaultState().with(DISTANCE, Integer.valueOf(7)).with(PERSISTENT, Boolean.valueOf(false)).with(WATERLOGGED, Boolean.valueOf(false))
+        this.registerDefaultState(
+                this.stateDefinition.any().setValue(DISTANCE, Integer.valueOf(7)).setValue(PERSISTENT, Boolean.valueOf(false)).setValue(WATERLOGGED, Boolean.valueOf(false))
         );
     }
 
     @Override
-    protected VoxelShape getSidesShape(BlockState state, BlockView world, BlockPos pos) {
-        return VoxelShapes.empty();
+    protected VoxelShape getBlockSupportShape(BlockState state, BlockGetter world, BlockPos pos) {
+        return Shapes.empty();
     }
 
     @Override
-    protected boolean hasRandomTicks(BlockState state) {
-        return (Integer)state.get(DISTANCE) == 7 && !(Boolean)state.get(PERSISTENT);
+    protected boolean isRandomlyTicking(BlockState state) {
+        return (Integer)state.getValue(DISTANCE) == 7 && !(Boolean)state.getValue(PERSISTENT);
     }
 
     @Override
-    protected void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
+    protected void randomTick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
         if (this.shouldDecay(state)) {
-            dropStacks(state, world, pos);
+            dropResources(state, world, pos);
             world.removeBlock(pos, false);
         }
     }
 
     protected boolean shouldDecay(BlockState state) {
-        return !(Boolean)state.get(PERSISTENT) && (Integer)state.get(DISTANCE) == 7;
+        return !(Boolean)state.getValue(PERSISTENT) && (Integer)state.getValue(DISTANCE) == 7;
     }
 
     @Override
-    protected void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-        world.setBlockState(pos, updateDistanceFromLogs(state, world, pos), Block.NOTIFY_ALL);
+    protected void tick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
+        world.setBlock(pos, updateDistanceFromLogs(state, world, pos), Block.UPDATE_ALL);
     }
 
     @Override
-    protected int getOpacity(BlockState state) {
+    protected int getLightBlock(BlockState state) {
         return 1;
     }
 
     @Override
-    protected BlockState getStateForNeighborUpdate(
+    protected BlockState updateShape(
             BlockState state,
-            WorldView world,
-            ScheduledTickView tickView,
+            LevelReader world,
+            ScheduledTickAccess tickView,
             BlockPos pos,
             Direction direction,
             BlockPos neighborPos,
             BlockState neighborState,
-            Random random
+            RandomSource random
     ) {
-        if ((Boolean)state.get(WATERLOGGED)) {
-            tickView.scheduleFluidTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
+        if ((Boolean)state.getValue(WATERLOGGED)) {
+            tickView.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
         }
 
         int i = getDistanceFromLog(neighborState) + 1;
-        if (i != 1 || (Integer)state.get(DISTANCE) != i) {
-            tickView.scheduleBlockTick(pos, this, 1);
+        if (i != 1 || (Integer)state.getValue(DISTANCE) != i) {
+            tickView.scheduleTick(pos, this, 1);
         }
 
         return state;
     }
 
-    private static BlockState updateDistanceFromLogs(BlockState state, WorldAccess world, BlockPos pos) {
+    private static BlockState updateDistanceFromLogs(BlockState state, LevelAccessor world, BlockPos pos) {
         int i = 7;
-        BlockPos.Mutable mutable = new BlockPos.Mutable();
+        BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 
         for (Direction direction : Direction.values()) {
-            mutable.set(pos, direction);
+            mutable.setWithOffset(pos, direction);
             i = Math.min(i, getDistanceFromLog(world.getBlockState(mutable)) + 1);
             if (i == 1) {
                 break;
             }
         }
 
-        return state.with(DISTANCE, Integer.valueOf(i));
+        return state.setValue(DISTANCE, Integer.valueOf(i));
     }
 
     private static int getDistanceFromLog(BlockState state) {
@@ -126,47 +129,47 @@ public class StarLeaves extends BlockWithEntity implements Waterloggable {
     }
 
     public static OptionalInt getOptionalDistanceFromLog(BlockState state) {
-        if (state.isIn(BlockTags.LOGS)) {
+        if (state.is(BlockTags.LOGS)) {
             return OptionalInt.of(0);
         } else {
-            return state.contains(DISTANCE) ? OptionalInt.of((Integer)state.get(DISTANCE)) : OptionalInt.empty();
+            return state.hasProperty(DISTANCE) ? OptionalInt.of((Integer)state.getValue(DISTANCE)) : OptionalInt.empty();
         }
     }
 
     @Override
     protected FluidState getFluidState(BlockState state) {
-        return state.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(state);
+        return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
     }
 
     @Override
-    public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
-        if (world.hasRain(pos.up())) {
+    public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource random) {
+        if (world.isRainingAt(pos.above())) {
             if (random.nextInt(15) == 1) {
-                BlockPos blockPos = pos.down();
+                BlockPos blockPos = pos.below();
                 BlockState blockState = world.getBlockState(blockPos);
-                if (!blockState.isOpaque() || !blockState.isSideSolidFullSquare(world, blockPos, Direction.UP)) {
-                    ParticleUtil.spawnParticle(world, pos, random, ParticleTypes.DRIPPING_WATER);
+                if (!blockState.canOcclude() || !blockState.isFaceSturdy(world, blockPos, Direction.UP)) {
+                    ParticleUtils.spawnParticleBelow(world, pos, random, ParticleTypes.DRIPPING_WATER);
                 }
             }
         }
     }
 
     @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(DISTANCE, PERSISTENT, WATERLOGGED);
     }
 
     @Override
-    public BlockState getPlacementState(ItemPlacementContext ctx) {
-        FluidState fluidState = ctx.getWorld().getFluidState(ctx.getBlockPos());
-        BlockState blockState = this.getDefaultState()
-                .with(PERSISTENT, Boolean.valueOf(true))
-                .with(WATERLOGGED, Boolean.valueOf(fluidState.getFluid() == Fluids.WATER));
-        return updateDistanceFromLogs(blockState, ctx.getWorld(), ctx.getBlockPos());
+    public BlockState getStateForPlacement(BlockPlaceContext ctx) {
+        FluidState fluidState = ctx.getLevel().getFluidState(ctx.getClickedPos());
+        BlockState blockState = this.defaultBlockState()
+                .setValue(PERSISTENT, Boolean.valueOf(true))
+                .setValue(WATERLOGGED, Boolean.valueOf(fluidState.getType() == Fluids.WATER));
+        return updateDistanceFromLogs(blockState, ctx.getLevel(), ctx.getClickedPos());
     }
 
     @Override
-    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new StarLeavesEntity(pos, state);
     }
 }

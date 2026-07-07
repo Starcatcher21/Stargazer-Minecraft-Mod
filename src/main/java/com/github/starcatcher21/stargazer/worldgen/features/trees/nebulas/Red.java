@@ -2,17 +2,17 @@ package com.github.starcatcher21.stargazer.worldgen.features.trees.nebulas;
 
 import com.github.starcatcher21.stargazer.block.register.Nebulas;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.Tree;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.math.Direction;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 public class Red {
     public static void init(Tree tree) {
         tree.clearLeave();
         tree.clearLog();
-        tree.addLeave(Nebulas.RED_NEBULA_LEAVES.getDefaultState());
-        tree.addLog(Nebulas.RED_NEBULA_LOG.getDefaultState().with(Properties.AXIS, Direction.Axis.Y));
+        tree.addLeave(Nebulas.RED_NEBULA_LEAVES.defaultBlockState());
+        tree.addLog(Nebulas.RED_NEBULA_LOG.defaultBlockState().setValue(BlockStateProperties.AXIS, Direction.Axis.Y));
         tree.addReplacableBlock(Blocks.AIR);
         for (BlockState state : tree.leave) {
             tree.addReplacableBlock(state.getBlock());

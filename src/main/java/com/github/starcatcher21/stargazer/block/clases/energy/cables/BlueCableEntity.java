@@ -3,13 +3,13 @@ package com.github.starcatcher21.stargazer.block.clases.energy.cables;
 import com.github.starcatcher21.stargazer.block.BlockTypes;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import team.reborn.energy.api.EnergyStorage;
 import team.reborn.energy.api.base.SimpleEnergyStorage;
 
@@ -21,19 +21,19 @@ public class BlueCableEntity extends BlockEntity implements EnergyStorage {
 	public final SimpleEnergyStorage energyStorage = new SimpleEnergyStorage(5000, 5000, 5000) {
 		@Override
 		protected void onFinalCommit() {
-			markDirty();
+			setChanged();
 		}
 	};
 
 	@Override
-	protected void readData(ReadView nbt) {
-		super.readData(nbt);
-		energyStorage.amount = nbt.getLong("energy", 0);
+	protected void loadAdditional(ValueInput nbt) {
+		super.loadAdditional(nbt);
+		energyStorage.amount = nbt.getLongOr("energy", 0);
 	}
 
 	@Override
-	protected void writeData(WriteView nbt) {
-		super.writeData(nbt);
+	protected void saveAdditional(ValueOutput nbt) {
+		super.saveAdditional(nbt);
 		nbt.putLong("energy", energyStorage.amount);
 	}
 
@@ -67,13 +67,13 @@ public class BlueCableEntity extends BlockEntity implements EnergyStorage {
 		return energyStorage.supportsExtraction();
 	}
 
-	public static void tick(World world, BlockPos pos, BlockState state, BlueCableEntity blockEntity) {
-		if (world.isClient() || blockEntity.energyStorage.getAmount() <= 0) return;
+	public static void tick(Level world, BlockPos pos, BlockState state, BlueCableEntity blockEntity) {
+		if (world.isClientSide() || blockEntity.energyStorage.getAmount() <= 0) return;
 
 		for (Direction direction : Direction.values()) {
 			if (blockEntity.energyStorage.getAmount() <= 0) break;
 
-			BlockPos targetPos = pos.offset(direction);
+			BlockPos targetPos = pos.relative(direction);
 			EnergyStorage targetStorage = EnergyStorage.SIDED.find(world, targetPos, direction.getOpposite());
 
 			if (targetStorage != null && targetStorage.supportsInsertion()) {

@@ -1,12 +1,12 @@
 package com.github.starcatcher21.stargazer.mixin;
 
 import com.github.starcatcher21.stargazer.datagen.ModFluidTagProvider;
-import net.minecraft.entity.Entity;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.registry.tag.FluidTags;
-import net.minecraft.registry.tag.TagKey;
-import net.minecraft.world.World;
+import net.minecraft.tags.FluidTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.attribute.EnvironmentAttributes;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.material.Fluid;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -16,19 +16,19 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(Entity.class)
 public abstract class EntityMixin {
     @Shadow
-    private World world;
+    private Level level;
 
     @Shadow
-    public abstract boolean updateMovementInFluid(TagKey<Fluid> tag, double speed);
+    public abstract boolean updateFluidHeightAndDoFluidPushing(TagKey<Fluid> tag, double speed);
 
     @Shadow
-    public abstract boolean isTouchingWater();
+    public abstract boolean isInWater();
 
-    @Inject(method = "updateWaterState", at = @At("TAIL"), cancellable = true)
+    @Inject(method = "updateInWaterStateAndDoFluidPushing", at = @At("TAIL"), cancellable = true)
     private void update(CallbackInfoReturnable cir) {
-        double d = this.world.getEnvironmentAttributes().getAttributeValue(EnvironmentAttributes.FAST_LAVA_GAMEPLAY) ? 0.007 : 0.0023333333333333335;
-        boolean bl = this.updateMovementInFluid(FluidTags.LAVA, d);
-        boolean bd = this.updateMovementInFluid(ModFluidTagProvider.DREAM, 0.014);
-        cir.setReturnValue(this.isTouchingWater() || bl || bd);
+        double d = this.level.environmentAttributes().getDimensionValue(EnvironmentAttributes.FAST_LAVA) ? 0.007 : 0.0023333333333333335;
+        boolean bl = this.updateFluidHeightAndDoFluidPushing(FluidTags.LAVA, d);
+        boolean bd = this.updateFluidHeightAndDoFluidPushing(ModFluidTagProvider.DREAM, 0.014);
+        cir.setReturnValue(this.isInWater() || bl || bd);
     }
 }

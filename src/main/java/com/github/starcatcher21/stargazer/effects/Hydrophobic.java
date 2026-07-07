@@ -1,40 +1,40 @@
 package com.github.starcatcher21.stargazer.effects;
 
 import com.github.starcatcher21.stargazer.mechanics.DamageTypeRegistry;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.attribute.AttributeContainer;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.entity.effect.StatusEffectCategory;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.FluidTags;
-import net.minecraft.server.world.ServerWorld;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.FluidTags;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeMap;
 
-public class Hydrophobic extends StatusEffect {
-    public Hydrophobic(StatusEffectCategory category, int color) {
+public class Hydrophobic extends MobEffect {
+    public Hydrophobic(MobEffectCategory category, int color) {
         super(category, color);
     }
 
     @Override
-    public boolean applyUpdateEffect(ServerWorld world, LivingEntity entity, int amplifier) {
-        if (world.getFluidState(entity.getBlockPos()).isIn(FluidTags.WATER)) {
+    public boolean applyEffectTick(ServerLevel world, LivingEntity entity, int amplifier) {
+        if (world.getFluidState(entity.blockPosition()).is(FluidTags.WATER)) {
             DamageSource damageSource = new DamageSource(
-                    world.getRegistryManager()
-                            .getOrThrow(RegistryKeys.DAMAGE_TYPE)
-                            .getEntry(DamageTypeRegistry.WATER_DAMAGE.getValue()).get()
+                    world.registryAccess()
+                            .lookupOrThrow(Registries.DAMAGE_TYPE)
+                            .get(DamageTypeRegistry.WATER_DAMAGE.identifier()).get()
             );
-            entity.damage(world, damageSource, 1F * (amplifier + 1));
+            entity.hurtServer(world, damageSource, 1F * (amplifier + 1));
         }
-        return super.applyUpdateEffect(world, entity, amplifier);
+        return super.applyEffectTick(world, entity, amplifier);
     }
 
     @Override
-    public boolean canApplyUpdateEffect(int duration, int amplifier) {
+    public boolean shouldApplyEffectTickThisTick(int duration, int amplifier) {
         return true;
     }
 
     @Override
-    public void onApplied(AttributeContainer attributeContainer, int amplifier) {
-        super.onApplied(attributeContainer, amplifier);
+    public void addAttributeModifiers(AttributeMap attributeContainer, int amplifier) {
+        super.addAttributeModifiers(attributeContainer, amplifier);
     }
 }

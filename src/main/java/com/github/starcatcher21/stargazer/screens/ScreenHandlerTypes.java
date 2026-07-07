@@ -1,19 +1,19 @@
 package com.github.starcatcher21.stargazer.screens;
 
 import com.github.starcatcher21.stargazer.Stargazer;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.resource.featuretoggle.FeatureSet;
-import net.minecraft.screen.ScreenHandlerType;
-import net.minecraft.util.Identifier;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.flag.FeatureFlagSet;
+import net.minecraft.world.inventory.MenuType;
 
 public class ScreenHandlerTypes {
-    public static final ScreenHandlerType<StarforgeScreenHandler> STARFORGE_HANDLER = Registry.register(Registries.SCREEN_HANDLER, Identifier.of(Stargazer.MOD_ID, "starforge_handler"), new ScreenHandlerType<>(StarforgeScreenHandler::new, FeatureSet.empty()));
-    public static final ScreenHandlerType<MoonWelderScreenHandler> MOON_WELDER_HANDLER = Registry.register(Registries.SCREEN_HANDLER, Identifier.of(Stargazer.MOD_ID, "moon_welder_handler"), new ScreenHandlerType<>(MoonWelderScreenHandler::new, FeatureSet.empty()));
-    public static final ScreenHandlerType<StarBookScreenHandler> STARBOOK_HANDLER = Registry.register(Registries.SCREEN_HANDLER, Identifier.of(Stargazer.MOD_ID, "starbook_handler"), new ScreenHandlerType<>(StarBookScreenHandler::new, FeatureSet.empty()));
-    public static final ScreenHandlerType<StarGeneratorScreenHandler> STARGENERATOR_HANDLER = Registry.register(Registries.SCREEN_HANDLER, Identifier.of(Stargazer.MOD_ID, "stargenerator_handler"), new ScreenHandlerType<>(StarGeneratorScreenHandler::new, FeatureSet.empty()));
-    public static final ScreenHandlerType<NightWatcherScreenHandler> NIGHTWATCHER_HANDLER = Registry.register(Registries.SCREEN_HANDLER, Identifier.of(Stargazer.MOD_ID, "nightwatcher_handler"), new ScreenHandlerType<>(NightWatcherScreenHandler::new, FeatureSet.empty()));
-    public static final ScreenHandlerType<StarCrusherScreenHandler> STARCRUSHER_HANDLER = Registry.register(Registries.SCREEN_HANDLER, Identifier.of(Stargazer.MOD_ID, "starcrusher_handler"), new ScreenHandlerType<>(StarCrusherScreenHandler::new, FeatureSet.empty()));
+    public static final MenuType<StarforgeScreenHandler> STARFORGE_HANDLER = Registry.register(BuiltInRegistries.MENU, Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "starforge_handler"), new MenuType<>(StarforgeScreenHandler::new, FeatureFlagSet.of()));
+    public static final MenuType<MoonWelderScreenHandler> MOON_WELDER_HANDLER = Registry.register(BuiltInRegistries.MENU, Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "moon_welder_handler"), new MenuType<>(MoonWelderScreenHandler::new, FeatureFlagSet.of()));
+    public static final MenuType<StarBookScreenHandler> STARBOOK_HANDLER = Registry.register(BuiltInRegistries.MENU, Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "starbook_handler"), new MenuType<>(StarBookScreenHandler::new, FeatureFlagSet.of()));
+    public static final MenuType<StarGeneratorScreenHandler> STARGENERATOR_HANDLER = Registry.register(BuiltInRegistries.MENU, Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "stargenerator_handler"), new MenuType<>(StarGeneratorScreenHandler::new, FeatureFlagSet.of()));
+    public static final MenuType<NightWatcherScreenHandler> NIGHTWATCHER_HANDLER = Registry.register(BuiltInRegistries.MENU, Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "nightwatcher_handler"), new MenuType<>(NightWatcherScreenHandler::new, FeatureFlagSet.of()));
+    public static final MenuType<StarCrusherScreenHandler> STARCRUSHER_HANDLER = Registry.register(BuiltInRegistries.MENU, Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "starcrusher_handler"), new MenuType<>(StarCrusherScreenHandler::new, FeatureFlagSet.of()));
 
     public static void init() {}
 }

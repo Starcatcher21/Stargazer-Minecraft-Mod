@@ -1,8 +1,8 @@
 package com.github.starcatcher21.stargazer.block.clases.moon.geode_fruit;
 
-import net.minecraft.util.StringIdentifiable;
+import net.minecraft.util.StringRepresentable;
 
-public enum GeodeFruitStage implements StringIdentifiable {
+public enum GeodeFruitStage implements StringRepresentable {
     start("start"),
     middle("middle"),
     ending("ending"),
@@ -15,7 +15,7 @@ public enum GeodeFruitStage implements StringIdentifiable {
     }
 
     @Override
-    public String asString() {
+    public String getSerializedName() {
         return ID;
     }
 }

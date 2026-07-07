@@ -1,32 +1,32 @@
 package com.github.starcatcher21.stargazer.block.clases.star.log;
 
 import com.mojang.serialization.MapCodec;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.FacingBlock;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.math.Direction;
+import net.minecraft.core.Direction;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.DirectionalBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
-public class StrippedStarLog extends FacingBlock {
+public class StrippedStarLog extends DirectionalBlock {
     @Override
-    protected MapCodec<? extends FacingBlock> getCodec() {
+    protected MapCodec<? extends DirectionalBlock> codec() {
         return null;
     }
 
-    public StrippedStarLog(Settings settings) {
+    public StrippedStarLog(Properties settings) {
         super(settings);
-        this.setDefaultState(this.getDefaultState().with(Properties.AXIS, Direction.Axis.Y));
+        this.registerDefaultState(this.defaultBlockState().setValue(BlockStateProperties.AXIS, Direction.Axis.Y));
     }
 
     @Override
-    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(Properties.AXIS);
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        builder.add(BlockStateProperties.AXIS);
     }
 
     @Override
-    public BlockState getPlacementState(ItemPlacementContext ctx) {
-        return super.getPlacementState(ctx).with(Properties.AXIS, ctx.getSide().getAxis());
+    public BlockState getStateForPlacement(BlockPlaceContext ctx) {
+        return super.getStateForPlacement(ctx).setValue(BlockStateProperties.AXIS, ctx.getClickedFace().getAxis());
     }
 }

@@ -1,21 +1,21 @@
 package com.github.starcatcher21.stargazer.mechanics.star;
 
 import com.mojang.serialization.Codec;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.util.StringIdentifiable;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.util.StringRepresentable;
 
-public enum FallingObjectDayState implements StringIdentifiable {
+public enum FallingObjectDayState implements StringRepresentable {
     Day("day"),
     Night("night"),
     Both("both");
 
     private final String ID;
 
-    public static final Codec<FallingObjectDayState> CODEC = StringIdentifiable.createCodec(() -> FallingObjectDayState.values());
-    public static final PacketCodec<RegistryByteBuf, FallingObjectDayState> PACKET_CODEC = PacketCodec.tuple(
-            PacketCodecs.STRING, FallingObjectDayState::asString, FallingObjectDayState::newDayState
+    public static final Codec<FallingObjectDayState> CODEC = StringRepresentable.fromEnum(() -> FallingObjectDayState.values());
+    public static final StreamCodec<RegistryFriendlyByteBuf, FallingObjectDayState> PACKET_CODEC = StreamCodec.composite(
+            ByteBufCodecs.STRING_UTF8, FallingObjectDayState::getSerializedName, FallingObjectDayState::newDayState
     );
 
     FallingObjectDayState(String id) {
@@ -33,7 +33,7 @@ public enum FallingObjectDayState implements StringIdentifiable {
     }
 
     @Override
-    public String asString() {
+    public String getSerializedName() {
         return this.ID;
     }
 

@@ -8,7 +8,6 @@ import com.github.starcatcher21.stargazer.block.clases.energy.cables.YellowCable
 import com.github.starcatcher21.stargazer.block.clases.energy.generators.StarGeneratorEntity;
 import com.github.starcatcher21.stargazer.block.clases.energy.machines.NightWatcherEntity;
 import com.github.starcatcher21.stargazer.block.clases.energy.machines.StarCrusherEntity;
-import net.minecraft.util.math.BlockPos;
 import team.reborn.energy.api.EnergyStorage;
 
 public class EnergyInit {

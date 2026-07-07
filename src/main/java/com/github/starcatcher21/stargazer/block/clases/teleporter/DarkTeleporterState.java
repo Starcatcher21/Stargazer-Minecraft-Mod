@@ -1,8 +1,8 @@
 package com.github.starcatcher21.stargazer.block.clases.teleporter;
 
-import net.minecraft.util.StringIdentifiable;
+import net.minecraft.util.StringRepresentable;
 
-public enum DarkTeleporterState implements StringIdentifiable {
+public enum DarkTeleporterState implements StringRepresentable {
     middle("middle"),
     north("north"),
     south("south"),
@@ -20,7 +20,7 @@ public enum DarkTeleporterState implements StringIdentifiable {
     }
 
     @Override
-    public String asString() {
+    public String getSerializedName() {
         return this.ID;
     }
 }

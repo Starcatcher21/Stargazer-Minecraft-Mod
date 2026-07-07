@@ -1,34 +1,34 @@
 package com.github.starcatcher21.stargazer.block.clases;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.ShapeContext;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.util.shape.VoxelShapes;
-import net.minecraft.world.BlockView;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class Sprinkler extends Block {
-    public Sprinkler(Settings settings) {
+    public Sprinkler(Properties settings) {
         super(settings);
     }
 
     @Override
-    protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return VoxelShapes.union(
-                VoxelShapes.cuboid(0.4375, 0, 0.4375, 0.5625, 0.375, 0.5625),
-                VoxelShapes.cuboid(0.125, 0.375, 0.4375, 0.875, 0.5, 0.5625),
-                VoxelShapes.cuboid(0.875, 0.375, 0.375, 0.9375, 0.5, 0.625),
-                VoxelShapes.cuboid(0.0625, 0.375, 0.375, 0.125, 0.5, 0.625),
-                VoxelShapes.cuboid(0.4375, 0.375, 0.125, 0.5625, 0.5, 0.4375),
-                VoxelShapes.cuboid(0.4375, 0.375, 0.5625, 0.5625, 0.5, 0.875),
-                VoxelShapes.cuboid(0.375, 0.375, 0.0625, 0.625, 0.5, 0.125),
-                VoxelShapes.cuboid(0.375, 0.375, 0.875, 0.625, 0.5, 0.9375)
+    protected VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
+        return Shapes.or(
+                Shapes.box(0.4375, 0, 0.4375, 0.5625, 0.375, 0.5625),
+                Shapes.box(0.125, 0.375, 0.4375, 0.875, 0.5, 0.5625),
+                Shapes.box(0.875, 0.375, 0.375, 0.9375, 0.5, 0.625),
+                Shapes.box(0.0625, 0.375, 0.375, 0.125, 0.5, 0.625),
+                Shapes.box(0.4375, 0.375, 0.125, 0.5625, 0.5, 0.4375),
+                Shapes.box(0.4375, 0.375, 0.5625, 0.5625, 0.5, 0.875),
+                Shapes.box(0.375, 0.375, 0.0625, 0.625, 0.5, 0.125),
+                Shapes.box(0.375, 0.375, 0.875, 0.625, 0.5, 0.9375)
         );
     }
 
     @Override
-    protected VoxelShape getCollisionShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return this.getOutlineShape(state, world, pos, context);
+    protected VoxelShape getCollisionShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
+        return this.getShape(state, world, pos, context);
     }
 }

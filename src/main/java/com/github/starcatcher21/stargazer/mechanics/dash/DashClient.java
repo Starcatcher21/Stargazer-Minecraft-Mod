@@ -2,11 +2,11 @@ package com.github.starcatcher21.stargazer.mechanics.dash;
 
 import com.github.starcatcher21.stargazer.Keybinds;
 import com.github.starcatcher21.stargazer.StargazerAttributes;
-import net.minecraft.block.FluidBlock;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.block.LiquidBlock;
+import net.minecraft.world.phys.Vec3;
 
 public class DashClient {
 
@@ -24,7 +24,7 @@ public class DashClient {
     private static int dashCooldown = 2;
     private static int dashes = 0;
 
-    private static Vec3d dashDirection = null;
+    private static Vec3 dashDirection = null;
     private static double dashXRot = 0.0;
 
     private static boolean willHyper = false;
@@ -33,10 +33,10 @@ public class DashClient {
     private static Direction bounceDirection = null;
 
     public static void tick() {
-        ClientPlayerEntity player = MinecraftClient.getInstance().player;
+        LocalPlayer player = Minecraft.getInstance().player;
         if (player == null) return;
 
-        if ((canRefresh(player) && groundCooldown == 0) || player.isInCreativeMode()) {
+        if ((canRefresh(player) && groundCooldown == 0) || player.hasInfiniteMaterials()) {
             groundCooldown = 6;
             refresh(player);
         }
@@ -47,32 +47,32 @@ public class DashClient {
         // Hyper
         if (willHyper) {
             willHyper = false;
-            Vec3d hyperMotion = new Vec3d(
-                    player.getRotationVector().x * HYPER_H_SPEED,
+            Vec3 hyperMotion = new Vec3(
+                    player.getLookAngle().x * HYPER_H_SPEED,
                     -HYPER_V_SPEED*4,
-                    player.getRotationVector().z * HYPER_H_SPEED
+                    player.getLookAngle().z * HYPER_H_SPEED
             );
-            player.setVelocity(hyperMotion);
+            player.setDeltaMovement(hyperMotion);
             dashCooldown = 2;
         }
         // Super
         if (willSuper) {
             willSuper = false;
-            Vec3d superMotion = new Vec3d(
-                    player.getRotationVector().x * SUPER_H_SPEED,
+            Vec3 superMotion = new Vec3(
+                    player.getLookAngle().x * SUPER_H_SPEED,
                     -SUPER_V_SPEED*4,
-                    player.getRotationVector().z * SUPER_H_SPEED
+                    player.getLookAngle().z * SUPER_H_SPEED
             );
-            player.setVelocity(superMotion);
+            player.setDeltaMovement(superMotion);
             dashCooldown = 2;
         }
         // Wall Bounce
         if (willBounce) {
             willBounce = false;
             if (bounceDirection != null) {
-                player.setVelocity(bounceDirection.getDoubleVector().x * BOUNCE_H_SPEED, BOUNCE_V_SPEED, bounceDirection.getDoubleVector().z * BOUNCE_H_SPEED);
+                player.setDeltaMovement(bounceDirection.getUnitVec3().x * BOUNCE_H_SPEED, BOUNCE_V_SPEED, bounceDirection.getUnitVec3().z * BOUNCE_H_SPEED);
             } else {
-                player.setVelocity(0, BOUNCE_V_SPEED, 0);
+                player.setDeltaMovement(0, BOUNCE_V_SPEED, 0);
             }
             dashCooldown = 2;
         }
@@ -85,20 +85,20 @@ public class DashClient {
             // End Dash
             if (dashDirection != null) {
                 if (dashCooldown == 0) {
-                    Dash.removeDashing(player.getUuid());
+                    Dash.removeDashing(player.getUUID());
                     break Dash;
                 }
 
-                player.setVelocity(dashDirection.multiply(DASH_SPEED));
+                player.setDeltaMovement(dashDirection.scale(DASH_SPEED));
 
                 Detect:
-                if (MinecraftClient.getInstance().options.jumpKey.isPressed()) {
-                    if (player.isOnGround()) {
+                if (Minecraft.getInstance().options.keyJump.isDown()) {
+                    if (player.onGround()) {
                         if (dashXRot > 60.0 && dashXRot < 90.0) willHyper = true;
                         if (dashXRot > 15.0 && dashXRot < 60.0) willSuper = true;
                     } else if (dashXRot < -60.0 && player.horizontalCollision) {
                         // change required distance from wall here
-                        bounceDirection = player.getMovementDirection().getOpposite();
+                        bounceDirection = player.getMotionDirection().getOpposite();
                         willBounce = true;
                     }
                 }
@@ -108,16 +108,16 @@ public class DashClient {
         isOnCooldown = dashCooldown > 0 || dashes == 0;
 
         // Here is when the dash happens
-        if (Keybinds.DASH_KEY.isPressed() && !isOnCooldown()) {
-            Dash.setDashing(player.getUuid());
+        if (Keybinds.DASH_KEY.isDown() && !isOnCooldown()) {
+            Dash.setDashing(player.getUUID());
 
             // Set counter to duration of dash
             dashCooldown = 5;
             // Decrement the dash counter
             dashes--;
 
-            dashXRot = player.getYaw();
-            dashDirection = player.getRotationVector();
+            dashXRot = player.getYRot();
+            dashDirection = player.getLookAngle();
             player.setSprinting(true);
         }
     }
@@ -128,15 +128,15 @@ public class DashClient {
         dashCooldown = 0;
     }
 
-    public static void refresh(ClientPlayerEntity player) {
+    public static void refresh(LocalPlayer player) {
         dashes = (int) player.getAttributeValue(StargazerAttributes.DASH_LEVEL);
     }
-    public static void refresh(ClientPlayerEntity player, int amount) {
+    public static void refresh(LocalPlayer player, int amount) {
         dashes = amount;
     }
 
-    public static boolean canRefresh(ClientPlayerEntity player) {
-        return player.isOnGround() || player.getBlockStateAtPos().getBlock() instanceof FluidBlock;
+    public static boolean canRefresh(LocalPlayer player) {
+        return player.onGround() || player.getInBlockState().getBlock() instanceof LiquidBlock;
     }
 
     public static boolean isOnCooldown() {

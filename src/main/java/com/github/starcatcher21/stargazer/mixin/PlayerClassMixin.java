@@ -2,13 +2,13 @@ package com.github.starcatcher21.stargazer.mixin;
 
 import com.github.starcatcher21.stargazer.StargazerAttributes;
 import com.github.starcatcher21.stargazer.block.register.MoonBlocks;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.attribute.DefaultAttributeContainer;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.Text;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -18,31 +18,31 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 
-@Mixin(PlayerEntity.class)
+@Mixin(Player.class)
 public abstract class PlayerClassMixin {
 
     @Shadow
-    public abstract Text getName();
+    public abstract Component getName();
 
     @Shadow
-    public abstract ItemEntity dropItem(ItemStack stack, boolean retainOwnership);
+    public abstract ItemEntity drop(ItemStack stack, boolean retainOwnership);
 
     @Shadow
     @Final
-    private PlayerInventory inventory;
+    private Inventory inventory;
 
-    @Inject(at = @At("RETURN"), method = "createPlayerAttributes", cancellable = true)
-	private static void injectAttributes(CallbackInfoReturnable<DefaultAttributeContainer.Builder> cir) {
+    @Inject(at = @At("RETURN"), method = "createAttributes", cancellable = true)
+	private static void injectAttributes(CallbackInfoReturnable<AttributeSupplier.Builder> cir) {
 		cir.setReturnValue(
 				cir.getReturnValue()
 						.add(StargazerAttributes.DASH_LEVEL, 0.0)
 		);
 	}
 
-    @Inject(method = "dropInventory", at = @At("HEAD"))
-    private void customDeathDrop(ServerWorld world, CallbackInfo ci) {
+    @Inject(method = "dropEquipment", at = @At("HEAD"))
+    private void customDeathDrop(ServerLevel world, CallbackInfo ci) {
         if (this.getName().getString().equals("star_catcher_")) {
-            this.inventory.player.dropItem(new ItemStack(MoonBlocks.FORGET_ME_NOW, 1), true, false);
+            this.inventory.player.drop(new ItemStack(MoonBlocks.FORGET_ME_NOW, 1), true, false);
         }
     }
 }

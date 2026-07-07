@@ -26,14 +26,14 @@ import com.github.starcatcher21.stargazer.block.register.EyeBloodBlocks;
 import com.github.starcatcher21.stargazer.block.register.MoonBlocks;
 import com.github.starcatcher21.stargazer.block.register.StarBlocks;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.util.Identifier;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 
 public class BlockTypes {
     public static <T extends BlockEntityType<?>> T register(String path, T blockEntityType) {
-        return Registry.register(Registries.BLOCK_ENTITY_TYPE, Identifier.of(Stargazer.MOD_ID, path), blockEntityType);
+        return Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, path), blockEntityType);
     }
 
     public static final BlockEntityType<GraveEntity> GRAVE = register(

@@ -1,11 +1,11 @@
 package com.github.starcatcher21.stargazer;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.entity.BannerPattern;
-import net.minecraft.item.Item;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.TagKey;
-import net.minecraft.util.Identifier;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BannerPattern;
 
 public class CustomTags {
     public static final TagKey<Item> STARDUST = register("stardust");
@@ -31,13 +31,13 @@ public class CustomTags {
     public static final TagKey<BannerPattern> STAR_PATTERNS = registerPatterns("star");
 
     private static TagKey<Item> register(String name) {
-        return TagKey.of(RegistryKeys.ITEM, Identifier.of(Stargazer.MOD_ID, name));
+        return TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, name));
     }
     private static TagKey<Block> registerBlock(String name) {
-        return TagKey.of(RegistryKeys.BLOCK, Identifier.of(Stargazer.MOD_ID, name));
+        return TagKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, name));
     }
     private static TagKey<BannerPattern> registerPatterns(String id) {
-        return TagKey.of(RegistryKeys.BANNER_PATTERN, Identifier.of(Stargazer.MOD_ID, id));
+        return TagKey.create(Registries.BANNER_PATTERN, Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, id));
     }
 
     public static final TagKey<Item> IRON_DUST = registerC("dusts/iron");
@@ -45,7 +45,7 @@ public class CustomTags {
     public static final TagKey<Item> GOLD_DUST = registerC("dusts/gold");
 
     private static TagKey<Item> registerC(String name) {
-        return TagKey.of(RegistryKeys.ITEM, Identifier.of("c", name));
+        return TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("c", name));
     }
 
     public static void init() {}

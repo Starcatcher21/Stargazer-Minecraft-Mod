@@ -1,17 +1,17 @@
 package com.github.starcatcher21.stargazer;
 
+import com.mojang.blaze3d.platform.InputConstants;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
-import net.minecraft.client.option.KeyBinding;
-import net.minecraft.client.util.InputUtil;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.KeyMapping;
+import net.minecraft.resources.Identifier;
 import org.lwjgl.glfw.GLFW;
 
 public class Keybinds {
-    public static final KeyBinding.Category STARGAZER = KeyBinding.Category.create(Identifier.of(Stargazer.MOD_ID, "stargazer"));
-    public static final KeyBinding DASH_KEY = KeyBindingHelper.registerKeyBinding(
-            new KeyBinding(
+    public static final KeyMapping.Category STARGAZER = KeyMapping.Category.register(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "stargazer"));
+    public static final KeyMapping DASH_KEY = KeyBindingHelper.registerKeyBinding(
+            new KeyMapping(
                     "Dash",
-                    InputUtil.Type.KEYSYM,
+                    InputConstants.Type.KEYSYM,
                     GLFW.GLFW_KEY_X,
                     STARGAZER
             )

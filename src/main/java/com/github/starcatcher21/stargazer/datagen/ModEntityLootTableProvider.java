@@ -5,62 +5,62 @@ import com.github.starcatcher21.stargazer.item.ModItems;
 import com.mojang.serialization.Codec;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricEntityLootTableProvider;
-import net.minecraft.loot.LootPool;
-import net.minecraft.loot.LootTable;
-import net.minecraft.loot.condition.EntityPropertiesLootCondition;
-import net.minecraft.loot.context.LootContext;
-import net.minecraft.loot.entry.ItemEntry;
-import net.minecraft.loot.function.SetCountLootFunction;
-import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
-import net.minecraft.loot.provider.number.UniformLootNumberProvider;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.predicate.NbtPredicate;
-import net.minecraft.predicate.entity.EntityPredicate;
-import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.advancements.criterion.EntityPredicate;
+import net.minecraft.advancements.criterion.NbtPredicate;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Util;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
+import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
+import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.CompletableFuture;
 
 public class ModEntityLootTableProvider extends FabricEntityLootTableProvider {
-    public ModEntityLootTableProvider(FabricDataOutput output, @NotNull CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
+    public ModEntityLootTableProvider(FabricDataOutput output, @NotNull CompletableFuture<HolderLookup.Provider> registryLookup) {
         super(output, registryLookup);
     }
 
     @Override
     public void generate() {
-        this.register(EntityRegistry.GHOST_ENTITY, LootTable.builder()
-                .pool(LootPool.builder().rolls(ConstantLootNumberProvider.create(1.0f)).with(ItemEntry.builder(ModItems.ECTOPLASM))
-                        .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(0.0f, 2.0f)))
-                        .conditionally(EntityPropertiesLootCondition.builder(
-                                LootContext.EntityReference.THIS,
-                                EntityPredicate.Builder.create()
-                                        .nbt(new NbtPredicate(Util.make(new NbtCompound(), nbt -> {
-                                            nbt.put("tag", Codec.STRING, "");
+        this.add(EntityRegistry.GHOST_ENTITY, LootTable.lootTable()
+                .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0f)).add(LootItem.lootTableItem(ModItems.ECTOPLASM))
+                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 2.0f)))
+                        .when(LootItemEntityPropertyCondition.hasProperties(
+                                LootContext.EntityTarget.THIS,
+                                EntityPredicate.Builder.entity()
+                                        .nbt(new NbtPredicate(Util.make(new CompoundTag(), nbt -> {
+                                            nbt.putString("tag", "");
                                         })))
                         ))
-                ).pool(LootPool.builder().rolls(ConstantLootNumberProvider.create(1.0f)).with(ItemEntry.builder(ModItems.COOLER_ECTOPLASM))
-                        .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(0.0f, 2.0f)))
-                        .conditionally(EntityPropertiesLootCondition.builder(
-                                LootContext.EntityReference.THIS,
-                                EntityPredicate.Builder.create()
-                                        .nbt(new NbtPredicate(Util.make(new NbtCompound(), nbt -> {
-                                            nbt.put("tag", Codec.STRING, "pacman");
+                ).withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0f)).add(LootItem.lootTableItem(ModItems.COOLER_ECTOPLASM))
+                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 2.0f)))
+                        .when(LootItemEntityPropertyCondition.hasProperties(
+                                LootContext.EntityTarget.THIS,
+                                EntityPredicate.Builder.entity()
+                                        .nbt(new NbtPredicate(Util.make(new CompoundTag(), nbt -> {
+                                            nbt.putString("tag", "pacman");
                                         })))
                         ))
                 ));
-        this.register(EntityRegistry.EYE_BAT_ENTITY, LootTable.builder()
-                .pool(LootPool.builder().rolls(ConstantLootNumberProvider.create(1.0f)).with(ItemEntry.builder(ModItems.DEAD_EYE_BAT))
-                        .apply(SetCountLootFunction.builder(ConstantLootNumberProvider.create(1.0f)))
+        this.add(EntityRegistry.EYE_BAT_ENTITY, LootTable.lootTable()
+                .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0f)).add(LootItem.lootTableItem(ModItems.DEAD_EYE_BAT))
+                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0f)))
                 ));
 
-        this.register(EntityRegistry.ROOK_ENTITY, LootTable.builder()
-                .pool(LootPool.builder().rolls(ConstantLootNumberProvider.create(1.0f)).with(ItemEntry.builder(ModItems.WHITE_BRICK))
-                        .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(0.0f, 4.0f)))
+        this.add(EntityRegistry.ROOK_ENTITY, LootTable.lootTable()
+                .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0f)).add(LootItem.lootTableItem(ModItems.WHITE_BRICK))
+                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 4.0f)))
                 ));
-        this.register(EntityRegistry.BLACK_ROOK_ENTITY, LootTable.builder()
-                .pool(LootPool.builder().rolls(ConstantLootNumberProvider.create(1.0f)).with(ItemEntry.builder(ModItems.BLACK_BRICK))
-                        .apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(0.0f, 4.0f)))
+        this.add(EntityRegistry.BLACK_ROOK_ENTITY, LootTable.lootTable()
+                .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0f)).add(LootItem.lootTableItem(ModItems.BLACK_BRICK))
+                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 4.0f)))
                 ));
     }
 }

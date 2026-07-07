@@ -1,15 +1,16 @@
+// TODO(Ravel): Failed to fully resolve file: null cannot be cast to non-null type com.intellij.psi.PsiClass
+// TODO(Ravel): Failed to fully resolve file: null cannot be cast to non-null type com.intellij.psi.PsiClass
 package com.github.starcatcher21.stargazer.screens.recipe.serializer;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.recipe.display.RecipeDisplay;
-import net.minecraft.recipe.display.SlotDisplay;
-import net.minecraft.resource.featuretoggle.FeatureSet;
-
 import java.util.List;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.world.flag.FeatureFlagSet;
+import net.minecraft.world.item.crafting.display.RecipeDisplay;
+import net.minecraft.world.item.crafting.display.SlotDisplay;
 
 public record ShapedStarforgeRecipeDisplay(List<SlotDisplay> ingredients, SlotDisplay result, SlotDisplay craftingStation) implements RecipeDisplay {
     public static final MapCodec<ShapedStarforgeRecipeDisplay> CODEC = RecordCodecBuilder.mapCodec((instance) -> instance.group(
@@ -17,8 +18,8 @@ public record ShapedStarforgeRecipeDisplay(List<SlotDisplay> ingredients, SlotDi
             SlotDisplay.CODEC.fieldOf("result").forGetter(ShapedStarforgeRecipeDisplay::result),
             SlotDisplay.CODEC.fieldOf("crafting_station").forGetter(ShapedStarforgeRecipeDisplay::craftingStation))
             .apply(instance, ShapedStarforgeRecipeDisplay::new));
-    public static final PacketCodec<RegistryByteBuf, ShapedStarforgeRecipeDisplay> PACKET_CODEC;
-    public static final RecipeDisplay.Serializer<ShapedStarforgeRecipeDisplay> SERIALIZER;
+    public static final StreamCodec<RegistryFriendlyByteBuf, ShapedStarforgeRecipeDisplay> STREAM_CODEC;
+    public static final RecipeDisplay.Type<ShapedStarforgeRecipeDisplay> SERIALIZER;
 
     public ShapedStarforgeRecipeDisplay {
         if (ingredients.size() != 14) {
@@ -26,24 +27,24 @@ public record ShapedStarforgeRecipeDisplay(List<SlotDisplay> ingredients, SlotDi
         }
     }
 
-    public RecipeDisplay.Serializer<ShapedStarforgeRecipeDisplay> serializer() {
+    public RecipeDisplay.Type<ShapedStarforgeRecipeDisplay> type() {
         return SERIALIZER;
     }
 
-    public boolean isEnabled(FeatureSet features) {
+    public boolean isEnabled(FeatureFlagSet features) {
         return this.ingredients.stream().allMatch((ingredient) -> ingredient.isEnabled(features));
     }
 
     static {
-        PACKET_CODEC = PacketCodec.tuple(
-                SlotDisplay.PACKET_CODEC.collect(PacketCodecs.toList()),
+        STREAM_CODEC = StreamCodec.composite(
+                SlotDisplay.STREAM_CODEC.apply(ByteBufCodecs.list()),
                 ShapedStarforgeRecipeDisplay::ingredients,
-                SlotDisplay.PACKET_CODEC,
+                SlotDisplay.STREAM_CODEC,
                 ShapedStarforgeRecipeDisplay::result,
-                SlotDisplay.PACKET_CODEC,
+                SlotDisplay.STREAM_CODEC,
                 ShapedStarforgeRecipeDisplay::craftingStation,
                 ShapedStarforgeRecipeDisplay::new
         );
-        SERIALIZER = new RecipeDisplay.Serializer(CODEC, PACKET_CODEC);
+        SERIALIZER = new RecipeDisplay.Type(CODEC, STREAM_CODEC);
     }
 }

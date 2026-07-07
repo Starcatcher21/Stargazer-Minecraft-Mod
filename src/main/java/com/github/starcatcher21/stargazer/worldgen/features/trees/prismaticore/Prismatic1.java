@@ -2,7 +2,7 @@ package com.github.starcatcher21.stargazer.worldgen.features.trees.prismaticore;
 
 import com.github.starcatcher21.stargazer.block.register.MoonBlocks;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.Tree;
-import net.minecraft.block.BlockState;
+import net.minecraft.world.level.block.state.BlockState;
 
 public class Prismatic1 {
     public static void init(Tree tree, BlockState middle) {

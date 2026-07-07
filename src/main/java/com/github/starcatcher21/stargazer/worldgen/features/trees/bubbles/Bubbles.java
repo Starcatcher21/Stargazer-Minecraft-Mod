@@ -5,15 +5,14 @@ import com.github.starcatcher21.stargazer.worldgen.features.trees.Tree;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.TreeConfig;
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
-import net.minecraft.block.Blocks;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.util.FeatureContext;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 
 public class Bubbles extends Feature<TreeConfig> {
     public static final ImmutableList<Direction> GROW_DIRECTIONS = ImmutableList.of(
@@ -34,7 +33,7 @@ public class Bubbles extends Feature<TreeConfig> {
     }
 
     public static Tree register(String name) {
-        Tree tree = new Tree(true, name, Blocks.AIR.getDefaultState(), ModBlock.NORED_BLOCK.getDefaultState());
+        Tree tree = new Tree(true, name, Blocks.AIR.defaultBlockState(), ModBlock.NORED_BLOCK.defaultBlockState());
         TREELIST.add(tree);
         return tree;
     }
@@ -45,12 +44,12 @@ public class Bubbles extends Feature<TreeConfig> {
         B2.clearLeave();
         I2.clearLeave();
         I3.clearLeave();
-        G3.addLeave(ModBlock.NOGREEN_BLOCK.getDefaultState());
-        G2.addLeave(ModBlock.NOGREEN_BLOCK.getDefaultState());
-        B3.addLeave(ModBlock.NOBLUE_BLOCK.getDefaultState());
-        B2.addLeave(ModBlock.NOBLUE_BLOCK.getDefaultState());
-        I3.addLeave(ModBlock.NEGATIVE_BLOCK.getDefaultState());
-        I2.addLeave(ModBlock.NEGATIVE_BLOCK.getDefaultState());
+        G3.addLeave(ModBlock.NOGREEN_BLOCK.defaultBlockState());
+        G2.addLeave(ModBlock.NOGREEN_BLOCK.defaultBlockState());
+        B3.addLeave(ModBlock.NOBLUE_BLOCK.defaultBlockState());
+        B2.addLeave(ModBlock.NOBLUE_BLOCK.defaultBlockState());
+        I3.addLeave(ModBlock.NEGATIVE_BLOCK.defaultBlockState());
+        I2.addLeave(ModBlock.NEGATIVE_BLOCK.defaultBlockState());
         txt.init(R3);
         txt.init(G3);
         txt.init(B3);
@@ -62,8 +61,8 @@ public class Bubbles extends Feature<TreeConfig> {
     }
 
     @Override
-    public boolean generate(FeatureContext<TreeConfig> context) {
-        TreeConfig config = context.getConfig();
+    public boolean place(FeaturePlaceContext<TreeConfig> context) {
+        TreeConfig config = context.config();
         List<String> allowed = config.NAMES;
         List<Tree> TREES;
         if (config.BLACKLIST) {
@@ -71,11 +70,11 @@ public class Bubbles extends Feature<TreeConfig> {
         } else {
             TREES = TREELIST.stream().filter(name -> allowed.contains(name.name)).toList();
         }
-        BlockPos pos = context.getOrigin();
+        BlockPos pos = context.origin();
         Random random = new Random();
         Tree tree = TREES.get(random.nextInt(TREES.size()));
-        if (tree.canGrow(context.getWorld(), pos)) {
-            tree.Grow(context.getWorld(), pos);
+        if (tree.canGrow(context.level(), pos)) {
+            tree.Grow(context.level(), pos);
             return true;
         }
         return false;

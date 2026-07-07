@@ -3,31 +3,30 @@ package com.github.starcatcher21.stargazer.mechanics.Generators;
 import com.github.starcatcher21.stargazer.Helpers;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.block.BlockState;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.TagKey;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
-
 import java.util.ArrayList;
 import java.util.List;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Fluid;
 
-import static net.minecraft.block.FluidBlock.FLOW_DIRECTIONS;
+import static net.minecraft.world.level.block.LiquidBlock.POSSIBLE_FLOW_DIRECTIONS;
 
 public class CobbleGen {
     public static final Codec<CobbleGen> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            TagKey.codec(RegistryKeys.FLUID).fieldOf("fluid").forGetter(CobbleGen::getFluid),
+            TagKey.hashedCodec(Registries.FLUID).fieldOf("fluid").forGetter(CobbleGen::getFluid),
             BlockState.CODEC.fieldOf("lava").forGetter(CobbleGen::getLava),
             BlockState.CODEC.fieldOf("obsidian").forGetter(CobbleGen::getObs),
             BlockState.CODEC.fieldOf("cobble").forGetter(CobbleGen::getCobble)
     ).apply(instance, CobbleGen::new));
 
-    public static final PacketCodec<RegistryByteBuf, CobbleGen> PACKET_CODEC = PacketCodecs.registryCodec(CODEC);
+    public static final StreamCodec<RegistryFriendlyByteBuf, CobbleGen> PACKET_CODEC = ByteBufCodecs.fromCodecWithRegistries(CODEC);
     public static List<CobbleGen> list = new ArrayList<>();
 
     public final BlockState LAVA;
@@ -59,27 +58,27 @@ public class CobbleGen {
         list.add(this);
     }
 
-    public boolean gen(World world, BlockPos pos) {
-        for (Direction direction : FLOW_DIRECTIONS) {
+    public boolean gen(Level world, BlockPos pos) {
+        for (Direction direction : POSSIBLE_FLOW_DIRECTIONS) {
             if (Helpers.isColliding(LAVA.getBlock(), world, pos, direction)) {
-                BlockPos blockPos = pos.offset(direction.getOpposite());
-                if (world.getFluidState(blockPos).isIn(FLUID)) {
-                    BlockState block = world.getFluidState(pos).isStill() ? BLOCKOBS : BLOCKCOBBLE;
+                BlockPos blockPos = pos.relative(direction.getOpposite());
+                if (world.getFluidState(blockPos).is(FLUID)) {
+                    BlockState block = world.getFluidState(pos).isSource() ? BLOCKOBS : BLOCKCOBBLE;
                     if (direction == Direction.DOWN) {
-                        BlockPos newPos = Helpers.getCollidingPosition(LAVA.getBlock(), world, pos, FLOW_DIRECTIONS);
-                        world.setBlockState(newPos, BLOCKOBS);
+                        BlockPos newPos = Helpers.getCollidingPosition(LAVA.getBlock(), world, pos, POSSIBLE_FLOW_DIRECTIONS);
+                        world.setBlockAndUpdate(newPos, BLOCKOBS);
                     } else {
-                        world.setBlockState(pos, block);
+                        world.setBlockAndUpdate(pos, block);
                     }
                     return false;
                 }
             }
         }
-        if (world.getFluidState(pos).isStill() && world.getFluidState(pos).isIn(FLUID)) {
-            if (Helpers.isCollidingAny(LAVA.getBlock(), world, pos, FLOW_DIRECTIONS)) {
-                BlockState block = world.getFluidState(pos).isStill() ? BLOCKOBS : BLOCKCOBBLE;
-                BlockPos newPos = Helpers.getCollidingPosition(LAVA.getBlock(), world, pos, FLOW_DIRECTIONS);
-                world.setBlockState(newPos, block);
+        if (world.getFluidState(pos).isSource() && world.getFluidState(pos).is(FLUID)) {
+            if (Helpers.isCollidingAny(LAVA.getBlock(), world, pos, POSSIBLE_FLOW_DIRECTIONS)) {
+                BlockState block = world.getFluidState(pos).isSource() ? BLOCKOBS : BLOCKCOBBLE;
+                BlockPos newPos = Helpers.getCollidingPosition(LAVA.getBlock(), world, pos, POSSIBLE_FLOW_DIRECTIONS);
+                world.setBlockAndUpdate(newPos, block);
                 return false;
             }
         }

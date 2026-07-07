@@ -1,12 +1,14 @@
+// TODO(Ravel): Failed to fully resolve file: null cannot be cast to non-null type com.intellij.psi.PsiClass
+// TODO(Ravel): Failed to fully resolve file: null cannot be cast to non-null type com.intellij.psi.PsiClass
 package com.github.starcatcher21.stargazer.screens.recipe.serializer;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.recipe.display.RecipeDisplay;
-import net.minecraft.recipe.display.SlotDisplay;
-import net.minecraft.resource.featuretoggle.FeatureSet;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.world.flag.FeatureFlagSet;
+import net.minecraft.world.item.crafting.display.RecipeDisplay;
+import net.minecraft.world.item.crafting.display.SlotDisplay;
 
 public record ShapedMoonWelderRecipeDisplay(SlotDisplay item1, SlotDisplay item2, SlotDisplay result, SlotDisplay craftingStation) implements RecipeDisplay {
     public static final MapCodec<ShapedMoonWelderRecipeDisplay> CODEC = RecordCodecBuilder.mapCodec((instance) -> instance.group(
@@ -15,32 +17,32 @@ public record ShapedMoonWelderRecipeDisplay(SlotDisplay item1, SlotDisplay item2
             SlotDisplay.CODEC.fieldOf("result").forGetter(ShapedMoonWelderRecipeDisplay::result),
             SlotDisplay.CODEC.fieldOf("crafting_station").forGetter(ShapedMoonWelderRecipeDisplay::craftingStation))
             .apply(instance, ShapedMoonWelderRecipeDisplay::new));
-    public static final PacketCodec<RegistryByteBuf, ShapedMoonWelderRecipeDisplay> PACKET_CODEC;
-    public static final Serializer<ShapedMoonWelderRecipeDisplay> SERIALIZER;
+    public static final StreamCodec<RegistryFriendlyByteBuf, ShapedMoonWelderRecipeDisplay> STREAM_CODEC;
+    public static final Type<ShapedMoonWelderRecipeDisplay> SERIALIZER;
 
     public ShapedMoonWelderRecipeDisplay {
     }
 
-    public Serializer<ShapedMoonWelderRecipeDisplay> serializer() {
+    public Type<ShapedMoonWelderRecipeDisplay> type() {
         return SERIALIZER;
     }
 
-    public boolean isEnabled(FeatureSet features) {
+    public boolean isEnabled(FeatureFlagSet features) {
         return true;
     }
 
     static {
-        PACKET_CODEC = PacketCodec.tuple(
-                SlotDisplay.PACKET_CODEC, // <-- Fixed here
+        STREAM_CODEC = StreamCodec.composite(
+                SlotDisplay.STREAM_CODEC, // <-- Fixed here
                 ShapedMoonWelderRecipeDisplay::item1,
-                SlotDisplay.PACKET_CODEC,
+                SlotDisplay.STREAM_CODEC,
                 ShapedMoonWelderRecipeDisplay::item2,
-                SlotDisplay.PACKET_CODEC,
+                SlotDisplay.STREAM_CODEC,
                 ShapedMoonWelderRecipeDisplay::result,
-                SlotDisplay.PACKET_CODEC,
+                SlotDisplay.STREAM_CODEC,
                 ShapedMoonWelderRecipeDisplay::craftingStation,
                 ShapedMoonWelderRecipeDisplay::new
         );
-        SERIALIZER = new Serializer(CODEC, PACKET_CODEC);
+        SERIALIZER = new Type(CODEC, STREAM_CODEC);
     }
 }

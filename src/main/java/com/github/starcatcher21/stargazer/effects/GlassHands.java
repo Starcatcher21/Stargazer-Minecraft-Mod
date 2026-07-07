@@ -1,47 +1,47 @@
 package com.github.starcatcher21.stargazer.effects;
 
 import com.github.starcatcher21.stargazer.mechanics.DamageTypeRegistry;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.entity.effect.StatusEffectCategory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.particle.ParticleEffect;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.server.world.ServerWorld;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 
-public class GlassHands extends StatusEffect {
-    public GlassHands(StatusEffectCategory category, int color) {
+public class GlassHands extends MobEffect {
+    public GlassHands(MobEffectCategory category, int color) {
         super(category, color);
     }
 
-    protected GlassHands(StatusEffectCategory category, int color, ParticleEffect particleEffect) {
+    protected GlassHands(MobEffectCategory category, int color, ParticleOptions particleEffect) {
         super(category, color, particleEffect);
     }
 
     @Override
-    public void onEntityDamage(ServerWorld world, LivingEntity entity, int amplifier, DamageSource source, float amount) {
-        ItemStack mh = entity.getMainHandStack();
-        ItemStack oh = entity.getOffHandStack();
+    public void onMobHurt(ServerLevel world, LivingEntity entity, int amplifier, DamageSource source, float amount) {
+        ItemStack mh = entity.getMainHandItem();
+        ItemStack oh = entity.getOffhandItem();
         if (!mh.isEmpty()) {
-            if (mh.isDamageable()) {
-                mh.damage((amplifier+1)*5, mh.getItem(),entity, entity.getPreferredEquipmentSlot(mh));
+            if (mh.isDamageableItem()) {
+                mh.hurtAndConvertOnBreak((amplifier+1)*5, mh.getItem(),entity, entity.getEquipmentSlotForItem(mh));
             } else {
-                mh.decrement(amplifier+1);
+                mh.shrink(amplifier+1);
             }
         } else if (!oh.isEmpty()) {
-            if (oh.isDamageable()) {
-                oh.damage((amplifier+1)*2, oh.getItem(),entity, entity.getPreferredEquipmentSlot(oh));
+            if (oh.isDamageableItem()) {
+                oh.hurtAndConvertOnBreak((amplifier+1)*2, oh.getItem(),entity, entity.getEquipmentSlotForItem(oh));
             } else {
-                oh.decrement(amplifier+1);
+                oh.shrink(amplifier+1);
             }
         } else {
             DamageSource damageSource = new DamageSource(
-                    world.getRegistryManager()
-                            .getOrThrow(RegistryKeys.DAMAGE_TYPE)
-                            .getEntry(DamageTypeRegistry.GLASS_CANNON.getValue()).get()
+                    world.registryAccess()
+                            .lookupOrThrow(Registries.DAMAGE_TYPE)
+                            .get(DamageTypeRegistry.GLASS_CANNON.identifier()).get()
             );
-            entity.damage(world, damageSource, entity.getHealth()-1);
+            entity.hurtServer(world, damageSource, entity.getHealth()-1);
         }
     }
 }

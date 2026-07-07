@@ -7,20 +7,30 @@ import com.github.starcatcher21.stargazer.block.clases.moon.plants.MoonCrop;
 import com.github.starcatcher21.stargazer.block.register.*;
 import com.github.starcatcher21.stargazer.item.ModItems;
 import com.github.starcatcher21.stargazer.item.WishingStars;
+import com.mojang.math.Quadrant;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
 import net.minecraft.client.data.*;
-import net.minecraft.client.render.model.json.ModelVariant;
-import net.minecraft.client.render.model.json.MultipartModelConditionBuilder;
-import net.minecraft.client.render.model.json.WeightedVariant;
-import net.minecraft.item.Item;
-import net.minecraft.registry.Registries;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.collection.WeightedPool;
-import net.minecraft.util.math.AxisRotation;
-
+import net.minecraft.client.data.models.BlockModelGenerators;
+import net.minecraft.client.data.models.ItemModelGenerators;
+import net.minecraft.client.data.models.MultiVariant;
+import net.minecraft.client.data.models.blockstates.BlockModelDefinitionGenerator;
+import net.minecraft.client.data.models.blockstates.ConditionBuilder;
+import net.minecraft.client.data.models.blockstates.MultiPartGenerator;
+import net.minecraft.client.data.models.model.ItemModelUtils;
+import net.minecraft.client.data.models.model.ModelLocationUtils;
+import net.minecraft.client.data.models.model.ModelTemplate;
+import net.minecraft.client.data.models.model.ModelTemplates;
+import net.minecraft.client.data.models.model.TextureMapping;
+import net.minecraft.client.data.models.model.TextureSlot;
+import net.minecraft.client.data.models.model.TexturedModel;
+import net.minecraft.client.renderer.block.model.Variant;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.util.random.WeightedList;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import java.util.Optional;
 
 public class ModModelProvider extends FabricModelProvider {
@@ -29,188 +39,188 @@ public class ModModelProvider extends FabricModelProvider {
     }
 
     @Override
-    public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
-        blockStateModelGenerator.registerSimpleCubeAll(ModBlock.BONE_LEAVES);
+    public void generateBlockStateModels(BlockModelGenerators blockStateModelGenerator) {
+        blockStateModelGenerator.createTrivialCube(ModBlock.BONE_LEAVES);
         // planks
-        blockStateModelGenerator.registerCubeAllModelTexturePool(MoonBlocks.MOON_PLANKS)
+        blockStateModelGenerator.family(MoonBlocks.MOON_PLANKS)
                 .stairs(MoonBlocks.MOON_PLANKS_STAIRS)
                 .button(MoonBlocks.MOON_PLANKS_BUTTON)
                 .fence(MoonBlocks.MOON_PLANKS_FENCE)
                 .fenceGate(MoonBlocks.MOON_PLANKS_FENCE_GATE)
                 .slab(MoonBlocks.MOON_PLANKS_SLAB);
-        blockStateModelGenerator.registerCubeAllModelTexturePool(MoonBlocks.YELLOW_MOON_PLANKS)
+        blockStateModelGenerator.family(MoonBlocks.YELLOW_MOON_PLANKS)
                 .stairs(MoonBlocks.YELLOW_MOON_PLANKS_STAIRS)
                 .button(MoonBlocks.YELLOW_MOON_PLANKS_BUTTON)
                 .fence(MoonBlocks.YELLOW_MOON_PLANKS_FENCE)
                 .fenceGate(MoonBlocks.YELLOW_MOON_PLANKS_FENCE_GATE)
                 .slab(MoonBlocks.YELLOW_MOON_PLANKS_SLAB);
-        blockStateModelGenerator.registerCubeAllModelTexturePool(MoonBlocks.BLUE_MOON_PLANKS)
+        blockStateModelGenerator.family(MoonBlocks.BLUE_MOON_PLANKS)
                 .stairs(MoonBlocks.BLUE_MOON_PLANKS_STAIRS)
                 .button(MoonBlocks.BLUE_MOON_PLANKS_BUTTON)
                 .fence(MoonBlocks.BLUE_MOON_PLANKS_FENCE)
                 .fenceGate(MoonBlocks.BLUE_MOON_PLANKS_FENCE_GATE)
                 .slab(MoonBlocks.BLUE_MOON_PLANKS_SLAB);
-        blockStateModelGenerator.registerCubeAllModelTexturePool(MoonBlocks.RED_MOON_PLANKS)
+        blockStateModelGenerator.family(MoonBlocks.RED_MOON_PLANKS)
                 .stairs(MoonBlocks.RED_MOON_PLANKS_STAIRS)
                 .button(MoonBlocks.RED_MOON_PLANKS_BUTTON)
                 .fence(MoonBlocks.RED_MOON_PLANKS_FENCE)
                 .fenceGate(MoonBlocks.RED_MOON_PLANKS_FENCE_GATE)
                 .slab(MoonBlocks.RED_MOON_PLANKS_SLAB);
-        blockStateModelGenerator.registerCubeAllModelTexturePool(MoonBlocks.PURPLE_MOON_PLANKS)
+        blockStateModelGenerator.family(MoonBlocks.PURPLE_MOON_PLANKS)
                 .stairs(MoonBlocks.PURPLE_MOON_PLANKS_STAIRS)
                 .button(MoonBlocks.PURPLE_MOON_PLANKS_BUTTON)
                 .fence(MoonBlocks.PURPLE_MOON_PLANKS_FENCE)
                 .fenceGate(MoonBlocks.PURPLE_MOON_PLANKS_FENCE_GATE)
                 .slab(MoonBlocks.PURPLE_MOON_PLANKS_SLAB);
         // STAR
-        blockStateModelGenerator.registerCubeAllModelTexturePool(StarBlocks.STAR_PLANKS)
+        blockStateModelGenerator.family(StarBlocks.STAR_PLANKS)
                 .stairs(StarBlocks.STAR_PLANKS_STAIRS)
                 .button(StarBlocks.STAR_PLANKS_BUTTON)
                 .fence(StarBlocks.STAR_PLANKS_FENCE)
                 .fenceGate(StarBlocks.STAR_PLANKS_FENCE_GATE)
                 .slab(StarBlocks.STAR_PLANKS_SLAB);
-        blockStateModelGenerator.registerDoor(StarBlocks.STAR_PLANKS_DOOR);
+        blockStateModelGenerator.createDoor(StarBlocks.STAR_PLANKS_DOOR);
         // CURVE
-        blockStateModelGenerator.registerCubeAllModelTexturePool(MoonBlocks.CURVE_PLANKS)
+        blockStateModelGenerator.family(MoonBlocks.CURVE_PLANKS)
                 .stairs(MoonBlocks.CURVE_PLANKS_STAIRS)
                 .button(MoonBlocks.CURVE_PLANKS_BUTTON)
                 .fence(MoonBlocks.CURVE_PLANKS_FENCE)
                 .fenceGate(MoonBlocks.CURVE_PLANKS_FENCE_GATE)
                 .slab(MoonBlocks.CURVE_PLANKS_SLAB);
-        blockStateModelGenerator.registerDoor(MoonBlocks.CURVE_PLANKS_DOOR);
+        blockStateModelGenerator.createDoor(MoonBlocks.CURVE_PLANKS_DOOR);
         // rock
-        blockStateModelGenerator.registerCubeAllModelTexturePool(MoonBlocks.MOON_ROCK);
-        blockStateModelGenerator.registerCubeAllModelTexturePool(MoonBlocks.POLISHED_MOON_ROCK);
-        blockStateModelGenerator.registerCubeAllModelTexturePool(MoonBlocks.MOON_ROCK_BRICKS)
+        blockStateModelGenerator.family(MoonBlocks.MOON_ROCK);
+        blockStateModelGenerator.family(MoonBlocks.POLISHED_MOON_ROCK);
+        blockStateModelGenerator.family(MoonBlocks.MOON_ROCK_BRICKS)
                 .stairs(MoonBlocks.MOON_ROCK_BRICKS_STAIRS)
                 .slab(MoonBlocks.MOON_ROCK_BRICKS_SLAB);
-        blockStateModelGenerator.registerSimpleCubeAll(MoonBlocks.CHISELED_MOON_ROCK_BRICKS);
-        blockStateModelGenerator.registerSimpleCubeAll(MoonBlocks.CRACKED_MOON_ROCK_BRICKS);
-        blockStateModelGenerator.registerCubeAllModelTexturePool(MoonBlocks.BLACK_MOON_ROCK);
-        blockStateModelGenerator.registerCubeAllModelTexturePool(MoonBlocks.POLISHED_BLACK_MOON_ROCK);
-        blockStateModelGenerator.registerCubeAllModelTexturePool(MoonBlocks.POLISHED_BLACK_MOON_ROCK_PURPLE);
-        blockStateModelGenerator.registerCubeAllModelTexturePool(MoonBlocks.PRISMATIC_ORE);
-        blockStateModelGenerator.registerCubeAllModelTexturePool(MoonBlocks.PRISMATIC_SHARD_BLOCK);
+        blockStateModelGenerator.createTrivialCube(MoonBlocks.CHISELED_MOON_ROCK_BRICKS);
+        blockStateModelGenerator.createTrivialCube(MoonBlocks.CRACKED_MOON_ROCK_BRICKS);
+        blockStateModelGenerator.family(MoonBlocks.BLACK_MOON_ROCK);
+        blockStateModelGenerator.family(MoonBlocks.POLISHED_BLACK_MOON_ROCK);
+        blockStateModelGenerator.family(MoonBlocks.POLISHED_BLACK_MOON_ROCK_PURPLE);
+        blockStateModelGenerator.family(MoonBlocks.PRISMATIC_ORE);
+        blockStateModelGenerator.family(MoonBlocks.PRISMATIC_SHARD_BLOCK);
         // tree
-        blockStateModelGenerator.registerSimpleCubeAll(MoonBlocks.MOON_LEAVES);
-        blockStateModelGenerator.registerAxisRotated(MoonBlocks.MOON_LOG, TexturedModel.CUBE_COLUMN);
-        blockStateModelGenerator.registerAxisRotated(MoonBlocks.FULL_MOON_LOG, TexturedModel.CUBE_COLUMN);
-        blockStateModelGenerator.registerSimpleCubeAll(MoonBlocks.FULL_MOON_LEAVES);
-        blockStateModelGenerator.registerSimpleCubeAll(MoonBlocks.FULL_MOON_CORE);
-        blockStateModelGenerator.registerAxisRotated(MoonBlocks.STRIPPED_MOON_LOG, TexturedModel.CUBE_COLUMN);
-        blockStateModelGenerator.registerAxisRotated(MoonBlocks.CURVE_LOG, TexturedModel.CUBE_COLUMN);
-        blockStateModelGenerator.registerAxisRotated(MoonBlocks.STRIPPED_CURVE_LOG, TexturedModel.CUBE_COLUMN);
-        blockStateModelGenerator.registerSimpleCubeAll(MoonBlocks.CURVE_LEAVES);
-        blockStateModelGenerator.registerAxisRotated(StarBlocks.STAR_LOG, TexturedModel.CUBE_COLUMN);
-        blockStateModelGenerator.registerAxisRotated(StarBlocks.STRIPPED_STAR_LOG, TexturedModel.CUBE_COLUMN);
-        blockStateModelGenerator.registerAxisRotated(Darkness.LOG_OF_DARKNESS, TexturedModel.CUBE_COLUMN);
-        blockStateModelGenerator.registerAxisRotated(Darkness.STRIPPED_LOG_OF_DARKNESS, TexturedModel.CUBE_COLUMN);
-        blockStateModelGenerator.registerSimpleCubeAll(Darkness.DARKNESS_LEAVES);
-        blockStateModelGenerator.registerSimpleCubeAll(Wander.TRUNN_LEAVES);
+        blockStateModelGenerator.createTrivialCube(MoonBlocks.MOON_LEAVES);
+        blockStateModelGenerator.createAxisAlignedPillarBlock(MoonBlocks.MOON_LOG, TexturedModel.COLUMN);
+        blockStateModelGenerator.createAxisAlignedPillarBlock(MoonBlocks.FULL_MOON_LOG, TexturedModel.COLUMN);
+        blockStateModelGenerator.createTrivialCube(MoonBlocks.FULL_MOON_LEAVES);
+        blockStateModelGenerator.createTrivialCube(MoonBlocks.FULL_MOON_CORE);
+        blockStateModelGenerator.createAxisAlignedPillarBlock(MoonBlocks.STRIPPED_MOON_LOG, TexturedModel.COLUMN);
+        blockStateModelGenerator.createAxisAlignedPillarBlock(MoonBlocks.CURVE_LOG, TexturedModel.COLUMN);
+        blockStateModelGenerator.createAxisAlignedPillarBlock(MoonBlocks.STRIPPED_CURVE_LOG, TexturedModel.COLUMN);
+        blockStateModelGenerator.createTrivialCube(MoonBlocks.CURVE_LEAVES);
+        blockStateModelGenerator.createAxisAlignedPillarBlock(StarBlocks.STAR_LOG, TexturedModel.COLUMN);
+        blockStateModelGenerator.createAxisAlignedPillarBlock(StarBlocks.STRIPPED_STAR_LOG, TexturedModel.COLUMN);
+        blockStateModelGenerator.createAxisAlignedPillarBlock(Darkness.LOG_OF_DARKNESS, TexturedModel.COLUMN);
+        blockStateModelGenerator.createAxisAlignedPillarBlock(Darkness.STRIPPED_LOG_OF_DARKNESS, TexturedModel.COLUMN);
+        blockStateModelGenerator.createTrivialCube(Darkness.DARKNESS_LEAVES);
+        blockStateModelGenerator.createTrivialCube(Wander.TRUNN_LEAVES);
 
-        blockStateModelGenerator.registerCubeAllModelTexturePool(Darkness.DARKNESS_PLANKS)
+        blockStateModelGenerator.family(Darkness.DARKNESS_PLANKS)
                 .stairs(Darkness.DARKNESS_PLANKS_STAIRS)
                 .button(Darkness.DARKNESS_PLANKS_BUTTON)
                 .fence(Darkness.DARKNESS_PLANKS_FENCE)
                 .fenceGate(Darkness.DARKNESS_PLANKS_FENCE_GATE)
                 .slab(Darkness.DARKNESS_PLANKS_SLAB);
-        blockStateModelGenerator.registerDoor(Darkness.DARKNESS_PLANKS_DOOR);
+        blockStateModelGenerator.createDoor(Darkness.DARKNESS_PLANKS_DOOR);
         // Eye blood
-        blockStateModelGenerator.registerAxisRotated(EyeBloodBlocks.STRIPPED_EYE_LOG, TexturedModel.CUBE_COLUMN);
-        blockStateModelGenerator.registerSimpleCubeAll(EyeBloodBlocks.EYE_LEAVES);
+        blockStateModelGenerator.createAxisAlignedPillarBlock(EyeBloodBlocks.STRIPPED_EYE_LOG, TexturedModel.COLUMN);
+        blockStateModelGenerator.createTrivialCube(EyeBloodBlocks.EYE_LEAVES);
         // mushroom
-        registerCustomFlowerPotPlant(blockStateModelGenerator, MoonBlocks.PURPLE_MUSHROOM, MoonBlocks.POTTED_PURPLE_MUSHROOM, MoonBlocks.MOON_ROCK, BlockStateModelGenerator.CrossType.NOT_TINTED);
-        blockStateModelGenerator.registerMushroomBlock(MoonBlocks.PURPLE_MUSHROOM_BLOCK);
+        registerCustomFlowerPotPlant(blockStateModelGenerator, MoonBlocks.PURPLE_MUSHROOM, MoonBlocks.POTTED_PURPLE_MUSHROOM, MoonBlocks.MOON_ROCK, BlockModelGenerators.PlantType.NOT_TINTED);
+        blockStateModelGenerator.createMushroomBlock(MoonBlocks.PURPLE_MUSHROOM_BLOCK);
         // saplings
-        registerCustomFlowerPotPlant(blockStateModelGenerator, MoonBlocks.MOON_SAPLING, MoonBlocks.POTTED_MOON_SAPLING, MoonBlocks.MOON_ROCK, BlockStateModelGenerator.CrossType.NOT_TINTED);
-        registerCustomFlowerPotPlant(blockStateModelGenerator, MoonBlocks.CURVE_SAPLING, MoonBlocks.POTTED_CURVE_SAPLING, MoonBlocks.MOON_ROCK, BlockStateModelGenerator.CrossType.NOT_TINTED);
-        registerCustomFlowerPotPlant(blockStateModelGenerator, StarBlocks.STAR_SAPLING, StarBlocks.POTTED_STAR_SAPLING, MoonBlocks.MOON_ROCK, BlockStateModelGenerator.CrossType.NOT_TINTED);
-        registerCustomFlowerPotPlant(blockStateModelGenerator, Darkness.DARKNESS_SAPLING, Darkness.POTTED_DARKNESS_SAPLING, MoonBlocks.MOON_ROCK, BlockStateModelGenerator.CrossType.NOT_TINTED);
-        registerCustomFlowerPotPlant(blockStateModelGenerator, RedOrbBlocks.YERI_SAPLING, RedOrbBlocks.POTTED_YERI_SAPLING, RedOrbBlocks.RED_ROCK, BlockStateModelGenerator.CrossType.NOT_TINTED);
-        registerCustomFlowerPotPlant(blockStateModelGenerator, MoonBlocks.FULL_MOON_SAPLING, MoonBlocks.POTTED_FULL_MOON_SAPLING, MoonBlocks.MOON_ROCK, BlockStateModelGenerator.CrossType.NOT_TINTED);
-        registerCustomFlowerPotPlant(blockStateModelGenerator, RedOrbBlocks.SPIRO_SAPLING, RedOrbBlocks.POTTED_SPIRO_SAPLING, RedOrbBlocks.RED_ROCK, BlockStateModelGenerator.CrossType.NOT_TINTED);
-        registerCustomFlowerPotPlant(blockStateModelGenerator, Wander.TRUNN_SAPLING, Wander.POTTED_TRUNN_SAPLING, Wander.PUROIL, BlockStateModelGenerator.CrossType.NOT_TINTED);
+        registerCustomFlowerPotPlant(blockStateModelGenerator, MoonBlocks.MOON_SAPLING, MoonBlocks.POTTED_MOON_SAPLING, MoonBlocks.MOON_ROCK, BlockModelGenerators.PlantType.NOT_TINTED);
+        registerCustomFlowerPotPlant(blockStateModelGenerator, MoonBlocks.CURVE_SAPLING, MoonBlocks.POTTED_CURVE_SAPLING, MoonBlocks.MOON_ROCK, BlockModelGenerators.PlantType.NOT_TINTED);
+        registerCustomFlowerPotPlant(blockStateModelGenerator, StarBlocks.STAR_SAPLING, StarBlocks.POTTED_STAR_SAPLING, MoonBlocks.MOON_ROCK, BlockModelGenerators.PlantType.NOT_TINTED);
+        registerCustomFlowerPotPlant(blockStateModelGenerator, Darkness.DARKNESS_SAPLING, Darkness.POTTED_DARKNESS_SAPLING, MoonBlocks.MOON_ROCK, BlockModelGenerators.PlantType.NOT_TINTED);
+        registerCustomFlowerPotPlant(blockStateModelGenerator, RedOrbBlocks.YERI_SAPLING, RedOrbBlocks.POTTED_YERI_SAPLING, RedOrbBlocks.RED_ROCK, BlockModelGenerators.PlantType.NOT_TINTED);
+        registerCustomFlowerPotPlant(blockStateModelGenerator, MoonBlocks.FULL_MOON_SAPLING, MoonBlocks.POTTED_FULL_MOON_SAPLING, MoonBlocks.MOON_ROCK, BlockModelGenerators.PlantType.NOT_TINTED);
+        registerCustomFlowerPotPlant(blockStateModelGenerator, RedOrbBlocks.SPIRO_SAPLING, RedOrbBlocks.POTTED_SPIRO_SAPLING, RedOrbBlocks.RED_ROCK, BlockModelGenerators.PlantType.NOT_TINTED);
+        registerCustomFlowerPotPlant(blockStateModelGenerator, Wander.TRUNN_SAPLING, Wander.POTTED_TRUNN_SAPLING, Wander.PUROIL, BlockModelGenerators.PlantType.NOT_TINTED);
         // flowers
-        registerCustomFlowerPotPlant(blockStateModelGenerator, StarBlocks.STAR_FLOWER, StarBlocks.POTTED_STAR_FLOWER, MoonBlocks.MOON_ROCK, BlockStateModelGenerator.CrossType.NOT_TINTED);
-        registerCustomFlowerPotPlant(blockStateModelGenerator, StarBlocks.CELESTIAL_STAR_FLOWER, StarBlocks.POTTED_CELESTIAL_STAR_FLOWER, MoonBlocks.MOON_ROCK, BlockStateModelGenerator.CrossType.NOT_TINTED);
-        registerCustomFlowerPotPlant(blockStateModelGenerator, ModBlock.BONEFLOWER, ModBlock.POTTED_BONEFLOWER, MoonBlocks.MOON_ROCK, BlockStateModelGenerator.CrossType.NOT_TINTED);
-        registerCustomFlowerPotPlant(blockStateModelGenerator, Nebulas.RED_TENTACLE_FLOWER, Nebulas.POTTED_RED_TENTACLE_FLOWER, MoonBlocks.MOON_ROCK, BlockStateModelGenerator.CrossType.NOT_TINTED);
-        registerCustomFlowerPotPlant(blockStateModelGenerator, Nebulas.YELLOW_TENTACLE_FLOWER, Nebulas.POTTED_YELLOW_TENTACLE_FLOWER, MoonBlocks.MOON_ROCK, BlockStateModelGenerator.CrossType.NOT_TINTED);
-        registerCustomFlowerPotPlant(blockStateModelGenerator, Nebulas.BLUE_TENTACLE_FLOWER, Nebulas.POTTED_BLUE_TENTACLE_FLOWER, MoonBlocks.MOON_ROCK, BlockStateModelGenerator.CrossType.NOT_TINTED);
-        registerCustomFlowerPotPlant(blockStateModelGenerator, Nebulas.PURPLE_TENTACLE_FLOWER, Nebulas.POTTED_PURPLE_TENTACLE_FLOWER, MoonBlocks.MOON_ROCK, BlockStateModelGenerator.CrossType.NOT_TINTED);
-        blockStateModelGenerator.registerTintableCross(MoonBlocks.MOON_GRASS, BlockStateModelGenerator.CrossType.NOT_TINTED);
-        blockStateModelGenerator.registerDoubleBlock(MoonBlocks.TALL_MOON_GRASS, BlockStateModelGenerator.CrossType.NOT_TINTED);
-        blockStateModelGenerator.registerTintableCross(MoonBlocks.MOON_FERN, BlockStateModelGenerator.CrossType.NOT_TINTED);
+        registerCustomFlowerPotPlant(blockStateModelGenerator, StarBlocks.STAR_FLOWER, StarBlocks.POTTED_STAR_FLOWER, MoonBlocks.MOON_ROCK, BlockModelGenerators.PlantType.NOT_TINTED);
+        registerCustomFlowerPotPlant(blockStateModelGenerator, StarBlocks.CELESTIAL_STAR_FLOWER, StarBlocks.POTTED_CELESTIAL_STAR_FLOWER, MoonBlocks.MOON_ROCK, BlockModelGenerators.PlantType.NOT_TINTED);
+        registerCustomFlowerPotPlant(blockStateModelGenerator, ModBlock.BONEFLOWER, ModBlock.POTTED_BONEFLOWER, MoonBlocks.MOON_ROCK, BlockModelGenerators.PlantType.NOT_TINTED);
+        registerCustomFlowerPotPlant(blockStateModelGenerator, Nebulas.RED_TENTACLE_FLOWER, Nebulas.POTTED_RED_TENTACLE_FLOWER, MoonBlocks.MOON_ROCK, BlockModelGenerators.PlantType.NOT_TINTED);
+        registerCustomFlowerPotPlant(blockStateModelGenerator, Nebulas.YELLOW_TENTACLE_FLOWER, Nebulas.POTTED_YELLOW_TENTACLE_FLOWER, MoonBlocks.MOON_ROCK, BlockModelGenerators.PlantType.NOT_TINTED);
+        registerCustomFlowerPotPlant(blockStateModelGenerator, Nebulas.BLUE_TENTACLE_FLOWER, Nebulas.POTTED_BLUE_TENTACLE_FLOWER, MoonBlocks.MOON_ROCK, BlockModelGenerators.PlantType.NOT_TINTED);
+        registerCustomFlowerPotPlant(blockStateModelGenerator, Nebulas.PURPLE_TENTACLE_FLOWER, Nebulas.POTTED_PURPLE_TENTACLE_FLOWER, MoonBlocks.MOON_ROCK, BlockModelGenerators.PlantType.NOT_TINTED);
+        blockStateModelGenerator.createCrossBlockWithDefaultItem(MoonBlocks.MOON_GRASS, BlockModelGenerators.PlantType.NOT_TINTED);
+        blockStateModelGenerator.createDoublePlant(MoonBlocks.TALL_MOON_GRASS, BlockModelGenerators.PlantType.NOT_TINTED);
+        blockStateModelGenerator.createCrossBlockWithDefaultItem(MoonBlocks.MOON_FERN, BlockModelGenerators.PlantType.NOT_TINTED);
         // crops
-        blockStateModelGenerator.registerCrop(Crops.DRAGON_CARROT_BLOCK, MoonCrop.AGE, 0, 1, 2, 3, 4, 5, 6, 7);
-        blockStateModelGenerator.registerCrop(Crops.BROODY_BLOCK, MoonCrop.AGE, 0, 1, 2, 3, 4, 5, 6, 7);
-        blockStateModelGenerator.registerCrop(Crops.EYE_BALLS_BLOCK, MoonCrop.AGE, 0, 1, 2, 3, 4, 5, 6, 7);
+        blockStateModelGenerator.createCropBlock(Crops.DRAGON_CARROT_BLOCK, MoonCrop.AGE, 0, 1, 2, 3, 4, 5, 6, 7);
+        blockStateModelGenerator.createCropBlock(Crops.BROODY_BLOCK, MoonCrop.AGE, 0, 1, 2, 3, 4, 5, 6, 7);
+        blockStateModelGenerator.createCropBlock(Crops.EYE_BALLS_BLOCK, MoonCrop.AGE, 0, 1, 2, 3, 4, 5, 6, 7);
         // Nebulas
-        blockStateModelGenerator.registerAxisRotated(Nebulas.BLUE_NEBULA_LOG, TexturedModel.CUBE_COLUMN);
-        blockStateModelGenerator.registerAxisRotated(Nebulas.RED_NEBULA_LOG, TexturedModel.CUBE_COLUMN);
-        blockStateModelGenerator.registerAxisRotated(Nebulas.PURPLE_NEBULA_LOG, TexturedModel.CUBE_COLUMN);
-        blockStateModelGenerator.registerAxisRotated(Nebulas.YELLOW_NEBULA_LOG, TexturedModel.CUBE_COLUMN);
-        blockStateModelGenerator.registerAxisRotated(Wander.TRUNN_LOG, TexturedModel.CUBE_COLUMN);
-        blockStateModelGenerator.registerSimpleCubeAll(Nebulas.BLUE_NEBULA_LEAVES);
-        blockStateModelGenerator.registerCubeAllModelTexturePool(Nebulas.BLUE_NEBULA_PLANKS)
+        blockStateModelGenerator.createAxisAlignedPillarBlock(Nebulas.BLUE_NEBULA_LOG, TexturedModel.COLUMN);
+        blockStateModelGenerator.createAxisAlignedPillarBlock(Nebulas.RED_NEBULA_LOG, TexturedModel.COLUMN);
+        blockStateModelGenerator.createAxisAlignedPillarBlock(Nebulas.PURPLE_NEBULA_LOG, TexturedModel.COLUMN);
+        blockStateModelGenerator.createAxisAlignedPillarBlock(Nebulas.YELLOW_NEBULA_LOG, TexturedModel.COLUMN);
+        blockStateModelGenerator.createAxisAlignedPillarBlock(Wander.TRUNN_LOG, TexturedModel.COLUMN);
+        blockStateModelGenerator.createTrivialCube(Nebulas.BLUE_NEBULA_LEAVES);
+        blockStateModelGenerator.family(Nebulas.BLUE_NEBULA_PLANKS)
                 .stairs(Nebulas.BLUE_NEBULA_PLANKS_STAIRS)
                 .button(Nebulas.BLUE_NEBULA_PLANKS_BUTTON)
                 .fence(Nebulas.BLUE_NEBULA_PLANKS_FENCE)
                 .fenceGate(Nebulas.BLUE_NEBULA_PLANKS_FENCE_GATE)
                 .slab(Nebulas.BLUE_NEBULA_PLANKS_SLAB);
-        blockStateModelGenerator.registerSimpleCubeAll(Nebulas.PURPLE_NEBULA_LEAVES);
-        blockStateModelGenerator.registerCubeAllModelTexturePool(Nebulas.PURPLE_NEBULA_PLANKS)
+        blockStateModelGenerator.createTrivialCube(Nebulas.PURPLE_NEBULA_LEAVES);
+        blockStateModelGenerator.family(Nebulas.PURPLE_NEBULA_PLANKS)
                 .stairs(Nebulas.PURPLE_NEBULA_PLANKS_STAIRS)
                 .button(Nebulas.PURPLE_NEBULA_PLANKS_BUTTON)
                 .fence(Nebulas.PURPLE_NEBULA_PLANKS_FENCE)
                 .fenceGate(Nebulas.PURPLE_NEBULA_PLANKS_FENCE_GATE)
                 .slab(Nebulas.PURPLE_NEBULA_PLANKS_SLAB);
-        blockStateModelGenerator.registerSimpleCubeAll(Nebulas.RED_NEBULA_LEAVES);
-        blockStateModelGenerator.registerCubeAllModelTexturePool(Nebulas.RED_NEBULA_PLANKS)
+        blockStateModelGenerator.createTrivialCube(Nebulas.RED_NEBULA_LEAVES);
+        blockStateModelGenerator.family(Nebulas.RED_NEBULA_PLANKS)
                 .stairs(Nebulas.RED_NEBULA_PLANKS_STAIRS)
                 .button(Nebulas.RED_NEBULA_PLANKS_BUTTON)
                 .fence(Nebulas.RED_NEBULA_PLANKS_FENCE)
                 .fenceGate(Nebulas.RED_NEBULA_PLANKS_FENCE_GATE)
                 .slab(Nebulas.RED_NEBULA_PLANKS_SLAB);
-        blockStateModelGenerator.registerSimpleCubeAll(Nebulas.YELLOW_NEBULA_LEAVES);
-        blockStateModelGenerator.registerCubeAllModelTexturePool(Nebulas.YELLOW_NEBULA_PLANKS)
+        blockStateModelGenerator.createTrivialCube(Nebulas.YELLOW_NEBULA_LEAVES);
+        blockStateModelGenerator.family(Nebulas.YELLOW_NEBULA_PLANKS)
                 .stairs(Nebulas.YELLOW_NEBULA_PLANKS_STAIRS)
                 .button(Nebulas.YELLOW_NEBULA_PLANKS_BUTTON)
                 .fence(Nebulas.YELLOW_NEBULA_PLANKS_FENCE)
                 .fenceGate(Nebulas.YELLOW_NEBULA_PLANKS_FENCE_GATE)
                 .slab(Nebulas.YELLOW_NEBULA_PLANKS_SLAB);
-        blockStateModelGenerator.registerSimpleCubeAll(Nebulas.BLUE_NEBULA_REGROW_CORE);
-        blockStateModelGenerator.registerSimpleCubeAll(Nebulas.PURPLE_NEBULA_REGROW_CORE);
-        blockStateModelGenerator.registerSimpleCubeAll(Nebulas.RED_NEBULA_REGROW_CORE);
-        blockStateModelGenerator.registerSimpleCubeAll(Nebulas.YELLOW_NEBULA_REGROW_CORE);
-        blockStateModelGenerator.registerSimpleCubeAll(MoonBlocks.SUN_ENRICHED_MOON_ROCK);
-        blockStateModelGenerator.registerSimpleCubeAll(MoonBlocks.POLISHED_SUN_ENRICHED_MOON_ROCK);
-        TextureMap dyliumMap = new TextureMap()
-                .put(TextureKey.TOP, Identifier.of(Stargazer.MOD_ID, "block/dylium_top"))
-                .put(TextureKey.BOTTOM, Identifier.of(Stargazer.MOD_ID, "block/moon_rock"))
-                .put(TextureKey.SIDE, Identifier.of(Stargazer.MOD_ID, "block/dylium_side"));
+        blockStateModelGenerator.createTrivialCube(Nebulas.BLUE_NEBULA_REGROW_CORE);
+        blockStateModelGenerator.createTrivialCube(Nebulas.PURPLE_NEBULA_REGROW_CORE);
+        blockStateModelGenerator.createTrivialCube(Nebulas.RED_NEBULA_REGROW_CORE);
+        blockStateModelGenerator.createTrivialCube(Nebulas.YELLOW_NEBULA_REGROW_CORE);
+        blockStateModelGenerator.createTrivialCube(MoonBlocks.SUN_ENRICHED_MOON_ROCK);
+        blockStateModelGenerator.createTrivialCube(MoonBlocks.POLISHED_SUN_ENRICHED_MOON_ROCK);
+        TextureMapping dyliumMap = new TextureMapping()
+                .put(TextureSlot.TOP, Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "block/dylium_top"))
+                .put(TextureSlot.BOTTOM, Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "block/moon_rock"))
+                .put(TextureSlot.SIDE, Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "block/dylium_side"));
 
         registerTopBottom(blockStateModelGenerator, Darkness.DYLIUM, dyliumMap);
-        TextureMap BorilMap = new TextureMap()
-                .put(TextureKey.TOP, Identifier.of(Stargazer.MOD_ID, "block/boril_top"))
-                .put(TextureKey.BOTTOM, Identifier.of(Stargazer.MOD_ID, "block/puroil"))
-                .put(TextureKey.SIDE, Identifier.of(Stargazer.MOD_ID, "block/boril_side"));
+        TextureMapping BorilMap = new TextureMapping()
+                .put(TextureSlot.TOP, Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "block/boril_top"))
+                .put(TextureSlot.BOTTOM, Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "block/puroil"))
+                .put(TextureSlot.SIDE, Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "block/boril_side"));
 
         registerTopBottom(blockStateModelGenerator, Wander.BORIL, BorilMap);
-        blockStateModelGenerator.registerSimpleCubeAll(Wander.PUROIL);
-        registerCustomFlowerPotPlant(blockStateModelGenerator, Darkness.ROSE_OF_PAIN, Darkness.POTTED_ROSE_OF_PAIN, MoonBlocks.MOON_ROCK, BlockStateModelGenerator.CrossType.NOT_TINTED);
-        registerCustomFlowerPotPlant(blockStateModelGenerator, MoonBlocks.SPRUNGUS, MoonBlocks.POTTED_SPRUNGUS, MoonBlocks.MOON_ROCK, BlockStateModelGenerator.CrossType.NOT_TINTED);
-        registerCustomFlowerPotPlant(blockStateModelGenerator, RedOrbBlocks.POINTY, RedOrbBlocks.POTTED_POINTY, RedOrbBlocks.RED_ROCK, BlockStateModelGenerator.CrossType.NOT_TINTED);
+        blockStateModelGenerator.createTrivialCube(Wander.PUROIL);
+        registerCustomFlowerPotPlant(blockStateModelGenerator, Darkness.ROSE_OF_PAIN, Darkness.POTTED_ROSE_OF_PAIN, MoonBlocks.MOON_ROCK, BlockModelGenerators.PlantType.NOT_TINTED);
+        registerCustomFlowerPotPlant(blockStateModelGenerator, MoonBlocks.SPRUNGUS, MoonBlocks.POTTED_SPRUNGUS, MoonBlocks.MOON_ROCK, BlockModelGenerators.PlantType.NOT_TINTED);
+        registerCustomFlowerPotPlant(blockStateModelGenerator, RedOrbBlocks.POINTY, RedOrbBlocks.POTTED_POINTY, RedOrbBlocks.RED_ROCK, BlockModelGenerators.PlantType.NOT_TINTED);
         // Chess
-        blockStateModelGenerator.registerSimpleCubeAll(Chess.BLACK_CHESSBOARD);
-        blockStateModelGenerator.registerSimpleCubeAll(Chess.WHITE_CHESSBOARD);
-        blockStateModelGenerator.registerSimpleCubeAll(Chess.BLACK_BRICKS);
-        blockStateModelGenerator.registerSimpleCubeAll(Chess.WHITE_BRICKS);
+        blockStateModelGenerator.createTrivialCube(Chess.BLACK_CHESSBOARD);
+        blockStateModelGenerator.createTrivialCube(Chess.WHITE_CHESSBOARD);
+        blockStateModelGenerator.createTrivialCube(Chess.BLACK_BRICKS);
+        blockStateModelGenerator.createTrivialCube(Chess.WHITE_BRICKS);
         // Other
-        blockStateModelGenerator.registerSimpleCubeAll(StarBlocks.RED_STAR_BLOCK);
-        blockStateModelGenerator.registerSimpleCubeAll(StarBlocks.BLUE_STAR_BLOCK);
-        blockStateModelGenerator.registerSimpleCubeAll(StarBlocks.YELLOW_STAR_BLOCK);
-        blockStateModelGenerator.registerSimpleCubeAll(StarBlocks.PURPLE_STAR_BLOCK);
+        blockStateModelGenerator.createTrivialCube(StarBlocks.RED_STAR_BLOCK);
+        blockStateModelGenerator.createTrivialCube(StarBlocks.BLUE_STAR_BLOCK);
+        blockStateModelGenerator.createTrivialCube(StarBlocks.YELLOW_STAR_BLOCK);
+        blockStateModelGenerator.createTrivialCube(StarBlocks.PURPLE_STAR_BLOCK);
         // Hedge
         registerHedge(blockStateModelGenerator, Hedges.OAK_HEDGE, Blocks.OAK_LOG);
         registerHedge(blockStateModelGenerator, Hedges.BIRCH_HEDGE, Blocks.BIRCH_LOG);
@@ -230,86 +240,86 @@ public class ModModelProvider extends FabricModelProvider {
         registerHedgeSide(blockStateModelGenerator, Hedges.SPIRO_HEDGE, RedOrbBlocks.SPIRO_LOG);
         registerHedgeSide(blockStateModelGenerator, Hedges.TRUNN_HEDGE, Wander.TRUNN_LOG);
         // Red Orb
-        blockStateModelGenerator.registerCubeAllModelTexturePool(RedOrbBlocks.RED_ROCK)
+        blockStateModelGenerator.family(RedOrbBlocks.RED_ROCK)
                 .stairs(RedOrbBlocks.RED_ROCK_STAIRS)
                 .slab(RedOrbBlocks.RED_ROCK_SLAB);
-        blockStateModelGenerator.registerSimpleCubeAll(RedOrbBlocks.POLISHED_RED_ROCK);
-        blockStateModelGenerator.registerAxisRotated(RedOrbBlocks.YERI_LOG, TexturedModel.CUBE_COLUMN);
-        blockStateModelGenerator.registerSimpleCubeAll(RedOrbBlocks.YERI_LEAVES);
-        blockStateModelGenerator.registerCubeAllModelTexturePool(RedOrbBlocks.YERI_PLANKS)
+        blockStateModelGenerator.createTrivialCube(RedOrbBlocks.POLISHED_RED_ROCK);
+        blockStateModelGenerator.createAxisAlignedPillarBlock(RedOrbBlocks.YERI_LOG, TexturedModel.COLUMN);
+        blockStateModelGenerator.createTrivialCube(RedOrbBlocks.YERI_LEAVES);
+        blockStateModelGenerator.family(RedOrbBlocks.YERI_PLANKS)
                 .stairs(RedOrbBlocks.YERI_PLANKS_STAIRS)
                 .button(RedOrbBlocks.YERI_PLANKS_BUTTON)
                 .fence(RedOrbBlocks.YERI_PLANKS_FENCE)
                 .fenceGate(RedOrbBlocks.YERI_PLANKS_FENCE_GATE)
                 .slab(RedOrbBlocks.YERI_PLANKS_SLAB);
-        blockStateModelGenerator.registerSimpleCubeAll(RedOrbBlocks.GREEN_ROCK);
-        blockStateModelGenerator.registerTintableCross(RedOrbBlocks.BLUE_GRASS, BlockStateModelGenerator.CrossType.NOT_TINTED);
-        blockStateModelGenerator.registerAxisRotated(RedOrbBlocks.SPIRO_LOG, TexturedModel.CUBE_COLUMN);
-        blockStateModelGenerator.registerSimpleCubeAll(RedOrbBlocks.SPIRO_LEAVES);
-        blockStateModelGenerator.registerSimpleCubeAll(MoonBlocks.COMET_BLOCK);
-        blockStateModelGenerator.registerSimpleCubeAll(Energy.STARGENERATOR);
+        blockStateModelGenerator.createTrivialCube(RedOrbBlocks.GREEN_ROCK);
+        blockStateModelGenerator.createCrossBlockWithDefaultItem(RedOrbBlocks.BLUE_GRASS, BlockModelGenerators.PlantType.NOT_TINTED);
+        blockStateModelGenerator.createAxisAlignedPillarBlock(RedOrbBlocks.SPIRO_LOG, TexturedModel.COLUMN);
+        blockStateModelGenerator.createTrivialCube(RedOrbBlocks.SPIRO_LEAVES);
+        blockStateModelGenerator.createTrivialCube(MoonBlocks.COMET_BLOCK);
+        blockStateModelGenerator.createTrivialCube(Energy.STARGENERATOR);
         registerCable(blockStateModelGenerator, Energy.YELLOW_CABLE);
         registerCable(blockStateModelGenerator, Energy.BLUE_CABLE);
         registerCable(blockStateModelGenerator, Energy.RED_CABLE);
         registerCable(blockStateModelGenerator, Energy.PURPLE_CABLE);
-        blockStateModelGenerator.registerSimpleCubeAll(Energy.STARMACHINE_BLOCK);
-        blockStateModelGenerator.registerSimpleCubeAll(Energy.NIGHT_WATCHER);
-        blockStateModelGenerator.registerSimpleCubeAll(Energy.STAR_CRUSHER);
+        blockStateModelGenerator.createTrivialCube(Energy.STARMACHINE_BLOCK);
+        blockStateModelGenerator.createTrivialCube(Energy.NIGHT_WATCHER);
+        blockStateModelGenerator.createTrivialCube(Energy.STAR_CRUSHER);
     }
 
     @Override
-    public void generateItemModels(ItemModelGenerator itemModelGenerator) {
-        itemModelGenerator.register(ModItems.LODESTAR, Models.GENERATED);
-        itemModelGenerator.register(ModItems.IRON_DUST, Models.GENERATED);
-        itemModelGenerator.register(ModItems.GOLD_DUST, Models.GENERATED);
-        itemModelGenerator.register(ModItems.COPPER_DUST, Models.GENERATED);
-        itemModelGenerator.register(ModItems.SUPERNOVA, Models.GENERATED);
-        itemModelGenerator.register(ModItems.DREAM_BUCKET, Models.GENERATED);
-        itemModelGenerator.register(ModItems.DARKSTAR, Models.GENERATED);
-        itemModelGenerator.register(ModItems.STARDUST, Models.GENERATED);
-        itemModelGenerator.register(ModItems.GEODE_FRUIT, Models.GENERATED);
-        itemModelGenerator.register(ModItems.COOKED_GEODE_FRUIT, Models.GENERATED);
-        itemModelGenerator.register(ModItems.FULL_COOKED_GEODE_FRUIT, Models.GENERATED);
-        itemModelGenerator.register(ModItems.BLACK_COOKED_GEODE_FRUIT, Models.GENERATED);
-        itemModelGenerator.register(ModItems.BLUE_STAR, Models.GENERATED);
-        itemModelGenerator.register(ModItems.RED_STAR, Models.GENERATED);
-        itemModelGenerator.register(ModItems.RED_ORB_PLATFORM_BASE, Models.GENERATED);
-        itemModelGenerator.register(ModItems.YELLOW_STAR, Models.GENERATED);
-        itemModelGenerator.register(ModItems.PURPLE_STAR, Models.GENERATED);
-        itemModelGenerator.register(ModItems.DREAM_STAR, Models.GENERATED);
-        itemModelGenerator.register(ModItems.MOON_GLASS_SHARD, Models.GENERATED);
-        itemModelGenerator.register(ModItems.PRISMATIC_INGOT, Models.GENERATED);
-        itemModelGenerator.register(WishingStars.WISHING_STAR, Models.GENERATED);
-        itemModelGenerator.register(WishingStars.WHITE_WISHING_STAR, Models.GENERATED);
-        itemModelGenerator.register(WishingStars.LIGHT_GRAY_WISHING_STAR, Models.GENERATED);
-        itemModelGenerator.register(WishingStars.GRAY_WISHING_STAR, Models.GENERATED);
-        itemModelGenerator.register(WishingStars.BLACK_WISHING_STAR, Models.GENERATED);
-        itemModelGenerator.register(WishingStars.BROWN_WISHING_STAR, Models.GENERATED);
-        itemModelGenerator.register(WishingStars.RED_WISHING_STAR, Models.GENERATED);
-        itemModelGenerator.register(WishingStars.ORANGE_WISHING_STAR, Models.GENERATED);
-        itemModelGenerator.register(WishingStars.LIME_WISHING_STAR, Models.GENERATED);
-        itemModelGenerator.register(WishingStars.GREEN_WISHING_STAR, Models.GENERATED);
-        itemModelGenerator.register(WishingStars.CYAN_WISHING_STAR, Models.GENERATED);
-        itemModelGenerator.register(WishingStars.LIGHT_BLUE_WISHING_STAR, Models.GENERATED);
-        itemModelGenerator.register(WishingStars.BLUE_WISHING_STAR, Models.GENERATED);
-        itemModelGenerator.register(WishingStars.PURPLE_WISHING_STAR, Models.GENERATED);
-        itemModelGenerator.register(WishingStars.MAGENTA_WISHING_STAR, Models.GENERATED);
-        itemModelGenerator.register(WishingStars.PINK_WISHING_STAR, Models.GENERATED);
-        itemModelGenerator.register(ModItems.THROWABLE_STAR, Models.GENERATED);
-        itemModelGenerator.register(ModItems.STAR_BANNER_PATTERN, Models.GENERATED);
-        itemModelGenerator.register(ModItems.STAR_HAMMER, Models.GENERATED);
-        itemModelGenerator.register(ModItems.SUN_ENRICHED_YELLOW_STAR, Models.GENERATED);
-        itemModelGenerator.register(ModItems.WINGED_STAR, Models.GENERATED);
-        itemModelGenerator.register(ModItems.GUMMY_FISH, Models.GENERATED);
-        itemModelGenerator.register(ModItems.GUMMY_WORM, Models.GENERATED);
-        itemModelGenerator.register(ModItems.COSMO_FISH, Models.GENERATED);
-        itemModelGenerator.register(ModItems.ENDER_FISH, Models.GENERATED);
-        itemModelGenerator.register(ModItems.GOLDEN_CRUCIAN, Models.GENERATED);
-        itemModelGenerator.register(ModItems.LUCKY_COMET, Models.GENERATED);
-        itemModelGenerator.register(ModItems.COMET_FRAGMENT, Models.GENERATED);
-        itemModelGenerator.register(ModItems.AURORA_FRAGMENT, Models.GENERATED);
-        itemModelGenerator.register(ModItems.STAR_BOOK.asItem(), Models.GENERATED);
-        itemModelGenerator.register(MoonBlocks.TALL_MOON_GRASS.asItem(), Models.GENERATED);
+    public void generateItemModels(ItemModelGenerators itemModelGenerator) {
+        itemModelGenerator.generateFlatItem(ModItems.LODESTAR, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.IRON_DUST, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.GOLD_DUST, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.COPPER_DUST, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.SUPERNOVA, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.DREAM_BUCKET, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.DARKSTAR, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.STARDUST, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.GEODE_FRUIT, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.COOKED_GEODE_FRUIT, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.FULL_COOKED_GEODE_FRUIT, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.BLACK_COOKED_GEODE_FRUIT, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.BLUE_STAR, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.RED_STAR, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.RED_ORB_PLATFORM_BASE, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.YELLOW_STAR, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.PURPLE_STAR, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.DREAM_STAR, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.MOON_GLASS_SHARD, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.PRISMATIC_INGOT, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(WishingStars.WISHING_STAR, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(WishingStars.WHITE_WISHING_STAR, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(WishingStars.LIGHT_GRAY_WISHING_STAR, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(WishingStars.GRAY_WISHING_STAR, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(WishingStars.BLACK_WISHING_STAR, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(WishingStars.BROWN_WISHING_STAR, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(WishingStars.RED_WISHING_STAR, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(WishingStars.ORANGE_WISHING_STAR, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(WishingStars.LIME_WISHING_STAR, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(WishingStars.GREEN_WISHING_STAR, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(WishingStars.CYAN_WISHING_STAR, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(WishingStars.LIGHT_BLUE_WISHING_STAR, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(WishingStars.BLUE_WISHING_STAR, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(WishingStars.PURPLE_WISHING_STAR, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(WishingStars.MAGENTA_WISHING_STAR, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(WishingStars.PINK_WISHING_STAR, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.THROWABLE_STAR, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.STAR_BANNER_PATTERN, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.STAR_HAMMER, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.SUN_ENRICHED_YELLOW_STAR, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.WINGED_STAR, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.GUMMY_FISH, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.GUMMY_WORM, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.COSMO_FISH, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.ENDER_FISH, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.GOLDEN_CRUCIAN, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.LUCKY_COMET, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.COMET_FRAGMENT, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.AURORA_FRAGMENT, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.STAR_BOOK.asItem(), ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(MoonBlocks.TALL_MOON_GRASS.asItem(), ModelTemplates.FLAT_ITEM);
         blockGeneratedItem(itemModelGenerator, StarBlocks.STAR_FLOWER);
         blockGeneratedItem(itemModelGenerator, StarBlocks.CELESTIAL_STAR_FLOWER);
         blockGeneratedItem(itemModelGenerator, ModBlock.BONEFLOWER);
@@ -329,137 +339,137 @@ public class ModModelProvider extends FabricModelProvider {
         blockGeneratedItem(itemModelGenerator, Darkness.ROSE_OF_PAIN);
         blockGeneratedItem(itemModelGenerator, MoonBlocks.SPRUNGUS);
 
-        itemModelGenerator.register(ModItems.DEAD_EYE_BAT, Models.GENERATED);
-        itemModelGenerator.register(ModItems.LIVING_EYE, Models.GENERATED);
-        itemModelGenerator.register(ModItems.PRISMATIC_SHARD, Models.GENERATED);
-        itemModelGenerator.register(ModItems.ECTOPLASM, Models.GENERATED);
-        itemModelGenerator.register(ModItems.COOLER_ECTOPLASM, Models.GENERATED);
-        itemModelGenerator.register(ModItems.BLACK_BRICK, Models.GENERATED);
-        itemModelGenerator.register(ModItems.WHITE_BRICK, Models.GENERATED);
-        itemModelGenerator.register(StarBlocks.STAR_DISPLAY.asItem(), Models.GENERATED);
+        itemModelGenerator.generateFlatItem(ModItems.DEAD_EYE_BAT, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.LIVING_EYE, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.PRISMATIC_SHARD, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.ECTOPLASM, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.COOLER_ECTOPLASM, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.BLACK_BRICK, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.WHITE_BRICK, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(StarBlocks.STAR_DISPLAY.asItem(), ModelTemplates.FLAT_ITEM);
 
         // Spawn Eggs
-        itemModelGenerator.register(ModItems.GHOST_SPAWN_EGG, Models.GENERATED);
-        itemModelGenerator.register(ModItems.AMETHYST_TURTLE_SPAWN_EGG, Models.GENERATED);
-        itemModelGenerator.register(ModItems.EYE_BAT_SPAWN_EGG, Models.GENERATED);
-        itemModelGenerator.register(ModItems.SCRUBY_SPAWN_EGG, Models.GENERATED);
-        itemModelGenerator.register(ModItems.ROOK_SPAWN_EGG, Models.GENERATED);
-        itemModelGenerator.register(ModItems.BLACK_ROOK_SPAWN_EGG, Models.GENERATED);
-        itemModelGenerator.register(ModItems.BLACK_FOX_SPAWN_EGG, Models.GENERATED);
+        itemModelGenerator.generateFlatItem(ModItems.GHOST_SPAWN_EGG, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.AMETHYST_TURTLE_SPAWN_EGG, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.EYE_BAT_SPAWN_EGG, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.SCRUBY_SPAWN_EGG, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.ROOK_SPAWN_EGG, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.BLACK_ROOK_SPAWN_EGG, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.BLACK_FOX_SPAWN_EGG, ModelTemplates.FLAT_ITEM);
     }
 
-    public static final Model CUSTOM_POT_CROSS = new Model(Optional.of(Identifier.of(Stargazer.MOD_ID, "block/potted_plant_custom")), Optional.empty(), TextureKey.PLANT, TextureKey.DIRT);
-    public static final Model HEDGE = new Model(Optional.of(Identifier.of(Stargazer.MOD_ID, "block/hedge")), Optional.empty(), TextureKey.TOP, TextureKey.SIDE);
+    public static final ModelTemplate CUSTOM_POT_CROSS = new ModelTemplate(Optional.of(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "block/potted_plant_custom")), Optional.empty(), TextureSlot.PLANT, TextureSlot.DIRT);
+    public static final ModelTemplate HEDGE = new ModelTemplate(Optional.of(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "block/hedge")), Optional.empty(), TextureSlot.TOP, TextureSlot.SIDE);
 
-    public final void registerCustomFlowerPotPlant(BlockStateModelGenerator blockStateModelGenerator, Block plantBlock, Block flowerPotBlock, Block dirt, BlockStateModelGenerator.CrossType tintType) {
-        blockStateModelGenerator.registerTintableCrossBlockState(plantBlock, tintType);
-        TextureMap potTextureMap = getCustomPotTextureMap(plantBlock, dirt);
-        WeightedVariant weightedVariant = BlockStateModelGenerator.createWeightedVariant(CUSTOM_POT_CROSS.upload(flowerPotBlock, potTextureMap, blockStateModelGenerator.modelCollector));
-        blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator.createSingletonBlockState(flowerPotBlock, weightedVariant));
+    public final void registerCustomFlowerPotPlant(BlockModelGenerators blockStateModelGenerator, Block plantBlock, Block flowerPotBlock, Block dirt, BlockModelGenerators.PlantType tintType) {
+        blockStateModelGenerator.createCrossBlock(plantBlock, tintType);
+        TextureMapping potTextureMap = getCustomPotTextureMap(plantBlock, dirt);
+        MultiVariant weightedVariant = BlockModelGenerators.plainVariant(CUSTOM_POT_CROSS.create(flowerPotBlock, potTextureMap, blockStateModelGenerator.modelOutput));
+        blockStateModelGenerator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(flowerPotBlock, weightedVariant));
     }
 
-    public final void registerHedge(BlockStateModelGenerator blockStateModelGenerator, Block hedge, Block log) {
-        TextureMap potTextureMap = getHedgeMap(log);
-        WeightedVariant weightedVariant = BlockStateModelGenerator.createWeightedVariant(HEDGE.upload(hedge, potTextureMap, blockStateModelGenerator.modelCollector));
-        blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator.createSingletonBlockState(hedge, weightedVariant));
+    public final void registerHedge(BlockModelGenerators blockStateModelGenerator, Block hedge, Block log) {
+        TextureMapping potTextureMap = getHedgeMap(log);
+        MultiVariant weightedVariant = BlockModelGenerators.plainVariant(HEDGE.create(hedge, potTextureMap, blockStateModelGenerator.modelOutput));
+        blockStateModelGenerator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(hedge, weightedVariant));
     }
-    public final void registerHedgeSide(BlockStateModelGenerator blockStateModelGenerator, Block hedge, Block log) {
-        TextureMap potTextureMap = getHedgeSideMap(log);
-        WeightedVariant weightedVariant = BlockStateModelGenerator.createWeightedVariant(HEDGE.upload(hedge, potTextureMap, blockStateModelGenerator.modelCollector));
-        blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator.createSingletonBlockState(hedge, weightedVariant));
-    }
-
-    public final void registerTopBottom(BlockStateModelGenerator blockStateModelGenerator, Block block, TextureMap texureMap) {
-        WeightedVariant weightedVariant = BlockStateModelGenerator.createWeightedVariant(Models.CUBE_BOTTOM_TOP.upload(block, texureMap, blockStateModelGenerator.modelCollector));
-        blockStateModelGenerator.blockStateCollector.accept(BlockStateModelGenerator.createSingletonBlockState(block, weightedVariant));
+    public final void registerHedgeSide(BlockModelGenerators blockStateModelGenerator, Block hedge, Block log) {
+        TextureMapping potTextureMap = getHedgeSideMap(log);
+        MultiVariant weightedVariant = BlockModelGenerators.plainVariant(HEDGE.create(hedge, potTextureMap, blockStateModelGenerator.modelOutput));
+        blockStateModelGenerator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(hedge, weightedVariant));
     }
 
-    public TextureMap getCustomPotTextureMap(Block block, Block dirt) {
-        TextureMap map = new TextureMap();
-        map.put(TextureKey.PLANT, getBlockTexture(block));
-        map.put(TextureKey.DIRT, getBlockTexture(dirt));
+    public final void registerTopBottom(BlockModelGenerators blockStateModelGenerator, Block block, TextureMapping texureMap) {
+        MultiVariant weightedVariant = BlockModelGenerators.plainVariant(ModelTemplates.CUBE_BOTTOM_TOP.create(block, texureMap, blockStateModelGenerator.modelOutput));
+        blockStateModelGenerator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(block, weightedVariant));
+    }
+
+    public TextureMapping getCustomPotTextureMap(Block block, Block dirt) {
+        TextureMapping map = new TextureMapping();
+        map.put(TextureSlot.PLANT, getBlockTexture(block));
+        map.put(TextureSlot.DIRT, getBlockTexture(dirt));
         return map;
     }
 
-    public TextureMap getHedgeMap(Block block) {
-        TextureMap map = new TextureMap();
-        map.put(TextureKey.TOP, getBlockTexture(block).withSuffixedPath("_top"));
-        map.put(TextureKey.SIDE, getBlockTexture(block));
+    public TextureMapping getHedgeMap(Block block) {
+        TextureMapping map = new TextureMapping();
+        map.put(TextureSlot.TOP, getBlockTexture(block).withSuffix("_top"));
+        map.put(TextureSlot.SIDE, getBlockTexture(block));
         return map;
     }
 
-    public TextureMap getHedgeSideMap(Block block) {
-        TextureMap map = new TextureMap();
-        map.put(TextureKey.TOP, getBlockTexture(block).withSuffixedPath("_top"));
-        map.put(TextureKey.SIDE, getBlockTexture(block).withSuffixedPath("_side"));
+    public TextureMapping getHedgeSideMap(Block block) {
+        TextureMapping map = new TextureMapping();
+        map.put(TextureSlot.TOP, getBlockTexture(block).withSuffix("_top"));
+        map.put(TextureSlot.SIDE, getBlockTexture(block).withSuffix("_side"));
         return map;
     }
 
-    public void blockGeneratedItem(ItemModelGenerator itemModelGenerator, Block item) {
-        itemModelGenerator.output.accept(item.asItem(), ItemModels.basic(uploadWithTexture(itemModelGenerator, item.asItem(), getBlockTexture(item), Models.GENERATED)));
+    public void blockGeneratedItem(ItemModelGenerators itemModelGenerator, Block item) {
+        itemModelGenerator.itemModelOutput.accept(item.asItem(), ItemModelUtils.plainModel(uploadWithTexture(itemModelGenerator, item.asItem(), getBlockTexture(item), ModelTemplates.FLAT_ITEM)));
     }
 
-    public final Identifier uploadWithTexture(ItemModelGenerator itemModelGenerator, Item item, Identifier texture, Model model) {
-        return model.upload(ModelIds.getItemModelId(item), TextureMap.layer0(texture), itemModelGenerator.modelCollector);
+    public final Identifier uploadWithTexture(ItemModelGenerators itemModelGenerator, Item item, Identifier texture, ModelTemplate model) {
+        return model.create(ModelLocationUtils.getModelLocation(item), TextureMapping.layer0(texture), itemModelGenerator.modelOutput);
     }
 
     public Identifier getBlockTexture(Block block) {
-        Identifier id = Registries.BLOCK.getId(block);
-        return Identifier.of(id.getNamespace(), "block/" + id.getPath());
+        Identifier id = BuiltInRegistries.BLOCK.getKey(block);
+        return Identifier.fromNamespaceAndPath(id.getNamespace(), "block/" + id.getPath());
     }
 
-    public static final Model CABLE_CORE_TEMPLATE = block("cable_core_template", TextureKey.ALL, TextureKey.PARTICLE);
-    public static final Model CABLE_SIDE_TEMPLATE = block("cable_side_template", TextureKey.ALL, TextureKey.PARTICLE);
+    public static final ModelTemplate CABLE_CORE_TEMPLATE = block("cable_core_template", TextureSlot.ALL, TextureSlot.PARTICLE);
+    public static final ModelTemplate CABLE_SIDE_TEMPLATE = block("cable_side_template", TextureSlot.ALL, TextureSlot.PARTICLE);
 
     // helper method for creating Models
-    private static Model block(String parent, TextureKey... requiredTextureKeys) {
-        return new Model(Optional.of(Identifier.of(Stargazer.MOD_ID, "block/" + parent)), Optional.empty(), requiredTextureKeys);
+    private static ModelTemplate block(String parent, TextureSlot... requiredTextureKeys) {
+        return new ModelTemplate(Optional.of(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "block/" + parent)), Optional.empty(), requiredTextureKeys);
     }
 
-    private BlockModelDefinitionCreator createCableBlockStates(Block cableBlock, Identifier core, Identifier side) {
+    private BlockModelDefinitionGenerator createCableBlockStates(Block cableBlock, Identifier core, Identifier side) {
         // 1. Core and Base Side Models
-        ModelVariant cableCoreModel = BlockStateModelGenerator.createModelVariant(core);
-        ModelVariant cableSideModel = BlockStateModelGenerator.createModelVariant(side);
+        Variant cableCoreModel = BlockModelGenerators.plainModel(core);
+        Variant cableSideModel = BlockModelGenerators.plainModel(side);
 
         // 2. Wrap Core in a WeightedVariant (Always Active)
-        WeightedVariant empty = new WeightedVariant(WeightedPool.<ModelVariant>builder().add(cableCoreModel).build());
+        MultiVariant empty = new MultiVariant(WeightedList.<Variant>builder().add(cableCoreModel).build());
 
         // 3. Define WeightedVariants for all 6 directions with their respective rotations
         // Horizontal Rotations (Y-Axis)
-        WeightedVariant north = new WeightedVariant(WeightedPool.<ModelVariant>builder().add(cableSideModel).build()); // 0 degrees
-        WeightedVariant east  = new WeightedVariant(WeightedPool.<ModelVariant>builder().add(cableSideModel.withRotationY(AxisRotation.R90)).build());
-        WeightedVariant south = new WeightedVariant(WeightedPool.<ModelVariant>builder().add(cableSideModel.withRotationY(AxisRotation.R180)).build());
-        WeightedVariant west  = new WeightedVariant(WeightedPool.<ModelVariant>builder().add(cableSideModel.withRotationY(AxisRotation.R270)).build());
+        MultiVariant north = new MultiVariant(WeightedList.<Variant>builder().add(cableSideModel).build()); // 0 degrees
+        MultiVariant east  = new MultiVariant(WeightedList.<Variant>builder().add(cableSideModel.withYRot(Quadrant.R90)).build());
+        MultiVariant south = new MultiVariant(WeightedList.<Variant>builder().add(cableSideModel.withYRot(Quadrant.R180)).build());
+        MultiVariant west  = new MultiVariant(WeightedList.<Variant>builder().add(cableSideModel.withYRot(Quadrant.R270)).build());
 
         // Vertical Rotations (X-Axis)
         // Note: Depending on your template model, UP/DOWN might also require Y rotation to align textures perfectly.
-        WeightedVariant up    = new WeightedVariant(WeightedPool.<ModelVariant>builder().add(cableSideModel.withRotationX(AxisRotation.R270)).build());
-        WeightedVariant down  = new WeightedVariant(WeightedPool.<ModelVariant>builder().add(cableSideModel.withRotationX(AxisRotation.R90)).build());
+        MultiVariant up    = new MultiVariant(WeightedList.<Variant>builder().add(cableSideModel.withXRot(Quadrant.R270)).build());
+        MultiVariant down  = new MultiVariant(WeightedList.<Variant>builder().add(cableSideModel.withXRot(Quadrant.R90)).build());
 
         // 4. Build and return the Multipart Definition
-        return MultipartBlockModelDefinitionCreator.create(cableBlock)
+        return MultiPartGenerator.multiPart(cableBlock)
                 // Core is unconditional (always renders)
                 .with(empty)
 
                 // Conditional sides
-                .with(new MultipartModelConditionBuilder().put(YellowCable.NORTH, true).build(), north)
-                .with(new MultipartModelConditionBuilder().put(YellowCable.EAST, true).build(), east)
-                .with(new MultipartModelConditionBuilder().put(YellowCable.SOUTH, true).build(), south)
-                .with(new MultipartModelConditionBuilder().put(YellowCable.WEST, true).build(), west)
-                .with(new MultipartModelConditionBuilder().put(YellowCable.UP, true).build(), up)
-                .with(new MultipartModelConditionBuilder().put(YellowCable.DOWN, true).build(), down);
+                .with(new ConditionBuilder().term(YellowCable.NORTH, true).build(), north)
+                .with(new ConditionBuilder().term(YellowCable.EAST, true).build(), east)
+                .with(new ConditionBuilder().term(YellowCable.SOUTH, true).build(), south)
+                .with(new ConditionBuilder().term(YellowCable.WEST, true).build(), west)
+                .with(new ConditionBuilder().term(YellowCable.UP, true).build(), up)
+                .with(new ConditionBuilder().term(YellowCable.DOWN, true).build(), down);
     }
-    public void registerCable(BlockStateModelGenerator generator, Block block) {
-        TextureMap map = getCableMap(block);
-        Identifier core = CABLE_CORE_TEMPLATE.upload(block, map, generator.modelCollector);
-        Identifier side = CABLE_SIDE_TEMPLATE.upload(Identifier.of(Stargazer.MOD_ID,"block/"+Registries.BLOCK.getId(block).getPath()+"_side"), map, generator.modelCollector);
-        generator.blockStateCollector.accept(createCableBlockStates(block, core, side));
-        generator.registerItemModel(block.asItem(), core);
+    public void registerCable(BlockModelGenerators generator, Block block) {
+        TextureMapping map = getCableMap(block);
+        Identifier core = CABLE_CORE_TEMPLATE.create(block, map, generator.modelOutput);
+        Identifier side = CABLE_SIDE_TEMPLATE.create(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID,"block/"+BuiltInRegistries.BLOCK.getKey(block).getPath()+"_side"), map, generator.modelOutput);
+        generator.blockStateOutput.accept(createCableBlockStates(block, core, side));
+        generator.registerSimpleItemModel(block.asItem(), core);
     }
-    public TextureMap getCableMap(Block block) {
-        TextureMap map = new TextureMap();
-        map.put(TextureKey.ALL, getBlockTexture(block));
-        map.put(TextureKey.PARTICLE, getBlockTexture(block));
+    public TextureMapping getCableMap(Block block) {
+        TextureMapping map = new TextureMapping();
+        map.put(TextureSlot.ALL, getBlockTexture(block));
+        map.put(TextureSlot.PARTICLE, getBlockTexture(block));
         return map;
     }
 }

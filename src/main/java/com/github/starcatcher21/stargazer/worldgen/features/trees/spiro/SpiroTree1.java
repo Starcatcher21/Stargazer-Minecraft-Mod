@@ -1,8 +1,8 @@
 package com.github.starcatcher21.stargazer.worldgen.features.trees.spiro;
 
 import com.github.starcatcher21.stargazer.worldgen.features.trees.Tree;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 
 public class SpiroTree1 {
     public static void init(Tree tree) {

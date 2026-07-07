@@ -3,42 +3,41 @@ package com.github.starcatcher21.stargazer.mechanics.star;
 import com.github.starcatcher21.stargazer.RegistryKeys;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.registry.entry.RegistryFixedCodec;
-import net.minecraft.util.dynamic.Codecs;
-import net.minecraft.world.World;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import net.minecraft.core.Holder;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.RegistryFixedCodec;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.util.ExtraCodecs;
+import net.minecraft.world.level.Level;
 
 public class FallingObjectsList {
     public static final Codec<FallingObjectsList> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            World.CODEC.fieldOf("world").forGetter(FallingObjectsList::getWorld),
-            RegistryFixedCodec.of(RegistryKeys.FALLING_OBJECTS).listOf()
+            Level.RESOURCE_KEY_CODEC.fieldOf("world").forGetter(FallingObjectsList::getWorld),
+            RegistryFixedCodec.create(RegistryKeys.FALLING_OBJECTS).listOf()
                     .fieldOf("objects")
                     .forGetter(FallingObjectsList::getIdList),
-            Codecs.POSITIVE_INT.listOf().fieldOf("chances").forGetter(FallingObjectsList::getChanceList),
-            Codecs.NON_NEGATIVE_INT.optionalFieldOf("light").forGetter(FallingObjectsList::getLightLevel),
+            ExtraCodecs.POSITIVE_INT.listOf().fieldOf("chances").forGetter(FallingObjectsList::getChanceList),
+            ExtraCodecs.NON_NEGATIVE_INT.optionalFieldOf("light").forGetter(FallingObjectsList::getLightLevel),
             FallingObjectDayState.CODEC.optionalFieldOf("daystate").forGetter(FallingObjectsList::getDayState)
     ).apply(instance, FallingObjectsList::new));
-    public static final PacketCodec<RegistryByteBuf, FallingObjectsList> PACKET_CODEC = PacketCodecs.registryCodec(CODEC);
+    public static final StreamCodec<RegistryFriendlyByteBuf, FallingObjectsList> PACKET_CODEC = ByteBufCodecs.fromCodecWithRegistries(CODEC);
 
     public static List<FallingObjectsList> list2 = new ArrayList<>();
 
-    public List<RegistryEntry<FallingObject>> idList;
+    public List<Holder<FallingObject>> idList;
     public List<FallingObject> list;
-    public RegistryKey<World> world;
+    public ResourceKey<Level> world;
     public List<Integer> chanceList;
     public List<FallingObject> weightedList;
     public int lightLevel = 15;
     public FallingObjectDayState dayState = FallingObjectDayState.Both;
 
-    public FallingObjectsList(RegistryKey<World> world, List<RegistryEntry<FallingObject>> idList, List<Integer> chanceList, Optional<Integer> light, Optional<FallingObjectDayState> dstate) {
+    public FallingObjectsList(ResourceKey<Level> world, List<Holder<FallingObject>> idList, List<Integer> chanceList, Optional<Integer> light, Optional<FallingObjectDayState> dstate) {
         this.idList = idList;
         this.list = idList.stream().map(sas -> sas.value()).toList();
 
@@ -61,13 +60,13 @@ public class FallingObjectsList {
         list2.add(this);
     }
 
-    private List<RegistryEntry<FallingObject>> getIdList() {
+    private List<Holder<FallingObject>> getIdList() {
         return this.idList;
     }
     private List<FallingObject> getList() {
         return this.list;
     }
-    private RegistryKey<World> getWorld() {
+    private ResourceKey<Level> getWorld() {
         return this.world;
     }
     private List<Integer> getChanceList() {

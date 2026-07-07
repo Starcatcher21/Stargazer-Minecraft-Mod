@@ -15,20 +15,19 @@ import com.github.starcatcher21.stargazer.item.ModItems;
 import com.github.starcatcher21.stargazer.item.WishingStars;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.util.DyeColor;
-
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.item.DyeColor;
 import java.util.Arrays;
 import java.util.concurrent.CompletableFuture;
 
 public class ModEngLangProvider extends FabricLanguageProvider {
-    public ModEngLangProvider(FabricDataOutput dataGenerator, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
+    public ModEngLangProvider(FabricDataOutput dataGenerator, CompletableFuture<HolderLookup.Provider> registryLookup) {
         // Specifying en_us is optional, by default it is en_us.
         super(dataGenerator, "en_us", registryLookup);
     }
     @Override
-    public void generateTranslations(RegistryWrapper.WrapperLookup wrapperLookup, TranslationBuilder translationBuilder) {
+    public void generateTranslations(HolderLookup.Provider wrapperLookup, TranslationBuilder translationBuilder) {
         translationBuilder.add(ItemGroup.STAR_GROUP_KEY, "Stargazer");
         translationBuilder.add(ModItems.STAR_BOOK, "Book of Stars 1");
         translationBuilder.add("stat.stargazer.star_catched", "Star Catched");
@@ -55,11 +54,11 @@ public class ModEngLangProvider extends FabricLanguageProvider {
 
         // Banner
         for (DyeColor color : Arrays.asList(DyeColor.values())) {
-            translationBuilder.add("stargazer.bannerpattern.moon." + color.asString().toLowerCase(), color.asString().substring(0, 1).toUpperCase() + color.asString().substring(1) + " Moon");
-            translationBuilder.add("stargazer.bannerpattern.star." + color.asString().toLowerCase(), color.asString().substring(0, 1).toUpperCase() + color.asString().substring(1) + " Star");
-            translationBuilder.add("stargazer.bannerpattern.flower." + color.asString().toLowerCase(), color.asString().substring(0, 1).toUpperCase() + color.asString().substring(1) + " Flower");
-            translationBuilder.add("stargazer.bannerpattern.shine." + color.asString().toLowerCase(), color.asString().substring(0, 1).toUpperCase() + color.asString().substring(1) + " Shine");
-            translationBuilder.add("stargazer.bannerpattern.ghost." + color.asString().toLowerCase(), color.asString().substring(0, 1).toUpperCase() + color.asString().substring(1) + " Ghost");
+            translationBuilder.add("stargazer.bannerpattern.moon." + color.getSerializedName().toLowerCase(), color.getSerializedName().substring(0, 1).toUpperCase() + color.getSerializedName().substring(1) + " Moon");
+            translationBuilder.add("stargazer.bannerpattern.star." + color.getSerializedName().toLowerCase(), color.getSerializedName().substring(0, 1).toUpperCase() + color.getSerializedName().substring(1) + " Star");
+            translationBuilder.add("stargazer.bannerpattern.flower." + color.getSerializedName().toLowerCase(), color.getSerializedName().substring(0, 1).toUpperCase() + color.getSerializedName().substring(1) + " Flower");
+            translationBuilder.add("stargazer.bannerpattern.shine." + color.getSerializedName().toLowerCase(), color.getSerializedName().substring(0, 1).toUpperCase() + color.getSerializedName().substring(1) + " Shine");
+            translationBuilder.add("stargazer.bannerpattern.ghost." + color.getSerializedName().toLowerCase(), color.getSerializedName().substring(0, 1).toUpperCase() + color.getSerializedName().substring(1) + " Ghost");
         }
         translationBuilder.add(ModItems.STAR_BANNER_PATTERN, "Star Banner Pattern");
         // misc
@@ -317,15 +316,15 @@ public class ModEngLangProvider extends FabricLanguageProvider {
         translationBuilder.add(Crops.EYE_BALLS, "Eye Balls");
         translationBuilder.add(Crops.GIANT_DRAGON_CARROT, "Giant Dragon Carrot");
         // Potions
-        translationBuilder.add("item.minecraft.potion.effect."+Registries.POTION.get(Potions.CosmoFeel.getKey().get()).getBaseName(), "Potion of Cosmic Feeling");
-        translationBuilder.add("item.minecraft.splash_potion.effect."+Registries.POTION.get(Potions.CosmoFeel.getKey().get()).getBaseName(), "Splash Potion of Cosmic Feeling");
-        translationBuilder.add("item.minecraft.lingering_potion.effect."+Registries.POTION.get(Potions.CosmoFeel.getKey().get()).getBaseName(), "Lingering Potion of Cosmic Feeling");
-        translationBuilder.add("item.minecraft.potion.effect."+Registries.POTION.get(Potions.GlassHands.getKey().get()).getBaseName(), "Potion of Glass Hands");
-        translationBuilder.add("item.minecraft.splash_potion.effect."+Registries.POTION.get(Potions.GlassHands.getKey().get()).getBaseName(), "Splash Potion of Glass Hands");
-        translationBuilder.add("item.minecraft.lingering_potion.effect."+Registries.POTION.get(Potions.GlassHands.getKey().get()).getBaseName(), "Lingering Potion of Glass Hands");
-        translationBuilder.add("item.minecraft.potion.effect."+Registries.POTION.get(Potions.Hydro.getKey().get()).getBaseName(), "Potion of Hydrophobic");
-        translationBuilder.add("item.minecraft.splash_potion.effect."+Registries.POTION.get(Potions.Hydro.getKey().get()).getBaseName(), "Splash Potion of Hydrophobic");
-        translationBuilder.add("item.minecraft.lingering_potion.effect."+Registries.POTION.get(Potions.Hydro.getKey().get()).getBaseName(), "Lingering Potion of Hydrophobic");
+        translationBuilder.add("item.minecraft.potion.effect."+BuiltInRegistries.POTION.getValue(Potions.CosmoFeel.unwrapKey().get()).name(), "Potion of Cosmic Feeling");
+        translationBuilder.add("item.minecraft.splash_potion.effect."+BuiltInRegistries.POTION.getValue(Potions.CosmoFeel.unwrapKey().get()).name(), "Splash Potion of Cosmic Feeling");
+        translationBuilder.add("item.minecraft.lingering_potion.effect."+BuiltInRegistries.POTION.getValue(Potions.CosmoFeel.unwrapKey().get()).name(), "Lingering Potion of Cosmic Feeling");
+        translationBuilder.add("item.minecraft.potion.effect."+BuiltInRegistries.POTION.getValue(Potions.GlassHands.unwrapKey().get()).name(), "Potion of Glass Hands");
+        translationBuilder.add("item.minecraft.splash_potion.effect."+BuiltInRegistries.POTION.getValue(Potions.GlassHands.unwrapKey().get()).name(), "Splash Potion of Glass Hands");
+        translationBuilder.add("item.minecraft.lingering_potion.effect."+BuiltInRegistries.POTION.getValue(Potions.GlassHands.unwrapKey().get()).name(), "Lingering Potion of Glass Hands");
+        translationBuilder.add("item.minecraft.potion.effect."+BuiltInRegistries.POTION.getValue(Potions.Hydro.unwrapKey().get()).name(), "Potion of Hydrophobic");
+        translationBuilder.add("item.minecraft.splash_potion.effect."+BuiltInRegistries.POTION.getValue(Potions.Hydro.unwrapKey().get()).name(), "Splash Potion of Hydrophobic");
+        translationBuilder.add("item.minecraft.lingering_potion.effect."+BuiltInRegistries.POTION.getValue(Potions.Hydro.unwrapKey().get()).name(), "Lingering Potion of Hydrophobic");
         // Effects
         translationBuilder.add("effect.stargazer.hydrophobic", "Hydrophobic");
         translationBuilder.add("effect.stargazer.cosmofeeling", "Cosmic Feeling");

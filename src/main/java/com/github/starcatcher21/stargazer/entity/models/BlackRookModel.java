@@ -2,14 +2,14 @@ package com.github.starcatcher21.stargazer.entity.models;
 
 import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.entity.BlackRook;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.Identifier;
 import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.renderer.base.GeoRenderState;
 
 public class BlackRookModel extends GeoModel<BlackRook> {
-    private final Identifier model = Identifier.of(Stargazer.MOD_ID, "entity/rook");
-    private final Identifier animations = Identifier.of(Stargazer.MOD_ID, "entity/rook");
-    private final Identifier texture = Identifier.of(Stargazer.MOD_ID, "textures/entity/black_rook.png");
+    private final Identifier model = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "entity/rook");
+    private final Identifier animations = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "entity/rook");
+    private final Identifier texture = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/black_rook.png");
 
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {

@@ -2,100 +2,100 @@ package com.github.starcatcher21.stargazer.block.clases.star.star_display;
 
 import com.github.starcatcher21.stargazer.block.register.StarBlocks;
 import com.mojang.serialization.MapCodec;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.BlockWithEntity;
-import net.minecraft.block.ShapeContext;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.util.shape.VoxelShapes;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
-import net.minecraft.world.event.GameEvent;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.NonNullList;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class StarDisplay extends BlockWithEntity {
+public class StarDisplay extends BaseEntityBlock {
     @Override
-    protected MapCodec<? extends StarDisplay> getCodec() {
-        return createCodec(StarDisplay::new);
+    protected MapCodec<? extends StarDisplay> codec() {
+        return simpleCodec(StarDisplay::new);
     }
 
     @Override
-    public BlockState onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
-        this.spawnBreakParticles(world, player, pos, state);
+    public BlockState playerWillDestroy(Level world, BlockPos pos, BlockState state, Player player) {
+        this.spawnDestroyParticles(world, player, pos, state);
 
         BlockEntity be = world.getBlockEntity(pos);
         if (!player.isCreative() && be instanceof StarDisplayEntity ge) {
-            world.spawnEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), ge.getItem()));
+            world.addFreshEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), ge.getItem()));
         }
-        world.emitGameEvent(GameEvent.BLOCK_DESTROY, pos, GameEvent.Emitter.of(player, StarBlocks.STAR_DISPLAY.getDefaultState()));
-        return StarBlocks.STAR_DISPLAY.getDefaultState();
+        world.gameEvent(GameEvent.BLOCK_DESTROY, pos, GameEvent.Context.of(player, StarBlocks.STAR_DISPLAY.defaultBlockState()));
+        return StarBlocks.STAR_DISPLAY.defaultBlockState();
     }
 
     @Override
-    protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-        if (!player.getAbilities().allowModifyWorld) {
-            return ActionResult.PASS;
+    protected InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit) {
+        if (!player.getAbilities().mayBuild) {
+            return InteractionResult.PASS;
         } else {
                 BlockEntity be = world.getBlockEntity(pos);
                 if (be instanceof StarDisplayEntity ge) {
-                    player.giveItemStack(ge.getItem());
-                    ge.setItems(DefaultedList.ofSize(1, ItemStack.EMPTY));
+                    player.addItem(ge.getItem());
+                    ge.setItems(NonNullList.withSize(1, ItemStack.EMPTY));
                 }
-            return ActionResult.SUCCESS;
+            return InteractionResult.SUCCESS;
         }
     }
 
     @Override
-    protected ActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        if (!player.getAbilities().allowModifyWorld) {
-            return ActionResult.PASS;
+    protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        if (!player.getAbilities().mayBuild) {
+            return InteractionResult.PASS;
         } else {
             BlockEntity be = world.getBlockEntity(pos);
             if (be instanceof StarDisplayEntity ge) {
                 if (ge.getItem().isEmpty()) {
-                    ge.setItems(DefaultedList.ofSize(1, stack.copy()));
+                    ge.setItems(NonNullList.withSize(1, stack.copy()));
                     if (!player.isCreative()) {
                         stack.setCount(0);
                     }
                 } else {
-                    if (!player.isInCreativeMode()) {
-                        player.giveItemStack(ge.getItem());
+                    if (!player.hasInfiniteMaterials()) {
+                        player.addItem(ge.getItem());
                     }
-                    ge.setItems(DefaultedList.ofSize(1, stack.copy()));
+                    ge.setItems(NonNullList.withSize(1, stack.copy()));
                     if (!player.isCreative()) {
                         stack.setCount(0);
                     }
                 }
             }
-            return ActionResult.SUCCESS;
+            return InteractionResult.SUCCESS;
         }
     }
 
     @Override
-    protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return VoxelShapes.union(
-                VoxelShapes.cuboid(0.1875, 0, 0.1875, 0.8125, 0.2, 0.8125)
+    protected VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
+        return Shapes.or(
+                Shapes.box(0.1875, 0, 0.1875, 0.8125, 0.2, 0.8125)
         );
     }
 
     @Override
-    protected VoxelShape getCollisionShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return this.getOutlineShape(state, world, pos, context);
+    protected VoxelShape getCollisionShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
+        return this.getShape(state, world, pos, context);
     }
 
     @Override
-    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new StarDisplayEntity(pos, state);
     }
 
-    public StarDisplay(Settings settings) {
+    public StarDisplay(Properties settings) {
         super(settings.replaceable());
     }
 

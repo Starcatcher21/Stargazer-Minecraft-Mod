@@ -3,16 +3,16 @@ package com.github.starcatcher21.stargazer.worldgen.features.trees.eyeblodbirch;
 import com.github.starcatcher21.stargazer.block.register.EyeBloodBlocks;
 import com.github.starcatcher21.stargazer.block.register.StarBlocks;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.Tree;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.math.Direction;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 public class EyeBirch {
     public static Tree NewStarTree(Boolean rotatable, String name, int height) {
-        Tree tree = new Tree(rotatable, name, EyeBloodBlocks.EYE_LOG.getDefaultState(), EyeBloodBlocks.EYE_LEAVES.getDefaultState());
-        tree.addLog(EyeBloodBlocks.EYE_LOG.getDefaultState().with(Properties.EYE, true));
-        tree.addLog(EyeBloodBlocks.STRIPPED_EYE_LOG.getDefaultState());
+        Tree tree = new Tree(rotatable, name, EyeBloodBlocks.EYE_LOG.defaultBlockState(), EyeBloodBlocks.EYE_LEAVES.defaultBlockState());
+        tree.addLog(EyeBloodBlocks.EYE_LOG.defaultBlockState().setValue(BlockStateProperties.EYE, true));
+        tree.addLog(EyeBloodBlocks.STRIPPED_EYE_LOG.defaultBlockState());
         init(tree, height);
         return tree;
     }

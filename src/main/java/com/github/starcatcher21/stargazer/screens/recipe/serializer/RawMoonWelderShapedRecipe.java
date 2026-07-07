@@ -1,32 +1,34 @@
+// TODO(Ravel): Failed to fully resolve file: null cannot be cast to non-null type com.intellij.psi.PsiClass
+// TODO(Ravel): Failed to fully resolve file: null cannot be cast to non-null type com.intellij.psi.PsiClass
 package com.github.starcatcher21.stargazer.screens.recipe.serializer;
 
 import com.github.starcatcher21.stargazer.screens.recipe.MoonWelderRecipeInput;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.block.Blocks;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.util.dynamic.Codecs;
-import net.minecraft.world.World;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Optional;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.util.ExtraCodecs;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
 
 public class RawMoonWelderShapedRecipe {
     public static final MapCodec<RawMoonWelderShapedRecipe> CODEC = Data.CODEC.flatXmap(
             RawMoonWelderShapedRecipe::fromData,
             recipe -> recipe.data.map(DataResult::success).orElseGet(() -> DataResult.error(() -> "Cannot encode unpacked recipe")));
-    public static final PacketCodec<RegistryByteBuf, RawMoonWelderShapedRecipe> PACKET_CODEC = PacketCodec.tuple(
-            PacketCodecs.VAR_INT, recipe -> recipe.width,
-            PacketCodecs.VAR_INT, recipe -> recipe.height,
-            Ingredient.PACKET_CODEC, recipe -> recipe.item1,
-            Ingredient.PACKET_CODEC, recipe -> recipe.item2,
-            PacketCodecs.INTEGER, recipe -> recipe.moonPhase,
+    public static final StreamCodec<RegistryFriendlyByteBuf, RawMoonWelderShapedRecipe> PACKET_CODEC = StreamCodec.composite(
+            ByteBufCodecs.VAR_INT, recipe -> recipe.width,
+            ByteBufCodecs.VAR_INT, recipe -> recipe.height,
+            Ingredient.CONTENTS_STREAM_CODEC, recipe -> recipe.item1,
+            Ingredient.CONTENTS_STREAM_CODEC, recipe -> recipe.item2,
+            ByteBufCodecs.INT, recipe -> recipe.moonPhase,
             RawMoonWelderShapedRecipe::create);
     private static final Logger log = LoggerFactory.getLogger(RawMoonWelderShapedRecipe.class);
     private final int width;
@@ -60,27 +62,27 @@ public class RawMoonWelderShapedRecipe {
         return DataResult.success(new RawMoonWelderShapedRecipe(2, 1, data.item1, data.item2, data.moonPhase, Optional.of(data)));
     }
 
-    public boolean matches(MoonWelderRecipeInput input, World world) {
+    public boolean matches(MoonWelderRecipeInput input, Level world) {
         Ingredient item1 = this.item1;
         Ingredient item2 = this.item2;
         ItemStack stack;
         ItemStack stack2;
         try {
-            stack = input.getStackInSlot(0);
+            stack = input.getItem(0);
         } catch (Exception e) {
             stack = new ItemStack(Blocks.AIR.asItem());
         }
         try {
-            stack2 = input.getStackInSlot(1);
+            stack2 = input.getItem(1);
         } catch (Exception e) {
             stack2 = new ItemStack(Blocks.AIR.asItem());
         }
         if (this.getMoonPhase() > 7) {
-            if (world.isNight()) return false;
-            return Ingredient.matches(Optional.of(item1), stack) && Ingredient.matches(Optional.of(item2), stack2);
+            if (world.isDarkOutside()) return false;
+            return Ingredient.testOptionalIngredient(Optional.of(item1), stack) && Ingredient.testOptionalIngredient(Optional.of(item2), stack2);
         }
 //        if (this.getMoonPhase() != world.getMoonPhase() || world.isDay()) return false;
-        return Ingredient.matches(Optional.of(item1), stack) && Ingredient.matches(Optional.of(item2), stack2);
+        return Ingredient.testOptionalIngredient(Optional.of(item1), stack) && Ingredient.testOptionalIngredient(Optional.of(item2), stack2);
     }
 
     public int getWidth() {
@@ -107,7 +109,7 @@ public class RawMoonWelderShapedRecipe {
         public static final MapCodec<Data> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
                 Ingredient.CODEC.fieldOf("item1").forGetter(Data::item1),
                 Ingredient.CODEC.fieldOf("item2").forGetter(Data::item2),
-                Codecs.NON_NEGATIVE_INT.fieldOf("moon_phase").forGetter(Data::moonPhase)
+                ExtraCodecs.NON_NEGATIVE_INT.fieldOf("moon_phase").forGetter(Data::moonPhase)
         ).apply(instance, Data::new));
     }
 

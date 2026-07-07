@@ -2,23 +2,23 @@ package com.github.starcatcher21.stargazer.block.clases.nogreen;
 
 import com.github.starcatcher21.stargazer.block.ModBlock;
 import com.github.starcatcher21.stargazer.renderer.CustomRenderLayers;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.block.entity.BlockEntityRenderer;
-import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
-import net.minecraft.client.render.command.ModelCommandRenderer;
-import net.minecraft.client.render.command.OrderedRenderCommandQueue;
-import net.minecraft.client.render.state.CameraRenderState;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import org.joml.Matrix4f;
 
 import java.util.EnumSet;
+import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
+import net.minecraft.client.renderer.rendertype.RenderType;
+import net.minecraft.client.renderer.state.CameraRenderState;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 
 public class NoGreenBlockEntityRenderer<T extends NoGreenBlockEntity> implements BlockEntityRenderer<T, NoGreenBlockEntityRenderState> {
-    public NoGreenBlockEntityRenderer(BlockEntityRendererFactory.Context ctx) {
+    public NoGreenBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {
     }
 
     private void renderSides(EnumSet<Direction> set, Matrix4f matrix, VertexConsumer vertexConsumer) {
@@ -62,10 +62,10 @@ public class NoGreenBlockEntityRenderer<T extends NoGreenBlockEntity> implements
             z2 = sizeDown(z2);
             z3 = sizeDown(z3);
         }
-        consumer.vertex(pose, x0, y0, z0);
-        consumer.vertex(pose, x1, y0, z1);
-        consumer.vertex(pose, x1, y1, z2);
-        consumer.vertex(pose, x0, y1, z3);
+        consumer.addVertex(pose, x0, y0, z0);
+        consumer.addVertex(pose, x1, y0, z1);
+        consumer.addVertex(pose, x1, y1, z2);
+        consumer.addVertex(pose, x0, y1, z3);
     }
 
     private float sizeDown(float x) {
@@ -76,7 +76,7 @@ public class NoGreenBlockEntityRenderer<T extends NoGreenBlockEntity> implements
         }
     }
 
-    protected RenderLayer getLayer() {
+    protected RenderType getLayer() {
         return CustomRenderLayers.NO_GREEN;
     }
 
@@ -86,27 +86,27 @@ public class NoGreenBlockEntityRenderer<T extends NoGreenBlockEntity> implements
     }
 
     @Override
-    public void render(NoGreenBlockEntityRenderState state, MatrixStack matrices, OrderedRenderCommandQueue queue, CameraRenderState cameraState) {
-        queue.submitCustom(
+    public void submit(NoGreenBlockEntityRenderState state, PoseStack matrices, SubmitNodeCollector queue, CameraRenderState cameraState) {
+        queue.submitCustomGeometry(
                 matrices,
                 this.getLayer(),
-                (matricesEntry, vertexConsumer) -> this.renderSides(state.sides, matricesEntry.getPositionMatrix(), vertexConsumer)
+                (matricesEntry, vertexConsumer) -> this.renderSides(state.sides, matricesEntry.pose(), vertexConsumer)
         );
     }
     public void updateRenderState(
             T entity,
             NoGreenBlockEntityRenderState cosmicBlockEntityRenderState,
             float f,
-            Vec3d vec3d,
-            ModelCommandRenderer.CrumblingOverlayCommand crumblingOverlayCommand
+            Vec3 vec3d,
+            ModelFeatureRenderer.CrumblingOverlay crumblingOverlayCommand
     ) {
-        BlockEntityRenderer.super.updateRenderState(entity, cosmicBlockEntityRenderState, f, vec3d, crumblingOverlayCommand);
+        BlockEntityRenderer.super.extractRenderState(entity, cosmicBlockEntityRenderState, f, vec3d, crumblingOverlayCommand);
         cosmicBlockEntityRenderState.sides.clear();
-        World world = entity.getWorld();
+        Level world = entity.getLevel();
 
         for (Direction direction : Direction.values()) {
             try {
-                if (!world.getBlockState(entity.getPos().offset(direction, 1)).getBlock().equals(ModBlock.NOGREEN_BLOCK)) {
+                if (!world.getBlockState(entity.getBlockPos().relative(direction, 1)).getBlock().equals(ModBlock.NOGREEN_BLOCK)) {
                     cosmicBlockEntityRenderState.sides.add(direction);
                 }
             } catch (Exception e) {}

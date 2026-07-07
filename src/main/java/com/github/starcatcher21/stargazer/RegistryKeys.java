@@ -7,24 +7,24 @@ import com.github.starcatcher21.stargazer.nbt.Patterns;
 import com.github.starcatcher21.stargazer.nbt.StarPatternsComponent;
 import net.fabricmc.fabric.api.event.registry.DynamicRegistries;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricTrackedDataRegistry;
-import net.minecraft.entity.data.TrackedDataHandler;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.util.Identifier;
+import net.minecraft.core.Registry;
+import net.minecraft.network.syncher.EntityDataSerializer;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 
 public class RegistryKeys {
-    public static final RegistryKey<Registry<Patterns>> STAR_PATTERN = RegistryKey.ofRegistry(Identifier.of(Stargazer.MOD_ID, "star_pattern"));
-    public static final TrackedDataHandler<Patterns> PATTERN = TrackedDataHandler.create(Patterns.PACKET_CODEC);
-    public static final TrackedDataHandler<StarPatternsComponent> PATTERN_COMPONENT = TrackedDataHandler.create(StarPatternsComponent.PACKET_CODEC);
+    public static final ResourceKey<Registry<Patterns>> STAR_PATTERN = ResourceKey.createRegistryKey(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "star_pattern"));
+    public static final EntityDataSerializer<Patterns> PATTERN = EntityDataSerializer.forValueType(Patterns.PACKET_CODEC);
+    public static final EntityDataSerializer<StarPatternsComponent> PATTERN_COMPONENT = EntityDataSerializer.forValueType(StarPatternsComponent.PACKET_CODEC);
 
-    public static final RegistryKey<Registry<CobbleGen>> COBBLE_GEN = RegistryKey.ofRegistry(Identifier.of(Stargazer.MOD_ID, "cobblegen"));
-    public static final TrackedDataHandler<CobbleGen> COBBLE_GEN_DATA = TrackedDataHandler.create(CobbleGen.PACKET_CODEC);
+    public static final ResourceKey<Registry<CobbleGen>> COBBLE_GEN = ResourceKey.createRegistryKey(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "cobblegen"));
+    public static final EntityDataSerializer<CobbleGen> COBBLE_GEN_DATA = EntityDataSerializer.forValueType(CobbleGen.PACKET_CODEC);
 
-    public static final RegistryKey<Registry<FallingObject>> FALLING_OBJECTS = RegistryKey.ofRegistry(Identifier.of(Stargazer.MOD_ID, "falling/objects"));
-    public static final TrackedDataHandler<FallingObject> FALLING_OBJECTS_DATA = TrackedDataHandler.create(FallingObject.PACKET_CODEC);
+    public static final ResourceKey<Registry<FallingObject>> FALLING_OBJECTS = ResourceKey.createRegistryKey(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "falling/objects"));
+    public static final EntityDataSerializer<FallingObject> FALLING_OBJECTS_DATA = EntityDataSerializer.forValueType(FallingObject.PACKET_CODEC);
 
-    public static final RegistryKey<Registry<FallingObjectsList>> FALLING_OBJECTS_LIST = RegistryKey.ofRegistry(Identifier.of(Stargazer.MOD_ID, "falling/list"));
-    public static final TrackedDataHandler<FallingObjectsList> FALLING_OBJECTS_LIST_DATA = TrackedDataHandler.create(FallingObjectsList.PACKET_CODEC);
+    public static final ResourceKey<Registry<FallingObjectsList>> FALLING_OBJECTS_LIST = ResourceKey.createRegistryKey(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "falling/list"));
+    public static final EntityDataSerializer<FallingObjectsList> FALLING_OBJECTS_LIST_DATA = EntityDataSerializer.forValueType(FallingObjectsList.PACKET_CODEC);
 
 
     public static void init() {
@@ -44,10 +44,10 @@ public class RegistryKeys {
                 FALLING_OBJECTS_LIST,
                 FallingObjectsList.CODEC
         );
-        FabricTrackedDataRegistry.register(Identifier.of(Stargazer.MOD_ID, "patterns"), PATTERN);
-        FabricTrackedDataRegistry.register(Identifier.of(Stargazer.MOD_ID, "cobble_gen"), COBBLE_GEN_DATA);
-        FabricTrackedDataRegistry.register(Identifier.of(Stargazer.MOD_ID, "falling_objects"), FALLING_OBJECTS_DATA);
-        FabricTrackedDataRegistry.register(Identifier.of(Stargazer.MOD_ID, "falling_objects_list"), FALLING_OBJECTS_LIST_DATA);
-        FabricTrackedDataRegistry.register(Identifier.of(Stargazer.MOD_ID, "patterns_component"), PATTERN_COMPONENT);
+        FabricTrackedDataRegistry.register(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "patterns"), PATTERN);
+        FabricTrackedDataRegistry.register(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "cobble_gen"), COBBLE_GEN_DATA);
+        FabricTrackedDataRegistry.register(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "falling_objects"), FALLING_OBJECTS_DATA);
+        FabricTrackedDataRegistry.register(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "falling_objects_list"), FALLING_OBJECTS_LIST_DATA);
+        FabricTrackedDataRegistry.register(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "patterns_component"), PATTERN_COMPONENT);
     }
 }

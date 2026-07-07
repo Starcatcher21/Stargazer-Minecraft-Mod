@@ -5,32 +5,32 @@ import com.github.starcatcher21.stargazer.StargazerAttributes;
 import com.github.starcatcher21.stargazer.block.register.Fluids;
 import com.github.starcatcher21.stargazer.block.register.StarBlocks;
 import com.github.starcatcher21.stargazer.worldgen.BiomeTags;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.attribute.EntityAttributeModifier;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.util.Identifier;
-import net.minecraft.world.World;
+import net.minecraft.client.Minecraft;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.level.Level;
 
 public class PlayerCosmicGrav {
-    public static EntityAttributeModifier gravity_modifier = new EntityAttributeModifier(Identifier.of(Stargazer.MOD_ID, "cosmic_gravity"),  -0.5F, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
-    public static EntityAttributeModifier fall_damage_modifier = new EntityAttributeModifier(Identifier.of(Stargazer.MOD_ID, "cosmic_fall"),  10.0F, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
-    public static EntityAttributeModifier jump_modifier = new EntityAttributeModifier(Identifier.of(Stargazer.MOD_ID, "cosmic_jump"),  0.35F, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
-    public static EntityAttributeModifier dash_modifier = new EntityAttributeModifier(Identifier.of(Stargazer.MOD_ID, "cosmic_dash"), 1.0F, EntityAttributeModifier.Operation.ADD_VALUE);
+    public static AttributeModifier gravity_modifier = new AttributeModifier(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "cosmic_gravity"),  -0.5F, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
+    public static AttributeModifier fall_damage_modifier = new AttributeModifier(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "cosmic_fall"),  10.0F, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
+    public static AttributeModifier jump_modifier = new AttributeModifier(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "cosmic_jump"),  0.35F, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
+    public static AttributeModifier dash_modifier = new AttributeModifier(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "cosmic_dash"), 1.0F, AttributeModifier.Operation.ADD_VALUE);
 
-    public static void tick(MinecraftClient client) {
+    public static void tick(Minecraft client) {
         LivingEntity player = client.player;
-        World world = player.getEntityWorld();
-        if (world.getBiome(player.getBlockPos()).isIn(BiomeTags.MOON)) {
+        Level world = player.level();
+        if (world.getBiome(player.blockPosition()).is(BiomeTags.MOON)) {
             applyEffect(player);
             if (player.getAttributeValue(StargazerAttributes.DASH_LEVEL) != 1) {
-                player.getAttributeInstance(StargazerAttributes.DASH_LEVEL).addTemporaryModifier(dash_modifier);
+                player.getAttribute(StargazerAttributes.DASH_LEVEL).addTransientModifier(dash_modifier);
             }
         } else {
-            if (world.getBlockState(player.getBlockPos()).getBlock().equals(StarBlocks.COSMIC_BLOCK) || world.getBlockState(player.getBlockPos()).getBlock().equals(Fluids.DREAM)) {
+            if (world.getBlockState(player.blockPosition()).getBlock().equals(StarBlocks.COSMIC_BLOCK) || world.getBlockState(player.blockPosition()).getBlock().equals(Fluids.DREAM)) {
                 applyEffect(player);
                 if (player.getAttributeValue(StargazerAttributes.DASH_LEVEL) != 1) {
-                    player.getAttributeInstance(StargazerAttributes.DASH_LEVEL).addTemporaryModifier(dash_modifier);
+                    player.getAttribute(StargazerAttributes.DASH_LEVEL).addTransientModifier(dash_modifier);
                 }
             } else {
                 removeEffect(player);
@@ -40,19 +40,19 @@ public class PlayerCosmicGrav {
 
     public static void applyEffect(LivingEntity player) {
         try {
-            player.getAttributeInstance(EntityAttributes.GRAVITY).addTemporaryModifier(gravity_modifier);
-            player.getAttributeInstance(EntityAttributes.SAFE_FALL_DISTANCE).addTemporaryModifier(fall_damage_modifier);
-            player.getAttributeInstance(EntityAttributes.JUMP_STRENGTH).addTemporaryModifier(jump_modifier);
-            player.getAttributeInstance(StargazerAttributes.DASH_LEVEL).addTemporaryModifier(dash_modifier);
+            player.getAttribute(Attributes.GRAVITY).addTransientModifier(gravity_modifier);
+            player.getAttribute(Attributes.SAFE_FALL_DISTANCE).addTransientModifier(fall_damage_modifier);
+            player.getAttribute(Attributes.JUMP_STRENGTH).addTransientModifier(jump_modifier);
+            player.getAttribute(StargazerAttributes.DASH_LEVEL).addTransientModifier(dash_modifier);
         } catch (IllegalArgumentException ignored) {
 
         }
     }
 
     public static void removeEffect(LivingEntity player) {
-        player.getAttributeInstance(EntityAttributes.GRAVITY).removeModifier(Identifier.of(Stargazer.MOD_ID, "cosmic_gravity"));
-        player.getAttributeInstance(EntityAttributes.SAFE_FALL_DISTANCE).removeModifier(Identifier.of(Stargazer.MOD_ID, "cosmic_fall"));
-        player.getAttributeInstance(EntityAttributes.JUMP_STRENGTH).removeModifier(Identifier.of(Stargazer.MOD_ID, "cosmic_jump"));
-        player.getAttributeInstance(StargazerAttributes.DASH_LEVEL).removeModifier(Identifier.of(Stargazer.MOD_ID, "cosmic_dash"));
+        player.getAttribute(Attributes.GRAVITY).removeModifier(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "cosmic_gravity"));
+        player.getAttribute(Attributes.SAFE_FALL_DISTANCE).removeModifier(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "cosmic_fall"));
+        player.getAttribute(Attributes.JUMP_STRENGTH).removeModifier(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "cosmic_jump"));
+        player.getAttribute(StargazerAttributes.DASH_LEVEL).removeModifier(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "cosmic_dash"));
     }
 }

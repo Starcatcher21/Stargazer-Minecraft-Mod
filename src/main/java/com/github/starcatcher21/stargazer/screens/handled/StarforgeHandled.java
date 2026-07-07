@@ -2,22 +2,22 @@ package com.github.starcatcher21.stargazer.screens.handled;
 
 import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.screens.StarforgeScreenHandler;
-import net.minecraft.client.gl.RenderPipelines;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.screen.ingame.HandledScreen;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.entity.player.Inventory;
 
-public class StarforgeHandled extends HandledScreen<StarforgeScreenHandler> {
-    private static final Identifier TEXTURE = Identifier.of(Stargazer.MOD_ID, "textures/gui/starforge/starforge.png");
+public class StarforgeHandled extends AbstractContainerScreen<StarforgeScreenHandler> {
+    private static final Identifier TEXTURE = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/starforge/starforge.png");
 
-    public StarforgeHandled(StarforgeScreenHandler handler, PlayerInventory inventory, Text title) {
+    public StarforgeHandled(StarforgeScreenHandler handler, Inventory inventory, Component title) {
         super(handler, inventory, title);
-        this.titleX = 110;
-        this.titleY = 10;
-        this.playerInventoryTitleY = 108;
-        this.backgroundHeight = 200;
+        this.titleLabelX = 110;
+        this.titleLabelY = 10;
+        this.inventoryLabelY = 108;
+        this.imageHeight = 200;
     }
 
     @Override
@@ -26,15 +26,15 @@ public class StarforgeHandled extends HandledScreen<StarforgeScreenHandler> {
     }
 
     @Override
-    public void render(DrawContext context, int mouseX, int mouseY, float deltaTicks) {
+    public void render(GuiGraphics context, int mouseX, int mouseY, float deltaTicks) {
         super.render(context, mouseX, mouseY, deltaTicks);
-        this.drawMouseoverTooltip(context, mouseX, mouseY);
+        this.renderTooltip(context, mouseX, mouseY);
     }
 
     @Override
-    protected void drawBackground(DrawContext context, float deltaTicks, int mouseX, int mouseY) {
-        int i = this.x;
-        int j = (this.height - this.backgroundHeight) / 2;
-        context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, i, j, 0.0F, 0.0F, this.backgroundWidth, this.backgroundHeight, 256, 256);
+    protected void renderBg(GuiGraphics context, float deltaTicks, int mouseX, int mouseY) {
+        int i = this.leftPos;
+        int j = (this.height - this.imageHeight) / 2;
+        context.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, i, j, 0.0F, 0.0F, this.imageWidth, this.imageHeight, 256, 256);
     }
 }

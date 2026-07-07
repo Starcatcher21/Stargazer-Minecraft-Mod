@@ -2,46 +2,46 @@ package com.github.starcatcher21.stargazer.mixin;
 
 import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.datagen.ModFluidTagProvider;
-import net.minecraft.entity.projectile.FishingBobberEntity;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.loot.LootTable;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.TagKey;
-import net.minecraft.util.Identifier;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.entity.projectile.FishingHook;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.storage.loot.LootTable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
-@Mixin(FishingBobberEntity.class)
+@Mixin(FishingHook.class)
 public class FishingBobberEntityMixin {
 
     @Redirect(
             method = "tick",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/fluid/FluidState;isIn(Lnet/minecraft/registry/tag/TagKey;)Z"
+                    target = "Lnet/minecraft/world/level/material/FluidState;is(Lnet/minecraft/tags/TagKey;)Z"
             )
     )
     private boolean allowCustomFluidFishing(FluidState fluidState, TagKey<Fluid> tag) {
         // If Minecraft is checking for water, also allow our custom fluid
-        return fluidState.isIn(tag) || fluidState.isIn(ModFluidTagProvider.DREAM);
+        return fluidState.is(tag) || fluidState.is(ModFluidTagProvider.DREAM);
     }
     @Redirect(
-            method = "use",
+            method = "retrieve",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/registry/ReloadableRegistries$Lookup;getLootTable(Lnet/minecraft/registry/RegistryKey;)Lnet/minecraft/loot/LootTable;"
+                    target = "Lnet/minecraft/server/ReloadableServerRegistries$Holder;getLootTable(Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/world/level/storage/loot/LootTable;"
             )
     )
-    private LootTable redirectFishingLoot(net.minecraft.registry.ReloadableRegistries.Lookup lookup, RegistryKey<LootTable> vanillaKey) {
-        FishingBobberEntity bobber = (FishingBobberEntity) (Object) this;
+    private LootTable redirectFishingLoot(net.minecraft.server.ReloadableServerRegistries.Holder lookup, ResourceKey<LootTable> vanillaKey) {
+        FishingHook bobber = (FishingHook) (Object) this;
 
-        if (bobber.getEntityWorld().getFluidState(bobber.getBlockPos()).isIn(ModFluidTagProvider.DREAM)) {
-            RegistryKey<LootTable> customLootKey = RegistryKey.of(
-                    RegistryKeys.LOOT_TABLE,
-                    Identifier.of(Stargazer.MOD_ID, "gameplay/fishing/dream")
+        if (bobber.level().getFluidState(bobber.blockPosition()).is(ModFluidTagProvider.DREAM)) {
+            ResourceKey<LootTable> customLootKey = ResourceKey.create(
+                    Registries.LOOT_TABLE,
+                    Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "gameplay/fishing/dream")
             );
             return lookup.getLootTable(customLootKey);
         }

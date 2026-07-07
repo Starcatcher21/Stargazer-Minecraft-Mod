@@ -1,3 +1,5 @@
+// TODO(Ravel): Failed to fully resolve file: null cannot be cast to non-null type com.intellij.psi.PsiClass
+// TODO(Ravel): Failed to fully resolve file: null cannot be cast to non-null type com.intellij.psi.PsiClass
 package com.github.starcatcher21.stargazer.screens.recipe.serializer;
 
 import com.github.starcatcher21.stargazer.screens.recipe.MoonWelderRecipeInput;
@@ -5,25 +7,23 @@ import com.github.starcatcher21.stargazer.screens.recipe.StarCrusherRecipeInput;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.block.Blocks;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.util.dynamic.Codecs;
-import net.minecraft.world.World;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Optional;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
 
 public class StarCrusherShapedRecipe {
     public static final MapCodec<StarCrusherShapedRecipe> CODEC = Data.CODEC.flatXmap(
             StarCrusherShapedRecipe::fromData,
             recipe -> recipe.data.map(DataResult::success).orElseGet(() -> DataResult.error(() -> "Cannot encode unpacked recipe")));
-    public static final PacketCodec<RegistryByteBuf, StarCrusherShapedRecipe> PACKET_CODEC = PacketCodec.tuple(
-            Ingredient.PACKET_CODEC, recipe -> recipe.item1,
+    public static final StreamCodec<RegistryFriendlyByteBuf, StarCrusherShapedRecipe> PACKET_CODEC = StreamCodec.composite(
+            Ingredient.CONTENTS_STREAM_CODEC, recipe -> recipe.item1,
             StarCrusherShapedRecipe::create);
     private static final Logger log = LoggerFactory.getLogger(StarCrusherShapedRecipe.class);
     private final Optional<Data> data;
@@ -45,15 +45,15 @@ public class StarCrusherShapedRecipe {
         return DataResult.success(new StarCrusherShapedRecipe(data.item1, Optional.of(data)));
     }
 
-    public boolean matches(StarCrusherRecipeInput input, World world) {
+    public boolean matches(StarCrusherRecipeInput input, Level world) {
         Ingredient item1 = this.item1;
         ItemStack stack;
         try {
-            stack = input.getStackInSlot(0);
+            stack = input.getItem(0);
         } catch (Exception e) {
             stack = new ItemStack(Blocks.AIR.asItem());
         }
-        return Ingredient.matches(Optional.of(item1), stack);
+        return Ingredient.testOptionalIngredient(Optional.of(item1), stack);
     }
 
     public Ingredient getItem1() {

@@ -2,29 +2,28 @@ package com.github.starcatcher21.stargazer.effects;
 
 import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.StargazerAttributes;
-import net.minecraft.entity.attribute.AttributeContainer;
-import net.minecraft.entity.attribute.EntityAttributeModifier;
-import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.entity.effect.StatusEffectCategory;
-import net.minecraft.util.Identifier;
-
 import java.util.Objects;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.entity.ai.attributes.AttributeMap;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 
-public class CosmoFeeling extends StatusEffect {
-    public static EntityAttributeModifier dash_modifier = new EntityAttributeModifier(Identifier.of(Stargazer.MOD_ID, "cosmic_potion_dash"), 1.0F, EntityAttributeModifier.Operation.ADD_VALUE);
-    public CosmoFeeling(StatusEffectCategory category, int color) {
+public class CosmoFeeling extends MobEffect {
+    public static AttributeModifier dash_modifier = new AttributeModifier(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "cosmic_potion_dash"), 1.0F, AttributeModifier.Operation.ADD_VALUE);
+    public CosmoFeeling(MobEffectCategory category, int color) {
         super(category, color);
     }
 
     @Override
-    public void onRemoved(AttributeContainer attributeContainer) {
-        super.onRemoved(attributeContainer);
-        Objects.requireNonNull(attributeContainer.getCustomInstance(StargazerAttributes.DASH_LEVEL)).removeModifier(dash_modifier);
+    public void removeAttributeModifiers(AttributeMap attributeContainer) {
+        super.removeAttributeModifiers(attributeContainer);
+        Objects.requireNonNull(attributeContainer.getInstance(StargazerAttributes.DASH_LEVEL)).removeModifier(dash_modifier);
     }
 
     @Override
-    public void onApplied(AttributeContainer attributeContainer, int amplifier) {
-        super.onApplied(attributeContainer, amplifier);
-        Objects.requireNonNull(attributeContainer.getCustomInstance(StargazerAttributes.DASH_LEVEL)).addTemporaryModifier(dash_modifier);
+    public void addAttributeModifiers(AttributeMap attributeContainer, int amplifier) {
+        super.addAttributeModifiers(attributeContainer, amplifier);
+        Objects.requireNonNull(attributeContainer.getInstance(StargazerAttributes.DASH_LEVEL)).addTransientModifier(dash_modifier);
     }
 }

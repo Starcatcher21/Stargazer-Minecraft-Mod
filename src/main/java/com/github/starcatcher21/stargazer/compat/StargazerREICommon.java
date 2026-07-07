@@ -10,7 +10,7 @@ import me.shedaniel.rei.api.common.display.DisplaySerializer;
 import me.shedaniel.rei.api.common.display.DisplaySerializerRegistry;
 import me.shedaniel.rei.api.common.plugins.REICommonPlugin;
 import me.shedaniel.rei.api.common.registry.display.ServerDisplayRegistry;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.Identifier;
 
 public class StargazerREICommon implements REICommonPlugin {
     public static DisplaySerializer<StarforgeDisplay> STARFORGE = new StarforgeDisplaySerializer();
@@ -19,10 +19,10 @@ public class StargazerREICommon implements REICommonPlugin {
     public static DisplaySerializer<StarCrusherDisplay> STAR_CRUSHER = new StarCrusherDisplaySerializer();
     @Override
     public void registerDisplaySerializer(DisplaySerializerRegistry registry) {
-        registry.register(Identifier.of(Stargazer.MOD_ID, "starforge_display_serializer"), STARFORGE);
-        registry.register(Identifier.of(Stargazer.MOD_ID, "moon_welder_display_serializer"), MOONWELDER);
-        registry.register(Identifier.of(Stargazer.MOD_ID, "stargazing_display_serializer"), STARGAZING);
-        registry.register(Identifier.of(Stargazer.MOD_ID, "star_crusher_display_serializer"), STAR_CRUSHER);
+        registry.register(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "starforge_display_serializer"), STARFORGE);
+        registry.register(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "moon_welder_display_serializer"), MOONWELDER);
+        registry.register(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "stargazing_display_serializer"), STARGAZING);
+        registry.register(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "star_crusher_display_serializer"), STAR_CRUSHER);
         REICommonPlugin.super.registerDisplaySerializer(registry);
     }
 

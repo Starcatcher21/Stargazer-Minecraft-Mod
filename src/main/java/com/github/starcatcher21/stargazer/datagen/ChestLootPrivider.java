@@ -4,47 +4,46 @@ import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.item.ModItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider;
-import net.minecraft.item.Items;
-import net.minecraft.loot.LootPool;
-import net.minecraft.loot.LootTable;
-import net.minecraft.loot.context.LootContextTypes;
-import net.minecraft.loot.entry.ItemEntry;
-import net.minecraft.loot.provider.number.UniformLootNumberProvider;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 
 public class ChestLootPrivider extends SimpleFabricLootTableProvider {
-    public ChestLootPrivider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
-        super(output, registryLookup, LootContextTypes.CHEST);
+    public ChestLootPrivider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registryLookup) {
+        super(output, registryLookup, LootContextParamSets.CHEST);
     }
 
     @Override
-    public void accept(BiConsumer<RegistryKey<LootTable>, LootTable.Builder> lootTableBiConsumer) {
+    public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> lootTableBiConsumer) {
 
-        RegistryKey<LootTable> cometKey = RegistryKey.of(
-                RegistryKeys.LOOT_TABLE,
-                Identifier.of(Stargazer.MOD_ID, "gameplay/comet")
+        ResourceKey<LootTable> cometKey = ResourceKey.create(
+                Registries.LOOT_TABLE,
+                Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "gameplay/comet")
         );
 
-        LootTable.Builder lootTableComet = LootTable.builder()
-                .pool(
-                        LootPool.builder()
-                                .rolls(UniformLootNumberProvider.create(1.0f, 5.0f))
-                                .with(ItemEntry.builder(Items.IRON_NUGGET).weight(60))
-                                .with(ItemEntry.builder(Items.GOLD_NUGGET).weight(50))
-                                .with(ItemEntry.builder(Items.COPPER_NUGGET).weight(50))
-                                .with(ItemEntry.builder(Items.RAW_IRON).weight(30))
-                                .with(ItemEntry.builder(Items.RAW_GOLD).weight(30))
-                                .with(ItemEntry.builder(Items.RAW_COPPER).weight(30))
-                                .with(ItemEntry.builder(Items.COBBLESTONE).weight(70))
-                                .with(ItemEntry.builder(Items.AMETHYST_SHARD).weight(45))
-                                .with(ItemEntry.builder(ModItems.COMET_FRAGMENT).weight(10))
-                                .with(ItemEntry.builder(ModItems.AURORA_FRAGMENT).weight(5))
+        LootTable.Builder lootTableComet = LootTable.lootTable()
+                .withPool(
+                        LootPool.lootPool()
+                                .setRolls(UniformGenerator.between(1.0f, 5.0f))
+                                .add(LootItem.lootTableItem(Items.IRON_NUGGET).setWeight(60))
+                                .add(LootItem.lootTableItem(Items.GOLD_NUGGET).setWeight(50))
+                                .add(LootItem.lootTableItem(Items.COPPER_NUGGET).setWeight(50))
+                                .add(LootItem.lootTableItem(Items.RAW_IRON).setWeight(30))
+                                .add(LootItem.lootTableItem(Items.RAW_GOLD).setWeight(30))
+                                .add(LootItem.lootTableItem(Items.RAW_COPPER).setWeight(30))
+                                .add(LootItem.lootTableItem(Items.COBBLESTONE).setWeight(70))
+                                .add(LootItem.lootTableItem(Items.AMETHYST_SHARD).setWeight(45))
+                                .add(LootItem.lootTableItem(ModItems.COMET_FRAGMENT).setWeight(10))
+                                .add(LootItem.lootTableItem(ModItems.AURORA_FRAGMENT).setWeight(5))
                 );
 
         lootTableBiConsumer.accept(cometKey, lootTableComet);

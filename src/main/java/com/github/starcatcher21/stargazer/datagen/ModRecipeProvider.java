@@ -5,478 +5,476 @@ import com.github.starcatcher21.stargazer.block.register.*;
 import com.github.starcatcher21.stargazer.item.ModItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
-import net.minecraft.block.Blocks;
-import net.minecraft.data.recipe.RecipeExporter;
-import net.minecraft.data.recipe.RecipeGenerator;
-import net.minecraft.item.ItemConvertible;
-import net.minecraft.item.Items;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.book.RecipeCategory;
-import net.minecraft.registry.RegistryWrapper;
-
+import net.minecraft.core.HolderLookup;
+import net.minecraft.data.recipes.RecipeCategory;
+import net.minecraft.data.recipes.RecipeOutput;
+import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.block.Blocks;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class ModRecipeProvider extends FabricRecipeProvider {
-    public ModRecipeProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+    public ModRecipeProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
         super(output, registriesFuture);
     }
 
     @Override
-    protected RecipeGenerator getRecipeGenerator(RegistryWrapper.WrapperLookup wrapperLookup, RecipeExporter recipeExporter) {
-        return new RecipeGenerator(wrapperLookup, recipeExporter) {
+    protected RecipeProvider createRecipeProvider(HolderLookup.Provider wrapperLookup, RecipeOutput recipeExporter) {
+        return new RecipeProvider(wrapperLookup, recipeExporter) {
             @Override
-            public void generate() {
+            public void buildRecipes() {
                 // Moon Tree
-                createShapeless(RecipeCategory.BUILDING_BLOCKS, MoonBlocks.MOON_PLANKS, 4)
-                        .input(CustomTags.MOON_LOG)
+                shapeless(RecipeCategory.BUILDING_BLOCKS, MoonBlocks.MOON_PLANKS, 4)
+                        .requires(CustomTags.MOON_LOG)
                         .group("planks")
-                        .criterion("has_log", this.conditionsFromTag(CustomTags.MOON_LOG))
-                        .offerTo(this.exporter);
-                createShapeless(RecipeCategory.BUILDING_BLOCKS, Blocks.BIRCH_PLANKS, 4)
-                        .input(CustomTags.EYE_LOG)
+                        .unlockedBy("has_log", this.has(CustomTags.MOON_LOG))
+                        .save(this.output);
+                shapeless(RecipeCategory.BUILDING_BLOCKS, Blocks.BIRCH_PLANKS, 4)
+                        .requires(CustomTags.EYE_LOG)
                         .group("planks")
-                        .criterion("has_log", this.conditionsFromTag(CustomTags.EYE_LOG))
-                        .offerTo(this.exporter);
-                createSlabRecipe(RecipeCategory.BUILDING_BLOCKS, MoonBlocks.MOON_PLANKS_SLAB, Ingredient.ofItem(MoonBlocks.MOON_PLANKS))
+                        .unlockedBy("has_log", this.has(CustomTags.EYE_LOG))
+                        .save(this.output);
+                slabBuilder(RecipeCategory.BUILDING_BLOCKS, MoonBlocks.MOON_PLANKS_SLAB, Ingredient.of(MoonBlocks.MOON_PLANKS))
                         .group("wooden_slab")
-                        .criterion("wood", conditionsFromItem(MoonBlocks.MOON_PLANKS))
-                        .offerTo(exporter);
-                createSlabRecipe(RecipeCategory.BUILDING_BLOCKS, MoonBlocks.PURPLE_MOON_PLANKS_SLAB, Ingredient.ofItem(MoonBlocks.PURPLE_MOON_PLANKS))
+                        .unlockedBy("wood", has(MoonBlocks.MOON_PLANKS))
+                        .save(output);
+                slabBuilder(RecipeCategory.BUILDING_BLOCKS, MoonBlocks.PURPLE_MOON_PLANKS_SLAB, Ingredient.of(MoonBlocks.PURPLE_MOON_PLANKS))
                         .group("wooden_slab")
-                        .criterion("wood", conditionsFromItem(MoonBlocks.PURPLE_MOON_PLANKS))
-                        .offerTo(exporter);
-                createSlabRecipe(RecipeCategory.BUILDING_BLOCKS, MoonBlocks.RED_MOON_PLANKS_SLAB, Ingredient.ofItem(MoonBlocks.RED_MOON_PLANKS))
+                        .unlockedBy("wood", has(MoonBlocks.PURPLE_MOON_PLANKS))
+                        .save(output);
+                slabBuilder(RecipeCategory.BUILDING_BLOCKS, MoonBlocks.RED_MOON_PLANKS_SLAB, Ingredient.of(MoonBlocks.RED_MOON_PLANKS))
                         .group("wooden_slab")
-                        .criterion("wood", conditionsFromItem(MoonBlocks.RED_MOON_PLANKS))
-                        .offerTo(exporter);
-                createSlabRecipe(RecipeCategory.BUILDING_BLOCKS, MoonBlocks.BLUE_MOON_PLANKS_SLAB, Ingredient.ofItem(MoonBlocks.BLUE_MOON_PLANKS))
+                        .unlockedBy("wood", has(MoonBlocks.RED_MOON_PLANKS))
+                        .save(output);
+                slabBuilder(RecipeCategory.BUILDING_BLOCKS, MoonBlocks.BLUE_MOON_PLANKS_SLAB, Ingredient.of(MoonBlocks.BLUE_MOON_PLANKS))
                         .group("wooden_slab")
-                        .criterion("wood", conditionsFromItem(MoonBlocks.BLUE_MOON_PLANKS))
-                        .offerTo(exporter);
-                createSlabRecipe(RecipeCategory.BUILDING_BLOCKS, MoonBlocks.YELLOW_MOON_PLANKS_SLAB, Ingredient.ofItem(MoonBlocks.YELLOW_MOON_PLANKS))
+                        .unlockedBy("wood", has(MoonBlocks.BLUE_MOON_PLANKS))
+                        .save(output);
+                slabBuilder(RecipeCategory.BUILDING_BLOCKS, MoonBlocks.YELLOW_MOON_PLANKS_SLAB, Ingredient.of(MoonBlocks.YELLOW_MOON_PLANKS))
                         .group("wooden_slab")
-                        .criterion("wood", conditionsFromItem(MoonBlocks.YELLOW_MOON_PLANKS))
-                        .offerTo(exporter);
-                createStairsRecipe(MoonBlocks.MOON_PLANKS_STAIRS, Ingredient.ofItem(MoonBlocks.MOON_PLANKS))
+                        .unlockedBy("wood", has(MoonBlocks.YELLOW_MOON_PLANKS))
+                        .save(output);
+                stairBuilder(MoonBlocks.MOON_PLANKS_STAIRS, Ingredient.of(MoonBlocks.MOON_PLANKS))
                         .group("wooden_stairs")
-                        .criterion("wood", conditionsFromItem(MoonBlocks.MOON_PLANKS))
-                        .offerTo(exporter);
-                createStairsRecipe(MoonBlocks.PURPLE_MOON_PLANKS_STAIRS, Ingredient.ofItem(MoonBlocks.PURPLE_MOON_PLANKS))
+                        .unlockedBy("wood", has(MoonBlocks.MOON_PLANKS))
+                        .save(output);
+                stairBuilder(MoonBlocks.PURPLE_MOON_PLANKS_STAIRS, Ingredient.of(MoonBlocks.PURPLE_MOON_PLANKS))
                         .group("wooden_stairs")
-                        .criterion("wood", conditionsFromItem(MoonBlocks.PURPLE_MOON_PLANKS))
-                        .offerTo(exporter);
-                createStairsRecipe(MoonBlocks.RED_MOON_PLANKS_STAIRS, Ingredient.ofItem(MoonBlocks.RED_MOON_PLANKS))
+                        .unlockedBy("wood", has(MoonBlocks.PURPLE_MOON_PLANKS))
+                        .save(output);
+                stairBuilder(MoonBlocks.RED_MOON_PLANKS_STAIRS, Ingredient.of(MoonBlocks.RED_MOON_PLANKS))
                         .group("wooden_stairs")
-                        .criterion("wood", conditionsFromItem(MoonBlocks.RED_MOON_PLANKS))
-                        .offerTo(exporter);
-                createStairsRecipe(MoonBlocks.BLUE_MOON_PLANKS_STAIRS, Ingredient.ofItem(MoonBlocks.BLUE_MOON_PLANKS))
+                        .unlockedBy("wood", has(MoonBlocks.RED_MOON_PLANKS))
+                        .save(output);
+                stairBuilder(MoonBlocks.BLUE_MOON_PLANKS_STAIRS, Ingredient.of(MoonBlocks.BLUE_MOON_PLANKS))
                         .group("wooden_stairs")
-                        .criterion("wood", conditionsFromItem(MoonBlocks.BLUE_MOON_PLANKS))
-                        .offerTo(exporter);
-                createStairsRecipe(MoonBlocks.YELLOW_MOON_PLANKS_STAIRS, Ingredient.ofItem(MoonBlocks.YELLOW_MOON_PLANKS))
+                        .unlockedBy("wood", has(MoonBlocks.BLUE_MOON_PLANKS))
+                        .save(output);
+                stairBuilder(MoonBlocks.YELLOW_MOON_PLANKS_STAIRS, Ingredient.of(MoonBlocks.YELLOW_MOON_PLANKS))
                         .group("wooden_stairs")
-                        .criterion("wood", conditionsFromItem(MoonBlocks.YELLOW_MOON_PLANKS))
-                        .offerTo(exporter);
-                createButtonRecipe(MoonBlocks.MOON_PLANKS_BUTTON, Ingredient.ofItem(MoonBlocks.MOON_PLANKS))
+                        .unlockedBy("wood", has(MoonBlocks.YELLOW_MOON_PLANKS))
+                        .save(output);
+                buttonBuilder(MoonBlocks.MOON_PLANKS_BUTTON, Ingredient.of(MoonBlocks.MOON_PLANKS))
                         .group("wooden_button")
-                        .criterion("wood", conditionsFromItem(MoonBlocks.MOON_PLANKS))
-                        .offerTo(exporter);
-                createButtonRecipe(MoonBlocks.PURPLE_MOON_PLANKS_BUTTON, Ingredient.ofItem(MoonBlocks.PURPLE_MOON_PLANKS))
+                        .unlockedBy("wood", has(MoonBlocks.MOON_PLANKS))
+                        .save(output);
+                buttonBuilder(MoonBlocks.PURPLE_MOON_PLANKS_BUTTON, Ingredient.of(MoonBlocks.PURPLE_MOON_PLANKS))
                         .group("wooden_button")
-                        .criterion("wood", conditionsFromItem(MoonBlocks.PURPLE_MOON_PLANKS))
-                        .offerTo(exporter);
-                createButtonRecipe(MoonBlocks.RED_MOON_PLANKS_BUTTON, Ingredient.ofItem(MoonBlocks.RED_MOON_PLANKS))
+                        .unlockedBy("wood", has(MoonBlocks.PURPLE_MOON_PLANKS))
+                        .save(output);
+                buttonBuilder(MoonBlocks.RED_MOON_PLANKS_BUTTON, Ingredient.of(MoonBlocks.RED_MOON_PLANKS))
                         .group("wooden_button")
-                        .criterion("wood", conditionsFromItem(MoonBlocks.RED_MOON_PLANKS))
-                        .offerTo(exporter);
-                createButtonRecipe(MoonBlocks.BLUE_MOON_PLANKS_BUTTON, Ingredient.ofItem(MoonBlocks.BLUE_MOON_PLANKS))
+                        .unlockedBy("wood", has(MoonBlocks.RED_MOON_PLANKS))
+                        .save(output);
+                buttonBuilder(MoonBlocks.BLUE_MOON_PLANKS_BUTTON, Ingredient.of(MoonBlocks.BLUE_MOON_PLANKS))
                         .group("wooden_button")
-                        .criterion("wood", conditionsFromItem(MoonBlocks.BLUE_MOON_PLANKS))
-                        .offerTo(exporter);
-                createButtonRecipe(MoonBlocks.YELLOW_MOON_PLANKS_BUTTON, Ingredient.ofItem(MoonBlocks.YELLOW_MOON_PLANKS))
+                        .unlockedBy("wood", has(MoonBlocks.BLUE_MOON_PLANKS))
+                        .save(output);
+                buttonBuilder(MoonBlocks.YELLOW_MOON_PLANKS_BUTTON, Ingredient.of(MoonBlocks.YELLOW_MOON_PLANKS))
                         .group("wooden_button")
-                        .criterion("wood", conditionsFromItem(MoonBlocks.YELLOW_MOON_PLANKS))
-                        .offerTo(exporter);
-                createFenceGateRecipe(MoonBlocks.MOON_PLANKS_FENCE_GATE, Ingredient.ofItem(MoonBlocks.MOON_PLANKS))
+                        .unlockedBy("wood", has(MoonBlocks.YELLOW_MOON_PLANKS))
+                        .save(output);
+                fenceGateBuilder(MoonBlocks.MOON_PLANKS_FENCE_GATE, Ingredient.of(MoonBlocks.MOON_PLANKS))
                         .group("wooden_fence_gate")
-                        .criterion("wood", conditionsFromItem(MoonBlocks.MOON_PLANKS))
-                        .offerTo(exporter);
-                createFenceGateRecipe(MoonBlocks.PURPLE_MOON_PLANKS_FENCE_GATE, Ingredient.ofItem(MoonBlocks.PURPLE_MOON_PLANKS))
+                        .unlockedBy("wood", has(MoonBlocks.MOON_PLANKS))
+                        .save(output);
+                fenceGateBuilder(MoonBlocks.PURPLE_MOON_PLANKS_FENCE_GATE, Ingredient.of(MoonBlocks.PURPLE_MOON_PLANKS))
                         .group("wooden_fence_gate")
-                        .criterion("wood", conditionsFromItem(MoonBlocks.PURPLE_MOON_PLANKS))
-                        .offerTo(exporter);
-                createFenceGateRecipe(MoonBlocks.RED_MOON_PLANKS_FENCE_GATE, Ingredient.ofItem(MoonBlocks.RED_MOON_PLANKS))
+                        .unlockedBy("wood", has(MoonBlocks.PURPLE_MOON_PLANKS))
+                        .save(output);
+                fenceGateBuilder(MoonBlocks.RED_MOON_PLANKS_FENCE_GATE, Ingredient.of(MoonBlocks.RED_MOON_PLANKS))
                         .group("wooden_fence_gate")
-                        .criterion("wood", conditionsFromItem(MoonBlocks.RED_MOON_PLANKS))
-                        .offerTo(exporter);
-                createFenceGateRecipe(MoonBlocks.BLUE_MOON_PLANKS_FENCE_GATE, Ingredient.ofItem(MoonBlocks.BLUE_MOON_PLANKS))
+                        .unlockedBy("wood", has(MoonBlocks.RED_MOON_PLANKS))
+                        .save(output);
+                fenceGateBuilder(MoonBlocks.BLUE_MOON_PLANKS_FENCE_GATE, Ingredient.of(MoonBlocks.BLUE_MOON_PLANKS))
                         .group("wooden_fence_gate")
-                        .criterion("wood", conditionsFromItem(MoonBlocks.BLUE_MOON_PLANKS))
-                        .offerTo(exporter);
-                createFenceGateRecipe(MoonBlocks.YELLOW_MOON_PLANKS_FENCE_GATE, Ingredient.ofItem(MoonBlocks.YELLOW_MOON_PLANKS))
+                        .unlockedBy("wood", has(MoonBlocks.BLUE_MOON_PLANKS))
+                        .save(output);
+                fenceGateBuilder(MoonBlocks.YELLOW_MOON_PLANKS_FENCE_GATE, Ingredient.of(MoonBlocks.YELLOW_MOON_PLANKS))
                         .group("wooden_fence_gate")
-                        .criterion("wood", conditionsFromItem(MoonBlocks.YELLOW_MOON_PLANKS))
-                        .offerTo(exporter);
-                createFenceRecipe(MoonBlocks.MOON_PLANKS_FENCE, Ingredient.ofItem(MoonBlocks.MOON_PLANKS))
+                        .unlockedBy("wood", has(MoonBlocks.YELLOW_MOON_PLANKS))
+                        .save(output);
+                fenceBuilder(MoonBlocks.MOON_PLANKS_FENCE, Ingredient.of(MoonBlocks.MOON_PLANKS))
                         .group("wooden_fence")
-                        .criterion("wood", conditionsFromItem(MoonBlocks.MOON_PLANKS))
-                        .offerTo(exporter);
-                createFenceRecipe(MoonBlocks.PURPLE_MOON_PLANKS_FENCE, Ingredient.ofItem(MoonBlocks.PURPLE_MOON_PLANKS))
+                        .unlockedBy("wood", has(MoonBlocks.MOON_PLANKS))
+                        .save(output);
+                fenceBuilder(MoonBlocks.PURPLE_MOON_PLANKS_FENCE, Ingredient.of(MoonBlocks.PURPLE_MOON_PLANKS))
                         .group("wooden_fence")
-                        .criterion("wood", conditionsFromItem(MoonBlocks.PURPLE_MOON_PLANKS))
-                        .offerTo(exporter);
-                createFenceRecipe(MoonBlocks.RED_MOON_PLANKS_FENCE, Ingredient.ofItem(MoonBlocks.RED_MOON_PLANKS))
+                        .unlockedBy("wood", has(MoonBlocks.PURPLE_MOON_PLANKS))
+                        .save(output);
+                fenceBuilder(MoonBlocks.RED_MOON_PLANKS_FENCE, Ingredient.of(MoonBlocks.RED_MOON_PLANKS))
                         .group("wooden_fence")
-                        .criterion("wood", conditionsFromItem(MoonBlocks.RED_MOON_PLANKS))
-                        .offerTo(exporter);
-                createFenceRecipe(MoonBlocks.BLUE_MOON_PLANKS_FENCE, Ingredient.ofItem(MoonBlocks.BLUE_MOON_PLANKS))
+                        .unlockedBy("wood", has(MoonBlocks.RED_MOON_PLANKS))
+                        .save(output);
+                fenceBuilder(MoonBlocks.BLUE_MOON_PLANKS_FENCE, Ingredient.of(MoonBlocks.BLUE_MOON_PLANKS))
                         .group("wooden_fence")
-                        .criterion("wood", conditionsFromItem(MoonBlocks.BLUE_MOON_PLANKS))
-                        .offerTo(exporter);
-                createFenceRecipe(MoonBlocks.YELLOW_MOON_PLANKS_FENCE, Ingredient.ofItem(MoonBlocks.YELLOW_MOON_PLANKS))
+                        .unlockedBy("wood", has(MoonBlocks.BLUE_MOON_PLANKS))
+                        .save(output);
+                fenceBuilder(MoonBlocks.YELLOW_MOON_PLANKS_FENCE, Ingredient.of(MoonBlocks.YELLOW_MOON_PLANKS))
                         .group("wooden_fence")
-                        .criterion("wood", conditionsFromItem(MoonBlocks.YELLOW_MOON_PLANKS))
-                        .offerTo(exporter);
-                createDoorRecipe(MoonBlocks.MOON_PLANKS_DOOR, Ingredient.ofItem(MoonBlocks.MOON_PLANKS))
+                        .unlockedBy("wood", has(MoonBlocks.YELLOW_MOON_PLANKS))
+                        .save(output);
+                doorBuilder(MoonBlocks.MOON_PLANKS_DOOR, Ingredient.of(MoonBlocks.MOON_PLANKS))
                         .group("wooden_door")
-                        .criterion("wood", conditionsFromItem(MoonBlocks.MOON_PLANKS))
-                        .offerTo(exporter);
-                createDoorRecipe(StarBlocks.STAR_PLANKS_DOOR, Ingredient.ofItem(StarBlocks.STAR_PLANKS))
+                        .unlockedBy("wood", has(MoonBlocks.MOON_PLANKS))
+                        .save(output);
+                doorBuilder(StarBlocks.STAR_PLANKS_DOOR, Ingredient.of(StarBlocks.STAR_PLANKS))
                         .group("wooden_door")
-                        .criterion("wood", conditionsFromItem(StarBlocks.STAR_PLANKS))
-                        .offerTo(exporter);
-                createDoorRecipe(Darkness.DARKNESS_PLANKS_DOOR, Ingredient.ofItem(Darkness.DARKNESS_PLANKS))
+                        .unlockedBy("wood", has(StarBlocks.STAR_PLANKS))
+                        .save(output);
+                doorBuilder(Darkness.DARKNESS_PLANKS_DOOR, Ingredient.of(Darkness.DARKNESS_PLANKS))
                         .group("wooden_door")
-                        .criterion("wood", conditionsFromItem(Darkness.DARKNESS_PLANKS))
-                        .offerTo(exporter);
-                createDoorRecipe(MoonBlocks.CURVE_PLANKS_DOOR, Ingredient.ofItem(MoonBlocks.CURVE_PLANKS))
+                        .unlockedBy("wood", has(Darkness.DARKNESS_PLANKS))
+                        .save(output);
+                doorBuilder(MoonBlocks.CURVE_PLANKS_DOOR, Ingredient.of(MoonBlocks.CURVE_PLANKS))
                         .group("wooden_door")
-                        .criterion("wood", conditionsFromItem(MoonBlocks.CURVE_PLANKS))
-                        .offerTo(exporter);
+                        .unlockedBy("wood", has(MoonBlocks.CURVE_PLANKS))
+                        .save(output);
                 // Star Tree
-                createShapeless(RecipeCategory.BUILDING_BLOCKS, StarBlocks.STAR_PLANKS, 4)
-                        .input(CustomTags.STAR_LOG)
+                shapeless(RecipeCategory.BUILDING_BLOCKS, StarBlocks.STAR_PLANKS, 4)
+                        .requires(CustomTags.STAR_LOG)
                         .group("planks")
-                        .criterion("has_log", this.conditionsFromTag(CustomTags.STAR_LOG))
-                        .offerTo(this.exporter);
-                createSlabRecipe(RecipeCategory.BUILDING_BLOCKS, StarBlocks.STAR_PLANKS_SLAB, Ingredient.ofItem(StarBlocks.STAR_PLANKS))
+                        .unlockedBy("has_log", this.has(CustomTags.STAR_LOG))
+                        .save(this.output);
+                slabBuilder(RecipeCategory.BUILDING_BLOCKS, StarBlocks.STAR_PLANKS_SLAB, Ingredient.of(StarBlocks.STAR_PLANKS))
                         .group("wooden_slab")
-                        .criterion("wood", conditionsFromItem(StarBlocks.STAR_PLANKS))
-                        .offerTo(exporter);
-                createStairsRecipe(StarBlocks.STAR_PLANKS_STAIRS, Ingredient.ofItem(StarBlocks.STAR_PLANKS))
+                        .unlockedBy("wood", has(StarBlocks.STAR_PLANKS))
+                        .save(output);
+                stairBuilder(StarBlocks.STAR_PLANKS_STAIRS, Ingredient.of(StarBlocks.STAR_PLANKS))
                         .group("wooden_stairs")
-                        .criterion("wood", conditionsFromItem(StarBlocks.STAR_PLANKS))
-                        .offerTo(exporter);
-                createButtonRecipe(StarBlocks.STAR_PLANKS_BUTTON, Ingredient.ofItem(StarBlocks.STAR_PLANKS))
+                        .unlockedBy("wood", has(StarBlocks.STAR_PLANKS))
+                        .save(output);
+                buttonBuilder(StarBlocks.STAR_PLANKS_BUTTON, Ingredient.of(StarBlocks.STAR_PLANKS))
                         .group("wooden_button")
-                        .criterion("wood", conditionsFromItem(StarBlocks.STAR_PLANKS))
-                        .offerTo(exporter);
-                createFenceRecipe(StarBlocks.STAR_PLANKS_FENCE, Ingredient.ofItem(StarBlocks.STAR_PLANKS))
+                        .unlockedBy("wood", has(StarBlocks.STAR_PLANKS))
+                        .save(output);
+                fenceBuilder(StarBlocks.STAR_PLANKS_FENCE, Ingredient.of(StarBlocks.STAR_PLANKS))
                         .group("wooden_fence")
-                        .criterion("wood", conditionsFromItem(StarBlocks.STAR_PLANKS))
-                        .offerTo(exporter);
-                createFenceGateRecipe(StarBlocks.STAR_PLANKS_FENCE_GATE, Ingredient.ofItem(StarBlocks.STAR_PLANKS))
+                        .unlockedBy("wood", has(StarBlocks.STAR_PLANKS))
+                        .save(output);
+                fenceGateBuilder(StarBlocks.STAR_PLANKS_FENCE_GATE, Ingredient.of(StarBlocks.STAR_PLANKS))
                         .group("wooden_fence_gate")
-                        .criterion("wood", conditionsFromItem(StarBlocks.STAR_PLANKS))
-                        .offerTo(exporter);
+                        .unlockedBy("wood", has(StarBlocks.STAR_PLANKS))
+                        .save(output);
                 // Curve Tree
-                createShapeless(RecipeCategory.BUILDING_BLOCKS, MoonBlocks.CURVE_PLANKS, 4)
-                        .input(CustomTags.CURVE_LOG)
+                shapeless(RecipeCategory.BUILDING_BLOCKS, MoonBlocks.CURVE_PLANKS, 4)
+                        .requires(CustomTags.CURVE_LOG)
                         .group("planks")
-                        .criterion("has_log", this.conditionsFromTag(CustomTags.CURVE_LOG))
-                        .offerTo(this.exporter);
-                createSlabRecipe(RecipeCategory.BUILDING_BLOCKS, MoonBlocks.CURVE_PLANKS_SLAB, Ingredient.ofItem(MoonBlocks.CURVE_PLANKS))
+                        .unlockedBy("has_log", this.has(CustomTags.CURVE_LOG))
+                        .save(this.output);
+                slabBuilder(RecipeCategory.BUILDING_BLOCKS, MoonBlocks.CURVE_PLANKS_SLAB, Ingredient.of(MoonBlocks.CURVE_PLANKS))
                         .group("wooden_slab")
-                        .criterion("wood", conditionsFromItem(MoonBlocks.CURVE_PLANKS))
-                        .offerTo(exporter);
-                createStairsRecipe(MoonBlocks.CURVE_PLANKS_STAIRS, Ingredient.ofItem(MoonBlocks.CURVE_PLANKS))
+                        .unlockedBy("wood", has(MoonBlocks.CURVE_PLANKS))
+                        .save(output);
+                stairBuilder(MoonBlocks.CURVE_PLANKS_STAIRS, Ingredient.of(MoonBlocks.CURVE_PLANKS))
                         .group("wooden_stairs")
-                        .criterion("wood", conditionsFromItem(MoonBlocks.CURVE_PLANKS))
-                        .offerTo(exporter);
-                createButtonRecipe(MoonBlocks.CURVE_PLANKS_BUTTON, Ingredient.ofItem(MoonBlocks.CURVE_PLANKS))
+                        .unlockedBy("wood", has(MoonBlocks.CURVE_PLANKS))
+                        .save(output);
+                buttonBuilder(MoonBlocks.CURVE_PLANKS_BUTTON, Ingredient.of(MoonBlocks.CURVE_PLANKS))
                         .group("wooden_button")
-                        .criterion("wood", conditionsFromItem(MoonBlocks.CURVE_PLANKS))
-                        .offerTo(exporter);
-                createFenceRecipe(MoonBlocks.CURVE_PLANKS_FENCE, Ingredient.ofItem(MoonBlocks.CURVE_PLANKS))
+                        .unlockedBy("wood", has(MoonBlocks.CURVE_PLANKS))
+                        .save(output);
+                fenceBuilder(MoonBlocks.CURVE_PLANKS_FENCE, Ingredient.of(MoonBlocks.CURVE_PLANKS))
                         .group("wooden_fence")
-                        .criterion("wood", conditionsFromItem(MoonBlocks.CURVE_PLANKS))
-                        .offerTo(exporter);
-                createFenceGateRecipe(MoonBlocks.CURVE_PLANKS_FENCE_GATE, Ingredient.ofItem(MoonBlocks.CURVE_PLANKS))
+                        .unlockedBy("wood", has(MoonBlocks.CURVE_PLANKS))
+                        .save(output);
+                fenceGateBuilder(MoonBlocks.CURVE_PLANKS_FENCE_GATE, Ingredient.of(MoonBlocks.CURVE_PLANKS))
                         .group("wooden_fence_gate")
-                        .criterion("wood", conditionsFromItem(MoonBlocks.CURVE_PLANKS))
-                        .offerTo(exporter);
+                        .unlockedBy("wood", has(MoonBlocks.CURVE_PLANKS))
+                        .save(output);
 
                 // Darkness
-                createShapeless(RecipeCategory.BUILDING_BLOCKS, Darkness.DARKNESS_PLANKS, 4)
-                        .input(CustomTags.DARKNESS_LOG)
+                shapeless(RecipeCategory.BUILDING_BLOCKS, Darkness.DARKNESS_PLANKS, 4)
+                        .requires(CustomTags.DARKNESS_LOG)
                         .group("planks")
-                        .criterion("has_log", this.conditionsFromTag(CustomTags.DARKNESS_LOG))
-                        .offerTo(this.exporter);
-                createSlabRecipe(RecipeCategory.BUILDING_BLOCKS, Darkness.DARKNESS_PLANKS_SLAB, Ingredient.ofItem(Darkness.DARKNESS_PLANKS))
+                        .unlockedBy("has_log", this.has(CustomTags.DARKNESS_LOG))
+                        .save(this.output);
+                slabBuilder(RecipeCategory.BUILDING_BLOCKS, Darkness.DARKNESS_PLANKS_SLAB, Ingredient.of(Darkness.DARKNESS_PLANKS))
                         .group("wooden_slab")
-                        .criterion("wood", conditionsFromItem(Darkness.DARKNESS_PLANKS))
-                        .offerTo(exporter);
-                createStairsRecipe(Darkness.DARKNESS_PLANKS_STAIRS, Ingredient.ofItem(Darkness.DARKNESS_PLANKS))
+                        .unlockedBy("wood", has(Darkness.DARKNESS_PLANKS))
+                        .save(output);
+                stairBuilder(Darkness.DARKNESS_PLANKS_STAIRS, Ingredient.of(Darkness.DARKNESS_PLANKS))
                         .group("wooden_stairs")
-                        .criterion("wood", conditionsFromItem(Darkness.DARKNESS_PLANKS))
-                        .offerTo(exporter);
-                createButtonRecipe(Darkness.DARKNESS_PLANKS_BUTTON, Ingredient.ofItem(Darkness.DARKNESS_PLANKS))
+                        .unlockedBy("wood", has(Darkness.DARKNESS_PLANKS))
+                        .save(output);
+                buttonBuilder(Darkness.DARKNESS_PLANKS_BUTTON, Ingredient.of(Darkness.DARKNESS_PLANKS))
                         .group("wooden_button")
-                        .criterion("wood", conditionsFromItem(Darkness.DARKNESS_PLANKS))
-                        .offerTo(exporter);
-                createFenceRecipe(Darkness.DARKNESS_PLANKS_FENCE, Ingredient.ofItem(Darkness.DARKNESS_PLANKS))
+                        .unlockedBy("wood", has(Darkness.DARKNESS_PLANKS))
+                        .save(output);
+                fenceBuilder(Darkness.DARKNESS_PLANKS_FENCE, Ingredient.of(Darkness.DARKNESS_PLANKS))
                         .group("wooden_fence")
-                        .criterion("wood", conditionsFromItem(MoonBlocks.CURVE_PLANKS))
-                        .offerTo(exporter);
-                createFenceGateRecipe(Darkness.DARKNESS_PLANKS_FENCE_GATE, Ingredient.ofItem(Darkness.DARKNESS_PLANKS))
+                        .unlockedBy("wood", has(MoonBlocks.CURVE_PLANKS))
+                        .save(output);
+                fenceGateBuilder(Darkness.DARKNESS_PLANKS_FENCE_GATE, Ingredient.of(Darkness.DARKNESS_PLANKS))
                         .group("wooden_fence_gate")
-                        .criterion("wood", conditionsFromItem(Darkness.DARKNESS_PLANKS))
-                        .offerTo(exporter);
+                        .unlockedBy("wood", has(Darkness.DARKNESS_PLANKS))
+                        .save(output);
 
                 // Nebulas
-                createShapeless(RecipeCategory.BUILDING_BLOCKS, Nebulas.BLUE_NEBULA_PLANKS, 4)
-                        .input(Nebulas.BLUE_NEBULA_LOG)
+                shapeless(RecipeCategory.BUILDING_BLOCKS, Nebulas.BLUE_NEBULA_PLANKS, 4)
+                        .requires(Nebulas.BLUE_NEBULA_LOG)
                         .group("planks")
-                        .criterion("has_log", this.conditionsFromItem(Nebulas.BLUE_NEBULA_LOG))
-                        .offerTo(this.exporter);
-                createSlabRecipe(RecipeCategory.BUILDING_BLOCKS, Nebulas.BLUE_NEBULA_PLANKS_SLAB, Ingredient.ofItem(StarBlocks.STAR_PLANKS))
+                        .unlockedBy("has_log", this.has(Nebulas.BLUE_NEBULA_LOG))
+                        .save(this.output);
+                slabBuilder(RecipeCategory.BUILDING_BLOCKS, Nebulas.BLUE_NEBULA_PLANKS_SLAB, Ingredient.of(StarBlocks.STAR_PLANKS))
                         .group("wooden_slab")
-                        .criterion("wood", conditionsFromItem(Nebulas.BLUE_NEBULA_PLANKS))
-                        .offerTo(exporter);
-                createStairsRecipe(Nebulas.BLUE_NEBULA_PLANKS_STAIRS, Ingredient.ofItem(StarBlocks.STAR_PLANKS))
+                        .unlockedBy("wood", has(Nebulas.BLUE_NEBULA_PLANKS))
+                        .save(output);
+                stairBuilder(Nebulas.BLUE_NEBULA_PLANKS_STAIRS, Ingredient.of(StarBlocks.STAR_PLANKS))
                         .group("wooden_stairs")
-                        .criterion("wood", conditionsFromItem(Nebulas.BLUE_NEBULA_PLANKS))
-                        .offerTo(exporter);
-                createButtonRecipe(Nebulas.BLUE_NEBULA_PLANKS_BUTTON, Ingredient.ofItem(StarBlocks.STAR_PLANKS))
+                        .unlockedBy("wood", has(Nebulas.BLUE_NEBULA_PLANKS))
+                        .save(output);
+                buttonBuilder(Nebulas.BLUE_NEBULA_PLANKS_BUTTON, Ingredient.of(StarBlocks.STAR_PLANKS))
                         .group("wooden_button")
-                        .criterion("wood", conditionsFromItem(Nebulas.BLUE_NEBULA_PLANKS))
-                        .offerTo(exporter);
-                createFenceRecipe(Nebulas.BLUE_NEBULA_PLANKS_FENCE, Ingredient.ofItem(StarBlocks.STAR_PLANKS))
+                        .unlockedBy("wood", has(Nebulas.BLUE_NEBULA_PLANKS))
+                        .save(output);
+                fenceBuilder(Nebulas.BLUE_NEBULA_PLANKS_FENCE, Ingredient.of(StarBlocks.STAR_PLANKS))
                         .group("wooden_fence")
-                        .criterion("wood", conditionsFromItem(Nebulas.BLUE_NEBULA_PLANKS))
-                        .offerTo(exporter);
-                createFenceGateRecipe(Nebulas.BLUE_NEBULA_PLANKS_FENCE_GATE, Ingredient.ofItem(StarBlocks.STAR_PLANKS))
+                        .unlockedBy("wood", has(Nebulas.BLUE_NEBULA_PLANKS))
+                        .save(output);
+                fenceGateBuilder(Nebulas.BLUE_NEBULA_PLANKS_FENCE_GATE, Ingredient.of(StarBlocks.STAR_PLANKS))
                         .group("wooden_fence_gate")
-                        .criterion("wood", conditionsFromItem(Nebulas.BLUE_NEBULA_PLANKS))
-                        .offerTo(exporter);
+                        .unlockedBy("wood", has(Nebulas.BLUE_NEBULA_PLANKS))
+                        .save(output);
 
-                createShapeless(RecipeCategory.BUILDING_BLOCKS, Nebulas.RED_NEBULA_PLANKS, 4)
-                        .input(Nebulas.RED_NEBULA_LOG)
+                shapeless(RecipeCategory.BUILDING_BLOCKS, Nebulas.RED_NEBULA_PLANKS, 4)
+                        .requires(Nebulas.RED_NEBULA_LOG)
                         .group("planks")
-                        .criterion("has_log", this.conditionsFromItem(Nebulas.RED_NEBULA_LOG))
-                        .offerTo(this.exporter);
-                createSlabRecipe(RecipeCategory.BUILDING_BLOCKS, Nebulas.RED_NEBULA_PLANKS_SLAB, Ingredient.ofItem(StarBlocks.STAR_PLANKS))
+                        .unlockedBy("has_log", this.has(Nebulas.RED_NEBULA_LOG))
+                        .save(this.output);
+                slabBuilder(RecipeCategory.BUILDING_BLOCKS, Nebulas.RED_NEBULA_PLANKS_SLAB, Ingredient.of(StarBlocks.STAR_PLANKS))
                         .group("wooden_slab")
-                        .criterion("wood", conditionsFromItem(Nebulas.RED_NEBULA_PLANKS))
-                        .offerTo(exporter);
-                createStairsRecipe(Nebulas.RED_NEBULA_PLANKS_STAIRS, Ingredient.ofItem(StarBlocks.STAR_PLANKS))
+                        .unlockedBy("wood", has(Nebulas.RED_NEBULA_PLANKS))
+                        .save(output);
+                stairBuilder(Nebulas.RED_NEBULA_PLANKS_STAIRS, Ingredient.of(StarBlocks.STAR_PLANKS))
                         .group("wooden_stairs")
-                        .criterion("wood", conditionsFromItem(Nebulas.RED_NEBULA_PLANKS))
-                        .offerTo(exporter);
-                createButtonRecipe(Nebulas.RED_NEBULA_PLANKS_BUTTON, Ingredient.ofItem(StarBlocks.STAR_PLANKS))
+                        .unlockedBy("wood", has(Nebulas.RED_NEBULA_PLANKS))
+                        .save(output);
+                buttonBuilder(Nebulas.RED_NEBULA_PLANKS_BUTTON, Ingredient.of(StarBlocks.STAR_PLANKS))
                         .group("wooden_button")
-                        .criterion("wood", conditionsFromItem(Nebulas.RED_NEBULA_PLANKS))
-                        .offerTo(exporter);
-                createFenceRecipe(Nebulas.RED_NEBULA_PLANKS_FENCE, Ingredient.ofItem(StarBlocks.STAR_PLANKS))
+                        .unlockedBy("wood", has(Nebulas.RED_NEBULA_PLANKS))
+                        .save(output);
+                fenceBuilder(Nebulas.RED_NEBULA_PLANKS_FENCE, Ingredient.of(StarBlocks.STAR_PLANKS))
                         .group("wooden_fence")
-                        .criterion("wood", conditionsFromItem(Nebulas.RED_NEBULA_PLANKS))
-                        .offerTo(exporter);
-                createFenceGateRecipe(Nebulas.RED_NEBULA_PLANKS_FENCE_GATE, Ingredient.ofItem(StarBlocks.STAR_PLANKS))
+                        .unlockedBy("wood", has(Nebulas.RED_NEBULA_PLANKS))
+                        .save(output);
+                fenceGateBuilder(Nebulas.RED_NEBULA_PLANKS_FENCE_GATE, Ingredient.of(StarBlocks.STAR_PLANKS))
                         .group("wooden_fence_gate")
-                        .criterion("wood", conditionsFromItem(Nebulas.RED_NEBULA_PLANKS))
-                        .offerTo(exporter);
+                        .unlockedBy("wood", has(Nebulas.RED_NEBULA_PLANKS))
+                        .save(output);
 
-                createShapeless(RecipeCategory.BUILDING_BLOCKS, Nebulas.PURPLE_NEBULA_PLANKS, 4)
-                        .input(Nebulas.PURPLE_NEBULA_LOG)
+                shapeless(RecipeCategory.BUILDING_BLOCKS, Nebulas.PURPLE_NEBULA_PLANKS, 4)
+                        .requires(Nebulas.PURPLE_NEBULA_LOG)
                         .group("planks")
-                        .criterion("has_log", this.conditionsFromItem(Nebulas.PURPLE_NEBULA_LOG))
-                        .offerTo(this.exporter);
-                createSlabRecipe(RecipeCategory.BUILDING_BLOCKS, Nebulas.PURPLE_NEBULA_PLANKS_SLAB, Ingredient.ofItem(StarBlocks.STAR_PLANKS))
+                        .unlockedBy("has_log", this.has(Nebulas.PURPLE_NEBULA_LOG))
+                        .save(this.output);
+                slabBuilder(RecipeCategory.BUILDING_BLOCKS, Nebulas.PURPLE_NEBULA_PLANKS_SLAB, Ingredient.of(StarBlocks.STAR_PLANKS))
                         .group("wooden_slab")
-                        .criterion("wood", conditionsFromItem(Nebulas.PURPLE_NEBULA_PLANKS))
-                        .offerTo(exporter);
-                createStairsRecipe(Nebulas.PURPLE_NEBULA_PLANKS_STAIRS, Ingredient.ofItem(StarBlocks.STAR_PLANKS))
+                        .unlockedBy("wood", has(Nebulas.PURPLE_NEBULA_PLANKS))
+                        .save(output);
+                stairBuilder(Nebulas.PURPLE_NEBULA_PLANKS_STAIRS, Ingredient.of(StarBlocks.STAR_PLANKS))
                         .group("wooden_stairs")
-                        .criterion("wood", conditionsFromItem(Nebulas.PURPLE_NEBULA_PLANKS))
-                        .offerTo(exporter);
-                createButtonRecipe(Nebulas.PURPLE_NEBULA_PLANKS_BUTTON, Ingredient.ofItem(StarBlocks.STAR_PLANKS))
+                        .unlockedBy("wood", has(Nebulas.PURPLE_NEBULA_PLANKS))
+                        .save(output);
+                buttonBuilder(Nebulas.PURPLE_NEBULA_PLANKS_BUTTON, Ingredient.of(StarBlocks.STAR_PLANKS))
                         .group("wooden_button")
-                        .criterion("wood", conditionsFromItem(Nebulas.PURPLE_NEBULA_PLANKS))
-                        .offerTo(exporter);
-                createFenceRecipe(Nebulas.PURPLE_NEBULA_PLANKS_FENCE, Ingredient.ofItem(StarBlocks.STAR_PLANKS))
+                        .unlockedBy("wood", has(Nebulas.PURPLE_NEBULA_PLANKS))
+                        .save(output);
+                fenceBuilder(Nebulas.PURPLE_NEBULA_PLANKS_FENCE, Ingredient.of(StarBlocks.STAR_PLANKS))
                         .group("wooden_fence")
-                        .criterion("wood", conditionsFromItem(Nebulas.PURPLE_NEBULA_PLANKS))
-                        .offerTo(exporter);
-                createFenceGateRecipe(Nebulas.PURPLE_NEBULA_PLANKS_FENCE_GATE, Ingredient.ofItem(StarBlocks.STAR_PLANKS))
+                        .unlockedBy("wood", has(Nebulas.PURPLE_NEBULA_PLANKS))
+                        .save(output);
+                fenceGateBuilder(Nebulas.PURPLE_NEBULA_PLANKS_FENCE_GATE, Ingredient.of(StarBlocks.STAR_PLANKS))
                         .group("wooden_fence_gate")
-                        .criterion("wood", conditionsFromItem(Nebulas.PURPLE_NEBULA_PLANKS))
-                        .offerTo(exporter);
+                        .unlockedBy("wood", has(Nebulas.PURPLE_NEBULA_PLANKS))
+                        .save(output);
 
-                createShapeless(RecipeCategory.BUILDING_BLOCKS, Nebulas.YELLOW_NEBULA_PLANKS, 4)
-                        .input(Nebulas.YELLOW_NEBULA_LOG)
+                shapeless(RecipeCategory.BUILDING_BLOCKS, Nebulas.YELLOW_NEBULA_PLANKS, 4)
+                        .requires(Nebulas.YELLOW_NEBULA_LOG)
                         .group("planks")
-                        .criterion("has_log", this.conditionsFromItem(Nebulas.YELLOW_NEBULA_LOG))
-                        .offerTo(this.exporter);
-                createSlabRecipe(RecipeCategory.BUILDING_BLOCKS, Nebulas.YELLOW_NEBULA_PLANKS_SLAB, Ingredient.ofItem(StarBlocks.STAR_PLANKS))
+                        .unlockedBy("has_log", this.has(Nebulas.YELLOW_NEBULA_LOG))
+                        .save(this.output);
+                slabBuilder(RecipeCategory.BUILDING_BLOCKS, Nebulas.YELLOW_NEBULA_PLANKS_SLAB, Ingredient.of(StarBlocks.STAR_PLANKS))
                         .group("wooden_slab")
-                        .criterion("wood", conditionsFromItem(Nebulas.YELLOW_NEBULA_PLANKS))
-                        .offerTo(exporter);
-                createStairsRecipe(Nebulas.YELLOW_NEBULA_PLANKS_STAIRS, Ingredient.ofItem(StarBlocks.STAR_PLANKS))
+                        .unlockedBy("wood", has(Nebulas.YELLOW_NEBULA_PLANKS))
+                        .save(output);
+                stairBuilder(Nebulas.YELLOW_NEBULA_PLANKS_STAIRS, Ingredient.of(StarBlocks.STAR_PLANKS))
                         .group("wooden_stairs")
-                        .criterion("wood", conditionsFromItem(Nebulas.YELLOW_NEBULA_PLANKS))
-                        .offerTo(exporter);
-                createButtonRecipe(Nebulas.YELLOW_NEBULA_PLANKS_BUTTON, Ingredient.ofItem(StarBlocks.STAR_PLANKS))
+                        .unlockedBy("wood", has(Nebulas.YELLOW_NEBULA_PLANKS))
+                        .save(output);
+                buttonBuilder(Nebulas.YELLOW_NEBULA_PLANKS_BUTTON, Ingredient.of(StarBlocks.STAR_PLANKS))
                         .group("wooden_button")
-                        .criterion("wood", conditionsFromItem(Nebulas.YELLOW_NEBULA_PLANKS))
-                        .offerTo(exporter);
-                createFenceRecipe(Nebulas.YELLOW_NEBULA_PLANKS_FENCE, Ingredient.ofItem(StarBlocks.STAR_PLANKS))
+                        .unlockedBy("wood", has(Nebulas.YELLOW_NEBULA_PLANKS))
+                        .save(output);
+                fenceBuilder(Nebulas.YELLOW_NEBULA_PLANKS_FENCE, Ingredient.of(StarBlocks.STAR_PLANKS))
                         .group("wooden_fence")
-                        .criterion("wood", conditionsFromItem(Nebulas.YELLOW_NEBULA_PLANKS))
-                        .offerTo(exporter);
-                createFenceGateRecipe(Nebulas.YELLOW_NEBULA_PLANKS_FENCE_GATE, Ingredient.ofItem(StarBlocks.STAR_PLANKS))
+                        .unlockedBy("wood", has(Nebulas.YELLOW_NEBULA_PLANKS))
+                        .save(output);
+                fenceGateBuilder(Nebulas.YELLOW_NEBULA_PLANKS_FENCE_GATE, Ingredient.of(StarBlocks.STAR_PLANKS))
                         .group("wooden_fence_gate")
-                        .criterion("wood", conditionsFromItem(Nebulas.YELLOW_NEBULA_PLANKS))
-                        .offerTo(exporter);
+                        .unlockedBy("wood", has(Nebulas.YELLOW_NEBULA_PLANKS))
+                        .save(output);
 
                 // Moon Rock
-                createShaped(RecipeCategory.BUILDING_BLOCKS, MoonBlocks.MOON_ROCK_BRICKS, 4)
-                        .input('#', MoonBlocks.POLISHED_MOON_ROCK)
+                shaped(RecipeCategory.BUILDING_BLOCKS, MoonBlocks.MOON_ROCK_BRICKS, 4)
+                        .define('#', MoonBlocks.POLISHED_MOON_ROCK)
                         .pattern("##")
                         .pattern("##")
-                        .criterion(hasItem(MoonBlocks.MOON_ROCK), this.conditionsFromItem(MoonBlocks.MOON_ROCK))
-                        .offerTo(this.exporter);
+                        .unlockedBy(getHasName(MoonBlocks.MOON_ROCK), this.has(MoonBlocks.MOON_ROCK))
+                        .save(this.output);
 
-                createShaped(RecipeCategory.BUILDING_BLOCKS, MoonBlocks.POLISHED_SUN_ENRICHED_MOON_ROCK, 4)
-                        .input('#', MoonBlocks.SUN_ENRICHED_MOON_ROCK)
+                shaped(RecipeCategory.BUILDING_BLOCKS, MoonBlocks.POLISHED_SUN_ENRICHED_MOON_ROCK, 4)
+                        .define('#', MoonBlocks.SUN_ENRICHED_MOON_ROCK)
                         .pattern("##")
                         .pattern("##")
-                        .criterion(hasItem(MoonBlocks.SUN_ENRICHED_MOON_ROCK), this.conditionsFromItem(MoonBlocks.SUN_ENRICHED_MOON_ROCK))
-                        .offerTo(this.exporter);
-                createShaped(RecipeCategory.BUILDING_BLOCKS, MoonBlocks.PRISMATIC_SHARD_BLOCK, 1)
-                        .input('#', Ingredient.ofItem(ModItems.PRISMATIC_SHARD))
+                        .unlockedBy(getHasName(MoonBlocks.SUN_ENRICHED_MOON_ROCK), this.has(MoonBlocks.SUN_ENRICHED_MOON_ROCK))
+                        .save(this.output);
+                shaped(RecipeCategory.BUILDING_BLOCKS, MoonBlocks.PRISMATIC_SHARD_BLOCK, 1)
+                        .define('#', Ingredient.of(ModItems.PRISMATIC_SHARD))
                         .pattern("###")
                         .pattern("###")
                         .pattern("###")
-                        .criterion(hasItem(ModItems.PRISMATIC_SHARD), this.conditionsFromItem(ModItems.PRISMATIC_SHARD))
-                        .offerTo(this.exporter);
-                createShapeless(RecipeCategory.MISC, ModItems.RED_STAR)
-                        .input(Nebulas.RED_TENTACLE_FLOWER)
-                        .criterion(hasItem(Nebulas.RED_TENTACLE_FLOWER), this.conditionsFromItem(Nebulas.RED_TENTACLE_FLOWER))
-                        .offerTo(this.exporter);
+                        .unlockedBy(getHasName(ModItems.PRISMATIC_SHARD), this.has(ModItems.PRISMATIC_SHARD))
+                        .save(this.output);
+                shapeless(RecipeCategory.MISC, ModItems.RED_STAR)
+                        .requires(Nebulas.RED_TENTACLE_FLOWER)
+                        .unlockedBy(getHasName(Nebulas.RED_TENTACLE_FLOWER), this.has(Nebulas.RED_TENTACLE_FLOWER))
+                        .save(this.output);
 
-                createShapeless(RecipeCategory.MISC, ModItems.BLUE_STAR)
-                        .input(Nebulas.BLUE_TENTACLE_FLOWER)
-                        .criterion(hasItem(Nebulas.BLUE_TENTACLE_FLOWER), this.conditionsFromItem(Nebulas.RED_TENTACLE_FLOWER))
-                        .offerTo(this.exporter);
-                createShapeless(RecipeCategory.MISC, ModItems.PURPLE_STAR)
-                        .input(Nebulas.PURPLE_TENTACLE_FLOWER)
-                        .criterion(hasItem(Nebulas.PURPLE_TENTACLE_FLOWER), this.conditionsFromItem(Nebulas.RED_TENTACLE_FLOWER))
-                        .offerTo(this.exporter);
-                createShapeless(RecipeCategory.MISC, ModItems.YELLOW_STAR)
-                        .input(Nebulas.YELLOW_TENTACLE_FLOWER)
-                        .criterion(hasItem(Nebulas.YELLOW_TENTACLE_FLOWER), this.conditionsFromItem(Nebulas.RED_TENTACLE_FLOWER))
-                        .offerTo(this.exporter);
-                createSlabRecipe(RecipeCategory.BUILDING_BLOCKS, MoonBlocks.MOON_ROCK_BRICKS_SLAB, Ingredient.ofItem(MoonBlocks.MOON_ROCK_BRICKS))
-                        .criterion("rock", conditionsFromItem(MoonBlocks.MOON_ROCK_BRICKS))
-                        .offerTo(exporter);
-                createStairsRecipe(MoonBlocks.MOON_ROCK_BRICKS_STAIRS, Ingredient.ofItem(MoonBlocks.MOON_ROCK_BRICKS))
-                        .criterion("rock", conditionsFromItem(MoonBlocks.MOON_ROCK_BRICKS))
-                        .offerTo(exporter);
-                createCutCopperRecipe(RecipeCategory.BUILDING_BLOCKS, MoonBlocks.POLISHED_MOON_ROCK, Ingredient.ofItem(MoonBlocks.MOON_ROCK))
-                        .criterion("rock", conditionsFromItem(MoonBlocks.MOON_ROCK))
-                        .offerTo(exporter);
-                createCutCopperRecipe(RecipeCategory.BUILDING_BLOCKS, MoonBlocks.POLISHED_BLACK_MOON_ROCK, Ingredient.ofItem(MoonBlocks.BLACK_MOON_ROCK))
-                        .criterion("rock", conditionsFromItem(MoonBlocks.BLACK_MOON_ROCK))
-                        .offerTo(exporter);
-                createCutCopperRecipe(RecipeCategory.BUILDING_BLOCKS, Chess.BLACK_BRICKS, Ingredient.ofItem(ModItems.BLACK_BRICK))
-                        .criterion("rock", conditionsFromItem(ModItems.BLACK_BRICK))
-                        .offerTo(exporter);
-                createCutCopperRecipe(RecipeCategory.BUILDING_BLOCKS, Chess.WHITE_BRICKS, Ingredient.ofItem(ModItems.WHITE_BRICK))
-                        .criterion("rock", conditionsFromItem(ModItems.WHITE_BRICK))
-                        .offerTo(exporter);
-                createShaped(RecipeCategory.BUILDING_BLOCKS, MoonBlocks.POLISHED_BLACK_MOON_ROCK_PURPLE, 8)
+                shapeless(RecipeCategory.MISC, ModItems.BLUE_STAR)
+                        .requires(Nebulas.BLUE_TENTACLE_FLOWER)
+                        .unlockedBy(getHasName(Nebulas.BLUE_TENTACLE_FLOWER), this.has(Nebulas.RED_TENTACLE_FLOWER))
+                        .save(this.output);
+                shapeless(RecipeCategory.MISC, ModItems.PURPLE_STAR)
+                        .requires(Nebulas.PURPLE_TENTACLE_FLOWER)
+                        .unlockedBy(getHasName(Nebulas.PURPLE_TENTACLE_FLOWER), this.has(Nebulas.RED_TENTACLE_FLOWER))
+                        .save(this.output);
+                shapeless(RecipeCategory.MISC, ModItems.YELLOW_STAR)
+                        .requires(Nebulas.YELLOW_TENTACLE_FLOWER)
+                        .unlockedBy(getHasName(Nebulas.YELLOW_TENTACLE_FLOWER), this.has(Nebulas.RED_TENTACLE_FLOWER))
+                        .save(this.output);
+                slabBuilder(RecipeCategory.BUILDING_BLOCKS, MoonBlocks.MOON_ROCK_BRICKS_SLAB, Ingredient.of(MoonBlocks.MOON_ROCK_BRICKS))
+                        .unlockedBy("rock", has(MoonBlocks.MOON_ROCK_BRICKS))
+                        .save(output);
+                stairBuilder(MoonBlocks.MOON_ROCK_BRICKS_STAIRS, Ingredient.of(MoonBlocks.MOON_ROCK_BRICKS))
+                        .unlockedBy("rock", has(MoonBlocks.MOON_ROCK_BRICKS))
+                        .save(output);
+                cutBuilder(RecipeCategory.BUILDING_BLOCKS, MoonBlocks.POLISHED_MOON_ROCK, Ingredient.of(MoonBlocks.MOON_ROCK))
+                        .unlockedBy("rock", has(MoonBlocks.MOON_ROCK))
+                        .save(output);
+                cutBuilder(RecipeCategory.BUILDING_BLOCKS, MoonBlocks.POLISHED_BLACK_MOON_ROCK, Ingredient.of(MoonBlocks.BLACK_MOON_ROCK))
+                        .unlockedBy("rock", has(MoonBlocks.BLACK_MOON_ROCK))
+                        .save(output);
+                cutBuilder(RecipeCategory.BUILDING_BLOCKS, Chess.BLACK_BRICKS, Ingredient.of(ModItems.BLACK_BRICK))
+                        .unlockedBy("rock", has(ModItems.BLACK_BRICK))
+                        .save(output);
+                cutBuilder(RecipeCategory.BUILDING_BLOCKS, Chess.WHITE_BRICKS, Ingredient.of(ModItems.WHITE_BRICK))
+                        .unlockedBy("rock", has(ModItems.WHITE_BRICK))
+                        .save(output);
+                shaped(RecipeCategory.BUILDING_BLOCKS, MoonBlocks.POLISHED_BLACK_MOON_ROCK_PURPLE, 8)
                         .pattern("pb")
                         .pattern("bp")
-                        .input('b', MoonBlocks.BLACK_MOON_ROCK)
-                        .input('p', ModItems.PURPLE_STAR)
-                        .criterion("rock", conditionsFromItem(MoonBlocks.BLACK_MOON_ROCK))
-                        .offerTo(exporter);
-                createShaped(RecipeCategory.BUILDING_BLOCKS, MoonBlocks.MOON_ROCK_TILES, 8)
+                        .define('b', MoonBlocks.BLACK_MOON_ROCK)
+                        .define('p', ModItems.PURPLE_STAR)
+                        .unlockedBy("rock", has(MoonBlocks.BLACK_MOON_ROCK))
+                        .save(output);
+                shaped(RecipeCategory.BUILDING_BLOCKS, MoonBlocks.MOON_ROCK_TILES, 8)
                         .pattern("wb")
                         .pattern("bw")
-                        .input('b', MoonBlocks.POLISHED_BLACK_MOON_ROCK)
-                        .input('w', MoonBlocks.POLISHED_MOON_ROCK)
-                        .criterion("rock", conditionsFromItem(MoonBlocks.BLACK_MOON_ROCK))
-                        .offerTo(exporter);
-                createShaped(RecipeCategory.BUILDING_BLOCKS, MoonBlocks.PURPLE_MOON_ROCK_TILES, 8)
+                        .define('b', MoonBlocks.POLISHED_BLACK_MOON_ROCK)
+                        .define('w', MoonBlocks.POLISHED_MOON_ROCK)
+                        .unlockedBy("rock", has(MoonBlocks.BLACK_MOON_ROCK))
+                        .save(output);
+                shaped(RecipeCategory.BUILDING_BLOCKS, MoonBlocks.PURPLE_MOON_ROCK_TILES, 8)
                         .pattern("wb")
                         .pattern("bw")
-                        .input('b', MoonBlocks.POLISHED_BLACK_MOON_ROCK_PURPLE)
-                        .input('w', MoonBlocks.POLISHED_MOON_ROCK)
-                        .criterion("rock", conditionsFromItem(MoonBlocks.BLACK_MOON_ROCK))
-                        .offerTo(exporter);
-                createShaped(RecipeCategory.MISC, MoonBlocks.STAR_FORGE, 1)
+                        .define('b', MoonBlocks.POLISHED_BLACK_MOON_ROCK_PURPLE)
+                        .define('w', MoonBlocks.POLISHED_MOON_ROCK)
+                        .unlockedBy("rock", has(MoonBlocks.BLACK_MOON_ROCK))
+                        .save(output);
+                shaped(RecipeCategory.MISC, MoonBlocks.STAR_FORGE, 1)
                         .pattern("ss")
                         .pattern("##")
                         .pattern("##")
-                        .input('#', MoonBlocks.MOON_ROCK)
-                        .input('s', CustomTags.STAR)
+                        .define('#', MoonBlocks.MOON_ROCK)
+                        .define('s', CustomTags.STAR)
                         .group("starforge")
-                        .criterion(hasItem(MoonBlocks.MOON_ROCK), conditionsFromTag(CustomTags.STAR))
-                        .offerTo(exporter);
-                createShaped(RecipeCategory.BUILDING_BLOCKS, RedOrbBlocks.POLISHED_RED_ROCK, 4)
-                        .input('#', RedOrbBlocks.RED_ROCK)
+                        .unlockedBy(getHasName(MoonBlocks.MOON_ROCK), has(CustomTags.STAR))
+                        .save(output);
+                shaped(RecipeCategory.BUILDING_BLOCKS, RedOrbBlocks.POLISHED_RED_ROCK, 4)
+                        .define('#', RedOrbBlocks.RED_ROCK)
                         .pattern("##")
                         .pattern("##")
-                        .criterion(hasItem(RedOrbBlocks.RED_ROCK), this.conditionsFromItem(RedOrbBlocks.RED_ROCK))
-                        .offerTo(this.exporter);
-                createShaped(RecipeCategory.BUILDING_BLOCKS, MoonBlocks.COMET_BLOCK, 1)
-                        .input('#', ModItems.COMET_FRAGMENT)
+                        .unlockedBy(getHasName(RedOrbBlocks.RED_ROCK), this.has(RedOrbBlocks.RED_ROCK))
+                        .save(this.output);
+                shaped(RecipeCategory.BUILDING_BLOCKS, MoonBlocks.COMET_BLOCK, 1)
+                        .define('#', ModItems.COMET_FRAGMENT)
                         .pattern("##")
                         .pattern("##")
-                        .criterion(hasItem(ModItems.COMET_FRAGMENT), this.conditionsFromItem(ModItems.COMET_FRAGMENT))
-                        .offerTo(this.exporter);
-                createSlabRecipe(RecipeCategory.BUILDING_BLOCKS, RedOrbBlocks.RED_ROCK_SLAB, Ingredient.ofItem(RedOrbBlocks.RED_ROCK))
-                        .criterion("rock", conditionsFromItem(RedOrbBlocks.RED_ROCK))
-                        .offerTo(exporter);
-                createStairsRecipe(RedOrbBlocks.RED_ROCK_STAIRS, Ingredient.ofItem(RedOrbBlocks.RED_ROCK))
-                        .criterion("rock", conditionsFromItem(RedOrbBlocks.RED_ROCK))
-                        .offerTo(exporter);
+                        .unlockedBy(getHasName(ModItems.COMET_FRAGMENT), this.has(ModItems.COMET_FRAGMENT))
+                        .save(this.output);
+                slabBuilder(RecipeCategory.BUILDING_BLOCKS, RedOrbBlocks.RED_ROCK_SLAB, Ingredient.of(RedOrbBlocks.RED_ROCK))
+                        .unlockedBy("rock", has(RedOrbBlocks.RED_ROCK))
+                        .save(output);
+                stairBuilder(RedOrbBlocks.RED_ROCK_STAIRS, Ingredient.of(RedOrbBlocks.RED_ROCK))
+                        .unlockedBy("rock", has(RedOrbBlocks.RED_ROCK))
+                        .save(output);
 
-                createShapeless(RecipeCategory.BUILDING_BLOCKS, RedOrbBlocks.YERI_PLANKS, 4)
-                        .input(RedOrbBlocks.YERI_LOG)
+                shapeless(RecipeCategory.BUILDING_BLOCKS, RedOrbBlocks.YERI_PLANKS, 4)
+                        .requires(RedOrbBlocks.YERI_LOG)
                         .group("planks")
-                        .criterion("has_log", this.conditionsFromItem(RedOrbBlocks.YERI_LOG))
-                        .offerTo(this.exporter);
+                        .unlockedBy("has_log", this.has(RedOrbBlocks.YERI_LOG))
+                        .save(this.output);
 
-                createSlabRecipe(RecipeCategory.BUILDING_BLOCKS, RedOrbBlocks.YERI_PLANKS_SLAB, Ingredient.ofItem(RedOrbBlocks.YERI_PLANKS))
+                slabBuilder(RecipeCategory.BUILDING_BLOCKS, RedOrbBlocks.YERI_PLANKS_SLAB, Ingredient.of(RedOrbBlocks.YERI_PLANKS))
                         .group("wooden_slab")
-                        .criterion("wood", conditionsFromItem(RedOrbBlocks.YERI_PLANKS))
-                        .offerTo(exporter);
-                createStairsRecipe(RedOrbBlocks.YERI_PLANKS_STAIRS, Ingredient.ofItem(RedOrbBlocks.YERI_PLANKS))
+                        .unlockedBy("wood", has(RedOrbBlocks.YERI_PLANKS))
+                        .save(output);
+                stairBuilder(RedOrbBlocks.YERI_PLANKS_STAIRS, Ingredient.of(RedOrbBlocks.YERI_PLANKS))
                         .group("wooden_stairs")
-                        .criterion("wood", conditionsFromItem(RedOrbBlocks.YERI_PLANKS))
-                        .offerTo(exporter);
-                createButtonRecipe(RedOrbBlocks.YERI_PLANKS_BUTTON, Ingredient.ofItem(RedOrbBlocks.YERI_PLANKS))
+                        .unlockedBy("wood", has(RedOrbBlocks.YERI_PLANKS))
+                        .save(output);
+                buttonBuilder(RedOrbBlocks.YERI_PLANKS_BUTTON, Ingredient.of(RedOrbBlocks.YERI_PLANKS))
                         .group("wooden_button")
-                        .criterion("wood", conditionsFromItem(RedOrbBlocks.YERI_PLANKS))
-                        .offerTo(exporter);
-                createFenceRecipe(RedOrbBlocks.YERI_PLANKS_FENCE, Ingredient.ofItem(RedOrbBlocks.YERI_PLANKS))
+                        .unlockedBy("wood", has(RedOrbBlocks.YERI_PLANKS))
+                        .save(output);
+                fenceBuilder(RedOrbBlocks.YERI_PLANKS_FENCE, Ingredient.of(RedOrbBlocks.YERI_PLANKS))
                         .group("wooden_fence")
-                        .criterion("wood", conditionsFromItem(RedOrbBlocks.YERI_PLANKS))
-                        .offerTo(exporter);
-                createFenceGateRecipe(RedOrbBlocks.YERI_PLANKS_FENCE_GATE, Ingredient.ofItem(RedOrbBlocks.YERI_PLANKS))
+                        .unlockedBy("wood", has(RedOrbBlocks.YERI_PLANKS))
+                        .save(output);
+                fenceGateBuilder(RedOrbBlocks.YERI_PLANKS_FENCE_GATE, Ingredient.of(RedOrbBlocks.YERI_PLANKS))
                         .group("wooden_fence_gate")
-                        .criterion("wood", conditionsFromItem(RedOrbBlocks.YERI_PLANKS))
-                        .offerTo(exporter);
-                offerSmelting(Collections.singletonList(ModItems.COPPER_DUST), RecipeCategory.MISC, Items.COPPER_INGOT, 0.7f, 200, "copper_ingot");
-                offerSmelting(Collections.singletonList(ModItems.IRON_DUST), RecipeCategory.MISC, Items.IRON_INGOT, 0.7f, 200, "iron_ingot");
-                offerSmelting(Collections.singletonList(ModItems.GOLD_DUST), RecipeCategory.MISC, Items.GOLD_INGOT, 0.7f, 200, "gold_ingot");
-                offerBlasting(Collections.singletonList(ModItems.COPPER_DUST), RecipeCategory.MISC, Items.COPPER_INGOT, 0.7f, 100, "copper_ingot");
-                offerBlasting(Collections.singletonList(ModItems.IRON_DUST), RecipeCategory.MISC, Items.IRON_INGOT, 0.7f, 100, "iron_ingot");
-                offerBlasting(Collections.singletonList(ModItems.GOLD_DUST), RecipeCategory.MISC, Items.GOLD_INGOT, 0.7f, 100, "gold_ingot");
+                        .unlockedBy("wood", has(RedOrbBlocks.YERI_PLANKS))
+                        .save(output);
+                oreSmelting(Collections.singletonList(ModItems.COPPER_DUST), RecipeCategory.MISC, Items.COPPER_INGOT, 0.7f, 200, "copper_ingot");
+                oreSmelting(Collections.singletonList(ModItems.IRON_DUST), RecipeCategory.MISC, Items.IRON_INGOT, 0.7f, 200, "iron_ingot");
+                oreSmelting(Collections.singletonList(ModItems.GOLD_DUST), RecipeCategory.MISC, Items.GOLD_INGOT, 0.7f, 200, "gold_ingot");
+                oreBlasting(Collections.singletonList(ModItems.COPPER_DUST), RecipeCategory.MISC, Items.COPPER_INGOT, 0.7f, 100, "copper_ingot");
+                oreBlasting(Collections.singletonList(ModItems.IRON_DUST), RecipeCategory.MISC, Items.IRON_INGOT, 0.7f, 100, "iron_ingot");
+                oreBlasting(Collections.singletonList(ModItems.GOLD_DUST), RecipeCategory.MISC, Items.GOLD_INGOT, 0.7f, 100, "gold_ingot");
             }
         };
     }

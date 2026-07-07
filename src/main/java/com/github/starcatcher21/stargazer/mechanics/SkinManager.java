@@ -4,13 +4,12 @@ import com.github.starcatcher21.stargazer.Stargazer;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.texture.PlayerSkinTextureDownloader;
-import net.minecraft.entity.player.PlayerSkinType;
-import net.minecraft.entity.player.SkinTextures;
-import net.minecraft.util.AssetInfo;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.texture.SkinTextureDownloader;
+import net.minecraft.core.ClientAsset;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.entity.player.PlayerModelType;
+import net.minecraft.world.entity.player.PlayerSkin;
 import java.io.IOException;
 import java.net.Proxy;
 import java.net.URI;
@@ -24,15 +23,15 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 public class SkinManager {
-    public static final Map<String, SkinTextures> CACHE = new HashMap<>();
+    public static final Map<String, PlayerSkin> CACHE = new HashMap<>();
     private static final HttpClient CLIENT = HttpClient.newHttpClient();
     private static final Gson GSON = new Gson();
 
     // Explicitly instantiation allowed in 1.21.11 via TextureManager & single thread execution
-    private static final PlayerSkinTextureDownloader pstd = new PlayerSkinTextureDownloader(
+    private static final SkinTextureDownloader pstd = new SkinTextureDownloader(
             Proxy.NO_PROXY,
-            MinecraftClient.getInstance().getTextureManager(),
-            MinecraftClient.getInstance()
+            Minecraft.getInstance().getTextureManager(),
+            Minecraft.getInstance()
     );
 
     public static void fetchRemoteSkins() {
@@ -62,24 +61,24 @@ public class SkinManager {
             return;
         }
 
-        Identifier skinIdentifier = Identifier.of(Stargazer.MOD_ID, "skins/" + uuid.toLowerCase());
-        Identifier capeIdentifier = Identifier.of(Stargazer.MOD_ID, "capes/" + uuid.toLowerCase());
+        Identifier skinIdentifier = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "skins/" + uuid.toLowerCase());
+        Identifier capeIdentifier = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "capes/" + uuid.toLowerCase());
 
-        CompletableFuture<AssetInfo.TextureAsset> skinFuture = pstd.downloadAndRegisterTexture(
+        CompletableFuture<ClientAsset.Texture> skinFuture = pstd.downloadAndRegisterSkin(
                 skinIdentifier,
                 cacheDir.resolve(uuid + "_skin.png"),
                 entry.skin,
                 false // remap legacy skins
         );
 
-        CompletableFuture<AssetInfo.TextureAsset> capeFuture = (entry.cape != null && !entry.cape.isEmpty()) ?
-                pstd.downloadAndRegisterTexture(capeIdentifier, cacheDir.resolve(uuid + "_cape.png"), entry.cape, false) :
+        CompletableFuture<ClientAsset.Texture> capeFuture = (entry.cape != null && !entry.cape.isEmpty()) ?
+                pstd.downloadAndRegisterSkin(capeIdentifier, cacheDir.resolve(uuid + "_cape.png"), entry.cape, false) :
                 CompletableFuture.completedFuture(null);
 
-        PlayerSkinType model = (entry.model == 1) ? PlayerSkinType.SLIM : PlayerSkinType.WIDE;
+        PlayerModelType model = (entry.model == 1) ? PlayerModelType.SLIM : PlayerModelType.WIDE;
 
         CompletableFuture.runAsync(() -> {
-            SkinTextures textures = new SkinTextures(
+            PlayerSkin textures = new PlayerSkin(
                     skinFuture.join(),    // Skin Asset
                     capeFuture.join(),    // Cape Aasset
                     capeFuture.join(),    // Elytra Asset

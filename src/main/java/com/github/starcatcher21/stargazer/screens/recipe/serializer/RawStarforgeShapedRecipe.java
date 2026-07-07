@@ -7,13 +7,6 @@ import com.mojang.serialization.DataResult;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.chars.CharArraySet;
-import net.minecraft.block.Blocks;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.util.dynamic.Codecs;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,6 +15,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.util.ExtraCodecs;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.block.Blocks;
 
 public class RawStarforgeShapedRecipe {
     private static final int MAX_WIDTH_AND_HEIGHT = 5;
@@ -29,9 +29,9 @@ public class RawStarforgeShapedRecipe {
     public static final MapCodec<RawStarforgeShapedRecipe> CODEC = Data.CODEC.flatXmap(
             RawStarforgeShapedRecipe::fromData,
             recipe -> recipe.data.map(DataResult::success).orElseGet(() -> DataResult.error(() -> "Cannot encode unpacked recipe")));
-    public static final PacketCodec<RegistryByteBuf, RawStarforgeShapedRecipe> PACKET_CODEC = PacketCodec.tuple(PacketCodecs.VAR_INT,
-            recipe -> recipe.width, PacketCodecs.VAR_INT,
-            recipe -> recipe.height, Ingredient.OPTIONAL_PACKET_CODEC.collect(PacketCodecs.toList()),
+    public static final StreamCodec<RegistryFriendlyByteBuf, RawStarforgeShapedRecipe> PACKET_CODEC = StreamCodec.composite(ByteBufCodecs.VAR_INT,
+            recipe -> recipe.width, ByteBufCodecs.VAR_INT,
+            recipe -> recipe.height, Ingredient.OPTIONAL_CONTENTS_STREAM_CODEC.apply(ByteBufCodecs.list()),
             recipe -> recipe.ingredients, RawStarforgeShapedRecipe::create);
     private static final Logger log = LoggerFactory.getLogger(RawStarforgeShapedRecipe.class);
     private final int width;
@@ -122,11 +122,11 @@ public class RawStarforgeShapedRecipe {
             Optional<Ingredient> optional = this.ingredients.get(i);
             ItemStack stack;
             try {
-                stack = input.getStackInSlot(i);
+                stack = input.getItem(i);
             } catch (Exception e) {
                 stack = new ItemStack(Blocks.AIR.asItem());
             }
-            if (Ingredient.matches(optional, stack)) continue;
+            if (Ingredient.testOptionalIngredient(optional, stack)) continue;
             return false;
         }
         return true;
@@ -172,7 +172,7 @@ public class RawStarforgeShapedRecipe {
             return DataResult.success(Character.valueOf(keyEntry.charAt(0)));
         }, String::valueOf);
         public static final MapCodec<Data> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-                Codecs.strictUnboundedMap(KEY_ENTRY_CODEC, Ingredient.CODEC).fieldOf("key").forGetter(Data::key),
+                ExtraCodecs.strictUnboundedMap(KEY_ENTRY_CODEC, Ingredient.CODEC).fieldOf("key").forGetter(Data::key),
                 PATTERN_CODEC.fieldOf("pattern").forGetter(Data::pattern)
         ).apply(instance, Data::new));
     }

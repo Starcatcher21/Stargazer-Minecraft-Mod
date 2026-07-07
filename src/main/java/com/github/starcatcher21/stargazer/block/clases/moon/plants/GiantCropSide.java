@@ -1,8 +1,8 @@
 package com.github.starcatcher21.stargazer.block.clases.moon.plants;
 
-import net.minecraft.util.StringIdentifiable;
+import net.minecraft.util.StringRepresentable;
 
-public enum GiantCropSide implements StringIdentifiable {
+public enum GiantCropSide implements StringRepresentable {
     nwd("nwd"),
     ned("ned"),
     swd("swd"),
@@ -19,7 +19,7 @@ public enum GiantCropSide implements StringIdentifiable {
     }
 
     @Override
-    public String asString() {
+    public String getSerializedName() {
         return ID;
     }
 }

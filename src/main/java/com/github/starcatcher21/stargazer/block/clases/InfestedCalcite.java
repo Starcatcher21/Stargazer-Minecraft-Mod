@@ -1,53 +1,53 @@
 package com.github.starcatcher21.stargazer.block.clases;
 
 import com.mojang.serialization.MapCodec;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.SpreadableBlock;
-import net.minecraft.entity.projectile.ProjectileEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldView;
-import net.minecraft.world.chunk.light.ChunkLightProvider;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.SpreadingSnowyDirtBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.lighting.LightEngine;
+import net.minecraft.world.phys.BlockHitResult;
 
-public class InfestedCalcite extends SpreadableBlock {
-    public InfestedCalcite(Settings settings) {
+public class InfestedCalcite extends SpreadingSnowyDirtBlock {
+    public InfestedCalcite(Properties settings) {
         super(settings);
     }
 
     @Override
-    protected MapCodec<? extends SpreadableBlock> getCodec() {
+    protected MapCodec<? extends SpreadingSnowyDirtBlock> codec() {
         return null;
     }
 
     @Override
-    protected void onProjectileHit(World world, BlockState state, BlockHitResult hit, ProjectileEntity projectile) {
-        if (!world.isClient()) {
+    protected void onProjectileHit(Level world, BlockState state, BlockHitResult hit, Projectile projectile) {
+        if (!world.isClientSide()) {
             BlockPos blockPos = hit.getBlockPos();
-            world.playSound(null, blockPos, SoundEvents.BLOCK_AMETHYST_BLOCK_CHIME, SoundCategory.BLOCKS, 1.0f, 0.5f + world.random.nextFloat() * 1.2f);
+            world.playSound(null, blockPos, SoundEvents.AMETHYST_BLOCK_CHIME, SoundSource.BLOCKS, 1.0f, 0.5f + world.random.nextFloat() * 1.2f);
         }
     }
 
-    private static boolean canSurvive(BlockState state, WorldView world, BlockPos pos) {
-        BlockPos blockPos = pos.up();
+    private static boolean canBeGrass(BlockState state, LevelReader world, BlockPos pos) {
+        BlockPos blockPos = pos.above();
         BlockState blockState = world.getBlockState(blockPos);
-        if (blockState.getFluidState().getLevel() == 8) {
+        if (blockState.getFluidState().getAmount() == 8) {
             return false;
         }
-        int i = ChunkLightProvider.getRealisticOpacity(state, blockState, Direction.UP, blockState.getOpacity());
+        int i = LightEngine.getLightBlockInto(state, blockState, Direction.UP, blockState.getLightBlock());
         return i < 15;
     }
 
     @Override
-    protected void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-        if (!canSurvive(state, world, pos)) {
-            world.setBlockState(pos, Blocks.CALCITE.getDefaultState());
+    protected void randomTick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
+        if (!canBeGrass(state, world, pos)) {
+            world.setBlockAndUpdate(pos, Blocks.CALCITE.defaultBlockState());
         }
     }
 }

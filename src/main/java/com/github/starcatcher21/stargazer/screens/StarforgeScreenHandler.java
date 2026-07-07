@@ -7,26 +7,26 @@ import com.github.starcatcher21.stargazer.screens.recipe.StarforgeRecipeInput;
 import com.github.starcatcher21.stargazer.screens.recipe.StarforgeRecipeInventory;
 import com.github.starcatcher21.stargazer.screens.recipeInputs.StarforgeInventory;
 import com.github.starcatcher21.stargazer.screens.slots.StarforgeResultSlot;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.CraftingResultInventory;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.packet.s2c.play.ScreenHandlerSlotUpdateS2CPacket;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.screen.ScreenHandlerContext;
-import net.minecraft.screen.slot.Slot;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Optional;
+import net.minecraft.network.protocol.game.ClientboundContainerSetSlotPacket;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.Container;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.inventory.ResultContainer;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.level.Level;
 
 public class StarforgeScreenHandler
-        extends ScreenHandler {
+        extends AbstractContainerMenu {
     public static final int INPUT_SLOTS_START = 0;
     public static final int INPUT_SLOTS_END = 13;
 
@@ -39,59 +39,59 @@ public class StarforgeScreenHandler
     public static final int PLAYER_MAIN_INVENTORY_END = 50;
     public static final int PLAYER_INVENTORY_END = 50;
 
-    private final ScreenHandlerContext context;
-    private final PlayerEntity player;
+    private final ContainerLevelAccess context;
+    private final Player player;
     private boolean filling;
 
     protected final StarforgeRecipeInventory craftingInventory;
-    protected final CraftingResultInventory craftingResultInventory = new CraftingResultInventory();
+    protected final ResultContainer craftingResultInventory = new ResultContainer();
 
-    public StarforgeScreenHandler(int syncId, PlayerInventory playerInventory) {
-        this(syncId, playerInventory, ScreenHandlerContext.EMPTY);
+    public StarforgeScreenHandler(int syncId, Inventory playerInventory) {
+        this(syncId, playerInventory, ContainerLevelAccess.NULL);
     }
 
-    public StarforgeScreenHandler(int syncId, PlayerInventory playerInventory, ScreenHandlerContext context) {
+    public StarforgeScreenHandler(int syncId, Inventory playerInventory, ContainerLevelAccess context) {
         super(ScreenHandlerTypes.STARFORGE_HANDLER, syncId);
         this.craftingInventory = new StarforgeInventory(this, 14);
         this.context = context;
         this.player = playerInventory.player;
         this.addResultSlot(this.player, 124, 35);
         this.addInputSlots(30, 32);
-        this.addPlayerSlots(playerInventory, 8, 119);
+        this.addStandardInventorySlots(playerInventory, 8, 119);
     }
 
-    protected static void updateResult(ScreenHandler handler, ServerWorld world, PlayerEntity player, StarforgeRecipeInventory craftingInventory, CraftingResultInventory resultInventory, @Nullable RecipeEntry<?> recipe) {
+    protected static void updateResult(AbstractContainerMenu handler, ServerLevel world, Player player, StarforgeRecipeInventory craftingInventory, ResultContainer resultInventory, @Nullable RecipeHolder<?> recipe) {
         StarforgeRecipeInput craftingRecipeInput = craftingInventory.createRecipeInput();
-        ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity)player;
+        ServerPlayer serverPlayerEntity = (ServerPlayer)player;
         ItemStack itemStack = ItemStack.EMPTY;
-        Optional<RecipeEntry<StarforgeRecipe>> optional = world.getRecipeManager().getFirstMatch
-                (RecipeTypes.STARFORGE, craftingRecipeInput, (World)world);
+        Optional<RecipeHolder<StarforgeRecipe>> optional = world.recipeAccess().getRecipeFor
+                (RecipeTypes.STARFORGE, craftingRecipeInput, (Level)world);
         if (optional.isPresent()) {
             ItemStack itemStack2;
-            RecipeEntry<StarforgeRecipe> recipeEntry = optional.get();
+            RecipeHolder<StarforgeRecipe> recipeEntry = optional.get();
             StarforgeRecipe craftingRecipe = recipeEntry.value();
-            if (resultInventory.shouldCraftRecipe(serverPlayerEntity, recipeEntry) && (itemStack2 = craftingRecipe.craft(craftingRecipeInput, world.getRegistryManager())).isItemEnabled(world.getEnabledFeatures())) {
+            if (resultInventory.setRecipeUsed(serverPlayerEntity, recipeEntry) && (itemStack2 = craftingRecipe.craft(craftingRecipeInput, world.registryAccess())).isItemEnabled(world.enabledFeatures())) {
                 itemStack = itemStack2;
             }
         }
-        resultInventory.setStack(15, itemStack);
-        handler.setReceivedStack(15, itemStack);
-        serverPlayerEntity.networkHandler.sendPacket(new ScreenHandlerSlotUpdateS2CPacket(handler.syncId, handler.nextRevision(), 15, itemStack));
+        resultInventory.setItem(15, itemStack);
+        handler.setRemoteSlot(15, itemStack);
+        serverPlayerEntity.connection.send(new ClientboundContainerSetSlotPacket(handler.containerId, handler.incrementStateId(), 15, itemStack));
     }
 
     @Override
-    public void onContentChanged(Inventory inventory) {
+    public void slotsChanged(Container inventory) {
         if (!this.filling) {
-            this.context.run((world, pos) -> {
-                if (world instanceof ServerWorld) {
-                    ServerWorld serverWorld = (ServerWorld)world;
+            this.context.execute((world, pos) -> {
+                if (world instanceof ServerLevel) {
+                    ServerLevel serverWorld = (ServerLevel)world;
                     updateResult(this, serverWorld, this.player, this.craftingInventory, this.craftingResultInventory, null);
                 }
             });
         }
     }
 
-    protected Slot addResultSlot(PlayerEntity player, int x, int y) {
+    protected Slot addResultSlot(Player player, int x, int y) {
         return this.addSlot(new StarforgeResultSlot(player, this.craftingInventory, this.craftingResultInventory, 15, x, y));
     }
 
@@ -116,50 +116,50 @@ public class StarforgeScreenHandler
         this.filling = true;
     }
 
-    public void onInputSlotFillFinish(ServerWorld world, RecipeEntry<StarforgeRecipe> recipe) {
+    public void onInputSlotFillFinish(ServerLevel world, RecipeHolder<StarforgeRecipe> recipe) {
         this.filling = false;
         updateResult(this, world, this.player, this.craftingInventory, this.craftingResultInventory, recipe);
     }
 
     @Override
-    public void onClosed(PlayerEntity player) {
-        super.onClosed(player);
-        this.context.run((world, pos) -> this.dropInventory(player, this.craftingInventory));
+    public void removed(Player player) {
+        super.removed(player);
+        this.context.execute((world, pos) -> this.clearContainer(player, this.craftingInventory));
     }
 
     @Override
-    public boolean canUse(PlayerEntity player) {
-        return canUse(this.context, player, MoonBlocks.STAR_FORGE);
+    public boolean stillValid(Player player) {
+        return stillValid(this.context, player, MoonBlocks.STAR_FORGE);
     }
 
     @Override
-    public ItemStack quickMove(PlayerEntity player, int slot) {
+    public ItemStack quickMoveStack(Player player, int slot) {
         ItemStack itemStack = ItemStack.EMPTY;
         Slot slot2 = this.slots.get(slot);
 
-        if (slot2 != null && slot2.hasStack()) {
-            ItemStack itemStack2 = slot2.getStack();
+        if (slot2 != null && slot2.hasItem()) {
+            ItemStack itemStack2 = slot2.getItem();
             itemStack = itemStack2.copy();
 
             // 1. Logic for the Output Slot
             if (slot == OUTPUT_SLOT) {
                 // Attempt to move from output to player inventory
-                if (!this.insertItem(itemStack2, PLAYER_INVENTORY_START, PLAYER_INVENTORY_END + 1, true)) {
+                if (!this.moveItemStackTo(itemStack2, PLAYER_INVENTORY_START, PLAYER_INVENTORY_END + 1, true)) {
                     return ItemStack.EMPTY;
                 }
-                slot2.onQuickTransfer(itemStack2, itemStack);
+                slot2.onQuickCraft(itemStack2, itemStack);
             }
             // 2. Logic for Player Inventory (Main + Hotbar)
             else if (slot >= PLAYER_INVENTORY_START && slot <= PLAYER_INVENTORY_END) {
                 // First, try to move into the Input Slots
-                if (!this.insertItem(itemStack2, INPUT_SLOTS_START, INPUT_SLOTS_END + 1, false)) {
+                if (!this.moveItemStackTo(itemStack2, INPUT_SLOTS_START, INPUT_SLOTS_END + 1, false)) {
                     // If input is full, swap between Hotbar and Main Inventory
                     if (slot < PLAYER_HOTBAR_END + 1) { // Is in Hotbar
-                        if (!this.insertItem(itemStack2, PLAYER_MAIN_INVENTORY_START, PLAYER_MAIN_INVENTORY_END + 1, false)) {
+                        if (!this.moveItemStackTo(itemStack2, PLAYER_MAIN_INVENTORY_START, PLAYER_MAIN_INVENTORY_END + 1, false)) {
                             return ItemStack.EMPTY;
                         }
                     } else { // Is in Main Inventory
-                        if (!this.insertItem(itemStack2, PLAYER_HOTBAR_START, PLAYER_HOTBAR_END + 1, false)) {
+                        if (!this.moveItemStackTo(itemStack2, PLAYER_HOTBAR_START, PLAYER_HOTBAR_END + 1, false)) {
                             return ItemStack.EMPTY;
                         }
                     }
@@ -168,37 +168,37 @@ public class StarforgeScreenHandler
             // 3. Logic for Container/Input Slots
             else if (slot >= INPUT_SLOTS_START && slot <= INPUT_SLOTS_END) {
                 // Move from container back to player inventory
-                if (!this.insertItem(itemStack2, PLAYER_INVENTORY_START, PLAYER_INVENTORY_END + 1, false)) {
+                if (!this.moveItemStackTo(itemStack2, PLAYER_INVENTORY_START, PLAYER_INVENTORY_END + 1, false)) {
                     return ItemStack.EMPTY;
                 }
             }
             // Catch-all for any other slots (e.g., unexpected custom slots)
             else {
-                if (!this.insertItem(itemStack2, PLAYER_INVENTORY_START, PLAYER_INVENTORY_END + 1, false)) {
+                if (!this.moveItemStackTo(itemStack2, PLAYER_INVENTORY_START, PLAYER_INVENTORY_END + 1, false)) {
                     return ItemStack.EMPTY;
                 }
             }
 
             // --- Post-Transfer Cleanup ---
             if (itemStack2.isEmpty()) {
-                slot2.setStack(ItemStack.EMPTY);
+                slot2.setByPlayer(ItemStack.EMPTY);
             } else {
-                slot2.markDirty();
+                slot2.setChanged();
             }
 
             if (itemStack2.getCount() == itemStack.getCount()) {
                 return ItemStack.EMPTY;
             }
 
-            slot2.onTakeItem(player, itemStack2);
+            slot2.onTake(player, itemStack2);
         }
 
         return itemStack;
     }
 
     @Override
-    public boolean canInsertIntoSlot(ItemStack stack, Slot slot) {
-        return slot.inventory != this.craftingResultInventory && super.canInsertIntoSlot(stack, slot);
+    public boolean canTakeItemForPickAll(ItemStack stack, Slot slot) {
+        return slot.container != this.craftingResultInventory && super.canTakeItemForPickAll(stack, slot);
     }
 
     public Slot getOutputSlot() {
@@ -209,7 +209,7 @@ public class StarforgeScreenHandler
         return this.slots.subList(0, 14);
     }
 
-    protected PlayerEntity getPlayer() {
+    protected Player getPlayer() {
         return this.player;
     }
 }

@@ -1,7 +1,7 @@
 package com.github.starcatcher21.stargazer.worldgen.features.chess;
 
 import com.github.starcatcher21.stargazer.worldgen.features.trees.Tree;
-import net.minecraft.block.Blocks;
+import net.minecraft.world.level.block.Blocks;
 
 public class Pawn {
     public static Tree init(Tree tree) {

@@ -1,12 +1,14 @@
+// TODO(Ravel): Failed to fully resolve file: null cannot be cast to non-null type com.intellij.psi.PsiClass
+// TODO(Ravel): Failed to fully resolve file: null cannot be cast to non-null type com.intellij.psi.PsiClass
 package com.github.starcatcher21.stargazer.block.register;
 
 import com.github.starcatcher21.stargazer.block.ModFluids;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.FluidBlock;
-import net.minecraft.block.MapColor;
-import net.minecraft.block.piston.PistonBehavior;
-import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.LiquidBlock;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.PushReaction;
 
 import static com.github.starcatcher21.stargazer.block.ModBlock.registerWoItem;
 
@@ -14,16 +16,16 @@ public class Fluids {
 
     public static final Block DREAM = registerWoItem(
             "dream",
-            settings -> new FluidBlock(ModFluids.DREAM, settings),
-            AbstractBlock.Settings.create()
-                    .mapColor(MapColor.BLACK)
+            settings -> new LiquidBlock(ModFluids.DREAM, settings),
+            BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_BLACK)
                     .replaceable()
                     .noCollision()
                     .strength(100.0F)
-                    .pistonBehavior(PistonBehavior.DESTROY)
-                    .dropsNothing()
+                    .pushReaction(PushReaction.DESTROY)
+                    .noLootTable()
                     .liquid()
-                    .sounds(BlockSoundGroup.INTENTIONALLY_EMPTY)
+                    .sound(SoundType.EMPTY)
     );
     public static void init() {}
 }

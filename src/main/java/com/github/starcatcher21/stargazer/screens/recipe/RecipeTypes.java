@@ -5,12 +5,12 @@ import com.github.starcatcher21.stargazer.screens.recipe.serializer.ShapedMoonWe
 import com.github.starcatcher21.stargazer.screens.recipe.serializer.ShapedStarCrusherRecipe;
 import com.github.starcatcher21.stargazer.screens.recipe.serializer.ShapedStarforgeRecipe;
 import com.github.starcatcher21.stargazer.screens.recipe.serializer.StarCrusherShapedRecipe;
-import net.minecraft.recipe.Recipe;
-import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.recipe.RecipeType;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.util.Identifier;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
 
 public class RecipeTypes {
     public static final RecipeType<StarforgeRecipe> STARFORGE = register("starforge");
@@ -21,7 +21,7 @@ public class RecipeTypes {
     public static final RecipeSerializer<StarCrusherRecipe> STAR_CRUSHER_SERIALIZER = registerSerializer("star_crusher", (RecipeSerializer) new ShapedStarCrusherRecipe.Serializer());
 
     public static <T extends Recipe<?>> RecipeType<T> register(final String id) {
-        return Registry.register(Registries.RECIPE_TYPE, Identifier.of(Stargazer.MOD_ID, id), new RecipeType<T>(){
+        return Registry.register(BuiltInRegistries.RECIPE_TYPE, Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, id), new RecipeType<T>(){
 
             public String toString() {
                 return id;
@@ -30,7 +30,7 @@ public class RecipeTypes {
     }
 
     public static <S extends RecipeSerializer<T>, T extends Recipe<?>> S registerSerializer(String id, S serializer) {
-        return (S)Registry.register(Registries.RECIPE_SERIALIZER, Identifier.of(Stargazer.MOD_ID, id), serializer);
+        return (S)Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, id), serializer);
     }
 
     public static void init() {

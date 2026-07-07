@@ -2,34 +2,34 @@ package com.github.starcatcher21.stargazer.block.clases.moon;
 
 import com.github.starcatcher21.stargazer.block.clases.CustomSapling;
 import com.mojang.serialization.MapCodec;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.ShapeContext;
-import net.minecraft.block.TallPlantBlock;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.world.BlockView;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.DoublePlantBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class TallMoonGrass
-        extends TallPlantBlock {
-    public static final MapCodec<TallMoonGrass> CODEC = TallMoonGrass.createCodec(TallMoonGrass::new);
-    private static final VoxelShape SHAPE = Block.createColumnShape(12.0, 0.0, 13.0);
+        extends DoublePlantBlock {
+    public static final MapCodec<TallMoonGrass> CODEC = TallMoonGrass.simpleCodec(TallMoonGrass::new);
+    private static final VoxelShape SHAPE = Block.column(12.0, 0.0, 13.0);
 
-    public MapCodec<TallMoonGrass> getCodec() {
+    public MapCodec<TallMoonGrass> codec() {
         return CODEC;
     }
 
-    public TallMoonGrass(Settings settings) {
+    public TallMoonGrass(Properties settings) {
         super(settings);
     }
 
     @Override
-    protected boolean canPlantOnTop(BlockState floor, BlockView world, BlockPos pos) {
+    protected boolean mayPlaceOn(BlockState floor, BlockGetter world, BlockPos pos) {
         return CustomSapling.PLACE.contains(floor.getBlock());
     }
 
     @Override
-    protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
+    protected VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
         return SHAPE;
     }
 }

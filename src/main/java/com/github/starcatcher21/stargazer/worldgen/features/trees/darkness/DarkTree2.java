@@ -2,8 +2,8 @@ package com.github.starcatcher21.stargazer.worldgen.features.trees.darkness;
 
 import com.github.starcatcher21.stargazer.block.register.StarBlocks;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.Tree;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 
 public class DarkTree2 {
     public static void init(Tree tree) {

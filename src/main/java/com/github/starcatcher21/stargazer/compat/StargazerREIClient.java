@@ -16,19 +16,19 @@ import me.shedaniel.rei.api.client.registry.category.CategoryRegistry;
 import me.shedaniel.rei.api.client.registry.display.DisplayRegistry;
 import me.shedaniel.rei.api.client.registry.screen.ScreenRegistry;
 import me.shedaniel.rei.api.common.util.EntryStacks;
-import net.minecraft.item.Items;
+import net.minecraft.world.item.Items;
 
 public class StargazerREIClient implements REIClientPlugin {
     @Override
     public void registerCategories(CategoryRegistry registry) {
         registry.add(new StarforgeCategory());
-        registry.addWorkstations(StarforgeCategory.STARFORGE, EntryStacks.of(MoonBlocks.STAR_FORGE.asItem().getDefaultStack()));
+        registry.addWorkstations(StarforgeCategory.STARFORGE, EntryStacks.of(MoonBlocks.STAR_FORGE.asItem().getDefaultInstance()));
         registry.add(new MoonWelderCategory());
-        registry.addWorkstations(MoonWelderCategory.STARFORGE, EntryStacks.of(ModBlock.MOON_WELDER.asItem().getDefaultStack()));
+        registry.addWorkstations(MoonWelderCategory.STARFORGE, EntryStacks.of(ModBlock.MOON_WELDER.asItem().getDefaultInstance()));
         registry.add(new StargazingCategory());
-        registry.addWorkstations(StargazingCategory.STARFORGE, EntryStacks.of(Items.SPYGLASS.getDefaultStack()));
+        registry.addWorkstations(StargazingCategory.STARFORGE, EntryStacks.of(Items.SPYGLASS.getDefaultInstance()));
         registry.add(new StarCrusherCategory());
-        registry.addWorkstations(StarCrusherCategory.STARFORGE, EntryStacks.of(Energy.STAR_CRUSHER.asItem().getDefaultStack()));
+        registry.addWorkstations(StarCrusherCategory.STARFORGE, EntryStacks.of(Energy.STAR_CRUSHER.asItem().getDefaultInstance()));
     }
 
     @Override

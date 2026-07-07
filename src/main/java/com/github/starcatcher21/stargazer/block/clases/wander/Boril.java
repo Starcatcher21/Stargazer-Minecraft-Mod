@@ -4,96 +4,95 @@ import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.block.register.MoonBlocks;
 import com.github.starcatcher21.stargazer.block.register.Wander;
 import com.mojang.serialization.MapCodec;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Fertilizable;
-import net.minecraft.block.GrassBlock;
-import net.minecraft.block.SpreadableBlock;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldView;
-import net.minecraft.world.event.GameEvent;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
-import net.minecraft.world.gen.feature.PlacedFeature;
-import net.minecraft.world.gen.feature.RandomPatchFeatureConfig;
-
 import java.util.List;
 import java.util.Optional;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.BonemealableBlock;
+import net.minecraft.world.level.block.GrassBlock;
+import net.minecraft.world.level.block.SpreadingSnowyDirtBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
-public class Boril extends SpreadableBlock implements Fertilizable {
-    public Boril(Settings settings) {
+public class Boril extends SpreadingSnowyDirtBlock implements BonemealableBlock {
+    public Boril(Properties settings) {
         super(settings);
     }
 
-    public static final MapCodec<Boril> CODEC = GrassBlock.createCodec(Boril::new);
+    public static final MapCodec<Boril> CODEC = GrassBlock.simpleCodec(Boril::new);
 
     @Override
-    protected MapCodec<? extends SpreadableBlock> getCodec() {
+    protected MapCodec<? extends SpreadingSnowyDirtBlock> codec() {
         return CODEC;
     }
 
     @Override
-    protected void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-        if (world.getLightLevel(pos.up()) >= 9) {
-            BlockState blockState = this.getDefaultState();
+    protected void randomTick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
+        if (world.getMaxLocalRawBrightness(pos.above()) >= 9) {
+            BlockState blockState = this.defaultBlockState();
             for (int i = 0; i < 4; ++i) {
-                BlockPos blockPos = pos.add(random.nextInt(3) - 1, random.nextInt(5) - 3, random.nextInt(3) - 1);
-                if (!world.getBlockState(blockPos).isOf(Wander.PUROIL)) continue;
-                world.setBlockState(blockPos, (BlockState)blockState);
+                BlockPos blockPos = pos.offset(random.nextInt(3) - 1, random.nextInt(5) - 3, random.nextInt(3) - 1);
+                if (!world.getBlockState(blockPos).is(Wander.PUROIL)) continue;
+                world.setBlockAndUpdate(blockPos, (BlockState)blockState);
             }
         }
-        if (!world.getBlockState(pos.up()).isTransparent()) {
-            world.setBlockState(pos, Wander.PUROIL.getDefaultState());
-            world.emitGameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Emitter.of(state));
+        if (!world.getBlockState(pos.above()).propagatesSkylightDown()) {
+            world.setBlockAndUpdate(pos, Wander.PUROIL.defaultBlockState());
+            world.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(state));
         }
     }
 
     @Override
-    public boolean isFertilizable(WorldView world, BlockPos pos, BlockState state) {
-        return world.getBlockState(pos.up()).isAir();
+    public boolean isValidBonemealTarget(LevelReader world, BlockPos pos, BlockState state) {
+        return world.getBlockState(pos.above()).isAir();
     }
 
     @Override
-    public boolean canGrow(World world, Random random, BlockPos pos, BlockState state) {
+    public boolean isBonemealSuccess(Level world, RandomSource random, BlockPos pos, BlockState state) {
         return true;
     }
 
     @Override
-    public void grow(ServerWorld world, Random random, BlockPos pos, BlockState state) {
-        BlockPos blockPos = pos.up();
-        BlockState blockState = MoonBlocks.MOON_GRASS.getDefaultState();
-        Optional<RegistryEntry.Reference<PlacedFeature>> optional = world.getRegistryManager().getOrThrow(RegistryKeys.PLACED_FEATURE).getOptional(RegistryKey.of(RegistryKeys.PLACED_FEATURE, Identifier.of(Stargazer.MOD_ID, "moon_grass_bone")));
+    public void performBonemeal(ServerLevel world, RandomSource random, BlockPos pos, BlockState state) {
+        BlockPos blockPos = pos.above();
+        BlockState blockState = MoonBlocks.MOON_GRASS.defaultBlockState();
+        Optional<Holder.Reference<PlacedFeature>> optional = world.registryAccess().lookupOrThrow(Registries.PLACED_FEATURE).get(ResourceKey.create(Registries.PLACED_FEATURE, Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "moon_grass_bone")));
         block0: for (int i = 0; i < 128; ++i) {
-            RegistryEntry<PlacedFeature> registryEntry;
-            Fertilizable fertilizable;
+            Holder<PlacedFeature> registryEntry;
+            BonemealableBlock fertilizable;
             BlockPos blockPos2 = blockPos;
             for (int j = 0; j < i / 16; ++j) {
-                if (!world.getBlockState((blockPos2 = blockPos2.add(random.nextInt(3) - 1, (random.nextInt(3) - 1) * random.nextInt(3) / 2, random.nextInt(3) - 1)).down()).isOf(this) || world.getBlockState(blockPos2).isFullCube(world, blockPos2)) continue block0;
+                if (!world.getBlockState((blockPos2 = blockPos2.offset(random.nextInt(3) - 1, (random.nextInt(3) - 1) * random.nextInt(3) / 2, random.nextInt(3) - 1)).below()).is(this) || world.getBlockState(blockPos2).isCollisionShapeFullBlock(world, blockPos2)) continue block0;
             }
             BlockState blockState2 = world.getBlockState(blockPos2);
-            if (blockState2.isOf(blockState.getBlock()) && random.nextInt(10) == 0 && (fertilizable = (Fertilizable)((Object)blockState.getBlock())).isFertilizable(world, blockPos2, blockState2)) {
-                fertilizable.grow(world, random, blockPos2, blockState2);
+            if (blockState2.is(blockState.getBlock()) && random.nextInt(10) == 0 && (fertilizable = (BonemealableBlock)((Object)blockState.getBlock())).isValidBonemealTarget(world, blockPos2, blockState2)) {
+                fertilizable.performBonemeal(world, random, blockPos2, blockState2);
             }
             if (!blockState2.isAir()) continue;
             if (random.nextInt(8) == 0) {
                 List<ConfiguredFeature<?, ?>> list = world.getBiome(blockPos2).value().getGenerationSettings().getFlowerFeatures();
                 if (list.isEmpty()) continue;
                 int k = random.nextInt(list.size());
-                registryEntry = ((RandomPatchFeatureConfig)list.get(k).config()).feature();
+                registryEntry = ((RandomPatchConfiguration)list.get(k).config()).feature();
             } else {
                 if (!optional.isPresent()) continue;
-                registryEntry = (RegistryEntry<PlacedFeature>)optional.get();
+                registryEntry = (Holder<PlacedFeature>)optional.get();
             }
-            ((PlacedFeature)registryEntry.value()).generateUnregistered(world, world.getChunkManager().getChunkGenerator(), random, blockPos2);
+            ((PlacedFeature)registryEntry.value()).place(world, world.getChunkSource().getGenerator(), random, blockPos2);
         }
     }
 
     @Override
-    public FertilizableType getFertilizableType() {
-        return FertilizableType.NEIGHBOR_SPREADER;
+    public Type getType() {
+        return Type.NEIGHBOR_SPREADER;
     }}

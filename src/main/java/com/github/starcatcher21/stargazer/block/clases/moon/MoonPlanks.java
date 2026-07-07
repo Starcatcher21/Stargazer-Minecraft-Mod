@@ -1,60 +1,59 @@
 package com.github.starcatcher21.stargazer.block.clases.moon;
 
 import com.github.starcatcher21.stargazer.block.register.MoonBlocks;
-import net.minecraft.advancement.criterion.Criteria;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.item.PotionItem;
-import net.minecraft.potion.Potions;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraft.world.event.GameEvent;
-
 import java.util.Map;
+import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.PotionItem;
+import net.minecraft.world.item.alchemy.Potions;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.BlockHitResult;
 
 import static com.github.starcatcher21.stargazer.block.register.MoonBlocks.COLORED_PLANKS;
 
 public class MoonPlanks extends Block {
-    public MoonPlanks(Settings settings) {
+    public MoonPlanks(Properties settings) {
         super(settings);
     }
 
     @Override
-    protected ActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+    protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         if (stack.getItem() instanceof PotionItem && !state.getBlock().equals(MoonBlocks.MOON_PLANKS)) {
-            if (stack.getItem().getDefaultStack().getName().equals(Text.translatable("item.minecraft.potion.effect.water"))) {
-                change(world, stack, MoonBlocks.MOON_PLANKS.getDefaultState(), pos, player);
-                return ActionResult.SUCCESS;
+            if (stack.getItem().getDefaultInstance().getHoverName().equals(Component.translatable("item.minecraft.potion.effect.water"))) {
+                change(world, stack, MoonBlocks.MOON_PLANKS.defaultBlockState(), pos, player);
+                return InteractionResult.SUCCESS;
             }
         }
         for (Map.Entry<Item, BlockState> entry : COLORED_PLANKS.entrySet()) {
             if (stack.getItem().equals(entry.getKey()) && !state.equals(entry.getValue())) {
                 change(world, stack, entry.getValue(), pos, player);
-                return ActionResult.SUCCESS;
+                return InteractionResult.SUCCESS;
             }
         }
-        return ActionResult.PASS;
+        return InteractionResult.PASS;
     }
-    public static void change(World world, ItemStack stack, BlockState state, BlockPos pos, PlayerEntity player) {
-        if (player instanceof ServerPlayerEntity) {
-            Criteria.ITEM_USED_ON_BLOCK.trigger((ServerPlayerEntity)player, pos, stack);
+    public static void change(Level world, ItemStack stack, BlockState state, BlockPos pos, Player player) {
+        if (player instanceof ServerPlayer) {
+            CriteriaTriggers.ITEM_USED_ON_BLOCK.trigger((ServerPlayer)player, pos, stack);
         }
-        world.setBlockState(pos, state, Block.NOTIFY_ALL_AND_REDRAW);
-        world.emitGameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Emitter.of(player, state));
+        world.setBlock(pos, state, Block.UPDATE_ALL_IMMEDIATE);
+        world.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, state));
         if (player != null) {
-            if (!player.isInCreativeMode()) {
-                stack.decrement(1);
+            if (!player.hasInfiniteMaterials()) {
+                stack.shrink(1);
                 if (stack.getItem().equals(Potions.WATER)) {
-                    player.giveOrDropStack(new ItemStack(Items.GLASS_BOTTLE, 1));
+                    player.handleExtraItemsCreatedOnUse(new ItemStack(Items.GLASS_BOTTLE, 1));
                 }
             }
         }

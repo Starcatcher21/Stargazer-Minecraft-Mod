@@ -5,32 +5,32 @@ import com.github.starcatcher21.stargazer.screens.recipe.RecipeTypes;
 import com.github.starcatcher21.stargazer.screens.recipe.StarCrusherRecipe;
 import com.github.starcatcher21.stargazer.screens.recipe.StarCrusherRecipeInput;
 import com.github.starcatcher21.stargazer.screens.recipe.serializer.ShapedStarCrusherRecipe;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.Inventories;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.network.listener.ClientPlayPacketListener;
-import net.minecraft.network.packet.Packet;
-import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
-import net.minecraft.recipe.RecipeEntry;
-import net.minecraft.screen.PropertyDelegate;
-import net.minecraft.storage.ReadView;
-import net.minecraft.storage.WriteView;
-import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import org.jspecify.annotations.Nullable;
 import team.reborn.energy.api.base.SimpleEnergyStorage;
 
 import java.util.List;
 import java.util.Optional;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.NonNullList;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.world.Container;
+import net.minecraft.world.ContainerHelper;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 
-public class StarCrusherEntity extends BlockEntity implements Inventory {
+public class StarCrusherEntity extends BlockEntity implements Container {
 
-	private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(2, ItemStack.EMPTY);
+	private final NonNullList<ItemStack> inventory = NonNullList.withSize(2, ItemStack.EMPTY);
 	private static final int INPUT_SLOT = 0;
 	private static final int OUTPUT_SLOT = 1;
 
@@ -46,37 +46,37 @@ public class StarCrusherEntity extends BlockEntity implements Inventory {
 	public final SimpleEnergyStorage energyStorage = new SimpleEnergyStorage(10000, 100, 0) {
 		@Override
 		protected void onFinalCommit() {
-			markDirty();
+			setChanged();
 		}
 	};
 
 	@Override
-	protected void readData(ReadView nbt) {
-		super.readData(nbt);
-		Inventories.readData(nbt, this.inventory);
-		energyStorage.amount = nbt.getLong("energy", 0);
-		progress = nbt.getInt("progress", 0);
-		maxProgress = nbt.getInt("max_progress", 0);
+	protected void loadAdditional(ValueInput nbt) {
+		super.loadAdditional(nbt);
+		ContainerHelper.loadAllItems(nbt, this.inventory);
+		energyStorage.amount = nbt.getLongOr("energy", 0);
+		progress = nbt.getIntOr("progress", 0);
+		maxProgress = nbt.getIntOr("max_progress", 0);
 	}
 
 	@Override
-	protected void writeData(WriteView nbt) {
-		super.writeData(nbt);
-		Inventories.writeData(nbt, this.inventory, true); // Saves item inventory to NBT
+	protected void saveAdditional(ValueOutput nbt) {
+		super.saveAdditional(nbt);
+		ContainerHelper.saveAllItems(nbt, this.inventory, true); // Saves item inventory to NBT
 		nbt.putLong("energy", energyStorage.amount);
 		nbt.putInt("progress", progress);
 		nbt.putInt("max_progress", maxProgress);
 	}
 
-	public static void tick(World world, BlockPos pos, BlockState state, StarCrusherEntity sge) {
-		if (world.isClient()) return;
+	public static void tick(Level world, BlockPos pos, BlockState state, StarCrusherEntity sge) {
+		if (world.isClientSide()) return;
 
 		if (sge.hasRecipe() && sge.hasEnoughEnergy()) {
 
 			sge.energyStorage.amount -= ENERGY_PER_TICK;
 
 			sge.increaseCraftingProgress();
-			markDirty(world, pos, state);
+			setChanged(world, pos, state);
 
 			if (sge.hasCraftingFinished()) {
 				sge.craftItem();
@@ -93,12 +93,12 @@ public class StarCrusherEntity extends BlockEntity implements Inventory {
 	}
 
 	private void craftItem() {
-		Optional<RecipeEntry<StarCrusherRecipe>> recipe = getCurrentRecipe();
+		Optional<RecipeHolder<StarCrusherRecipe>> recipe = getCurrentRecipe();
 
-		ItemStack output = recipe.get().value().craft(new StarCrusherRecipeInput(List.of(inventory.get(INPUT_SLOT))), this.world.getRegistryManager());
-		this.removeStack(INPUT_SLOT, 1);
-		this.setStack(OUTPUT_SLOT, new ItemStack(output.getItem(),
-				this.getStack(OUTPUT_SLOT).getCount() + output.getCount()));
+		ItemStack output = recipe.get().value().craft(new StarCrusherRecipeInput(List.of(inventory.get(INPUT_SLOT))), this.level.registryAccess());
+		this.removeItem(INPUT_SLOT, 1);
+		this.setItem(OUTPUT_SLOT, new ItemStack(output.getItem(),
+				this.getItem(OUTPUT_SLOT).getCount() + output.getCount()));
 	}
 
 	private boolean hasCraftingFinished() {
@@ -110,32 +110,32 @@ public class StarCrusherEntity extends BlockEntity implements Inventory {
 	}
 
 	private boolean hasRecipe() {
-		Optional<RecipeEntry<StarCrusherRecipe>> recipe = getCurrentRecipe();
+		Optional<RecipeHolder<StarCrusherRecipe>> recipe = getCurrentRecipe();
 		if(recipe.isEmpty()) {
 			return false;
 		}
 
-		ItemStack output = recipe.get().value().craft(new StarCrusherRecipeInput(List.of(inventory.get(INPUT_SLOT))), this.world.getRegistryManager());
+		ItemStack output = recipe.get().value().craft(new StarCrusherRecipeInput(List.of(inventory.get(INPUT_SLOT))), this.level.registryAccess());
 		return canInsertAmountIntoOutputSlot(output.getCount()) && canInsertItemIntoOutputSlot(output);
 	}
 
-	private Optional<RecipeEntry<StarCrusherRecipe>> getCurrentRecipe() {
-		return this.getWorld().getRecipeManager().getSynchronizedRecipes().getFirstMatch(RecipeTypes.STAR_CRUSHER, new StarCrusherRecipeInput(List.of(inventory.get(INPUT_SLOT))), this.getWorld());
+	private Optional<RecipeHolder<StarCrusherRecipe>> getCurrentRecipe() {
+		return this.getLevel().recipeAccess().getSynchronizedRecipes().getFirstMatch(RecipeTypes.STAR_CRUSHER, new StarCrusherRecipeInput(List.of(inventory.get(INPUT_SLOT))), this.getLevel());
 	}
 
 	private boolean canInsertItemIntoOutputSlot(ItemStack output) {
-		return this.getStack(OUTPUT_SLOT).isEmpty() || this.getStack(OUTPUT_SLOT).getItem() == output.getItem();
+		return this.getItem(OUTPUT_SLOT).isEmpty() || this.getItem(OUTPUT_SLOT).getItem() == output.getItem();
 	}
 
 	private boolean canInsertAmountIntoOutputSlot(int count) {
-		int maxCount = this.getStack(OUTPUT_SLOT).isEmpty() ? 64 : this.getStack(OUTPUT_SLOT).getMaxCount();
-		int currentCount = this.getStack(OUTPUT_SLOT).getCount();
+		int maxCount = this.getItem(OUTPUT_SLOT).isEmpty() ? 64 : this.getItem(OUTPUT_SLOT).getMaxStackSize();
+		int currentCount = this.getItem(OUTPUT_SLOT).getCount();
 
 		return maxCount >= currentCount + count;
 	}
 
 	@Override
-	public int size() {
+	public int getContainerSize() {
 		return this.inventory.size();
 	}
 
@@ -148,52 +148,52 @@ public class StarCrusherEntity extends BlockEntity implements Inventory {
 	}
 
 	@Override
-	public ItemStack getStack(int slot) {
+	public ItemStack getItem(int slot) {
 		return this.inventory.get(slot);
 	}
 
 	@Override
-	public ItemStack removeStack(int slot, int amount) {
-		ItemStack result = Inventories.splitStack(this.inventory, slot, amount);
-		if (!result.isEmpty()) markDirty();
+	public ItemStack removeItem(int slot, int amount) {
+		ItemStack result = ContainerHelper.removeItem(this.inventory, slot, amount);
+		if (!result.isEmpty()) setChanged();
 		return result;
 	}
 
 	@Override
-	public ItemStack removeStack(int slot) {
-		return Inventories.removeStack(this.inventory, slot);
+	public ItemStack removeItemNoUpdate(int slot) {
+		return ContainerHelper.takeItem(this.inventory, slot);
 	}
 
 	@Override
-	public void setStack(int slot, ItemStack stack) {
+	public void setItem(int slot, ItemStack stack) {
 		this.inventory.set(slot, stack);
-		if (stack.getCount() > getMaxCountPerStack()) {
-			stack.setCount(getMaxCountPerStack());
+		if (stack.getCount() > getMaxStackSize()) {
+			stack.setCount(getMaxStackSize());
 		}
-		markDirty();
+		setChanged();
 	}
 
 	@Override
-	public boolean canPlayerUse(PlayerEntity player) {
-		return Inventory.canPlayerUse(this, player);
+	public boolean stillValid(Player player) {
+		return Container.stillValidBlockEntity(this, player);
 	}
 
 	@Override
-	public boolean isValid(int slot, ItemStack stack) {
-		return slot == INPUT_SLOT && stack.isOf(Items.SPYGLASS);
+	public boolean canPlaceItem(int slot, ItemStack stack) {
+		return slot == INPUT_SLOT && stack.is(Items.SPYGLASS);
 	}
 
 	@Override
-	public void clear() {
+	public void clearContent() {
 		this.inventory.clear();
-		markDirty();
+		setChanged();
 	}
 
 	private boolean hasEnoughEnergy() {
 		return this.energyStorage.amount >= ENERGY_PER_TICK;
 	}
 
-	public final PropertyDelegate propertyDelegate = new PropertyDelegate() {
+	public final ContainerData propertyDelegate = new ContainerData() {
 		@Override
 		public int get(int index) {
 			switch (index) {
@@ -216,14 +216,14 @@ public class StarCrusherEntity extends BlockEntity implements Inventory {
 		}
 
 		@Override
-		public int size() {
+		public int getCount() {
 			return 4;
 		}
 	};
 
 	@Nullable
 	@Override
-	public Packet<ClientPlayPacketListener> toUpdatePacket() {
-		return BlockEntityUpdateS2CPacket.create(this);
+	public Packet<ClientGamePacketListener> getUpdatePacket() {
+		return ClientboundBlockEntityDataPacket.create(this);
 	}
 }

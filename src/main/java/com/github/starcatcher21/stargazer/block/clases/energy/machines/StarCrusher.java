@@ -6,59 +6,59 @@ import com.github.starcatcher21.stargazer.screens.NightWatcherScreenHandler;
 import com.github.starcatcher21.stargazer.screens.StarCrusherScreenHandler;
 import com.github.starcatcher21.stargazer.screens.StarGeneratorScreenHandler;
 import com.mojang.serialization.MapCodec;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.BlockWithEntity;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityTicker;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.screen.NamedScreenHandlerFactory;
-import net.minecraft.screen.SimpleNamedScreenHandlerFactory;
-import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.SimpleMenuProvider;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
 import org.jspecify.annotations.Nullable;
 
-public class StarCrusher extends BlockWithEntity {
-    public static final MapCodec<StarCrusher> CODEC = Block.createCodec(StarCrusher::new);
-    public static final Text TITLE = Text.translatable("container.starcrusher");
-    public StarCrusher(Settings settings) {
+public class StarCrusher extends BaseEntityBlock {
+    public static final MapCodec<StarCrusher> CODEC = Block.simpleCodec(StarCrusher::new);
+    public static final Component TITLE = Component.translatable("container.starcrusher");
+    public StarCrusher(Properties settings) {
         super(settings);
     }
 
     @Override
-    protected MapCodec<? extends BlockWithEntity> getCodec() {
+    protected MapCodec<? extends BaseEntityBlock> codec() {
         return CODEC;
     }
 
     @Override
-    public @Nullable BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+    public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new StarCrusherEntity(pos, state);
     }
 
     @Override
-    public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return  world.isClient() ? null : validateTicker(type, BlockTypes.STAR_CRUSHER, StarCrusherEntity::tick);
+    public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, BlockState state, BlockEntityType<T> type) {
+        return  world.isClientSide() ? null : createTickerHelper(type, BlockTypes.STAR_CRUSHER, StarCrusherEntity::tick);
     }
 
     @Override
-    protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-        if (!world.isClient()) {
-            player.openHandledScreen(state.createScreenHandlerFactory(world, pos));
+    protected InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit) {
+        if (!world.isClientSide()) {
+            player.openMenu(state.getMenuProvider(world, pos));
         }
-        return ActionResult.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
     @Override
-    protected NamedScreenHandlerFactory createScreenHandlerFactory(BlockState state, World world, BlockPos pos) {
+    protected MenuProvider getMenuProvider(BlockState state, Level world, BlockPos pos) {
         BlockEntity be = world.getBlockEntity(pos);
         if (be instanceof StarCrusherEntity sge) {
-            return new SimpleNamedScreenHandlerFactory((syncId, inventory, player) -> new StarCrusherScreenHandler(syncId, inventory, sge, sge.propertyDelegate), TITLE);
+            return new SimpleMenuProvider((syncId, inventory, player) -> new StarCrusherScreenHandler(syncId, inventory, sge, sge.propertyDelegate), TITLE);
         } else {
-            return new SimpleNamedScreenHandlerFactory((syncId, inventory, player) -> new StarCrusherScreenHandler(syncId, inventory, pos), TITLE);
+            return new SimpleMenuProvider((syncId, inventory, player) -> new StarCrusherScreenHandler(syncId, inventory, pos), TITLE);
         }
     }
 

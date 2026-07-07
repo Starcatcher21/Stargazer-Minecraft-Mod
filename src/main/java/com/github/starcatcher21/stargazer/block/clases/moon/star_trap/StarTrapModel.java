@@ -1,14 +1,14 @@
 package com.github.starcatcher21.stargazer.block.clases.moon.star_trap;
 
 import com.github.starcatcher21.stargazer.Stargazer;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.Identifier;
 import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.renderer.base.GeoRenderState;
 
 public class StarTrapModel extends GeoModel<StarTrapEntity> {
-    private final Identifier model = Identifier.of(Stargazer.MOD_ID, "block/star_trap");
-    private final Identifier animations = Identifier.of(Stargazer.MOD_ID, "block/star_trap");
-    private final Identifier texture = Identifier.of(Stargazer.MOD_ID, "textures/block/star_trap.png");
+    private final Identifier model = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "block/star_trap");
+    private final Identifier animations = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "block/star_trap");
+    private final Identifier texture = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/block/star_trap.png");
 
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {

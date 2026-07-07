@@ -2,43 +2,43 @@ package com.github.starcatcher21.stargazer.entity;
 
 import com.github.starcatcher21.stargazer.item.ModItems;
 import com.github.starcatcher21.stargazer.particle.Particles;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityStatuses;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.mob.BlazeEntity;
-import net.minecraft.entity.projectile.thrown.ThrownItemEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.particle.ParticleEffect;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.hit.EntityHitResult;
-import net.minecraft.world.World;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityEvent;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.monster.Blaze;
+import net.minecraft.world.entity.projectile.throwableitemprojectile.ThrowableItemProjectile;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.EntityHitResult;
 
-public class ThrowableStarEntity extends ThrownItemEntity {
-    public ThrowableStarEntity(EntityType<? extends ThrowableStarEntity> entityType, World world) {
+public class ThrowableStarEntity extends ThrowableItemProjectile {
+    public ThrowableStarEntity(EntityType<? extends ThrowableStarEntity> entityType, Level world) {
         super(entityType, world);
     }
 
-    public ThrowableStarEntity(World world, LivingEntity owner, ItemStack stack) {
+    public ThrowableStarEntity(Level world, LivingEntity owner, ItemStack stack) {
         super(EntityRegistry.THROWABLE_STAR_ENTITY, owner, world, stack);
     }
 
-    public ThrowableStarEntity(World world, double x, double y, double z, ItemStack stack) {
+    public ThrowableStarEntity(Level world, double x, double y, double z, ItemStack stack) {
         super(EntityRegistry.THROWABLE_STAR_ENTITY, x, y, z, world, stack);
     }
 
-    private ParticleEffect getParticleParameters() {
-        ItemStack itemStack = this.getStack();
-        return (ParticleEffect) Particles.STAR;
+    private ParticleOptions getParticleParameters() {
+        ItemStack itemStack = this.getItem();
+        return (ParticleOptions) Particles.STAR;
     }
 
     @Override
-    public void handleStatus(byte status) {
-        if (status == EntityStatuses.PLAY_DEATH_SOUND_OR_ADD_PROJECTILE_HIT_PARTICLES) {
-            ParticleEffect particleEffect = this.getParticleParameters();
+    public void handleEntityEvent(byte status) {
+        if (status == EntityEvent.DEATH) {
+            ParticleOptions particleEffect = this.getParticleParameters();
 
-            this.getEntityWorld().addParticleClient(particleEffect, this.getX(), this.getY(), this.getZ(), 0.0, 0.0, 0.0);
+            this.level().addParticle(particleEffect, this.getX(), this.getY(), this.getZ(), 0.0, 0.0, 0.0);
         }
     }
 
@@ -48,19 +48,19 @@ public class ThrowableStarEntity extends ThrownItemEntity {
     }
 
     @Override
-    protected void onEntityHit(EntityHitResult entityHitResult) {
-        super.onEntityHit(entityHitResult);
+    protected void onHitEntity(EntityHitResult entityHitResult) {
+        super.onHitEntity(entityHitResult);
         Entity entity = entityHitResult.getEntity();
-        int i = entity instanceof BlazeEntity ? 3 : 6;
-        entity.setFireTicks(200);
-        entity.setOnFire(true);
-        entity.serverDamage(this.getDamageSources().thrown(this, this.getOwner()), i);
+        int i = entity instanceof Blaze ? 3 : 6;
+        entity.setRemainingFireTicks(200);
+        entity.setSharedFlagOnFire(true);
+        entity.hurt(this.damageSources().thrown(this, this.getOwner()), i);
     }
 
     @Override
-    protected void onBlockHit(BlockHitResult blockHitResult) {
-        super.onBlockHit(blockHitResult);
-        if (!this.getEntityWorld().isClient()) {
+    protected void onHitBlock(BlockHitResult blockHitResult) {
+        super.onHitBlock(blockHitResult);
+        if (!this.level().isClientSide()) {
             this.discard();
         }
     }
@@ -68,8 +68,8 @@ public class ThrowableStarEntity extends ThrownItemEntity {
     @Override
     public void tick() {
         super.tick();
-        if (!this.getEntityWorld().isClient()) {
-            this.getEntityWorld().sendEntityStatus(this, EntityStatuses.PLAY_DEATH_SOUND_OR_ADD_PROJECTILE_HIT_PARTICLES);
+        if (!this.level().isClientSide()) {
+            this.level().broadcastEntityEvent(this, EntityEvent.DEATH);
         }
     }
 }

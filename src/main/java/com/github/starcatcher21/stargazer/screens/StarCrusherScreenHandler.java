@@ -1,36 +1,35 @@
 package com.github.starcatcher21.stargazer.screens;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.screen.ArrayPropertyDelegate;
-import net.minecraft.screen.PropertyDelegate;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.screen.slot.Slot;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.core.BlockPos;
+import net.minecraft.util.Mth;
+import net.minecraft.world.Container;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.inventory.SimpleContainerData;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
 
-public class StarCrusherScreenHandler extends ScreenHandler {
+public class StarCrusherScreenHandler extends AbstractContainerMenu {
 
-    private final PlayerEntity player;
-    private final PropertyDelegate propertyDelegate;
-    private final Inventory blockInventory;
+    private final Player player;
+    private final ContainerData propertyDelegate;
+    private final Container blockInventory;
 
-    public StarCrusherScreenHandler(int syncId, PlayerInventory playerInventory) {
-        this(syncId, playerInventory, new SimpleInventory(2), new ArrayPropertyDelegate(4));
+    public StarCrusherScreenHandler(int syncId, Inventory playerInventory) {
+        this(syncId, playerInventory, new SimpleContainer(2), new SimpleContainerData(4));
     }
 
-    public StarCrusherScreenHandler(int syncId, PlayerInventory inventory, BlockPos pos) {
+    public StarCrusherScreenHandler(int syncId, Inventory inventory, BlockPos pos) {
         this(syncId, inventory,
-                inventory.player.getEntityWorld().getBlockEntity(pos) instanceof Inventory inv ? inv : new SimpleInventory(2),
-                new ArrayPropertyDelegate(4));
+                inventory.player.level().getBlockEntity(pos) instanceof Container inv ? inv : new SimpleContainer(2),
+                new SimpleContainerData(4));
     }
 
-    public StarCrusherScreenHandler(int syncId, PlayerInventory playerInventory,
-                                    Inventory inventory, PropertyDelegate arrayPropertyDelegate) {
+    public StarCrusherScreenHandler(int syncId, Inventory playerInventory,
+                                    Container inventory, ContainerData arrayPropertyDelegate) {
         super(ScreenHandlerTypes.STARCRUSHER_HANDLER, syncId);
 
         this.player = playerInventory.player;
@@ -38,13 +37,13 @@ public class StarCrusherScreenHandler extends ScreenHandler {
         this.propertyDelegate = arrayPropertyDelegate;
 
         if (this.blockInventory != null) {
-            this.blockInventory.onOpen(playerInventory.player);
+            this.blockInventory.startOpen(playerInventory.player);
         }
 
         this.addSlot(new Slot(blockInventory, 0, 48, 13));
         this.addSlot(new Slot(blockInventory, 1, 48, 80) {
             @Override
-            public boolean canInsert(ItemStack stack) {
+            public boolean mayPlace(ItemStack stack) {
                 return false;
             }
         });
@@ -59,31 +58,31 @@ public class StarCrusherScreenHandler extends ScreenHandler {
             this.addSlot(new Slot(playerInventory, i, 8 + i * 18, 119 + 58));
         }
 
-        this.addProperties(propertyDelegate);
+        this.addDataSlots(propertyDelegate);
     }
 
     @Override
-    public ItemStack quickMove(PlayerEntity player, int invSlot) {
+    public ItemStack quickMoveStack(Player player, int invSlot) {
         ItemStack newStack = ItemStack.EMPTY;
         Slot slot = this.slots.get(invSlot);
-        if (slot != null && slot.hasStack()) {
-            ItemStack originalStack = slot.getStack();
+        if (slot != null && slot.hasItem()) {
+            ItemStack originalStack = slot.getItem();
             newStack = originalStack.copy();
 
-            if (invSlot < this.blockInventory.size()) {
-                if (!this.insertItem(originalStack, this.blockInventory.size(), this.slots.size(), true)) {
+            if (invSlot < this.blockInventory.getContainerSize()) {
+                if (!this.moveItemStackTo(originalStack, this.blockInventory.getContainerSize(), this.slots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
             }
             else {
                 boolean inserted = false;
 
-                if (this.blockInventory.size() > 0) {
-                    inserted = this.insertItem(originalStack, 0, 1, false);
+                if (this.blockInventory.getContainerSize() > 0) {
+                    inserted = this.moveItemStackTo(originalStack, 0, 1, false);
                 }
 
-                if (!inserted && this.blockInventory.size() > 2) {
-                    inserted = this.insertItem(originalStack, 2, this.blockInventory.size(), false);
+                if (!inserted && this.blockInventory.getContainerSize() > 2) {
+                    inserted = this.moveItemStackTo(originalStack, 2, this.blockInventory.getContainerSize(), false);
                 }
 
                 if (!inserted) {
@@ -92,23 +91,23 @@ public class StarCrusherScreenHandler extends ScreenHandler {
             }
 
             if (originalStack.isEmpty()) {
-                slot.setStack(ItemStack.EMPTY);
+                slot.setByPlayer(ItemStack.EMPTY);
             } else {
-                slot.markDirty();
+                slot.setChanged();
             }
         }
         return newStack;
     }
 
     @Override
-    public boolean canUse(PlayerEntity player) {
-        return this.blockInventory.canPlayerUse(player);
+    public boolean stillValid(Player player) {
+        return this.blockInventory.stillValid(player);
     }
 
     @Override
-    public void onClosed(PlayerEntity player) {
-        super.onClosed(player);
-        this.blockInventory.onClose(player);
+    public void removed(Player player) {
+        super.removed(player);
+        this.blockInventory.stopOpen(player);
     }
 
     public int getEnergy() {
@@ -138,6 +137,6 @@ public class StarCrusherScreenHandler extends ScreenHandler {
         if (maxEnergy == 0 || energy == 0) {
             return 0.0F;
         }
-        return MathHelper.clamp((float) energy / (float) maxEnergy, 0.0F, 1.0F);
+        return Mth.clamp((float) energy / (float) maxEnergy, 0.0F, 1.0F);
     }
 }

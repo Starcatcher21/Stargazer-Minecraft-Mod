@@ -2,61 +2,66 @@ package com.github.starcatcher21.stargazer.block.clases;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.block.*;
-import net.minecraft.component.type.SuspiciousStewEffectsComponent;
-import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.world.BlockView;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.util.Mth;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.item.component.SuspiciousStewEffects;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SuspiciousEffectHolder;
+import net.minecraft.world.level.block.VegetationBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
 public class CosmicFlower
-        extends PlantBlock
-        implements SuspiciousStewIngredient {
-    protected static final MapCodec<SuspiciousStewEffectsComponent> STEW_EFFECT_CODEC = SuspiciousStewEffectsComponent.CODEC.fieldOf("suspicious_stew_effects");
-    public static final MapCodec<CosmicFlower> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(STEW_EFFECT_CODEC.forGetter(CosmicFlower::getStewEffects), CosmicFlower.createSettingsCodec()).apply(instance, CosmicFlower::new));
-    private static final VoxelShape SHAPE = Block.createColumnShape(6.0, 0.0, 10.0);
-    private final SuspiciousStewEffectsComponent stewEffects;
+        extends VegetationBlock
+        implements SuspiciousEffectHolder {
+    protected static final MapCodec<SuspiciousStewEffects> STEW_EFFECT_CODEC = SuspiciousStewEffects.CODEC.fieldOf("suspicious_stew_effects");
+    public static final MapCodec<CosmicFlower> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(STEW_EFFECT_CODEC.forGetter(CosmicFlower::getSuspiciousEffects), CosmicFlower.propertiesCodec()).apply(instance, CosmicFlower::new));
+    private static final VoxelShape SHAPE = Block.column(6.0, 0.0, 10.0);
+    private final SuspiciousStewEffects stewEffects;
 
-    public MapCodec<? extends CosmicFlower> getCodec() {
+    public MapCodec<? extends CosmicFlower> codec() {
         return CODEC;
     }
 
     @Override
-    protected boolean canPlantOnTop(BlockState floor, BlockView world, BlockPos pos) {
+    protected boolean mayPlaceOn(BlockState floor, BlockGetter world, BlockPos pos) {
         return CustomSapling.PLACE.contains(floor.getBlock());
     }
 
-    public CosmicFlower(RegistryEntry<StatusEffect> stewEffect, float effectLengthInSeconds, AbstractBlock.Settings settings) {
+    public CosmicFlower(Holder<MobEffect> stewEffect, float effectLengthInSeconds, BlockBehaviour.Properties settings) {
         this(CosmicFlower.createStewEffectList(stewEffect, effectLengthInSeconds), settings);
     }
 
-    public CosmicFlower(SuspiciousStewEffectsComponent stewEffects, AbstractBlock.Settings settings) {
+    public CosmicFlower(SuspiciousStewEffects stewEffects, BlockBehaviour.Properties settings) {
         super(settings);
         this.stewEffects = stewEffects;
     }
 
-    protected static SuspiciousStewEffectsComponent createStewEffectList(RegistryEntry<StatusEffect> effect, float effectLengthInSeconds) {
-        return new SuspiciousStewEffectsComponent(List.of(new SuspiciousStewEffectsComponent.StewEffect(effect, MathHelper.floor(effectLengthInSeconds * 20.0f))));
+    protected static SuspiciousStewEffects createStewEffectList(Holder<MobEffect> effect, float effectLengthInSeconds) {
+        return new SuspiciousStewEffects(List.of(new SuspiciousStewEffects.Entry(effect, Mth.floor(effectLengthInSeconds * 20.0f))));
     }
 
     @Override
-    protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return SHAPE.offset(state.getModelOffset(pos));
+    protected VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
+        return SHAPE.move(state.getOffset(pos));
     }
 
     @Override
-    public SuspiciousStewEffectsComponent getStewEffects() {
+    public SuspiciousStewEffects getSuspiciousEffects() {
         return this.stewEffects;
     }
 
     @Nullable
-    public StatusEffectInstance getContactEffect() {
+    public MobEffectInstance getContactEffect() {
         return null;
     }
 }

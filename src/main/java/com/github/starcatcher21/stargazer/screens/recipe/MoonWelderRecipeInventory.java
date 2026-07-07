@@ -1,14 +1,13 @@
 package com.github.starcatcher21.stargazer.screens.recipe;
 
-import net.minecraft.inventory.Inventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.RecipeInputProvider;
-
 import java.util.List;
+import net.minecraft.world.Container;
+import net.minecraft.world.inventory.StackedContentsCompatible;
+import net.minecraft.world.item.ItemStack;
 
 public interface MoonWelderRecipeInventory
-        extends Inventory,
-        RecipeInputProvider {
+        extends Container,
+        StackedContentsCompatible {
     /**
      * {@return the width of the recipe grid}
      */

@@ -1,13 +1,7 @@
 package com.github.starcatcher21.stargazer.mixin;
 
 import com.github.starcatcher21.stargazer.CustomWorlds;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.FramePass;
-import net.minecraft.client.render.SkyRendering;
-import net.minecraft.client.render.WorldRenderer;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.world.World;
-import net.minecraft.world.dimension.DimensionType;
+import com.mojang.blaze3d.framegraph.FramePass;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -15,27 +9,33 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 import java.util.Optional;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.LevelRenderer;
+import net.minecraft.client.renderer.SkyRenderer;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.dimension.DimensionType;
 
-@Mixin(WorldRenderer.class)
+@Mixin(LevelRenderer.class)
 public class WorldRendererMixin {
-    @Shadow @Final private MinecraftClient client;
+    @Shadow @Final private Minecraft minecraft;
 
-    @Shadow private SkyRendering skyRendering;
+    @Shadow private SkyRenderer skyRenderer;
 
     @Redirect(
-            method = "renderSky",
+            method = "addSkyPass",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/client/render/FramePass;setRenderer(Ljava/lang/Runnable;)V"
+                    target = "Lcom/mojang/blaze3d/framegraph/FramePass;executes(Ljava/lang/Runnable;)V"
             )
     )
     private void redirectFramePassSetRenderer(FramePass framePass, Runnable originalRunnable) {
-        framePass.setRenderer(() -> {
-            World world = client.world;
+        framePass.executes(() -> {
+            Level world = minecraft.level;
             if (world != null) {
-                Optional<RegistryKey<DimensionType>> dim = world.getDimensionEntry().getKey();
+                Optional<ResourceKey<DimensionType>> dim = world.dimensionTypeRegistration().unwrapKey();
                 if (dim.isPresent() && (dim.get().equals(CustomWorlds.COSMIC_TYPE) || dim.get().equals(CustomWorlds.RED_ORB_TYPE) || dim.get().equals(CustomWorlds.WANDER_TYPE))) {
-                    this.skyRendering.renderEndSky();
+                    this.skyRenderer.renderEndSky();
                 } else {
                     originalRunnable.run();
                 }

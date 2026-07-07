@@ -5,8 +5,8 @@ import com.github.starcatcher21.stargazer.screens.recipe.serializer.ShapedStarCr
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.shedaniel.rei.api.common.display.DisplaySerializer;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 
 public class StarCrusherDisplaySerializer implements DisplaySerializer<StarCrusherDisplay> {
     public final MapCodec<StarCrusherDisplay> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
@@ -14,8 +14,8 @@ public class StarCrusherDisplaySerializer implements DisplaySerializer<StarCrush
             .apply(instance, StarCrusherDisplay::new)
     );
 
-    public final PacketCodec<RegistryByteBuf, StarCrusherDisplay> PACKET_CODEC = PacketCodec.tuple(
-            ShapedStarCrusherRecipe.PACKET_CODEC,
+    public final StreamCodec<RegistryFriendlyByteBuf, StarCrusherDisplay> PACKET_CODEC = StreamCodec.composite(
+            ShapedStarCrusherRecipe.STREAM_CODEC,
             StarCrusherDisplay::recipe,
             StarCrusherDisplay::new
     );
@@ -25,7 +25,7 @@ public class StarCrusherDisplaySerializer implements DisplaySerializer<StarCrush
     }
 
     @Override
-    public PacketCodec<RegistryByteBuf, StarCrusherDisplay> streamCodec() {
+    public StreamCodec<RegistryFriendlyByteBuf, StarCrusherDisplay> streamCodec() {
         return PACKET_CODEC;
     }
 }

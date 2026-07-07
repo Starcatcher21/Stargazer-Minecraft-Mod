@@ -7,21 +7,21 @@ import com.google.common.annotations.VisibleForTesting;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.IngredientPlacement;
-import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.recipe.book.RecipeBookCategories;
-import net.minecraft.recipe.book.RecipeBookCategory;
-import net.minecraft.registry.DynamicRegistryManager;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Optional;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.PlacementInfo;
+import net.minecraft.world.item.crafting.RecipeBookCategories;
+import net.minecraft.world.item.crafting.RecipeBookCategory;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.level.Level;
 
 public class ShapedMoonWelderRecipe
         implements MoonWelderRecipe {
@@ -30,7 +30,7 @@ public class ShapedMoonWelderRecipe
     final String group;
     final boolean showNotification;
     @Nullable
-    private IngredientPlacement ingredientPlacement;
+    private PlacementInfo ingredientPlacement;
 
     public ShapedMoonWelderRecipe(String group, RawMoonWelderShapedRecipe raw, ItemStack result, boolean showNotification) {
         this.group = group;
@@ -49,11 +49,12 @@ public class ShapedMoonWelderRecipe
     }
 
     @Override
-    public String getGroup() {
+    public String group() {
         return this.group;
     }
 
-    public ItemStack craft(MoonWelderRecipeInput craftingRecipeInput, DynamicRegistryManager registryManager) {
+    @Override
+    public ItemStack assemble(MoonWelderRecipeInput craftingRecipeInput, RegistryAccess registryManager) {
         return this.result.copy();
     }
 
@@ -68,9 +69,9 @@ public class ShapedMoonWelderRecipe
     }
 
     @Override
-    public IngredientPlacement getIngredientPlacement() {
+    public PlacementInfo placementInfo() {
         if (this.ingredientPlacement == null) {
-            this.ingredientPlacement = IngredientPlacement.forMultipleSlots(List.of(Optional.of(this.raw.getItem1()),Optional.of(this.raw.getItem2())));
+            this.ingredientPlacement = PlacementInfo.createFromOptionals(List.of(Optional.of(this.raw.getItem1()),Optional.of(this.raw.getItem2())));
         }
         return this.ingredientPlacement;
     }
@@ -84,11 +85,16 @@ public class ShapedMoonWelderRecipe
         return this.showNotification;
     }
 
-    public boolean matches(MoonWelderRecipeInput craftingRecipeInput, World world) {
-        if (world.isClient()) {
+    public boolean matches(MoonWelderRecipeInput craftingRecipeInput, Level world) {
+        if (world.isClientSide()) {
             return false;
         }
         return this.raw.matches(craftingRecipeInput, world);
+    }
+
+    @Override
+    public ItemStack assemble(MoonWelderRecipeInput recipeInput, HolderLookup.Provider provider) {
+        return this.result.copy();
     }
 
     @Override
@@ -96,7 +102,7 @@ public class ShapedMoonWelderRecipe
         return this.raw.getMoonPhase();
     }
 
-    public ItemStack craft(MoonWelderRecipeInput craftingRecipeInput, RegistryWrapper.WrapperLookup wrapperLookup) {
+    public ItemStack craft(MoonWelderRecipeInput craftingRecipeInput, HolderLookup.Provider wrapperLookup) {
         return this.result.copy();
     }
 
@@ -109,7 +115,7 @@ public class ShapedMoonWelderRecipe
     }
 
     @Override
-    public RecipeBookCategory getRecipeBookCategory() {
+    public RecipeBookCategory recipeBookCategory() {
         return RecipeBookCategories.CAMPFIRE;
     }
 
@@ -118,9 +124,9 @@ public class ShapedMoonWelderRecipe
         public static final MapCodec<ShapedMoonWelderRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
                 Codec.STRING.optionalFieldOf("group", "").forGetter(recipe -> recipe.group),
                 RawMoonWelderShapedRecipe.CODEC.forGetter(recipe -> recipe.raw),
-                ItemStack.VALIDATED_CODEC.fieldOf("result").forGetter(recipe -> recipe.result)
+                ItemStack.STRICT_CODEC.fieldOf("result").forGetter(recipe -> recipe.result)
         ).apply(instance, (group, raw, result) -> new ShapedMoonWelderRecipe(group, raw, result)));
-        public static final PacketCodec<RegistryByteBuf, ShapedMoonWelderRecipe> PACKET_CODEC = PacketCodec.ofStatic(ShapedMoonWelderRecipe.Serializer::write, ShapedMoonWelderRecipe.Serializer::read);
+        public static final StreamCodec<RegistryFriendlyByteBuf, ShapedMoonWelderRecipe> PACKET_CODEC = StreamCodec.of(ShapedMoonWelderRecipe.Serializer::write, ShapedMoonWelderRecipe.Serializer::read);
 
         @Override
         public MapCodec<ShapedMoonWelderRecipe> codec() {
@@ -128,22 +134,22 @@ public class ShapedMoonWelderRecipe
         }
 
         @Override
-        public PacketCodec<RegistryByteBuf, ShapedMoonWelderRecipe> packetCodec() {
+        public StreamCodec<RegistryFriendlyByteBuf, ShapedMoonWelderRecipe> streamCodec() {
             return PACKET_CODEC;
         }
 
-        private static ShapedMoonWelderRecipe read(RegistryByteBuf buf) {
-            String string = buf.readString();
+        private static ShapedMoonWelderRecipe read(RegistryFriendlyByteBuf buf) {
+            String string = buf.readUtf();
             RawMoonWelderShapedRecipe rawShapedRecipe = (RawMoonWelderShapedRecipe)RawMoonWelderShapedRecipe.PACKET_CODEC.decode(buf);
-            ItemStack itemStack = (ItemStack)ItemStack.PACKET_CODEC.decode(buf);
+            ItemStack itemStack = (ItemStack)ItemStack.STREAM_CODEC.decode(buf);
             boolean bl = buf.readBoolean();
             return new ShapedMoonWelderRecipe(string, rawShapedRecipe, itemStack, bl);
         }
 
-        private static void write(RegistryByteBuf buf, ShapedMoonWelderRecipe recipe) {
-            buf.writeString(recipe.group);
+        private static void write(RegistryFriendlyByteBuf buf, ShapedMoonWelderRecipe recipe) {
+            buf.writeUtf(recipe.group);
             RawMoonWelderShapedRecipe.PACKET_CODEC.encode(buf, recipe.raw);
-            ItemStack.PACKET_CODEC.encode(buf, recipe.result);
+            ItemStack.STREAM_CODEC.encode(buf, recipe.result);
             buf.writeBoolean(recipe.showNotification);
         }
     }

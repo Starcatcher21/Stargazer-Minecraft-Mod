@@ -7,15 +7,14 @@ import com.github.starcatcher21.stargazer.worldgen.features.trees.Tree;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.TreeConfig;
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.util.FeatureContext;
-
 import java.util.ArrayList;
 import java.util.List;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 
 public class TrunnTrees extends Feature<TreeConfig> {
     public static final ImmutableList<Direction> GROW_DIRECTIONS = ImmutableList.of(
@@ -30,7 +29,7 @@ public class TrunnTrees extends Feature<TreeConfig> {
     }
 
     public static Tree register(String name) {
-        Tree tre = new Tree(true, name, Wander.TRUNN_LOG.getDefaultState(), Wander.TRUNN_LEAVES.getDefaultState());
+        Tree tre = new Tree(true, name, Wander.TRUNN_LOG.defaultBlockState(), Wander.TRUNN_LEAVES.defaultBlockState());
         TREELIST.add(tre);
         return tre;
     }
@@ -40,11 +39,11 @@ public class TrunnTrees extends Feature<TreeConfig> {
     }
 
     @Override
-    public boolean generate(FeatureContext<TreeConfig> context) {
-        TreeConfig config = context.getConfig();
-        boolean chunks = !context.getWorld().isPlayerInRange(context.getOrigin().getX(), context.getOrigin().getY(), context.getOrigin().getZ(), 100);
-        List<Block> growOn = config.growOn.stream().map(AbstractBlock.AbstractBlockState::getBlock).toList();
-        if (!growOn.contains(context.getWorld().getBlockState(context.getOrigin().down(1)).getBlock()) && chunks) {
+    public boolean place(FeaturePlaceContext<TreeConfig> context) {
+        TreeConfig config = context.config();
+        boolean chunks = !context.level().hasNearbyAlivePlayer(context.origin().getX(), context.origin().getY(), context.origin().getZ(), 100);
+        List<Block> growOn = config.growOn.stream().map(BlockBehaviour.BlockStateBase::getBlock).toList();
+        if (!growOn.contains(context.level().getBlockState(context.origin().below(1)).getBlock()) && chunks) {
             return false;
         }
         List<String> allowed = config.NAMES;
@@ -54,24 +53,24 @@ public class TrunnTrees extends Feature<TreeConfig> {
         } else {
             TREES = TREELIST.stream().filter(name -> allowed.contains(name.name)).toList();
         }
-        BlockPos pos = context.getOrigin();
+        BlockPos pos = context.origin();
         java.util.Random random = new java.util.Random();
         Tree tree = TREES.get(random.nextInt(TREES.size()));
         if (tree.ROTATO) {
             Direction dir = GROW_DIRECTIONS.get(random.nextInt(GROW_DIRECTIONS.size()));
             Tree rotated = DirectionalTree.getFromNorth(tree, dir);
-            if (rotated.canGrow(context.getWorld(), pos)) {
-                rotated.Grow(context.getWorld(), pos);
-                if (context.getWorld().getBlockState(pos.down(1)).getBlock().equals(MoonBlocks.MOON_ROCK_NYLIUM)) {
-                    this.setBlockState(context.getWorld(), pos.down(1), MoonBlocks.MOON_ROCK.getDefaultState());
+            if (rotated.canGrow(context.level(), pos)) {
+                rotated.Grow(context.level(), pos);
+                if (context.level().getBlockState(pos.below(1)).getBlock().equals(MoonBlocks.MOON_ROCK_NYLIUM)) {
+                    this.setBlock(context.level(), pos.below(1), MoonBlocks.MOON_ROCK.defaultBlockState());
                 }
                 return true;
             }
         } else {
-            if (tree.canGrow(context.getWorld(), pos)) {
-                tree.Grow(context.getWorld(), pos);
-                if (context.getWorld().getBlockState(pos.down(1)).getBlock().equals(MoonBlocks.MOON_ROCK_NYLIUM)) {
-                    this.setBlockState(context.getWorld(), pos.down(1), MoonBlocks.MOON_ROCK.getDefaultState());
+            if (tree.canGrow(context.level(), pos)) {
+                tree.Grow(context.level(), pos);
+                if (context.level().getBlockState(pos.below(1)).getBlock().equals(MoonBlocks.MOON_ROCK_NYLIUM)) {
+                    this.setBlock(context.level(), pos.below(1), MoonBlocks.MOON_ROCK.defaultBlockState());
                 }
                 return true;
             }

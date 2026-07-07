@@ -1,127 +1,127 @@
 package com.github.starcatcher21.stargazer;
 
 import com.google.common.collect.ImmutableList;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.particle.ParticleEffect;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.util.shape.VoxelShapes;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 public class Helpers {
-    public static RegistryKey<ConfiguredFeature<?, ?>> configuredFeatureOf(String id) {
-        return RegistryKey.of(RegistryKeys.CONFIGURED_FEATURE, Identifier.of(Stargazer.MOD_ID, id));
+    public static ResourceKey<ConfiguredFeature<?, ?>> configuredFeatureOf(String id) {
+        return ResourceKey.create(Registries.CONFIGURED_FEATURE, Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, id));
     }
-    public static void spawnParticle(World world, Vec3d pos, Random random, ParticleEffect effect) {
-        double d = pos.getX() + random.nextDouble();
-        double e = pos.getY() - 0.05;
-        double f = pos.getZ() + random.nextDouble();
-        world.addParticleClient(effect, d, e, f, 0.0, 0.0, 0.0);
+    public static void spawnParticle(Level world, Vec3 pos, RandomSource random, ParticleOptions effect) {
+        double d = pos.x() + random.nextDouble();
+        double e = pos.y() - 0.05;
+        double f = pos.z() + random.nextDouble();
+        world.addParticle(effect, d, e, f, 0.0, 0.0, 0.0);
     }
     public static VoxelShape getVox(LivingEntity entity, BlockPos pos) {
-        Box entBox = entity.getBoundingBox();
+        AABB entBox = entity.getBoundingBox();
         double enminX = entBox.minX - pos.getX();
         double enminY = entBox.minY - pos.getY();
         double enminZ = entBox.minZ - pos.getZ();
         double enmaxX = entBox.maxX - pos.getX();
         double enmaxY = entBox.maxY - pos.getY();
         double enmaxZ = entBox.maxZ - pos.getZ();
-        return VoxelShapes.cuboid(enminX, enminY, enminZ, enmaxX, enmaxY, enmaxZ);
+        return Shapes.box(enminX, enminY, enminZ, enmaxX, enmaxY, enmaxZ);
     }
-    public static boolean isIntersect(World world, LivingEntity entity, BlockState state, BlockPos pos) {
-        BlockView bw = (BlockView) world;
+    public static boolean isIntersect(Level world, LivingEntity entity, BlockState state, BlockPos pos) {
+        BlockGetter bw = (BlockGetter) world;
         VoxelShape entVox = Helpers.getVox(entity, pos);
-        VoxelShape blockVox = state.getOutlineShape(bw, pos);
+        VoxelShape blockVox = state.getShape(bw, pos);
 
-        Box bBox = blockVox.getBoundingBox();
-        Box eBox = entVox.getBoundingBox();
+        AABB bBox = blockVox.bounds();
+        AABB eBox = entVox.bounds();
         return bBox.intersects(eBox);
     }
-    public static boolean isIntersectSolid(World world, LivingEntity entity, BlockState state, BlockPos pos) {
-        BlockView bw = (BlockView) world;
+    public static boolean isIntersectSolid(Level world, LivingEntity entity, BlockState state, BlockPos pos) {
+        BlockGetter bw = (BlockGetter) world;
         VoxelShape entVox = Helpers.getVox(entity, pos);
-        VoxelShape blockVox = state.getOutlineShape(bw, pos);
+        VoxelShape blockVox = state.getShape(bw, pos);
 
-        Box bhBox = blockVox.getBoundingBox();
-        Box bBox = VoxelShapes.cuboid(bhBox.minX - 0.1, bhBox.minY - 0.1, bhBox.minZ - 0.1, bhBox.maxX + 0.1, bhBox.maxY + 0.1, bhBox.maxZ + 0.1).getBoundingBox();
-        Box eBox = entVox.getBoundingBox();
+        AABB bhBox = blockVox.bounds();
+        AABB bBox = Shapes.box(bhBox.minX - 0.1, bhBox.minY - 0.1, bhBox.minZ - 0.1, bhBox.maxX + 0.1, bhBox.maxY + 0.1, bhBox.maxZ + 0.1).bounds();
+        AABB eBox = entVox.bounds();
         return bBox.intersects(eBox);
     }
-    public static boolean isIntersectCollision(World world, LivingEntity entity, BlockState state, BlockPos pos) {
-        BlockView bv = (BlockView) world;
+    public static boolean isIntersectCollision(Level world, LivingEntity entity, BlockState state, BlockPos pos) {
+        BlockGetter bv = (BlockGetter) world;
         VoxelShape entVox = Helpers.getVox(entity, pos);
         VoxelShape blockVox = state.getCollisionShape(bv, pos);
 
-        Box bBox = blockVox.getBoundingBox();
-        Box eBox = entVox.getBoundingBox();
+        AABB bBox = blockVox.bounds();
+        AABB eBox = entVox.bounds();
         return bBox.intersects(eBox);
     }
-    public static boolean isIntersectSolidCollision(World world, LivingEntity entity, BlockState state, BlockPos pos) {
-        BlockView bw = (BlockView) world;
+    public static boolean isIntersectSolidCollision(Level world, LivingEntity entity, BlockState state, BlockPos pos) {
+        BlockGetter bw = (BlockGetter) world;
         VoxelShape entVox = Helpers.getVox(entity, pos);
         VoxelShape blockVox = state.getCollisionShape(bw, pos);
 
-        Box bhBox = blockVox.getBoundingBox();
-        Box bBox = VoxelShapes.cuboid(bhBox.minX - 0.1, bhBox.minY - 0.1, bhBox.minZ - 0.1, bhBox.maxX + 0.1, bhBox.maxY + 0.1, bhBox.maxZ + 0.1).getBoundingBox();
-        Box eBox = entVox.getBoundingBox();
+        AABB bhBox = blockVox.bounds();
+        AABB bBox = Shapes.box(bhBox.minX - 0.1, bhBox.minY - 0.1, bhBox.minZ - 0.1, bhBox.maxX + 0.1, bhBox.maxY + 0.1, bhBox.maxZ + 0.1).bounds();
+        AABB eBox = entVox.bounds();
         return bBox.intersects(eBox);
     }
-    public static boolean isIntersectCustom(LivingEntity entity, BlockPos pos, Box bBox) {
+    public static boolean isIntersectCustom(LivingEntity entity, BlockPos pos, AABB bBox) {
         VoxelShape entVox = Helpers.getVox(entity, pos);
 
-        Box eBox = entVox.getBoundingBox();
+        AABB eBox = entVox.bounds();
         return bBox.intersects(eBox);
     }
     public static VoxelShape FacingAll(Direction dir, float minX, float minY, float minZ, float maxX, float maxY, float maxZ) {
         return switch (dir) {
-            case DOWN -> VoxelShapes.cuboid(1-maxX, 1-maxY, 1-maxZ, 1-minX, 1-minY, 1-minZ);
-            case EAST -> VoxelShapes.cuboid(minY, minX, minZ, maxY, maxX, maxZ);
-            case WEST -> VoxelShapes.cuboid(1-maxY, 1-maxX, 1-maxZ, 1-minY, 1-minX, 1-minZ);
-            case NORTH -> VoxelShapes.cuboid(1-maxZ, 1-maxX, 1-maxY, 1-minZ, 1-minX, 1-minY);
-            case SOUTH -> VoxelShapes.cuboid(minZ, minX, minY, maxZ, maxX, maxY);
-            default ->  VoxelShapes.cuboid(minX, minY, minZ, maxX, maxY, maxZ);
+            case DOWN -> Shapes.box(1-maxX, 1-maxY, 1-maxZ, 1-minX, 1-minY, 1-minZ);
+            case EAST -> Shapes.box(minY, minX, minZ, maxY, maxX, maxZ);
+            case WEST -> Shapes.box(1-maxY, 1-maxX, 1-maxZ, 1-minY, 1-minX, 1-minZ);
+            case NORTH -> Shapes.box(1-maxZ, 1-maxX, 1-maxY, 1-minZ, 1-minX, 1-minY);
+            case SOUTH -> Shapes.box(minZ, minX, minY, maxZ, maxX, maxY);
+            default ->  Shapes.box(minX, minY, minZ, maxX, maxY, maxZ);
         };
     }
     public static VoxelShape FacingHorizontal(Direction dir, float minX, float minY, float minZ, float maxX, float maxY, float maxZ, boolean lowZ) {
         if (!lowZ) {
             return switch (dir) {
-                case EAST -> VoxelShapes.cuboid(1 - maxZ, 1 - maxY, 1 - maxX, 1 - minZ, 1 - minY, 1 - minX);
-                case WEST -> VoxelShapes.cuboid(minZ, minY, minX, maxZ, maxY, maxX);
-                case SOUTH -> VoxelShapes.cuboid(1 - maxX, 1 - maxY, 1 - maxZ, 1 - minX, 1 - minY, 1 - minZ);
-                default -> VoxelShapes.cuboid(minX, minY, minZ, maxX, maxY, maxZ);
+                case EAST -> Shapes.box(1 - maxZ, 1 - maxY, 1 - maxX, 1 - minZ, 1 - minY, 1 - minX);
+                case WEST -> Shapes.box(minZ, minY, minX, maxZ, maxY, maxX);
+                case SOUTH -> Shapes.box(1 - maxX, 1 - maxY, 1 - maxZ, 1 - minX, 1 - minY, 1 - minZ);
+                default -> Shapes.box(minX, minY, minZ, maxX, maxY, maxZ);
             };
         } else {
             return switch (dir) {
-                case EAST -> VoxelShapes.cuboid(1 - maxZ, minY, 1 - maxX, 1 - minZ,  maxY, 1 - minX);
-                case WEST -> VoxelShapes.cuboid(minZ, minY, minX, maxZ, maxY, maxX);
-                case SOUTH -> VoxelShapes.cuboid(1 - maxX, minY, 1 - maxZ, 1 - minX, maxY, 1 - minZ);
-                default -> VoxelShapes.cuboid(minX, minY, minZ, maxX, maxY, maxZ);
+                case EAST -> Shapes.box(1 - maxZ, minY, 1 - maxX, 1 - minZ,  maxY, 1 - minX);
+                case WEST -> Shapes.box(minZ, minY, minX, maxZ, maxY, maxX);
+                case SOUTH -> Shapes.box(1 - maxX, minY, 1 - maxZ, 1 - minX, maxY, 1 - minZ);
+                default -> Shapes.box(minX, minY, minZ, maxX, maxY, maxZ);
             };
         }
     }
-    public static boolean isColliding(Block targetBlock, BlockView world, BlockPos pos, Direction dir) {
+    public static boolean isColliding(Block targetBlock, BlockGetter world, BlockPos pos, Direction dir) {
         return switch (dir) {
             case NORTH -> world.getBlockState(pos.north(1)).getBlock() == targetBlock;
             case SOUTH -> world.getBlockState(pos.south(1)).getBlock() == targetBlock;
             case WEST -> world.getBlockState(pos.west(1)).getBlock() == targetBlock;
             case EAST -> world.getBlockState(pos.east(1)).getBlock() == targetBlock;
-            case UP -> world.getBlockState(pos.up(1)).getBlock() == targetBlock;
-            case DOWN -> world.getBlockState(pos.down(1)).getBlock() == targetBlock;
+            case UP -> world.getBlockState(pos.above(1)).getBlock() == targetBlock;
+            case DOWN -> world.getBlockState(pos.below(1)).getBlock() == targetBlock;
         };
     }
-    public static boolean isCollidingAny(Block targetBlock, BlockView world, BlockPos pos, ImmutableList<Direction> list) {
+    public static boolean isCollidingAny(Block targetBlock, BlockGetter world, BlockPos pos, ImmutableList<Direction> list) {
         for (Direction direction : list) {
             if (isColliding(targetBlock, world, pos, direction)) {
                 return true;
@@ -131,7 +131,7 @@ public class Helpers {
     }
 
     @Nullable
-    public static Direction getCollidingDirection(Block targetBlock, BlockView world, BlockPos pos, ImmutableList<Direction> list) {
+    public static Direction getCollidingDirection(Block targetBlock, BlockGetter world, BlockPos pos, ImmutableList<Direction> list) {
         for (Direction direction : list) {
             if (isColliding(targetBlock, world, pos, direction)) {
                 return direction;
@@ -141,7 +141,7 @@ public class Helpers {
     }
 
     @Nullable
-    public static BlockPos getCollidingPosition(Block targetBlock, BlockView world, BlockPos pos, ImmutableList<Direction> list) {
+    public static BlockPos getCollidingPosition(Block targetBlock, BlockGetter world, BlockPos pos, ImmutableList<Direction> list) {
         for (Direction direction : list) {
             if (isColliding(targetBlock, world, pos, direction)) {
                 return switch (direction) {
@@ -149,8 +149,8 @@ public class Helpers {
                     case SOUTH -> pos.south(1);
                     case WEST -> pos.west(1);
                     case EAST -> pos.east(1);
-                    case UP -> pos.up(1);
-                    case DOWN -> pos.down(1);
+                    case UP -> pos.above(1);
+                    case DOWN -> pos.below(1);
                 };
             }
         }

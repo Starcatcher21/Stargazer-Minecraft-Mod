@@ -5,22 +5,21 @@ import com.github.starcatcher21.stargazer.mechanics.advancements.Criterias;
 import com.github.starcatcher21.stargazer.mechanics.star.FallingObject;
 import com.github.starcatcher21.stargazer.mechanics.star.FallingObjectsList;
 import com.mojang.serialization.MapCodec;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.consume.ConsumeEffect;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.codec.PacketCodecs;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.world.World;
-
 import java.util.Collections;
+import net.minecraft.client.Minecraft;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.consume_effects.ConsumeEffect;
+import net.minecraft.world.level.Level;
 
 public record StarGazeConsume() implements ConsumeEffect {
         public static final MapCodec<StarGazeConsume> CODEC = MapCodec.unit(new StarGazeConsume());
-        public static final PacketCodec<RegistryByteBuf, StarGazeConsume> PACKET_CODEC = PacketCodecs.registryCodec(CODEC.codec());
+        public static final StreamCodec<RegistryFriendlyByteBuf, StarGazeConsume> PACKET_CODEC = ByteBufCodecs.fromCodecWithRegistries(CODEC.codec());
 
         public StarGazeConsume() {
         }
@@ -31,16 +30,16 @@ public record StarGazeConsume() implements ConsumeEffect {
         }
 
         @Override
-        public boolean onConsume(World world, ItemStack stack, LivingEntity user) {
+        public boolean apply(Level world, ItemStack stack, LivingEntity user) {
             for (FallingObjectsList list : FallingObjectsList.list2) {
-                if (user.getEntityWorld().getRegistryKey().equals(list.world)) {
+                if (user.level().dimension().equals(list.world)) {
                     Collections.shuffle(list.weightedList);
                     FallingObject star = list.weightedList.get(user.getRandom().nextInt(list.weightedList.size()));
-                    if (user instanceof ServerPlayerEntity spe) {
+                    if (user instanceof ServerPlayer spe) {
                         Criterias.starcatching.trigger(spe, star.item.value());
                     }
-                    if (user instanceof PlayerEntity pe) {
-                        star.spawn(MinecraftClient.getInstance(), pe, user.getEntityWorld());
+                    if (user instanceof Player pe) {
+                        star.spawn(Minecraft.getInstance(), pe, user.level());
                     }
                 }
             }

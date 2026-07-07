@@ -1,31 +1,31 @@
 package com.github.starcatcher21.stargazer.screens;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.screen.ScreenHandlerContext;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.item.ItemStack;
 
 public class StarBookScreenHandler
-        extends ScreenHandler {
-    private final ScreenHandlerContext context;
+        extends AbstractContainerMenu {
+    private final ContainerLevelAccess context;
 
-    public StarBookScreenHandler(int syncId, PlayerInventory playerInventory) {
-        this(syncId, playerInventory, ScreenHandlerContext.EMPTY);
+    public StarBookScreenHandler(int syncId, Inventory playerInventory) {
+        this(syncId, playerInventory, ContainerLevelAccess.NULL);
     }
 
-    public StarBookScreenHandler(int syncId, PlayerInventory playerInventory, ScreenHandlerContext context) {
+    public StarBookScreenHandler(int syncId, Inventory playerInventory, ContainerLevelAccess context) {
         super(ScreenHandlerTypes.STARBOOK_HANDLER, syncId);
         this.context = context;
     }
 
     @Override
-    public ItemStack quickMove(PlayerEntity player, int slot) {
+    public ItemStack quickMoveStack(Player player, int slot) {
         return null;
     }
 
     @Override
-    public boolean canUse(PlayerEntity player) {
+    public boolean stillValid(Player player) {
         return true;
     }
 }

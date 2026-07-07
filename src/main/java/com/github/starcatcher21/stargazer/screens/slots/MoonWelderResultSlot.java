@@ -5,113 +5,113 @@ import com.github.starcatcher21.stargazer.screens.recipe.MoonWelderRecipe;
 import com.github.starcatcher21.stargazer.screens.recipe.MoonWelderRecipeInput;
 import com.github.starcatcher21.stargazer.screens.recipe.MoonWelderRecipeInventory;
 import com.github.starcatcher21.stargazer.screens.recipe.RecipeTypes;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.screen.slot.Slot;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.world.World;
+import net.minecraft.core.NonNullList;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.Container;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.UnknownNullability;
 
 public class MoonWelderResultSlot
         extends Slot {
     private final MoonWelderRecipeInventory input;
-    private final PlayerEntity player;
+    private final Player player;
     private int amount;
 
-    public MoonWelderResultSlot(PlayerEntity player, MoonWelderRecipeInventory input, Inventory inventory, int index, int x, int y) {
+    public MoonWelderResultSlot(Player player, MoonWelderRecipeInventory input, Container inventory, int index, int x, int y) {
         super(inventory, index, x, y);
         this.player = player;
         this.input = input;
     }
 
     @Override
-    public boolean canInsert(ItemStack stack) {
+    public boolean mayPlace(ItemStack stack) {
         return false;
     }
 
     @Override
-    public ItemStack takeStack(int amount) {
-        if (this.hasStack()) {
-            this.amount += Math.min(amount, this.getStack().getCount());
+    public ItemStack remove(int amount) {
+        if (this.hasItem()) {
+            this.amount += Math.min(amount, this.getItem().getCount());
         }
-        return super.takeStack(amount);
+        return super.remove(amount);
     }
 
     @Override
-    protected void onCrafted(ItemStack stack, int amount) {
+    protected void onQuickCraft(ItemStack stack, int amount) {
         this.amount += amount;
-        this.onCrafted(stack);
+        this.checkTakeAchievements(stack);
     }
 
     @Override
-    protected void onTake(int amount) {
+    protected void onSwapCraft(int amount) {
         this.amount += amount;
     }
 
     @Override
-    protected void onCrafted(ItemStack stack) {
+    protected void checkTakeAchievements(ItemStack stack) {
 //        Inventory inventory;
         if (this.amount > 0) {
-            stack.onCraftByPlayer(this.player, this.amount);
+            stack.onCraftedBy(this.player, this.amount);
         }
         this.amount = 0;
     }
 
-    private static DefaultedList<ItemStack> copyInput(@UnknownNullability MoonWelderRecipeInput input) {
-        DefaultedList<ItemStack> defaultedList = DefaultedList.ofSize(input.size(), ItemStack.EMPTY);
+    private static NonNullList<ItemStack> copyInput(@UnknownNullability MoonWelderRecipeInput input) {
+        NonNullList<ItemStack> defaultedList = NonNullList.withSize(input.size(), ItemStack.EMPTY);
         for (int i = 0; i < defaultedList.size(); ++i) {
-            defaultedList.set(i, input.getStackInSlot(i));
+            defaultedList.set(i, input.getItem(i));
         }
         return defaultedList;
     }
 
-    private DefaultedList<ItemStack> getRecipeRemainders(MoonWelderRecipeInput input, World world) {
-        if (world instanceof ServerWorld) {
-            ServerWorld serverWorld = (ServerWorld)world;
-            return serverWorld.getRecipeManager().getFirstMatch(RecipeTypes.MOON_WELDER, input, serverWorld).map(recipe -> ((MoonWelderRecipe)recipe.value()).getRecipeRemainders(input)).orElseGet(() -> MoonWelderResultSlot.copyInput(input));
+    private NonNullList<ItemStack> getRecipeRemainders(MoonWelderRecipeInput input, Level world) {
+        if (world instanceof ServerLevel) {
+            ServerLevel serverWorld = (ServerLevel)world;
+            return serverWorld.recipeAccess().getRecipeFor(RecipeTypes.MOON_WELDER, input, serverWorld).map(recipe -> ((MoonWelderRecipe)recipe.value()).getRecipeRemainders(input)).orElseGet(() -> MoonWelderResultSlot.copyInput(input));
         }
         return MoonWelderRecipe.collectRecipeRemainders(input);
     }
 
     @Override
-    public void onTakeItem(PlayerEntity player, ItemStack stack) {
-        this.onCrafted(stack);
+    public void onTake(Player player, ItemStack stack) {
+        this.checkTakeAchievements(stack);
 
         MoonWelderRecipeInput craftingRecipeInput = this.input.createRecipeInput();
 
-        World world = player.getEntityWorld();
-        DefaultedList<ItemStack> recipeRemainders = this.getRecipeRemainders(craftingRecipeInput, world);
+        Level world = player.level();
+        NonNullList<ItemStack> recipeRemainders = this.getRecipeRemainders(craftingRecipeInput, world);
 
-        for (int i = 0; i < this.input.size(); ++i) {
-            ItemStack inputStack = this.input.getStack(i);
+        for (int i = 0; i < this.input.getContainerSize(); ++i) {
+            ItemStack inputStack = this.input.getItem(i);
             if (!inputStack.isEmpty()) {
-                this.input.removeStack(i, 1);
+                this.input.removeItem(i, 1);
 
                 ItemStack remainderStack = recipeRemainders.get(i);
                 if (!remainderStack.isEmpty()) {
                     if (inputStack.isEmpty()) {
-                        this.input.setStack(i, remainderStack);
-                    } else if (ItemStack.areItemsAndComponentsEqual(inputStack, remainderStack)) {
-                        remainderStack.increment(inputStack.getCount());
-                        this.input.setStack(i, remainderStack);
+                        this.input.setItem(i, remainderStack);
+                    } else if (ItemStack.isSameItemSameComponents(inputStack, remainderStack)) {
+                        remainderStack.grow(inputStack.getCount());
+                        this.input.setItem(i, remainderStack);
                     } else {
-                        if (!player.getInventory().insertStack(remainderStack)) {
-                            player.dropItem(remainderStack, false);
+                        if (!player.getInventory().add(remainderStack)) {
+                            player.drop(remainderStack, false);
                         }
                     }
                 }
             }
         }
-        if (player instanceof ServerPlayerEntity spe) {
+        if (player instanceof ServerPlayer spe) {
             Criterias.moonWeld.trigger(spe, stack.getItem());
         }
     }
 
     @Override
-    public boolean disablesDynamicDisplay() {
+    public boolean isFake() {
         return true;
     }
 }

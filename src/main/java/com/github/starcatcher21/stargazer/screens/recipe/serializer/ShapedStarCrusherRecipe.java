@@ -1,4 +1,3 @@
-
 package com.github.starcatcher21.stargazer.screens.recipe.serializer;
 
 import com.github.starcatcher21.stargazer.screens.recipe.*;
@@ -6,22 +5,22 @@ import com.google.common.annotations.VisibleForTesting;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.block.Blocks;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.IngredientPlacement;
-import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.recipe.book.RecipeBookCategories;
-import net.minecraft.recipe.book.RecipeBookCategory;
-import net.minecraft.registry.DynamicRegistryManager;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Optional;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.PlacementInfo;
+import net.minecraft.world.item.crafting.RecipeBookCategories;
+import net.minecraft.world.item.crafting.RecipeBookCategory;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
 
 public class ShapedStarCrusherRecipe
         implements StarCrusherRecipe {
@@ -30,7 +29,7 @@ public class ShapedStarCrusherRecipe
     final String group;
     final boolean showNotification;
     @Nullable
-    private IngredientPlacement ingredientPlacement;
+    private PlacementInfo ingredientPlacement;
 
     public ShapedStarCrusherRecipe(String group, StarCrusherShapedRecipe raw, ItemStack result, boolean showNotification) {
         this.group = group;
@@ -49,16 +48,16 @@ public class ShapedStarCrusherRecipe
     }
 
     @Override
-    public String getGroup() {
+    public String group() {
         return this.group;
     }
 
-    public ItemStack craft(StarCrusherRecipeInput craftingRecipeInput, DynamicRegistryManager registryManager) {
+    public ItemStack craft(StarCrusherRecipeInput craftingRecipeInput, RegistryAccess registryManager) {
         return this.result.copy();
     }
 
     @Override
-    public boolean matches(StarCrusherRecipeInput recipeInput, World world) {
+    public boolean matches(StarCrusherRecipeInput recipeInput, Level world) {
         Ingredient item1 = this.raw.getItem1();
         ItemStack stack;
         try {
@@ -66,11 +65,11 @@ public class ShapedStarCrusherRecipe
         } catch (Exception e) {
             stack = new ItemStack(Blocks.AIR.asItem());
         }
-        return Ingredient.matches(Optional.of(item1), stack);
+        return Ingredient.testOptionalIngredient(Optional.of(item1), stack);
     }
 
     @Override
-    public ItemStack craft(StarCrusherRecipeInput input, RegistryWrapper.WrapperLookup registries) {
+    public ItemStack assemble(StarCrusherRecipeInput input, HolderLookup.Provider registries) {
         return this.result.copy();
     }
 
@@ -85,9 +84,9 @@ public class ShapedStarCrusherRecipe
     }
 
     @Override
-    public IngredientPlacement getIngredientPlacement() {
+    public PlacementInfo placementInfo() {
         if (this.ingredientPlacement == null) {
-            this.ingredientPlacement = IngredientPlacement.forMultipleSlots(List.of(Optional.of(this.raw.getItem1())));
+            this.ingredientPlacement = PlacementInfo.createFromOptionals(List.of(Optional.of(this.raw.getItem1())));
         }
         return this.ingredientPlacement;
     }
@@ -102,7 +101,7 @@ public class ShapedStarCrusherRecipe
     }
 
     @Override
-    public RecipeBookCategory getRecipeBookCategory() {
+    public RecipeBookCategory recipeBookCategory() {
         return RecipeBookCategories.CAMPFIRE;
     }
 
@@ -111,9 +110,9 @@ public class ShapedStarCrusherRecipe
         public static final MapCodec<ShapedStarCrusherRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
                 Codec.STRING.optionalFieldOf("group", "").forGetter(recipe -> recipe.group),
                 StarCrusherShapedRecipe.CODEC.forGetter(recipe -> recipe.raw),
-                ItemStack.VALIDATED_CODEC.fieldOf("result").forGetter(recipe -> recipe.result)
+                ItemStack.STRICT_CODEC.fieldOf("result").forGetter(recipe -> recipe.result)
         ).apply(instance, (group, raw, result) -> new ShapedStarCrusherRecipe(group, raw, result)));
-        public static final PacketCodec<RegistryByteBuf, ShapedStarCrusherRecipe> PACKET_CODEC = PacketCodec.ofStatic(ShapedStarCrusherRecipe.Serializer::write, ShapedStarCrusherRecipe.Serializer::read);
+        public static final StreamCodec<RegistryFriendlyByteBuf, ShapedStarCrusherRecipe> PACKET_CODEC = StreamCodec.of(ShapedStarCrusherRecipe.Serializer::write, ShapedStarCrusherRecipe.Serializer::read);
 
         @Override
         public MapCodec<ShapedStarCrusherRecipe> codec() {
@@ -121,22 +120,22 @@ public class ShapedStarCrusherRecipe
         }
 
         @Override
-        public PacketCodec<RegistryByteBuf, ShapedStarCrusherRecipe> packetCodec() {
+        public StreamCodec<RegistryFriendlyByteBuf, ShapedStarCrusherRecipe> streamCodec() {
             return PACKET_CODEC;
         }
 
-        private static ShapedStarCrusherRecipe read(RegistryByteBuf buf) {
-            String string = buf.readString();
+        private static ShapedStarCrusherRecipe read(RegistryFriendlyByteBuf buf) {
+            String string = buf.readUtf();
             StarCrusherShapedRecipe rawShapedRecipe = (StarCrusherShapedRecipe)StarCrusherShapedRecipe.PACKET_CODEC.decode(buf);
-            ItemStack itemStack = (ItemStack)ItemStack.PACKET_CODEC.decode(buf);
+            ItemStack itemStack = (ItemStack)ItemStack.STREAM_CODEC.decode(buf);
             boolean bl = buf.readBoolean();
             return new ShapedStarCrusherRecipe(string, rawShapedRecipe, itemStack, bl);
         }
 
-        private static void write(RegistryByteBuf buf, ShapedStarCrusherRecipe recipe) {
-            buf.writeString(recipe.group);
+        private static void write(RegistryFriendlyByteBuf buf, ShapedStarCrusherRecipe recipe) {
+            buf.writeUtf(recipe.group);
             StarCrusherShapedRecipe.PACKET_CODEC.encode(buf, recipe.raw);
-            ItemStack.PACKET_CODEC.encode(buf, recipe.result);
+            ItemStack.STREAM_CODEC.encode(buf, recipe.result);
             buf.writeBoolean(recipe.showNotification);
         }
     }

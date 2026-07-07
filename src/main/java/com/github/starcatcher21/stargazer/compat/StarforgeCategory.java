@@ -14,16 +14,15 @@ import me.shedaniel.rei.api.client.registry.display.DisplayCategory;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.util.EntryStacks;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
-
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.crafting.Ingredient;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
 public class StarforgeCategory implements DisplayCategory<StarforgeDisplay> {
-    public static final Identifier TEXTURE = Identifier.of(Stargazer.MOD_ID, "textures/gui/starforge/starforge_gui.png");
+    public static final Identifier TEXTURE = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/starforge/starforge_gui.png");
     public static final CategoryIdentifier<StarforgeDisplay> STARFORGE = CategoryIdentifier.of(Stargazer.MOD_ID, "starforge");
     @Override
     public CategoryIdentifier<? extends StarforgeDisplay> getCategoryIdentifier() {
@@ -31,13 +30,13 @@ public class StarforgeCategory implements DisplayCategory<StarforgeDisplay> {
     }
 
     @Override
-    public Text getTitle() {
+    public Component getTitle() {
         return Starforge.TITLE;
     }
 
     @Override
     public Renderer getIcon() {
-        return EntryStacks.of(MoonBlocks.STAR_FORGE.asItem().getDefaultStack());
+        return EntryStacks.of(MoonBlocks.STAR_FORGE.asItem().getDefaultInstance());
     }
 
     @Override

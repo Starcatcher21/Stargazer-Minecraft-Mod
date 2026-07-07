@@ -1,21 +1,21 @@
 package com.github.starcatcher21.stargazer.block.clases.star.star_display;
 
 import com.github.starcatcher21.stargazer.entity.DataTickets;
-import net.minecraft.block.Blocks;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.item.ItemModelManager;
-import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.block.entity.state.BlockEntityRenderState;
-import net.minecraft.client.render.command.OrderedRenderCommandQueue;
-import net.minecraft.client.render.item.ItemRenderState;
-import net.minecraft.client.render.state.CameraRenderState;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.item.ItemDisplayContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.text.OrderedText;
-import net.minecraft.text.Text;
-import net.minecraft.util.math.RotationAxis;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;
+import net.minecraft.client.renderer.item.ItemModelResolver;
+import net.minecraft.client.renderer.item.ItemStackRenderState;
+import net.minecraft.client.renderer.state.CameraRenderState;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.network.chat.Component;
+import net.minecraft.util.FormattedCharSequence;
+import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Blocks;
 import org.jspecify.annotations.Nullable;
 import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.renderer.GeoBlockRenderer;
@@ -33,67 +33,67 @@ public class StarDisplayRenderer<R extends BlockEntityRenderState & GeoRenderSta
     }
 
     @Override
-    public void render(R state, MatrixStack matrices, OrderedRenderCommandQueue queue, CameraRenderState cameraState) {
-        super.render(state, matrices, queue, cameraState);
+    public void submit(R state, PoseStack matrices, SubmitNodeCollector queue, CameraRenderState cameraState) {
+        super.submit(state, matrices, queue, cameraState);
 
         ItemStack stack = state.getGeckolibData(DataTickets.INVENTORY);
         if (stack == null || stack.isEmpty()) {
             return;
         }
 
-        ItemModelManager modelManager = MinecraftClient.getInstance().getItemModelManager();
-        ItemRenderState itemRenderState = new ItemRenderState();
+        ItemModelResolver modelManager = Minecraft.getInstance().getItemModelResolver();
+        ItemStackRenderState itemRenderState = new ItemStackRenderState();
 
-        modelManager.update(itemRenderState, stack, ItemDisplayContext.GROUND, null, null, 0);
+        modelManager.appendItemLayers(itemRenderState, stack, ItemDisplayContext.GROUND, null, null, 0);
 
-        matrices.push();
+        matrices.pushPose();
         matrices.translate(0.5f, 0.5f, 0.5f);
         matrices.scale(1.0f, 1.0f, 1.0f);
-        matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(state.getGeckolibData(DataTickets.ROTATION)));
+        matrices.mulPose(Axis.YP.rotationDegrees(state.getGeckolibData(DataTickets.ROTATION)));
 
-        int overlay = OverlayTexture.DEFAULT_UV;
-        itemRenderState.render(matrices, queue, state.lightmapCoordinates, overlay, 0);
-        matrices.pop();
+        int overlay = OverlayTexture.NO_OVERLAY;
+        itemRenderState.submit(matrices, queue, state.lightCoords, overlay, 0);
+        matrices.popPose();
 
 
-        ItemModelManager modelManager2 = MinecraftClient.getInstance().getItemModelManager();
-        ItemRenderState itemRenderState2 = new ItemRenderState();
-        modelManager2.update(itemRenderState2, Blocks.GLASS.asItem().getDefaultStack(), ItemDisplayContext.GROUND, null, null, 0);
+        ItemModelResolver modelManager2 = Minecraft.getInstance().getItemModelResolver();
+        ItemStackRenderState itemRenderState2 = new ItemStackRenderState();
+        modelManager2.appendItemLayers(itemRenderState2, Blocks.GLASS.asItem().getDefaultInstance(), ItemDisplayContext.GROUND, null, null, 0);
 
-        matrices.push();
+        matrices.pushPose();
         matrices.translate(0.5f, 0.35f, 0.5f);
         matrices.scale(2f, 2f, 2f);
-        matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(state.getGeckolibData(DataTickets.ROTATION) * -1));
+        matrices.mulPose(Axis.YP.rotationDegrees(state.getGeckolibData(DataTickets.ROTATION) * -1));
 
-        itemRenderState2.render(matrices, queue, state.lightmapCoordinates, overlay, 0);
-        matrices.pop();
+        itemRenderState2.submit(matrices, queue, state.lightCoords, overlay, 0);
+        matrices.popPose();
 
 
         if (stack.getCount() > 1) {
             String countText = String.valueOf(stack.getCount());
-            OrderedText orderedText = Text.of(countText).asOrderedText();
+            FormattedCharSequence orderedText = Component.nullToEmpty(countText).getVisualOrderText();
 
-            float textWidth = MinecraftClient.getInstance().textRenderer.getWidth(orderedText);
+            float textWidth = Minecraft.getInstance().font.width(orderedText);
             float textHeight = 8.0f;
 
-            matrices.push();
+            matrices.pushPose();
             matrices.translate(0.5f, 0.3f, 0.5f);
             matrices.scale(1 / 24f, 1 / 24f, 1 / 24f);
-            matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(state.getGeckolibData(DataTickets.ROTATION)));
-            matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(90));
+            matrices.mulPose(Axis.YP.rotationDegrees(state.getGeckolibData(DataTickets.ROTATION)));
+            matrices.mulPose(Axis.XP.rotationDegrees(90));
             queue.submitText(
                     matrices,
                     -textWidth / 2f,
                     -textHeight / 2f,
-                    Text.of(countText).asOrderedText(),
+                    Component.nullToEmpty(countText).getVisualOrderText(),
                     false,
-                    TextRenderer.TextLayerType.NORMAL,
-                    state.lightmapCoordinates,
+                    Font.DisplayMode.NORMAL,
+                    state.lightCoords,
                     0xFFFFFFFF,
                     0x00000000,
                     0x00000000
             );
-            matrices.pop();
+            matrices.popPose();
         }
     }
 }
