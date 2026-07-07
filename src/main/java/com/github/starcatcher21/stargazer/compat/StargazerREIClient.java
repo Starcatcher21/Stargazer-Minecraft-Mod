@@ -1,12 +1,15 @@
 package com.github.starcatcher21.stargazer.compat;
 
 import com.github.starcatcher21.stargazer.block.ModBlock;
+import com.github.starcatcher21.stargazer.block.register.Energy;
 import com.github.starcatcher21.stargazer.block.register.MoonBlocks;
 import com.github.starcatcher21.stargazer.mechanics.star.FallingObjectsList;
 import com.github.starcatcher21.stargazer.screens.handled.MoonWelderHandled;
+import com.github.starcatcher21.stargazer.screens.handled.StarCrusherHandled;
 import com.github.starcatcher21.stargazer.screens.handled.StarforgeHandled;
 import com.github.starcatcher21.stargazer.screens.recipe.serializer.ShapedMoonWelderRecipeDisplay;
 import com.github.starcatcher21.stargazer.screens.recipe.serializer.ShapedStarforgeRecipeDisplay;
+import com.github.starcatcher21.stargazer.screens.recipe.serializer.StarCrusherRecipeDisplay;
 import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.plugins.REIClientPlugin;
 import me.shedaniel.rei.api.client.registry.category.CategoryRegistry;
@@ -24,6 +27,8 @@ public class StargazerREIClient implements REIClientPlugin {
         registry.addWorkstations(MoonWelderCategory.STARFORGE, EntryStacks.of(ModBlock.MOON_WELDER.asItem().getDefaultStack()));
         registry.add(new StargazingCategory());
         registry.addWorkstations(StargazingCategory.STARFORGE, EntryStacks.of(Items.SPYGLASS.getDefaultStack()));
+        registry.add(new StarCrusherCategory());
+        registry.addWorkstations(StarCrusherCategory.STARFORGE, EntryStacks.of(Energy.STAR_CRUSHER.asItem().getDefaultStack()));
     }
 
     @Override
@@ -34,6 +39,9 @@ public class StargazerREIClient implements REIClientPlugin {
         registry.beginRecipeFiller(ShapedMoonWelderRecipeDisplay.class)
                 .filterType(ShapedMoonWelderRecipeDisplay.SERIALIZER)
                 .fill(MoonWelderDisplay::new);
+        registry.beginRecipeFiller(StarCrusherRecipeDisplay.class)
+                .filterType(StarCrusherRecipeDisplay.SERIALIZER)
+                .fill(StarCrusherDisplay::new);
 
         for (FallingObjectsList objectsList : FallingObjectsList.list2) {
             registry.add(new StargazingDisplay(objectsList));
@@ -52,6 +60,12 @@ public class StargazerREIClient implements REIClientPlugin {
                 (screen.width - 180) / 2 + 92,
                 (screen.height - 205) / 2 + 43,
                 9, 10), MoonWelderHandled.class, MoonWelderCategory.STARFORGE
+        );
+
+        registry.registerClickArea(screen -> new Rectangle(
+                (screen.width - 180) / 2 + 52,
+                (screen.height - 205) / 2 + 31,
+                9, 47), StarCrusherHandled.class, StarCrusherCategory.STARFORGE
         );
     }
 }

@@ -2,6 +2,11 @@ package com.github.starcatcher21.stargazer.datagen.lang;
 
 import com.github.starcatcher21.stargazer.CreativeTab.ItemGroup;
 import com.github.starcatcher21.stargazer.block.ModBlock;
+import com.github.starcatcher21.stargazer.block.clases.MoonWelder;
+import com.github.starcatcher21.stargazer.block.clases.energy.generators.StarGenerator;
+import com.github.starcatcher21.stargazer.block.clases.energy.machines.NightWatcher;
+import com.github.starcatcher21.stargazer.block.clases.energy.machines.StarCrusher;
+import com.github.starcatcher21.stargazer.block.clases.moon.starforge.Starforge;
 import com.github.starcatcher21.stargazer.block.register.*;
 import com.github.starcatcher21.stargazer.compat.StargazingCategory;
 import com.github.starcatcher21.stargazer.effects.Potions;
@@ -27,6 +32,7 @@ public class ModEngLangProvider extends FabricLanguageProvider {
         translationBuilder.add(ItemGroup.STAR_GROUP_KEY, "Stargazer");
         translationBuilder.add(ModItems.STAR_BOOK, "Book of Stars 1");
         translationBuilder.add("stat.stargazer.star_catched", "Star Catched");
+        translationBuilder.add(MoonBlocks.COMET_BLOCK, "Comet Block");
 
         // music
         translationBuilder.add("stargazer.adventure_of_the_moon", "Starcatcher - Adventures of the Moon");
@@ -216,7 +222,8 @@ public class ModEngLangProvider extends FabricLanguageProvider {
         translationBuilder.add(WishingStars.BLUE_WISHING_STAR, "Blue Wishing Star");
         translationBuilder.add(WishingStars.PURPLE_WISHING_STAR, "Purple Wishing Star");
         translationBuilder.add(WishingStars.MAGENTA_WISHING_STAR, "Magenta Wishing Star");
-        translationBuilder.add(WishingStars.PINK_WISHING_STAR, "Pink Wishing Star");        translationBuilder.add(ModItems.DREAM_STAR, "Dream Star");
+        translationBuilder.add(WishingStars.PINK_WISHING_STAR, "Pink Wishing Star");
+        translationBuilder.add(ModItems.DREAM_STAR, "Dream Star");
         translationBuilder.add(StarBlocks.RED_STAR_BLOCK, "Red Star Block");
         translationBuilder.add(StarBlocks.BLUE_STAR_BLOCK, "Blue Star Block");
         translationBuilder.add(StarBlocks.YELLOW_STAR_BLOCK, "Yellow Star Block");
@@ -324,8 +331,11 @@ public class ModEngLangProvider extends FabricLanguageProvider {
         translationBuilder.add("effect.stargazer.cosmofeeling", "Cosmic Feeling");
         translationBuilder.add("effect.stargazer.glasshands", "Glass Hands");
         // Screens
-        translationBuilder.add("container.starforge", "Starforge");
-        translationBuilder.add("container.moon_welder", "Moon Welder");
+        translationBuilder.add(Starforge.TITLE.getString(), "Starforge");
+        translationBuilder.add(MoonWelder.TITLE.getString(), "Moon Welder");
+        translationBuilder.add(StarGenerator.TITLE.getString(), "Star Generator");
+        translationBuilder.add(NightWatcher.TITLE.getString(), "Night Watcher");
+        translationBuilder.add(StarCrusher.TITLE.getString(), "Star Crusher");
         // Death
         translationBuilder.add("death.attack.star_trap", "%s was bitten by Star Trap");
         translationBuilder.add("death.attack.water", "%s was burn alive by water");
@@ -385,5 +395,18 @@ public class ModEngLangProvider extends FabricLanguageProvider {
         translationBuilder.add(Wander.TRUNN_LEAVES, "Trunn Leaves");
         translationBuilder.add(Wander.TRUNN_SAPLING, "Trunn Sapling");
         translationBuilder.add(Hedges.TRUNN_HEDGE, "Trunn Hedge");
+
+        translationBuilder.add(Energy.YELLOW_CABLE, "Yellow Star Cable");
+        translationBuilder.add(Energy.BLUE_CABLE, "Blue Star Cable");
+        translationBuilder.add(Energy.RED_CABLE, "Red Star Cable");
+        translationBuilder.add(Energy.PURPLE_CABLE, "Purple Star Cable");
+        translationBuilder.add(Energy.STARMACHINE_BLOCK, "Star Machine Block");
+        translationBuilder.add(Energy.STARGENERATOR, "Star-Generator");
+        translationBuilder.add(Energy.NIGHT_WATCHER, "Night Watcher");
+        translationBuilder.add(Energy.STAR_CRUSHER, "Star Crusher");
+        translationBuilder.add(ModItems.COPPER_DUST, "Copper Dust");
+        translationBuilder.add(ModItems.IRON_DUST, "Iron Dust");
+        translationBuilder.add(ModItems.GOLD_DUST, "Gold Dust");
+        translationBuilder.add(ModItems.SUPERNOVA, "Supernova");
     }
 }

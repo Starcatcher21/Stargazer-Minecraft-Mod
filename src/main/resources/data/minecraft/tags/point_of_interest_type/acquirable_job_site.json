@@ -1,9 +1,0 @@
-{
-  "replace": false,
-  "values": [
-    {
-      "id": "stargazer:star_forge",
-      "required": false
-    }
-  ]
-}

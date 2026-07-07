@@ -5,6 +5,7 @@ import com.github.starcatcher21.stargazer.block.ModBlock;
 import com.github.starcatcher21.stargazer.block.register.*;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBlockTags;
 import net.minecraft.block.Blocks;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.BlockTags;
@@ -18,6 +19,10 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
+        valueLookupBuilder(BlockTags.DRAGON_IMMUNE)
+                .add(MoonBlocks.MOON_ROCK)
+                .add(MoonBlocks.MOON_FARMLAND)
+                .add(MoonBlocks.BLACK_MOON_ROCK);
         // DIRT
         valueLookupBuilder(BlockTags.SHOVEL_MINEABLE)
                 .add(Wander.BORIL)
@@ -163,6 +168,8 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
                 .add(Darkness.DARKNESS_LEAVES);
         // Rock
         valueLookupBuilder(BlockTags.PICKAXE_MINEABLE)
+                .add(MoonBlocks.COMET_BLOCK)
+                .add(Energy.STARGENERATOR)
                 .add(ModBlock.COPPER_TELEPORTER)
                 .add(ModBlock.RED_TELEPORTER)
                 .add(ModBlock.DARK_TELEPORTER)

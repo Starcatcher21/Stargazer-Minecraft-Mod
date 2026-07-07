@@ -113,4 +113,11 @@ public class FallingObject {
         Y = airEnd(world, new BlockPos(X, Y, Z));
         spawn(client, world, X, Y, Z);
     }
+    public void spawn(MinecraftClient client, BlockPos player, World world) {
+        int X = (int) player.getX() - range + random.nextInt(range * 2);
+        int Y = (int) player.getY();
+        int Z = (int) player.getZ() - range + random.nextInt(range * 2);
+        Y = airEnd(world, new BlockPos(X, Y, Z));
+        spawn(client, world, X, Y, Z);
+    }
 }

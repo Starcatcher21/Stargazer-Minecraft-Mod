@@ -37,6 +37,13 @@ public class MoonBlocks {
             .requiresTool()
             .mapColor(MapColor.WHITE)
     );
+    public static final Block COMET_BLOCK = register("comet_block", Block::new, AbstractBlock.Settings.create()
+            .solid()
+            .sounds(BlockSoundGroup.STONE)
+            .strength(0.5f)
+            .requiresTool()
+            .mapColor(MapColor.WHITE)
+    );
     public static final Block SUN_ENRICHED_MOON_ROCK = register("sun_enriched_moon_rock", Block::new, AbstractBlock.Settings.create()
             .solid()
             .sounds(BlockSoundGroup.STONE)

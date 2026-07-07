@@ -1,4 +1,10 @@
 // 1.21.11	-999999999-01-01T00:00:00	STARGAZER/Tags for minecraft:item
+29c15e6ec6d8adc1e01cd8c1d910c9919fc34f39 data/c/tags/item/buckets.json
+3d1b067c8d64bdb99e803314072a83b27888a126 data/c/tags/item/crops.json
+7ab77b9226046681e16b5df6b2a025ce37bb3e8e data/c/tags/item/dusts.json
+36d7700dc32d3481dc893a125889b7baaa46679d data/c/tags/item/dusts/copper.json
+9043db98e9a90f6114e927ea1cf00a66b95ef676 data/c/tags/item/dusts/gold.json
+f52b6c775231743a040c3699ef8fa082bac40a9d data/c/tags/item/dusts/iron.json
 b1aeedcb8132eae6f9f42e3a8b308417c8cd885e data/minecraft/tags/item/logs.json
 3d934206664eb5390a50c429644514b706124e25 data/minecraft/tags/item/planks.json
 fc0d2414754b6010f5d00709a461d20f6fa8fe79 data/minecraft/tags/item/saplings.json

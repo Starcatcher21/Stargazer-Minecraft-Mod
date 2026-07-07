@@ -127,6 +127,10 @@ public final class ModItems {
     public static final Item COMET_FRAGMENT = register("comet_fragment", Item::new, new Item.Settings());
     public static final Item AURORA_FRAGMENT = register("aurora_fragment", Item::new, new Item.Settings());
     public static final Item STAR_BOOK = register("star_book", StarBook::new, new Item.Settings());
+    public static final Item IRON_DUST = register("iron_dust", Item::new, new Item.Settings());
+    public static final Item GOLD_DUST = register("gold_dust", Item::new, new Item.Settings());
+    public static final Item COPPER_DUST = register("copper_dust", Item::new, new Item.Settings());
+    public static final Item SUPERNOVA = register("supernova", Item::new, new Item.Settings().maxCount(16));
 
     public static Item.Settings tool(ToolMaterial material, TagKey<Block> effectiveBlocks, float attackDamage, float attackSpeed, float disableBlockingForSeconds) {
         Item.Settings settings = new Item.Settings();

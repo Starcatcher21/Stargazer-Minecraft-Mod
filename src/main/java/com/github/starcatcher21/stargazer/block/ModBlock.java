@@ -151,5 +151,6 @@ public class ModBlock {
         RedOrbBlocks.init();
         Hedges.init();
         Wander.init();
+        Energy.init();
     }
 }

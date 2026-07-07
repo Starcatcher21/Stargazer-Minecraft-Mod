@@ -39,5 +39,14 @@ public class CustomTags {
     private static TagKey<BannerPattern> registerPatterns(String id) {
         return TagKey.of(RegistryKeys.BANNER_PATTERN, Identifier.of(Stargazer.MOD_ID, id));
     }
+
+    public static final TagKey<Item> IRON_DUST = registerC("dusts/iron");
+    public static final TagKey<Item> COPPER_DUST = registerC("dusts/copper");
+    public static final TagKey<Item> GOLD_DUST = registerC("dusts/gold");
+
+    private static TagKey<Item> registerC(String name) {
+        return TagKey.of(RegistryKeys.ITEM, Identifier.of("c", name));
+    }
+
     public static void init() {}
 }

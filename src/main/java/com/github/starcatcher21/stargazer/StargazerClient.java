@@ -25,9 +25,7 @@ import com.github.starcatcher21.stargazer.mechanics.dash.DashClient;
 import com.github.starcatcher21.stargazer.mechanics.star.Stargaze;
 import com.github.starcatcher21.stargazer.particle.Particles;
 import com.github.starcatcher21.stargazer.screens.ScreenHandlerTypes;
-import com.github.starcatcher21.stargazer.screens.handled.MoonWelderHandled;
-import com.github.starcatcher21.stargazer.screens.handled.StarBookHandled;
-import com.github.starcatcher21.stargazer.screens.handled.StarforgeHandled;
+import com.github.starcatcher21.stargazer.screens.handled.*;
 import com.github.starcatcher21.stargazer.worldgen.dimensions.Dimensions;
 import dev.architectury.registry.client.rendering.BlockEntityRendererRegistry;
 import net.fabricmc.api.ClientModInitializer;
@@ -161,6 +159,9 @@ public class StargazerClient implements ClientModInitializer {
         HandledScreens.register(ScreenHandlerTypes.STARFORGE_HANDLER, StarforgeHandled::new);
         HandledScreens.register(ScreenHandlerTypes.MOON_WELDER_HANDLER, MoonWelderHandled::new);
         HandledScreens.register(ScreenHandlerTypes.STARBOOK_HANDLER, StarBookHandled::new);
+        HandledScreens.register(ScreenHandlerTypes.STARGENERATOR_HANDLER, StargeneratorHandled::new);
+        HandledScreens.register(ScreenHandlerTypes.NIGHTWATCHER_HANDLER, NightWatcherHandled::new);
+        HandledScreens.register(ScreenHandlerTypes.STARCRUSHER_HANDLER, StarCrusherHandled::new);
 
         // Tick Events
         Stargazer.LOGGER.info("Loading End Client Tick Events");

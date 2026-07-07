@@ -5,6 +5,7 @@ import com.github.starcatcher21.stargazer.block.BlockTypes;
 import com.github.starcatcher21.stargazer.block.ModBlock;
 import com.github.starcatcher21.stargazer.effects.Potions;
 import com.github.starcatcher21.stargazer.effects.StatusEffects;
+import com.github.starcatcher21.stargazer.energy.EnergyInit;
 import com.github.starcatcher21.stargazer.entity.EntityRegistry;
 import com.github.starcatcher21.stargazer.item.ConsumeEffectsRegistry;
 import com.github.starcatcher21.stargazer.item.ModItems;
@@ -61,6 +62,7 @@ public class Stargazer implements ModInitializer {
 		ConsumeEffectsRegistry.init();
 		ModItems.init();
 		BlockTypes.init();
+		EnergyInit.init();
 		ModBlock.init();
 		PointOfIntrests.init();
 		ItemGroup.init();

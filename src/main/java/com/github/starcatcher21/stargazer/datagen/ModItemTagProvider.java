@@ -5,12 +5,15 @@ import com.github.starcatcher21.stargazer.block.register.*;
 import com.github.starcatcher21.stargazer.item.ModItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBlockTags;
+import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.ItemTags;
 
 import java.util.concurrent.CompletableFuture;
 
+import static com.github.starcatcher21.stargazer.CustomTags.COPPER_DUST;
 import static com.github.starcatcher21.stargazer.CustomTags.STARDUST;
 
 public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
@@ -21,6 +24,18 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
+        valueLookupBuilder(ConventionalItemTags.DUSTS)
+                .add(ModItems.IRON_DUST)
+                .add(ModItems.COPPER_DUST)
+                .add(ModItems.GOLD_DUST)
+                .add(ModItems.STARDUST);
+        valueLookupBuilder(CustomTags.COPPER_DUST).add(ModItems.COPPER_DUST);
+        valueLookupBuilder(CustomTags.IRON_DUST).add(ModItems.IRON_DUST);
+        valueLookupBuilder(CustomTags.GOLD_DUST).add(ModItems.GOLD_DUST);
+        valueLookupBuilder(ConventionalItemTags.BUCKETS)
+                .add(ModItems.DREAM_BUCKET);
+        valueLookupBuilder(ConventionalItemTags.CROPS)
+                .add(Crops.BROODY, Crops.DRAGON_CARROT, Crops.EYE_BALLS);
         valueLookupBuilder(CustomTags.COSMIC)
                 .add(StarBlocks.COSMIC_BLOCK.asItem());
         valueLookupBuilder(CustomTags.CHESS_BRICK)

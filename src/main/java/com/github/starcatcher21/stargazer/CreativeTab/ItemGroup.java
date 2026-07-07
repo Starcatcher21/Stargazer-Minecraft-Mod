@@ -49,6 +49,7 @@ public class ItemGroup {
             itemGroup.add(ModItems.GOLDEN_CRUCIAN);
             itemGroup.add(ModItems.LUCKY_COMET);
             itemGroup.add(ModItems.COMET_FRAGMENT);
+            itemGroup.add(MoonBlocks.COMET_BLOCK);
             itemGroup.add(ModItems.AURORA_FRAGMENT);
             itemGroup.add(StarBlocks.AURORA);
             // Star Blocks
@@ -312,6 +313,19 @@ public class ItemGroup {
             itemGroup.add(Wander.TRUNN_LEAVES);
             itemGroup.add(Wander.TRUNN_SAPLING);
             itemGroup.add(ModItems.DREAM_BUCKET);
+            // Energy
+            itemGroup.add(Energy.STARMACHINE_BLOCK);
+            itemGroup.add(Energy.STARGENERATOR);
+            itemGroup.add(Energy.YELLOW_CABLE);
+            itemGroup.add(Energy.BLUE_CABLE);
+            itemGroup.add(Energy.RED_CABLE);
+            itemGroup.add(Energy.PURPLE_CABLE);
+            itemGroup.add(Energy.NIGHT_WATCHER);
+            itemGroup.add(Energy.STAR_CRUSHER);
+            itemGroup.add(ModItems.COPPER_DUST);
+            itemGroup.add(ModItems.IRON_DUST);
+            itemGroup.add(ModItems.GOLD_DUST);
+            itemGroup.add(ModItems.SUPERNOVA);
         });
     }
 }

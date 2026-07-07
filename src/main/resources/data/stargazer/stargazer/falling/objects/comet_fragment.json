@@ -1,5 +1,5 @@
 {
-  "item": "stargazer:comet_fragment",
+  "item": "stargazer:lucky_comet",
   "fall_particle": "minecraft:campfire_cosy_smoke",
   "hit_particle": "minecraft:campfire_cosy_smoke",
   "particle_amount": 200,

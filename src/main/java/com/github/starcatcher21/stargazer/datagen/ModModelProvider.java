@@ -2,6 +2,7 @@ package com.github.starcatcher21.stargazer.datagen;
 
 import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.block.ModBlock;
+import com.github.starcatcher21.stargazer.block.clases.energy.cables.YellowCable;
 import com.github.starcatcher21.stargazer.block.clases.moon.plants.MoonCrop;
 import com.github.starcatcher21.stargazer.block.register.*;
 import com.github.starcatcher21.stargazer.item.ModItems;
@@ -11,10 +12,14 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.data.*;
+import net.minecraft.client.render.model.json.ModelVariant;
+import net.minecraft.client.render.model.json.MultipartModelConditionBuilder;
 import net.minecraft.client.render.model.json.WeightedVariant;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.collection.WeightedPool;
+import net.minecraft.util.math.AxisRotation;
 
 import java.util.Optional;
 
@@ -241,11 +246,24 @@ public class ModModelProvider extends FabricModelProvider {
         blockStateModelGenerator.registerTintableCross(RedOrbBlocks.BLUE_GRASS, BlockStateModelGenerator.CrossType.NOT_TINTED);
         blockStateModelGenerator.registerAxisRotated(RedOrbBlocks.SPIRO_LOG, TexturedModel.CUBE_COLUMN);
         blockStateModelGenerator.registerSimpleCubeAll(RedOrbBlocks.SPIRO_LEAVES);
+        blockStateModelGenerator.registerSimpleCubeAll(MoonBlocks.COMET_BLOCK);
+        blockStateModelGenerator.registerSimpleCubeAll(Energy.STARGENERATOR);
+        registerCable(blockStateModelGenerator, Energy.YELLOW_CABLE);
+        registerCable(blockStateModelGenerator, Energy.BLUE_CABLE);
+        registerCable(blockStateModelGenerator, Energy.RED_CABLE);
+        registerCable(blockStateModelGenerator, Energy.PURPLE_CABLE);
+        blockStateModelGenerator.registerSimpleCubeAll(Energy.STARMACHINE_BLOCK);
+        blockStateModelGenerator.registerSimpleCubeAll(Energy.NIGHT_WATCHER);
+        blockStateModelGenerator.registerSimpleCubeAll(Energy.STAR_CRUSHER);
     }
 
     @Override
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
         itemModelGenerator.register(ModItems.LODESTAR, Models.GENERATED);
+        itemModelGenerator.register(ModItems.IRON_DUST, Models.GENERATED);
+        itemModelGenerator.register(ModItems.GOLD_DUST, Models.GENERATED);
+        itemModelGenerator.register(ModItems.COPPER_DUST, Models.GENERATED);
+        itemModelGenerator.register(ModItems.SUPERNOVA, Models.GENERATED);
         itemModelGenerator.register(ModItems.DREAM_BUCKET, Models.GENERATED);
         itemModelGenerator.register(ModItems.DARKSTAR, Models.GENERATED);
         itemModelGenerator.register(ModItems.STARDUST, Models.GENERATED);
@@ -388,5 +406,60 @@ public class ModModelProvider extends FabricModelProvider {
     public Identifier getBlockTexture(Block block) {
         Identifier id = Registries.BLOCK.getId(block);
         return Identifier.of(id.getNamespace(), "block/" + id.getPath());
+    }
+
+    public static final Model CABLE_CORE_TEMPLATE = block("cable_core_template", TextureKey.ALL, TextureKey.PARTICLE);
+    public static final Model CABLE_SIDE_TEMPLATE = block("cable_side_template", TextureKey.ALL, TextureKey.PARTICLE);
+
+    // helper method for creating Models
+    private static Model block(String parent, TextureKey... requiredTextureKeys) {
+        return new Model(Optional.of(Identifier.of(Stargazer.MOD_ID, "block/" + parent)), Optional.empty(), requiredTextureKeys);
+    }
+
+    private BlockModelDefinitionCreator createCableBlockStates(Block cableBlock, Identifier core, Identifier side) {
+        // 1. Core and Base Side Models
+        ModelVariant cableCoreModel = BlockStateModelGenerator.createModelVariant(core);
+        ModelVariant cableSideModel = BlockStateModelGenerator.createModelVariant(side);
+
+        // 2. Wrap Core in a WeightedVariant (Always Active)
+        WeightedVariant empty = new WeightedVariant(WeightedPool.<ModelVariant>builder().add(cableCoreModel).build());
+
+        // 3. Define WeightedVariants for all 6 directions with their respective rotations
+        // Horizontal Rotations (Y-Axis)
+        WeightedVariant north = new WeightedVariant(WeightedPool.<ModelVariant>builder().add(cableSideModel).build()); // 0 degrees
+        WeightedVariant east  = new WeightedVariant(WeightedPool.<ModelVariant>builder().add(cableSideModel.withRotationY(AxisRotation.R90)).build());
+        WeightedVariant south = new WeightedVariant(WeightedPool.<ModelVariant>builder().add(cableSideModel.withRotationY(AxisRotation.R180)).build());
+        WeightedVariant west  = new WeightedVariant(WeightedPool.<ModelVariant>builder().add(cableSideModel.withRotationY(AxisRotation.R270)).build());
+
+        // Vertical Rotations (X-Axis)
+        // Note: Depending on your template model, UP/DOWN might also require Y rotation to align textures perfectly.
+        WeightedVariant up    = new WeightedVariant(WeightedPool.<ModelVariant>builder().add(cableSideModel.withRotationX(AxisRotation.R270)).build());
+        WeightedVariant down  = new WeightedVariant(WeightedPool.<ModelVariant>builder().add(cableSideModel.withRotationX(AxisRotation.R90)).build());
+
+        // 4. Build and return the Multipart Definition
+        return MultipartBlockModelDefinitionCreator.create(cableBlock)
+                // Core is unconditional (always renders)
+                .with(empty)
+
+                // Conditional sides
+                .with(new MultipartModelConditionBuilder().put(YellowCable.NORTH, true).build(), north)
+                .with(new MultipartModelConditionBuilder().put(YellowCable.EAST, true).build(), east)
+                .with(new MultipartModelConditionBuilder().put(YellowCable.SOUTH, true).build(), south)
+                .with(new MultipartModelConditionBuilder().put(YellowCable.WEST, true).build(), west)
+                .with(new MultipartModelConditionBuilder().put(YellowCable.UP, true).build(), up)
+                .with(new MultipartModelConditionBuilder().put(YellowCable.DOWN, true).build(), down);
+    }
+    public void registerCable(BlockStateModelGenerator generator, Block block) {
+        TextureMap map = getCableMap(block);
+        Identifier core = CABLE_CORE_TEMPLATE.upload(block, map, generator.modelCollector);
+        Identifier side = CABLE_SIDE_TEMPLATE.upload(Identifier.of(Stargazer.MOD_ID,"block/"+Registries.BLOCK.getId(block).getPath()+"_side"), map, generator.modelCollector);
+        generator.blockStateCollector.accept(createCableBlockStates(block, core, side));
+        generator.registerItemModel(block.asItem(), core);
+    }
+    public TextureMap getCableMap(Block block) {
+        TextureMap map = new TextureMap();
+        map.put(TextureKey.ALL, getBlockTexture(block));
+        map.put(TextureKey.PARTICLE, getBlockTexture(block));
+        return map;
     }
 }

@@ -1,6 +1,13 @@
 package com.github.starcatcher21.stargazer.block;
 
 import com.github.starcatcher21.stargazer.Stargazer;
+import com.github.starcatcher21.stargazer.block.clases.energy.cables.BlueCableEntity;
+import com.github.starcatcher21.stargazer.block.clases.energy.cables.PurpleCableEntity;
+import com.github.starcatcher21.stargazer.block.clases.energy.cables.RedCableEntity;
+import com.github.starcatcher21.stargazer.block.clases.energy.cables.YellowCableEntity;
+import com.github.starcatcher21.stargazer.block.clases.energy.generators.StarGeneratorEntity;
+import com.github.starcatcher21.stargazer.block.clases.energy.machines.NightWatcherEntity;
+import com.github.starcatcher21.stargazer.block.clases.energy.machines.StarCrusherEntity;
 import com.github.starcatcher21.stargazer.block.clases.eyes.eyejar.EyeJarEntity;
 import com.github.starcatcher21.stargazer.block.clases.grave.GraveEntity;
 import com.github.starcatcher21.stargazer.block.clases.moon.star_trap.StarTrapEntity;
@@ -14,6 +21,7 @@ import com.github.starcatcher21.stargazer.block.clases.star.border.BorderBlockEn
 import com.github.starcatcher21.stargazer.block.clases.star.cosmic.CosmicBlockEntity;
 import com.github.starcatcher21.stargazer.block.clases.star.leaves.StarLeavesEntity;
 import com.github.starcatcher21.stargazer.block.clases.star.star_display.StarDisplayEntity;
+import com.github.starcatcher21.stargazer.block.register.Energy;
 import com.github.starcatcher21.stargazer.block.register.EyeBloodBlocks;
 import com.github.starcatcher21.stargazer.block.register.MoonBlocks;
 import com.github.starcatcher21.stargazer.block.register.StarBlocks;
@@ -31,6 +39,34 @@ public class BlockTypes {
     public static final BlockEntityType<GraveEntity> GRAVE = register(
             "grave",
             FabricBlockEntityTypeBuilder.create(GraveEntity::new, ModBlock.GRAVE).build()
+    );
+    public static final BlockEntityType<StarGeneratorEntity> STAR_GENERATOR = register(
+            "stargenerator",
+            FabricBlockEntityTypeBuilder.create(StarGeneratorEntity::new, Energy.STARGENERATOR).build()
+    );
+    public static final BlockEntityType<NightWatcherEntity> NIGHT_WATCHER = register(
+            "night_watcher",
+            FabricBlockEntityTypeBuilder.create(NightWatcherEntity::new, Energy.NIGHT_WATCHER).build()
+    );
+    public static final BlockEntityType<StarCrusherEntity> STAR_CRUSHER = register(
+            "star_crusher",
+            FabricBlockEntityTypeBuilder.create(StarCrusherEntity::new, Energy.STAR_CRUSHER).build()
+    );
+    public static final BlockEntityType<YellowCableEntity> YELLOW_CABLE = register(
+            "yellowcable",
+            FabricBlockEntityTypeBuilder.create(YellowCableEntity::new, Energy.YELLOW_CABLE).build()
+    );
+    public static final BlockEntityType<BlueCableEntity> BLUE_CABLE = register(
+            "bluecable",
+            FabricBlockEntityTypeBuilder.create(BlueCableEntity::new, Energy.BLUE_CABLE).build()
+    );
+    public static final BlockEntityType<RedCableEntity> RED_CABLE = register(
+            "redcable",
+            FabricBlockEntityTypeBuilder.create(RedCableEntity::new, Energy.RED_CABLE).build()
+    );
+    public static final BlockEntityType<PurpleCableEntity> PURPLE_CABLE = register(
+            "purplecable",
+            FabricBlockEntityTypeBuilder.create(PurpleCableEntity::new, Energy.PURPLE_CABLE).build()
     );
     public static final BlockEntityType<NegativeBlockEntity> NEGATIVE_BLOCK = register(
             "negativeblock",

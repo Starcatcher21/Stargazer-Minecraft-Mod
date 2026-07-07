@@ -11,7 +11,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 public class StarBookHandled extends HandledScreen<StarBookScreenHandler> {
-    private int maxPage = 9;
+    private int maxPage = 10;
     private int page = 0;
 
     public StarBookHandled(StarBookScreenHandler handler, PlayerInventory inventory, Text title) {

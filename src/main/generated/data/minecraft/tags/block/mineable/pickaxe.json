@@ -1,5 +1,7 @@
 {
   "values": [
+    "stargazer:comet_block",
+    "stargazer:star_generator",
     "stargazer:copper_teleporter",
     "stargazer:red_teleporter",
     "stargazer:dark_teleporter",

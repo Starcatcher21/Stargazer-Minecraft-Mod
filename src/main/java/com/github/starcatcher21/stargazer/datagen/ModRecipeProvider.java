@@ -8,10 +8,14 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.recipe.RecipeExporter;
 import net.minecraft.data.recipe.RecipeGenerator;
+import net.minecraft.item.ItemConvertible;
+import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.RegistryWrapper;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class ModRecipeProvider extends FabricRecipeProvider {
@@ -428,6 +432,12 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .pattern("##")
                         .criterion(hasItem(RedOrbBlocks.RED_ROCK), this.conditionsFromItem(RedOrbBlocks.RED_ROCK))
                         .offerTo(this.exporter);
+                createShaped(RecipeCategory.BUILDING_BLOCKS, MoonBlocks.COMET_BLOCK, 1)
+                        .input('#', ModItems.COMET_FRAGMENT)
+                        .pattern("##")
+                        .pattern("##")
+                        .criterion(hasItem(ModItems.COMET_FRAGMENT), this.conditionsFromItem(ModItems.COMET_FRAGMENT))
+                        .offerTo(this.exporter);
                 createSlabRecipe(RecipeCategory.BUILDING_BLOCKS, RedOrbBlocks.RED_ROCK_SLAB, Ingredient.ofItem(RedOrbBlocks.RED_ROCK))
                         .criterion("rock", conditionsFromItem(RedOrbBlocks.RED_ROCK))
                         .offerTo(exporter);
@@ -461,6 +471,12 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .group("wooden_fence_gate")
                         .criterion("wood", conditionsFromItem(RedOrbBlocks.YERI_PLANKS))
                         .offerTo(exporter);
+                offerSmelting(Collections.singletonList(ModItems.COPPER_DUST), RecipeCategory.MISC, Items.COPPER_INGOT, 0.7f, 200, "copper_ingot");
+                offerSmelting(Collections.singletonList(ModItems.IRON_DUST), RecipeCategory.MISC, Items.IRON_INGOT, 0.7f, 200, "iron_ingot");
+                offerSmelting(Collections.singletonList(ModItems.GOLD_DUST), RecipeCategory.MISC, Items.GOLD_INGOT, 0.7f, 200, "gold_ingot");
+                offerBlasting(Collections.singletonList(ModItems.COPPER_DUST), RecipeCategory.MISC, Items.COPPER_INGOT, 0.7f, 100, "copper_ingot");
+                offerBlasting(Collections.singletonList(ModItems.IRON_DUST), RecipeCategory.MISC, Items.IRON_INGOT, 0.7f, 100, "iron_ingot");
+                offerBlasting(Collections.singletonList(ModItems.GOLD_DUST), RecipeCategory.MISC, Items.GOLD_INGOT, 0.7f, 100, "gold_ingot");
             }
         };
     }
