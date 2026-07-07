@@ -1,4 +1,4 @@
-package com.github.starcatcher21.stargazer.block.clases.star.aurora.leaves;
+package com.github.starcatcher21.stargazer.block.clases.star.aurora;
 
 import com.github.starcatcher21.stargazer.Stargazer;
 import com.mojang.serialization.MapCodec;

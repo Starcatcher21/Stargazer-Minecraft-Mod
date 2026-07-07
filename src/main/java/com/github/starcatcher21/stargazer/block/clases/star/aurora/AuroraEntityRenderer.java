@@ -1,9 +1,8 @@
-package com.github.starcatcher21.stargazer.block.clases.star.aurora.leaves;
+package com.github.starcatcher21.stargazer.block.clases.star.aurora;
 
 import com.github.starcatcher21.stargazer.renderer.CustomRenderLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.renderer.blockentity.TheEndPortalRenderer;
 import org.joml.Matrix4f;
 
 import java.util.EnumSet;
@@ -62,7 +61,9 @@ public class AuroraEntityRenderer<T extends AuroraEntity> implements BlockEntity
                 matrices, this.getLayer(), (pose, vertexConsumer) -> this.renderSides(state.sides, pose.pose(), vertexConsumer)
         );
     }
-    public void updateRenderState(
+
+    @Override
+    public void extractRenderState(
             T entity,
             AuroraBlockEntityRenderState cosmicBlockEntityRenderState,
             float f,

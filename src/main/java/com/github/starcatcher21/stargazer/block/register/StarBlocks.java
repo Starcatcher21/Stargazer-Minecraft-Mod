@@ -5,7 +5,7 @@ package com.github.starcatcher21.stargazer.block.register;
 import com.github.starcatcher21.stargazer.Helpers;
 import com.github.starcatcher21.stargazer.block.clases.CosmicFlower;
 import com.github.starcatcher21.stargazer.block.clases.CustomSapling;
-import com.github.starcatcher21.stargazer.block.clases.star.aurora.leaves.Aurora;
+import com.github.starcatcher21.stargazer.block.clases.star.aurora.Aurora;
 import com.github.starcatcher21.stargazer.block.clases.star.barrier.StarBarrierBlock;
 import com.github.starcatcher21.stargazer.block.clases.star.border.BorderBlock;
 import com.github.starcatcher21.stargazer.block.clases.star.cosmic.CosmicBlock;

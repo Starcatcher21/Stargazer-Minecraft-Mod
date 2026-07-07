@@ -1,6 +1,6 @@
 package com.github.starcatcher21.stargazer.renderer;
 
-import com.github.starcatcher21.stargazer.block.clases.star.aurora.leaves.Aurora;
+import com.github.starcatcher21.stargazer.block.clases.star.aurora.Aurora;
 import com.github.starcatcher21.stargazer.block.clases.star.barrier.StarBarrierBlock;
 import com.github.starcatcher21.stargazer.block.clases.star.cosmic.CosmicBlock;
 import com.github.starcatcher21.stargazer.block.clases.star.leaves.StarLeaves;

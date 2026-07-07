@@ -9,7 +9,7 @@ import com.github.starcatcher21.stargazer.block.clases.negative.NegativeBlockEnt
 import com.github.starcatcher21.stargazer.block.clases.noblue.NoBlueBlockEntityRenderer;
 import com.github.starcatcher21.stargazer.block.clases.nogreen.NoGreenBlockEntityRenderer;
 import com.github.starcatcher21.stargazer.block.clases.nored.NoRedBlockEntityRenderer;
-import com.github.starcatcher21.stargazer.block.clases.star.aurora.leaves.AuroraEntityRenderer;
+import com.github.starcatcher21.stargazer.block.clases.star.aurora.AuroraEntityRenderer;
 import com.github.starcatcher21.stargazer.block.clases.star.barrier.StarBarrierBlockEntityRenderer;
 import com.github.starcatcher21.stargazer.block.clases.star.cosmic.CosmicBlockEntityRenderer;
 import com.github.starcatcher21.stargazer.block.clases.star.leaves.StarLeavesEntityRenderer;

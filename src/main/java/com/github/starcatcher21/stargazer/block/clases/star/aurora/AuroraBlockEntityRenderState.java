@@ -1,4 +1,4 @@
-package com.github.starcatcher21.stargazer.block.clases.star.aurora.leaves;
+package com.github.starcatcher21.stargazer.block.clases.star.aurora;
 
 import java.util.EnumSet;
 import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;

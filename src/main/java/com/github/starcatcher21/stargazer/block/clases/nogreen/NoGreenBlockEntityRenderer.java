@@ -93,7 +93,8 @@ public class NoGreenBlockEntityRenderer<T extends NoGreenBlockEntity> implements
                 (matricesEntry, vertexConsumer) -> this.renderSides(state.sides, matricesEntry.pose(), vertexConsumer)
         );
     }
-    public void updateRenderState(
+    @Override
+    public void extractRenderState(
             T entity,
             NoGreenBlockEntityRenderState cosmicBlockEntityRenderState,
             float f,
