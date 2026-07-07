@@ -63,7 +63,8 @@ public class StarLeavesEntityRenderer<T extends StarLeavesEntity> implements Blo
                 (matricesEntry, vertexConsumer) -> this.renderSides(state.sides, matricesEntry.pose(), vertexConsumer)
         );
     }
-    public void updateRenderState(
+    @Override
+    public void extractRenderState(
             T entity,
             StarLeavesBlockEntityRenderState cosmicBlockEntityRenderState,
             float f,

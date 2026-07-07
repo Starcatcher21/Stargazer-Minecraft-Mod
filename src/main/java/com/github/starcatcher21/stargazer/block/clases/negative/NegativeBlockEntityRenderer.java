@@ -93,7 +93,8 @@ public class NegativeBlockEntityRenderer<T extends NegativeBlockEntity> implemen
                 (matricesEntry, vertexConsumer) -> this.renderSides(state.sides, matricesEntry.pose(), vertexConsumer)
         );
     }
-    public void updateRenderState(
+    @Override
+    public void extractRenderState(
             T entity,
             NegativeBlockEntityRenderState cosmicBlockEntityRenderState,
             float f,

@@ -93,7 +93,8 @@ public class NoBlueBlockEntityRenderer<T extends NoBlueBlockEntity> implements B
                 (matricesEntry, vertexConsumer) -> this.renderSides(state.sides, matricesEntry.pose(), vertexConsumer)
         );
     }
-    public void updateRenderState(
+    @Override
+    public void extractRenderState(
             T entity,
             NoBlueBlockEntityRenderState cosmicBlockEntityRenderState,
             float f,
