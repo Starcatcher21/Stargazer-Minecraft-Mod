@@ -1,5 +1,6 @@
 package com.github.starcatcher21.stargazer.renderer;
 
+import com.github.starcatcher21.stargazer.CustomWorlds;
 import com.github.starcatcher21.stargazer.Stargazer;
 import com.mojang.blaze3d.buffers.GpuBuffer;
 import com.mojang.blaze3d.buffers.GpuBufferSlice;
@@ -22,14 +23,18 @@ import net.minecraft.client.renderer.MappableRingBuffer;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.texture.AbstractTexture;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
 import org.joml.Matrix4fc;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 import org.lwjgl.system.MemoryUtil;
 
+import java.util.Optional;
 import java.util.OptionalDouble;
 import java.util.OptionalInt;
 
@@ -37,9 +42,11 @@ public final class SkyStarRenderer {
     private static final SkyStarRenderer INSTANCE = new SkyStarRenderer();
 
     private static final Identifier STAR_TEXTURE = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/environment/stargazer_star_sheet.png");
+    private static final Identifier STAR_TEXTURE2 = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/environment/stargazer_star2_sheet.png");
+    private static final Identifier STAR_TEXTURE3 = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/environment/wander_sky2.png");
 
-    private static final int STAR_COUNT = 64;
-    private static final float STAR_RADIUS = 48.0F;
+    private static int STAR_COUNT = 128;
+    private static float STAR_RADIUS = 96.0F;
 
     private static final int STAR_ATLAS_COLUMNS = 8;
     private static final int STAR_ATLAS_ROWS = 5;
@@ -52,6 +59,9 @@ public final class SkyStarRenderer {
 
     private static final VertexFormat STAR_FORMAT = DefaultVertexFormat.POSITION_TEX_COLOR;
     private static final VertexFormat.Mode STAR_MODE = VertexFormat.Mode.QUADS;
+
+    @Nullable
+    private static ResourceKey<DimensionType> dimensionType;
 
     private BufferBuilder buffer;
     private MappableRingBuffer vertexBuffer;
@@ -68,6 +78,8 @@ public final class SkyStarRenderer {
             this.renderState = StarRenderState.DISABLED;
             return;
         }
+        Optional<ResourceKey<DimensionType>> dimensionType2 = level.dimensionTypeRegistration().unwrapKey();
+        dimensionType2.ifPresent(dimensionTypeResourceKey -> dimensionType = dimensionTypeResourceKey);
 
         this.renderState = new StarRenderState(true, level.getGameTime());
     }
@@ -78,8 +90,17 @@ public final class SkyStarRenderer {
         }
 
         renderStars(context);
-        if (this.buffer != null) {
-            drawDepthPinnedStars(Minecraft.getInstance(), CustomRederPipelines.POSITION_TEX_COLOR_DEPTH_PINNED_STARS, STAR_TEXTURE);
+        if (this.buffer != null && dimensionType != null) {
+            if (dimensionType.equals(CustomWorlds.COSMIC_TYPE)) {
+                drawDepthPinnedStars(Minecraft.getInstance(), CustomRederPipelines.POSITION_TEX_COLOR_DEPTH_PINNED_STARS, STAR_TEXTURE);
+            } else if (dimensionType.equals(CustomWorlds.RED_ORB_TYPE)) {
+                STAR_RADIUS = 192.0f;
+                drawDepthPinnedStars(Minecraft.getInstance(), CustomRederPipelines.POSITION_TEX_COLOR_DEPTH_PINNED_STARS, STAR_TEXTURE2);
+            } else if (dimensionType.equals(CustomWorlds.WANDER_TYPE)) {
+                STAR_COUNT = 256;
+                STAR_RADIUS = 48.0f;
+                drawDepthPinnedStars(Minecraft.getInstance(), CustomRederPipelines.POSITION_TEX_COLOR_DEPTH_PINNED_STARS, STAR_TEXTURE3);
+            }
         }
     }
 
