@@ -96,12 +96,13 @@ public class MoonWelderInventory
         return List.copyOf(this.stacks);
     }
 
-    public MoonWelderRecipeInput createMoonRecipeInput() {
-        return createPositionedRecipeInput().input();
+    @Override
+    public int getMoonPhase() {
+        return 0;
     }
 
-    public StarforgeRecipeInput.Positioned createStarPositionedRecipeInput() {
-        return StarforgeRecipeInput.createPositioned(this.getWidth(), this.getHeight(), this.getHeldStacks());
+    public MoonWelderRecipeInput createMoonRecipeInput() {
+        return createPositionedRecipeInput().input();
     }
 
     @Override

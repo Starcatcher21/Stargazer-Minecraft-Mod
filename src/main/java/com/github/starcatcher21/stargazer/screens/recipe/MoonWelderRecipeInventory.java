@@ -23,12 +23,14 @@ public interface MoonWelderRecipeInventory
      */
     public List<ItemStack> getHeldStacks();
 
+    public int getMoonPhase();
+
     default public MoonWelderRecipeInput createRecipeInput() {
         return this.createPositionedRecipeInput().input();
     }
 
     default public MoonWelderRecipeInput.Positioned createPositionedRecipeInput() {
-        return MoonWelderRecipeInput.createPositioned(this.getWidth(), this.getHeight(), this.getHeldStacks());
+        return MoonWelderRecipeInput.createPositioned(this.getWidth(), this.getHeight(), this.getHeldStacks(), this.getMoonPhase());
     }
 }
 

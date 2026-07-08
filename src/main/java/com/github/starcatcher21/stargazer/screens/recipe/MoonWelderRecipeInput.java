@@ -4,17 +4,19 @@ import java.util.List;
 import net.minecraft.world.entity.player.StackedItemContents;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeInput;
+import net.minecraft.world.level.MoonPhase;
 
 public class MoonWelderRecipeInput
         implements RecipeInput {
-    public static final MoonWelderRecipeInput EMPTY = new MoonWelderRecipeInput(2, 1, List.of());
+    public static final MoonWelderRecipeInput EMPTY = new MoonWelderRecipeInput(2, 1, List.of(), 0);
     private final int width;
     private final int height;
+    private final int moonPhase;
     private final List<ItemStack> stacks;
     private final StackedItemContents matcher = new StackedItemContents();
     private final int stackCount;
 
-    private MoonWelderRecipeInput(int width, int height, List<ItemStack> stacks) {
+    private MoonWelderRecipeInput(int width, int height, List<ItemStack> stacks, int moonPhase) {
         this.width = width;
         this.height = height;
         this.stacks = stacks;
@@ -25,14 +27,15 @@ public class MoonWelderRecipeInput
             this.matcher.accountStack(itemStack, 1);
         }
         this.stackCount = i;
+        this.moonPhase = moonPhase;
     }
 
-    public static MoonWelderRecipeInput create(int width, int height, List<ItemStack> stacks) {
-        return MoonWelderRecipeInput.createPositioned(width, height, stacks).input();
+    public static MoonWelderRecipeInput create(int width, int height, List<ItemStack> stacks, int moonPhase) {
+        return MoonWelderRecipeInput.createPositioned(width, height, stacks, moonPhase).input();
     }
 
-    public static MoonWelderRecipeInput.Positioned createPositioned(int width, int height, List<ItemStack> stacks) {
-        return new MoonWelderRecipeInput.Positioned(new MoonWelderRecipeInput(3, 5, stacks), 3, 5);
+    public static MoonWelderRecipeInput.Positioned createPositioned(int width, int height, List<ItemStack> stacks, int moonPhase) {
+        return new MoonWelderRecipeInput.Positioned(new MoonWelderRecipeInput(3, 5, stacks, moonPhase), 3, 5);
     }
 
     @Override
@@ -80,7 +83,7 @@ public class MoonWelderRecipeInput
         }
         if (o instanceof MoonWelderRecipeInput) {
             MoonWelderRecipeInput craftingRecipeInput = (MoonWelderRecipeInput) o;
-            return this.width == craftingRecipeInput.width && this.height == craftingRecipeInput.height && this.stackCount == craftingRecipeInput.stackCount && ItemStack.listMatches(this.stacks, craftingRecipeInput.stacks);
+            return this.moonPhase == craftingRecipeInput.moonPhase && this.width == craftingRecipeInput.width && this.height == craftingRecipeInput.height && this.stackCount == craftingRecipeInput.stackCount && ItemStack.listMatches(this.stacks, craftingRecipeInput.stacks);
         }
         return false;
     }

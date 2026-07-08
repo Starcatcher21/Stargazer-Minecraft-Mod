@@ -6,6 +6,7 @@ import com.github.starcatcher21.stargazer.screens.recipe.MoonWelderRecipeInput;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.world.attribute.EnvironmentAttributes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -81,7 +82,7 @@ public class RawMoonWelderShapedRecipe {
             if (world.isDarkOutside()) return false;
             return Ingredient.testOptionalIngredient(Optional.of(item1), stack) && Ingredient.testOptionalIngredient(Optional.of(item2), stack2);
         }
-//        if (this.getMoonPhase() != world.getMoonPhase() || world.isDay()) return false;
+        if (this.getMoonPhase() != world.environmentAttributes().getDimensionValue(EnvironmentAttributes.MOON_PHASE).index() || !world.isDarkOutside()) return false;
         return Ingredient.testOptionalIngredient(Optional.of(item1), stack) && Ingredient.testOptionalIngredient(Optional.of(item2), stack2);
     }
 

@@ -40,7 +40,7 @@ public interface MoonWelderRecipe
     int getMoonPhase();
 
     default public MoonWelderRecipeInput.Positioned createPositionedRecipeInput() {
-        return MoonWelderRecipeInput.createPositioned(2, 1, this.getHeldStacks());
+        return MoonWelderRecipeInput.createPositioned(2, 1, this.getHeldStacks(), this.getMoonPhase());
     }
 
     List<ItemStack> getHeldStacks();
