@@ -24,6 +24,7 @@ import com.github.starcatcher21.stargazer.mechanics.PlayerRedOrbGrav;
 import com.github.starcatcher21.stargazer.mechanics.dash.DashClient;
 import com.github.starcatcher21.stargazer.mechanics.star.Stargaze;
 import com.github.starcatcher21.stargazer.particle.Particles;
+import com.github.starcatcher21.stargazer.renderer.SkyStarRenderer;
 import com.github.starcatcher21.stargazer.screens.ScreenHandlerTypes;
 import com.github.starcatcher21.stargazer.screens.handled.*;
 import com.github.starcatcher21.stargazer.worldgen.dimensions.Dimensions;
@@ -127,6 +128,9 @@ public class StargazerClient implements ClientModInitializer {
         BlockEntityRendererRegistry.register(BlockTypes.STAR_TRAP, (context) -> new GeoBlockRenderer<>(new StarTrapModel()));
         BlockEntityRendererRegistry.register(BlockTypes.EYE_JAR, (context) -> new GeoBlockRenderer<>(new EyeJarModel()));
         BlockEntityRendererRegistry.register(BlockTypes.STAR_DISPLAY, (context) -> new StarDisplayRenderer(new StarDisplayModel()));
+
+        // Custom dimension sky stars
+        SkyStarRenderer.init();
 
         // Particles
         Particles.clientInit();

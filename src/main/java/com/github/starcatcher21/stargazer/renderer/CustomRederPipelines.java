@@ -148,6 +148,32 @@ public class CustomRederPipelines {
                     .withVertexFormat(DefaultVertexFormat.POSITION_TEX_COLOR, VertexFormat.Mode.QUADS)
                     .build()
     );
+
+    public static final RenderPipeline POSITION_SOFT_SKY = RenderPipelines.register(
+            RenderPipeline.builder(MATRICES_PROJECTION_SNIPPET, GLOBALS_SNIPPET)
+                    .withLocation("pipeline/soft_sky")
+                    .withVertexShader(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "core/soft_sky"))
+                    .withFragmentShader(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "core/soft_sky"))
+                    .withVertexFormat(DefaultVertexFormat.POSITION, VertexFormat.Mode.QUADS)
+                    .withDepthTestFunction(DepthTestFunction.NO_DEPTH_TEST)
+                    .withDepthWrite(false)
+                    .withCull(false)
+                    .build()
+    );
+
+    public static final RenderPipeline POSITION_TEX_COLOR_DEPTH_PINNED_STARS = RenderPipelines.register(
+            RenderPipeline.builder(MATRICES_PROJECTION_SNIPPET, GLOBALS_SNIPPET)
+                    .withLocation("pipeline/depth_pinned_stars")
+                    .withVertexShader(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "core/sky_stars"))
+                    .withFragmentShader(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "core/sky_stars"))
+                    .withSampler("Sampler0")
+                    .withVertexFormat(DefaultVertexFormat.POSITION_TEX_COLOR, VertexFormat.Mode.QUADS)
+                    .withBlend(BlendFunction.TRANSLUCENT)
+                    .withDepthTestFunction(DepthTestFunction.LEQUAL_DEPTH_TEST)
+                    .withDepthWrite(false)
+                    .withCull(false)
+                    .build()
+    );
     // BLOCKS
     public static final RenderPipeline COSMIC = register(
             RenderPipeline.builder(RENDERTYPE_COSMIC_SNIPPET)
