@@ -11,7 +11,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
 
 public class StarBookHandled extends AbstractContainerScreen<StarBookScreenHandler> {
-    private int maxPage = 10;
+    private int maxPage = 11;
     private int page = 0;
 
     public StarBookHandled(StarBookScreenHandler handler, Inventory inventory, Component title) {
