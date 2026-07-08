@@ -14,7 +14,7 @@ import net.minecraft.world.level.Level;
 
 public class PlayerCosmicGrav {
     public static AttributeModifier gravity_modifier = new AttributeModifier(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "cosmic_gravity"),  -0.5F, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
-    public static AttributeModifier fall_damage_modifier = new AttributeModifier(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "cosmic_fall"),  10.0F, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
+    public static AttributeModifier fall_damage_modifier = new AttributeModifier(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "cosmic_fall"),  15.0F, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
     public static AttributeModifier jump_modifier = new AttributeModifier(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "cosmic_jump"),  0.35F, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
     public static AttributeModifier dash_modifier = new AttributeModifier(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "cosmic_dash"), 1.0F, AttributeModifier.Operation.ADD_VALUE);
 
