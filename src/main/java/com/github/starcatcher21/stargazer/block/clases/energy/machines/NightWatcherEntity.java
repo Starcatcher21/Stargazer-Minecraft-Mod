@@ -1,16 +1,9 @@
 package com.github.starcatcher21.stargazer.block.clases.energy.machines;
 
-import com.github.starcatcher21.stargazer.CustomTags;
 import com.github.starcatcher21.stargazer.block.BlockTypes;
-import com.github.starcatcher21.stargazer.block.clases.energy.generators.StarGenerator;
-import com.github.starcatcher21.stargazer.item.ModItems;
-import com.github.starcatcher21.stargazer.mechanics.advancements.Criterias;
 import com.github.starcatcher21.stargazer.mechanics.star.FallingObject;
 import com.github.starcatcher21.stargazer.mechanics.star.FallingObjectDayState;
 import com.github.starcatcher21.stargazer.mechanics.star.FallingObjectsList;
-import com.github.starcatcher21.stargazer.screens.StarGeneratorScreenHandler;
-import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
-import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;

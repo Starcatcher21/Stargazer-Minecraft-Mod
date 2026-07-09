@@ -3,8 +3,8 @@ package com.github.starcatcher21.stargazer.entity.models;
 import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.entity.BlackRook;
 import net.minecraft.resources.Identifier;
-import software.bernie.geckolib.model.GeoModel;
-import software.bernie.geckolib.renderer.base.GeoRenderState;
+import com.geckolib.model.GeoModel;
+import com.geckolib.renderer.base.GeoRenderState;
 
 public class BlackRookModel extends GeoModel<BlackRook> {
     private final Identifier model = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "entity/rook");

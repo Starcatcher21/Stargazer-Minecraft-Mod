@@ -5,8 +5,8 @@ import com.github.starcatcher21.stargazer.entity.DataTickets;
 import com.github.starcatcher21.stargazer.entity.Star;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.DyeColor;
-import software.bernie.geckolib.model.GeoModel;
-import software.bernie.geckolib.renderer.base.GeoRenderState;
+import com.geckolib.model.GeoModel;
+import com.geckolib.renderer.base.GeoRenderState;
 
 public class StarModel extends GeoModel<Star> {
     private final Identifier model = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "entity/star");

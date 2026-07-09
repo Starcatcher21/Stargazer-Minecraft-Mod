@@ -5,8 +5,8 @@ import com.github.starcatcher21.stargazer.block.ModBlock;
 import com.github.starcatcher21.stargazer.block.register.*;
 import com.github.starcatcher21.stargazer.item.ModItems;
 import com.github.starcatcher21.stargazer.item.WishingStars;
-import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
+import net.fabricmc.fabric.api.creativetab.v1.FabricCreativeModeTab;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
@@ -16,7 +16,7 @@ import net.minecraft.world.item.ItemStack;
 
 public class ItemGroup {
     public static final ResourceKey<net.minecraft.world.item.CreativeModeTab> STAR_GROUP_KEY = ResourceKey.create(BuiltInRegistries.CREATIVE_MODE_TAB.key(), Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "star"));
-    public static final net.minecraft.world.item.CreativeModeTab STAR_GROUP = FabricItemGroup.builder()
+    public static final net.minecraft.world.item.CreativeModeTab STAR_GROUP = FabricCreativeModeTab.builder()
             .icon(() -> new ItemStack(ModItems.YELLOW_STAR))
             .title(Component.translatable("itemGroup.Stargazer"))
             .build();
@@ -24,7 +24,7 @@ public class ItemGroup {
     public static void init() {
         Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, STAR_GROUP_KEY, STAR_GROUP);
 
-        ItemGroupEvents.modifyEntriesEvent(STAR_GROUP_KEY).register(itemGroup -> {
+        CreativeModeTabEvents.modifyOutputEvent(STAR_GROUP_KEY).register(itemGroup -> {
             itemGroup.accept(ModItems.STAR_BOOK);
             // Blocks
             itemGroup.accept(ModItems.STAR_HAMMER);

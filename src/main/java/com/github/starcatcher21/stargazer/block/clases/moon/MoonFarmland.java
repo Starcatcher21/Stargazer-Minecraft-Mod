@@ -13,7 +13,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.FarmBlock;
+import net.minecraft.world.level.block.FarmlandBlock;
 import net.minecraft.world.level.block.FenceGateBlock;
 import net.minecraft.world.level.block.piston.MovingPistonBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -88,7 +88,7 @@ public class MoonFarmland extends Block {
     }
 
     public static void setToRock(@Nullable Entity entity, BlockState state, Level world, BlockPos pos) {
-        BlockState blockState = FarmBlock.pushEntitiesUp(state, MoonBlocks.MOON_ROCK.defaultBlockState(), world, pos);
+        BlockState blockState = FarmlandBlock.pushEntitiesUp(state, MoonBlocks.MOON_ROCK.defaultBlockState(), world, pos);
         world.setBlockAndUpdate(pos, blockState);
         world.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(entity, blockState));
     }

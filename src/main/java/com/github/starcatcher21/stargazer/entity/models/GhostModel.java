@@ -3,8 +3,8 @@ package com.github.starcatcher21.stargazer.entity.models;
 import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.entity.DataTickets;
 import com.github.starcatcher21.stargazer.entity.Ghost;
-import software.bernie.geckolib.model.GeoModel;
-import software.bernie.geckolib.renderer.base.GeoRenderState;
+import com.geckolib.model.GeoModel;
+import com.geckolib.renderer.base.GeoRenderState;
 
 import java.util.Set;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;

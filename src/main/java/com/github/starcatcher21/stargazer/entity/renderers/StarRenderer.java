@@ -12,9 +12,9 @@ import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.resources.Identifier;
 import org.jspecify.annotations.Nullable;
-import software.bernie.geckolib.renderer.GeoEntityRenderer;
-import software.bernie.geckolib.renderer.base.GeoRenderState;
-import software.bernie.geckolib.renderer.layer.builtin.TextureLayerGeoLayer;
+import com.geckolib.renderer.GeoEntityRenderer;
+import com.geckolib.renderer.base.GeoRenderState;
+import com.geckolib.renderer.layer.builtin.TextureLayerGeoLayer;
 
 public class StarRenderer<R extends EntityRenderState & GeoRenderState> extends GeoEntityRenderer<Star, R> {
     public static Identifier BASE = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/patterns/base.png");

@@ -3,8 +3,6 @@ package com.github.starcatcher21.stargazer.block.clases.energy.generators;
 import com.github.starcatcher21.stargazer.CustomTags;
 import com.github.starcatcher21.stargazer.block.BlockTypes;
 import com.github.starcatcher21.stargazer.item.ModItems;
-import com.github.starcatcher21.stargazer.screens.StarGeneratorScreenHandler;
-import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

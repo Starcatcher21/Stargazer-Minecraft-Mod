@@ -1,5 +1,6 @@
 package com.github.starcatcher21.stargazer;
 
+import com.geckolib.event.block.CompileBlockRenderLayersEvent;
 import com.github.starcatcher21.stargazer.block.BlockTypes;
 import com.github.starcatcher21.stargazer.block.ModBlock;
 import com.github.starcatcher21.stargazer.block.ModFluids;

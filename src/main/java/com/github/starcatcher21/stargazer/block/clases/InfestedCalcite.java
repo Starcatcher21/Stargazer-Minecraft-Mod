@@ -11,18 +11,18 @@ import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.SpreadingSnowyDirtBlock;
+import net.minecraft.world.level.block.SpreadingSnowyBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.lighting.LightEngine;
 import net.minecraft.world.phys.BlockHitResult;
 
-public class InfestedCalcite extends SpreadingSnowyDirtBlock {
+public class InfestedCalcite extends SpreadingSnowyBlock {
     public InfestedCalcite(Properties settings) {
         super(settings);
     }
 
     @Override
-    protected MapCodec<? extends SpreadingSnowyDirtBlock> codec() {
+    protected MapCodec<? extends SpreadingSnowyBlock> codec() {
         return null;
     }
 
@@ -40,7 +40,7 @@ public class InfestedCalcite extends SpreadingSnowyDirtBlock {
         if (blockState.getFluidState().getAmount() == 8) {
             return false;
         }
-        int i = LightEngine.getLightBlockInto(state, blockState, Direction.UP, blockState.getLightBlock());
+        int i = LightEngine.getLightDampeningInto(state, blockState, Direction.UP, blockState.getLightDampening());
         return i < 15;
     }
 

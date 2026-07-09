@@ -2,7 +2,7 @@ package com.github.starcatcher21.stargazer.block.clases.moon;
 
 import com.github.starcatcher21.stargazer.block.register.MoonBlocks;
 import java.util.Map;
-import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.advancements.triggers.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
