@@ -66,7 +66,6 @@ public class Stargazer implements ModInitializer {
 		ModBlock.init();
 		PointOfIntrests.init();
 		ItemGroup.init();
-		Keybinds.init();
 		StargazerAttributes.init();
 		CustomTags.init();
 		Particles.init();

@@ -5,16 +5,17 @@ import com.github.starcatcher21.stargazer.datagen.ModFluidTagProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.tags.TagKey;
-import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityFluidInteraction;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.phys.Vec3;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -22,14 +23,17 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Optional;
+import java.util.Set;
 
 @Mixin(Entity.class)
 public abstract class EntityMixin {
     @Shadow
     private Level level;
 
+    @Mutable
     @Shadow
-    public abstract boolean updateFluidHeightAndDoFluidPushing(TagKey<Fluid> tag, double speed);
+    @Final
+    private EntityFluidInteraction fluidInteraction;
 
     @Shadow
     public abstract boolean isInWater();
@@ -49,12 +53,22 @@ public abstract class EntityMixin {
     @Shadow
     public abstract void resetFallDistance();
 
-    @Inject(method = "updateInWaterStateAndDoFluidPushing", at = @At("TAIL"), cancellable = true)
-    private void update(CallbackInfoReturnable cir) {
-        double d = this.level.environmentAttributes().getDimensionValue(EnvironmentAttributes.FAST_LAVA) ? 0.007 : 0.0023333333333333335;
-        boolean bl = this.updateFluidHeightAndDoFluidPushing(FluidTags.LAVA, d);
-        boolean bd = this.updateFluidHeightAndDoFluidPushing(ModFluidTagProvider.DREAM, 0.014);
-        cir.setReturnValue(this.isInWater() || bl || bd);
+    @Shadow
+    public abstract boolean isPushedByFluid();
+
+    @Inject(method = "<init>", at = @At("RETURN"))
+    private void stargazer$trackDreamFluid(EntityType<?> entityType, Level level, CallbackInfo ci) {
+        this.fluidInteraction = new EntityFluidInteraction(Set.of(FluidTags.WATER, FluidTags.LAVA, ModFluidTagProvider.DREAM));
+    }
+
+    @Inject(method = "updateFluidInteraction", at = @At("TAIL"), cancellable = true)
+    private void stargazer$updateDreamFluidInteraction(CallbackInfoReturnable<Boolean> cir) {
+        if (this.fluidInteraction.isInFluid(ModFluidTagProvider.DREAM)) {
+            if (this.isPushedByFluid()) {
+                this.fluidInteraction.applyCurrentTo(ModFluidTagProvider.DREAM, (Entity) (Object) this, 0.014D);
+            }
+            cir.setReturnValue(true);
+        }
     }
 
     @Inject(method = "checkFallDamage", at = @At("HEAD"), cancellable = true)

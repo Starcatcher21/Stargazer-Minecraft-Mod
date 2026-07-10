@@ -21,7 +21,7 @@ public class StarBookScreenHandler
 
     @Override
     public ItemStack quickMoveStack(Player player, int slot) {
-        return null;
+        return ItemStack.EMPTY;
     }
 
     @Override

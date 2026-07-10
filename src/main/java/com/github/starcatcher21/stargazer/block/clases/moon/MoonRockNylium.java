@@ -23,24 +23,22 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.BonemealableBlock;
-import net.minecraft.world.level.block.GrassBlock;
-import net.minecraft.world.level.block.SpreadingSnowyDirtBlock;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
-import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.phys.BlockHitResult;
 
-public class MoonRockNylium extends SpreadingSnowyDirtBlock implements BonemealableBlock {
+public class MoonRockNylium extends Block implements BonemealableBlock {
     public MoonRockNylium(Properties settings) {
         super(settings);
     }
 
-    public static final MapCodec<MoonRockNylium> CODEC = GrassBlock.simpleCodec(MoonRockNylium::new);
+    public static final MapCodec<MoonRockNylium> CODEC = Block.simpleCodec(MoonRockNylium::new);
 
     @Override
-    protected MapCodec<? extends SpreadingSnowyDirtBlock> codec() {
+    protected MapCodec<? extends Block> codec() {
         return CODEC;
     }
 
@@ -91,7 +89,6 @@ public class MoonRockNylium extends SpreadingSnowyDirtBlock implements Bonemeala
         BlockState blockState = MoonBlocks.MOON_GRASS.defaultBlockState();
         Optional<Holder.Reference<PlacedFeature>> optional = world.registryAccess().lookupOrThrow(Registries.PLACED_FEATURE).get(ResourceKey.create(Registries.PLACED_FEATURE, Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "moon_grass_bone")));
         block0: for (int i = 0; i < 128; ++i) {
-            Holder<PlacedFeature> registryEntry;
             BonemealableBlock fertilizable;
             BlockPos blockPos2 = blockPos;
             for (int j = 0; j < i / 16; ++j) {
@@ -103,19 +100,18 @@ public class MoonRockNylium extends SpreadingSnowyDirtBlock implements Bonemeala
             }
             if (!blockState2.isAir()) continue;
             if (random.nextInt(8) == 0) {
-                List<ConfiguredFeature<?, ?>> list = world.getBiome(blockPos2).value().getGenerationSettings().getFlowerFeatures();
+                List<ConfiguredFeature<?, ?>> list = world.getBiome(blockPos2).value().getGenerationSettings().getBoneMealFeatures();
                 if (list.isEmpty()) continue;
-                int k = random.nextInt(list.size());
-                registryEntry = ((RandomPatchConfiguration)list.get(k).config()).feature();
+                ConfiguredFeature<?, ?> configuredFeature = list.get(random.nextInt(list.size()));
+                configuredFeature.place(world, world.getChunkSource().getGenerator(), random, blockPos2);
             } else {
-                if (!optional.isPresent()) continue;
-                registryEntry = (Holder<PlacedFeature>)optional.get();
+                if (optional.isEmpty()) continue;
+                optional.get().value().place(world, world.getChunkSource().getGenerator(), random, blockPos2);
             }
-            ((PlacedFeature)registryEntry.value()).place(world, world.getChunkSource().getGenerator(), random, blockPos2);
         }
     }
 
     @Override
-    public BonemealableBlock.Type getType() {
-        return BonemealableBlock.Type.NEIGHBOR_SPREADER;
+    public Type getType() {
+        return Type.NEIGHBOR_SPREADER;
     }}

@@ -10,9 +10,11 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 public class StrippedMoonLog extends DirectionalBlock {
+    public static final MapCodec<StrippedMoonLog> CODEC = simpleCodec(StrippedMoonLog::new);
+
     @Override
     protected MapCodec<? extends DirectionalBlock> codec() {
-        return null;
+        return CODEC;
     }
 
     public StrippedMoonLog(Properties settings) {

@@ -10,9 +10,11 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 public class StrippedEyeLog extends DirectionalBlock {
+    public static final MapCodec<StrippedEyeLog> CODEC = simpleCodec(StrippedEyeLog::new);
+
     @Override
     protected MapCodec<? extends DirectionalBlock> codec() {
-        return null;
+        return CODEC;
     }
 
     public StrippedEyeLog(Properties settings) {

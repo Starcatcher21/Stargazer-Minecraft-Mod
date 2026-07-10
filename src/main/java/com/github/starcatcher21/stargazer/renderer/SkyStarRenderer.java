@@ -45,8 +45,11 @@ public final class SkyStarRenderer {
     private static final Identifier STAR_TEXTURE2 = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/environment/stargazer_star2_sheet.png");
     private static final Identifier STAR_TEXTURE3 = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/environment/wander_sky2.png");
 
-    private static int STAR_COUNT = 128;
-    private static float STAR_RADIUS = 96.0F;
+    private static final int DEFAULT_STAR_COUNT = 128;
+    private static final float DEFAULT_STAR_RADIUS = 96.0F;
+    private static final int WANDER_STAR_COUNT = 256;
+    private static final float WANDER_STAR_RADIUS = 48.0F;
+    private static final float RED_ORB_STAR_RADIUS = 192.0F;
 
     private static final int STAR_ATLAS_COLUMNS = 8;
     private static final int STAR_ATLAS_ROWS = 5;
@@ -59,9 +62,6 @@ public final class SkyStarRenderer {
 
     private static final VertexFormat STAR_FORMAT = DefaultVertexFormat.POSITION_TEX_COLOR;
     private static final VertexFormat.Mode STAR_MODE = VertexFormat.Mode.QUADS;
-
-    @Nullable
-    private static ResourceKey<DimensionType> dimensionType;
 
     private BufferBuilder buffer;
     private MappableRingBuffer vertexBuffer;
@@ -78,10 +78,13 @@ public final class SkyStarRenderer {
             this.renderState = StarRenderState.DISABLED;
             return;
         }
-        Optional<ResourceKey<DimensionType>> dimensionType2 = level.dimensionTypeRegistration().unwrapKey();
-        dimensionType2.ifPresent(dimensionTypeResourceKey -> dimensionType = dimensionTypeResourceKey);
+        Optional<ResourceKey<DimensionType>> dimensionType = level.dimensionTypeRegistration().unwrapKey();
+        if (dimensionType.isEmpty()) {
+            this.renderState = StarRenderState.DISABLED;
+            return;
+        }
 
-        this.renderState = new StarRenderState(true, level.getGameTime());
+        this.renderState = new StarRenderState(true, level.getGameTime(), dimensionType.get());
     }
 
     private void renderAndDraw(WorldRenderContext context) {
@@ -89,22 +92,18 @@ public final class SkyStarRenderer {
             return;
         }
 
-        renderStars(context);
-        if (this.buffer != null && dimensionType != null) {
-            if (dimensionType.equals(CustomWorlds.COSMIC_TYPE)) {
-                drawDepthPinnedStars(Minecraft.getInstance(), CustomRederPipelines.POSITION_TEX_COLOR_DEPTH_PINNED_STARS, STAR_TEXTURE);
-            } else if (dimensionType.equals(CustomWorlds.RED_ORB_TYPE)) {
-                STAR_RADIUS = 192.0f;
-                drawDepthPinnedStars(Minecraft.getInstance(), CustomRederPipelines.POSITION_TEX_COLOR_DEPTH_PINNED_STARS, STAR_TEXTURE2);
-            } else if (dimensionType.equals(CustomWorlds.WANDER_TYPE)) {
-                STAR_COUNT = 256;
-                STAR_RADIUS = 48.0f;
-                drawDepthPinnedStars(Minecraft.getInstance(), CustomRederPipelines.POSITION_TEX_COLOR_DEPTH_PINNED_STARS, STAR_TEXTURE3);
-            }
+        StarSettings settings = StarSettings.forDimension(this.renderState.dimensionType());
+        if (settings == null) {
+            return;
+        }
+
+        renderStars(context, settings.starCount(), settings.starRadius());
+        if (this.buffer != null) {
+            drawDepthPinnedStars(Minecraft.getInstance(), CustomRederPipelines.POSITION_TEX_COLOR_DEPTH_PINNED_STARS, settings.texture());
         }
     }
 
-    private void renderStars(WorldRenderContext context) {
+    private void renderStars(WorldRenderContext context, int starCount, float starRadius) {
         PoseStack matrices = context.matrices();
         if (matrices == null) {
             return;
@@ -119,13 +118,13 @@ public final class SkyStarRenderer {
             this.buffer = new BufferBuilder(ALLOCATOR, STAR_MODE, STAR_FORMAT);
         }
 
-        buildStars(this.buffer, matrices.last().pose(), camera, this.renderState.gameTime());
+        buildStars(this.buffer, matrices.last().pose(), camera, this.renderState.gameTime(), starCount, starRadius);
         matrices.popPose();
     }
 
-    private static void buildStars(BufferBuilder buffer, Matrix4fc matrix, Vec3 camera, long gameTime) {
-        for (int i = 0; i < STAR_COUNT; i++) {
-            Vec3 baseDirection = fibonacciSphere(i, STAR_COUNT);
+    private static void buildStars(BufferBuilder buffer, Matrix4fc matrix, Vec3 camera, long gameTime, int starCount, float starRadius) {
+        for (int i = 0; i < starCount; i++) {
+            Vec3 baseDirection = fibonacciSphere(i, starCount);
 
             if (baseDirection.y < -0.35D) {
                 continue;
@@ -150,7 +149,7 @@ public final class SkyStarRenderer {
 
             double travel = (age * 2.0D - 1.0D) * (0.24D + random01(i, 109) * 0.58D);
             Vec3 direction = baseDirection.add(motionDirection.scale(travel)).normalize();
-            Vec3 center = camera.add(direction.scale(STAR_RADIUS));
+            Vec3 center = camera.add(direction.scale(starRadius));
 
             Vec3 starGuideUp = Math.abs(direction.y) > 0.94D
                     ? new Vec3(1.0D, 0.0D, 0.0D)
@@ -326,7 +325,23 @@ public final class SkyStarRenderer {
         return (value & 0x00FFFFFF) / (float) 0x01000000;
     }
 
-    private record StarRenderState(boolean enabled, long gameTime) {
-        private static final StarRenderState DISABLED = new StarRenderState(false, 0L);
+    private record StarSettings(Identifier texture, int starCount, float starRadius) {
+        @Nullable
+        private static StarSettings forDimension(ResourceKey<DimensionType> dimensionType) {
+            if (dimensionType.equals(CustomWorlds.COSMIC_TYPE)) {
+                return new StarSettings(STAR_TEXTURE, DEFAULT_STAR_COUNT, DEFAULT_STAR_RADIUS);
+            }
+            if (dimensionType.equals(CustomWorlds.RED_ORB_TYPE)) {
+                return new StarSettings(STAR_TEXTURE2, DEFAULT_STAR_COUNT, RED_ORB_STAR_RADIUS);
+            }
+            if (dimensionType.equals(CustomWorlds.WANDER_TYPE)) {
+                return new StarSettings(STAR_TEXTURE3, WANDER_STAR_COUNT, WANDER_STAR_RADIUS);
+            }
+            return null;
+        }
+    }
+
+    private record StarRenderState(boolean enabled, long gameTime, @Nullable ResourceKey<DimensionType> dimensionType) {
+        private static final StarRenderState DISABLED = new StarRenderState(false, 0L, null);
     }
 }

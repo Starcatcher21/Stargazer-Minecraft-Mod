@@ -64,6 +64,6 @@ public class StargazingDisplay extends BasicDisplay {
 
     @Override
     public @Nullable DisplaySerializer<? extends Display> getSerializer() {
-        return StargazerREICommon.STARFORGE;
+        return StargazerREICommon.STARGAZING;
     }
 }

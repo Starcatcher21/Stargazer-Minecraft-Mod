@@ -6,7 +6,6 @@ import com.github.starcatcher21.stargazer.mechanics.star.FallingObject;
 import com.github.starcatcher21.stargazer.mechanics.star.FallingObjectsList;
 import com.mojang.serialization.MapCodec;
 import java.util.Collections;
-import net.minecraft.client.Minecraft;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
@@ -25,12 +24,16 @@ public record StarGazeConsume() implements ConsumeEffect {
         }
 
         @Override
-        public ConsumeEffect.Type<StarGazeConsume> getType() {
+        public Type<StarGazeConsume> getType() {
             return ConsumeEffectsRegistry.STARGAZE;
         }
 
         @Override
         public boolean apply(Level world, ItemStack stack, LivingEntity user) {
+            if (world.isClientSide()) {
+                return true;
+            }
+
             for (FallingObjectsList list : FallingObjectsList.list2) {
                 if (user.level().dimension().equals(list.world)) {
                     Collections.shuffle(list.weightedList);
@@ -39,7 +42,7 @@ public record StarGazeConsume() implements ConsumeEffect {
                         Criterias.starcatching.trigger(spe, star.item.value());
                     }
                     if (user instanceof Player pe) {
-                        star.spawn(Minecraft.getInstance(), pe, user.level());
+                        star.spawn(user.level(), pe);
                     }
                 }
             }

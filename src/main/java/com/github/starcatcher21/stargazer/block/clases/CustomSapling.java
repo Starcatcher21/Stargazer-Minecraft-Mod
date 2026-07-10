@@ -5,6 +5,7 @@ import com.github.starcatcher21.stargazer.block.register.MoonBlocks;
 import com.github.starcatcher21.stargazer.block.register.StarBlocks;
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
@@ -26,20 +27,25 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import java.util.Optional;
 
 public class CustomSapling extends VegetationBlock implements BonemealableBlock {
+    public static final MapCodec<CustomSapling> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+            ResourceKey.codec(Registries.CONFIGURED_FEATURE).fieldOf("feature").forGetter(block -> block.featureKey),
+            propertiesCodec()
+    ).apply(instance, CustomSapling::new));
+
     public static final ImmutableList<Block> PLACE = ImmutableList.of(
             MoonBlocks.MOON_ROCK, Blocks.END_STONE, MoonBlocks.MOON_ROCK_NYLIUM, Darkness.DYLIUM
     );
 
     private final ResourceKey<ConfiguredFeature<?, ?>> featureKey;
 
-    public CustomSapling(ResourceKey<ConfiguredFeature<?, ?>> featureKey, BlockBehaviour.Properties settings) {
+    public CustomSapling(ResourceKey<ConfiguredFeature<?, ?>> featureKey, Properties settings) {
         super(settings);
         this.featureKey = featureKey;
     }
 
     @Override
     protected MapCodec<? extends VegetationBlock> codec() {
-        return null;
+        return CODEC;
     }
 
     @Override

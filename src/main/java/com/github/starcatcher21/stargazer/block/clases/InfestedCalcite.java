@@ -17,13 +17,15 @@ import net.minecraft.world.level.lighting.LightEngine;
 import net.minecraft.world.phys.BlockHitResult;
 
 public class InfestedCalcite extends SpreadingSnowyBlock {
+    public static final MapCodec<InfestedCalcite> CODEC = simpleCodec(InfestedCalcite::new);
+
     public InfestedCalcite(Properties settings) {
         super(settings);
     }
 
     @Override
     protected MapCodec<? extends SpreadingSnowyBlock> codec() {
-        return null;
+        return CODEC;
     }
 
     @Override

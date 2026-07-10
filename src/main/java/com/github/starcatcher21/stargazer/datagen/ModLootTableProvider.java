@@ -8,7 +8,7 @@ import com.github.starcatcher21.stargazer.block.register.*;
 import com.github.starcatcher21.stargazer.item.ModItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
-import net.minecraft.advancements.criterion.StatePropertiesPredicate;
+import net.minecraft.advancements.predicates.StatePropertiesPredicate;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
@@ -312,7 +312,7 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
         return this.createLeavesDrops(leaves, sapling, saplingChance).withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0f)).when(this.doesNotHaveShearsOrSilkTouch()).add((LootPoolEntryContainer.Builder<?>)((LootPoolSingletonContainer.Builder)this.applyExplosionCondition(leaves, LootItem.lootTableItem(itemDrop))).when(BonusLevelTableCondition.bonusLevelFlatChance(impl.getOrThrow(Enchantments.FORTUNE), 0.005f, 0.0055555557f, 0.00625f, 0.008333334f, 0.025f))));
     }
 
-    public LootTable.Builder addFlowerbedDrop(net.minecraft.world.level.block.Block block) {
+    public LootTable.Builder addFlowerbedDrop(Block block) {
         return LootTable.lootTable().withPool(
                 LootPool.lootPool()
                         .setRolls(ConstantValue.exactly(1.0F))
@@ -322,25 +322,25 @@ public class ModLootTableProvider extends FabricBlockLootTableProvider {
                                                 // This function checks the FLOWER_AMOUNT property and scales the drop count accordingly
                                                 SetItemCountFunction.setCount(ConstantValue.exactly(1.0F))
                                                         .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
-                                                                .setProperties(net.minecraft.advancements.criterion.StatePropertiesPredicate.Builder.properties()
+                                                                .setProperties(StatePropertiesPredicate.Builder.properties()
                                                                         .hasProperty(FlowerBedBlock.AMOUNT, 1)))
                                         )
                                         .apply(
                                                 SetItemCountFunction.setCount(ConstantValue.exactly(2.0F))
                                                         .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
-                                                                .setProperties(net.minecraft.advancements.criterion.StatePropertiesPredicate.Builder.properties()
+                                                                .setProperties(StatePropertiesPredicate.Builder.properties()
                                                                         .hasProperty(FlowerBedBlock.AMOUNT, 2)))
                                         )
                                         .apply(
                                                 SetItemCountFunction.setCount(ConstantValue.exactly(3.0F))
                                                         .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
-                                                                .setProperties(net.minecraft.advancements.criterion.StatePropertiesPredicate.Builder.properties()
+                                                                .setProperties(StatePropertiesPredicate.Builder.properties()
                                                                         .hasProperty(FlowerBedBlock.AMOUNT, 3)))
                                         )
                                         .apply(
                                                 SetItemCountFunction.setCount(ConstantValue.exactly(4.0F))
                                                         .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
-                                                                .setProperties(net.minecraft.advancements.criterion.StatePropertiesPredicate.Builder.properties()
+                                                                .setProperties(StatePropertiesPredicate.Builder.properties()
                                                                         .hasProperty(FlowerBedBlock.AMOUNT, 4)))
                                         )
                         )

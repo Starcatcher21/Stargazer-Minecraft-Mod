@@ -1,7 +1,6 @@
 package com.github.starcatcher21.stargazer.particle;
 
 import com.github.starcatcher21.stargazer.Stargazer;
-import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
 import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ColorParticleOption;
@@ -36,13 +35,4 @@ public class Particles {
         Registry.register(BuiltInRegistries.PARTICLE_TYPE, Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "tinted_star"), TINTED_STAR);
     }
 
-
-    public static void clientInit() {
-        ParticleFactoryRegistry.getInstance().register(YELLOW_STAR, StarParticle2.Factory::new);
-        ParticleFactoryRegistry.getInstance().register(RED_STAR, StarParticle2.Factory::new);
-        ParticleFactoryRegistry.getInstance().register(BLUE_STAR, StarParticle2.Factory::new);
-        ParticleFactoryRegistry.getInstance().register(PURPLE_STAR, StarParticle2.Factory::new);
-        ParticleFactoryRegistry.getInstance().register(STAR, StarParticle2.Factory::new);
-        ParticleFactoryRegistry.getInstance().register(TINTED_STAR, StarParticle.TintedLeavesFactory::new);
-    }
 }

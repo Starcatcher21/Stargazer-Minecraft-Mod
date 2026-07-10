@@ -33,6 +33,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import java.util.OptionalInt;
 
 public class StarLeaves extends BaseEntityBlock implements SimpleWaterloggedBlock {
+    public static final MapCodec<StarLeaves> CODEC = simpleCodec(StarLeaves::new);
     public static final Identifier TEXTURE = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/block/star_leaves.png");
     protected final float leafParticleChance = 0.5F;
     public static final int MAX_DISTANCE = 7;
@@ -44,10 +45,10 @@ public class StarLeaves extends BaseEntityBlock implements SimpleWaterloggedBloc
 
     @Override
     public MapCodec<? extends StarLeaves> codec() {
-        return null;
+        return CODEC;
     }
 
-    public StarLeaves(BlockBehaviour.Properties settings) {
+    public StarLeaves(Properties settings) {
         super(settings);
         this.registerDefaultState(
                 this.stateDefinition.any().setValue(DISTANCE, Integer.valueOf(7)).setValue(PERSISTENT, Boolean.valueOf(false)).setValue(WATERLOGGED, Boolean.valueOf(false))

@@ -2,8 +2,8 @@ package com.github.starcatcher21.stargazer.block.clases.moon.star_trap;
 
 import com.github.starcatcher21.stargazer.Stargazer;
 import net.minecraft.resources.Identifier;
-import software.bernie.geckolib.model.GeoModel;
-import software.bernie.geckolib.renderer.base.GeoRenderState;
+import com.geckolib.model.GeoModel;
+import com.geckolib.renderer.base.GeoRenderState;
 
 public class StarTrapModel extends GeoModel<StarTrapEntity> {
     private final Identifier model = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "block/star_trap");
