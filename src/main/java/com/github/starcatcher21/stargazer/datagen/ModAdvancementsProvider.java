@@ -12,7 +12,7 @@ import com.github.starcatcher21.stargazer.mechanics.DamageTypeRegistry;
 import com.github.starcatcher21.stargazer.mechanics.advancements.*;
 import com.github.starcatcher21.stargazer.worldgen.BiomeReg;
 import com.mojang.serialization.Codec;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
 import net.jpountz.util.Utils;
 import net.minecraft.advancements.Advancement;
@@ -47,7 +47,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
 public class ModAdvancementsProvider extends FabricAdvancementProvider {
-    public ModAdvancementsProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registryLookup) {
+    public ModAdvancementsProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registryLookup) {
         super(output, registryLookup);
     }
 
@@ -130,7 +130,7 @@ public class ModAdvancementsProvider extends FabricAdvancementProvider {
         AdvancementHolder portal = Advancement.Builder.advancement()
                 .parent(airplane)
                 .display(
-                        Blocks.CUT_COPPER, // The display icon
+                        Blocks.CUT_COPPER.weathering().unaffected(), // The display icon
                         Component.literal("Where are we going?"), // The title
                         Component.literal("Open a portal to the unknown"), // The description
                         null,
@@ -175,7 +175,7 @@ public class ModAdvancementsProvider extends FabricAdvancementProvider {
                 )
                 .addCriterion("ghost", PlayerTrigger.TriggerInstance.located(
                         Optional.of(EntityPredicate.Builder.entity()
-                                .subPredicate(PlayerPredicate.Builder.player()
+                                .player(PlayerPredicate.Builder.player()
                                         .setLookingAt(EntityPredicate.Builder.entity()
                                                 .of(registryEntryLookupEntity, EntityRegistry.GHOST_ENTITY)
                                         ).build())
@@ -211,7 +211,7 @@ public class ModAdvancementsProvider extends FabricAdvancementProvider {
                 )
                 .addCriterion("pacman look", PlayerTrigger.TriggerInstance.located(
                         Optional.of(EntityPredicate.Builder.entity()
-                                .subPredicate(PlayerPredicate.Builder.player()
+                                .player(PlayerPredicate.Builder.player()
                                         .setLookingAt(EntityPredicate.Builder.entity()
                                                 .of(registryEntryLookupEntity, EntityRegistry.GHOST_ENTITY)
                                                 .nbt(new NbtPredicate(Util.make(new CompoundTag(), nbt -> {
@@ -236,7 +236,7 @@ public class ModAdvancementsProvider extends FabricAdvancementProvider {
                 )
                 .addCriterion("meet again", PlayerTrigger.TriggerInstance.located(
                         Optional.of(EntityPredicate.Builder.entity()
-                                .subPredicate(PlayerPredicate.Builder.player()
+                                .player(PlayerPredicate.Builder.player()
                                         .setLookingAt(EntityPredicate.Builder.entity()
                                                 .of(registryEntryLookupEntity, EntityRegistry.GHOST_ENTITY)
                                                 .nbt(new NbtPredicate(Util.make(new CompoundTag(), nbt -> {
@@ -260,7 +260,7 @@ public class ModAdvancementsProvider extends FabricAdvancementProvider {
                 )
                 .addCriterion("adventure", PlayerTrigger.TriggerInstance.located(
                         Optional.of(EntityPredicate.Builder.entity()
-                                .subPredicate(PlayerPredicate.Builder.player()
+                                .player(PlayerPredicate.Builder.player()
                                         .setLookingAt(EntityPredicate.Builder.entity()
                                                 .of(registryEntryLookupEntity, EntityRegistry.GHOST_ENTITY)
                                                 .nbt(new NbtPredicate(Util.make(new CompoundTag(), nbt -> {

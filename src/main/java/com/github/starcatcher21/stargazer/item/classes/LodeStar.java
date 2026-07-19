@@ -10,6 +10,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.context.UseOnContext;
@@ -28,7 +29,7 @@ public class LodeStar extends Item {
         BlockPos root = context.getClickedPos();
         if (isProperTeleporter(world, root)) {
             CopperTeleporter.portalPlace(world, root, false, false);
-            LightningBolt lightning = new LightningBolt(EntityType.LIGHTNING_BOLT, world);
+            LightningBolt lightning = new LightningBolt(EntityTypes.LIGHTNING_BOLT, world);
             lightning.setPosRaw(root.getX(), root.getY()+1, root.getZ());
             world.addFreshEntity(lightning);
             if (context.getPlayer() instanceof ServerPlayer spe) {
@@ -38,7 +39,7 @@ public class LodeStar extends Item {
         }
         if (isProperRedTeleporter(world, root)) {
             RedTeleporter.portalPlace(world, root, false, false);
-            LightningBolt lightning = new LightningBolt(EntityType.LIGHTNING_BOLT, world);
+            LightningBolt lightning = new LightningBolt(EntityTypes.LIGHTNING_BOLT, world);
             lightning.setPosRaw(root.getX(), root.getY()+1, root.getZ());
             world.addFreshEntity(lightning);
             return InteractionResult.SUCCESS;
@@ -65,42 +66,42 @@ public class LodeStar extends Item {
         return world.getBlockState(pos.relative(Direction.EAST, 1)).equals(RedOrbBlocks.RED_ROCK_STAIRS.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST));
     }
     public static Boolean isProperTeleporter(Level world, BlockPos pos) {
-        if (!(world.getBlockState(pos).getBlock().equals(Blocks.CUT_COPPER) || world.getBlockState(pos).getBlock().equals(Blocks.WAXED_CUT_COPPER))) {
+        if (!(world.getBlockState(pos).getBlock().equals(Blocks.CUT_COPPER.weathering().unaffected()) || world.getBlockState(pos).getBlock().equals(Blocks.CUT_COPPER.waxed().unaffected()))) {
             return false;
         }
-        if (!(world.getBlockState(pos.relative(Direction.NORTH, 1)).equals(Blocks.CUT_COPPER_STAIRS.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH)) || world.getBlockState(pos.relative(Direction.NORTH, 1)).equals(Blocks.WAXED_CUT_COPPER_STAIRS.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH)))) {
+        if (!(world.getBlockState(pos.relative(Direction.NORTH, 1)).equals(Blocks.CUT_COPPER_STAIRS.weathering().unaffected().defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH)) || world.getBlockState(pos.relative(Direction.NORTH, 1)).equals(Blocks.CUT_COPPER_STAIRS.waxed().unaffected().defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH)))) {
             return false;
         }
-        if (!(world.getBlockState(pos.relative(Direction.SOUTH, 1)).equals(Blocks.CUT_COPPER_STAIRS.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH)) || world.getBlockState(pos.relative(Direction.SOUTH, 1)).equals(Blocks.WAXED_CUT_COPPER_STAIRS.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH)))) {
+        if (!(world.getBlockState(pos.relative(Direction.SOUTH, 1)).equals(Blocks.CUT_COPPER_STAIRS.weathering().unaffected().defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH)) || world.getBlockState(pos.relative(Direction.SOUTH, 1)).equals(Blocks.CUT_COPPER_STAIRS.waxed().unaffected().defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH)))) {
             return false;
         }
-        if (!(world.getBlockState(pos.relative(Direction.WEST, 1)).equals(Blocks.CUT_COPPER_STAIRS.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST)) || world.getBlockState(pos.relative(Direction.WEST, 1)).equals(Blocks.WAXED_CUT_COPPER_STAIRS.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST)))) {
+        if (!(world.getBlockState(pos.relative(Direction.WEST, 1)).equals(Blocks.CUT_COPPER_STAIRS.weathering().unaffected().defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST)) || world.getBlockState(pos.relative(Direction.WEST, 1)).equals(Blocks.CUT_COPPER_STAIRS.waxed().unaffected().defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST)))) {
             return false;
         }
-        if (!(world.getBlockState(pos.relative(Direction.EAST, 1)).equals(Blocks.CUT_COPPER_STAIRS.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST)) || world.getBlockState(pos.relative(Direction.EAST, 1)).equals(Blocks.WAXED_CUT_COPPER_STAIRS.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST)))) {
+        if (!(world.getBlockState(pos.relative(Direction.EAST, 1)).equals(Blocks.CUT_COPPER_STAIRS.weathering().unaffected().defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST)) || world.getBlockState(pos.relative(Direction.EAST, 1)).equals(Blocks.CUT_COPPER_STAIRS.waxed().unaffected().defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST)))) {
             return false;
         }
-        if (!(world.getBlockState(pos.relative(Direction.NORTH, 1).relative(Direction.EAST, 1)).getBlock().equals(Blocks.CHISELED_COPPER) || world.getBlockState(pos.relative(Direction.NORTH, 1).relative(Direction.EAST, 1)).getBlock().equals(Blocks.WAXED_CHISELED_COPPER))) {
+        if (!(world.getBlockState(pos.relative(Direction.NORTH, 1).relative(Direction.EAST, 1)).getBlock().equals(Blocks.CHISELED_COPPER.weathering().unaffected()) || world.getBlockState(pos.relative(Direction.NORTH, 1).relative(Direction.EAST, 1)).getBlock().equals(Blocks.CHISELED_COPPER.waxed().unaffected()))) {
             return false;
         }
-        if (!(world.getBlockState(pos.relative(Direction.NORTH, 1).relative(Direction.WEST, 1)).getBlock().equals(Blocks.CHISELED_COPPER) || world.getBlockState(pos.relative(Direction.NORTH, 1).relative(Direction.WEST, 1)).getBlock().equals(Blocks.WAXED_CHISELED_COPPER))) {
+        if (!(world.getBlockState(pos.relative(Direction.NORTH, 1).relative(Direction.WEST, 1)).getBlock().equals(Blocks.CHISELED_COPPER.weathering().unaffected()) || world.getBlockState(pos.relative(Direction.NORTH, 1).relative(Direction.WEST, 1)).getBlock().equals(Blocks.CHISELED_COPPER.waxed().unaffected()))) {
             return false;
         }
-        if (!(world.getBlockState(pos.relative(Direction.SOUTH, 1).relative(Direction.EAST, 1)).getBlock().equals(Blocks.CHISELED_COPPER) || world.getBlockState(pos.relative(Direction.SOUTH, 1).relative(Direction.EAST, 1)).getBlock().equals(Blocks.WAXED_CHISELED_COPPER))) {
+        if (!(world.getBlockState(pos.relative(Direction.SOUTH, 1).relative(Direction.EAST, 1)).getBlock().equals(Blocks.CHISELED_COPPER.weathering().unaffected()) || world.getBlockState(pos.relative(Direction.SOUTH, 1).relative(Direction.EAST, 1)).getBlock().equals(Blocks.CHISELED_COPPER.waxed().unaffected()))) {
             return false;
         }
-        if (!(world.getBlockState(pos.relative(Direction.SOUTH, 1).relative(Direction.WEST, 1)).getBlock().equals(Blocks.CHISELED_COPPER) || world.getBlockState(pos.relative(Direction.SOUTH, 1).relative(Direction.WEST, 1)).getBlock().equals(Blocks.WAXED_CHISELED_COPPER))) {
+        if (!(world.getBlockState(pos.relative(Direction.SOUTH, 1).relative(Direction.WEST, 1)).getBlock().equals(Blocks.CHISELED_COPPER.weathering().unaffected()) || world.getBlockState(pos.relative(Direction.SOUTH, 1).relative(Direction.WEST, 1)).getBlock().equals(Blocks.CHISELED_COPPER.waxed().unaffected()))) {
             return false;
         }
-        if (!(world.getBlockState(pos.relative(Direction.NORTH, 1).relative(Direction.EAST, 1).relative(Direction.UP, 1)).getBlock().equals(Blocks.CUT_COPPER) || world.getBlockState(pos.relative(Direction.NORTH, 1).relative(Direction.EAST, 1).relative(Direction.UP, 1)).getBlock().equals(Blocks.WAXED_CUT_COPPER))) {
+        if (!(world.getBlockState(pos.relative(Direction.NORTH, 1).relative(Direction.EAST, 1).relative(Direction.UP, 1)).getBlock().equals(Blocks.CUT_COPPER.weathering().unaffected()) || world.getBlockState(pos.relative(Direction.NORTH, 1).relative(Direction.EAST, 1).relative(Direction.UP, 1)).getBlock().equals(Blocks.CUT_COPPER.waxed().unaffected()))) {
             return false;
         }
-        if (!(world.getBlockState(pos.relative(Direction.NORTH, 1).relative(Direction.WEST, 1).relative(Direction.UP, 1)).getBlock().equals(Blocks.CUT_COPPER) || world.getBlockState(pos.relative(Direction.NORTH, 1).relative(Direction.WEST, 1).relative(Direction.UP, 1)).getBlock().equals(Blocks.WAXED_CUT_COPPER))) {
+        if (!(world.getBlockState(pos.relative(Direction.NORTH, 1).relative(Direction.WEST, 1).relative(Direction.UP, 1)).getBlock().equals(Blocks.CUT_COPPER.weathering().unaffected()) || world.getBlockState(pos.relative(Direction.NORTH, 1).relative(Direction.WEST, 1).relative(Direction.UP, 1)).getBlock().equals(Blocks.CUT_COPPER.waxed().unaffected()))) {
             return false;
         }
-        if (!(world.getBlockState(pos.relative(Direction.SOUTH, 1).relative(Direction.EAST, 1).relative(Direction.UP, 1)).getBlock().equals(Blocks.CUT_COPPER) || world.getBlockState(pos.relative(Direction.SOUTH, 1).relative(Direction.EAST, 1).relative(Direction.UP, 1)).getBlock().equals(Blocks.WAXED_CUT_COPPER))) {
+        if (!(world.getBlockState(pos.relative(Direction.SOUTH, 1).relative(Direction.EAST, 1).relative(Direction.UP, 1)).getBlock().equals(Blocks.CUT_COPPER.weathering().unaffected()) || world.getBlockState(pos.relative(Direction.SOUTH, 1).relative(Direction.EAST, 1).relative(Direction.UP, 1)).getBlock().equals(Blocks.CUT_COPPER.waxed().unaffected()))) {
             return false;
         }
-        return world.getBlockState(pos.relative(Direction.SOUTH, 1).relative(Direction.WEST, 1).relative(Direction.UP, 1)).getBlock().equals(Blocks.CUT_COPPER) || world.getBlockState(pos.relative(Direction.SOUTH, 1).relative(Direction.WEST, 1).relative(Direction.UP, 1)).getBlock().equals(Blocks.WAXED_CUT_COPPER);
+        return world.getBlockState(pos.relative(Direction.SOUTH, 1).relative(Direction.WEST, 1).relative(Direction.UP, 1)).getBlock().equals(Blocks.CUT_COPPER.weathering().unaffected()) || world.getBlockState(pos.relative(Direction.SOUTH, 1).relative(Direction.WEST, 1).relative(Direction.UP, 1)).getBlock().equals(Blocks.CUT_COPPER.waxed().unaffected());
     }
 }

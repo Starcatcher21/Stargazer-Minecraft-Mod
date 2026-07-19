@@ -69,7 +69,7 @@ public class ShapedStarCrusherRecipe
     }
 
     @Override
-    public ItemStack assemble(StarCrusherRecipeInput input, HolderLookup.Provider registries) {
+    public ItemStack assemble(StarCrusherRecipeInput input) {
         return this.result.copy();
     }
 
@@ -110,7 +110,7 @@ public class ShapedStarCrusherRecipe
         public static final MapCodec<ShapedStarCrusherRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
                 Codec.STRING.optionalFieldOf("group", "").forGetter(recipe -> recipe.group),
                 StarCrusherShapedRecipe.CODEC.forGetter(recipe -> recipe.raw),
-                ItemStack.STRICT_CODEC.fieldOf("result").forGetter(recipe -> recipe.result)
+                ItemStack.CODEC.fieldOf("result").forGetter(recipe -> recipe.result)
         ).apply(instance, (group, raw, result) -> new ShapedStarCrusherRecipe(group, raw, result)));
         public static final StreamCodec<RegistryFriendlyByteBuf, ShapedStarCrusherRecipe> PACKET_CODEC = StreamCodec.of(ShapedStarCrusherRecipe.Serializer::write, ShapedStarCrusherRecipe.Serializer::read);
 

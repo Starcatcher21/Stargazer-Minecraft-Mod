@@ -6,6 +6,7 @@ import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;
 import net.minecraft.client.renderer.item.ItemModelResolver;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
@@ -22,8 +23,8 @@ import com.geckolib.renderer.GeoBlockRenderer;
 import com.geckolib.renderer.base.GeoRenderState;
 
 public class StarDisplayRenderer<R extends BlockEntityRenderState & GeoRenderState> extends GeoBlockRenderer<StarDisplayEntity, R> {
-    public StarDisplayRenderer(GeoModel<StarDisplayEntity> model) {
-            super(model);
+    public StarDisplayRenderer(BlockEntityRendererProvider.Context context, GeoModel<StarDisplayEntity> model) {
+        super(context, model);
     }
 
     @Override

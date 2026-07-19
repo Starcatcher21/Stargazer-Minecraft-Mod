@@ -44,7 +44,7 @@ public class MoonLog extends DirectionalBlock {
         if (STRIP == null) {
             return InteractionResult.PASS;
         }
-        if (stack.getTags().toList().contains(ItemTags.AXES)) {
+        if (stack.tags().toList().contains(ItemTags.AXES)) {
             BlockState newState = STRIP.defaultBlockState().setValue(BlockStateProperties.AXIS, state.getValue(BlockStateProperties.AXIS));
             world.playSound(player, pos, SoundEvents.AXE_STRIP, SoundSource.BLOCKS, 1.0F, 1.0F);
             if (player instanceof ServerPlayer) {

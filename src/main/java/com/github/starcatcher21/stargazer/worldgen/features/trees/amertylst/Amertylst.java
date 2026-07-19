@@ -52,7 +52,7 @@ public class Amertylst extends Feature<AmertylstConfig> {
                     float h = (float)Mth.abs(n) - 0.25f;
                     if ((m != 0 || n != 0) && g * g + h * h > f * f || (m == -l || m == l || n == -l || n == l) && random.nextFloat() > 0.75f) continue;
                     BlockState blockState = structureWorldAccess.getBlockState(blockPos.offset(m, k, n));
-                    if (blockState.isAir() || isDirt(blockState) || growOn.contains(blockState)) {
+                    if (blockState.isAir() || /* isDirt(blockState) || */ growOn.contains(blockState)) {
                         if (offsetBool) {
                             this.setBlock(structureWorldAccess, blockPos.offset(m, k, n).relative(offsetDir, offset+k), mainBlock.get(random.nextIntBetweenInclusive(0, mainBlock.size() - 1)));
                         } else {

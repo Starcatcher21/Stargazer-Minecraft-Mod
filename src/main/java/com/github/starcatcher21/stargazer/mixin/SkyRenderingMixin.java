@@ -3,6 +3,7 @@ package com.github.starcatcher21.stargazer.mixin;
 import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.renderer.CustomRederPipelines;
 import com.github.starcatcher21.stargazer.renderer.SkyDimensionChecks;
+import com.mojang.blaze3d.PrimitiveTopology;
 import com.mojang.blaze3d.buffers.GpuBuffer;
 import com.mojang.blaze3d.buffers.GpuBufferSlice;
 import com.mojang.blaze3d.systems.CommandEncoder;
@@ -29,6 +30,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.util.Optional;
 import java.util.OptionalDouble;
 import java.util.OptionalInt;
 
@@ -68,14 +70,14 @@ public abstract class SkyRenderingMixin {
     private void renderScreenSpaceSky() {
         MeshData meshData = buildSkyQuad();
         MeshData.DrawState drawState = meshData.drawState();
-        GpuBuffer vertices = uploadSkyQuad(meshData, drawState.format());
+        GpuBufferSlice vertices = uploadSkyQuad(meshData, drawState.format()).slice();
 
-        RenderSystem.AutoStorageIndexBuffer shapeIndexBuffer = RenderSystem.getSequentialBuffer(VertexFormat.Mode.QUADS);
+        RenderSystem.AutoStorageIndexBuffer shapeIndexBuffer = RenderSystem.getSequentialBuffer(PrimitiveTopology.QUADS);
         GpuBuffer indices = shapeIndexBuffer.getBuffer(drawState.indexCount());
 
         Minecraft client = Minecraft.getInstance();
-        GpuTextureView colorTarget = client.getMainRenderTarget().getColorTextureView();
-        GpuTextureView depthTarget = client.getMainRenderTarget().getDepthTextureView();
+        GpuTextureView colorTarget = client.gameRenderer.mainRenderTarget().getColorTextureView();
+        GpuTextureView depthTarget = client.gameRenderer.mainRenderTarget().getDepthTextureView();
 
         GpuBufferSlice dynamicTransforms = RenderSystem.getDynamicUniforms().writeTransform(
                 new Matrix4f(),
@@ -89,7 +91,7 @@ public abstract class SkyRenderingMixin {
                 .createRenderPass(
                         () -> Stargazer.MOD_ID + " soft sky",
                         colorTarget,
-                        OptionalInt.empty(),
+                        Optional.empty(),
                         depthTarget,
                         OptionalDouble.empty()
                 )) {
@@ -99,7 +101,7 @@ public abstract class SkyRenderingMixin {
             renderPass.setUniform("DynamicTransforms", dynamicTransforms);
             renderPass.setVertexBuffer(0, vertices);
             renderPass.setIndexBuffer(indices, shapeIndexBuffer.type());
-            renderPass.drawIndexed(0, 0, drawState.indexCount(), 1);
+            renderPass.drawIndexed(0, 0, drawState.indexCount(), 0,1);
         }
 
         meshData.close();
@@ -108,7 +110,7 @@ public abstract class SkyRenderingMixin {
 
     @Unique
     private static MeshData buildSkyQuad() {
-        BufferBuilder buffer = new BufferBuilder(SKY_ALLOCATOR, VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION);
+        BufferBuilder buffer = new BufferBuilder(SKY_ALLOCATOR, PrimitiveTopology.QUADS, DefaultVertexFormat.POSITION);
 
         buffer.addVertex(IDENTITY, -1.0F, -1.0F, 1.0F);
         buffer.addVertex(IDENTITY, 1.0F, -1.0F, 1.0F);
@@ -134,10 +136,10 @@ public abstract class SkyRenderingMixin {
             );
         }
 
-        CommandEncoder commandEncoder = RenderSystem.getDevice().createCommandEncoder();
-        try (GpuBuffer.MappedView mappedView = commandEncoder.mapBuffer(this.skyVertexBuffer.currentBuffer().slice(0, meshData.vertexBuffer().remaining()), false, true)) {
-            MemoryUtil.memCopy(meshData.vertexBuffer(), mappedView.data());
-        }
+//        CommandEncoder commandEncoder = RenderSystem.getDevice().createCommandEncoder();
+//        try (GpuBufferSlice.MappedView mappedView = commandEncoder.mapBuffer(this.skyVertexBuffer.currentBuffer().slice(0, meshData.vertexBuffer().remaining()), false, true)) {
+//            MemoryUtil.memCopy(meshData.vertexBuffer(), mappedView.data());
+//        }
 
         return this.skyVertexBuffer.currentBuffer();
     }

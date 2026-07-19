@@ -15,10 +15,14 @@ import com.github.starcatcher21.stargazer.block.clases.teleporter.DarkTeleporter
 import com.github.starcatcher21.stargazer.block.clases.teleporter.EndTeleporter;
 import com.github.starcatcher21.stargazer.block.clases.teleporter.RedTeleporter;
 import com.github.starcatcher21.stargazer.block.register.*;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -132,7 +136,10 @@ public class ModBlock {
         final Identifier identifier = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, path);
         final ResourceKey<Block> registryKey = ResourceKey.create(Registries.BLOCK, identifier);
         final Block block = Blocks.register(registryKey, factory, settings);
-        Items.registerBlock(block);
+        ResourceKey<Item> itemKey = ResourceKey.create(Registries.ITEM, identifier);
+
+        BlockItem blockItem = new BlockItem(block, new Item.Properties().setId(itemKey).useBlockDescriptionPrefix());
+        Registry.register(BuiltInRegistries.ITEM, itemKey, blockItem);
         return block;
     }
     public static Block registerWoItem(String path, Function<BlockBehaviour.Properties, Block> factory, BlockBehaviour.Properties settings) {

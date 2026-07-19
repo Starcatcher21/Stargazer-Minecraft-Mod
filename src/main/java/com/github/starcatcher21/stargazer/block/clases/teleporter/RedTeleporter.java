@@ -222,7 +222,7 @@ public class RedTeleporter extends Block {
             }
             postDimensionTransition = TeleportTransition.PLAY_PORTAL_SOUND.then(TeleportTransition.PLACE_PORTAL_TICKET);
         }
-        return new TeleportTransition(world, rectangle.minCorner.above().getCenter(), Vec3.ZERO, entity2.getYRot(), entity2.getXRot(), Relative.union(Relative.DELTA, Relative.ROTATION), postDimensionTransition);
+        return new TeleportTransition(world, Vec3.atCenterOf(rectangle.minCorner.above()), Vec3.ZERO, entity2.getYRot(), entity2.getXRot(), Relative.union(Relative.DELTA, Relative.ROTATION), postDimensionTransition);
     }
 
     @Override

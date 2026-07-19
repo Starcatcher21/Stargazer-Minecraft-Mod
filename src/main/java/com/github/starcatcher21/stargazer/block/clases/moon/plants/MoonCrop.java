@@ -152,7 +152,7 @@ public class MoonCrop
     }
 
     protected int getGrowthAmount(Level world) {
-        return Mth.nextInt(world.random, 2, 5);
+        return Mth.nextInt(world.getRandom(), 2, 5);
     }
 
     protected static float getAvailableMoisture(Block block, Level world, BlockPos pos) {

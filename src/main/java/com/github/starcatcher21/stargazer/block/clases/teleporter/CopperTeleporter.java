@@ -189,19 +189,19 @@ public class CopperTeleporter extends Block {
 
 
     public void breakPortal(LevelAccessor world, BlockPos root) {
-        world.setBlock(root, Blocks.CUT_COPPER.defaultBlockState(), Block.UPDATE_ALL);
-        world.setBlock(root.north(), Blocks.CUT_COPPER_STAIRS.defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, Direction.NORTH.getOpposite()), Block.UPDATE_ALL);
-        world.setBlock(root.south(), Blocks.CUT_COPPER_STAIRS.defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, Direction.SOUTH.getOpposite()), Block.UPDATE_ALL);
-        world.setBlock(root.west(), Blocks.CUT_COPPER_STAIRS.defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, Direction.WEST.getOpposite()), Block.UPDATE_ALL);
-        world.setBlock(root.east(), Blocks.CUT_COPPER_STAIRS.defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, Direction.EAST.getOpposite()), Block.UPDATE_ALL);
-        world.setBlock(root.north().west(), Blocks.CHISELED_COPPER.defaultBlockState(), Block.UPDATE_ALL);
-        world.setBlock(root.north().east(), Blocks.CHISELED_COPPER.defaultBlockState(), Block.UPDATE_ALL);
-        world.setBlock(root.south().west(), Blocks.CHISELED_COPPER.defaultBlockState(), Block.UPDATE_ALL);
-        world.setBlock(root.south().east(), Blocks.CHISELED_COPPER.defaultBlockState(), Block.UPDATE_ALL);
-        world.setBlock(root.north().west().above(), Blocks.CUT_COPPER.defaultBlockState(), Block.UPDATE_ALL);
-        world.setBlock(root.north().east().above(), Blocks.CUT_COPPER.defaultBlockState(), Block.UPDATE_ALL);
-        world.setBlock(root.south().west().above(), Blocks.CUT_COPPER.defaultBlockState(), Block.UPDATE_ALL);
-        world.setBlock(root.south().east().above(), Blocks.CUT_COPPER.defaultBlockState(), Block.UPDATE_ALL);
+        world.setBlock(root, Blocks.CUT_COPPER.weathering().unaffected().defaultBlockState(), Block.UPDATE_ALL);
+        world.setBlock(root.north(), Blocks.CUT_COPPER_STAIRS.weathering().unaffected().defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, Direction.NORTH.getOpposite()), Block.UPDATE_ALL);
+        world.setBlock(root.south(), Blocks.CUT_COPPER_STAIRS.weathering().unaffected().defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, Direction.SOUTH.getOpposite()), Block.UPDATE_ALL);
+        world.setBlock(root.west(), Blocks.CUT_COPPER_STAIRS.weathering().unaffected().defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, Direction.WEST.getOpposite()), Block.UPDATE_ALL);
+        world.setBlock(root.east(), Blocks.CUT_COPPER_STAIRS.weathering().unaffected().defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, Direction.EAST.getOpposite()), Block.UPDATE_ALL);
+        world.setBlock(root.north().west(), Blocks.CHISELED_COPPER.weathering().unaffected().defaultBlockState(), Block.UPDATE_ALL);
+        world.setBlock(root.north().east(), Blocks.CHISELED_COPPER.weathering().unaffected().defaultBlockState(), Block.UPDATE_ALL);
+        world.setBlock(root.south().west(), Blocks.CHISELED_COPPER.weathering().unaffected().defaultBlockState(), Block.UPDATE_ALL);
+        world.setBlock(root.south().east(), Blocks.CHISELED_COPPER.weathering().unaffected().defaultBlockState(), Block.UPDATE_ALL);
+        world.setBlock(root.north().west().above(), Blocks.CUT_COPPER.weathering().unaffected().defaultBlockState(), Block.UPDATE_ALL);
+        world.setBlock(root.north().east().above(), Blocks.CUT_COPPER.weathering().unaffected().defaultBlockState(), Block.UPDATE_ALL);
+        world.setBlock(root.south().west().above(), Blocks.CUT_COPPER.weathering().unaffected().defaultBlockState(), Block.UPDATE_ALL);
+        world.setBlock(root.south().east().above(), Blocks.CUT_COPPER.weathering().unaffected().defaultBlockState(), Block.UPDATE_ALL);
     }
 
     @Override
@@ -286,7 +286,7 @@ public class CopperTeleporter extends Block {
             }
             postDimensionTransition = TeleportTransition.PLAY_PORTAL_SOUND.then(TeleportTransition.PLACE_PORTAL_TICKET);
         }
-        return new TeleportTransition(world, rectangle.minCorner.above().getCenter(), Vec3.ZERO, entity2.getYRot(), entity2.getXRot(), Relative.union(Relative.DELTA, Relative.ROTATION), postDimensionTransition);
+        return new TeleportTransition(world, Vec3.atCenterOf(rectangle.minCorner.above()), Vec3.ZERO, entity2.getYRot(), entity2.getXRot(), Relative.union(Relative.DELTA, Relative.ROTATION), postDimensionTransition);
     }
 
     @Override
@@ -303,12 +303,12 @@ public class CopperTeleporter extends Block {
     protected ItemStack getCloneItemStack(LevelReader world, BlockPos pos, BlockState state, boolean includeData) {
         CopperTeleporterState cts = state.getValue(STATE);
         if (cts.equals(CopperTeleporterState.middle) || cts.equals(CopperTeleporterState.ne_up) || cts.equals(CopperTeleporterState.nw_up) || cts.equals(CopperTeleporterState.se_up) || cts.equals(CopperTeleporterState.sw_up)) {
-            return Blocks.CUT_COPPER.asItem().getDefaultInstance();
+            return Blocks.CUT_COPPER.weathering().unaffected().asItem().getDefaultInstance();
         }
         if (cts.equals(CopperTeleporterState.north) || cts.equals(CopperTeleporterState.south) || cts.equals(CopperTeleporterState.west) || cts.equals(CopperTeleporterState.east)) {
-            return Blocks.CUT_COPPER_STAIRS.asItem().getDefaultInstance();
+            return Blocks.CUT_COPPER_STAIRS.weathering().unaffected().asItem().getDefaultInstance();
         }
-        return Blocks.CHISELED_COPPER.asItem().getDefaultInstance();
+        return Blocks.CHISELED_COPPER.weathering().unaffected().asItem().getDefaultInstance();
     }
 
     @Override

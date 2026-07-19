@@ -93,7 +93,7 @@ public class ShapedMoonWelderRecipe
     }
 
     @Override
-    public ItemStack assemble(MoonWelderRecipeInput recipeInput, HolderLookup.Provider provider) {
+    public ItemStack assemble(MoonWelderRecipeInput recipeInput) {
         return this.result.copy();
     }
 
@@ -124,7 +124,7 @@ public class ShapedMoonWelderRecipe
         public static final MapCodec<ShapedMoonWelderRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
                 Codec.STRING.optionalFieldOf("group", "").forGetter(recipe -> recipe.group),
                 RawMoonWelderShapedRecipe.CODEC.forGetter(recipe -> recipe.raw),
-                ItemStack.STRICT_CODEC.fieldOf("result").forGetter(recipe -> recipe.result)
+                ItemStack.CODEC.fieldOf("result").forGetter(recipe -> recipe.result)
         ).apply(instance, (group, raw, result) -> new ShapedMoonWelderRecipe(group, raw, result)));
         public static final StreamCodec<RegistryFriendlyByteBuf, ShapedMoonWelderRecipe> PACKET_CODEC = StreamCodec.of(ShapedMoonWelderRecipe.Serializer::write, ShapedMoonWelderRecipe.Serializer::read);
 

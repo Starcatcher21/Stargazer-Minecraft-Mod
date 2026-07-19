@@ -7,10 +7,7 @@ import com.github.starcatcher21.stargazer.nbt.Patterns;
 import com.github.starcatcher21.stargazer.nbt.StarPatternsComponent;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 import net.fabricmc.fabric.api.event.registry.DynamicRegistries;
-import net.fabricmc.fabric.api.event.registry.FabricRegistry;
-import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
-import net.fabricmc.fabric.api.object.builder.v1.entity.FabricTrackedDataRegistry;
-import net.fabricmc.fabric.impl.networking.FabricRegistryFriendlyByteBuf;
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityDataRegistry;
 import net.minecraft.core.Registry;
 import net.minecraft.network.syncher.EntityDataSerializer;
 import net.minecraft.resources.Identifier;
@@ -48,10 +45,10 @@ public class RegistryKeys {
                 FALLING_OBJECTS_LIST,
                 FallingObjectsList.CODEC
         );
-        FabricTrackedDataRegistry.register(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "patterns"), PATTERN);
-        FabricTrackedDataRegistry.register(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "cobble_gen"), COBBLE_GEN_DATA);
-        FabricTrackedDataRegistry.register(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "falling_objects"), FALLING_OBJECTS_DATA);
-        FabricTrackedDataRegistry.register(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "falling_objects_list"), FALLING_OBJECTS_LIST_DATA);
-        FabricTrackedDataRegistry.register(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "patterns_component"), PATTERN_COMPONENT);
+        FabricEntityDataRegistry.register(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "patterns"), PATTERN);
+        FabricEntityDataRegistry.register(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "cobble_gen"), COBBLE_GEN_DATA);
+        FabricEntityDataRegistry.register(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "falling_objects"), FALLING_OBJECTS_DATA);
+        FabricEntityDataRegistry.register(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "falling_objects_list"), FALLING_OBJECTS_LIST_DATA);
+        FabricEntityDataRegistry.register(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "patterns_component"), PATTERN_COMPONENT);
     }
 }

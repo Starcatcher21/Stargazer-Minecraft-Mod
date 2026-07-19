@@ -3,8 +3,9 @@ package com.github.starcatcher21.stargazer.datagen;
 import com.github.starcatcher21.stargazer.entity.EntityRegistry;
 import com.github.starcatcher21.stargazer.item.ModItems;
 import com.mojang.serialization.Codec;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricEntityLootTableProvider;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricEntityLootSubProvider;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.minecraft.advancements.predicates.entity.EntityPredicate;
 import net.minecraft.advancements.predicates.NbtPredicate;
 import net.minecraft.core.HolderLookup;
@@ -22,8 +23,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.CompletableFuture;
 
-public class ModEntityLootTableProvider extends FabricEntityLootTableProvider {
-    public ModEntityLootTableProvider(FabricDataOutput output, @NotNull CompletableFuture<HolderLookup.Provider> registryLookup) {
+public class ModEntityLootTableProvider extends FabricEntityLootSubProvider {
+    public ModEntityLootTableProvider(FabricPackOutput output, @NotNull CompletableFuture<HolderLookup.Provider> registryLookup) {
         super(output, registryLookup);
     }
 
@@ -63,4 +64,5 @@ public class ModEntityLootTableProvider extends FabricEntityLootTableProvider {
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 4.0f)))
                 ));
     }
+
 }

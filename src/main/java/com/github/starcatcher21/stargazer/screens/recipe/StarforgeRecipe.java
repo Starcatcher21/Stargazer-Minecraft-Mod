@@ -28,7 +28,7 @@ public interface StarforgeRecipe
         NonNullList<ItemStack> defaultedList = NonNullList.withSize(input.size(), ItemStack.EMPTY);
         for (int i = 0; i < defaultedList.size(); ++i) {
             Item item = input.getItem(i).getItem();
-            defaultedList.set(i, item.getCraftingRemainder());
+            defaultedList.set(i, item.getCraftingRemainder().create());
         }
         return defaultedList;
     }

@@ -94,7 +94,7 @@ public class ShapedStarforgeRecipe
     }
 
     @Override
-    public ItemStack assemble(StarforgeRecipeInput craftingRecipeInput, HolderLookup.Provider wrapperLookup) {
+    public ItemStack assemble(StarforgeRecipeInput input) {
         return this.result.copy();
     }
 
@@ -116,7 +116,7 @@ public class ShapedStarforgeRecipe
         public static final MapCodec<ShapedStarforgeRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
                 Codec.STRING.optionalFieldOf("group", "").forGetter(recipe -> recipe.group),
                 RawStarforgeShapedRecipe.CODEC.forGetter(recipe -> recipe.raw),
-                ItemStack.STRICT_CODEC.fieldOf("result").forGetter(recipe -> recipe.result)
+                ItemStack.CODEC.fieldOf("result").forGetter(recipe -> recipe.result)
         ).apply(instance, (group, raw, result) -> new ShapedStarforgeRecipe(group, raw, result)));
         public static final StreamCodec<RegistryFriendlyByteBuf, ShapedStarforgeRecipe> PACKET_CODEC = StreamCodec.of(ShapedStarforgeRecipe.Serializer::write, ShapedStarforgeRecipe.Serializer::read);
 

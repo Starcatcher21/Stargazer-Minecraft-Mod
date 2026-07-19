@@ -9,7 +9,7 @@ import com.github.starcatcher21.stargazer.item.ModItems;
 import com.github.starcatcher21.stargazer.item.WishingStars;
 import com.mojang.math.Quadrant;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.minecraft.client.data.*;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
@@ -25,6 +25,7 @@ import net.minecraft.client.data.models.model.TextureMapping;
 import net.minecraft.client.data.models.model.TextureSlot;
 import net.minecraft.client.data.models.model.TexturedModel;
 import net.minecraft.client.renderer.block.dispatch.Variant;
+import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.random.WeightedList;
@@ -34,7 +35,7 @@ import net.minecraft.world.level.block.Blocks;
 import java.util.Optional;
 
 public class ModModelProvider extends FabricModelProvider {
-    public ModModelProvider(FabricDataOutput output) {
+    public ModModelProvider(FabricPackOutput output) {
         super(output);
     }
 
@@ -196,15 +197,15 @@ public class ModModelProvider extends FabricModelProvider {
         blockStateModelGenerator.createTrivialCube(MoonBlocks.SUN_ENRICHED_MOON_ROCK);
         blockStateModelGenerator.createTrivialCube(MoonBlocks.POLISHED_SUN_ENRICHED_MOON_ROCK);
         TextureMapping dyliumMap = new TextureMapping()
-                .put(TextureSlot.TOP, Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "block/dylium_top"))
-                .put(TextureSlot.BOTTOM, Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "block/moon_rock"))
-                .put(TextureSlot.SIDE, Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "block/dylium_side"));
+                .put(TextureSlot.TOP, new Material(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "block/dylium_top")))
+                .put(TextureSlot.BOTTOM, new Material(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "block/moon_rock")))
+                .put(TextureSlot.SIDE, new Material(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "block/dylium_side")));
 
         registerTopBottom(blockStateModelGenerator, Darkness.DYLIUM, dyliumMap);
         TextureMapping BorilMap = new TextureMapping()
-                .put(TextureSlot.TOP, Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "block/boril_top"))
-                .put(TextureSlot.BOTTOM, Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "block/puroil"))
-                .put(TextureSlot.SIDE, Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "block/boril_side"));
+                .put(TextureSlot.TOP, new Material(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "block/boril_top")))
+                .put(TextureSlot.BOTTOM, new Material(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "block/puroil")))
+                .put(TextureSlot.SIDE, new Material(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "block/boril_side")));
 
         registerTopBottom(blockStateModelGenerator, Wander.BORIL, BorilMap);
         blockStateModelGenerator.createTrivialCube(Wander.PUROIL);
@@ -386,22 +387,22 @@ public class ModModelProvider extends FabricModelProvider {
 
     public TextureMapping getCustomPotTextureMap(Block block, Block dirt) {
         TextureMapping map = new TextureMapping();
-        map.put(TextureSlot.PLANT, getBlockTexture(block));
-        map.put(TextureSlot.DIRT, getBlockTexture(dirt));
+        map.put(TextureSlot.PLANT, new Material(getBlockTexture(block)));
+        map.put(TextureSlot.DIRT, new Material(getBlockTexture(dirt)));
         return map;
     }
 
     public TextureMapping getHedgeMap(Block block) {
         TextureMapping map = new TextureMapping();
-        map.put(TextureSlot.TOP, getBlockTexture(block).withSuffix("_top"));
-        map.put(TextureSlot.SIDE, getBlockTexture(block));
+        map.put(TextureSlot.TOP, new Material(getBlockTexture(block).withSuffix("_top")));
+        map.put(TextureSlot.SIDE, new Material(getBlockTexture(block)));
         return map;
     }
 
     public TextureMapping getHedgeSideMap(Block block) {
         TextureMapping map = new TextureMapping();
-        map.put(TextureSlot.TOP, getBlockTexture(block).withSuffix("_top"));
-        map.put(TextureSlot.SIDE, getBlockTexture(block).withSuffix("_side"));
+        map.put(TextureSlot.TOP, new Material(getBlockTexture(block).withSuffix("_top")));
+        map.put(TextureSlot.SIDE, new Material(getBlockTexture(block).withSuffix("_side")));
         return map;
     }
 
@@ -410,7 +411,7 @@ public class ModModelProvider extends FabricModelProvider {
     }
 
     public final Identifier uploadWithTexture(ItemModelGenerators itemModelGenerator, Item item, Identifier texture, ModelTemplate model) {
-        return model.create(ModelLocationUtils.getModelLocation(item), TextureMapping.layer0(texture), itemModelGenerator.modelOutput);
+        return model.create(ModelLocationUtils.getModelLocation(item), TextureMapping.layer0(new Material(texture)), itemModelGenerator.modelOutput);
     }
 
     public Identifier getBlockTexture(Block block) {
@@ -468,8 +469,8 @@ public class ModModelProvider extends FabricModelProvider {
     }
     public TextureMapping getCableMap(Block block) {
         TextureMapping map = new TextureMapping();
-        map.put(TextureSlot.ALL, getBlockTexture(block));
-        map.put(TextureSlot.PARTICLE, getBlockTexture(block));
+        map.put(TextureSlot.ALL, new Material(getBlockTexture(block)));
+        map.put(TextureSlot.PARTICLE, new Material(getBlockTexture(block)));
         return map;
     }
 }

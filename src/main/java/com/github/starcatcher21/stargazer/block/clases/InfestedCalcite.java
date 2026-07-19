@@ -1,5 +1,6 @@
 package com.github.starcatcher21.stargazer.block.clases;
 
+import com.github.starcatcher21.stargazer.block.ModBlock;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -12,6 +13,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SpreadingSnowyBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.lighting.LightEngine;
 import net.minecraft.world.phys.BlockHitResult;
@@ -19,8 +21,8 @@ import net.minecraft.world.phys.BlockHitResult;
 public class InfestedCalcite extends SpreadingSnowyBlock {
     public static final MapCodec<InfestedCalcite> CODEC = simpleCodec(InfestedCalcite::new);
 
-    public InfestedCalcite(Properties settings) {
-        super(settings);
+    public InfestedCalcite(final BlockBehaviour.Properties properties) {
+        super(properties, ModBlock.INFESTED_CALCITE.properties().blockId());
     }
 
     @Override
@@ -32,7 +34,7 @@ public class InfestedCalcite extends SpreadingSnowyBlock {
     protected void onProjectileHit(Level world, BlockState state, BlockHitResult hit, Projectile projectile) {
         if (!world.isClientSide()) {
             BlockPos blockPos = hit.getBlockPos();
-            world.playSound(null, blockPos, SoundEvents.AMETHYST_BLOCK_CHIME, SoundSource.BLOCKS, 1.0f, 0.5f + world.random.nextFloat() * 1.2f);
+            world.playSound(null, blockPos, SoundEvents.AMETHYST_BLOCK_CHIME, SoundSource.BLOCKS, 1.0f, 0.5f + world.getRandom().nextFloat() * 1.2f);
         }
     }
 

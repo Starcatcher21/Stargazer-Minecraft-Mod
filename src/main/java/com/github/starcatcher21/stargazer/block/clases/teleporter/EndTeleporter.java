@@ -229,7 +229,7 @@ public class EndTeleporter extends Block {
         if (serverWorld == null) {
             return null;
         } else {
-            Vec3 vec3d = blockPos.getBottomCenter();
+            Vec3 vec3d = Vec3.atBottomCenterOf(blockPos);
             float f;
             float g;
             Set<Relative> set;
@@ -249,7 +249,7 @@ public class EndTeleporter extends Block {
                     return serverPlayerEntity.findRespawnPositionAndUseSpawnBlock(false, TeleportTransition.DO_NOTHING);
                 }
 
-                vec3d = entity.adjustSpawnLocation(serverWorld, blockPos).getBottomCenter();
+                vec3d = Vec3.atBottomCenterOf(entity.adjustSpawnLocation(serverWorld, blockPos));
             }
 
             return new TeleportTransition(

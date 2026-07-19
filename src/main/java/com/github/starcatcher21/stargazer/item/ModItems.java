@@ -6,7 +6,9 @@ import com.github.starcatcher21.stargazer.block.ModFluids;
 import com.github.starcatcher21.stargazer.effects.StatusEffects;
 import com.github.starcatcher21.stargazer.entity.EntityRegistry;
 import com.github.starcatcher21.stargazer.item.classes.*;
+import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.*;
 import net.minecraft.resources.Identifier;
@@ -127,7 +129,7 @@ public final class ModItems {
     );
     public static final Item THROWABLE_STAR = register("throwable_star", ThrowableStar::new, new Item.Properties().stacksTo(16));
 
-    public static final Item STAR_BANNER_PATTERN = register("star_banner_pattern", Item::new, new Item.Properties().stacksTo(1).component(DataComponents.PROVIDES_BANNER_PATTERNS, CustomTags.STAR_PATTERNS));
+    public static final Item STAR_BANNER_PATTERN = register("star_banner_pattern", Item::new, new Item.Properties().stacksTo(1).delayedComponent(DataComponents.PROVIDES_BANNER_PATTERNS, context -> context.getOrThrow(CustomTags.STAR_PATTERNS)));
 
     public static final Item LUCKY_COMET = register("lucky_comet", LuckyComet::new, new Item.Properties());
     public static final Item COMET_FRAGMENT = register("comet_fragment", Item::new, new Item.Properties());
@@ -148,7 +150,9 @@ public final class ModItems {
     }
     public static Item register(String path, Function<Item.Properties, Item> factory, Item.Properties settings) {
         final ResourceKey<Item> registryKey = ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, path));
-        return Items.registerItem(registryKey, factory, settings);
+        Item item = factory.apply((settings.setId(registryKey)));
+        Registry.register(BuiltInRegistries.ITEM, registryKey, item);
+        return item;
     }
 
     public static Function<Item.Properties, Item> createBlockItemWithUniqueName(Block block) {

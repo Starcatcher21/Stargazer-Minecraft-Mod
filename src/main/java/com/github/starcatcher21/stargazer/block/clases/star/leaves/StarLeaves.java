@@ -83,11 +83,6 @@ public class StarLeaves extends BaseEntityBlock implements SimpleWaterloggedBloc
     }
 
     @Override
-    protected int getLightBlock(BlockState state) {
-        return 1;
-    }
-
-    @Override
     protected BlockState updateShape(
             BlockState state,
             LevelReader world,

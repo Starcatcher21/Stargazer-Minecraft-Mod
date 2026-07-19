@@ -98,7 +98,7 @@ public class WishingStarItem extends BoatItem {
             Vec3 vec3d = hitResult.getLocation();
             abstractBoatEntity.setInitialPos(vec3d.x, vec3d.y, vec3d.z);
             if (world instanceof ServerLevel serverWorld) {
-                EntityType.createDefaultStackConfig(serverWorld, stack, player).accept(abstractBoatEntity);
+                EntityType.createDefaultStackConfig(serverWorld, stack, player).apply(abstractBoatEntity);
             }
         }
 

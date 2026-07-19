@@ -8,7 +8,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.context.UseOnContext;
@@ -27,7 +27,7 @@ public class DarkStar extends Item {
         BlockPos root = context.getClickedPos();
         if (isProperTeleporter(world, root)) {
             DarkTeleporter.portalPlace(world, root, false, false);
-            LightningBolt lightning = new LightningBolt(EntityType.LIGHTNING_BOLT, world);
+            LightningBolt lightning = new LightningBolt(EntityTypes.LIGHTNING_BOLT, world);
             lightning.setPosRaw(root.getX(), root.getY()+1, root.getZ());
             world.addFreshEntity(lightning);
             if (context.getPlayer() instanceof ServerPlayer spe) {
@@ -37,7 +37,7 @@ public class DarkStar extends Item {
         }
         if (isProperEndTeleporter(world, root)) {
             EndTeleporter.portalPlace(world, root, false, false);
-            LightningBolt lightning = new LightningBolt(EntityType.LIGHTNING_BOLT, world);
+            LightningBolt lightning = new LightningBolt(EntityTypes.LIGHTNING_BOLT, world);
             lightning.setPosRaw(root.getX(), root.getY()+1, root.getZ());
             world.addFreshEntity(lightning);
             if (context.getPlayer() instanceof ServerPlayer spe) {

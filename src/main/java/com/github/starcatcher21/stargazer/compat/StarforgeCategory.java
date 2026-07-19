@@ -4,8 +4,6 @@ import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.block.clases.moon.starforge.Starforge;
 import com.github.starcatcher21.stargazer.block.register.MoonBlocks;
 import com.google.common.collect.Lists;
-import me.shedaniel.math.Point;
-import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.gui.Renderer;
 import me.shedaniel.rei.api.client.gui.widgets.Slot;
 import me.shedaniel.rei.api.client.gui.widgets.Widget;
@@ -17,6 +15,7 @@ import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.crafting.Ingredient;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;

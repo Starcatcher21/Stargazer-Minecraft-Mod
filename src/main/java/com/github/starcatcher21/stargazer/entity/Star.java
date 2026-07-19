@@ -261,8 +261,8 @@ public class Star extends AbstractBoat implements GeoEntity {
     }
 
     @Override
-    public InteractionResult interact(Player player, InteractionHand hand) {
-        InteractionResult actionResult = super.interact(player, hand);
+    public InteractionResult interact(Player player, InteractionHand hand, Vec3 location) {
+        InteractionResult actionResult = super.interact(player, hand, location);
         if (actionResult != InteractionResult.PASS) {
             return actionResult;
         }
@@ -275,7 +275,7 @@ public class Star extends AbstractBoat implements GeoEntity {
         }
 
         if (item instanceof DyeItem dyeItem) {
-            setDyeColor(dyeItem.getDyeColor());
+            setDyeColor(DyeColor.byId(DyeItem.getId(dyeItem)));
             spawnParticles();
             return InteractionResult.SUCCESS;
         }

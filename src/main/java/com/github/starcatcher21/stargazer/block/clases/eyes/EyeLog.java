@@ -42,7 +42,7 @@ public class EyeLog extends DirectionalBlock {
 
     @Override
     protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        if (stack.getTags().toList().contains(ItemTags.AXES)) {
+        if (stack.tags().toList().contains(ItemTags.AXES)) {
             BlockState newState = STRIP.defaultBlockState().setValue(BlockStateProperties.AXIS, state.getValue(BlockStateProperties.AXIS));
             world.playSound(player, pos, SoundEvents.AXE_STRIP, SoundSource.BLOCKS, 1.0F, 1.0F);
             if (player instanceof ServerPlayer) {
