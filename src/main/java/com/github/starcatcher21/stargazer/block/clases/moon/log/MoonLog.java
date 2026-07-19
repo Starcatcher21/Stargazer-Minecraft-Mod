@@ -1,9 +1,11 @@
 package com.github.starcatcher21.stargazer.block.clases.moon.log;
 
 import com.mojang.serialization.MapCodec;
-import net.minecraft.advancements.CriteriaTriggers;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.advancements.triggers.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -22,13 +24,19 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
+import java.util.Optional;
 
 public class MoonLog extends DirectionalBlock {
+    public static final MapCodec<MoonLog> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+            BuiltInRegistries.BLOCK.byNameCodec().optionalFieldOf("strip").forGetter(block -> Optional.ofNullable(block.STRIP)),
+            propertiesCodec()
+    ).apply(instance, (strip, settings) -> new MoonLog(strip.orElse(null), settings)));
+
     @Nullable
     protected Block STRIP;
     @Override
     protected MapCodec<? extends DirectionalBlock> codec() {
-        return null;
+        return CODEC;
     }
 
     @Override

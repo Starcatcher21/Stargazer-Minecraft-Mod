@@ -2,9 +2,11 @@ package com.github.starcatcher21.stargazer.block.clases.eyes;
 
 import com.github.starcatcher21.stargazer.block.register.EyeBloodBlocks;
 import com.mojang.serialization.MapCodec;
-import net.minecraft.advancements.CriteriaTriggers;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.advancements.triggers.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -26,11 +28,16 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 
 public class EyeLog extends DirectionalBlock {
+    public static final MapCodec<EyeLog> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+            BuiltInRegistries.BLOCK.byNameCodec().fieldOf("strip").forGetter(block -> block.STRIP),
+            propertiesCodec()
+    ).apply(instance, EyeLog::new));
+
     protected Block STRIP;
     protected String VARIANT;
     @Override
     protected MapCodec<? extends DirectionalBlock> codec() {
-        return null;
+        return CODEC;
     }
 
     @Override

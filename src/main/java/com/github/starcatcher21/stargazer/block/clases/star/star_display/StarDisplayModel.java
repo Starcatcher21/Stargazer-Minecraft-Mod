@@ -2,8 +2,8 @@ package com.github.starcatcher21.stargazer.block.clases.star.star_display;
 
 import com.github.starcatcher21.stargazer.Stargazer;
 import net.minecraft.resources.Identifier;
-import software.bernie.geckolib.model.GeoModel;
-import software.bernie.geckolib.renderer.base.GeoRenderState;
+import com.geckolib.model.GeoModel;
+import com.geckolib.renderer.base.GeoRenderState;
 
 public class StarDisplayModel extends GeoModel<StarDisplayEntity> {
     private final Identifier model = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "block/star_display");

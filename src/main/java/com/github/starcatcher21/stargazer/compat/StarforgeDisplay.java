@@ -64,6 +64,10 @@ public class StarforgeDisplay extends BasicDisplay {
         this((ShapedStarforgeRecipe) recipe);
     }
 
+    private static ShapedStarforgeRecipe emptyRecipe() {
+        return new ShapedStarforgeRecipe("", new RawStarforgeShapedRecipe(0,0, List.of(Optional.empty()), Optional.empty()), ItemStack.EMPTY);
+    }
+
     public static ShapedStarforgeRecipe getRecipe(Optional<RecipeDisplayId> networkRecipeId) {
         if (networkRecipeId.isPresent() && Minecraft.getInstance().getSingleplayerServer() != null) {
             RecipeManager.ServerDisplayInfo recip = Minecraft.getInstance().getSingleplayerServer().getRecipeManager().getRecipeFromDisplay(networkRecipeId.get());
@@ -71,7 +75,7 @@ public class StarforgeDisplay extends BasicDisplay {
                 return ssr;
             }
         }
-        return new ShapedStarforgeRecipe("", new RawStarforgeShapedRecipe(0,0, List.of(Optional.empty()), Optional.empty()), ItemStack.EMPTY);
+        return emptyRecipe();
     }
 
     public static ShapedStarforgeRecipe getRecipe(Identifier id) {
@@ -81,17 +85,16 @@ public class StarforgeDisplay extends BasicDisplay {
                 return ssr;
             }
         }
-        return new ShapedStarforgeRecipe("", new RawStarforgeShapedRecipe(0,0, List.of(Optional.empty()), Optional.empty()), ItemStack.EMPTY);
+        return emptyRecipe();
     }
 
-    @Nullable
     public static StarforgeDisplay of(RecipeHolder<? extends Recipe<?>> holder) {
         Recipe<?> recipe = holder.value();
         if (recipe instanceof ShapedStarforgeRecipe ssr) {
             return new StarforgeDisplay(ssr);
         }
 
-        return null;
+        return new StarforgeDisplay(emptyRecipe());
     }
 
     List<EntryIngredient> getIngedientsList() {

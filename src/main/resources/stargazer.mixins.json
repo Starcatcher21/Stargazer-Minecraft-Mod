@@ -4,17 +4,19 @@
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
 		"PlayerClassMixin",
-		"CapeMixin",
 		"FluidBlockMixin",
 		"BrewingRecipeRegMixin",
-		"WorldRendererMixin",
-		"SkyRenderingMixin",
 		"FarmlandMixin",
-        "WorldMixin",
-        "IceBlockMixin",
-        "SkinMixin",
+		"WorldMixin",
+		"IceBlockMixin",
 		"EntityMixin",
 		"FishingBobberEntityMixin"
+	],
+	"client": [
+		"CapeMixin",
+		"SkinMixin",
+		"WorldRendererMixin",
+		"SkyRenderingMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

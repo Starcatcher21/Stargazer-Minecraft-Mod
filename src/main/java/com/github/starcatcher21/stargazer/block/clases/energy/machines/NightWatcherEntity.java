@@ -4,7 +4,6 @@ import com.github.starcatcher21.stargazer.block.BlockTypes;
 import com.github.starcatcher21.stargazer.mechanics.star.FallingObject;
 import com.github.starcatcher21.stargazer.mechanics.star.FallingObjectDayState;
 import com.github.starcatcher21.stargazer.mechanics.star.FallingObjectsList;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.protocol.Packet;
@@ -103,7 +102,7 @@ public class NightWatcherEntity extends BlockEntity implements Container {
 				}
 				Collections.shuffle(list.weightedList);
 				FallingObject star = list.weightedList.get(random.nextInt(list.weightedList.size()));
-				star.spawn(Minecraft.getInstance(), this.getBlockPos(), this.level);
+				star.spawn(this.level, this.getBlockPos());
 			}
 		}
 	}

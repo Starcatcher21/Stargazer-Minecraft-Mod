@@ -3,7 +3,6 @@ package com.github.starcatcher21.stargazer.screens.handled;
 import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.screens.MoonWelderScreenHandler;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.RenderPipelines;
@@ -13,7 +12,6 @@ import net.minecraft.world.attribute.EnvironmentAttributeSystem;
 import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.MoonPhase;
 
 public class MoonWelderHandled extends AbstractContainerScreen<MoonWelderScreenHandler> {
     private static final Identifier TEXTURE = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/moon_welder/moon_welder.png");
@@ -28,46 +26,39 @@ public class MoonWelderHandled extends AbstractContainerScreen<MoonWelderScreenH
     public static final Identifier SUN = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/moon/sun.png");
 
     public MoonWelderHandled(MoonWelderScreenHandler handler, Inventory inventory, Component title) {
-        super(handler, inventory, title);
+        super(handler, inventory, title, 176, 200);
         this.titleLabelX = 103;
         this.titleLabelY = 10;
         this.inventoryLabelY = 85;
-        this.imageHeight = 200;
     }
 
     @Override
-    protected void init() {
-        super.init();
-    }
+    public void extractBackground(GuiGraphicsExtractor context, int mouseX, int mouseY, float deltaTicks) {
+        super.extractBackground(context, mouseX, mouseY, deltaTicks);
 
-    @Override
-    public void render(GuiGraphics context, int mouseX, int mouseY, float deltaTicks) {
-        super.render(context, mouseX, mouseY, deltaTicks);
-        this.renderTooltip(context, mouseX, mouseY);
-    }
-
-    @Override
-    protected void renderBg(GuiGraphics context, float deltaTicks, int mouseX, int mouseY) {
         int i = this.leftPos;
-        int j = (this.height - this.imageHeight) / 2;
-        context.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, i, j, 0.0f, 0.0f, this.imageWidth, this.imageHeight , 256, 256);
+        int j = this.topPos;
+        context.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, i, j, 0.0f, 0.0f, this.imageWidth, this.imageHeight, 256, 256);
+
         Level world = Minecraft.getInstance().level;
-        EnvironmentAttributeSystem envAccess = world.environmentAttributes();
-        int moonPhase = envAccess.getDimensionValue(EnvironmentAttributes.MOON_PHASE).index();
-        if (world.isBrightOutside()) {
-            context.blit(RenderPipelines.GUI_TEXTURED, SUN, i + 10, j + 10, 0, 0, 16, 16, 16, 16);
-        } else {
-            switch (moonPhase) {
-                case 0: context.blit(RenderPipelines.GUI_TEXTURED, FULL, i + 10, j + 10, 0, 0, 16, 16, 16, 16); break;
-                case 1: context.blit(RenderPipelines.GUI_TEXTURED, WANING_GIBBOUS, i + 10, j + 10, 0, 0, 16, 16, 16, 16); break;
-                case 2: context.blit(RenderPipelines.GUI_TEXTURED, THIRD, i + 10, j + 10, 0, 0, 16, 16, 16, 16); break;
-                case 3: context.blit(RenderPipelines.GUI_TEXTURED, WANING_CRESCENT, i + 10, j + 10, 0, 0, 16, 16, 16, 16); break;
-                case 4: context.blit(RenderPipelines.GUI_TEXTURED, NEW, i + 10, j + 10, 0, 0, 16, 16, 16, 16); break;
-                case 5: context.blit(RenderPipelines.GUI_TEXTURED, WAXING_CRESCENT, i + 10, j + 10, 0, 0, 16, 16, 16, 16); break;
-                case 6: context.blit(RenderPipelines.GUI_TEXTURED, FIRST, i + 10, j + 10, 0, 0, 16, 16, 16, 16); break;
-                case 7: context.blit(RenderPipelines.GUI_TEXTURED, WAXING_GIBBOUS, i + 10, j + 10, 0, 0, 16, 16, 16, 16); break;
-                default: context.blit(RenderPipelines.GUI_TEXTURED, SUN, i + 10, j + 10, 0, 0, 16, 16, 16, 16); break;
+        if (world != null) {
+            Identifier phaseTexture = SUN;
+            if (!world.isBrightOutside()) {
+                EnvironmentAttributeSystem envAccess = world.environmentAttributes();
+                int moonPhase = envAccess.getDimensionValue(EnvironmentAttributes.MOON_PHASE).index();
+                phaseTexture = switch (moonPhase) {
+                    case 0 -> FULL;
+                    case 1 -> WANING_GIBBOUS;
+                    case 2 -> THIRD;
+                    case 3 -> WANING_CRESCENT;
+                    case 4 -> NEW;
+                    case 5 -> WAXING_CRESCENT;
+                    case 6 -> FIRST;
+                    case 7 -> WAXING_GIBBOUS;
+                    default -> SUN;
+                };
             }
+            context.blit(RenderPipelines.GUI_TEXTURED, phaseTexture, i + 10, j + 10, 0, 0, 16, 16, 16, 16);
         }
     }
 }

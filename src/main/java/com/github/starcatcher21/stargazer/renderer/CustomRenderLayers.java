@@ -15,11 +15,11 @@ public class CustomRenderLayers {
                     .withTexture("Sampler1", CosmicBlock.TEXTURE)
                     .createRenderSetup()
     );
-    public static final RenderType STAR_LEAVES = RenderType.create("star_leaves", RenderSetup.builder(CustomRederPipelines.STAR_LEAVES).withTexture("star", StarLeaves.TEXTURE).createRenderSetup());
-    public static final RenderType STAR_BARRIER = RenderType.create("star_barrier", RenderSetup.builder(CustomRederPipelines.STAR_BARRIER).withTexture("starbarrier", StarBarrierBlock.TEXTURE).createRenderSetup());
-    public static final RenderType NEGATIVE = RenderType.create("negative", RenderSetup.builder(CustomRederPipelines.NEGATIVE).createRenderSetup());
-    public static final RenderType NO_RED = RenderType.create("no_red", RenderSetup.builder(CustomRederPipelines.NO_RED).createRenderSetup());
-    public static final RenderType NO_GREEN = RenderType.create("no_green", RenderSetup.builder(CustomRederPipelines.NO_GREEN).createRenderSetup());
-    public static final RenderType NO_BLUE = RenderType.create("no_blue", RenderSetup.builder(CustomRederPipelines.NO_BLUE).createRenderSetup());
-    public static final RenderType AURORA = RenderType.create("aurora", RenderSetup.builder(CustomRederPipelines.AURORA).withTexture("aurora", Aurora.TEXTURE).createRenderSetup());
+    public static final RenderType STAR_LEAVES = RenderType.create("star_leaves", RenderSetup.builder(CustomRederPipelines.STAR_LEAVES).withTexture("Sampler0", StarLeaves.TEXTURE).createRenderSetup());
+    public static final RenderType STAR_BARRIER = RenderType.create("star_barrier", RenderSetup.builder(CustomRederPipelines.STAR_BARRIER).withTexture("Sampler0", StarBarrierBlock.TEXTURE).createRenderSetup());
+    public static final RenderType NEGATIVE = RenderType.create("negative", RenderSetup.builder(CustomRederPipelines.NEGATIVE).useLightmap().createRenderSetup());
+    public static final RenderType NO_RED = RenderType.create("no_red", RenderSetup.builder(CustomRederPipelines.NO_RED).useLightmap().createRenderSetup());
+    public static final RenderType NO_GREEN = RenderType.create("no_green", RenderSetup.builder(CustomRederPipelines.NO_GREEN).useLightmap().createRenderSetup());
+    public static final RenderType NO_BLUE = RenderType.create("no_blue", RenderSetup.builder(CustomRederPipelines.NO_BLUE).useLightmap().createRenderSetup());
+    public static final RenderType AURORA = RenderType.create("aurora", RenderSetup.builder(CustomRederPipelines.AURORA).withTexture("Sampler0", Aurora.TEXTURE).useLightmap().createRenderSetup());
 }

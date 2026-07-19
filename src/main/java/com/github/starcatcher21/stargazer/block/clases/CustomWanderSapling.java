@@ -3,6 +3,7 @@ package com.github.starcatcher21.stargazer.block.clases;
 import com.github.starcatcher21.stargazer.block.register.Wander;
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
@@ -22,6 +23,11 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import java.util.Optional;
 
 public class CustomWanderSapling extends VegetationBlock implements BonemealableBlock {
+    public static final MapCodec<CustomWanderSapling> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+            ResourceKey.codec(Registries.CONFIGURED_FEATURE).fieldOf("feature").forGetter(block -> block.featureKey),
+            propertiesCodec()
+    ).apply(instance, CustomWanderSapling::new));
+
     public static final ImmutableList<Block> PLACE = ImmutableList.of(
             Wander.BORIL, Wander.PUROIL
     );
@@ -35,7 +41,7 @@ public class CustomWanderSapling extends VegetationBlock implements Bonemealable
 
     @Override
     protected MapCodec<? extends VegetationBlock> codec() {
-        return null;
+        return CODEC;
     }
 
     @Override

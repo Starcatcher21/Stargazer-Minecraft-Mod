@@ -2,7 +2,7 @@ package com.github.starcatcher21.stargazer.block.clases.star.log;
 
 import com.github.starcatcher21.stargazer.block.register.StarBlocks;
 import com.mojang.serialization.MapCodec;
-import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.advancements.triggers.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
@@ -24,9 +24,11 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 
 public class StarLog extends DirectionalBlock {
+    public static final MapCodec<StarLog> CODEC = simpleCodec(StarLog::new);
+
     @Override
     protected MapCodec<? extends DirectionalBlock> codec() {
-        return null;
+        return CODEC;
     }
 
     @Override

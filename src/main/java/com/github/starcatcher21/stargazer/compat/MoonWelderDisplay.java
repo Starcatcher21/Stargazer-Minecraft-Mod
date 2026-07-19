@@ -65,6 +65,10 @@ public class MoonWelderDisplay extends BasicDisplay {
         this((ShapedMoonWelderRecipe) recipe);
     }
 
+    private static ShapedMoonWelderRecipe emptyRecipe() {
+        return new ShapedMoonWelderRecipe("", new RawMoonWelderShapedRecipe(0,0, Ingredient.of(Blocks.AIR.asItem()), Ingredient.of(Blocks.AIR.asItem()), 0, Optional.empty()), ItemStack.EMPTY);
+    }
+
     public static ShapedMoonWelderRecipe getRecipe(Optional<RecipeDisplayId> networkRecipeId) {
         if (networkRecipeId.isPresent() && Minecraft.getInstance().getSingleplayerServer() != null) {
             RecipeManager.ServerDisplayInfo recip = Minecraft.getInstance().getSingleplayerServer().getRecipeManager().getRecipeFromDisplay(networkRecipeId.get());
@@ -72,7 +76,7 @@ public class MoonWelderDisplay extends BasicDisplay {
                 return ssr;
             }
         }
-        return new ShapedMoonWelderRecipe("", new RawMoonWelderShapedRecipe(0,0, Ingredient.of(Blocks.AIR.asItem()), Ingredient.of(Blocks.AIR.asItem()), 0, Optional.empty()), ItemStack.EMPTY);
+        return emptyRecipe();
     }
 
     public static ShapedMoonWelderRecipe getRecipe(Identifier id) {
@@ -82,17 +86,16 @@ public class MoonWelderDisplay extends BasicDisplay {
                 return ssr;
             }
         }
-        return new ShapedMoonWelderRecipe("", new RawMoonWelderShapedRecipe(0,0, Ingredient.of(Blocks.AIR.asItem()), Ingredient.of(Blocks.AIR.asItem()), 0, Optional.empty()), ItemStack.EMPTY);
+        return emptyRecipe();
     }
 
-    @Nullable
     public static MoonWelderDisplay of(RecipeHolder<? extends Recipe<?>> holder) {
         Recipe<?> recipe = holder.value();
         if (recipe instanceof ShapedMoonWelderRecipe ssr) {
             return new MoonWelderDisplay(ssr);
         }
 
-        return null;
+        return new MoonWelderDisplay(emptyRecipe());
     }
 
     List<EntryIngredient> getIngedientsList() {

@@ -63,6 +63,10 @@ public class StarCrusherDisplay extends BasicDisplay {
         this((ShapedStarCrusherRecipe) recipe);
     }
 
+    private static ShapedStarCrusherRecipe emptyRecipe() {
+        return new ShapedStarCrusherRecipe("", new StarCrusherShapedRecipe(Ingredient.of(Blocks.AIR.asItem()), Optional.empty()), ItemStack.EMPTY);
+    }
+
     public static ShapedStarCrusherRecipe getRecipe(Optional<RecipeDisplayId> networkRecipeId) {
         if (networkRecipeId.isPresent() && Minecraft.getInstance().getSingleplayerServer() != null) {
             RecipeManager.ServerDisplayInfo recip = Minecraft.getInstance().getSingleplayerServer().getRecipeManager().getRecipeFromDisplay(networkRecipeId.get());
@@ -70,7 +74,7 @@ public class StarCrusherDisplay extends BasicDisplay {
                 return ssr;
             }
         }
-        return new ShapedStarCrusherRecipe("", new StarCrusherShapedRecipe(Ingredient.of(Blocks.AIR.asItem()), Optional.empty()), ItemStack.EMPTY);
+        return emptyRecipe();
     }
 
     public static ShapedStarCrusherRecipe getRecipe(Identifier id) {
@@ -80,17 +84,16 @@ public class StarCrusherDisplay extends BasicDisplay {
                 return ssr;
             }
         }
-        return new ShapedStarCrusherRecipe("", new StarCrusherShapedRecipe(Ingredient.of(Blocks.AIR.asItem()), Optional.empty()), ItemStack.EMPTY);
+        return emptyRecipe();
     }
 
-    @Nullable
     public static StarCrusherDisplay of(RecipeHolder<? extends Recipe<?>> holder) {
         Recipe<?> recipe = holder.value();
         if (recipe instanceof ShapedStarCrusherRecipe ssr) {
             return new StarCrusherDisplay(ssr);
         }
 
-        return null;
+        return new StarCrusherDisplay(emptyRecipe());
     }
 
     List<EntryIngredient> getIngedientsList() {

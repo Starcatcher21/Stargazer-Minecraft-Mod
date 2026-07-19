@@ -24,12 +24,12 @@ import com.github.starcatcher21.stargazer.mechanics.PlayerCosmicGrav;
 import com.github.starcatcher21.stargazer.mechanics.PlayerRedOrbGrav;
 import com.github.starcatcher21.stargazer.mechanics.dash.DashClient;
 import com.github.starcatcher21.stargazer.mechanics.star.Stargaze;
-import com.github.starcatcher21.stargazer.particle.Particles;
+import com.github.starcatcher21.stargazer.particle.ParticlesClient;
 import com.github.starcatcher21.stargazer.renderer.SkyStarRenderer;
 import com.github.starcatcher21.stargazer.screens.ScreenHandlerTypes;
 import com.github.starcatcher21.stargazer.screens.handled.*;
 import com.github.starcatcher21.stargazer.worldgen.dimensions.Dimensions;
-import dev.architectury.registry.client.rendering.BlockEntityRendererRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -43,7 +43,7 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.resources.Identifier;
-import software.bernie.geckolib.renderer.GeoBlockRenderer;
+import com.geckolib.renderer.GeoBlockRenderer;
 
 @Environment(EnvType.CLIENT)
 public class StargazerClient implements ClientModInitializer {
@@ -133,8 +133,9 @@ public class StargazerClient implements ClientModInitializer {
         // Custom dimension sky stars
         SkyStarRenderer.init();
 
-        // Particles
-        Particles.clientInit();
+        // Client-only input and particle factories
+        Keybinds.init();
+        ParticlesClient.init();
 
         // Fluids
         BlockRenderLayerMap.putBlock(Fluids.DREAM, ChunkSectionLayer.TRANSLUCENT);
