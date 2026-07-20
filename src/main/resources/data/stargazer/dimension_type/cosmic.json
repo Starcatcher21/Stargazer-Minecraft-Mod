@@ -1,4 +1,5 @@
 {
+  "has_ender_dragon_fight": false,
   "ambient_light": 0.4,
   "has_fixed_time": true,
   "coordinate_scale": 1.0,

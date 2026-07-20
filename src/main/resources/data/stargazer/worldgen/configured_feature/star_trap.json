@@ -1,48 +1,14 @@
 {
-  "type": "minecraft:flower",
+  "type": "minecraft:simple_block",
   "config": {
-    "tries": 1,
-    "xz_spread": 4,
-    "y_spread": 5,
-    "feature": {
-      "feature": {
-        "config": {
-          "to_place": {
-            "type": "minecraft:noise_threshold_provider",
-            "seed": 2345,
-            "noise": {
-              "firstOctave": 0,
-              "amplitudes": [
-                1
-              ]
-            },
-            "scale": 0.005,
-            "threshold": -0.8,
-            "high_chance": 0.35,
-            "default_state": {
-              "Name": "stargazer:star_trap"
-            },
-            "low_states": [
-              {
-                "Name": "minecraft:air"
-              }
-            ],
-            "high_states": [
-              {
-                "Name": "minecraft:air"
-              }
-            ]
-          }
-        },
-        "type": "minecraft:simple_block"
-      },
-      "placement": [
+    "to_place": {
+      "type": "minecraft:weighted_state_provider",
+      "entries": [
         {
-          "type": "minecraft:block_predicate_filter",
-          "predicate": {
-            "type": "minecraft:matching_blocks",
-            "blocks": "minecraft:air"
-          }
+          "data": {
+            "Name": "stargazer:star_trap"
+          },
+          "weight": 1
         }
       ]
     }
