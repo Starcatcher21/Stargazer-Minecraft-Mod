@@ -59,7 +59,7 @@ public class Amertylst extends Feature<AmertylstConfig> {
                             this.setBlock(structureWorldAccess, blockPos.offset(m, k, n), mainBlock.get(random.nextIntBetweenInclusive(0, mainBlock.size() - 1)));
                         }
                     }
-                    if (k == 0 || l <= 1 || !(blockState = structureWorldAccess.getBlockState(blockPos.offset(m, -k, n))).isAir() && !isDirt(blockState) && !growOn.contains(blockState)) continue;
+                    if (k == 0 || l <= 1 || !(blockState = structureWorldAccess.getBlockState(blockPos.offset(m, -k, n))).isAir() && /* !isDirt(blockState) && */ !growOn.contains(blockState)) continue;
                     if (offsetBool) {
                         this.setBlock(structureWorldAccess, blockPos.offset(m, -k, n).relative(offsetDir, offset), mainBlock.get(random.nextIntBetweenInclusive(0, mainBlock.size() - 1)));
                     } else {

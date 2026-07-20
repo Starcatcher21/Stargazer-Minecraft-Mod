@@ -9,7 +9,9 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.CookingBookCategory;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
@@ -470,12 +472,12 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .group("wooden_fence_gate")
                         .unlockedBy("wood", has(RedOrbBlocks.YERI_PLANKS))
                         .save(output);
-                oreSmelting(Collections.singletonList(ModItems.COPPER_DUST), RecipeCategory.MISC, Items.COPPER_INGOT, 0.7f, 200, "copper_ingot");
-                oreSmelting(Collections.singletonList(ModItems.IRON_DUST), RecipeCategory.MISC, Items.IRON_INGOT, 0.7f, 200, "iron_ingot");
-                oreSmelting(Collections.singletonList(ModItems.GOLD_DUST), RecipeCategory.MISC, Items.GOLD_INGOT, 0.7f, 200, "gold_ingot");
-                oreBlasting(Collections.singletonList(ModItems.COPPER_DUST), RecipeCategory.MISC, Items.COPPER_INGOT, 0.7f, 100, "copper_ingot");
-                oreBlasting(Collections.singletonList(ModItems.IRON_DUST), RecipeCategory.MISC, Items.IRON_INGOT, 0.7f, 100, "iron_ingot");
-                oreBlasting(Collections.singletonList(ModItems.GOLD_DUST), RecipeCategory.MISC, Items.GOLD_INGOT, 0.7f, 100, "gold_ingot");
+                oreSmelting(Collections.singletonList((ItemLike) ModItems.COPPER_DUST), RecipeCategory.MISC, CookingBookCategory.MISC, Items.COPPER_INGOT, 0.7f, 200, "copper_ingot");
+                oreSmelting(Collections.singletonList((ItemLike) ModItems.IRON_DUST), RecipeCategory.MISC, CookingBookCategory.MISC, Items.IRON_INGOT, 0.7f, 200, "iron_ingot");
+                oreSmelting(Collections.singletonList((ItemLike) ModItems.GOLD_DUST), RecipeCategory.MISC, CookingBookCategory.MISC, Items.GOLD_INGOT, 0.7f, 200, "gold_ingot");
+                oreBlasting(Collections.singletonList((ItemLike) ModItems.COPPER_DUST), RecipeCategory.MISC, CookingBookCategory.MISC, Items.COPPER_INGOT, 0.7f, 100, "copper_ingot");
+                oreBlasting(Collections.singletonList((ItemLike) ModItems.IRON_DUST), RecipeCategory.MISC, CookingBookCategory.MISC, Items.IRON_INGOT, 0.7f, 100, "iron_ingot");
+                oreBlasting(Collections.singletonList((ItemLike)ModItems.GOLD_DUST), RecipeCategory.MISC, CookingBookCategory.MISC, Items.GOLD_INGOT, 0.7f, 100, "gold_ingot");
             }
         };
     }

@@ -4,6 +4,7 @@ import com.github.starcatcher21.stargazer.block.ModBlock;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.references.BlockIds;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -22,7 +23,7 @@ public class InfestedCalcite extends SpreadingSnowyBlock {
     public static final MapCodec<InfestedCalcite> CODEC = simpleCodec(InfestedCalcite::new);
 
     public InfestedCalcite(final BlockBehaviour.Properties properties) {
-        super(properties, ModBlock.INFESTED_CALCITE.properties().blockId());
+        super(properties, Blocks.CALCITE.properties().blockId());
     }
 
     @Override

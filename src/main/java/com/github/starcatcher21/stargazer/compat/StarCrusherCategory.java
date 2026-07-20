@@ -1,9 +1,6 @@
 package com.github.starcatcher21.stargazer.compat;
 
-import com.github.starcatcher21.stargazer.GameRules;
 import com.github.starcatcher21.stargazer.Stargazer;
-import com.github.starcatcher21.stargazer.block.ModBlock;
-import com.github.starcatcher21.stargazer.block.clases.MoonWelder;
 import com.github.starcatcher21.stargazer.block.clases.energy.machines.StarCrusher;
 import com.github.starcatcher21.stargazer.block.register.Energy;
 import com.google.common.collect.Lists;

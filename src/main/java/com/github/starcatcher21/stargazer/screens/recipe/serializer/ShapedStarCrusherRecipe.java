@@ -5,6 +5,7 @@ import com.google.common.annotations.VisibleForTesting;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.network.codec.ByteBufCodecs;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -105,38 +106,18 @@ public class ShapedStarCrusherRecipe
         return RecipeBookCategories.CAMPFIRE;
     }
 
-    public static class Serializer
-            implements RecipeSerializer<ShapedStarCrusherRecipe> {
-        public static final MapCodec<ShapedStarCrusherRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-                Codec.STRING.optionalFieldOf("group", "").forGetter(recipe -> recipe.group),
-                StarCrusherShapedRecipe.CODEC.forGetter(recipe -> recipe.raw),
-                ItemStack.CODEC.fieldOf("result").forGetter(recipe -> recipe.result)
-        ).apply(instance, (group, raw, result) -> new ShapedStarCrusherRecipe(group, raw, result)));
-        public static final StreamCodec<RegistryFriendlyByteBuf, ShapedStarCrusherRecipe> PACKET_CODEC = StreamCodec.of(ShapedStarCrusherRecipe.Serializer::write, ShapedStarCrusherRecipe.Serializer::read);
+    public static final MapCodec<ShapedStarCrusherRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+            Codec.STRING.optionalFieldOf("group", "").forGetter(recipe -> recipe.group),
+            StarCrusherShapedRecipe.CODEC.forGetter(recipe -> recipe.raw),
+            ItemStack.CODEC.fieldOf("result").forGetter(recipe -> recipe.result)
+    ).apply(instance, (group, raw, result) -> new ShapedStarCrusherRecipe(group, raw, result)));
 
-        @Override
-        public MapCodec<ShapedStarCrusherRecipe> codec() {
-            return CODEC;
-        }
+    public static final StreamCodec<RegistryFriendlyByteBuf, ShapedStarCrusherRecipe> STREAM_CODEC = StreamCodec.composite(
+            ByteBufCodecs.STRING_UTF8, recipe -> recipe.group,
+            StarCrusherShapedRecipe.PACKET_CODEC, recipe -> recipe.raw,
+            ItemStack.STREAM_CODEC, recipe -> recipe.result,
+            ShapedStarCrusherRecipe::new
+    );
 
-        @Override
-        public StreamCodec<RegistryFriendlyByteBuf, ShapedStarCrusherRecipe> streamCodec() {
-            return PACKET_CODEC;
-        }
-
-        private static ShapedStarCrusherRecipe read(RegistryFriendlyByteBuf buf) {
-            String string = buf.readUtf();
-            StarCrusherShapedRecipe rawShapedRecipe = (StarCrusherShapedRecipe)StarCrusherShapedRecipe.PACKET_CODEC.decode(buf);
-            ItemStack itemStack = (ItemStack)ItemStack.STREAM_CODEC.decode(buf);
-            boolean bl = buf.readBoolean();
-            return new ShapedStarCrusherRecipe(string, rawShapedRecipe, itemStack, bl);
-        }
-
-        private static void write(RegistryFriendlyByteBuf buf, ShapedStarCrusherRecipe recipe) {
-            buf.writeUtf(recipe.group);
-            StarCrusherShapedRecipe.PACKET_CODEC.encode(buf, recipe.raw);
-            ItemStack.STREAM_CODEC.encode(buf, recipe.result);
-            buf.writeBoolean(recipe.showNotification);
-        }
-    }
+    public static final RecipeSerializer<ShapedStarCrusherRecipe> SERIALIZER = new RecipeSerializer<>(CODEC, STREAM_CODEC);
 }

@@ -7,20 +7,16 @@ import com.google.common.annotations.VisibleForTesting;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.world.item.crafting.*;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Optional;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.PlacementInfo;
-import net.minecraft.world.item.crafting.RecipeBookCategories;
-import net.minecraft.world.item.crafting.RecipeBookCategory;
-import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 
 public class ShapedStarforgeRecipe
@@ -111,38 +107,18 @@ public class ShapedStarforgeRecipe
         return RecipeBookCategories.CAMPFIRE;
     }
 
-    public static class Serializer
-            implements RecipeSerializer<ShapedStarforgeRecipe> {
-        public static final MapCodec<ShapedStarforgeRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-                Codec.STRING.optionalFieldOf("group", "").forGetter(recipe -> recipe.group),
-                RawStarforgeShapedRecipe.CODEC.forGetter(recipe -> recipe.raw),
-                ItemStack.CODEC.fieldOf("result").forGetter(recipe -> recipe.result)
-        ).apply(instance, (group, raw, result) -> new ShapedStarforgeRecipe(group, raw, result)));
-        public static final StreamCodec<RegistryFriendlyByteBuf, ShapedStarforgeRecipe> PACKET_CODEC = StreamCodec.of(ShapedStarforgeRecipe.Serializer::write, ShapedStarforgeRecipe.Serializer::read);
+    public static final MapCodec<ShapedStarforgeRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+            Codec.STRING.optionalFieldOf("group", "").forGetter(recipe -> recipe.group),
+            RawStarforgeShapedRecipe.CODEC.forGetter(recipe -> recipe.raw),
+            ItemStack.CODEC.fieldOf("result").forGetter(recipe -> recipe.result)
+    ).apply(instance, (group, raw, result) -> new ShapedStarforgeRecipe(group, raw, result)));
 
-        @Override
-        public MapCodec<ShapedStarforgeRecipe> codec() {
-            return CODEC;
-        }
+    public static final StreamCodec<RegistryFriendlyByteBuf, ShapedStarforgeRecipe> STREAM_CODEC = StreamCodec.composite(
+            ByteBufCodecs.STRING_UTF8, recipe -> recipe.group,
+            RawStarforgeShapedRecipe.PACKET_CODEC, recipe -> recipe.raw,
+            ItemStack.STREAM_CODEC, recipe -> recipe.result,
+            ShapedStarforgeRecipe::new
+    );
 
-        @Override
-        public StreamCodec<RegistryFriendlyByteBuf, ShapedStarforgeRecipe> streamCodec() {
-            return PACKET_CODEC;
-        }
-
-        private static ShapedStarforgeRecipe read(RegistryFriendlyByteBuf buf) {
-            String string = buf.readUtf();
-            RawStarforgeShapedRecipe rawShapedRecipe = (RawStarforgeShapedRecipe)RawStarforgeShapedRecipe.PACKET_CODEC.decode(buf);
-            ItemStack itemStack = (ItemStack)ItemStack.STREAM_CODEC.decode(buf);
-            boolean bl = buf.readBoolean();
-            return new ShapedStarforgeRecipe(string, rawShapedRecipe, itemStack, bl);
-        }
-
-        private static void write(RegistryFriendlyByteBuf buf, ShapedStarforgeRecipe recipe) {
-            buf.writeUtf(recipe.group);
-            RawStarforgeShapedRecipe.PACKET_CODEC.encode(buf, recipe.raw);
-            ItemStack.STREAM_CODEC.encode(buf, recipe.result);
-            buf.writeBoolean(recipe.showNotification);
-        }
-    }
+    public static final RecipeSerializer<ShapedStarforgeRecipe> SERIALIZER = new RecipeSerializer<>(CODEC, STREAM_CODEC);
 }

@@ -7,6 +7,7 @@ import com.google.common.annotations.VisibleForTesting;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.network.codec.ByteBufCodecs;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -119,38 +120,17 @@ public class ShapedMoonWelderRecipe
         return RecipeBookCategories.CAMPFIRE;
     }
 
-    public static class Serializer
-            implements RecipeSerializer<ShapedMoonWelderRecipe> {
-        public static final MapCodec<ShapedMoonWelderRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
-                Codec.STRING.optionalFieldOf("group", "").forGetter(recipe -> recipe.group),
-                RawMoonWelderShapedRecipe.CODEC.forGetter(recipe -> recipe.raw),
-                ItemStack.CODEC.fieldOf("result").forGetter(recipe -> recipe.result)
-        ).apply(instance, (group, raw, result) -> new ShapedMoonWelderRecipe(group, raw, result)));
-        public static final StreamCodec<RegistryFriendlyByteBuf, ShapedMoonWelderRecipe> PACKET_CODEC = StreamCodec.of(ShapedMoonWelderRecipe.Serializer::write, ShapedMoonWelderRecipe.Serializer::read);
+    public static final MapCodec<ShapedMoonWelderRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+            Codec.STRING.optionalFieldOf("group", "").forGetter(recipe -> recipe.group),
+            RawMoonWelderShapedRecipe.CODEC.forGetter(recipe -> recipe.raw),
+            ItemStack.CODEC.fieldOf("result").forGetter(recipe -> recipe.result)
+    ).apply(instance, (group, raw, result) -> new ShapedMoonWelderRecipe(group, raw, result)));
+    public static final StreamCodec<RegistryFriendlyByteBuf, ShapedMoonWelderRecipe> STREAM_CODEC = StreamCodec.composite(
+            ByteBufCodecs.STRING_UTF8, recipe -> recipe.group,
+            RawMoonWelderShapedRecipe.PACKET_CODEC, recipe -> recipe.raw,
+            ItemStack.STREAM_CODEC, recipe -> recipe.result,
+            ShapedMoonWelderRecipe::new
+    );
 
-        @Override
-        public MapCodec<ShapedMoonWelderRecipe> codec() {
-            return CODEC;
-        }
-
-        @Override
-        public StreamCodec<RegistryFriendlyByteBuf, ShapedMoonWelderRecipe> streamCodec() {
-            return PACKET_CODEC;
-        }
-
-        private static ShapedMoonWelderRecipe read(RegistryFriendlyByteBuf buf) {
-            String string = buf.readUtf();
-            RawMoonWelderShapedRecipe rawShapedRecipe = (RawMoonWelderShapedRecipe)RawMoonWelderShapedRecipe.PACKET_CODEC.decode(buf);
-            ItemStack itemStack = (ItemStack)ItemStack.STREAM_CODEC.decode(buf);
-            boolean bl = buf.readBoolean();
-            return new ShapedMoonWelderRecipe(string, rawShapedRecipe, itemStack, bl);
-        }
-
-        private static void write(RegistryFriendlyByteBuf buf, ShapedMoonWelderRecipe recipe) {
-            buf.writeUtf(recipe.group);
-            RawMoonWelderShapedRecipe.PACKET_CODEC.encode(buf, recipe.raw);
-            ItemStack.STREAM_CODEC.encode(buf, recipe.result);
-            buf.writeBoolean(recipe.showNotification);
-        }
-    }
+    public static final RecipeSerializer<ShapedMoonWelderRecipe> SERIALIZER = new RecipeSerializer<>(CODEC, STREAM_CODEC);
 }
