@@ -238,10 +238,13 @@ public final class SkyStarRenderer {
             );
         }
 
-//        CommandEncoder commandEncoder = RenderSystem.getDevice().createCommandEncoder();
-//        try (GpuBufferSlice.MappedView mappedView = commandEncoder.mapBuffer(this.vertexBuffer.currentBuffer().slice(0, builtBuffer.vertexBuffer().remaining()), false, true)) {
-//            MemoryUtil.memCopy(builtBuffer.vertexBuffer(), mappedView.data());
-//        }
+        CommandEncoder commandEncoder = RenderSystem.getDevice().createCommandEncoder();
+        try {
+            commandEncoder.writeToBuffer(
+                    this.vertexBuffer.currentBuffer().slice(0, builtBuffer.vertexBuffer().remaining()),
+                    builtBuffer.vertexBuffer()
+            );
+        } catch (Exception ignored) {}
 
         return this.vertexBuffer.currentBuffer().slice();
     }

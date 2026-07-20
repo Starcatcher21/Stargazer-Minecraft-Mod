@@ -22,6 +22,7 @@ public class CustomRederPipelines {
             .withShaderDefine("Sampler0")
             .withShaderDefine("Sampler1")
             .withPrimitiveTopology(PrimitiveTopology.QUADS)
+            .withVertexBinding(0, VertexFormat.builder(0).build())
             .buildSnippet();
     public static final RenderPipeline.Snippet RENDERTYPE_AURORA_SNIPPET = RenderPipeline.builder(
                     MATRICES_FOG_SNIPPET, GLOBALS_SNIPPET
@@ -31,6 +32,7 @@ public class CustomRederPipelines {
             .withShaderDefine("Sampler0")
             .withShaderDefine("Sampler2")
             .withPrimitiveTopology(PrimitiveTopology.QUADS)
+            .withVertexBinding(0, VertexFormat.builder(0).build())
             .buildSnippet();
     public static final RenderPipeline.Snippet RENDERTYPE_STAR_LEAVES_SNIPPET = RenderPipeline.builder(
                     MATRICES_FOG_SNIPPET, GLOBALS_SNIPPET
@@ -40,6 +42,7 @@ public class CustomRederPipelines {
             .withShaderDefine("Sampler0")
             .withShaderDefine("Sampler1")
             .withPrimitiveTopology(PrimitiveTopology.QUADS)
+            .withVertexBinding(0, VertexFormat.builder(0).build())
 //            .withDepthTestFunction(DepthTestFunction.LEQUAL_DEPTH_TEST)
             .buildSnippet();
 
@@ -49,6 +52,7 @@ public class CustomRederPipelines {
             .withFragmentShader(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "core/rendertype_star_barrier"))
             .withShaderDefine("Sampler0")
             .withShaderDefine("Sampler1")
+            .withVertexBinding(0, VertexFormat.builder(0).build())
 //            .withBlend(BlendFunction.TRANSLUCENT_PREMULTIPLIED_ALPHA)
             .withPrimitiveTopology(PrimitiveTopology.QUADS)
             .buildSnippet();
@@ -61,6 +65,7 @@ public class CustomRederPipelines {
             .withShaderDefine("Sampler2")
 //            .withBlend(BlendFunction.INVERT)
             .withPrimitiveTopology(PrimitiveTopology.QUADS)
+            .withVertexBinding(0, VertexFormat.builder(0).build())
             .buildSnippet();
 
     public static final RenderPipeline.Snippet RENDERTYPE_NO_RED_SNIPPET = RenderPipeline.builder(
@@ -72,6 +77,7 @@ public class CustomRederPipelines {
             .withShaderDefine("Sampler2")
 //            .withBlend(BlendFunction.INVERT)
             .withPrimitiveTopology(PrimitiveTopology.QUADS)
+            .withVertexBinding(0, VertexFormat.builder(0).build())
             .buildSnippet();
 
     public static final RenderPipeline.Snippet RENDERTYPE_NO_GREEN_SNIPPET = RenderPipeline.builder(
@@ -83,6 +89,7 @@ public class CustomRederPipelines {
             .withShaderDefine("Sampler2")
 //            .withBlend(BlendFunction.INVERT)
             .withPrimitiveTopology(PrimitiveTopology.QUADS)
+            .withVertexBinding(0, VertexFormat.builder(0).build())
             .buildSnippet();
 
     public static final RenderPipeline.Snippet RENDERTYPE_NO_BLUE_SNIPPET = RenderPipeline.builder(
@@ -94,6 +101,7 @@ public class CustomRederPipelines {
             .withShaderDefine("Sampler1")
 //            .withBlend(BlendFunction.INVERT)
             .withPrimitiveTopology(PrimitiveTopology.QUADS)
+            .withVertexBinding(0, VertexFormat.builder(0).build())
             .buildSnippet();
 
     // PIPELINES
@@ -104,6 +112,7 @@ public class CustomRederPipelines {
                     .withVertexShader(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "core/soft_sky"))
                     .withFragmentShader(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "core/soft_sky"))
                     .withPrimitiveTopology(PrimitiveTopology.QUADS)
+                    .withVertexBinding(0, VertexFormat.builder(0).build())
 //                    .withDepthTestFunction(DepthTestFunction.NO_DEPTH_TEST)
 //                    .withDepthWrite(false)
                     .withCull(false)
@@ -117,6 +126,7 @@ public class CustomRederPipelines {
                     .withFragmentShader(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "core/sky_stars"))
                     .withShaderDefine("Sampler0")
                     .withPrimitiveTopology(PrimitiveTopology.QUADS)
+                    .withVertexBinding(0, VertexFormat.builder(0).build())
 //                    .withBlend(BlendFunction.TRANSLUCENT)
 //                    .withDepthTestFunction(DepthTestFunction.LEQUAL_DEPTH_TEST)
 //                    .withDepthWrite(false)
