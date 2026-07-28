@@ -8,10 +8,9 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "type_specific": {
-                "type": "minecraft:player",
+              "minecraft:type_specific/player": {
                 "looking_at": {
-                  "type": "stargazer:ghost"
+                  "minecraft:entity_type": "stargazer:ghost"
                 }
               }
             }
@@ -24,7 +23,6 @@
   "display": {
     "description": "",
     "icon": {
-      "count": 1,
       "id": "stargazer:ghost_spawn_egg"
     },
     "title": "I think i saw a ghost"

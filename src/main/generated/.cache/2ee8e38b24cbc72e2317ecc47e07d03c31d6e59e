@@ -1,5 +1,5 @@
-// 1.21.11	-999999999-01-01T00:00:00	STARGAZER/Entity Loot Tables
-3e7f8bac7f011b4372e01d4c7390781b1907d6aa data/stargazer/loot_table/entities/black_rook.json
-5b39feb0974e61727419a9e898201786a6299c2f data/stargazer/loot_table/entities/eye_bat.json
-fa610cdf27dc1ab3856bfd3861e71db930c91078 data/stargazer/loot_table/entities/ghost.json
-1979a7971dd3add5040d157a27e078cdb90965e7 data/stargazer/loot_table/entities/rook.json
+// 26.2	-999999999-01-01T00:00:00	STARGAZER/Entity Loot Tables
+d98260528c77ca8ab18c8512262e3968f1599d3c data/stargazer/loot_table/entities/black_rook.json
+1347079cec7e0e19d96732b3603d9444098e4c08 data/stargazer/loot_table/entities/eye_bat.json
+1d8cfad985fcd1b50e821bc5ae311a1d9f2f0eae data/stargazer/loot_table/entities/ghost.json
+e6ea27580aa1e6eb5ba199d5668e62a563ecded3 data/stargazer/loot_table/entities/rook.json

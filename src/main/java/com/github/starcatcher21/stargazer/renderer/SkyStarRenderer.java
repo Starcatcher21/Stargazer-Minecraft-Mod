@@ -17,11 +17,11 @@ import com.mojang.blaze3d.vertex.MeshData;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import net.fabricmc.fabric.api.client.rendering.v1.level.LevelExtractionContext;
+import net.fabricmc.fabric.api.client.rendering.v1.level.LevelExtractionEvents;
 import net.fabricmc.fabric.api.client.rendering.v1.level.LevelRenderContext;
 import net.fabricmc.fabric.api.client.rendering.v1.level.LevelRenderEvents;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MappableRingBuffer;
-import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.texture.AbstractTexture;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
@@ -33,11 +33,10 @@ import org.joml.Matrix4f;
 import org.joml.Matrix4fc;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
-import org.lwjgl.system.MemoryUtil;
 
+import java.awt.*;
 import java.util.Optional;
 import java.util.OptionalDouble;
-import java.util.OptionalInt;
 
 public final class SkyStarRenderer {
     private static final SkyStarRenderer INSTANCE = new SkyStarRenderer();
@@ -56,7 +55,7 @@ public final class SkyStarRenderer {
     private static final int STAR_ATLAS_ROWS = 5;
     private static final int STAR_SPRITE_COUNT = 39;
 
-    private static final ByteBufferBuilder ALLOCATOR = new ByteBufferBuilder(RenderType.SMALL_BUFFER_SIZE);
+    private static final ByteBufferBuilder ALLOCATOR = new ByteBufferBuilder(2048);
     private static final Vector4f COLOR_MODULATOR = new Vector4f(1.0F, 1.0F, 1.0F, 1.0F);
     private static final Vector3f MODEL_OFFSET = new Vector3f();
     private static final Matrix4f TEXTURE_MATRIX = new Matrix4f();
@@ -69,7 +68,7 @@ public final class SkyStarRenderer {
     private StarRenderState renderState = StarRenderState.DISABLED;
 
     public static void init() {
-        LevelRenderEvents.END_EXTRACTION.register(INSTANCE::extract);
+        LevelExtractionEvents.END_EXTRACTION.register(INSTANCE::extract);
         LevelRenderEvents.END_MAIN.register(INSTANCE::renderAndDraw);
     }
 
@@ -79,6 +78,7 @@ public final class SkyStarRenderer {
             this.renderState = StarRenderState.DISABLED;
             return;
         }
+
         Optional<ResourceKey<DimensionType>> dimensionType = level.dimensionTypeRegistration().unwrapKey();
         if (dimensionType.isEmpty()) {
             this.renderState = StarRenderState.DISABLED;
@@ -106,9 +106,6 @@ public final class SkyStarRenderer {
 
     private void renderStars(LevelRenderContext context, int starCount, float starRadius) {
         PoseStack matrices = context.poseStack();
-        if (matrices == null) {
-            return;
-        }
 
         Vec3 camera = Minecraft.getInstance().gameRenderer.mainCamera().position();
 
@@ -233,7 +230,7 @@ public final class SkyStarRenderer {
 
             this.vertexBuffer = new MappableRingBuffer(
                     () -> Stargazer.MOD_ID + " depth pinned star vertices",
-                    GpuBuffer.USAGE_VERTEX | GpuBuffer.USAGE_MAP_WRITE,
+                    GpuBuffer.USAGE_COPY_DST | GpuBuffer.USAGE_MAP_WRITE | GpuBuffer.USAGE_VERTEX,
                     vertexBufferSize
             );
         }

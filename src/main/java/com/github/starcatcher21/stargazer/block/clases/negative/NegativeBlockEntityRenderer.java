@@ -5,6 +5,8 @@ import com.github.starcatcher21.stargazer.renderer.CustomRenderLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.state.BlockState;
 import org.joml.Matrix4f;
 
 import java.util.EnumSet;
@@ -16,6 +18,7 @@ import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import org.jspecify.annotations.NonNull;
 
 public class NegativeBlockEntityRenderer<T extends NegativeBlockEntity> implements BlockEntityRenderer<T, NegativeBlockEntityRenderState> {
     public NegativeBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {
@@ -62,17 +65,17 @@ public class NegativeBlockEntityRenderer<T extends NegativeBlockEntity> implemen
             z2 = sizeDown(z2);
             z3 = sizeDown(z3);
         }
-        consumer.addVertex(pose, x0, y0, z0);
-        consumer.addVertex(pose, x1, y0, z1);
-        consumer.addVertex(pose, x1, y1, z2);
-        consumer.addVertex(pose, x0, y1, z3);
+        consumer.addVertex(pose, x0, y0, z0).setColor(255, 255, 255, 255).setUv(0, 0).setLight(15728880);
+        consumer.addVertex(pose, x1, y0, z1).setColor(255, 255, 255, 255).setUv(1, 0).setLight(15728880);
+        consumer.addVertex(pose, x1, y1, z2).setColor(255, 255, 255, 255).setUv(1, 1).setLight(15728880);
+        consumer.addVertex(pose, x0, y1, z3).setColor(255, 255, 255, 255).setUv(0, 1).setLight(15728880);
     }
 
     private float sizeDown(float x) {
         if (x == 0) {
-            return x + 0.001F;
+            return x + 0.0001F;
         } else {
-            return x - 0.001F;
+            return x - 0.0001F;
         }
     }
 
@@ -81,36 +84,48 @@ public class NegativeBlockEntityRenderer<T extends NegativeBlockEntity> implemen
     }
 
     @Override
-    public NegativeBlockEntityRenderState createRenderState() {
+    public @NonNull NegativeBlockEntityRenderState createRenderState() {
         return new NegativeBlockEntityRenderState();
     }
 
     @Override
-    public void submit(NegativeBlockEntityRenderState state, PoseStack matrices, SubmitNodeCollector queue, CameraRenderState cameraState) {
+    public void submit(@NonNull NegativeBlockEntityRenderState state, @NonNull PoseStack matrices, SubmitNodeCollector queue, @NonNull CameraRenderState cameraState) {
+        if (state.sides == null || state.sides.isEmpty()) {
+            return;
+        }
+
         queue.submitCustomGeometry(
                 matrices,
                 this.getLayer(),
-                (matricesEntry, vertexConsumer) -> this.renderSides(state.sides, matricesEntry.pose(), vertexConsumer)
+                (matricesEntry, vertexConsumer) -> {
+                    // Double safety guard inside the builder lambda
+                    if (!state.sides.isEmpty()) {
+                        this.renderSides(state.sides, matricesEntry.pose(), vertexConsumer);
+                    }
+                }
         );
     }
     @Override
     public void extractRenderState(
-            T entity,
-            NegativeBlockEntityRenderState cosmicBlockEntityRenderState,
+            @NonNull T entity,
+            @NonNull NegativeBlockEntityRenderState cosmicBlockEntityRenderState,
             float f,
-            Vec3 vec3d,
+            @NonNull Vec3 vec3d,
             ModelFeatureRenderer.CrumblingOverlay crumblingOverlayCommand
     ) {
         BlockEntityRenderer.super.extractRenderState(entity, cosmicBlockEntityRenderState, f, vec3d, crumblingOverlayCommand);
         cosmicBlockEntityRenderState.sides.clear();
-        Level world = entity.getLevel();
 
+        Level world = entity.getLevel();
+        if (world == null) return;
+
+        BlockPos pos = entity.getBlockPos();
         for (Direction direction : Direction.values()) {
-            try {
-                if (!world.getBlockState(entity.getBlockPos().relative(direction, 1)).getBlock().equals(ModBlock.NEGATIVE_BLOCK)) {
-                    cosmicBlockEntityRenderState.sides.add(direction);
-                }
-            } catch (Exception e) {}
+            // Safe neighbor check without try-catch masking
+            BlockState neighborState = world.getBlockState(pos.relative(direction));
+            if (!neighborState.is(ModBlock.NEGATIVE_BLOCK)) {
+                cosmicBlockEntityRenderState.sides.add(direction);
+            }
         }
     }
 }

@@ -53,7 +53,6 @@ public class Stargazer implements ModInitializer {
 		Patterns.init();
 		GameRules.init();
 		ScreenHandlerTypes.init();
-		RecipeTypes.init();
 		CustomFeatures.init();
 		Potions.init();
 		DamageTypeRegistry.init();
@@ -76,7 +75,6 @@ public class Stargazer implements ModInitializer {
 		ModStats.init();
 		init();
 		Criterias.init();
-		ResourceManagerHelper.get(PackType.SERVER_DATA).registerReloadListener(new StargazerDataLoader());
 		ServerLifecycleEvents.SERVER_STARTED.register(server -> {
 			var registryManager = server.registryAccess();
 
@@ -91,5 +89,6 @@ public class Stargazer implements ModInitializer {
 			LOGGER.info("Loaded: " + fallingObjectsList.keySet().size() + " Falling Objects Lists");
 		});
 		ModTraids.init();
+		RecipeTypes.init();
 	}
 }

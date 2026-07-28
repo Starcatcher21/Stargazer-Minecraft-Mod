@@ -1,6 +1,0 @@
-{
-  "fluid": "#minecraft:lava",
-  "lava": {"Name": "stargazer:cosmic_block"},
-  "obsidian": {"Name": "minecraft:dark_prismarine"},
-  "cobble": {"Name": "stargazer:star_stone"}
-}

@@ -1,0 +1,12 @@
+{
+  "cobble": {
+    "Name": "stargazer:moon_rock"
+  },
+  "fluid": "#minecraft:water",
+  "lava": {
+    "Name": "stargazer:cosmic_block"
+  },
+  "obsidian": {
+    "Name": "stargazer:black_moon_rock"
+  }
+}

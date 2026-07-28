@@ -1,6 +1,8 @@
 package com.github.starcatcher21.stargazer.mixin;
 
 import com.github.starcatcher21.stargazer.CustomWorlds;
+import com.github.starcatcher21.stargazer.Stargazer;
+import com.github.starcatcher21.stargazer.renderer.SkyDimensionChecks;
 import com.mojang.blaze3d.framegraph.FramePass;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -31,8 +33,7 @@ public class WorldRendererMixin {
         framePass.executes(() -> {
             Level world = Minecraft.getInstance().level;
             if (world != null) {
-                Optional<ResourceKey<DimensionType>> dim = world.dimensionTypeRegistration().unwrapKey();
-                if (dim.isPresent() && (dim.get().equals(CustomWorlds.COSMIC_TYPE) || dim.get().equals(CustomWorlds.RED_ORB_TYPE) || dim.get().equals(CustomWorlds.WANDER_TYPE))) {
+                if (SkyDimensionChecks.isStargazerSkyDimension(world)) {
                     this.skyRenderer.renderEndSky();
                 } else {
                     originalRunnable.run();

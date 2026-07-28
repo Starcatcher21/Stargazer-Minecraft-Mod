@@ -21,7 +21,7 @@ public class ModVillagers {
     private static VillagerProfession registerProfession(String name, ResourceKey<PoiType> type) {
         return Registry.register(BuiltInRegistries.VILLAGER_PROFESSION, Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, name),
                 new VillagerProfession(Component.translatable("entity.minecraft.villager.stargazer." + name), entry -> entry.is(type), entry -> entry.is(type),
-                        ImmutableSet.of(), ImmutableSet.of(), SoundEvents.VILLAGER_WORK_LIBRARIAN, Int2ObjectMap.ofEntries())
+                        ImmutableSet.of(), ImmutableSet.of(), SoundEvents.VILLAGER_WORK_LIBRARIAN, ModTraids.ASTROLOGISTS_MAP)
         );
     }
 

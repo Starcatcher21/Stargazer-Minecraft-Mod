@@ -1,4 +1,4 @@
-// 1.21.11	-999999999-01-01T00:00:00	STARGAZER/Model Definitions
+// 26.2	-999999999-01-01T00:00:00	STARGAZER/Model Definitions
 0efdcc5894fe3a7ebe4ef27bc871bc913687940d assets/stargazer/blockstates/acacia_hedge.json
 1c2a48da70f12c7109164b33b080182e5b8281c0 assets/stargazer/blockstates/birch_hedge.json
 af725c13bfa199b8ac617b65fe85bf2af09d98cd assets/stargazer/blockstates/black_bricks.json
@@ -325,6 +325,7 @@ e8612b33a16843d9ce2f52f95c9e6cf38a0b644b assets/stargazer/items/log_of_darkness.
 2c3156e2021615bfe312547ee492471d70b177fb assets/stargazer/items/lucky_comet.json
 ab84f644ffc825c48bfdb3c05717b3be2738300e assets/stargazer/items/magenta_wishing_star.json
 1e07a74f1f58ff99edaac338939863e37c85a583 assets/stargazer/items/mangrove_hedge.json
+a324c28b421179536b9d42edd5d59bedb3e360ce assets/stargazer/items/moon_cookie.json
 f256735c805939d130c2ce9fda61b11c471069d1 assets/stargazer/items/moon_fern.json
 4d713e7f483123d6460d446446d0025073ecfb26 assets/stargazer/items/moon_glass_shard.json
 6b43c307e4d172564252247a409f62227d2e54e0 assets/stargazer/items/moon_grass.json
@@ -415,6 +416,7 @@ b1f4efb8b26a57ff066b6ea822986677fdc36f14 assets/stargazer/items/spruce_hedge.jso
 74e1f263d255f365dd2d9f47d9986ebe48d59988 assets/stargazer/items/sprungus.json
 87c3f16ba043628871bfa540e85c08c3d0176b85 assets/stargazer/items/star_banner_pattern.json
 3047027170f793c06587a813ce161b72f979109a assets/stargazer/items/star_book.json
+66ef3c8b1d353a1f313470e176791883ff4d73bb assets/stargazer/items/star_cookie.json
 3870d109e31e9d06a51e4bac09b9a94e27b94f21 assets/stargazer/items/star_crusher.json
 8519d55df85982ed01404e9a62a13a577ce2336d assets/stargazer/items/star_display.json
 6fd20262c3e6d79e18671fb83f50412fda8cecf9 assets/stargazer/items/star_flower.json
@@ -935,6 +937,7 @@ b0eab4077935cfddd24f30357524042c1346ad52 assets/stargazer/models/item/living_eye
 7a6137ebac7928dadb3e454cc26c6fa62e459bf2 assets/stargazer/models/item/lodestar.json
 b54fd64b7ff506b66716afebdd6867e705cd1c2b assets/stargazer/models/item/lucky_comet.json
 973173afa648a39f519a8a0c860a5080f202c5e4 assets/stargazer/models/item/magenta_wishing_star.json
+9e48ec1f573b3fa880f1f69f565f246330798403 assets/stargazer/models/item/moon_cookie.json
 8803b39bdc5499fc6b1f454dea77f9097fa0ef05 assets/stargazer/models/item/moon_fern.json
 a45098cdd572faaf18bed29e7e8a2d40656ae047 assets/stargazer/models/item/moon_glass_shard.json
 6d52b5cdc7168cdadcc573e62015b960aa2faef5 assets/stargazer/models/item/moon_grass.json
@@ -959,6 +962,7 @@ db297b90aed12bfcfa814b8dfb41ec2503a7db17 assets/stargazer/models/item/rook_spawn
 72e78c0c724a110d9ea82edc14aef808cff09d23 assets/stargazer/models/item/sprungus.json
 b79c1fb0ab227c443cedf6bbd3ae610e9b37b7b3 assets/stargazer/models/item/star_banner_pattern.json
 cd66587f194e3bc1a7c485d9148d9a7624f5e4dd assets/stargazer/models/item/star_book.json
+f1baa235134d4d0727adc79fcb9b43b2a25e3b83 assets/stargazer/models/item/star_cookie.json
 4c81a940462678155c837bbb5dd0679084f4cc64 assets/stargazer/models/item/star_display.json
 0b814a72d333826f08ea9e0dd037ed2910fb3526 assets/stargazer/models/item/star_flower.json
 35ed050c61c2c6f43fb871146e72d3d14aa60b2b assets/stargazer/models/item/star_hammer.json

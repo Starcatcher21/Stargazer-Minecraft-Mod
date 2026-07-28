@@ -18,6 +18,7 @@ import com.github.starcatcher21.stargazer.block.register.*;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.references.BlockItemId;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.effect.MobEffects;
@@ -138,7 +139,7 @@ public class ModBlock {
         final Block block = Blocks.register(registryKey, factory, settings);
         ResourceKey<Item> itemKey = ResourceKey.create(Registries.ITEM, identifier);
 
-        BlockItem blockItem = new BlockItem(block, new Item.Properties().setId(itemKey).useBlockDescriptionPrefix());
+        BlockItem blockItem = new BlockItem(block, new Item.Properties().useBlockDescriptionPrefix().setId(itemKey));
         Registry.register(BuiltInRegistries.ITEM, itemKey, blockItem);
         return block;
     }

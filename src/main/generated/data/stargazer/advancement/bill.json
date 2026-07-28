@@ -8,11 +8,10 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "type_specific": {
-                "type": "minecraft:player",
+              "minecraft:type_specific/player": {
                 "looking_at": {
-                  "type": "stargazer:ghost",
-                  "nbt": "{tag:\"bill\"}"
+                  "minecraft:entity_type": "stargazer:ghost",
+                  "minecraft:nbt": "{tag:\"bill\"}"
                 }
               }
             }
@@ -26,7 +25,6 @@
     "description": "don't know where don't know when",
     "hidden": true,
     "icon": {
-      "count": 1,
       "id": "stargazer:ghost_spawn_egg"
     },
     "title": "We'll meet again"

@@ -13,7 +13,6 @@
   "display": {
     "description": "I found this wierd old book",
     "icon": {
-      "count": 1,
       "id": "minecraft:spyglass"
     },
     "title": "Old Book"

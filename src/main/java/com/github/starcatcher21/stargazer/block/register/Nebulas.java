@@ -127,8 +127,8 @@ public class Nebulas {
     );
 
     public static final Block BLUE_NEBULA_LEAVES = register("blue_nebula_leaves", (settings) -> new NebulaLeaves(CommonColors.HIGH_CONTRAST_DIAMOND, settings), BlockBehaviour.Properties.of()
-            .forceSolidOn()
             .randomTicks()
+            .noOcclusion()
             .sound(SoundType.GRASS)
             .strength(0.2F)
             .mapColor(MapColor.COLOR_CYAN)
@@ -184,8 +184,8 @@ public class Nebulas {
     );
 
     public static final Block RED_NEBULA_LEAVES = register("red_nebula_leaves", (settings) -> new NebulaLeaves(CommonColors.RED, settings), BlockBehaviour.Properties.of()
-            .forceSolidOn()
             .randomTicks()
+            .noOcclusion()
             .sound(SoundType.GRASS)
             .strength(0.2F)
             .mapColor(MapColor.COLOR_RED)
@@ -257,7 +257,7 @@ public class Nebulas {
     );
 
     public static final Block PURPLE_NEBULA_LEAVES = register("purple_nebula_leaves", (settings) -> new NebulaLeaves(CommonColors.DARK_PURPLE, settings), BlockBehaviour.Properties.of()
-            .forceSolidOn()
+            .noOcclusion()
             .randomTicks()
             .sound(SoundType.GRASS)
             .strength(0.2F)
@@ -314,7 +314,7 @@ public class Nebulas {
     );
 
     public static final Block YELLOW_NEBULA_LEAVES = register("yellow_nebula_leaves", (settings) -> new NebulaLeaves(CommonColors.YELLOW, settings), BlockBehaviour.Properties.of()
-            .forceSolidOn()
+            .noOcclusion()
             .randomTicks()
             .sound(SoundType.GRASS)
             .strength(0.2F)

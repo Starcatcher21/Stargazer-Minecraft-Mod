@@ -114,6 +114,12 @@ public final class ModItems {
     public static final Item GOLDEN_CRUCIAN = register("golden_crucian", Item::new, new Item.Properties()
             .food(new FoodProperties(2, 4, false))
     );
+    public static final Item MOON_COOKIE = register("moon_cookie", Item::new, new Item.Properties()
+            .food(new FoodProperties(1, 2, true))
+    );
+    public static final Item STAR_COOKIE = register("star_cookie", Item::new, new Item.Properties()
+            .food(new FoodProperties(1, 2, true))
+    );
     public static final Item ECTOPLASM = register("ectoplasm", Item::new, new Item.Properties().stacksTo(16));
     public static final Item COOLER_ECTOPLASM = register("cooler_ectoplasm", Item::new, new Item.Properties().stacksTo(16));
     public static final Item RED_ORB_PLATFORM_BASE = register("red_orb_platform_base", Item::new, new Item.Properties());

@@ -8,11 +8,10 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "type_specific": {
-                "type": "minecraft:player",
+              "minecraft:type_specific/player": {
                 "looking_at": {
-                  "type": "stargazer:ghost",
-                  "nbt": "{tag:\"pacman\"}"
+                  "minecraft:entity_type": "stargazer:ghost",
+                  "minecraft:nbt": "{tag:\"pacman\"}"
                 }
               }
             }
@@ -26,7 +25,6 @@
     "description": "It's all about the game",
     "hidden": true,
     "icon": {
-      "count": 1,
       "id": "stargazer:cooler_ectoplasm"
     },
     "title": "Time to eat some ghosts"

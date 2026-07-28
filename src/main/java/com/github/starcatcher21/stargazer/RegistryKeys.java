@@ -9,26 +9,27 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider
 import net.fabricmc.fabric.api.event.registry.DynamicRegistries;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityDataRegistry;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.syncher.EntityDataSerializer;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 
 public class RegistryKeys {
     public static final ResourceKey<Registry<Patterns>> STAR_PATTERN = ResourceKey.createRegistryKey(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "star_pattern"));
-    public static final EntityDataSerializer<Patterns> PATTERN = EntityDataSerializer.forValueType(Patterns.PACKET_CODEC);
     public static final EntityDataSerializer<StarPatternsComponent> PATTERN_COMPONENT = EntityDataSerializer.forValueType(StarPatternsComponent.PACKET_CODEC);
 
     public static final ResourceKey<Registry<CobbleGen>> COBBLE_GEN = ResourceKey.createRegistryKey(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "cobblegen"));
-    public static final EntityDataSerializer<CobbleGen> COBBLE_GEN_DATA = EntityDataSerializer.forValueType(CobbleGen.PACKET_CODEC);
 
     public static final ResourceKey<Registry<FallingObject>> FALLING_OBJECTS = ResourceKey.createRegistryKey(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "falling/objects"));
-    public static final EntityDataSerializer<FallingObject> FALLING_OBJECTS_DATA = EntityDataSerializer.forValueType(FallingObject.PACKET_CODEC);
 
     public static final ResourceKey<Registry<FallingObjectsList>> FALLING_OBJECTS_LIST = ResourceKey.createRegistryKey(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "falling/list"));
-    public static final EntityDataSerializer<FallingObjectsList> FALLING_OBJECTS_LIST_DATA = EntityDataSerializer.forValueType(FallingObjectsList.PACKET_CODEC);
 
 
     public static void init() {
+        DynamicRegistries.<FallingObject>register(
+                FALLING_OBJECTS,
+                FallingObject.CODEC
+        );
         DynamicRegistries.<Patterns>register(
                 STAR_PATTERN,
                 Patterns.CODEC
@@ -37,18 +38,10 @@ public class RegistryKeys {
                 COBBLE_GEN,
                 CobbleGen.CODEC
         );
-        DynamicRegistries.<FallingObject>register(
-                FALLING_OBJECTS,
-                FallingObject.CODEC
-        );
         DynamicRegistries.<FallingObjectsList>register(
                 FALLING_OBJECTS_LIST,
                 FallingObjectsList.CODEC
         );
-        FabricEntityDataRegistry.register(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "patterns"), PATTERN);
-        FabricEntityDataRegistry.register(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "cobble_gen"), COBBLE_GEN_DATA);
-        FabricEntityDataRegistry.register(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "falling_objects"), FALLING_OBJECTS_DATA);
-        FabricEntityDataRegistry.register(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "falling_objects_list"), FALLING_OBJECTS_LIST_DATA);
         FabricEntityDataRegistry.register(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "patterns_component"), PATTERN_COMPONENT);
     }
 }

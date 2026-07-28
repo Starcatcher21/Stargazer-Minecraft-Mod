@@ -26,8 +26,6 @@ float noise(vec2 p) {
 void main() {
     vec2 p = screenUv * 2.0 - 1.0;
 
-    // Screen-space vertical sky lighting. This is intentionally not camera-space,
-    // so walking, sprinting, FOV changes, and view-bob do not move it around.
     float vertical = clamp(screenUv.y, 0.0, 1.0);
     float horizon = 1.0 - abs(vertical * 2.0 - 1.0);
     float radial = clamp(length(p), 0.0, 1.0);
@@ -47,8 +45,8 @@ void main() {
     color += aurora * mist * (0.08 + horizon * 0.14);
     color += violet * smoothstep(0.58, 1.0, vertical) * 0.10;
 
-    // Slightly darken the corners to keep the sky feeling deep without relying on camera rays.
     color *= 1.0 - radial * 0.10;
 
-    fragColor = vec4(color * ColorModulator.rgb, 1.0);
+    vec3 tint = length(ColorModulator.rgb) > 0.001 ? ColorModulator.rgb : vec3(1.0);
+    fragColor = vec4(color * tint, 1.0);
 }

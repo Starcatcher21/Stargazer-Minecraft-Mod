@@ -42,7 +42,7 @@ public class MoonFarmland extends Block {
     @Override
     protected boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) {
         BlockState blockState = world.getBlockState(pos.above());
-        return !blockState.isSolid() || blockState.getBlock() instanceof FenceGateBlock || blockState.getBlock() instanceof MovingPistonBlock;
+        return !blockState.isSolidRender() || blockState.getBlock() instanceof FenceGateBlock || blockState.getBlock() instanceof MovingPistonBlock;
     }
 
     @Override

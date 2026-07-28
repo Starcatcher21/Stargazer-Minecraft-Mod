@@ -9,7 +9,6 @@
     "background": "stargazer:gui/advancements/backgrounds/stars",
     "description": "Are you ready for cosmic adventures",
     "icon": {
-      "count": 1,
       "id": "stargazer:moon_rock"
     },
     "show_toast": false,

@@ -1,0 +1,15 @@
+{
+  "cobble": {
+    "Name": "minecraft:redstone_ore",
+    "Properties": {
+      "lit": "false"
+    }
+  },
+  "fluid": "#minecraft:water",
+  "lava": {
+    "Name": "stargazer:no_red_block"
+  },
+  "obsidian": {
+    "Name": "minecraft:redstone_block"
+  }
+}

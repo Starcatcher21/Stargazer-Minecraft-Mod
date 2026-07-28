@@ -1,17 +1,26 @@
 package com.github.starcatcher21.stargazer.villager;
 
-import com.github.starcatcher21.stargazer.block.ModBlock;
-import com.github.starcatcher21.stargazer.block.register.MoonBlocks;
-import com.github.starcatcher21.stargazer.block.register.StarBlocks;
-import com.github.starcatcher21.stargazer.item.ModItems;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.trading.ItemCost;
-import net.minecraft.world.item.trading.MerchantOffer;
-
-import static com.github.starcatcher21.stargazer.villager.ModVillagers.ASTROLOGISTS_KEY;
+import com.github.starcatcher21.stargazer.Stargazer;
+import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.trading.TradeSet;
 
 public class ModTraids {
+    public static final ResourceKey<TradeSet> ASTROLOGISTS_LEVEL_1 = resourceKey("astrologists/level_1");
+    public static final ResourceKey<TradeSet> ASTROLOGISTS_LEVEL_2 = resourceKey("astrologists/level_2");
+    public static final ResourceKey<TradeSet> ASTROLOGISTS_LEVEL_3 = resourceKey("astrologists/level_3");
+    public static final ResourceKey<TradeSet> ASTROLOGISTS_LEVEL_4 = resourceKey("astrologists/level_4");
+    public static final ResourceKey<TradeSet> ASTROLOGISTS_LEVEL_5 = resourceKey("astrologists/level_5");
+    public static final Int2ObjectMap<ResourceKey<TradeSet>> ASTROLOGISTS_MAP =
+			Int2ObjectMap.ofEntries(
+                    Int2ObjectMap.entry(1, ASTROLOGISTS_LEVEL_1),
+            Int2ObjectMap.entry(2, ASTROLOGISTS_LEVEL_2),
+            Int2ObjectMap.entry(3, ASTROLOGISTS_LEVEL_3),
+            Int2ObjectMap.entry(4, ASTROLOGISTS_LEVEL_4),
+            Int2ObjectMap.entry(5, ASTROLOGISTS_LEVEL_5)
+            );
     public static void init() {
 //        TradeOfferHelper.registerVillagerOffers(ASTROLOGISTS_KEY, 1, factories -> {
 //            factories.add(((world, entity, random) -> new MerchantOffer(
@@ -95,5 +104,9 @@ public class ModTraids {
 //                    new ItemStack(ModItems.WINGED_STAR, 1), 1, 100, 0.04f
 //            )));
 //        });
+    }
+
+    public static ResourceKey<TradeSet> resourceKey(final String path) {
+        return ResourceKey.create(Registries.TRADE_SET, Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, path));
     }
 }

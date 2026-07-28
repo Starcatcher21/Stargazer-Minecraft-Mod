@@ -1,6 +1,0 @@
-{
-  "fluid": "#minecraft:water",
-  "lava": {"Name": "stargazer:negative_block"},
-  "obsidian": {"Name": "minecraft:amethyst_block"},
-  "cobble": {"Name": "minecraft:end_stone"}
-}

@@ -23,7 +23,6 @@ import net.minecraft.world.level.Level;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
-import org.lwjgl.system.MemoryUtil;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -32,7 +31,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Optional;
 import java.util.OptionalDouble;
-import java.util.OptionalInt;
 
 @Mixin(SkyRenderer.class)
 public abstract class SkyRenderingMixin {
@@ -131,15 +129,15 @@ public abstract class SkyRenderingMixin {
 
             this.skyVertexBuffer = new MappableRingBuffer(
                     () -> Stargazer.MOD_ID + " soft sky vertices",
-                    GpuBuffer.USAGE_VERTEX | GpuBuffer.USAGE_MAP_WRITE,
+                    GpuBuffer.USAGE_VERTEX | GpuBuffer.USAGE_MAP_WRITE | GpuBuffer.USAGE_COPY_DST,
                     vertexBufferSize
             );
         }
 
-//        CommandEncoder commandEncoder = RenderSystem.getDevice().createCommandEncoder();
-//        try (GpuBufferSlice.MappedView mappedView = commandEncoder.mapBuffer(this.skyVertexBuffer.currentBuffer().slice(0, meshData.vertexBuffer().remaining()), false, true)) {
-//            MemoryUtil.memCopy(meshData.vertexBuffer(), mappedView.data());
-//        }
+        GpuBufferSlice slice = this.skyVertexBuffer.currentBuffer().slice(0, meshData.vertexBuffer().remaining());
+
+        CommandEncoder commandEncoder = RenderSystem.getDevice().createCommandEncoder();
+        commandEncoder.writeToBuffer(slice, meshData.vertexBuffer());
 
         return this.skyVertexBuffer.currentBuffer();
     }

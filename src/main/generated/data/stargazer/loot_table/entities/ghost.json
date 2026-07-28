@@ -2,13 +2,12 @@
   "type": "minecraft:entity",
   "pools": [
     {
-      "bonus_rolls": 0.0,
       "conditions": [
         {
           "condition": "minecraft:entity_properties",
           "entity": "this",
           "predicate": {
-            "nbt": "{tag:\"\"}"
+            "minecraft:nbt": "{tag:\"\"}"
           }
         }
       ],
@@ -20,7 +19,6 @@
       ],
       "functions": [
         {
-          "add": false,
           "count": {
             "type": "minecraft:uniform",
             "max": 2.0,
@@ -32,13 +30,12 @@
       "rolls": 1.0
     },
     {
-      "bonus_rolls": 0.0,
       "conditions": [
         {
           "condition": "minecraft:entity_properties",
           "entity": "this",
           "predicate": {
-            "nbt": "{tag:\"pacman\"}"
+            "minecraft:nbt": "{tag:\"pacman\"}"
           }
         }
       ],
@@ -50,7 +47,6 @@
       ],
       "functions": [
         {
-          "add": false,
           "count": {
             "type": "minecraft:uniform",
             "max": 2.0,

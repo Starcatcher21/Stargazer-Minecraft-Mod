@@ -62,10 +62,10 @@ public class NoRedBlockEntityRenderer<T extends NoRedBlockEntity> implements Blo
             z2 = sizeDown(z2);
             z3 = sizeDown(z3);
         }
-        consumer.addVertex(pose, x0, y0, z0);
-        consumer.addVertex(pose, x1, y0, z1);
-        consumer.addVertex(pose, x1, y1, z2);
-        consumer.addVertex(pose, x0, y1, z3);
+        consumer.addVertex(pose, x0, y0, z0).setColor(255, 255, 255, 255).setUv(0, 0).setLight(15728880);
+        consumer.addVertex(pose, x1, y0, z1).setColor(255, 255, 255, 255).setUv(1, 0).setLight(15728880);
+        consumer.addVertex(pose, x1, y1, z2).setColor(255, 255, 255, 255).setUv(1, 1).setLight(15728880);
+        consumer.addVertex(pose, x0, y1, z3).setColor(255, 255, 255, 255).setUv(0, 1).setLight(15728880);
     }
 
     private float sizeDown(float x) {

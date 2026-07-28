@@ -7,9 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import net.minecraft.core.Holder;
+import net.minecraft.core.RegistryCodecs;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.RegistryFileCodec;
 import net.minecraft.resources.RegistryFixedCodec;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.ExtraCodecs;
@@ -18,7 +20,7 @@ import net.minecraft.world.level.Level;
 public class FallingObjectsList {
     public static final Codec<FallingObjectsList> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Level.RESOURCE_KEY_CODEC.fieldOf("world").forGetter(FallingObjectsList::getWorld),
-            RegistryFixedCodec.create(RegistryKeys.FALLING_OBJECTS).listOf()
+            RegistryFileCodec.create(RegistryKeys.FALLING_OBJECTS, FallingObject.CODEC).listOf()
                     .fieldOf("objects")
                     .forGetter(FallingObjectsList::getIdList),
             ExtraCodecs.POSITIVE_INT.listOf().fieldOf("chances").forGetter(FallingObjectsList::getChanceList),

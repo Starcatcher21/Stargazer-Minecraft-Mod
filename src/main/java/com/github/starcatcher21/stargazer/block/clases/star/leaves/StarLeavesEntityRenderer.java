@@ -40,10 +40,10 @@ public class StarLeavesEntityRenderer<T extends StarLeavesEntity> implements Blo
     }
 
     private void renderNormal(Matrix4f pose, VertexConsumer consumer, float x0, float x1, float y0, float y1, float z0, float z1, float z2, float z3) {
-        consumer.addVertex(pose, x0, y0, z0);
-        consumer.addVertex(pose, x1, y0, z1);
-        consumer.addVertex(pose, x1, y1, z2);
-        consumer.addVertex(pose, x0, y1, z3);
+        consumer.addVertex(pose, x0, y0, z0).setColor(0xFFFFFFFF).setUv(0, 0).setLight(15728880);
+        consumer.addVertex(pose, x1, y0, z1).setColor(0xFFFFFFFF).setUv(1, 0).setLight(15728880);
+        consumer.addVertex(pose, x1, y1, z2).setColor(0xFFFFFFFF).setUv(1, 1).setLight(15728880);
+        consumer.addVertex(pose, x0, y1, z3).setColor(0xFFFFFFFF).setUv(0, 1).setLight(15728880);
     }
 
     protected RenderType getLayer() {

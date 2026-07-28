@@ -1,0 +1,12 @@
+{
+  "cobble": {
+    "Name": "minecraft:lapis_ore"
+  },
+  "fluid": "#minecraft:water",
+  "lava": {
+    "Name": "stargazer:no_blue_block"
+  },
+  "obsidian": {
+    "Name": "minecraft:lapis_block"
+  }
+}

@@ -1,5 +1,12 @@
 {
   "has_ender_dragon_fight": false,
+  "attributes": {
+    "minecraft:gameplay/bed_rule": {
+      "can_set_spawn": "never",
+      "can_sleep": "never",
+      "explodes": true
+    }
+  },
   "ambient_light": 0.4,
   "has_fixed_time": true,
   "coordinate_scale": 1.0,

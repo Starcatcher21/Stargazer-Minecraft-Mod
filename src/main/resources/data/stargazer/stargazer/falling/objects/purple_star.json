@@ -1,7 +1,0 @@
-{
-  "item": "stargazer:purple_star",
-  "fall_particle": "stargazer:purple_star",
-  "hit_particle": "stargazer:purple_star",
-  "particle_amount": 200,
-  "velocity": 0.06
-}

@@ -8,7 +8,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "type": "stargazer:ghost"
+              "minecraft:entity_type": "stargazer:ghost"
             }
           }
         ]
@@ -20,7 +20,6 @@
     "description": "This is some kind of gravity ghosts",
     "hidden": true,
     "icon": {
-      "count": 1,
       "id": "stargazer:ectoplasm"
     },
     "title": "Do you believe in Gravity"

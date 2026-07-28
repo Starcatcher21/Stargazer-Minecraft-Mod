@@ -15,7 +15,7 @@ void main() {
 
     // 1.21.11 uses normal depth here: clear sky is near 1.0, blocks are closer.
     // Pin stars to far depth so clear sky shows them but blocks occlude them.
-    clip.z = clip.w * 0.999999;
+    clip.z = clip.w * 0.000001;
 
     gl_Position = clip;
     texCoord0 = UV0;

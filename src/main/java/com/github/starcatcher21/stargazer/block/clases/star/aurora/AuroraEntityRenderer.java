@@ -40,10 +40,10 @@ public class AuroraEntityRenderer<T extends AuroraEntity> implements BlockEntity
     }
 
     private void renderNormal(Matrix4f pose, VertexConsumer consumer, float x0, float x1, float y0, float y1, float z0, float z1, float z2, float z3) {
-        consumer.addVertex(pose, x0, y0, z0);
-        consumer.addVertex(pose, x1, y0, z1);
-        consumer.addVertex(pose, x1, y1, z2);
-        consumer.addVertex(pose, x0, y1, z3);
+        consumer.addVertex(pose, x0, y0, z0).setColor(255, 255, 255, 255).setUv(0, 0).setLight(15728880);
+        consumer.addVertex(pose, x1, y0, z1).setColor(255, 255, 255, 255).setUv(1, 0).setLight(15728880);
+        consumer.addVertex(pose, x1, y1, z2).setColor(255, 255, 255, 255).setUv(1, 1).setLight(15728880);
+        consumer.addVertex(pose, x0, y1, z3).setColor(255, 255, 255, 255).setUv(0, 1).setLight(15728880);
     }
 
     protected RenderType getLayer() {
@@ -75,11 +75,11 @@ public class AuroraEntityRenderer<T extends AuroraEntity> implements BlockEntity
         Level world = entity.getLevel();
 
         for (Direction direction : Direction.values()) {
-            try {
-                if (world.getBlockState(entity.getBlockPos().relative(direction, 1)).propagatesSkylightDown()) {
+//            try {
+//                if (world.getBlockState(entity.getBlockPos().relative(direction, 1)).propagatesSkylightDown()) {
                     cosmicBlockEntityRenderState.sides.add(direction);
-                }
-            } catch (Exception e) {}
+//                }
+//            } catch (Exception e) {}
         }
     }
 }

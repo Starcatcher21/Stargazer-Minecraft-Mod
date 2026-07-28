@@ -1,7 +1,0 @@
-{
-  "item": "stargazer:red_star",
-  "fall_particle": "stargazer:red_star",
-  "hit_particle": "stargazer:red_star",
-  "particle_amount": 200,
-  "velocity": 0.06
-}

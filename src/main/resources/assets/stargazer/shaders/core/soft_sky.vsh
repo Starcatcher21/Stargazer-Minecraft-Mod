@@ -11,6 +11,6 @@ void main() {
     // Position is already a full-screen clip-space quad: x/y are -1..1.
     // Do not reconstruct a camera ray from ProjMat/ModelViewMat here.
     // Projection/FOV/view-bob changes are what made the lighting slide while walking.
-    gl_Position = vec4(Position.xy, 0.0, 1.0);
+    gl_Position = vec4(Position.xy, 1.0, 1.0);
     screenUv = Position.xy * 0.5 + 0.5;
 }

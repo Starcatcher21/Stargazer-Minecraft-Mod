@@ -321,6 +321,8 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(ModItems.AURORA_FRAGMENT, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.STAR_BOOK.asItem(), ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(MoonBlocks.TALL_MOON_GRASS.asItem(), ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.MOON_COOKIE, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.STAR_COOKIE, ModelTemplates.FLAT_ITEM);
         blockGeneratedItem(itemModelGenerator, StarBlocks.STAR_FLOWER);
         blockGeneratedItem(itemModelGenerator, StarBlocks.CELESTIAL_STAR_FLOWER);
         blockGeneratedItem(itemModelGenerator, ModBlock.BONEFLOWER);

@@ -20,6 +20,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class StargazerDataGenerator implements DataGeneratorEntrypoint {
+	void main() {
+
+	}
 	@Override
 	public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
 		FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();
@@ -35,8 +38,14 @@ public class StargazerDataGenerator implements DataGeneratorEntrypoint {
 		pack.addProvider(ModModelProvider::new);
 		pack.addProvider(ModAdvancementsProvider::new);
 		pack.addProvider(ModEntityLootTableProvider::new);
+		pack.addProvider(ModPOITagProvider::new);
 		// Lang
 		pack.addProvider(ModEngLangProvider::new);
+
+		// Mod
+		pack.addProvider(FallingObjectProvider::new);
+		pack.addProvider(FallingObjectListProvider::new);
+		pack.addProvider(CobbleGenProvider::new);
 	}
 
 	@Override
@@ -52,6 +61,7 @@ public class StargazerDataGenerator implements DataGeneratorEntrypoint {
 			registerable.register(key, myBiome);
 		}
 	}
+
 
 	private static Biome loadBiomeFromJson(String fileName) {
 		Path root = Path.of("").toAbsolutePath().getParent().getParent();
