@@ -53,7 +53,6 @@ public class MoonWelderResultSlot
 
     @Override
     protected void checkTakeAchievements(ItemStack stack) {
-//        Inventory inventory;
         if (this.amount > 0) {
             stack.onCraftedBy(this.player, this.amount);
         }

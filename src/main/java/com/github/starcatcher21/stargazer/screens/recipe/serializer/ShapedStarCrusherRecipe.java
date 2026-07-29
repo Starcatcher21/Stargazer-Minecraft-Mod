@@ -6,6 +6,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.world.item.ItemStackTemplate;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -26,20 +27,20 @@ import net.minecraft.world.level.block.Blocks;
 public class ShapedStarCrusherRecipe
         implements StarCrusherRecipe {
     final StarCrusherShapedRecipe raw;
-    final ItemStack result;
+    final ItemStackTemplate result;
     final String group;
     final boolean showNotification;
     @Nullable
     private PlacementInfo ingredientPlacement;
 
-    public ShapedStarCrusherRecipe(String group, StarCrusherShapedRecipe raw, ItemStack result, boolean showNotification) {
+    public ShapedStarCrusherRecipe(String group, StarCrusherShapedRecipe raw, ItemStackTemplate result, boolean showNotification) {
         this.group = group;
         this.raw = raw;
         this.result = result;
         this.showNotification = showNotification;
     }
 
-    public ShapedStarCrusherRecipe(String group, StarCrusherShapedRecipe raw, ItemStack result) {
+    public ShapedStarCrusherRecipe(String group, StarCrusherShapedRecipe raw, ItemStackTemplate result) {
         this(group, raw, result, true);
     }
 
@@ -54,7 +55,7 @@ public class ShapedStarCrusherRecipe
     }
 
     public ItemStack craft(StarCrusherRecipeInput craftingRecipeInput, RegistryAccess registryManager) {
-        return this.result.copy();
+        return this.result.create();
     }
 
     @Override
@@ -71,7 +72,7 @@ public class ShapedStarCrusherRecipe
 
     @Override
     public ItemStack assemble(StarCrusherRecipeInput input) {
-        return this.result.copy();
+        return this.result.create();
     }
 
     @Override
@@ -93,7 +94,7 @@ public class ShapedStarCrusherRecipe
     }
 
     public ItemStack getResult() {
-        return this.result;
+        return this.result.create();
     }
 
     @Override
@@ -109,13 +110,13 @@ public class ShapedStarCrusherRecipe
     public static final MapCodec<ShapedStarCrusherRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             Codec.STRING.optionalFieldOf("group", "").forGetter(recipe -> recipe.group),
             StarCrusherShapedRecipe.CODEC.forGetter(recipe -> recipe.raw),
-            ItemStack.CODEC.fieldOf("result").forGetter(recipe -> recipe.result)
+            ItemStackTemplate.CODEC.fieldOf("result").forGetter(recipe -> recipe.result)
     ).apply(instance, (group, raw, result) -> new ShapedStarCrusherRecipe(group, raw, result)));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, ShapedStarCrusherRecipe> STREAM_CODEC = StreamCodec.composite(
             ByteBufCodecs.STRING_UTF8, recipe -> recipe.group,
             StarCrusherShapedRecipe.PACKET_CODEC, recipe -> recipe.raw,
-            ItemStack.STREAM_CODEC, recipe -> recipe.result,
+            ItemStackTemplate.STREAM_CODEC, recipe -> recipe.result,
             ShapedStarCrusherRecipe::new
     );
 

@@ -52,14 +52,9 @@ public class StarforgeResultSlot
 
     @Override
     protected void checkTakeAchievements(ItemStack stack) {
-//        Inventory inventory;
         if (this.amount > 0) {
             stack.onCraftedBy(this.player, this.amount);
         }
-//        if ((inventory = this.inventory) instanceof RecipeUnlocker) {
-//            RecipeUnlocker recipeUnlocker = (RecipeUnlocker)((Object)inventory);
-//            recipeUnlocker.unlockLastRecipe(this.player, this.input.getHeldStacks());
-//        }
         this.amount = 0;
     }
 
@@ -111,10 +106,5 @@ public class StarforgeResultSlot
         if (player instanceof ServerPlayer spe) {
             Criterias.forgeCraft.trigger(spe, stack.getItem());
         }
-    }
-
-    @Override
-    public boolean isFake() {
-        return true;
     }
 }

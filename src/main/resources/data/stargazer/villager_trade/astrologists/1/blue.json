@@ -1,0 +1,25 @@
+{
+  "wants": {
+    "id": "minecraft:emerald",
+    "count": {
+      "type": "minecraft:uniform",
+      "min": 6,
+      "max": 9
+    }
+  },
+  "gives": {
+    "id": "minecraft:spyglass",
+    "count": 1
+  },
+  "given_item_modifiers": [],
+  "max_uses": {
+    "type": "minecraft:uniform",
+    "min": 5,
+    "max": 14
+  },
+  "xp": {
+    "type": "minecraft:uniform",
+    "min": 4,
+    "max": 10
+  }
+}

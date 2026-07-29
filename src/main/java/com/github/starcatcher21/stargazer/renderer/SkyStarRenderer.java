@@ -236,12 +236,10 @@ public final class SkyStarRenderer {
         }
 
         CommandEncoder commandEncoder = RenderSystem.getDevice().createCommandEncoder();
-        try {
-            commandEncoder.writeToBuffer(
-                    this.vertexBuffer.currentBuffer().slice(0, builtBuffer.vertexBuffer().remaining()),
-                    builtBuffer.vertexBuffer()
-            );
-        } catch (Exception ignored) {}
+        commandEncoder.writeToBuffer(
+                this.vertexBuffer.currentBuffer().slice(0, builtBuffer.vertexBuffer().remaining()),
+                builtBuffer.vertexBuffer()
+        );
 
         return this.vertexBuffer.currentBuffer().slice();
     }

@@ -66,7 +66,7 @@ public class MoonWelderDisplay extends BasicDisplay {
     }
 
     private static ShapedMoonWelderRecipe emptyRecipe() {
-        return new ShapedMoonWelderRecipe("", new RawMoonWelderShapedRecipe(0,0, Ingredient.of(Blocks.AIR.asItem()), Ingredient.of(Blocks.AIR.asItem()), 0, Optional.empty()), ItemStack.EMPTY);
+        return new ShapedMoonWelderRecipe("", new RawMoonWelderShapedRecipe(0,0, Ingredient.of(Blocks.AIR.asItem()), Ingredient.of(Blocks.AIR.asItem()), 0, Optional.empty()), ItemStack.EMPTY.getCraftingRemainder());
     }
 
     public static ShapedMoonWelderRecipe getRecipe(Optional<RecipeDisplayId> networkRecipeId) {

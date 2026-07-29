@@ -8,6 +8,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.*;
 import org.jetbrains.annotations.Nullable;
 
@@ -22,20 +23,20 @@ import net.minecraft.world.level.Level;
 public class ShapedStarforgeRecipe
         implements StarforgeRecipe {
     final RawStarforgeShapedRecipe raw;
-    final ItemStack result;
+    final ItemStackTemplate result;
     final String group;
     final boolean showNotification;
     @Nullable
     private PlacementInfo ingredientPlacement;
 
-    public ShapedStarforgeRecipe(String group, RawStarforgeShapedRecipe raw, ItemStack result, boolean showNotification) {
+    public ShapedStarforgeRecipe(String group, RawStarforgeShapedRecipe raw, ItemStackTemplate result, boolean showNotification) {
         this.group = group;
         this.raw = raw;
         this.result = result;
         this.showNotification = showNotification;
     }
 
-    public ShapedStarforgeRecipe(String group, RawStarforgeShapedRecipe raw, ItemStack result) {
+    public ShapedStarforgeRecipe(String group, RawStarforgeShapedRecipe raw, ItemStackTemplate result) {
         this(group, raw, result, true);
     }
 
@@ -51,7 +52,7 @@ public class ShapedStarforgeRecipe
 
     @Override
     public ItemStack craft(StarforgeRecipeInput craftingRecipeInput, RegistryAccess registryManager) {
-        return this.result.copy();
+        return this.result.create();
     }
 
     @Override
@@ -73,7 +74,7 @@ public class ShapedStarforgeRecipe
     }
 
     public ItemStack getResult() {
-        return this.result;
+        return this.result.create();
     }
 
     @Override
@@ -91,7 +92,7 @@ public class ShapedStarforgeRecipe
 
     @Override
     public ItemStack assemble(StarforgeRecipeInput input) {
-        return this.result.copy();
+        return this.result.create();
     }
 
     public int getWidth() {
@@ -110,13 +111,13 @@ public class ShapedStarforgeRecipe
     public static final MapCodec<ShapedStarforgeRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             Codec.STRING.optionalFieldOf("group", "").forGetter(recipe -> recipe.group),
             RawStarforgeShapedRecipe.CODEC.forGetter(recipe -> recipe.raw),
-            ItemStack.CODEC.fieldOf("result").forGetter(recipe -> recipe.result)
-    ).apply(instance, (group, raw, result) -> new ShapedStarforgeRecipe(group, raw, result)));
+            ItemStackTemplate.CODEC.fieldOf("result").forGetter(recipe -> recipe.result)
+    ).apply(instance, ShapedStarforgeRecipe::new));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, ShapedStarforgeRecipe> STREAM_CODEC = StreamCodec.composite(
             ByteBufCodecs.STRING_UTF8, recipe -> recipe.group,
             RawStarforgeShapedRecipe.PACKET_CODEC, recipe -> recipe.raw,
-            ItemStack.STREAM_CODEC, recipe -> recipe.result,
+            ItemStackTemplate.STREAM_CODEC, recipe -> recipe.result,
             ShapedStarforgeRecipe::new
     );
 

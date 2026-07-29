@@ -27,18 +27,18 @@ public class StargazerDataGenerator implements DataGeneratorEntrypoint {
 	public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
 		FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();
 
-		pack.addProvider(ModBlockTagProvider::new);
-		pack.addProvider(ModItemTagProvider::new);
-		pack.addProvider(ModFluidTagProvider::new);
-		pack.addProvider(ModLootTableProvider::new);
+		pack.addProvider(BlockTagProvider::new);
+		pack.addProvider(ItemTagProvider::new);
+		pack.addProvider(FluidTagProvider::new);
+		pack.addProvider(LootTableProvider::new);
 		pack.addProvider(FishingLootPrivider::new);
 		pack.addProvider(ChestLootPrivider::new);
-		pack.addProvider(ModRecipeProvider::new);
-		pack.addProvider(ModWorldGenerator::new);
-		pack.addProvider(ModModelProvider::new);
-		pack.addProvider(ModAdvancementsProvider::new);
-		pack.addProvider(ModEntityLootTableProvider::new);
-		pack.addProvider(ModPOITagProvider::new);
+		pack.addProvider(RecipeProvider::new);
+		pack.addProvider(WorldGenerator::new);
+		pack.addProvider(ModelProvider::new);
+		pack.addProvider(AdvancementsProvider::new);
+		pack.addProvider(EntityLootTableProvider::new);
+		pack.addProvider(POITagProvider::new);
 		// Lang
 		pack.addProvider(ModEngLangProvider::new);
 

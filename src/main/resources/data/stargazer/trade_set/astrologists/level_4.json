@@ -1,5 +1,5 @@
 {
   "amount": 2.0,
-  "random_sequence": "minecraft:trade_set/cartographer/level_4",
-  "trades": "#minecraft:cartographer/level_4"
+  "random_sequence": "stargazer:trade_set/astrologists/level_4",
+  "trades": "#stargazer:astrologists/level_4"
 }

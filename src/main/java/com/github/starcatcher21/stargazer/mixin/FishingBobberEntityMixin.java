@@ -1,7 +1,7 @@
 package com.github.starcatcher21.stargazer.mixin;
 
 import com.github.starcatcher21.stargazer.Stargazer;
-import com.github.starcatcher21.stargazer.datagen.ModFluidTagProvider;
+import com.github.starcatcher21.stargazer.datagen.FluidTagProvider;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
@@ -12,6 +12,7 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.storage.loot.LootTable;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
@@ -26,8 +27,8 @@ public class FishingBobberEntityMixin {
                     ordinal = 0
             )
     )
-    private boolean stargazer$allowDreamFluidHeightCheck(FluidState fluidState, TagKey<Fluid> tag) {
-        return stargazer$isWaterOrDreamFluid(fluidState, tag);
+    private boolean allowDreamFluidHeightCheck(FluidState fluidState, TagKey<Fluid> tag) {
+        return isWaterOrDreamFluid(fluidState, tag);
     }
 
     @Redirect(
@@ -38,8 +39,8 @@ public class FishingBobberEntityMixin {
                     ordinal = 1
             )
     )
-    private boolean stargazer$allowDreamFluidOutOfWaterCheck(FluidState fluidState, TagKey<Fluid> tag) {
-        return stargazer$isWaterOrDreamFluid(fluidState, tag);
+    private boolean allowDreamFluidOutOfWaterCheck(FluidState fluidState, TagKey<Fluid> tag) {
+        return isWaterOrDreamFluid(fluidState, tag);
     }
 
     @Redirect(
@@ -49,12 +50,13 @@ public class FishingBobberEntityMixin {
                     target = "Lnet/minecraft/world/level/material/FluidState;is(Lnet/minecraft/tags/TagKey;)Z"
             )
     )
-    private boolean stargazer$allowDreamFluidOpenWaterCheck(FluidState fluidState, TagKey<Fluid> tag) {
-        return stargazer$isWaterOrDreamFluid(fluidState, tag);
+    private boolean allowDreamFluidOpenWaterCheck(FluidState fluidState, TagKey<Fluid> tag) {
+        return isWaterOrDreamFluid(fluidState, tag);
     }
 
-    private static boolean stargazer$isWaterOrDreamFluid(FluidState fluidState, TagKey<Fluid> tag) {
-        return fluidState.is(tag) || (FluidTags.WATER.equals(tag) && fluidState.is(ModFluidTagProvider.DREAM));
+    @Unique
+    private static boolean isWaterOrDreamFluid(FluidState fluidState, TagKey<Fluid> tag) {
+        return fluidState.is(tag) || (FluidTags.WATER.equals(tag) && fluidState.is(FluidTagProvider.DREAM));
     }
 
     @Redirect(
@@ -64,10 +66,10 @@ public class FishingBobberEntityMixin {
                     target = "Lnet/minecraft/server/ReloadableServerRegistries$Holder;getLootTable(Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/world/level/storage/loot/LootTable;"
             )
     )
-    private LootTable stargazer$redirectDreamFishingLoot(net.minecraft.server.ReloadableServerRegistries.Holder lookup, ResourceKey<LootTable> vanillaKey) {
+    private LootTable redirectDreamFishingLoot(net.minecraft.server.ReloadableServerRegistries.Holder lookup, ResourceKey<LootTable> vanillaKey) {
         FishingHook bobber = (FishingHook) (Object) this;
 
-        if (bobber.level().getFluidState(bobber.blockPosition()).is(ModFluidTagProvider.DREAM)) {
+        if (bobber.level().getFluidState(bobber.blockPosition()).is(FluidTagProvider.DREAM)) {
             ResourceKey<LootTable> customLootKey = ResourceKey.create(
                     Registries.LOOT_TABLE,
                     Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "gameplay/fishing/dream")

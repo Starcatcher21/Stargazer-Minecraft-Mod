@@ -31,9 +31,11 @@ import com.github.starcatcher21.stargazer.worldgen.dimensions.Dimensions;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLevelEvents;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderingRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
+import net.fabricmc.fabric.api.recipe.v1.sync.RecipeSynchronization;
 import net.fabricmc.fabric.impl.client.rendering.BlockEntityRendererRegistryImpl;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.block.FluidModel;
@@ -41,6 +43,7 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.resources.Identifier;
+import net.minecraft.world.level.block.LevelEvent;
 
 @Environment(EnvType.CLIENT)
 public class StargazerClient implements ClientModInitializer {
@@ -69,7 +72,6 @@ public class StargazerClient implements ClientModInitializer {
         Keybinds.init();
 
         // Fluids
-//        BlockRenderLayerMap.putBlock(Fluids.DREAM, ChunkSectionLayer.TRANSLUCENT);
         FluidRenderingRegistry.register(
                 ModFluids.DREAM,
                 ModFluids.DREAM_FLOWING,
@@ -128,7 +130,6 @@ public class StargazerClient implements ClientModInitializer {
                 }
             } catch (Exception e) {
                 Stargazer.LOGGER.error("Can't load clinet settings");
-
             }
         });
     }

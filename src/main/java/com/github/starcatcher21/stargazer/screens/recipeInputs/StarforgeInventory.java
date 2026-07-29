@@ -68,6 +68,7 @@ public class StarforgeInventory
 
     @Override
     public void setChanged() {
+        this.handler.slotsChanged(this); // Updates recipe result on change
     }
 
     @Override

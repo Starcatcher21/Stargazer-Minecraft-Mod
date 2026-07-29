@@ -3,6 +3,8 @@ package com.github.starcatcher21.stargazer;
 import com.github.starcatcher21.stargazer.CreativeTab.ItemGroup;
 import com.github.starcatcher21.stargazer.block.BlockTypes;
 import com.github.starcatcher21.stargazer.block.ModBlock;
+import com.github.starcatcher21.stargazer.block.clases.moon.starforge.Starforge;
+import com.github.starcatcher21.stargazer.compat.StarforgeDisplaySerializer;
 import com.github.starcatcher21.stargazer.effects.Potions;
 import com.github.starcatcher21.stargazer.effects.StatusEffects;
 import com.github.starcatcher21.stargazer.energy.EnergyInit;
@@ -21,6 +23,11 @@ import com.github.starcatcher21.stargazer.nbt.StarPattern;
 import com.github.starcatcher21.stargazer.particle.Particles;
 import com.github.starcatcher21.stargazer.screens.ScreenHandlerTypes;
 import com.github.starcatcher21.stargazer.screens.recipe.RecipeTypes;
+import com.github.starcatcher21.stargazer.screens.recipe.StarCrusherRecipe;
+import com.github.starcatcher21.stargazer.screens.recipe.StarforgeRecipe;
+import com.github.starcatcher21.stargazer.screens.recipe.serializer.ShapedMoonWelderRecipe;
+import com.github.starcatcher21.stargazer.screens.recipe.serializer.ShapedStarCrusherRecipe;
+import com.github.starcatcher21.stargazer.screens.recipe.serializer.ShapedStarforgeRecipe;
 import com.github.starcatcher21.stargazer.sound.SoundEffects;
 import com.github.starcatcher21.stargazer.stats.ModStats;
 import com.github.starcatcher21.stargazer.villager.ModTraids;
@@ -31,6 +38,7 @@ import com.github.starcatcher21.stargazer.worldgen.features.PlacedFeatures;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.TreesRegistry;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
+import net.fabricmc.fabric.api.recipe.v1.sync.RecipeSynchronization;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.core.Registry;
 import net.minecraft.server.packs.PackType;
@@ -90,5 +98,8 @@ public class Stargazer implements ModInitializer {
 		});
 		ModTraids.init();
 		RecipeTypes.init();
+		RecipeSynchronization.synchronizeRecipeSerializer(ShapedStarforgeRecipe.SERIALIZER);
+		RecipeSynchronization.synchronizeRecipeSerializer(ShapedMoonWelderRecipe.SERIALIZER);
+		RecipeSynchronization.synchronizeRecipeSerializer(ShapedStarCrusherRecipe.SERIALIZER);
 	}
 }

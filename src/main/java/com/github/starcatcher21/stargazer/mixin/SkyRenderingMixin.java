@@ -9,6 +9,9 @@ import com.mojang.blaze3d.buffers.GpuBufferSlice;
 import com.mojang.blaze3d.systems.CommandEncoder;
 import com.mojang.blaze3d.systems.RenderPass;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.textures.AddressMode;
+import com.mojang.blaze3d.textures.FilterMode;
+import com.mojang.blaze3d.textures.GpuSampler;
 import com.mojang.blaze3d.textures.GpuTextureView;
 import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.ByteBufferBuilder;
@@ -19,6 +22,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MappableRingBuffer;
 import net.minecraft.client.renderer.SkyRenderer;
 import net.minecraft.client.renderer.rendertype.RenderType;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.Level;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
@@ -68,7 +72,7 @@ public abstract class SkyRenderingMixin {
     private void renderScreenSpaceSky() {
         MeshData meshData = buildSkyQuad();
         MeshData.DrawState drawState = meshData.drawState();
-        GpuBufferSlice vertices = uploadSkyQuad(meshData, drawState.format()).slice();
+        GpuBufferSlice vertices = uploadSkyQuad(meshData, drawState.format());
 
         RenderSystem.AutoStorageIndexBuffer shapeIndexBuffer = RenderSystem.getSequentialBuffer(PrimitiveTopology.QUADS);
         GpuBuffer indices = shapeIndexBuffer.getBuffer(drawState.indexCount());
@@ -78,7 +82,7 @@ public abstract class SkyRenderingMixin {
         GpuTextureView depthTarget = client.gameRenderer.mainRenderTarget().getDepthTextureView();
 
         GpuBufferSlice dynamicTransforms = RenderSystem.getDynamicUniforms().writeTransform(
-                new Matrix4f(),
+                RenderSystem.getModelViewMatrixCopy(),
                 COLOR_MODULATOR,
                 MODEL_OFFSET,
                 TEXTURE_MATRIX
@@ -99,7 +103,9 @@ public abstract class SkyRenderingMixin {
             renderPass.setUniform("DynamicTransforms", dynamicTransforms);
             renderPass.setVertexBuffer(0, vertices);
             renderPass.setIndexBuffer(indices, shapeIndexBuffer.type());
-            renderPass.drawIndexed(0, 0, drawState.indexCount(), 0,1);
+            renderPass.drawIndexed(0, 0, drawState.indexCount(), 0, 1);
+        } catch (Exception i) {
+            Stargazer.LOGGER.error("Exception in sky render: ", i);
         }
 
         meshData.close();
@@ -110,16 +116,18 @@ public abstract class SkyRenderingMixin {
     private static MeshData buildSkyQuad() {
         BufferBuilder buffer = new BufferBuilder(SKY_ALLOCATOR, PrimitiveTopology.QUADS, DefaultVertexFormat.POSITION);
 
-        buffer.addVertex(IDENTITY, -1.0F, -1.0F, 1.0F);
-        buffer.addVertex(IDENTITY, 1.0F, -1.0F, 1.0F);
-        buffer.addVertex(IDENTITY, 1.0F, 1.0F, 1.0F);
-        buffer.addVertex(IDENTITY, -1.0F, 1.0F, 1.0F);
+        float distance = 100.0F;
+
+        buffer.addVertex(IDENTITY, -distance, -distance, distance).setUv(0.0F, 0.0F).setColor(-14145496);
+        buffer.addVertex(IDENTITY,  distance, -distance, distance).setUv(0.0F, 16.0F).setColor(-14145496);
+        buffer.addVertex(IDENTITY,  distance,  distance, distance).setUv(16.0F, 16.0F).setColor(-14145496);
+        buffer.addVertex(IDENTITY, -distance,  distance, distance).setUv(16.0F, 0.0F).setColor(-14145496);
 
         return buffer.buildOrThrow();
     }
 
     @Unique
-    private GpuBuffer uploadSkyQuad(MeshData meshData, VertexFormat format) {
+    private GpuBufferSlice uploadSkyQuad(MeshData meshData, VertexFormat format) {
         int vertexBufferSize = meshData.drawState().vertexCount() * format.getVertexSize();
 
         if (this.skyVertexBuffer == null || this.skyVertexBuffer.size() < vertexBufferSize) {
@@ -134,11 +142,12 @@ public abstract class SkyRenderingMixin {
             );
         }
 
-        GpuBufferSlice slice = this.skyVertexBuffer.currentBuffer().slice(0, meshData.vertexBuffer().remaining());
+        GpuBuffer currentBuf = this.skyVertexBuffer.currentBuffer();
+        GpuBufferSlice slice = currentBuf.slice(0, meshData.vertexBuffer().remaining());
 
         CommandEncoder commandEncoder = RenderSystem.getDevice().createCommandEncoder();
         commandEncoder.writeToBuffer(slice, meshData.vertexBuffer());
 
-        return this.skyVertexBuffer.currentBuffer();
+        return slice;
     }
 }

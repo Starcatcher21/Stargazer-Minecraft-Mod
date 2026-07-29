@@ -1,6 +1,7 @@
 package com.github.starcatcher21.stargazer.mechanics;
 
 import com.github.starcatcher21.stargazer.Stargazer;
+import net.minecraft.client.resources.SplashManager;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;

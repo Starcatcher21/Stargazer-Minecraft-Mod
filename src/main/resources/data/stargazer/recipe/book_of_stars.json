@@ -1,0 +1,8 @@
+{
+  "type": "stargazer:star_crusher",
+  "item1": "stargazer:star_book",
+  "result": {
+    "count": 2,
+    "id": "minecraft:paper"
+  }
+}

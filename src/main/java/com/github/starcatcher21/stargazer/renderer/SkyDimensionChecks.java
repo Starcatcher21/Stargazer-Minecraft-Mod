@@ -2,6 +2,7 @@ package com.github.starcatcher21.stargazer.renderer;
 
 import com.github.starcatcher21.stargazer.CustomWorlds;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.trading.TradeSets;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.dimension.DimensionType;
 

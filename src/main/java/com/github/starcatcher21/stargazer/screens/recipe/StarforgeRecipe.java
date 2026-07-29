@@ -5,6 +5,7 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -28,7 +29,9 @@ public interface StarforgeRecipe
         NonNullList<ItemStack> defaultedList = NonNullList.withSize(input.size(), ItemStack.EMPTY);
         for (int i = 0; i < defaultedList.size(); ++i) {
             Item item = input.getItem(i).getItem();
-            defaultedList.set(i, item.getCraftingRemainder().create());
+            try {
+                defaultedList.set(i, item.getCraftingRemainder().create());
+            } catch (Exception ignored) {}
         }
         return defaultedList;
     }

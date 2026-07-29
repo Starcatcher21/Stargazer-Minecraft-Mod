@@ -16,7 +16,8 @@
 		"CapeMixin",
 		"SkinMixin",
 		"WorldRendererMixin",
-		"SkyRenderingMixin"
+		"SkyRenderingMixin",
+		"SplashTextMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

@@ -81,6 +81,8 @@ public class ModEngLangProvider extends FabricLanguageProvider {
         translationBuilder.add(ModItems.COMET_FRAGMENT, "Comet Fragment");
         translationBuilder.add(ModItems.AURORA_FRAGMENT, "Aurora Fragment");
         translationBuilder.add(StarBlocks.AURORA, "Aurora Block");
+        translationBuilder.add(ModItems.MOON_COOKIE, "Moon Cookie");
+        translationBuilder.add(ModItems.STAR_COOKIE, "Star Cookie");
         // Blocks
         translationBuilder.add(ModBlock.GRAVE, "Grave");
         translationBuilder.add(ModBlock.NEGATIVE_BLOCK, "Negative Block");

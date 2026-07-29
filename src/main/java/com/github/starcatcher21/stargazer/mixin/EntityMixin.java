@@ -1,7 +1,7 @@
 package com.github.starcatcher21.stargazer.mixin;
 
 import com.github.starcatcher21.stargazer.CustomWorlds;
-import com.github.starcatcher21.stargazer.datagen.ModFluidTagProvider;
+import com.github.starcatcher21.stargazer.datagen.FluidTagProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.FluidTags;
@@ -57,15 +57,15 @@ public abstract class EntityMixin {
     public abstract boolean isPushedByFluid();
 
     @Inject(method = "<init>", at = @At("RETURN"))
-    private void stargazer$trackDreamFluid(EntityType<?> entityType, Level level, CallbackInfo ci) {
-        this.fluidInteraction = new EntityFluidInteraction(Set.of(FluidTags.WATER, FluidTags.LAVA, ModFluidTagProvider.DREAM));
+    private void trackDreamFluid(EntityType<?> entityType, Level level, CallbackInfo ci) {
+        this.fluidInteraction = new EntityFluidInteraction(Set.of(FluidTags.WATER, FluidTags.LAVA, FluidTagProvider.DREAM));
     }
 
     @Inject(method = "updateFluidInteraction", at = @At("TAIL"), cancellable = true)
-    private void stargazer$updateDreamFluidInteraction(CallbackInfoReturnable<Boolean> cir) {
-        if (this.fluidInteraction.isInFluid(ModFluidTagProvider.DREAM)) {
+    private void updateDreamFluidInteraction(CallbackInfoReturnable<Boolean> cir) {
+        if (this.fluidInteraction.isInFluid(FluidTagProvider.DREAM)) {
             if (this.isPushedByFluid()) {
-                this.fluidInteraction.applyCurrentTo(ModFluidTagProvider.DREAM, (Entity) (Object) this, 0.014D);
+                this.fluidInteraction.applyCurrentTo(FluidTagProvider.DREAM, (Entity) (Object) this, 0.014D);
             }
             cir.setReturnValue(true);
         }

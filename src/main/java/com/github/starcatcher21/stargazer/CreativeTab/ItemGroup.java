@@ -52,6 +52,8 @@ public class ItemGroup {
             itemGroup.accept(MoonBlocks.COMET_BLOCK);
             itemGroup.accept(ModItems.AURORA_FRAGMENT);
             itemGroup.accept(StarBlocks.AURORA);
+            itemGroup.accept(ModItems.MOON_COOKIE);
+            itemGroup.accept(ModItems.STAR_COOKIE);
             // Star Blocks
             itemGroup.accept(StarBlocks.COSMIC_BLOCK);
             itemGroup.accept(StarBlocks.STAR_BARRIER_BLOCK);

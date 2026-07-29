@@ -12,6 +12,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.PlacementInfo;
 import net.minecraft.world.item.crafting.Recipe;
@@ -64,7 +65,7 @@ public class StarCrusherDisplay extends BasicDisplay {
     }
 
     private static ShapedStarCrusherRecipe emptyRecipe() {
-        return new ShapedStarCrusherRecipe("", new StarCrusherShapedRecipe(Ingredient.of(Blocks.AIR.asItem()), Optional.empty()), ItemStack.EMPTY);
+        return new ShapedStarCrusherRecipe("", new StarCrusherShapedRecipe(Ingredient.of(Blocks.AIR.asItem()), Optional.empty()), ItemStackTemplate.fromStack(Blocks.AIR.asItem().getDefaultInstance()));
     }
 
     public static ShapedStarCrusherRecipe getRecipe(Optional<RecipeDisplayId> networkRecipeId) {

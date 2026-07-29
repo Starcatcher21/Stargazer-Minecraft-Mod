@@ -117,13 +117,14 @@ public class CustomRederPipelines {
     // PIPELINES
     // SKY
     public static final RenderPipeline POSITION_SOFT_SKY = RenderPipelines.register(
-            RenderPipeline.builder(MATRICES_FOG_SNIPPET)
+            RenderPipeline.builder()
                     .withLocation("pipeline/soft_sky")
                     .withVertexShader(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "core/soft_sky"))
                     .withFragmentShader(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "core/soft_sky"))
                     .withPrimitiveTopology(PrimitiveTopology.QUADS)
                     .withVertexBinding(0, DefaultVertexFormat.POSITION)
                     .withDepthStencilState(new DepthStencilState(CompareOp.ALWAYS_PASS, false))
+                    .withColorTargetState(new ColorTargetState(BlendFunction.TRANSLUCENT))
                     .withCull(false)
                     .build()
     );
@@ -135,7 +136,7 @@ public class CustomRederPipelines {
                     .withFragmentShader(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "core/sky_stars"))
                     .withShaderDefine("Sampler0")
                     .withPrimitiveTopology(PrimitiveTopology.QUADS)
-                    .withVertexBinding(0, DefaultVertexFormat.POSITION_TEX_COLOR)
+                    .withVertexBinding(0, DefaultVertexFormat.POSITION_TEX)
                     .withColorTargetState(new ColorTargetState(BlendFunction.TRANSLUCENT))
                     .withDepthStencilState(new DepthStencilState(CompareOp.ALWAYS_PASS, false))
                     .withCull(false)
