@@ -308,6 +308,7 @@ public class ItemGroup {
             itemGroup.accept(RedOrbBlocks.SPIRO_LOG);
             itemGroup.accept(RedOrbBlocks.SPIRO_LEAVES);
             itemGroup.accept(RedOrbBlocks.SPIRO_SAPLING);
+            itemGroup.accept(RedOrbBlocks.GLASS_LOG);
             // Wander
             itemGroup.accept(ModItems.DARKSTAR);
             itemGroup.accept(Wander.BORIL);

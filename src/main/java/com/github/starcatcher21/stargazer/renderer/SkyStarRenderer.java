@@ -49,13 +49,9 @@ public final class SkyStarRenderer {
     private static final int STAR_ATLAS_ROWS = 5;
     private static final int STAR_SPRITE_COUNT = 39;
 
-    private static final ByteBufferBuilder ALLOCATOR = new ByteBufferBuilder(RenderType.SMALL_BUFFER_SIZE);
     private static final Vector4f COLOR_MODULATOR = new Vector4f(1.0F, 1.0F, 1.0F, 1.0F);
     private static final Vector3f MODEL_OFFSET = new Vector3f();
     private static final Matrix4f TEXTURE_MATRIX = new Matrix4f();
-
-    private static final VertexFormat STAR_FORMAT = DefaultVertexFormat.POSITION_TEX_COLOR;
-    private static final PrimitiveTopology STAR_MODE = PrimitiveTopology.QUADS;
 
     private StarRenderState renderState = StarRenderState.DISABLED;
 

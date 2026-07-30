@@ -255,6 +255,7 @@ public class ModelProvider extends FabricModelProvider {
         blockStateModelGenerator.createTrivialCube(RedOrbBlocks.GREEN_ROCK);
         blockStateModelGenerator.createCrossBlockWithDefaultItem(RedOrbBlocks.BLUE_GRASS, BlockModelGenerators.PlantType.NOT_TINTED);
         blockStateModelGenerator.createAxisAlignedPillarBlock(RedOrbBlocks.SPIRO_LOG, TexturedModel.COLUMN);
+        blockStateModelGenerator.createAxisAlignedPillarBlock(RedOrbBlocks.GLASS_LOG, TexturedModel.COLUMN);
         blockStateModelGenerator.createTrivialCube(RedOrbBlocks.SPIRO_LEAVES);
         blockStateModelGenerator.createTrivialCube(MoonBlocks.COMET_BLOCK);
         blockStateModelGenerator.createTrivialCube(Energy.STARGENERATOR);

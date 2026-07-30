@@ -14,8 +14,7 @@ public class PlayerRedOrbGrav {
     public static AttributeModifier fall_damage_modifier = new AttributeModifier(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "red_orb_fall"),  0.1F, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
     public static AttributeModifier jump_modifier = new AttributeModifier(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "red_orb_jump"),  -0.15F, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
 
-    public static void tick(Minecraft client) {
-        LivingEntity player = client.player;
+    public static void tick(LivingEntity player) {
         Level world = player.level();
         if (world.getBiome(player.blockPosition()).is(BiomeTags.RED_ORB)) {
             applyEffect(player);

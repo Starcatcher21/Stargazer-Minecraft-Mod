@@ -15,6 +15,7 @@ import com.github.starcatcher21.stargazer.worldgen.features.trees.curve.CurveTre
 import com.github.starcatcher21.stargazer.worldgen.features.trees.darkness.DarknessTrees;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.eyeblodbirch.EyeBirchTrees;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.fullmoon.FullMoonTrees;
+import com.github.starcatcher21.stargazer.worldgen.features.trees.glass.GlassTrees;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.green_rocks.GreenRocks;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.moon.MoonTrees;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.nebulas.NebulaTrees;
@@ -52,6 +53,7 @@ public class CustomFeatures {
     public static final Feature blackstone_pillars = register("blackstone_pillars", new BlackStonePillars(TreeConfig.CODEC));
     public static final Feature bubbles = register("bubbles", new Bubbles(TreeConfig.CODEC));
     public static final Feature trunn_trees = register("trunn_trees", new TrunnTrees(TreeConfig.CODEC));
+    public static final Feature glass_trees = register("glass_trees", new GlassTrees(TreeConfig.CODEC));
 
     public static Feature register(String id, Feature<?> entry) {
         return Registry.register(

@@ -1,0 +1,36 @@
+{
+  "attributes": {
+    "minecraft:audio/background_music": {
+      "default": {
+        "sound": "stargazer:cosmic.music",
+        "min_delay": 0,
+        "max_delay": 0,
+        "replace_current_music": false
+      }
+    }
+  },
+  "carvers": [
+    "minecraft:cave"
+  ],
+  "downfall": 0.4,
+  "effects": {
+    "fog_color": 0,
+    "sky_color": 0,
+    "water_color": 10076657,
+    "water_fog_color": 329011
+  },
+  "features": [
+    ["minecraft:spring_lava"],
+    ["stargazer:glass_trees"],
+    ["stargazer:glass_trees_top"],
+    ["stargazer:blue_grass"],
+    ["stargazer:blue_grass_top"]
+  ],
+  "has_precipitation": true,
+  "spawn_costs": {},
+  "spawners": {
+    "creature": [
+    ]
+  },
+  "temperature": 0.8
+}

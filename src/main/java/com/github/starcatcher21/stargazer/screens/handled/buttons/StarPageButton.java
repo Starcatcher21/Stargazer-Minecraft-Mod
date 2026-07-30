@@ -1,0 +1,56 @@
+package com.github.starcatcher21.stargazer.screens.handled.buttons;
+
+import com.github.starcatcher21.stargazer.Stargazer;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.client.resources.sounds.SimpleSoundInstance;
+import net.minecraft.client.sounds.SoundManager;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
+import net.minecraft.sounds.SoundEvents;
+
+@Environment(EnvType.CLIENT)
+public class StarPageButton extends Button {
+    private static final Identifier PAGE_FORWARD_HIGHLIGHTED_SPRITE = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "widget/page_forward_highlighted");
+    private static final Identifier PAGE_FORWARD_SPRITE = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "widget/page_forward");
+    private static final Identifier PAGE_BACKWARD_HIGHLIGHTED_SPRITE = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "widget/page_backward_highlighted");
+    private static final Identifier PAGE_BACKWARD_SPRITE = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "widget/page_backward");
+    private static final Component PAGE_BUTTON_NEXT = Component.translatable("book.page_button.next");
+    private static final Component PAGE_BUTTON_PREVIOUS = Component.translatable("book.page_button.previous");
+    private final boolean isForward;
+    private final boolean playTurnSound;
+
+    public StarPageButton(final int x, final int y, final boolean isForward, final Button.OnPress onPress, final boolean playTurnSound) {
+        super(x, y, 23, 13, isForward ? PAGE_BUTTON_NEXT : PAGE_BUTTON_PREVIOUS, onPress, DEFAULT_NARRATION);
+        this.isForward = isForward;
+        this.playTurnSound = playTurnSound;
+    }
+
+    @Override
+    protected void extractContents(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a) {
+        Identifier sprite;
+        if (this.isForward) {
+            sprite = this.isHoveredOrFocused() ? PAGE_FORWARD_HIGHLIGHTED_SPRITE : PAGE_FORWARD_SPRITE;
+        } else {
+            sprite = this.isHoveredOrFocused() ? PAGE_BACKWARD_HIGHLIGHTED_SPRITE : PAGE_BACKWARD_SPRITE;
+        }
+
+        graphics.blitSprite(RenderPipelines.GUI_TEXTURED, sprite, this.getX(), this.getY(), 23, 13);
+    }
+
+    @Override
+    public void playDownSound(final SoundManager soundManager) {
+        if (this.playTurnSound) {
+            soundManager.play(SimpleSoundInstance.forUI(SoundEvents.BOOK_PAGE_TURN, 1.0F));
+        }
+    }
+
+    @Override
+    public boolean shouldTakeFocusAfterInteraction() {
+        return false;
+    }
+}
+

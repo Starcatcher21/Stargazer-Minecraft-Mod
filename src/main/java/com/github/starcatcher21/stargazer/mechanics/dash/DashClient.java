@@ -2,9 +2,12 @@ package com.github.starcatcher21.stargazer.mechanics.dash;
 
 import com.github.starcatcher21.stargazer.Keybinds;
 import com.github.starcatcher21.stargazer.StargazerAttributes;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.Direction;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.phys.Vec3;
 
@@ -49,7 +52,7 @@ public class DashClient {
             willHyper = false;
             Vec3 hyperMotion = new Vec3(
                     player.getLookAngle().x * HYPER_H_SPEED,
-                    -HYPER_V_SPEED*4,
+                    -HYPER_V_SPEED * 4,
                     player.getLookAngle().z * HYPER_H_SPEED
             );
             player.setDeltaMovement(hyperMotion);
@@ -60,7 +63,7 @@ public class DashClient {
             willSuper = false;
             Vec3 superMotion = new Vec3(
                     player.getLookAngle().x * SUPER_H_SPEED,
-                    -SUPER_V_SPEED*4,
+                    -SUPER_V_SPEED * 4,
                     player.getLookAngle().z * SUPER_H_SPEED
             );
             player.setDeltaMovement(superMotion);
@@ -97,7 +100,6 @@ public class DashClient {
                         if (dashXRot > 60.0 && dashXRot < 90.0) willHyper = true;
                         if (dashXRot > 15.0 && dashXRot < 60.0) willSuper = true;
                     } else if (dashXRot < -60.0 && player.horizontalCollision) {
-                        // change required distance from wall here
                         bounceDirection = player.getMotionDirection().getOpposite();
                         willBounce = true;
                     }
@@ -107,9 +109,12 @@ public class DashClient {
 
         isOnCooldown = dashCooldown > 0 || dashes == 0;
 
-        // Here is when the dash happens
+        // Trigger Dash & Send Packet to Server
         if (Keybinds.DASH_KEY.isDown() && !isOnCooldown()) {
             Dash.setDashing(player.getUUID());
+
+            // Send packet to server
+            ClientPlayNetworking.send(new DashPayload());
 
             // Set counter to duration of dash
             dashCooldown = 5;
@@ -131,6 +136,7 @@ public class DashClient {
     public static void refresh(LocalPlayer player) {
         dashes = (int) player.getAttributeValue(StargazerAttributes.DASH_LEVEL);
     }
+
     public static void refresh(LocalPlayer player, int amount) {
         dashes = amount;
     }

@@ -177,6 +177,8 @@ public class RedOrbBlocks {
             .strength(0.4f)
             .mapColor(MapColor.PODZOL)
     );
+    public static final Block GLASS_LOG = register("glass_log", (settings) -> new MoonLog(null, settings), BlockBehaviour.Properties.ofFullCopy(Blocks.GLASS)
+    );
 
     public static void init() {}
 }

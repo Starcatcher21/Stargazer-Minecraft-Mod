@@ -7,11 +7,23 @@
       "type": "minecraft:multi_noise",
       "biomes": [
         {
+          "biome": "stargazer:glass_forest",
+          "parameters": {
+            "temperature": -0.2,
+            "humidity": -0.4,
+            "continentalness": -0.1,
+            "erosion": -0.3,
+            "weirdness": 0,
+            "depth": 0,
+            "offset": 0
+          }
+        },
+        {
           "biome": "stargazer:redness",
           "parameters": {
             "temperature": 0,
             "humidity": 0,
-            "continentalness": 0.08,
+            "continentalness": -0.08,
             "erosion": 0,
             "weirdness": 0,
             "depth": 0,
@@ -23,7 +35,7 @@
           "parameters": {
             "temperature": 0.2,
             "humidity": 0.125,
-            "continentalness": 0.08,
+            "continentalness": -0.08,
             "erosion": 0,
             "weirdness": 0,
             "depth": 0,
@@ -35,7 +47,7 @@
           "parameters": {
             "temperature": 0.1,
             "humidity": -0.25,
-            "continentalness": 0.0,
+            "continentalness": 0,
             "erosion": 0,
             "weirdness": 1,
             "depth": 0,
@@ -45,9 +57,9 @@
         {
           "biome": "stargazer:yeri_forest",
           "parameters": {
-            "temperature": 0.3,
+            "temperature": -0.3,
             "humidity": 0.2,
-            "continentalness": 0.3,
+            "continentalness": -0.3,
             "erosion": 0,
             "weirdness": 0,
             "depth": 0,
@@ -57,9 +69,9 @@
         {
           "biome": "stargazer:spiro_forest",
           "parameters": {
-            "temperature": 0.6,
+            "temperature": -0.6,
             "humidity": 0.6,
-            "continentalness": 0.7,
+            "continentalness": 0.2,
             "erosion": 0,
             "weirdness": 0.1,
             "depth": 0,

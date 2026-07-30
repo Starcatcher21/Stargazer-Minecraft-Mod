@@ -18,8 +18,7 @@ public class PlayerCosmicGrav {
     public static AttributeModifier jump_modifier = new AttributeModifier(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "cosmic_jump"),  0.35F, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
     public static AttributeModifier dash_modifier = new AttributeModifier(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "cosmic_dash"), 1.0F, AttributeModifier.Operation.ADD_VALUE);
 
-    public static void tick(Minecraft client) {
-        LivingEntity player = client.player;
+    public static void tick(LivingEntity player) {
         Level world = player.level();
         if (world.getBiome(player.blockPosition()).is(BiomeTags.MOON)) {
             applyEffect(player);

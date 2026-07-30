@@ -15,14 +15,13 @@ import com.github.starcatcher21.stargazer.block.clases.star.cosmic.CosmicBlockEn
 import com.github.starcatcher21.stargazer.block.clases.star.leaves.StarLeavesEntityRenderer;
 import com.github.starcatcher21.stargazer.block.clases.star.star_display.StarDisplayModel;
 import com.github.starcatcher21.stargazer.block.clases.star.star_display.StarDisplayRenderer;
-import com.github.starcatcher21.stargazer.block.register.*;
 import com.github.starcatcher21.stargazer.effects.StatusEffects;
 import com.github.starcatcher21.stargazer.entity.EntityRegistry;
 import com.github.starcatcher21.stargazer.entity.renderers.*;
 import com.github.starcatcher21.stargazer.mechanics.PlayerCosmicGrav;
 import com.github.starcatcher21.stargazer.mechanics.PlayerRedOrbGrav;
 import com.github.starcatcher21.stargazer.mechanics.dash.DashClient;
-import com.github.starcatcher21.stargazer.mechanics.star.Stargaze;
+import com.github.starcatcher21.stargazer.mechanics.star.StargazeClient;
 import com.github.starcatcher21.stargazer.particle.ParticlesClient;
 import com.github.starcatcher21.stargazer.renderer.SkyStarRenderer;
 import com.github.starcatcher21.stargazer.screens.ScreenHandlerTypes;
@@ -31,11 +30,9 @@ import com.github.starcatcher21.stargazer.worldgen.dimensions.Dimensions;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLevelEvents;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderingRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
-import net.fabricmc.fabric.api.recipe.v1.sync.RecipeSynchronization;
 import net.fabricmc.fabric.impl.client.rendering.BlockEntityRendererRegistryImpl;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.block.FluidModel;
@@ -43,7 +40,6 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.resources.Identifier;
-import net.minecraft.world.level.block.LevelEvent;
 
 @Environment(EnvType.CLIENT)
 public class StargazerClient implements ClientModInitializer {
@@ -109,26 +105,10 @@ public class StargazerClient implements ClientModInitializer {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             try {
                 if (client != null && client.level != null && client.player != null) {
-                    if (client.getSingleplayerServer().findRespawnDimension().getGameRules().get(GameRules.DASH)) {
+                    if (client.level.getServer().findRespawnDimension().getGameRules().get(GameRules.DASH)) {
                         DashClient.tick();
                     }
-                    PlayerCosmicGrav.tick(client);
-                    PlayerRedOrbGrav.tick(client);
-                    Stargaze.tick(client);
-                    if (client.player.getControlledVehicle() != null) {
-                        if (!client.player.getControlledVehicle().isAlive()) {
-                            if (Dimensions.REG_COSMIC_WORLD.identifier().equals(client.level.dimension().identifier())) {
-                                client.player.getAttribute(StargazerAttributes.DASH_LEVEL).addTransientModifier(PlayerCosmicGrav.dash_modifier);
-                            }
-                        }
-                        if (client.player.getControlledVehicle().isAlive()) {
-                            if (Dimensions.REG_COSMIC_WORLD.identifier().equals(client.level.dimension().identifier())) {
-                                if (!client.player.getActiveEffects().contains(StatusEffects.COSMO)) {
-                                    client.player.getAttribute(StargazerAttributes.DASH_LEVEL).removeModifier(PlayerCosmicGrav.dash_modifier);
-                                }
-                            }
-                        }
-                    }
+                    StargazeClient.clientTick(client);
                 }
             } catch (Exception e) {
                 Stargazer.LOGGER.error("Can't load clinet settings");

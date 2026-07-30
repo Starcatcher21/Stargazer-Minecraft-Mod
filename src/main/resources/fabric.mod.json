@@ -20,6 +20,9 @@
 		"client": [
 			"com.github.starcatcher21.stargazer.StargazerClient"
 		],
+		"server": [
+			"com.github.starcatcher21.stargazer.StargazerServer"
+		],
 		"rei_common": [
 			"com.github.starcatcher21.stargazer.compat.StargazerREICommon"
 		],

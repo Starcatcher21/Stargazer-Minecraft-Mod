@@ -8,6 +8,7 @@ import com.github.starcatcher21.stargazer.worldgen.features.trees.curve.CurveTre
 import com.github.starcatcher21.stargazer.worldgen.features.trees.darkness.DarknessTrees;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.eyeblodbirch.EyeBirchTrees;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.fullmoon.FullMoonTrees;
+import com.github.starcatcher21.stargazer.worldgen.features.trees.glass.GlassTrees;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.green_rocks.GreenRocks;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.moon.MoonTrees;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.nebulas.NebulaTrees;
@@ -41,5 +42,6 @@ public class TreesRegistry {
         BlackStonePillars.init();
         Bubbles.init();
         TrunnTrees.init();
+        GlassTrees.init();
     }
 }

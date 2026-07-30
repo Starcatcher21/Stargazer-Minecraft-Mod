@@ -21,11 +21,12 @@ public class BiomeReg {
     public static final ResourceKey<Biome> REDNESS = register("redness");
     public static final ResourceKey<Biome> YERI_FOREST = register("yeri_forest");
     public static final ResourceKey<Biome> GREEN_ROCK_VALLEY = register("green_rock_valley");
+    public static final ResourceKey<Biome> GLASS_FOREST = register("glass_forest");
 
     public static final ResourceKey<Biome> BUBBLES_FIELD = register("bubbles_field");
 
     public static final List<ResourceKey<Biome>> MoonList = List.of(MOON_FOREST, MOON_WASTE, AMETHYST_SPIKES, BONE_FOREST, EYE_BIRCH_FOREST, PURPLE_SHROOM_FOREST, DARKNESS_FOREST, MOON_FIELD, MOON_VOID);
-    public static final List<ResourceKey<Biome>> RedList = List.of(REDNESS, YERI_FOREST, GREEN_ROCK_VALLEY);
+    public static final List<ResourceKey<Biome>> RedList = List.of(REDNESS, YERI_FOREST, GREEN_ROCK_VALLEY, GLASS_FOREST);
 
     public static ResourceKey<Biome> register(String path) {
         return ResourceKey.create(Registries.BIOME, Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, path));

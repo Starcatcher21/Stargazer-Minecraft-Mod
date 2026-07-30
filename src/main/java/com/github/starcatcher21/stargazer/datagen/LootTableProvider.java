@@ -305,6 +305,7 @@ public class LootTableProvider extends FabricBlockLootSubProvider {
         dropSelf(RedOrbBlocks.SPIRO_SAPLING);
         dropPottedContents(RedOrbBlocks.POTTED_SPIRO_SAPLING);
         dropSelf(Hedges.SPIRO_HEDGE);
+        add(RedOrbBlocks.GLASS_LOG, oreDrops(RedOrbBlocks.GLASS_LOG, RedOrbBlocks.GLASS_LOG.asItem(), 0.0f, 0.0f));
     }
 
     public LootTable.Builder leavesDrops(Block leaves, Block sapling, Item itemDrop, float ... saplingChance) {
