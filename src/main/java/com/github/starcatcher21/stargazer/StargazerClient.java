@@ -69,6 +69,8 @@ public class StargazerClient implements ClientModInitializer {
 
         // Particles
         ParticlesClient.init();
+
+        // Keybinds
         Keybinds.init();
 
         // Fluids

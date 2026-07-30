@@ -34,11 +34,9 @@ import org.joml.Matrix4f;
 import org.joml.Matrix4fc;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
-import org.lwjgl.system.MemoryUtil;
 
 import java.util.Optional;
 import java.util.OptionalDouble;
-import java.util.OptionalInt;
 
 public final class SkyStarRenderer {
     private static final SkyStarRenderer INSTANCE = new SkyStarRenderer();
@@ -260,7 +258,7 @@ public final class SkyStarRenderer {
         GpuBuffer indices = shapeIndexBuffer.getBuffer(drawParameters.indexCount());
 
         GpuBufferSlice dynamicTransforms = RenderSystem.getDynamicUniforms().writeTransform(
-                new Matrix4f(),
+                RenderSystem.getModelViewMatrixCopy(),
                 COLOR_MODULATOR,
                 MODEL_OFFSET,
                 TEXTURE_MATRIX

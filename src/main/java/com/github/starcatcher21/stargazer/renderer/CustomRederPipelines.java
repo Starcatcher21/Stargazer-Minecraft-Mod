@@ -52,7 +52,7 @@ public class CustomRederPipelines {
             .withBindGroupLayout(BindGroupLayouts.SAMPLER0_SAMPLER1)
             .withPrimitiveTopology(PrimitiveTopology.QUADS)
             .withVertexBinding(0, DefaultVertexFormat.POSITION_COLOR)
-            .withDepthStencilState(new DepthStencilState(CompareOp.LESS_THAN_OR_EQUAL, false))
+            .withDepthStencilState(DepthStencilState.DEFAULT)
             .buildSnippet();
 
     public static final RenderPipeline.Snippet RENDERTYPE_STAR_BARIER_SNIPPET = RenderPipeline.builder(
