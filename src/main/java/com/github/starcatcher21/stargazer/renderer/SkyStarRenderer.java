@@ -22,6 +22,7 @@ import net.fabricmc.fabric.api.client.rendering.v1.level.LevelRenderContext;
 import net.fabricmc.fabric.api.client.rendering.v1.level.LevelRenderEvents;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MappableRingBuffer;
+import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.texture.AbstractTexture;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
@@ -33,10 +34,11 @@ import org.joml.Matrix4f;
 import org.joml.Matrix4fc;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
+import org.lwjgl.system.MemoryUtil;
 
-import java.awt.*;
 import java.util.Optional;
 import java.util.OptionalDouble;
+import java.util.OptionalInt;
 
 public final class SkyStarRenderer {
     private static final SkyStarRenderer INSTANCE = new SkyStarRenderer();
@@ -55,7 +57,7 @@ public final class SkyStarRenderer {
     private static final int STAR_ATLAS_ROWS = 5;
     private static final int STAR_SPRITE_COUNT = 39;
 
-    private static final ByteBufferBuilder ALLOCATOR = new ByteBufferBuilder(2048);
+    private static final ByteBufferBuilder ALLOCATOR = new ByteBufferBuilder(RenderType.SMALL_BUFFER_SIZE);
     private static final Vector4f COLOR_MODULATOR = new Vector4f(1.0F, 1.0F, 1.0F, 1.0F);
     private static final Vector3f MODEL_OFFSET = new Vector3f();
     private static final Matrix4f TEXTURE_MATRIX = new Matrix4f();
@@ -78,7 +80,6 @@ public final class SkyStarRenderer {
             this.renderState = StarRenderState.DISABLED;
             return;
         }
-
         Optional<ResourceKey<DimensionType>> dimensionType = level.dimensionTypeRegistration().unwrapKey();
         if (dimensionType.isEmpty()) {
             this.renderState = StarRenderState.DISABLED;
@@ -106,6 +107,9 @@ public final class SkyStarRenderer {
 
     private void renderStars(LevelRenderContext context, int starCount, float starRadius) {
         PoseStack matrices = context.poseStack();
+        if (matrices == null) {
+            return;
+        }
 
         Vec3 camera = Minecraft.getInstance().gameRenderer.mainCamera().position();
 
@@ -213,14 +217,14 @@ public final class SkyStarRenderer {
         MeshData.DrawState drawParameters = builtBuffer.drawState();
         VertexFormat format = drawParameters.format();
 
-        GpuBufferSlice vertices = upload(drawParameters, format, builtBuffer);
+        GpuBuffer vertices = upload(drawParameters, format, builtBuffer);
         draw(client, pipeline, textureId, builtBuffer, drawParameters, vertices);
 
         this.vertexBuffer.rotate();
         this.buffer = null;
     }
 
-    private GpuBufferSlice upload(MeshData.DrawState drawParameters, VertexFormat format, MeshData builtBuffer) {
+    private GpuBuffer upload(MeshData.DrawState drawParameters, VertexFormat format, MeshData builtBuffer) {
         int vertexBufferSize = drawParameters.vertexCount() * format.getVertexSize();
 
         if (this.vertexBuffer == null || this.vertexBuffer.size() < vertexBufferSize) {
@@ -230,18 +234,17 @@ public final class SkyStarRenderer {
 
             this.vertexBuffer = new MappableRingBuffer(
                     () -> Stargazer.MOD_ID + " depth pinned star vertices",
-                    GpuBuffer.USAGE_COPY_DST | GpuBuffer.USAGE_MAP_WRITE | GpuBuffer.USAGE_VERTEX,
+                    GpuBuffer.USAGE_VERTEX | GpuBuffer.USAGE_MAP_WRITE | GpuBuffer.USAGE_COPY_DST,
                     vertexBufferSize
             );
         }
 
         CommandEncoder commandEncoder = RenderSystem.getDevice().createCommandEncoder();
         commandEncoder.writeToBuffer(
-                this.vertexBuffer.currentBuffer().slice(0, builtBuffer.vertexBuffer().remaining()),
+                this.vertexBuffer.currentBuffer().slice(),
                 builtBuffer.vertexBuffer()
         );
-
-        return this.vertexBuffer.currentBuffer().slice();
+        return this.vertexBuffer.currentBuffer();
     }
 
     private static void draw(
@@ -250,14 +253,14 @@ public final class SkyStarRenderer {
             Identifier textureId,
             MeshData builtBuffer,
             MeshData.DrawState drawParameters,
-            GpuBufferSlice vertices
+            GpuBuffer vertices
     ) {
         RenderSystem.AutoStorageIndexBuffer shapeIndexBuffer = RenderSystem.getSequentialBuffer(STAR_MODE);
 
         GpuBuffer indices = shapeIndexBuffer.getBuffer(drawParameters.indexCount());
 
         GpuBufferSlice dynamicTransforms = RenderSystem.getDynamicUniforms().writeTransform(
-                RenderSystem.getModelViewMatrixCopy(),
+                new Matrix4f(),
                 COLOR_MODULATOR,
                 MODEL_OFFSET,
                 TEXTURE_MATRIX
@@ -282,9 +285,9 @@ public final class SkyStarRenderer {
             renderPass.setUniform("DynamicTransforms", dynamicTransforms);
             renderPass.bindTexture("Sampler0", texture.getTextureView(), texture.getSampler());
 
-            renderPass.setVertexBuffer(0, vertices);
+            renderPass.setVertexBuffer(0, vertices.slice());
             renderPass.setIndexBuffer(indices, shapeIndexBuffer.type());
-            renderPass.drawIndexed(0, 0, drawParameters.indexCount(), 0, 1);
+            renderPass.drawIndexed(0, 0, drawParameters.indexCount(), 1,1);
         }
 
         builtBuffer.close();

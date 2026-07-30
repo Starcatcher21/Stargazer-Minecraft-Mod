@@ -22,6 +22,9 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
+import static com.github.starcatcher21.stargazer.block.clases.moon.MoonRockNylium.canPropagate;
+
+
 public class Boril extends Block implements BonemealableBlock {
     public Boril(Properties settings) {
         super(settings);
@@ -40,7 +43,7 @@ public class Boril extends Block implements BonemealableBlock {
             BlockState blockState = this.defaultBlockState();
             for (int i = 0; i < 4; ++i) {
                 BlockPos blockPos = pos.offset(random.nextInt(3) - 1, random.nextInt(5) - 3, random.nextInt(3) - 1);
-                if (!world.getBlockState(blockPos).is(Wander.PUROIL)) continue;
+                if (!world.getBlockState(blockPos).is(MoonBlocks.MOON_ROCK) || !canPropagate(state, world, blockPos)) continue;
                 world.setBlockAndUpdate(blockPos, (BlockState)blockState);
             }
         }

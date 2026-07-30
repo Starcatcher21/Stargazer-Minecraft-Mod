@@ -19,14 +19,16 @@ public class CustomRederPipelines {
     // SNIPPETS
     // BLOCKS
     public static final RenderPipeline.Snippet RENDERTYPE_COSMIC_SNIPPET = RenderPipeline.builder(
-                    MATRICES_FOG_SNIPPET, GLOBALS_SNIPPET
+                    GLOBALS_SNIPPET
             )
+            .withBindGroupLayout(BindGroupLayouts.MATRICES_PROJECTION)
+            .withBindGroupLayout(BindGroupLayouts.FOG)
             .withVertexShader(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "core/rendertype_cosmic"))
             .withFragmentShader(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "core/rendertype_cosmic"))
-            .withShaderDefine("Sampler0")
-            .withShaderDefine("Sampler1")
+            .withBindGroupLayout(BindGroupLayouts.SAMPLER0_SAMPLER1)
+            .withVertexBinding(0, DefaultVertexFormat.POSITION)
             .withPrimitiveTopology(PrimitiveTopology.QUADS)
-            .withVertexBinding(0, DefaultVertexFormat.POSITION_COLOR)
+            .withDepthStencilState(DepthStencilState.DEFAULT)
             .buildSnippet();
 
     public static final RenderPipeline.Snippet RENDERTYPE_AURORA_SNIPPET = RenderPipeline.builder(
@@ -37,45 +39,41 @@ public class CustomRederPipelines {
             .withBindGroupLayout(BindGroupLayouts.LIGHTMAP_INFO)
             .withVertexShader(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "core/rendertype_translucent"))
             .withFragmentShader(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "core/rendertype_aurora"))
-            .withShaderDefine("Sampler0")
-            .withShaderDefine("Sampler2")
             .withBindGroupLayout(BindGroupLayouts.SAMPLER0_SAMPLER2)
             .withVertexBinding(0, DefaultVertexFormat.POSITION_TEX_COLOR)
             .withPrimitiveTopology(PrimitiveTopology.QUADS)
             .withDepthStencilState(DepthStencilState.DEFAULT)
             .buildSnippet();
     public static final RenderPipeline.Snippet RENDERTYPE_STAR_LEAVES_SNIPPET = RenderPipeline.builder(
-                    MATRICES_FOG_SNIPPET, GLOBALS_SNIPPET
+                    MATRICES_FOG_SNIPPET
             )
             .withVertexShader(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "core/rendertype_cosmic"))
             .withFragmentShader(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "core/rendertype_star_leaves"))
-            .withShaderDefine("Sampler0")
-            .withShaderDefine("Sampler1")
+            .withBindGroupLayout(BindGroupLayouts.SAMPLER0_SAMPLER1)
             .withPrimitiveTopology(PrimitiveTopology.QUADS)
             .withVertexBinding(0, DefaultVertexFormat.POSITION_COLOR)
             .withDepthStencilState(new DepthStencilState(CompareOp.LESS_THAN_OR_EQUAL, false))
             .buildSnippet();
 
     public static final RenderPipeline.Snippet RENDERTYPE_STAR_BARIER_SNIPPET = RenderPipeline.builder(
-                    MATRICES_FOG_SNIPPET, GLOBALS_SNIPPET
+                    MATRICES_FOG_SNIPPET
             ).withVertexShader(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "core/rendertype_star_barrier"))
             .withFragmentShader(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "core/rendertype_star_barrier"))
-            .withShaderDefine("Sampler0")
-            .withShaderDefine("Sampler1")
-            .withVertexBinding(0, DefaultVertexFormat.POSITION_COLOR)
-            .withColorTargetState(new ColorTargetState(BlendFunction.TRANSLUCENT_PREMULTIPLIED_ALPHA))
+            .withBindGroupLayout(BindGroupLayouts.SAMPLER0_SAMPLER1)
+            .withVertexBinding(0, DefaultVertexFormat.POSITION_TEX_COLOR)
             .withPrimitiveTopology(PrimitiveTopology.QUADS)
+            .withDepthStencilState(DepthStencilState.DEFAULT)
             .buildSnippet();
     public static final RenderPipeline.Snippet RENDERTYPE_NEGATIVE_SNIPPET = RenderPipeline.builder(
-                    MATRICES_FOG_SNIPPET, GLOBALS_SNIPPET
+                    MATRICES_FOG_SNIPPET
             )
             .withVertexShader(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "core/rendertype_cube"))
 		    .withFragmentShader(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "core/position_tex_color"))
-		    .withShaderDefine("Sampler0")
-            .withShaderDefine("Sampler2")
+            .withBindGroupLayout(BindGroupLayouts.SAMPLER0_SAMPLER2)
             .withColorTargetState(new ColorTargetState(BlendFunction.INVERT))
             .withPrimitiveTopology(PrimitiveTopology.QUADS)
             .withVertexBinding(0, DefaultVertexFormat.POSITION_COLOR)
+            .withDepthStencilState(DepthStencilState.DEFAULT)
             .buildSnippet();
 
     public static final RenderPipeline.Snippet RENDERTYPE_NO_RED_SNIPPET = RenderPipeline.builder(
@@ -83,35 +81,35 @@ public class CustomRederPipelines {
             )
             .withVertexShader(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "core/rendertype_cube"))
             .withFragmentShader(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "core/position_tex_color_red"))
-            .withShaderDefine("Sampler0")
-            .withShaderDefine("Sampler2")
+            .withBindGroupLayout(BindGroupLayouts.SAMPLER0_SAMPLER2)
             .withColorTargetState(new ColorTargetState(BlendFunction.INVERT))
             .withPrimitiveTopology(PrimitiveTopology.QUADS)
             .withVertexBinding(0, DefaultVertexFormat.POSITION_COLOR)
+            .withDepthStencilState(DepthStencilState.DEFAULT)
             .buildSnippet();
 
     public static final RenderPipeline.Snippet RENDERTYPE_NO_GREEN_SNIPPET = RenderPipeline.builder(
-                    MATRICES_FOG_SNIPPET, GLOBALS_SNIPPET
+                    MATRICES_FOG_SNIPPET
             )
             .withVertexShader(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "core/rendertype_cube"))
             .withFragmentShader(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "core/position_tex_color_green"))
-            .withShaderDefine("Sampler0")
-            .withShaderDefine("Sampler2")
+            .withBindGroupLayout(BindGroupLayouts.SAMPLER0_SAMPLER2)
             .withColorTargetState(new ColorTargetState(BlendFunction.INVERT))
             .withPrimitiveTopology(PrimitiveTopology.QUADS)
             .withVertexBinding(0, DefaultVertexFormat.POSITION_COLOR)
+            .withDepthStencilState(DepthStencilState.DEFAULT)
             .buildSnippet();
 
     public static final RenderPipeline.Snippet RENDERTYPE_NO_BLUE_SNIPPET = RenderPipeline.builder(
-                    MATRICES_FOG_SNIPPET, GLOBALS_SNIPPET
+                    MATRICES_FOG_SNIPPET
             )
             .withVertexShader(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "core/rendertype_cube"))
             .withFragmentShader(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "core/position_tex_color_blue"))
-            .withShaderDefine("Sampler0")
-            .withShaderDefine("Sampler1")
+            .withBindGroupLayout(BindGroupLayouts.SAMPLER0_SAMPLER1)
             .withColorTargetState(new ColorTargetState(BlendFunction.INVERT))
             .withPrimitiveTopology(PrimitiveTopology.QUADS)
             .withVertexBinding(0, DefaultVertexFormat.POSITION_COLOR)
+            .withDepthStencilState(DepthStencilState.DEFAULT)
             .buildSnippet();
 
     // PIPELINES
@@ -123,8 +121,7 @@ public class CustomRederPipelines {
                     .withFragmentShader(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "core/soft_sky"))
                     .withPrimitiveTopology(PrimitiveTopology.QUADS)
                     .withVertexBinding(0, DefaultVertexFormat.POSITION)
-                    .withDepthStencilState(new DepthStencilState(CompareOp.ALWAYS_PASS, false))
-                    .withColorTargetState(new ColorTargetState(BlendFunction.TRANSLUCENT))
+                    .withDepthStencilState(new DepthStencilState(CompareOp.NEVER_PASS, false))
                     .withCull(false)
                     .build()
     );
@@ -134,24 +131,22 @@ public class CustomRederPipelines {
                     .withLocation("pipeline/depth_pinned_stars")
                     .withVertexShader(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "core/sky_stars"))
                     .withFragmentShader(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "core/sky_stars"))
-                    .withShaderDefine("Sampler0")
+                    .withBindGroupLayout(BindGroupLayouts.SAMPLER0)
                     .withPrimitiveTopology(PrimitiveTopology.QUADS)
-                    .withVertexBinding(0, DefaultVertexFormat.POSITION_TEX)
+                    .withVertexBinding(0, DefaultVertexFormat.POSITION_TEX_COLOR)
                     .withColorTargetState(new ColorTargetState(BlendFunction.TRANSLUCENT))
-                    .withDepthStencilState(new DepthStencilState(CompareOp.ALWAYS_PASS, false))
+                    .withDepthStencilState(new DepthStencilState(CompareOp.LESS_THAN_OR_EQUAL, false))
                     .withCull(false)
                     .build()
     );
     // BLOCKS
     public static final RenderPipeline COSMIC = register(
             RenderPipeline.builder(RENDERTYPE_COSMIC_SNIPPET)
-                    .withLocation("pipeline/cosmic")
-                    .withShaderDefine("STAR_LAYERS", 16).build()
+                    .withLocation("pipeline/cosmic").build()
     );
     public static final RenderPipeline STAR_LEAVES = RenderPipelines.register(
             RenderPipeline.builder(RENDERTYPE_STAR_LEAVES_SNIPPET)
-                    .withLocation("pipeline/star_leaves")
-                    .withShaderDefine("STAR_LAYERS", 16).build());
+                    .withLocation("pipeline/star_leaves").build());
     public static final RenderPipeline STAR_BARRIER = RenderPipelines.register(
             RenderPipeline.builder(RENDERTYPE_STAR_BARIER_SNIPPET).withLocation("pipeline/star_barrier").build());
     public static final RenderPipeline AURORA = RenderPipelines.register(

@@ -1,4 +1,4 @@
-#version 150
+#version 330
 
 #define PIXEL_DENSITY     16.0
 #define NOISE_SCALE       0.3

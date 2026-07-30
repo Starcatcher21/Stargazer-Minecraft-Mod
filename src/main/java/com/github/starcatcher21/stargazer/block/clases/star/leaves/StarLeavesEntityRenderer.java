@@ -47,7 +47,7 @@ public class StarLeavesEntityRenderer<T extends StarLeavesEntity> implements Blo
     }
 
     protected RenderType getLayer() {
-        return CustomRenderLayers.COSMIC;
+        return CustomRenderLayers.STAR_LEAVES;
     }
 
     @Override
