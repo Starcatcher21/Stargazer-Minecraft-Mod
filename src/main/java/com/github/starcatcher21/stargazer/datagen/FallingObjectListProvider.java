@@ -82,6 +82,20 @@ public class FallingObjectListProvider extends FallingObjectListDataProvider {
             Optional.of(0),
             Optional.of(FallingObjectDayState.Both)
     );
+    public static final FallingObjectsList END = new FallingObjectsList(
+            Level.END,
+            List.of(
+                    Holder.direct(FallingObjectProvider.END_STAR),
+                    Holder.direct(FallingObjectProvider.YELLOW_STAR),
+                    Holder.direct(FallingObjectProvider.BLUE_STAR),
+                    Holder.direct(FallingObjectProvider.RED_STAR),
+                    Holder.direct(FallingObjectProvider.PURPLE_STAR),
+                    Holder.direct(FallingObjectProvider.COMET_FRAGMENT)
+            ),
+            List.of(20, 10, 10, 5, 1, 5),
+            Optional.of(0),
+            Optional.of(FallingObjectDayState.Both)
+    );
 
     @Override
     protected void addFallingObjectList(BiConsumer<Identifier, FallingObjectsList> exporter, HolderLookup.Provider registries) {
@@ -100,6 +114,10 @@ public class FallingObjectListProvider extends FallingObjectListDataProvider {
         exporter.accept(
                 Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "red_orb"),
                 RED_ORB
+        );
+        exporter.accept(
+                Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "end"),
+                END
         );
     }
 }

@@ -35,6 +35,13 @@ public class FallingObjectProvider extends FallingObjectDataProvider {
             200,
             0.06f
     );
+    public static final FallingObject END_STAR = new FallingObject(
+            ModItems.END_STAR.builtInRegistryHolder(),
+            ParticleTypes.END_ROD,
+            ParticleTypes.END_ROD,
+            200,
+            0.06f
+    );
     public static final FallingObject BLUE_STAR = new FallingObject(
             ModItems.BLUE_STAR.builtInRegistryHolder(),
             Particles.BLUE_STAR,

@@ -31,6 +31,7 @@ public class ModEngLangProvider extends FabricLanguageProvider {
         translationBuilder.add(ModItems.STAR_BOOK, "Book of Stars 1");
         translationBuilder.add("stat.stargazer.star_catched", "Star Catched");
         translationBuilder.add(MoonBlocks.COMET_BLOCK, "Comet Block");
+        translationBuilder.add(ModItems.END_STAR, "End Star");
 
         // music
         translationBuilder.add("stargazer.adventure_of_the_moon", "Starcatcher - Adventures of the Moon");

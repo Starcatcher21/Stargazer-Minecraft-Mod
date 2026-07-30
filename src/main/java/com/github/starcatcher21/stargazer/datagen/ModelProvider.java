@@ -285,6 +285,7 @@ public class ModelProvider extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(ModItems.RED_STAR, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.RED_ORB_PLATFORM_BASE, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.YELLOW_STAR, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.END_STAR, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.PURPLE_STAR, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.DREAM_STAR, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.MOON_GLASS_SHARD, ModelTemplates.FLAT_ITEM);

@@ -27,6 +27,7 @@ public class ItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .add(ModItems.PURPLE_STAR.builtInRegistryHolder().key())
                 .add(ModItems.RED_STAR.builtInRegistryHolder().key())
                 .add(ModItems.BLUE_STAR.builtInRegistryHolder().key())
+                .add(ModItems.END_STAR.builtInRegistryHolder().key())
                 .add(ModItems.YELLOW_STAR.builtInRegistryHolder().key());
         builder(ConventionalItemTags.DUSTS)
                 .add(ModItems.IRON_DUST.builtInRegistryHolder().key())

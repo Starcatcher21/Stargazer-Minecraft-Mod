@@ -37,6 +37,7 @@ public final class ModItems {
     public static final Item MOON_GLASS_SHARD = register("moon_glass_shard", Item::new, new Item.Properties());
     public static final Item PRISMATIC_SHARD = register("prismatic_shard", Item::new, new Item.Properties());
     public static final Item PRISMATIC_INGOT = register("prismatic_ingot", Item::new, new Item.Properties());
+    public static final Item END_STAR = register("end_star", Item::new, new Item.Properties());
     public static final Item YELLOW_STAR = register("yellow_star", Item::new, new Item.Properties());
     public static final Item SUN_ENRICHED_YELLOW_STAR = register("sun_enriched_yellow_star", Item::new, new Item.Properties());
     public static final Item WINGED_STAR = register("winged_star", Item::new, new Item.Properties());

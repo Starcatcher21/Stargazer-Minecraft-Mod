@@ -239,6 +239,7 @@ public class ItemGroup {
             itemGroup.accept(Nebulas.RED_NEBULA_PLANKS_STAIRS);
             itemGroup.accept(Nebulas.RED_NEBULA_LEAVES);
             itemGroup.accept(Nebulas.RED_NEBULA_REGROW_CORE);
+            itemGroup.accept(ModItems.END_STAR);
             itemGroup.accept(ModItems.YELLOW_STAR);
             itemGroup.accept(StarBlocks.YELLOW_STAR_BLOCK);
             itemGroup.accept(Nebulas.YELLOW_NEBULA_LOG);

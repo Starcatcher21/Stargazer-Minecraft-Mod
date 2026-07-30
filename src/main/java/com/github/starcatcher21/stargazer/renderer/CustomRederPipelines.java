@@ -135,7 +135,7 @@ public class CustomRederPipelines {
                     .withPrimitiveTopology(PrimitiveTopology.QUADS)
                     .withVertexBinding(0, DefaultVertexFormat.POSITION_TEX_COLOR)
                     .withColorTargetState(new ColorTargetState(BlendFunction.TRANSLUCENT))
-                    .withDepthStencilState(new DepthStencilState(CompareOp.LESS_THAN_OR_EQUAL, false))
+                    .withDepthStencilState(new DepthStencilState(CompareOp.GREATER_THAN, false))
                     .withCull(false)
                     .build()
     );

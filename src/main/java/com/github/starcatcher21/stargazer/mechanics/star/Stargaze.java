@@ -36,7 +36,7 @@ public class Stargaze {
                     }
                     return;
                 }
-                if (world.getBrightness(LightLayer.SKY, player.blockPosition()) == list.lightLevel) {
+                if (world.getBrightness(LightLayer.SKY, player.blockPosition()) >= list.lightLevel) {
                     if (player.getXRot() < -60.0 && player.isScoping()) {
                         Random random = new Random();
                         int randomNumb = random.nextInt(100);

@@ -295,6 +295,7 @@ dcbd38cb8637cfd3bea68da234fc89b70c0da9f9 assets/stargazer/items/dream_bucket.jso
 7d6684e9097f8be71748fb4e1cbafdf00f9c8784 assets/stargazer/items/dream_star.json
 1b171cecee20f866525d02634cab894b0261b8a2 assets/stargazer/items/dylium.json
 3d97bbf9475ae896883ef5c2ebc677f06cef20c1 assets/stargazer/items/ectoplasm.json
+732ecc8d870fdf35956d407393c9706b41395983 assets/stargazer/items/end_star.json
 76b7e4412a8e18a9385af611f67422a1e0ac6eac assets/stargazer/items/ender_fish.json
 0638d1b7f8916e9b0cc7cc0ffe7c28c1360e4172 assets/stargazer/items/eye_balls.json
 9947d84985a3ecfcb8b0a497b15adddc38138c1d assets/stargazer/items/eye_bat_spawn_egg.json
@@ -916,6 +917,7 @@ f1d6439238be62838c0401e1d81d19ef6b2a440f assets/stargazer/models/item/dragon_car
 ea3630690ff6b45372cc3ea18b3d9369117effa0 assets/stargazer/models/item/dream_bucket.json
 ca4175cda438c4a9c903b0f041c3738c1b68871d assets/stargazer/models/item/dream_star.json
 f7e4da639e760b3fa1ace84b93ded36933ed65ef assets/stargazer/models/item/ectoplasm.json
+bc28c574ce7b0d919da7a10c56f3109d9cd80298 assets/stargazer/models/item/end_star.json
 78f46b53b72a483ba237e27919a19da12494614e assets/stargazer/models/item/ender_fish.json
 82e8fa633d52776334464a784b6103ad819b97be assets/stargazer/models/item/eye_balls.json
 18a6cee78ea789b03bc8e5bbcbd8a8a2ace178a7 assets/stargazer/models/item/eye_bat_spawn_egg.json

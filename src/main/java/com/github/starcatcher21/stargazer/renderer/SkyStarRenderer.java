@@ -3,30 +3,24 @@ package com.github.starcatcher21.stargazer.renderer;
 import com.github.starcatcher21.stargazer.CustomWorlds;
 import com.github.starcatcher21.stargazer.Stargazer;
 import com.mojang.blaze3d.PrimitiveTopology;
-import com.mojang.blaze3d.buffers.GpuBuffer;
 import com.mojang.blaze3d.buffers.GpuBufferSlice;
 import com.mojang.blaze3d.pipeline.RenderPipeline;
-import com.mojang.blaze3d.systems.CommandEncoder;
+import com.mojang.blaze3d.pipeline.RenderTarget;
 import com.mojang.blaze3d.systems.RenderPass;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.textures.GpuTextureView;
-import com.mojang.blaze3d.vertex.BufferBuilder;
-import com.mojang.blaze3d.vertex.ByteBufferBuilder;
-import com.mojang.blaze3d.vertex.DefaultVertexFormat;
-import com.mojang.blaze3d.vertex.MeshData;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexFormat;
+import com.mojang.blaze3d.vertex.*;
 import net.fabricmc.fabric.api.client.rendering.v1.level.LevelExtractionContext;
 import net.fabricmc.fabric.api.client.rendering.v1.level.LevelExtractionEvents;
 import net.fabricmc.fabric.api.client.rendering.v1.level.LevelRenderContext;
 import net.fabricmc.fabric.api.client.rendering.v1.level.LevelRenderEvents;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.MappableRingBuffer;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.renderer.StagedVertexBuffer;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.texture.AbstractTexture;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
@@ -63,66 +57,105 @@ public final class SkyStarRenderer {
     private static final VertexFormat STAR_FORMAT = DefaultVertexFormat.POSITION_TEX_COLOR;
     private static final PrimitiveTopology STAR_MODE = PrimitiveTopology.QUADS;
 
-    private BufferBuilder buffer;
-    private MappableRingBuffer vertexBuffer;
     private StarRenderState renderState = StarRenderState.DISABLED;
+
+    private static final StagedVertexBuffer STAGED_BUFFER = new StagedVertexBuffer(
+            () -> Stargazer.MOD_ID + " Sky Stars Buffer",
+            RenderType.SMALL_BUFFER_SIZE
+    );
 
     public static void init() {
         LevelExtractionEvents.END_EXTRACTION.register(INSTANCE::extract);
         LevelRenderEvents.END_MAIN.register(INSTANCE::renderAndDraw);
     }
 
+    // --- EXTRACTION PHASE ---
     private void extract(LevelExtractionContext context) {
-        Level level = Minecraft.getInstance().level;
+        ClientLevel level = Minecraft.getInstance().level;
         if (level == null || !SkyDimensionChecks.isStargazerSkyDimension(level)) {
             this.renderState = StarRenderState.DISABLED;
             return;
         }
+
         Optional<ResourceKey<DimensionType>> dimensionType = level.dimensionTypeRegistration().unwrapKey();
         if (dimensionType.isEmpty()) {
             this.renderState = StarRenderState.DISABLED;
             return;
         }
 
-        this.renderState = new StarRenderState(true, level.getGameTime(), dimensionType.get());
-    }
-
-    private void renderAndDraw(LevelRenderContext context) {
-        if (!this.renderState.enabled()) {
-            return;
-        }
-
-        StarSettings settings = StarSettings.forDimension(this.renderState.dimensionType());
+        StarSettings settings = StarSettings.forDimension(dimensionType.get());
         if (settings == null) {
+            this.renderState = StarRenderState.DISABLED;
             return;
         }
 
-        renderStars(context, settings.starCount(), settings.starRadius());
-        if (this.buffer != null) {
-            drawDepthPinnedStars(Minecraft.getInstance(), CustomRederPipelines.POSITION_TEX_COLOR_DEPTH_PINNED_STARS, settings.texture());
-        }
+        Vec3 cameraPos = context.levelState().cameraRenderState.pos;
+
+        this.renderState = new StarRenderState(
+                true,
+                level.getGameTime(),
+                cameraPos,
+                settings
+        );
     }
 
-    private void renderStars(LevelRenderContext context, int starCount, float starRadius) {
-        PoseStack matrices = context.poseStack();
-        if (matrices == null) {
+    // --- DRAWING PHASE ---
+    private void renderAndDraw(LevelRenderContext context) {
+        if (!this.renderState.enabled() || this.renderState.settings() == null) {
             return;
         }
 
-        Vec3 camera = Minecraft.getInstance().gameRenderer.mainCamera().position();
+        RenderPipeline pipeline = CustomRederPipelines.POSITION_TEX_COLOR_DEPTH_PINNED_STARS;
+        VertexFormat formatBinding = pipeline.getVertexFormatBinding(0);
+        assert formatBinding != null;
+
+        PrimitiveTopology primitive = pipeline.getPrimitiveTopology();
+        StagedVertexBuffer.Draw draw = STAGED_BUFFER.appendDraw(
+                formatBinding,
+                primitive,
+                primitive == PrimitiveTopology.QUADS ? RenderSystem.getProjectionType().vertexSorting() : null
+        );
+
+        this.renderStars(context, draw);
+        STAGED_BUFFER.upload();
+
+        StagedVertexBuffer.ExecuteInfo info = STAGED_BUFFER.getExecuteInfo(draw);
+        if (info != null) {
+            draw(Minecraft.getInstance(), info, pipeline, this.renderState.settings().texture());
+        }
+
+        STAGED_BUFFER.endFrame();
+    }
+
+    private void renderStars(LevelRenderContext context, StagedVertexBuffer.Draw draw) {
+        PoseStack matrices = context.poseStack();
+        Vec3 camera = this.renderState.cameraPos();
+        StarSettings settings = this.renderState.settings();
 
         matrices.pushPose();
         matrices.translate(-camera.x, -camera.y, -camera.z);
 
-        if (this.buffer == null) {
-            this.buffer = new BufferBuilder(ALLOCATOR, STAR_MODE, STAR_FORMAT);
-        }
+        VertexConsumer builder = STAGED_BUFFER.getVertexBuilder(draw);
+        buildStars(
+                builder,
+                matrices.last().pose(),
+                camera,
+                this.renderState.gameTime(),
+                settings.starCount(),
+                settings.starRadius()
+        );
 
-        buildStars(this.buffer, matrices.last().pose(), camera, this.renderState.gameTime(), starCount, starRadius);
         matrices.popPose();
     }
 
-    private static void buildStars(BufferBuilder buffer, Matrix4fc matrix, Vec3 camera, long gameTime, int starCount, float starRadius) {
+    private static void buildStars(
+            VertexConsumer buffer,
+            Matrix4fc matrix,
+            Vec3 camera,
+            long gameTime,
+            int starCount,
+            float starRadius
+    ) {
         for (int i = 0; i < starCount; i++) {
             Vec3 baseDirection = fibonacciSphere(i, starCount);
 
@@ -169,7 +202,7 @@ public final class SkyStarRenderer {
     }
 
     private static void addStarQuad(
-            BufferBuilder buffer,
+            VertexConsumer buffer,
             Matrix4fc matrix,
             Vec3 center,
             Vec3 right,
@@ -210,71 +243,22 @@ public final class SkyStarRenderer {
         buffer.addVertex(matrix, (float) p3.x, (float) p3.y, (float) p3.z).setUv(u0, v0).setColor(red, green, blue, alpha);
     }
 
-    private void drawDepthPinnedStars(Minecraft client, RenderPipeline pipeline, Identifier textureId) {
-        MeshData builtBuffer = this.buffer.buildOrThrow();
-        MeshData.DrawState drawParameters = builtBuffer.drawState();
-        VertexFormat format = drawParameters.format();
-
-        GpuBuffer vertices = upload(drawParameters, format, builtBuffer);
-        draw(client, pipeline, textureId, builtBuffer, drawParameters, vertices);
-
-        this.vertexBuffer.rotate();
-        this.buffer = null;
-    }
-
-    private GpuBuffer upload(MeshData.DrawState drawParameters, VertexFormat format, MeshData builtBuffer) {
-        int vertexBufferSize = drawParameters.vertexCount() * format.getVertexSize();
-
-        if (this.vertexBuffer == null || this.vertexBuffer.size() < vertexBufferSize) {
-            if (this.vertexBuffer != null) {
-                this.vertexBuffer.close();
-            }
-
-            this.vertexBuffer = new MappableRingBuffer(
-                    () -> Stargazer.MOD_ID + " depth pinned star vertices",
-                    GpuBuffer.USAGE_VERTEX | GpuBuffer.USAGE_MAP_WRITE | GpuBuffer.USAGE_COPY_DST,
-                    vertexBufferSize
-            );
-        }
-
-        CommandEncoder commandEncoder = RenderSystem.getDevice().createCommandEncoder();
-        commandEncoder.writeToBuffer(
-                this.vertexBuffer.currentBuffer().slice(),
-                builtBuffer.vertexBuffer()
-        );
-        return this.vertexBuffer.currentBuffer();
-    }
-
-    private static void draw(
-            Minecraft client,
-            RenderPipeline pipeline,
-            Identifier textureId,
-            MeshData builtBuffer,
-            MeshData.DrawState drawParameters,
-            GpuBuffer vertices
-    ) {
-        RenderSystem.AutoStorageIndexBuffer shapeIndexBuffer = RenderSystem.getSequentialBuffer(STAR_MODE);
-
-        GpuBuffer indices = shapeIndexBuffer.getBuffer(drawParameters.indexCount());
-
-        GpuBufferSlice dynamicTransforms = RenderSystem.getDynamicUniforms().writeTransform(
-                RenderSystem.getModelViewMatrixCopy(),
-                COLOR_MODULATOR,
-                MODEL_OFFSET,
-                TEXTURE_MATRIX
-        );
+    private static void draw(Minecraft client, StagedVertexBuffer.ExecuteInfo info, RenderPipeline pipeline, Identifier textureId) {
+        GpuBufferSlice dynamicTransforms = RenderSystem.getDynamicUniforms()
+                .writeTransform(RenderSystem.getModelViewMatrixCopy(), COLOR_MODULATOR, MODEL_OFFSET, TEXTURE_MATRIX);
 
         AbstractTexture texture = client.getTextureManager().getTexture(textureId);
-        GpuTextureView colorTarget = client.gameRenderer.mainRenderTarget().getColorTextureView();
-        GpuTextureView depthTarget = client.gameRenderer.mainRenderTarget().getDepthTextureView();
+        RenderTarget mainTarget = client.gameRenderer.mainRenderTarget();
+        GpuTextureView colorTexture = mainTarget.getColorTextureView();
+        assert colorTexture != null;
 
         try (RenderPass renderPass = RenderSystem.getDevice()
                 .createCommandEncoder()
                 .createRenderPass(
                         () -> Stargazer.MOD_ID + " depth-pinned stars",
-                        colorTarget,
+                        colorTexture,
                         Optional.empty(),
-                        depthTarget,
+                        mainTarget.getDepthTextureView(),
                         OptionalDouble.empty()
                 )) {
             renderPass.setPipeline(pipeline);
@@ -283,14 +267,17 @@ public final class SkyStarRenderer {
             renderPass.setUniform("DynamicTransforms", dynamicTransforms);
             renderPass.bindTexture("Sampler0", texture.getTextureView(), texture.getSampler());
 
-            renderPass.setVertexBuffer(0, vertices.slice());
-            renderPass.setIndexBuffer(indices, shapeIndexBuffer.type());
-            renderPass.drawIndexed(0, 0, drawParameters.indexCount(), 1,1);
+            renderPass.setVertexBuffer(0, info.vertexBuffer().slice());
+            renderPass.setIndexBuffer(info.indexBuffer(), info.indexType());
+            renderPass.drawIndexed(info.indexCount(), 1, info.firstIndex(), info.baseVertex(), 0);
         }
-
-        builtBuffer.close();
     }
 
+    public static void close() {
+        STAGED_BUFFER.close();
+    }
+
+    // --- MATH & UTILS ---
     private static Vec3 fibonacciSphere(int index, int count) {
         double y = 1.0D - 2.0D * ((index + 0.5D) / count);
         double radius = Math.sqrt(1.0D - y * y);
@@ -325,6 +312,7 @@ public final class SkyStarRenderer {
         return (value & 0x00FFFFFF) / (float) 0x01000000;
     }
 
+    // --- RECORDS ---
     private record StarSettings(Identifier texture, int starCount, float starRadius) {
         @Nullable
         private static StarSettings forDimension(ResourceKey<DimensionType> dimensionType) {
@@ -341,7 +329,11 @@ public final class SkyStarRenderer {
         }
     }
 
-    private record StarRenderState(boolean enabled, long gameTime, @Nullable ResourceKey<DimensionType> dimensionType) {
-        private static final StarRenderState DISABLED = new StarRenderState(false, 0L, null);
-    }
-}
+    private record StarRenderState(
+            boolean enabled,
+            long gameTime,
+            Vec3 cameraPos,
+            @Nullable StarSettings settings
+    ) {
+        private static final StarRenderState DISABLED = new StarRenderState(false, 0L, Vec3.ZERO, null);
+    }}
