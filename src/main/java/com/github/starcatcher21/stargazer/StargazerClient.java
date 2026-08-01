@@ -111,7 +111,16 @@ public class StargazerClient implements ClientModInitializer {
                     StargazeClient.clientTick(client);
                 }
             } catch (Exception e) {
-                Stargazer.LOGGER.error("Can't load clinet settings");
+                try {
+                    if (client != null && client.level != null && client.player != null) {
+                        if (client.getSingleplayerServer().findRespawnDimension().getGameRules().get(GameRules.DASH)) {
+                            DashClient.tick();
+                        }
+                        StargazeClient.clientTick(client);
+                    }
+                } catch (Exception ignored) {
+                    Stargazer.LOGGER.error("Can't load clinet settings");
+                }
             }
         });
     }
