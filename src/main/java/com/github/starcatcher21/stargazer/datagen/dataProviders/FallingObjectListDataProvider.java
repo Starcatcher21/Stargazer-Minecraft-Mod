@@ -35,7 +35,7 @@ public class FallingObjectListDataProvider implements DataProvider {
             List<CompletableFuture<?>> futures = new ArrayList<>();
             var pathResolver = this.output.createPathProvider(
                     PackOutput.Target.DATA_PACK,
-                    "stargazer/falling/list"
+                    "starlib/falling/list"
             );
 
             addFallingObjectList((id, fallingObject) -> {

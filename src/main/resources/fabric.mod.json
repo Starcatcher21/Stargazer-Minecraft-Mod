@@ -39,6 +39,7 @@
 		"java": ">=25",
 		"fabric-api": "*",
 		"geckolib": ">=5.5.3",
-		"team_reborn_energy": ">=5.0.0"
+		"team_reborn_energy": ">=5.0.0",
+		"starlib": ">=1.0.0"
 	}
 }
