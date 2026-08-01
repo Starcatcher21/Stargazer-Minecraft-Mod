@@ -3,7 +3,7 @@ package com.github.starcatcher21.stargazer.datagen;
 import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.block.register.MoonBlocks;
 import com.github.starcatcher21.stargazer.block.register.RedOrbBlocks;
-import com.github.starcatcher21.stargazer.datagen.dataProviders.FallingObjectDataProvider;
+import com.github.starcatcher21.starlib.datagen.provider.FallingObjectDataProvider;
 import com.github.starcatcher21.stargazer.item.ModItems;
 import com.github.starcatcher21.stargazer.particle.Particles;
 import com.github.starcatcher21.starlib.mechanics.star.FallingObject;

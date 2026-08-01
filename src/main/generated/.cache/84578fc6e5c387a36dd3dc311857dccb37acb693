@@ -1,6 +1,6 @@
 // 26.2	-999999999-01-01T00:00:00	STARGAZER/Stargazer Falling Objects List Generator
-033ed238eeabd2f9109a0c7b5c6d188ee34fa704 data/stargazer/stargazer/falling/list/chess.json
-078090b068cb3c16635d3a162422ef51557a83b5 data/stargazer/stargazer/falling/list/cosmic.json
-40b29232de0a5dd482dcf2556f3cb564cc424494 data/stargazer/stargazer/falling/list/end.json
-3a8603b89945c1f580cec058d06c757d53f0658e data/stargazer/stargazer/falling/list/overworld.json
-6741c5c079019cce79c3206cf6f7395676a5dfa9 data/stargazer/stargazer/falling/list/red_orb.json
+033ed238eeabd2f9109a0c7b5c6d188ee34fa704 data/stargazer/starlib/falling/list/chess.json
+078090b068cb3c16635d3a162422ef51557a83b5 data/stargazer/starlib/falling/list/cosmic.json
+40b29232de0a5dd482dcf2556f3cb564cc424494 data/stargazer/starlib/falling/list/end.json
+3a8603b89945c1f580cec058d06c757d53f0658e data/stargazer/starlib/falling/list/overworld.json
+6741c5c079019cce79c3206cf6f7395676a5dfa9 data/stargazer/starlib/falling/list/red_orb.json

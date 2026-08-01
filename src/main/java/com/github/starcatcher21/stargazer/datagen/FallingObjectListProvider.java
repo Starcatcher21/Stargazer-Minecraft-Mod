@@ -2,7 +2,7 @@ package com.github.starcatcher21.stargazer.datagen;
 
 import com.github.starcatcher21.stargazer.CustomWorlds;
 import com.github.starcatcher21.stargazer.Stargazer;
-import com.github.starcatcher21.stargazer.datagen.dataProviders.FallingObjectListDataProvider;
+import com.github.starcatcher21.starlib.datagen.provider.FallingObjectListDataProvider;
 import com.github.starcatcher21.starlib.mechanics.star.FallingObjectDayState;
 import com.github.starcatcher21.starlib.mechanics.star.FallingObjectsList;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;

@@ -5,7 +5,7 @@ import com.github.starcatcher21.stargazer.block.ModBlock;
 import com.github.starcatcher21.stargazer.block.register.MoonBlocks;
 import com.github.starcatcher21.stargazer.block.register.RedOrbBlocks;
 import com.github.starcatcher21.stargazer.block.register.StarBlocks;
-import com.github.starcatcher21.stargazer.datagen.dataProviders.CobblegenDataProvider;
+import com.github.starcatcher21.starlib.datagen.provider.CobblegenDataProvider;
 import com.github.starcatcher21.starlib.Starlib;
 import com.github.starcatcher21.starlib.mechanics.Generators.CobbleGen;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
