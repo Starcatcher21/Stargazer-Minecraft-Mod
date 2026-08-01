@@ -6,7 +6,8 @@ import com.github.starcatcher21.stargazer.block.register.MoonBlocks;
 import com.github.starcatcher21.stargazer.block.register.RedOrbBlocks;
 import com.github.starcatcher21.stargazer.block.register.StarBlocks;
 import com.github.starcatcher21.stargazer.datagen.dataProviders.CobblegenDataProvider;
-import com.github.starcatcher21.stargazer.mechanics.Generators.CobbleGen;
+import com.github.starcatcher21.starlib.Starlib;
+import com.github.starcatcher21.starlib.mechanics.Generators.CobbleGen;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.resources.Identifier;
@@ -93,15 +94,15 @@ public class CobbleGenProvider extends CobblegenDataProvider {
                 COSMIC_WATER
         );
         exporter.accept(
-                Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "dream"),
+                Identifier.fromNamespaceAndPath(Starlib.MOD_ID, "dream"),
                 DREAM
         );
         exporter.accept(
-                Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "lava_water"),
+                Identifier.fromNamespaceAndPath(Starlib.MOD_ID, "lava_water"),
                 LAVA_WATER
         );
         exporter.accept(
-                Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "negative_water"),
+                Identifier.fromNamespaceAndPath(Starlib.MOD_ID, "negative_water"),
                 NEGATIVE_WATER
         );
     }

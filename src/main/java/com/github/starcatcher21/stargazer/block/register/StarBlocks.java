@@ -2,7 +2,7 @@
 // TODO(Ravel): Failed to fully resolve file: null cannot be cast to non-null type com.intellij.psi.PsiClass
 package com.github.starcatcher21.stargazer.block.register;
 
-import com.github.starcatcher21.stargazer.Helpers;
+import com.github.starcatcher21.starlib.Helpers;
 import com.github.starcatcher21.stargazer.block.clases.CosmicFlower;
 import com.github.starcatcher21.stargazer.block.clases.CustomSapling;
 import com.github.starcatcher21.stargazer.block.clases.star.aurora.Aurora;

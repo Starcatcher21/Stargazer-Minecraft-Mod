@@ -1,10 +1,10 @@
-package com.github.starcatcher21.stargazer.worldgen.features.trees.blackstone_pillars;
+package com.github.starcatcher21.stargazer.worldgen.features.blackstone_pillars;
 
-import com.github.starcatcher21.stargazer.worldgen.features.trees.Tree;
+import com.github.starcatcher21.starlib.worldgen.features.trees.Tree;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class BlackStonePillar2 {
+public class BlackStonePillar3 {
     public static void init(Tree tree) {
         tree.addReplacableBlock(Blocks.AIR);
         for (BlockState state : tree.leave) {
@@ -12,12 +12,13 @@ public class BlackStonePillar2 {
         }
         // logs
         for (int h = 0; h <= 7; h++) {
-            for (int x = 0; x < 2; x++) {
-                for (int z = 0; z < 2; z++) {
+            for (int x = -1; x < 2; x++) {
+                for (int z = -1; z < 2; z++) {
                     tree.addLogPos(x, h, z);
                 }
             }
         }
-        tree.addLogPos(0, 8,0);
+        tree.addLogPos(0, 8, 0);
+        tree.addLogPos(0, 9, 0);
     }
 }

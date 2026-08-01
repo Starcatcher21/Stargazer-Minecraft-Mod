@@ -1,6 +1,6 @@
 package com.github.starcatcher21.stargazer.worldgen.features.trees.curve;
 
-import com.github.starcatcher21.stargazer.worldgen.features.trees.Tree;
+import com.github.starcatcher21.starlib.worldgen.features.trees.Tree;
 
 public class CurveBase {
     public static Tree CurveLog = new Tree(false, "curveLogs");

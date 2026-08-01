@@ -1,8 +1,8 @@
 package com.github.starcatcher21.stargazer.worldgen.features.trees.curve;
 
 import com.github.starcatcher21.stargazer.block.register.StarBlocks;
-import com.github.starcatcher21.stargazer.worldgen.features.trees.DirectionalTree;
-import com.github.starcatcher21.stargazer.worldgen.features.trees.Tree;
+import com.github.starcatcher21.starlib.worldgen.features.trees.DirectionalTree;
+import com.github.starcatcher21.starlib.worldgen.features.trees.Tree;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;

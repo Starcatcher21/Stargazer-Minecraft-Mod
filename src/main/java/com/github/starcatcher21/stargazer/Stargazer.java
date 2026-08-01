@@ -10,14 +10,10 @@ import com.github.starcatcher21.stargazer.entity.EntityRegistry;
 import com.github.starcatcher21.stargazer.item.ConsumeEffectsRegistry;
 import com.github.starcatcher21.stargazer.item.ModItems;
 import com.github.starcatcher21.stargazer.mechanics.DamageTypeRegistry;
-import com.github.starcatcher21.stargazer.mechanics.Generators.CobbleGen;
 import com.github.starcatcher21.stargazer.mechanics.PlayerCosmicGrav;
 import com.github.starcatcher21.stargazer.mechanics.PlayerRedOrbGrav;
 import com.github.starcatcher21.stargazer.mechanics.PointOfIntrests;
 import com.github.starcatcher21.stargazer.mechanics.advancements.Criterias;
-import com.github.starcatcher21.stargazer.mechanics.dash.DashClient;
-import com.github.starcatcher21.stargazer.mechanics.star.FallingObject;
-import com.github.starcatcher21.stargazer.mechanics.star.FallingObjectsList;
 import com.github.starcatcher21.stargazer.nbt.ComponentTypes;
 import com.github.starcatcher21.stargazer.nbt.Patterns;
 import com.github.starcatcher21.stargazer.nbt.StarPattern;
@@ -35,12 +31,10 @@ import com.github.starcatcher21.stargazer.worldgen.BiomeTags;
 import com.github.starcatcher21.stargazer.worldgen.CustomFeatures;
 import com.github.starcatcher21.stargazer.worldgen.features.PlacedFeatures;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.TreesRegistry;
-import dev.architectury.event.events.common.TickEvent;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.recipe.v1.sync.RecipeSynchronization;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.Registry;
 import net.minecraft.server.level.ServerPlayer;
 import org.slf4j.Logger;
@@ -89,14 +83,8 @@ public class Stargazer implements ModInitializer {
 			var registryManager = server.registryAccess();
 
 			Registry<Patterns> patterns = registryManager.lookupOrThrow(RegistryKeys.STAR_PATTERN);
-			Registry<CobbleGen> cobbleGens = registryManager.lookupOrThrow(RegistryKeys.COBBLE_GEN);
-			Registry<FallingObject> fallingObjects = registryManager.lookupOrThrow(RegistryKeys.FALLING_OBJECTS);
-			Registry<FallingObjectsList> fallingObjectsList = registryManager.lookupOrThrow(RegistryKeys.FALLING_OBJECTS_LIST);
 
 			LOGGER.info("Loaded: " + patterns.keySet().size() + " Star Patterns");
-			LOGGER.info("Loaded: " + cobbleGens.keySet().size() + " Cobble Gens");
-			LOGGER.info("Loaded: " + fallingObjects.keySet().size() + " Falling Objects");
-			LOGGER.info("Loaded: " + fallingObjectsList.keySet().size() + " Falling Objects Lists");
 		});
 		ServerTickEvents.END_LEVEL_TICK.register(server -> {
 			for (ServerPlayer player : server.players()) {

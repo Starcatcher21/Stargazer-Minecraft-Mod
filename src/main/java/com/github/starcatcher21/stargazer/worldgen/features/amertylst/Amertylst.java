@@ -1,4 +1,4 @@
-package com.github.starcatcher21.stargazer.worldgen.features.trees.amertylst;
+package com.github.starcatcher21.stargazer.worldgen.features.amertylst;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;

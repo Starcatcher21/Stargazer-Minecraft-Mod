@@ -1,9 +1,9 @@
 package com.github.starcatcher21.stargazer.worldgen.features.trees.fullmoon;
 
 import com.github.starcatcher21.stargazer.block.register.MoonBlocks;
-import com.github.starcatcher21.stargazer.worldgen.features.trees.DirectionalTree;
-import com.github.starcatcher21.stargazer.worldgen.features.trees.Tree;
-import com.github.starcatcher21.stargazer.worldgen.features.trees.TreeConfig;
+import com.github.starcatcher21.starlib.worldgen.features.trees.DirectionalTree;
+import com.github.starcatcher21.starlib.worldgen.features.trees.Tree;
+import com.github.starcatcher21.starlib.worldgen.features.trees.TreeConfig;
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
 import java.util.ArrayList;

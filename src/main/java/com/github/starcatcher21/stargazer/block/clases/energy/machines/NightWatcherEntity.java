@@ -1,9 +1,9 @@
 package com.github.starcatcher21.stargazer.block.clases.energy.machines;
 
 import com.github.starcatcher21.stargazer.block.BlockTypes;
-import com.github.starcatcher21.stargazer.mechanics.star.FallingObject;
-import com.github.starcatcher21.stargazer.mechanics.star.FallingObjectDayState;
-import com.github.starcatcher21.stargazer.mechanics.star.FallingObjectsList;
+import com.github.starcatcher21.starlib.mechanics.star.FallingObject;
+import com.github.starcatcher21.starlib.mechanics.star.FallingObjectDayState;
+import com.github.starcatcher21.starlib.mechanics.star.FallingObjectsList;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.protocol.Packet;
@@ -21,7 +21,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import org.jspecify.annotations.Nullable;
-import team.reborn.energy.api.EnergyStorage;
 import team.reborn.energy.api.base.SimpleEnergyStorage;
 
 import java.util.Collections;

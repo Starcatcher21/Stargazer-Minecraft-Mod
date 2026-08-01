@@ -1,7 +1,7 @@
 package com.github.starcatcher21.stargazer.worldgen.features.trees.nebulas;
 
 import com.github.starcatcher21.stargazer.block.register.Nebulas;
-import com.github.starcatcher21.stargazer.worldgen.features.trees.Tree;
+import com.github.starcatcher21.starlib.worldgen.features.trees.Tree;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;

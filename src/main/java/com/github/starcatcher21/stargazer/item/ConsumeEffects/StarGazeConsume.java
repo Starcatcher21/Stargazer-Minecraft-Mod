@@ -2,8 +2,8 @@ package com.github.starcatcher21.stargazer.item.ConsumeEffects;
 
 import com.github.starcatcher21.stargazer.item.ConsumeEffectsRegistry;
 import com.github.starcatcher21.stargazer.mechanics.advancements.Criterias;
-import com.github.starcatcher21.stargazer.mechanics.star.FallingObject;
-import com.github.starcatcher21.stargazer.mechanics.star.FallingObjectsList;
+import com.github.starcatcher21.starlib.mechanics.star.FallingObject;
+import com.github.starcatcher21.starlib.mechanics.star.FallingObjectsList;
 import com.mojang.serialization.MapCodec;
 import java.util.Collections;
 import net.minecraft.network.RegistryFriendlyByteBuf;

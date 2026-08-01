@@ -1,8 +1,8 @@
 package com.github.starcatcher21.stargazer.compat;
 
-import com.github.starcatcher21.stargazer.mechanics.star.FallingObject;
-import com.github.starcatcher21.stargazer.mechanics.star.FallingObjectDayState;
-import com.github.starcatcher21.stargazer.mechanics.star.FallingObjectsList;
+import com.github.starcatcher21.starlib.mechanics.star.FallingObject;
+import com.github.starcatcher21.starlib.mechanics.star.FallingObjectDayState;
+import com.github.starcatcher21.starlib.mechanics.star.FallingObjectsList;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.display.Display;
 import me.shedaniel.rei.api.common.display.DisplaySerializer;

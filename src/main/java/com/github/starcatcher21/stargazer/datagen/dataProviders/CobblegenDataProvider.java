@@ -1,6 +1,6 @@
 package com.github.starcatcher21.stargazer.datagen.dataProviders;
 
-import com.github.starcatcher21.stargazer.mechanics.Generators.CobbleGen;
+import com.github.starcatcher21.starlib.mechanics.Generators.CobbleGen;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.CachedOutput;

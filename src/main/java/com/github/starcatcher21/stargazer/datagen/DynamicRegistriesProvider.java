@@ -1,11 +1,9 @@
 package com.github.starcatcher21.stargazer.datagen;
 
-import com.github.starcatcher21.stargazer.RegistryKeys;
-import com.github.starcatcher21.stargazer.mechanics.star.FallingObject;
+import com.github.starcatcher21.starlib.RegistryKeys;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.registries.Registries;
 
 import java.util.concurrent.CompletableFuture;
 

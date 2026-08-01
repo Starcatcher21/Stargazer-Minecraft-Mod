@@ -1,6 +1,6 @@
 package com.github.starcatcher21.stargazer.worldgen.features.chess;
 
-import com.github.starcatcher21.stargazer.worldgen.features.trees.Tree;
+import com.github.starcatcher21.starlib.worldgen.features.trees.Tree;
 
 public class Shaft {
     public static void init(Tree tree, int height) {

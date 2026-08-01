@@ -1,6 +1,6 @@
 package com.github.starcatcher21.stargazer.compat;
 
-import com.github.starcatcher21.stargazer.mechanics.star.FallingObjectsList;
+import com.github.starcatcher21.starlib.mechanics.star.FallingObjectsList;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.shedaniel.rei.api.common.display.DisplaySerializer;

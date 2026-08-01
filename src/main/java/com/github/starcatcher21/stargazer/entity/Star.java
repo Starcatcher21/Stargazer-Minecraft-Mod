@@ -1,6 +1,6 @@
 package com.github.starcatcher21.stargazer.entity;
 
-import com.github.starcatcher21.stargazer.Helpers;
+import com.github.starcatcher21.starlib.Helpers;
 import com.github.starcatcher21.stargazer.RegistryKeys;
 import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.item.WishingStars;

@@ -1,4 +1,4 @@
-package com.github.starcatcher21.stargazer.worldgen.features.trees.amertylst;
+package com.github.starcatcher21.stargazer.worldgen.features.amertylst;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;

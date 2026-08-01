@@ -1,6 +1,6 @@
 package com.github.starcatcher21.stargazer.worldgen.features.trees.purple_shroom;
 
-import com.github.starcatcher21.stargazer.worldgen.features.trees.Tree;
+import com.github.starcatcher21.starlib.worldgen.features.trees.Tree;
 
 public class PurpleBase {
     public static Tree base = new Tree(false, "purple_base");

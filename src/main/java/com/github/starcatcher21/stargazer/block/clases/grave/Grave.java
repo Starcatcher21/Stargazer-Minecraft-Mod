@@ -1,6 +1,6 @@
 package com.github.starcatcher21.stargazer.block.clases.grave;
 
-import com.github.starcatcher21.stargazer.Helpers;
+import com.github.starcatcher21.starlib.Helpers;
 import com.github.starcatcher21.stargazer.block.ModBlock;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
