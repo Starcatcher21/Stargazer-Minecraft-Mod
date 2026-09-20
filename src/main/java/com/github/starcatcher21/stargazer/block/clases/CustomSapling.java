@@ -1,8 +1,10 @@
 package com.github.starcatcher21.stargazer.block.clases;
 
+import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.block.register.Darkness;
 import com.github.starcatcher21.stargazer.block.register.MoonBlocks;
 import com.github.starcatcher21.stargazer.block.register.StarBlocks;
+import com.github.starcatcher21.stargazer.entity.Star;
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -88,7 +90,9 @@ public class CustomSapling extends VegetationBlock implements BonemealableBlock 
     }
 
     public void instantGrow(ServerLevel world, BlockPos pos, BlockState state, RandomSource random) {
+        Stargazer.LOGGER.error("grow");
         Optional<Holder.Reference<ConfiguredFeature<?, ?>>> optional = world.registryAccess().lookupOrThrow(Registries.CONFIGURED_FEATURE).get(this.featureKey);
+        Stargazer.LOGGER.error(optional.toString());
         if (optional.isEmpty()) return;
         ((ConfiguredFeature)((Holder)optional.get()).value()).place(world, world.getChunkSource().getGenerator(), random, pos);
     }

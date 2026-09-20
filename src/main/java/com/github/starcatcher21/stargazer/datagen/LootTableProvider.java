@@ -182,10 +182,10 @@ public class LootTableProvider extends FabricBlockLootSubProvider {
         dropSelf(MoonBlocks.POLISHED_BLACK_MOON_ROCK);
         dropSelf(MoonBlocks.POLISHED_BLACK_MOON_ROCK_PURPLE);
         dropSelf(MoonBlocks.PURPLE_MUSHROOM);
-        add(MoonBlocks.PURPLE_MUSHROOM_BLOCK, block ->
-                createMushroomBlockDrop(MoonBlocks.PURPLE_MUSHROOM_BLOCK, MoonBlocks.PURPLE_MUSHROOM)
-        );
+        add(MoonBlocks.PURPLE_MUSHROOM_BLOCK, createMushroomBlockDrop(MoonBlocks.PURPLE_MUSHROOM_BLOCK, MoonBlocks.PURPLE_MUSHROOM));
+        dropSelf(MoonBlocks.CRYSTAL_MOON_BLOCK);
         add(MoonBlocks.PRISMATIC_ORE, oreDrops(MoonBlocks.PRISMATIC_ORE, ModItems.PRISMATIC_SHARD, 1, 2));
+        add(MoonBlocks.MOON_ROCK_CRYSTALS, oreDrops(MoonBlocks.MOON_ROCK_CRYSTALS, ModItems.CRYSTAL_MOON, 1, 2));
         dropSelf(MoonBlocks.PRISMATIC_SHARD_BLOCK);
         dropSelf(ModBlock.BONEFLOWER);
         dropPottedContents(ModBlock.POTTED_BONEFLOWER);

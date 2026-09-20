@@ -39,6 +39,7 @@ public class StargazerDataGenerator implements DataGeneratorEntrypoint {
 		pack.addProvider(AdvancementsProvider::new);
 		pack.addProvider(EntityLootTableProvider::new);
 		pack.addProvider(POITagProvider::new);
+		pack.addProvider(EquipmentAssetProvider::new);
 		// Lang
 		pack.addProvider(ModEngLangProvider::new);
 

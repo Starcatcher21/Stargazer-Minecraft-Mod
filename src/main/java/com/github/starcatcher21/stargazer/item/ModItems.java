@@ -2,14 +2,19 @@ package com.github.starcatcher21.stargazer.item;
 
 import com.github.starcatcher21.stargazer.CustomTags;
 import com.github.starcatcher21.stargazer.Stargazer;
+import com.github.starcatcher21.stargazer.StargazerAttributes;
 import com.github.starcatcher21.stargazer.block.ModFluids;
 import com.github.starcatcher21.stargazer.effects.StatusEffects;
 import com.github.starcatcher21.stargazer.entity.EntityRegistry;
+import com.github.starcatcher21.stargazer.item.armor.ArmorMaterial;
 import com.github.starcatcher21.stargazer.item.classes.*;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.world.entity.EquipmentSlotGroup;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.*;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
@@ -27,7 +32,10 @@ import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.item.ToolMaterial;
 import net.minecraft.world.item.component.Consumable;
 import net.minecraft.world.item.component.Consumables;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.item.consume_effects.ConsumeEffect;
+import net.minecraft.world.item.equipment.ArmorMaterials;
+import net.minecraft.world.item.equipment.ArmorType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import java.util.function.Function;
@@ -146,7 +154,212 @@ public final class ModItems {
     public static final Item GOLD_DUST = register("gold_dust", Item::new, new Item.Properties());
     public static final Item COPPER_DUST = register("copper_dust", Item::new, new Item.Properties());
     public static final Item SUPERNOVA = register("supernova", Item::new, new Item.Properties().stacksTo(16));
+    public static final Item MASK_OF_LUNA = register("mask_of_luna",
+            Item::new,
+            new Item.Properties()
+                    .stacksTo(1)
+                    .humanoidArmor(ArmorMaterial.MASK_OF_LUNA_MATERIAL, ArmorType.HELMET)
+                    .attributes(
+                            ItemAttributeModifiers.builder()
+                                    .add(
+                                            StargazerAttributes.DASH_LEVEL,
+                                            new AttributeModifier(
+                                                    // Make sure this identifier string is unique to prevent clashes
+                                                    Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.mask_of_luna.dash"),
+                                                    1.0,
+                                                    AttributeModifier.Operation.ADD_VALUE
+                                            ),
+                                            EquipmentSlotGroup.HEAD
+                                    )
+                                    .build()
+                    )
+    );
 
+    public static final Item JESTER_HELMET = register("jester_helmet", Item::new, new Item.Properties().stacksTo(1).humanoidArmor(ArmorMaterial.JESTER_MATERIAL, ArmorType.HELMET));
+    public static final Item JESTER_CHESTPLATE = register("jester_chestplate", Item::new, new Item.Properties().stacksTo(1).humanoidArmor(ArmorMaterial.JESTER_MATERIAL, ArmorType.CHESTPLATE));
+    public static final Item JESTER_LEGGINS = register("jester_leggins", Item::new, new Item.Properties().stacksTo(1).humanoidArmor(ArmorMaterial.JESTER_MATERIAL, ArmorType.LEGGINGS));
+    public static final Item JESTER_BOOTS = register("jester_boots", Item::new, new Item.Properties().stacksTo(1).humanoidArmor(ArmorMaterial.JESTER_MATERIAL, ArmorType.BOOTS));
+    public static final Item CRYSTAL_MOON = register("crystal_moon", Item::new, new Item.Properties().stacksTo(16));
+    public static final Item MOON_HELMET = register("moon_helmet", Item::new, new Item.Properties()
+            .stacksTo(1)
+            .humanoidArmor(ArmorMaterial.MOON_MATERIAL, ArmorType.HELMET)
+            .attributes(
+                    ItemAttributeModifiers.builder()
+                            .add(
+                                    Attributes.ARMOR,
+                                    new AttributeModifier(
+                                            Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.moon_helmet.armor"),
+                                            ArmorMaterial.MOON_MATERIAL.defense().get(ArmorType.HELMET),
+                                            AttributeModifier.Operation.ADD_VALUE
+                                    ),
+                                    EquipmentSlotGroup.HEAD
+                            )
+                            .add(
+                                    Attributes.ARMOR_TOUGHNESS,
+                                    new AttributeModifier(
+                                            Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.moon_helmet.toughness"),
+                                            ArmorMaterial.MOON_MATERIAL.toughness(),
+                                            AttributeModifier.Operation.ADD_VALUE
+                                    ),
+                                    EquipmentSlotGroup.HEAD
+                            )
+                            .add(
+                                    Attributes.KNOCKBACK_RESISTANCE,
+                                    new AttributeModifier(
+                                            Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.moon_helmet.knockback_resistance"),
+                                            ArmorMaterial.MOON_MATERIAL.knockbackResistance(),
+                                            AttributeModifier.Operation.ADD_VALUE
+                                    ),
+                                    EquipmentSlotGroup.HEAD
+                            )
+                            .add(
+                                    StargazerAttributes.DASH_LEVEL,
+                                    new AttributeModifier(
+                                            Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.moon_helmet.dash"),
+                                            0.25,
+                                            AttributeModifier.Operation.ADD_VALUE
+                                    ),
+                                    EquipmentSlotGroup.HEAD
+                            )
+                            .build()
+            )
+    );
+
+    public static final Item MOON_CHESTPLATE = register("moon_chestplate", Item::new, new Item.Properties()
+            .stacksTo(1)
+            .humanoidArmor(ArmorMaterial.MOON_MATERIAL, ArmorType.CHESTPLATE)
+            .attributes(
+                    ItemAttributeModifiers.builder()
+                            .add(
+                                    Attributes.ARMOR,
+                                    new AttributeModifier(
+                                            Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.moon_chestplate.armor"),
+                                            ArmorMaterial.MOON_MATERIAL.defense().get(ArmorType.CHESTPLATE),
+                                            AttributeModifier.Operation.ADD_VALUE
+                                    ),
+                                    EquipmentSlotGroup.CHEST
+                            )
+                            .add(
+                                    Attributes.ARMOR_TOUGHNESS,
+                                    new AttributeModifier(
+                                            Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.moon_chestplate.toughness"),
+                                            ArmorMaterial.MOON_MATERIAL.toughness(),
+                                            AttributeModifier.Operation.ADD_VALUE
+                                    ),
+                                    EquipmentSlotGroup.CHEST
+                            )
+                            .add(
+                                    Attributes.KNOCKBACK_RESISTANCE,
+                                    new AttributeModifier(
+                                            Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.moon_chestplate.knockback_resistance"),
+                                            ArmorMaterial.MOON_MATERIAL.knockbackResistance(),
+                                            AttributeModifier.Operation.ADD_VALUE
+                                    ),
+                                    EquipmentSlotGroup.CHEST
+                            )
+                            .add(
+                                    StargazerAttributes.DASH_LEVEL,
+                                    new AttributeModifier(
+                                            Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.moon_chestplate.dash"),
+                                            0.25,
+                                            AttributeModifier.Operation.ADD_VALUE
+                                    ),
+                                    EquipmentSlotGroup.CHEST
+                            )
+                            .build()
+            )
+    );
+
+    public static final Item MOON_LEGGINS = register("moon_leggins", Item::new, new Item.Properties()
+            .stacksTo(1)
+            .humanoidArmor(ArmorMaterial.MOON_MATERIAL, ArmorType.LEGGINGS)
+            .attributes(
+                    ItemAttributeModifiers.builder()
+                            .add(
+                                    Attributes.ARMOR,
+                                    new AttributeModifier(
+                                            Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.moon_leggings.armor"),
+                                            ArmorMaterial.MOON_MATERIAL.defense().get(ArmorType.LEGGINGS),
+                                            AttributeModifier.Operation.ADD_VALUE
+                                    ),
+                                    EquipmentSlotGroup.LEGS
+                            )
+                            .add(
+                                    Attributes.ARMOR_TOUGHNESS,
+                                    new AttributeModifier(
+                                            Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.moon_leggings.toughness"),
+                                            ArmorMaterial.MOON_MATERIAL.toughness(),
+                                            AttributeModifier.Operation.ADD_VALUE
+                                    ),
+                                    EquipmentSlotGroup.LEGS
+                            )
+                            .add(
+                                    Attributes.KNOCKBACK_RESISTANCE,
+                                    new AttributeModifier(
+                                            Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.moon_leggings.knockback_resistance"),
+                                            ArmorMaterial.MOON_MATERIAL.knockbackResistance(),
+                                            AttributeModifier.Operation.ADD_VALUE
+                                    ),
+                                    EquipmentSlotGroup.LEGS
+                            )
+                            .add(
+                                    StargazerAttributes.DASH_LEVEL,
+                                    new AttributeModifier(
+                                            Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.moon_leggings.dash"),
+                                            0.25,
+                                            AttributeModifier.Operation.ADD_VALUE
+                                    ),
+                                    EquipmentSlotGroup.LEGS
+                            )
+                            .build()
+            )
+    );
+
+    public static final Item MOON_BOOTS = register("moon_boots", Item::new, new Item.Properties()
+            .stacksTo(1)
+            .humanoidArmor(ArmorMaterial.MOON_MATERIAL, ArmorType.BOOTS)
+            .attributes(
+                    ItemAttributeModifiers.builder()
+                            .add(
+                                    Attributes.ARMOR,
+                                    new AttributeModifier(
+                                            Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.moon_boots.armor"),
+                                            ArmorMaterial.MOON_MATERIAL.defense().get(ArmorType.BOOTS),
+                                            AttributeModifier.Operation.ADD_VALUE
+                                    ),
+                                    EquipmentSlotGroup.FEET
+                            )
+                            .add(
+                                    Attributes.ARMOR_TOUGHNESS,
+                                    new AttributeModifier(
+                                            Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.moon_boots.toughness"),
+                                            ArmorMaterial.MOON_MATERIAL.toughness(),
+                                            AttributeModifier.Operation.ADD_VALUE
+                                    ),
+                                    EquipmentSlotGroup.FEET
+                            )
+                            .add(
+                                    Attributes.KNOCKBACK_RESISTANCE,
+                                    new AttributeModifier(
+                                            Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.moon_boots.knockback_resistance"),
+                                            ArmorMaterial.MOON_MATERIAL.knockbackResistance(),
+                                            AttributeModifier.Operation.ADD_VALUE
+                                    ),
+                                    EquipmentSlotGroup.FEET
+                            )
+                            .add(
+                                    StargazerAttributes.DASH_LEVEL,
+                                    new AttributeModifier(
+                                            Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.moon_boots.dash"),
+                                            0.25,
+                                            AttributeModifier.Operation.ADD_VALUE
+                                    ),
+                                    EquipmentSlotGroup.FEET
+                            )
+                            .build()
+            )
+    );
+    public static final Item SEED_PACKET = register("seed_packet", SeedPacket::new, new Item.Properties().stacksTo(16));
     public static Item.Properties tool(ToolMaterial material, TagKey<Block> effectiveBlocks, float attackDamage, float attackSpeed, float disableBlockingForSeconds) {
         Item.Properties settings = new Item.Properties();
         return material.applyToolProperties(settings, effectiveBlocks, attackDamage, attackSpeed, disableBlockingForSeconds);

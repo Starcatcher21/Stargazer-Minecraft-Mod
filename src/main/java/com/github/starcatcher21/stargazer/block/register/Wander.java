@@ -2,6 +2,7 @@
 // TODO(Ravel): Failed to fully resolve file: null cannot be cast to non-null type com.intellij.psi.PsiClass
 package com.github.starcatcher21.stargazer.block.register;
 
+import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.starlib.Helpers;
 import com.github.starcatcher21.stargazer.block.clases.CustomLeaves;
 import com.github.starcatcher21.stargazer.block.clases.CustomWanderSapling;
@@ -49,7 +50,7 @@ public class Wander {
             .mapColor(MapColor.EMERALD)
     );
 
-    public static final Block TRUNN_SAPLING = register("trunn_sapling", (BlockBehaviour.Properties settings) -> new CustomWanderSapling(Helpers.configuredFeatureOf("trunn_trees"), settings), BlockBehaviour.Properties.of()
+    public static final Block TRUNN_SAPLING = register("trunn_sapling", (BlockBehaviour.Properties settings) -> new CustomWanderSapling(Helpers.configuredFeatureOf(Stargazer.MOD_ID, "trunn_trees"), settings), BlockBehaviour.Properties.of()
             .noCollision()
             .sound(SoundType.GRASS)
             .randomTicks()

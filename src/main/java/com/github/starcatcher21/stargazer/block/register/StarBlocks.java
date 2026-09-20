@@ -2,6 +2,7 @@
 // TODO(Ravel): Failed to fully resolve file: null cannot be cast to non-null type com.intellij.psi.PsiClass
 package com.github.starcatcher21.stargazer.block.register;
 
+import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.starlib.Helpers;
 import com.github.starcatcher21.stargazer.block.clases.CosmicFlower;
 import com.github.starcatcher21.stargazer.block.clases.CustomSapling;
@@ -135,7 +136,7 @@ public class StarBlocks {
             .strength(0.2F)
             .mapColor(MapColor.COLOR_CYAN)
     );
-    public static final Block STAR_SAPLING = register("star_sapling", (BlockBehaviour.Properties settings) -> new CustomSapling(Helpers.configuredFeatureOf("star_trees"), settings), BlockBehaviour.Properties.of()
+    public static final Block STAR_SAPLING = register("star_sapling", (BlockBehaviour.Properties settings) -> new CustomSapling(Helpers.configuredFeatureOf(Stargazer.MOD_ID, "star_trees"), settings), BlockBehaviour.Properties.of()
             .noCollision()
             .sound(SoundType.GRASS)
             .randomTicks()

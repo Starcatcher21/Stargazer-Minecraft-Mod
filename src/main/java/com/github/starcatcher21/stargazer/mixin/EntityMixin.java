@@ -76,12 +76,12 @@ public abstract class EntityMixin {
         Optional<ResourceKey<DimensionType>> dim = this.level.dimensionTypeRegistration().unwrapKey();
         if (dim.isPresent() && dim.get().equals(CustomWorlds.COSMIC_TYPE)) {
             if (!this.isInWater() && d < 0.0) {
-                this.fallDistance -= (float) d / 3;
+                this.fallDistance -= (float) d / 1.25;
             }
 
             if (bl) {
-                if (this.fallDistance / 3 > 0.0) {
-                    blockState.getBlock().fallOn(this.level(), blockState, blockPos, (Entity) (Object) this, this.fallDistance / 3);
+                if (this.fallDistance / 1.25 > 0.0) {
+                    blockState.getBlock().fallOn(this.level(), blockState, blockPos, (Entity) (Object) this, this.fallDistance / 1.25);
                     this.level()
                             .gameEvent(
                                     GameEvent.HIT_GROUND,

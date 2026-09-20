@@ -362,6 +362,43 @@ public class RecipeProvider extends FabricRecipeProvider {
                         .pattern("###")
                         .unlockedBy(getHasName(ModItems.PRISMATIC_SHARD), this.has(ModItems.PRISMATIC_SHARD))
                         .save(this.output);
+                shaped(RecipeCategory.BUILDING_BLOCKS, MoonBlocks.CRYSTAL_MOON_BLOCK, 1)
+                        .define('#', Ingredient.of(ModItems.CRYSTAL_MOON))
+                        .pattern("###")
+                        .pattern("###")
+                        .pattern("###")
+                        .unlockedBy(getHasName(ModItems.CRYSTAL_MOON), this.has(ModItems.CRYSTAL_MOON))
+                        .save(this.output);
+                shapeless(RecipeCategory.MISC, ModItems.CRYSTAL_MOON, 9)
+                        .requires(MoonBlocks.CRYSTAL_MOON_BLOCK)
+                        .unlockedBy(getHasName(MoonBlocks.CRYSTAL_MOON_BLOCK), this.has(MoonBlocks.CRYSTAL_MOON_BLOCK))
+                        .save(this.output);
+                shaped(RecipeCategory.COMBAT, ModItems.MOON_CHESTPLATE, 1)
+                        .define('#', Ingredient.of(ModItems.CRYSTAL_MOON))
+                        .pattern("# #")
+                        .pattern("###")
+                        .pattern("###")
+                        .unlockedBy(getHasName(ModItems.CRYSTAL_MOON), this.has(ModItems.CRYSTAL_MOON))
+                        .save(this.output);
+                shaped(RecipeCategory.COMBAT, ModItems.MOON_BOOTS, 1)
+                        .define('#', Ingredient.of(ModItems.CRYSTAL_MOON))
+                        .pattern("# #")
+                        .pattern("# #")
+                        .unlockedBy(getHasName(ModItems.CRYSTAL_MOON), this.has(ModItems.CRYSTAL_MOON))
+                        .save(this.output);
+                shaped(RecipeCategory.COMBAT, ModItems.MOON_LEGGINS, 1)
+                        .define('#', Ingredient.of(ModItems.CRYSTAL_MOON))
+                        .pattern("###")
+                        .pattern("# #")
+                        .pattern("# #")
+                        .unlockedBy(getHasName(ModItems.CRYSTAL_MOON), this.has(ModItems.CRYSTAL_MOON))
+                        .save(this.output);
+                shaped(RecipeCategory.COMBAT, ModItems.MOON_HELMET, 1)
+                        .define('#', Ingredient.of(ModItems.CRYSTAL_MOON))
+                        .pattern("###")
+                        .pattern("# #")
+                        .unlockedBy(getHasName(ModItems.CRYSTAL_MOON), this.has(ModItems.CRYSTAL_MOON))
+                        .save(this.output);
                 shapeless(RecipeCategory.MISC, ModItems.RED_STAR)
                         .requires(Nebulas.RED_TENTACLE_FLOWER)
                         .unlockedBy(getHasName(Nebulas.RED_TENTACLE_FLOWER), this.has(Nebulas.RED_TENTACLE_FLOWER))

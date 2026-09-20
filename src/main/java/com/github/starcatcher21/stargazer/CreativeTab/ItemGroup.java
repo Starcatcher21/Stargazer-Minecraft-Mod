@@ -38,6 +38,7 @@ public class ItemGroup {
             itemGroup.accept(ModBlock.SPRINKLER);
             itemGroup.accept(ModBlock.MOON_WELDER);
             // Crops
+            itemGroup.accept(ModItems.SEED_PACKET);
             itemGroup.accept(Crops.DRAGON_CARROT);
             itemGroup.accept(Crops.BROODY);
             itemGroup.accept(Crops.EYE_BALLS);
@@ -87,6 +88,13 @@ public class ItemGroup {
             itemGroup.accept(MoonBlocks.CHISELED_MOON_ROCK_BRICKS);
             itemGroup.accept(MoonBlocks.STAR_FORGE);
             itemGroup.accept(MoonBlocks.STAR_STONE);
+            itemGroup.accept(MoonBlocks.MOON_ROCK_CRYSTALS);
+            itemGroup.accept(ModItems.CRYSTAL_MOON);
+            itemGroup.accept(MoonBlocks.CRYSTAL_MOON_BLOCK);
+            itemGroup.accept(ModItems.MOON_HELMET);
+            itemGroup.accept(ModItems.MOON_CHESTPLATE);
+            itemGroup.accept(ModItems.MOON_LEGGINS);
+            itemGroup.accept(ModItems.MOON_BOOTS);
             itemGroup.accept(MoonBlocks.PRISMATIC_ORE);
             itemGroup.accept(ModItems.PRISMATIC_SHARD);
             itemGroup.accept(MoonBlocks.PRISMATIC_SHARD_BLOCK);
@@ -330,6 +338,13 @@ public class ItemGroup {
             itemGroup.accept(ModItems.IRON_DUST);
             itemGroup.accept(ModItems.GOLD_DUST);
             itemGroup.accept(ModItems.SUPERNOVA);
+
+            itemGroup.accept(ModItems.JESTER_HELMET);
+            itemGroup.accept(ModItems.JESTER_CHESTPLATE);
+            itemGroup.accept(ModItems.JESTER_LEGGINS);
+            itemGroup.accept(ModItems.JESTER_BOOTS);
+            // Masks
+            itemGroup.accept(ModItems.MASK_OF_LUNA);
         });
     }
 }

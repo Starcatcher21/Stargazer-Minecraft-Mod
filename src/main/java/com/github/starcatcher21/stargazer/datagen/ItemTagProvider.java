@@ -117,5 +117,17 @@ public class ItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
         builder(CustomTags.ECTOPLASM)
                 .add(ModItems.ECTOPLASM.builtInRegistryHolder().key())
                 .add(ModItems.COOLER_ECTOPLASM.builtInRegistryHolder().key());
+        builder(ItemTags.HEAD_ARMOR)
+                .add(ModItems.MOON_HELMET.builtInRegistryHolder().key())
+                .add(ModItems.JESTER_HELMET.builtInRegistryHolder().key());
+        builder(ItemTags.CHEST_ARMOR)
+                .add(ModItems.MOON_CHESTPLATE.builtInRegistryHolder().key())
+                .add(ModItems.JESTER_CHESTPLATE.builtInRegistryHolder().key());
+        builder(ItemTags.FOOT_ARMOR)
+                .add(ModItems.MOON_BOOTS.builtInRegistryHolder().key())
+                .add(ModItems.JESTER_BOOTS.builtInRegistryHolder().key());
+        builder(ItemTags.LEG_ARMOR)
+                .add(ModItems.MOON_LEGGINS.builtInRegistryHolder().key())
+                .add(ModItems.JESTER_LEGGINS.builtInRegistryHolder().key());
     }
 }

@@ -266,6 +266,8 @@ public class ModelProvider extends FabricModelProvider {
         blockStateModelGenerator.createTrivialCube(Energy.STARMACHINE_BLOCK);
         blockStateModelGenerator.createTrivialCube(Energy.NIGHT_WATCHER);
         blockStateModelGenerator.createTrivialCube(Energy.STAR_CRUSHER);
+        blockStateModelGenerator.createTrivialCube(MoonBlocks.MOON_ROCK_CRYSTALS);
+        blockStateModelGenerator.createTrivialCube(MoonBlocks.CRYSTAL_MOON_BLOCK);
     }
 
     @Override
@@ -324,6 +326,17 @@ public class ModelProvider extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(MoonBlocks.TALL_MOON_GRASS.asItem(), ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.MOON_COOKIE, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.STAR_COOKIE, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.MASK_OF_LUNA, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.JESTER_BOOTS, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.JESTER_CHESTPLATE, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.JESTER_LEGGINS, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.JESTER_HELMET, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.CRYSTAL_MOON, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.MOON_BOOTS, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.MOON_CHESTPLATE, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.MOON_LEGGINS, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.MOON_HELMET, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.SEED_PACKET, ModelTemplates.FLAT_ITEM);
         blockGeneratedItem(itemModelGenerator, StarBlocks.STAR_FLOWER);
         blockGeneratedItem(itemModelGenerator, StarBlocks.CELESTIAL_STAR_FLOWER);
         blockGeneratedItem(itemModelGenerator, ModBlock.BONEFLOWER);

@@ -15,12 +15,22 @@ public class PlacedFeatures {
             Registries.PLACED_FEATURE,
             Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "prismatic_ore")
     );
+    public static final ResourceKey<PlacedFeature> CRYSTAL_ORE = ResourceKey.create(
+            Registries.PLACED_FEATURE,
+            Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "crystal_ore")
+    );
 
     public static void init() {
         BiomeModifications.addFeature(
                 BiomeSelectors.tag(BiomeTags.MOON), // Or use BiomeSelectors.includeByKey(Biomes.PLAINS)
                 GenerationStep.Decoration.UNDERGROUND_ORES, // The Step
                 PRISMATIC_ORE // The Registry Key
+        );
+
+        BiomeModifications.addFeature(
+                BiomeSelectors.tag(BiomeTags.MOON), // Or use BiomeSelectors.includeByKey(Biomes.PLAINS)
+                GenerationStep.Decoration.UNDERGROUND_ORES, // The Step
+                CRYSTAL_ORE // The Registry Key
         );
     }
 }

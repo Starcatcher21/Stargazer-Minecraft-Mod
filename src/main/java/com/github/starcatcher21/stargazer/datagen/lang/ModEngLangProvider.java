@@ -1,6 +1,8 @@
 package com.github.starcatcher21.stargazer.datagen.lang;
 
 import com.github.starcatcher21.stargazer.CreativeTab.ItemGroup;
+import com.github.starcatcher21.stargazer.Keybinds;
+import com.github.starcatcher21.stargazer.StargazerAttributes;
 import com.github.starcatcher21.stargazer.block.ModBlock;
 import com.github.starcatcher21.stargazer.block.clases.MoonWelder;
 import com.github.starcatcher21.stargazer.block.clases.energy.generators.StarGenerator;
@@ -33,7 +35,10 @@ public class ModEngLangProvider extends FabricLanguageProvider {
         translationBuilder.add(MoonBlocks.COMET_BLOCK, "Comet Block");
         translationBuilder.add(ModItems.END_STAR, "End Star");
         translationBuilder.add(RedOrbBlocks.GLASS_LOG, "Glass Log");
+        translationBuilder.add(MoonBlocks.CRYSTAL_MOON_BLOCK, "Crystal Moon Block");
+        translationBuilder.add(Keybinds.STARGAZER.id(), "Stargazer");
 
+        translationBuilder.add(StargazerAttributes.DASH_LEVEL, "Dashes");
         // music
         translationBuilder.add("stargazer.adventure_of_the_moon", "Starcatcher - Adventures of the Moon");
         translationBuilder.add("stargazer.ballad_of_the_stars", "Starcatcher - Ballad of the Stars");
@@ -397,6 +402,18 @@ public class ModEngLangProvider extends FabricLanguageProvider {
         translationBuilder.add(Wander.TRUNN_LEAVES, "Trunn Leaves");
         translationBuilder.add(Wander.TRUNN_SAPLING, "Trunn Sapling");
         translationBuilder.add(Hedges.TRUNN_HEDGE, "Trunn Hedge");
+        translationBuilder.add(ModItems.MASK_OF_LUNA, "Mask of Luna");
+        translationBuilder.add(ModItems.JESTER_BOOTS, "Jester Boots");
+        translationBuilder.add(ModItems.JESTER_LEGGINS, "Jester Leggings");
+        translationBuilder.add(ModItems.JESTER_CHESTPLATE, "Jester Chestplate");
+        translationBuilder.add(ModItems.JESTER_HELMET, "Jester Hat");
+        translationBuilder.add(MoonBlocks.MOON_ROCK_CRYSTALS, "Moon Rock Crystals");
+        translationBuilder.add(ModItems.CRYSTAL_MOON, "Crystal Moon");
+        translationBuilder.add(ModItems.MOON_BOOTS, "Moon Boots");
+        translationBuilder.add(ModItems.MOON_LEGGINS, "Moon Leggings");
+        translationBuilder.add(ModItems.MOON_CHESTPLATE, "Moon Chestplate");
+        translationBuilder.add(ModItems.MOON_HELMET, "Moon Helmet");
+        translationBuilder.add(ModItems.SEED_PACKET, "Moon Seeds Packet");
 
         translationBuilder.add(Energy.YELLOW_CABLE, "Yellow Star Cable");
         translationBuilder.add(Energy.BLUE_CABLE, "Blue Star Cable");

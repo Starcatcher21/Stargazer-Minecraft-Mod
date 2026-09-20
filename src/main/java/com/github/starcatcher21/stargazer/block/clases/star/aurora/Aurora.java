@@ -12,7 +12,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class Aurora extends BaseEntityBlock implements SimpleWaterloggedBlock {
+public class Aurora extends BaseEntityBlock {
     public static final MapCodec<Aurora> CODEC = simpleCodec(Aurora::new);
     public static final Identifier TEXTURE = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/block/aurora.png");
     @Override

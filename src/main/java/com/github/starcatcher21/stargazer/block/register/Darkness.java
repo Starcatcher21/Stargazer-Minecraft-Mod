@@ -2,6 +2,7 @@
 // TODO(Ravel): Failed to fully resolve file: null cannot be cast to non-null type com.intellij.psi.PsiClass
 package com.github.starcatcher21.stargazer.block.register;
 
+import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.starlib.Helpers;
 import com.github.starcatcher21.stargazer.block.clases.CosmicFlower;
 import com.github.starcatcher21.stargazer.block.clases.CustomLeaves;
@@ -59,7 +60,7 @@ public class Darkness {
             .strength(2.0F)
             .mapColor(MapColor.COLOR_GRAY)
     );
-    public static final Block DARKNESS_SAPLING = register("darkness_sapling", (BlockBehaviour.Properties settings) -> new CustomSapling(Helpers.configuredFeatureOf("darkness_trees"), settings), BlockBehaviour.Properties.of()
+    public static final Block DARKNESS_SAPLING = register("darkness_sapling", (BlockBehaviour.Properties settings) -> new CustomSapling(Helpers.configuredFeatureOf(Stargazer.MOD_ID, "darkness_trees"), settings), BlockBehaviour.Properties.of()
             .noCollision()
             .sound(SoundType.GRASS)
             .randomTicks()

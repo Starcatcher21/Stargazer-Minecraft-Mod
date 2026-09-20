@@ -2,6 +2,7 @@
 // TODO(Ravel): Failed to fully resolve file: null cannot be cast to non-null type com.intellij.psi.PsiClass
 package com.github.starcatcher21.stargazer.block.register;
 
+import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.starlib.Helpers;
 import com.github.starcatcher21.stargazer.block.clases.CosmicFlower;
 import com.github.starcatcher21.stargazer.block.clases.CustomLeaves;
@@ -80,6 +81,20 @@ public class MoonBlocks {
             .strength(1.25f, 7.5f)
             .requiresCorrectToolForDrops()
             .mapColor(MapColor.DIAMOND)
+    );
+    public static final Block MOON_ROCK_CRYSTALS = register("moon_rock_crystals", Block::new, BlockBehaviour.Properties.of()
+            .forceSolidOn()
+            .sound(SoundType.STONE)
+            .strength(1.25f, 7.5f)
+            .requiresCorrectToolForDrops()
+            .mapColor(MapColor.EMERALD)
+    );
+    public static final Block CRYSTAL_MOON_BLOCK = register("crystal_moon_block", Block::new, BlockBehaviour.Properties.of()
+            .forceSolidOn()
+            .sound(SoundType.STONE)
+            .strength(1.25f, 7.5f)
+            .requiresCorrectToolForDrops()
+            .mapColor(MapColor.EMERALD)
     );
     public static final Block PRISMATIC_SHARD_BLOCK = register("prismatic_shard_block", Block::new, BlockBehaviour.Properties.of()
             .forceSolidOn()
@@ -473,7 +488,7 @@ public class MoonBlocks {
             .strength(1.0F)
             .mapColor(MapColor.FIRE)
     );
-    public static final Block MOON_SAPLING = register("moon_sapling", (BlockBehaviour.Properties settings) -> new CustomSapling(Helpers.configuredFeatureOf("moon_trees"), settings), BlockBehaviour.Properties.of()
+    public static final Block MOON_SAPLING = register("moon_sapling", (BlockBehaviour.Properties settings) -> new CustomSapling(Helpers.configuredFeatureOf(Stargazer.MOD_ID, "moon_trees"), settings), BlockBehaviour.Properties.of()
             .noCollision()
             .sound(SoundType.GRASS)
             .randomTicks()
@@ -481,14 +496,14 @@ public class MoonBlocks {
     );
     public static final Block POTTED_MOON_SAPLING = registerWoItem("potted_moon_sapling", settings -> new FlowerPotBlock(MOON_SAPLING, settings), BlockBehaviour.Properties.ofFullCopy(Blocks.POTTED_ALLIUM).noOcclusion());
 
-    public static final Block FULL_MOON_SAPLING = register("full_moon_sapling", (BlockBehaviour.Properties settings) -> new CustomSapling(Helpers.configuredFeatureOf("full_moon_trees"), settings), BlockBehaviour.Properties.of()
+    public static final Block FULL_MOON_SAPLING = register("full_moon_sapling", (BlockBehaviour.Properties settings) -> new CustomSapling(Helpers.configuredFeatureOf(Stargazer.MOD_ID, "full_moon_trees"), settings), BlockBehaviour.Properties.of()
             .noCollision()
             .sound(SoundType.GRASS)
             .randomTicks()
             .instabreak()
     );
     public static final Block POTTED_FULL_MOON_SAPLING = registerWoItem("potted_full_moon_sapling", settings -> new FlowerPotBlock(FULL_MOON_SAPLING, settings), BlockBehaviour.Properties.ofFullCopy(Blocks.POTTED_ALLIUM).noOcclusion());
-    public static final Block CURVE_SAPLING = register("curve_sapling", (BlockBehaviour.Properties settings) -> new CustomSapling(Helpers.configuredFeatureOf("curve_trees"), settings), BlockBehaviour.Properties.of()
+    public static final Block CURVE_SAPLING = register("curve_sapling", (BlockBehaviour.Properties settings) -> new CustomSapling(Helpers.configuredFeatureOf(Stargazer.MOD_ID, "curve_trees"), settings), BlockBehaviour.Properties.of()
             .noCollision()
             .sound(SoundType.GRASS)
             .randomTicks()
@@ -577,7 +592,7 @@ public class MoonBlocks {
             .sound(SoundType.WOOD)
             .ignitedByLava()
     );
-    public static final Block PURPLE_MUSHROOM = register("purple_mushroom", (BlockBehaviour.Properties settings) -> new MushroomBlock(Helpers.configuredFeatureOf("purple_shroom"), settings), BlockBehaviour.Properties.of()
+    public static final Block PURPLE_MUSHROOM = register("purple_mushroom", (BlockBehaviour.Properties settings) -> new MushroomBlock(Helpers.configuredFeatureOf(Stargazer.MOD_ID, "purple_shroom"), settings), BlockBehaviour.Properties.of()
             .mapColor(MapColor.COLOR_PURPLE)
             .strength(0.2f)
             .sound(SoundType.PINK_PETALS)

@@ -5,6 +5,10 @@
 36d7700dc32d3481dc893a125889b7baaa46679d data/c/tags/item/dusts/copper.json
 9043db98e9a90f6114e927ea1cf00a66b95ef676 data/c/tags/item/dusts/gold.json
 f52b6c775231743a040c3699ef8fa082bac40a9d data/c/tags/item/dusts/iron.json
+b63cf1c6e8085984957e670749c5faf947715a49 data/minecraft/tags/item/chest_armor.json
+f8a22bd4de8c46c47982a4db1bee13daeede61c9 data/minecraft/tags/item/foot_armor.json
+49d03b35a306c88eb9d2d33e00c6b7d03fef11aa data/minecraft/tags/item/head_armor.json
+eac4e593ad5cfb3a0e34f3c5272ff6db195c7da9 data/minecraft/tags/item/leg_armor.json
 b1aeedcb8132eae6f9f42e3a8b308417c8cd885e data/minecraft/tags/item/logs.json
 3d934206664eb5390a50c429644514b706124e25 data/minecraft/tags/item/planks.json
 fc0d2414754b6010f5d00709a461d20f6fa8fe79 data/minecraft/tags/item/saplings.json

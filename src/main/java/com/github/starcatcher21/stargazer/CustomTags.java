@@ -24,6 +24,7 @@ public class CustomTags {
     public static final TagKey<Item> DARKNESS_LOG = register("darkness_log");
     public static final TagKey<Item> ECTOPLASM = register("ectoplasm");
     public static final TagKey<Item> CHESS_BRICK = register("chess_brick");
+    public static final TagKey<Item> REPAIR_MOON = register("repair_moon");
 
     public static final TagKey<Block> COPPER_BLOCKS = registerBlock("copper_block");
     public static final TagKey<Block> STAR_HAMMER_MINABLE = registerBlock("star_hammer_minable");

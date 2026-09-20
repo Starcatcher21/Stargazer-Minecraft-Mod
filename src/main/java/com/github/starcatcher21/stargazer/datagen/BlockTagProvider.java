@@ -163,6 +163,8 @@ public class BlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
         // Rock
         builder(BlockTags.MINEABLE_WITH_PICKAXE)
                 .add(MoonBlocks.COMET_BLOCK.properties().blockId())
+                .add(MoonBlocks.MOON_ROCK_CRYSTALS.properties().blockId())
+                .add(MoonBlocks.CRYSTAL_MOON_BLOCK.properties().blockId())
                 .add(Energy.STARGENERATOR.properties().blockId())
                 .add(ModBlock.COPPER_TELEPORTER.properties().blockId())
                 .add(ModBlock.RED_TELEPORTER.properties().blockId())

@@ -10,6 +10,7 @@ import com.github.starcatcher21.stargazer.worldgen.features.amertylst.AmertylstC
 import com.github.starcatcher21.stargazer.worldgen.features.blackstone_pillars.BlackStonePillars;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.bones.BoneTrees;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.bubbles.Bubbles;
+import com.github.starcatcher21.stargazer.worldgen.features.trees.crystals.CrystalOre;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.curve.CurveTrees;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.darkness.DarknessTrees;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.eyeblodbirch.EyeBirchTrees;
@@ -40,6 +41,7 @@ public class CustomFeatures {
     public static final Feature purple_shroom = register("purple_shroom", new PurpleShrooms(TreeConfig.CODEC));
     public static final Feature bone_trees = register("bone_trees", new BoneTrees(TreeConfig.CODEC));
     public static final Feature prismatic_ore = register("prismatic_ore", new PrismaticOre(TreeConfig.CODEC));
+    public static final Feature crystal_ore = register("crystal_ore", new CrystalOre(TreeConfig.CODEC));
     public static final Feature forget_me_now = register("forget_me_now", new ForgetMeNow(NoneFeatureConfiguration.CODEC));
     public static final Feature gradi = register("gradi", new Gradi(NoneFeatureConfiguration.CODEC));
     public static final Feature eyes = register("eyes", new Eyes(NoneFeatureConfiguration.CODEC));
