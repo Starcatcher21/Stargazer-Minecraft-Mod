@@ -1,0 +1,11 @@
+{
+  "type": "stargazer:chess_trees",
+  "config": {
+    "blacklist": true,
+    "names": [],
+    "grow_on": [
+      {"Name":  "stargazer:white_chessboard"},
+      {"Name":  "stargazer:black_chessboard"}
+    ]
+  }
+}

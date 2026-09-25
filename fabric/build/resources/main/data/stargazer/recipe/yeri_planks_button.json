@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "group": "wooden_button",
+  "ingredients": [
+    "stargazer:yeri_planks"
+  ],
+  "result": {
+    "id": "stargazer:yeri_planks_button"
+  }
+}

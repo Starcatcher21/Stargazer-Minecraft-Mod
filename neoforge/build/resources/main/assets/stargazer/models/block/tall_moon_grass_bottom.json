@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "stargazer:block/tall_moon_grass_bottom"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "stargazer:item/full_cooked_geode_fruit"
+  }
+}

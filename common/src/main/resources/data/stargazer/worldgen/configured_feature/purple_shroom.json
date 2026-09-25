@@ -1,0 +1,11 @@
+{
+  "type": "stargazer:purple_shroom",
+  "config": {
+    "blacklist": true,
+    "names": [],
+    "grow_on": [
+      {"Name":  "stargazer:moon_rock_nylium"},
+      {"Name":  "stargazer:moon_rock"}
+    ]
+  }
+}

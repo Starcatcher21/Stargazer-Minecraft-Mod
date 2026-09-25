@@ -1,0 +1,65 @@
+{
+  "chances": [
+    20,
+    10,
+    10,
+    5,
+    5,
+    5,
+    5
+  ],
+  "daystate": "night",
+  "light": 15,
+  "objects": [
+    {
+      "fall_particle": "stargazer:yellow_star",
+      "hit_particle": "stargazer:yellow_star",
+      "item": "stargazer:yellow_star",
+      "particle_amount": 200,
+      "velocity": 0.06
+    },
+    {
+      "fall_particle": "stargazer:blue_star",
+      "hit_particle": "stargazer:blue_star",
+      "item": "stargazer:blue_star",
+      "particle_amount": 200,
+      "velocity": 0.06
+    },
+    {
+      "fall_particle": "stargazer:red_star",
+      "hit_particle": "stargazer:red_star",
+      "item": "stargazer:red_star",
+      "particle_amount": 200,
+      "velocity": 0.06
+    },
+    {
+      "fall_particle": "stargazer:purple_star",
+      "hit_particle": "stargazer:purple_star",
+      "item": "stargazer:purple_star",
+      "particle_amount": 200,
+      "velocity": 0.06
+    },
+    {
+      "fall_particle": "minecraft:campfire_cosy_smoke",
+      "hit_particle": "minecraft:campfire_cosy_smoke",
+      "item": "stargazer:white_brick",
+      "particle_amount": 200,
+      "velocity": 0.06
+    },
+    {
+      "fall_particle": "minecraft:campfire_cosy_smoke",
+      "hit_particle": "minecraft:campfire_cosy_smoke",
+      "item": "stargazer:black_brick",
+      "particle_amount": 200,
+      "velocity": 0.06
+    },
+    {
+      "fall_particle": "minecraft:campfire_cosy_smoke",
+      "hit_particle": "minecraft:campfire_cosy_smoke",
+      "item": "stargazer:comet_fragment",
+      "particle_amount": 200,
+      "velocity": 0.06
+    }
+  ],
+  "world": "stargazer:chess"
+}

@@ -1,0 +1,10 @@
+{
+  "type": "stargazer:moon_welder",
+  "item1": "stargazer:curve_sapling",
+  "item2": "stargazer:curve_log",
+  "moon_phase": 2,
+  "result": {
+    "count": 1,
+    "id": "stargazer:curve_hedge"
+  }
+}

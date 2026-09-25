@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "stargazer:block/bonsai_log_top",
+    "side": "stargazer:block/bonsai_log_side"
+  }
+}

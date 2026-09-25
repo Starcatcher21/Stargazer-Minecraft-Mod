@@ -1,0 +1,11 @@
+{
+  "energy": {
+    "rebornEnergyConversionRate": 1.0,
+    "transferRate": {
+      "energyCable": 512.0,
+      "copperCable": 256.0,
+      "ironCable": 512.0,
+      "goldCable": 1024.0
+    }
+  }
+}

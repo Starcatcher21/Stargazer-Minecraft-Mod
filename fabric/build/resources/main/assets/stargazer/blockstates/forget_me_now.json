@@ -1,0 +1,64 @@
+{
+	"variants": {
+		"flower_amount=1,facing=west": {
+			"model": "stargazer:block/forget_me_now1"
+		},
+		"flower_amount=2,facing=west": {
+			"model": "stargazer:block/forget_me_now2"
+		},
+		"flower_amount=3,facing=west": {
+			"model": "stargazer:block/forget_me_now3"
+		},
+		"flower_amount=4,facing=west": {
+			"model": "stargazer:block/forget_me_now4"
+		},
+		"flower_amount=1,facing=north": {
+			"model": "stargazer:block/forget_me_now1",
+			"y": 90
+		},
+		"flower_amount=2,facing=north": {
+			"model": "stargazer:block/forget_me_now2",
+			"y": 90
+		},
+		"flower_amount=3,facing=north": {
+			"model": "stargazer:block/forget_me_now3",
+			"y": 90
+		},
+		"flower_amount=4,facing=north": {
+			"model": "stargazer:block/forget_me_now4",
+			"y": 90
+		},
+		"flower_amount=1,facing=east": {
+			"model": "stargazer:block/forget_me_now1",
+			"y": 180
+		},
+		"flower_amount=2,facing=east": {
+			"model": "stargazer:block/forget_me_now2",
+			"y": 180
+		},
+		"flower_amount=3,facing=east": {
+			"model": "stargazer:block/forget_me_now3",
+			"y": 180
+		},
+		"flower_amount=4,facing=east": {
+			"model": "stargazer:block/forget_me_now4",
+			"y": 180
+		},
+		"flower_amount=1,facing=south": {
+			"model": "stargazer:block/forget_me_now1",
+			"y": 270
+		},
+		"flower_amount=2,facing=south": {
+			"model": "stargazer:block/forget_me_now2",
+			"y": 270
+		},
+		"flower_amount=3,facing=south": {
+			"model": "stargazer:block/forget_me_now3",
+			"y": 270
+		},
+		"flower_amount=4,facing=south": {
+			"model": "stargazer:block/forget_me_now4",
+			"y": 270
+		}
+	}
+}

@@ -1,0 +1,21 @@
+{
+  "minecraft:recipes/decorations/crafting_table": {
+    "criteria": {
+      "unlock_right_away": "2025-01-31 07:13:13 +0100"
+    },
+    "done": true
+  },
+  "minecraft:adventure/adventuring_time": {
+    "criteria": {
+      "minecraft:forest": "2025-01-31 07:13:14 +0100"
+    },
+    "done": false
+  },
+  "gsad:recipes/food/gravice": {
+    "criteria": {
+      "has_gravel": "2025-01-31 07:13:13 +0100"
+    },
+    "done": true
+  },
+  "DataVersion": 4189
+}

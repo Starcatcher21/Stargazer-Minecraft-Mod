@@ -1,0 +1,19 @@
+{
+  "layers": {
+    "humanoid": [
+      {
+        "texture": "stargazer:moon"
+      }
+    ],
+    "humanoid_baby": [
+      {
+        "texture": "stargazer:moon"
+      }
+    ],
+    "humanoid_leggings": [
+      {
+        "texture": "stargazer:moon"
+      }
+    ]
+  }
+}

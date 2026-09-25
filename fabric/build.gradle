@@ -1,0 +1,107 @@
+plugins {
+    id 'com.gradleup.shadow'
+}
+
+architectury {
+    platformSetupLoomIde()
+    fabric()
+}
+
+configurations {
+    common {
+        canBeResolved = true
+        canBeConsumed = false
+    }
+    compileClasspath.extendsFrom common
+    runtimeClasspath.extendsFrom common
+    developmentFabric.extendsFrom common
+
+    shadowBundle {
+        canBeResolved = true
+        canBeConsumed = false
+    }
+}
+
+dependencies {
+    implementation "net.fabricmc:fabric-loader:${rootProject.loader_version}"
+    implementation "net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}"
+
+    // Your mod dependencies
+    implementation "com.geckolib:geckolib-fabric-${rootProject.minecraft_version}:${geckolib_version}"
+
+    compileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:${rei_version}"
+    runtimeOnly "me.shedaniel:RoughlyEnoughItems-fabric:${rei_version}"
+
+    compileOnly "me.shedaniel.cloth:cloth-config-fabric:${cloth_config_version}"
+    runtimeOnly "me.shedaniel.cloth:cloth-config-fabric:${cloth_config_version}"
+
+    implementation "com.github.starcatcher21.starlib:starlib-fabric:${starlib_version}"
+
+    compileOnly "dev.architectury:architectury-fabric:${architectury_api_version}"
+    runtimeOnly "dev.architectury:architectury-fabric:${architectury_api_version}"
+
+    implementation("teamreborn:energy:${energy_version}") {
+        transitive = false
+    }
+    shadowBundle("teamreborn:energy:${energy_version}") {
+        transitive = false
+    }
+
+    common(project(path: ':common')) { transitive = false }
+    shadowBundle project(path: ':common', configuration: 'transformProductionFabric')
+}
+
+sourceSets {
+    main {
+        resources {
+            srcDirs += [
+                    project(":common").file("src/main/resources"),
+                    project(":common").file("src/main/generated")
+            ]
+        }
+    }
+    client {
+        compileClasspath += main.compileClasspath
+        runtimeClasspath += main.runtimeClasspath
+    }
+}
+
+processResources {
+    inputs.property "version", project.version
+
+    filesMatching("fabric.mod.json") {
+        expand "version": project.version
+    }
+}
+
+// --- SHADOW TASK CONFIGURATION ---
+
+shadowJar {
+    exclude "architectury.common.json"
+    configurations = [project.configurations.shadowBundle]
+    archiveClassifier = "dev-shadow"
+}
+
+// Map the unshadowed base JAR to the dev classifier
+tasks.named("jar", Jar) {
+    archiveClassifier = "dev"
+}
+
+// Make shadowJar the primary output file containing :common classes and mixin JSONs
+tasks.named("shadowJar", com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar) {
+    archiveClassifier = ""
+}
+
+assemble.dependsOn shadowJar
+
+loom {
+    runs {
+        datagen {
+            client()
+            name "Data Generation"
+            vmArg "-Dfabric-api.datagen"
+            vmArg "-Dfabric-api.datagen.output-dir=${project(":common").file("src/main/generated")}"
+            runDir "build/datagen"
+        }
+    }
+}

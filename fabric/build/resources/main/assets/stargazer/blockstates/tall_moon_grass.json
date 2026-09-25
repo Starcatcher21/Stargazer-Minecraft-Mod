@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=lower": {
+      "model": "stargazer:block/tall_moon_grass_bottom"
+    },
+    "half=upper": {
+      "model": "stargazer:block/tall_moon_grass_top"
+    }
+  }
+}

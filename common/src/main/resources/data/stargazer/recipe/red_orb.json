@@ -1,0 +1,10 @@
+{
+  "type": "stargazer:moon_welder",
+  "item1": "stargazer:red_orb_platform_base",
+  "item2": "stargazer:polished_red_rock",
+  "moon_phase": 0,
+  "result": {
+    "count": 1,
+    "id": "stargazer:red_orb_platform"
+  }
+}

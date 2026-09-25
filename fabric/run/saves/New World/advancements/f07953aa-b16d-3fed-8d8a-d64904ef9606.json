@@ -1,0 +1,57 @@
+{
+  "minecraft:recipes/decorations/crafting_table": {
+    "criteria": {
+      "unlock_right_away": "2025-02-09 20:21:04 +0100"
+    },
+    "done": true
+  },
+  "minecraft:adventure/adventuring_time": {
+    "criteria": {
+      "minecraft:plains": "2025-02-09 20:21:05 +0100"
+    },
+    "done": false
+  },
+  "minecraft:recipes/misc/stick": {
+    "criteria": {
+      "has_planks": "2025-03-17 19:31:52 +0100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/decorations/barrel": {
+    "criteria": {
+      "has_planks": "2025-03-17 19:31:52 +0100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/building_blocks/jungle_wood": {
+    "criteria": {
+      "has_log": "2025-04-13 11:37:16 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/building_blocks/jungle_planks": {
+    "criteria": {
+      "has_logs": "2025-04-13 11:37:16 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/misc/charcoal": {
+    "criteria": {
+      "has_log": "2025-04-13 11:37:16 +0200"
+    },
+    "done": true
+  },
+  "stargazer:recipes/building_blocks/moon_planks": {
+    "criteria": {
+      "has_log": "2025-04-13 11:37:16 +0200"
+    },
+    "done": true
+  },
+  "stargazer:recipes/building_blocks/star_planks": {
+    "criteria": {
+      "has_log": "2025-04-13 11:37:16 +0200"
+    },
+    "done": true
+  },
+  "DataVersion": 4189
+}

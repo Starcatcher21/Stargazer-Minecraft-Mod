@@ -1,0 +1,20 @@
+{
+  "type": "stargazer:starforge",
+  "pattern": [
+    "  P  ",
+    "  RP ",
+    "S IRP",
+    " I   ",
+    "S   S"
+  ],
+  "key": {
+    "I": "minecraft:stick",
+    "P": "stargazer:red_star",
+    "R": "minecraft:iron_ingot",
+    "S": "stargazer:stardust"
+  },
+  "result": {
+    "count": 1,
+    "id": "stargazer:star_hammer"
+  }
+}

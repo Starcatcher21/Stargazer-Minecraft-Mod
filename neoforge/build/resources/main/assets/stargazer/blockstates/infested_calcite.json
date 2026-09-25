@@ -1,0 +1,21 @@
+{
+	"variants": {
+		"": [
+			{
+				"model": "stargazer:block/infested_calcite"
+			},
+			{
+				"model": "stargazer:block/infested_calcite",
+				"y": 90
+			},
+			{
+				"model": "stargazer:block/infested_calcite",
+				"y": 180
+			},
+			{
+				"model": "stargazer:block/infested_calcite",
+				"y": 270
+			}
+		]
+	}
+}

@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "eye=true,axis=x": {
+      "model": "stargazer:block/opened_eye_log",
+      "x": 90,
+      "y": 90
+    },
+    "eye=true,axis=y": {
+      "model": "stargazer:block/opened_eye_log"
+    },
+    "eye=true,axis=z": {
+      "model": "stargazer:block/opened_eye_log",
+      "x": 90
+    },
+    "eye=false,axis=x": {
+      "model": "stargazer:block/closed_eye_log",
+      "x": 90,
+      "y": 90
+    },
+    "eye=false,axis=y": {
+      "model": "stargazer:block/closed_eye_log"
+    },
+    "eye=false,axis=z": {
+      "model": "stargazer:block/closed_eye_log",
+      "x": 90
+    }
+  }
+}

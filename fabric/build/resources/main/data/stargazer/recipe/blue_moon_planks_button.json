@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "group": "wooden_button",
+  "ingredients": [
+    "stargazer:blue_moon_planks"
+  ],
+  "result": {
+    "id": "stargazer:blue_moon_planks_button"
+  }
+}

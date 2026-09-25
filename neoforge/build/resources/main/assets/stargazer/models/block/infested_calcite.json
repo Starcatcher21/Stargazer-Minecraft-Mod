@@ -1,0 +1,9 @@
+{
+	"parent": "minecraft:block/cube_bottom_top",
+	"textures": {
+		"side": "stargazer:block/infested_calcite_side",
+		"bottom": "minecraft:block/calcite",
+		"top": "stargazer:block/infested_calcite",
+		"particle": "stargazer:block/infested_calcite_side"
+	}
+}

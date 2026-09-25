@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "stargazer:block/moon_planks_slab"
+    },
+    "type=double": {
+      "model": "stargazer:block/moon_planks"
+    },
+    "type=top": {
+      "model": "stargazer:block/moon_planks_slab_top"
+    }
+  }
+}

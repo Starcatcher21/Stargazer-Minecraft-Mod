@@ -1,0 +1,114 @@
+{
+  "name": "stargazer:corridor",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 50,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "stargazer:dome",
+        "processors": {
+          "processors": []
+        },
+        "override_liquid_settings": "ignore_waterlogging"
+      }
+    },
+    {
+      "weight": 20,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "stargazer:dome_amethyst",
+        "processors": {
+          "processors": []
+        },
+        "override_liquid_settings": "ignore_waterlogging"
+      }
+    },
+    {
+      "weight": 35,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "stargazer:dome_curve_tree",
+        "processors": {
+          "processors": []
+        },
+        "override_liquid_settings": "ignore_waterlogging"
+      }
+    },
+    {
+      "weight": 35,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "stargazer:dome_moon_tree",
+        "processors": {
+          "processors": []
+        },
+        "override_liquid_settings": "ignore_waterlogging"
+      }
+    },
+    {
+      "weight": 10,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "stargazer:dome_negative_sculc",
+        "processors": {
+          "processors": []
+        },
+        "override_liquid_settings": "ignore_waterlogging"
+      }
+    },
+    {
+      "weight": 5,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "stargazer:dome_cosmic_treasure",
+        "processors": {
+          "processors": []
+        },
+        "override_liquid_settings": "ignore_waterlogging"
+      }
+    },
+    {
+      "weight": 30,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "stargazer:dome_portal",
+        "processors": {
+          "processors": []
+        },
+        "override_liquid_settings": "ignore_waterlogging"
+      }
+    },
+    {
+      "weight": 35,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "stargazer:dome_waterfall",
+        "processors": {
+          "processors": []
+        },
+        "override_liquid_settings": "ignore_waterlogging"
+      }
+    },
+    {
+      "weight": 20,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "stargazer:dome_blocked",
+        "processors": {
+          "processors": []
+        },
+        "override_liquid_settings": "ignore_waterlogging"
+      }
+    }
+  ]
+}

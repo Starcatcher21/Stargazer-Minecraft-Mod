@@ -1,0 +1,94 @@
+package com.github.starcatcher21.stargazer.block.clases.eyes;
+
+import com.github.starcatcher21.stargazer.block.register.EyeBloodBlocks;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.advancements.triggers.CriteriaTriggers;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.DirectionalBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.BlockHitResult;
+
+public class EyeLog extends DirectionalBlock {
+    public static final MapCodec<EyeLog> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+            BuiltInRegistries.BLOCK.byNameCodec().fieldOf("strip").forGetter(block -> block.STRIP),
+            propertiesCodec()
+    ).apply(instance, EyeLog::new));
+
+    protected Block STRIP;
+    protected String VARIANT;
+    @Override
+    protected MapCodec<? extends DirectionalBlock> codec() {
+        return CODEC;
+    }
+
+    @Override
+    protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        if (stack.tags().toList().contains(ItemTags.AXES)) {
+            BlockState newState = STRIP.defaultBlockState().setValue(BlockStateProperties.AXIS, state.getValue(BlockStateProperties.AXIS));
+            world.playSound(player, pos, SoundEvents.AXE_STRIP, SoundSource.BLOCKS, 1.0F, 1.0F);
+            if (player instanceof ServerPlayer) {
+                CriteriaTriggers.ITEM_USED_ON_BLOCK.trigger((ServerPlayer)player, pos, stack);
+            }
+            world.setBlock(pos, newState, Block.UPDATE_ALL_IMMEDIATE);
+            world.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, newState));
+            if (player != null) {
+                if (!player.hasInfiniteMaterials() && stack.isDamageableItem()) {
+                    stack.hurtWithoutBreaking(1, player);
+                }
+            }
+            return InteractionResult.SUCCESS;
+        } else {
+            return InteractionResult.PASS;
+        }
+    }
+
+    @Override
+    protected void randomTick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
+        if (state.getValue(BlockStateProperties.EYE)) {
+            world.setBlockAndUpdate(pos, EyeBloodBlocks.EYE_LOG.get().defaultBlockState().setValue(BlockStateProperties.EYE, false).setValue(BlockStateProperties.AXIS, state.getValue(BlockStateProperties.AXIS)));
+        } else {
+            world.setBlockAndUpdate(pos, EyeBloodBlocks.EYE_LOG.get().defaultBlockState().setValue(BlockStateProperties.EYE, true).setValue(BlockStateProperties.AXIS, state.getValue(BlockStateProperties.AXIS)));
+        }
+    }
+
+    @Override
+    protected boolean isRandomlyTicking(BlockState state) {
+        return true;
+    }
+
+    public EyeLog(Block strip, Properties settings) {
+        super(settings);
+        this.registerDefaultState(this.defaultBlockState().setValue(BlockStateProperties.AXIS, Direction.Axis.Y));
+        this.registerDefaultState(this.defaultBlockState().setValue(BlockStateProperties.EYE, false));
+        STRIP = strip;
+    }
+
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        builder.add(BlockStateProperties.AXIS, BlockStateProperties.EYE);
+    }
+
+    @Override
+    public BlockState getStateForPlacement(BlockPlaceContext ctx) {
+        return super.getStateForPlacement(ctx).setValue(BlockStateProperties.EYE, false).setValue(BlockStateProperties.AXIS, ctx.getClickedFace().getAxis());
+    }
+}

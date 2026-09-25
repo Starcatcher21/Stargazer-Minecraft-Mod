@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "stargazer:yellow_tentacle_flower"
+  ],
+  "result": {
+    "id": "stargazer:yellow_star"
+  }
+}

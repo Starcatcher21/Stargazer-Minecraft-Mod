@@ -1,0 +1,10 @@
+{
+  "type": "stargazer:moon_welder",
+  "item1": "stargazer:darkness_sapling",
+  "item2": "stargazer:log_of_darkness",
+  "moon_phase": 2,
+  "result": {
+    "count": 1,
+    "id": "stargazer:darkness_hedge"
+  }
+}

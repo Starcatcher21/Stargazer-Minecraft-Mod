@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "stargazer:block/red_nebula_planks",
+    "side": "stargazer:block/red_nebula_planks",
+    "top": "stargazer:block/red_nebula_planks"
+  }
+}

@@ -1,0 +1,19 @@
+{
+	"variants": {
+		"facing=north": {
+			"model": "stargazer:block/moon_welder"
+		},
+		"facing=south": {
+			"model": "stargazer:block/moon_welder",
+			"y": 180
+		},
+		"facing=east": {
+			"model": "stargazer:block/moon_welder",
+			"y": 90
+		},
+		"facing=west": {
+			"model": "stargazer:block/moon_welder",
+			"y": -90
+		}
+	}
+}

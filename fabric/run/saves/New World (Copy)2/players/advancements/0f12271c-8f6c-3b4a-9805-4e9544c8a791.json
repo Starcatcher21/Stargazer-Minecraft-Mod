@@ -1,0 +1,297 @@
+{
+  "minecraft:recipes/building_blocks/stripped_cherry_wood": {
+    "criteria": {
+      "has_log": "2025-10-16 22:35:37 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/building_blocks/red_stained_glass": {
+    "criteria": {
+      "has_glass": "2025-10-16 23:00:03 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/building_blocks/light_blue_stained_glass": {
+    "criteria": {
+      "has_glass": "2025-10-16 23:00:03 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/brewing/glass_bottle": {
+    "criteria": {
+      "has_glass": "2025-10-16 23:00:03 +0200"
+    },
+    "done": true
+  },
+  "stargazer:recipes/building_blocks/curve_planks_stairs": {
+    "criteria": {
+      "wood": "2025-10-16 22:48:02 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/building_blocks/green_stained_glass": {
+    "criteria": {
+      "has_glass": "2025-10-16 23:00:03 +0200"
+    },
+    "done": true
+  },
+  "stargazer:recipes/redstone/curve_planks_button": {
+    "criteria": {
+      "wood": "2025-10-16 22:48:02 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/combat/stone_sword": {
+    "criteria": {
+      "has_cobblestone": "2025-10-16 22:41:56 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/tools/stone_pickaxe": {
+    "criteria": {
+      "has_cobblestone": "2025-10-16 22:41:56 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/building_blocks/brown_stained_glass": {
+    "criteria": {
+      "has_glass": "2025-10-16 23:00:03 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/building_blocks/light_gray_stained_glass": {
+    "criteria": {
+      "has_glass": "2025-10-16 23:00:03 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/tools/stone_axe": {
+    "criteria": {
+      "has_cobblestone": "2025-10-16 22:41:56 +0200"
+    },
+    "done": true
+  },
+  "stargazer:recipes/building_blocks/moon_planks_slab": {
+    "criteria": {
+      "wood": "2025-10-16 22:35:42 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/building_blocks/blue_stained_glass": {
+    "criteria": {
+      "has_glass": "2025-10-16 23:00:03 +0200"
+    },
+    "done": true
+  },
+  "stargazer:recipes/decorations/moon_planks_fence": {
+    "criteria": {
+      "wood": "2025-10-16 22:35:42 +0200"
+    },
+    "done": true
+  },
+  "minecraft:story/mine_stone": {
+    "criteria": {
+      "get_stone": "2025-10-16 22:41:56 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/misc/charcoal": {
+    "criteria": {
+      "has_log": "2025-10-16 22:35:38 +0200"
+    },
+    "done": true
+  },
+  "stargazer:recipes/decorations/curve_planks_fence": {
+    "criteria": {
+      "wood": "2025-10-16 22:48:02 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/building_blocks/orange_stained_glass": {
+    "criteria": {
+      "has_glass": "2025-10-16 23:00:03 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/building_blocks/cyan_stained_glass": {
+    "criteria": {
+      "has_glass": "2025-10-16 23:00:03 +0200"
+    },
+    "done": true
+  },
+  "stargazer:recipes/redstone/moon_planks_fence_gate": {
+    "criteria": {
+      "wood": "2025-10-16 22:35:42 +0200"
+    },
+    "done": true
+  },
+  "stargazer:recipes/building_blocks/moon_rock_bricks": {
+    "criteria": {
+      "has_moon_rock": "2025-10-16 22:41:56 +0200"
+    },
+    "done": true
+  },
+  "stargazer:recipes/redstone/moon_planks_door": {
+    "criteria": {
+      "wood": "2025-10-16 22:35:42 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/building_blocks/pink_stained_glass": {
+    "criteria": {
+      "has_glass": "2025-10-16 23:00:03 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/building_blocks/black_stained_glass": {
+    "criteria": {
+      "has_glass": "2025-10-16 23:00:03 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/building_blocks/gray_stained_glass": {
+    "criteria": {
+      "has_glass": "2025-10-16 23:00:03 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/decorations/crafting_table": {
+    "criteria": {
+      "unlock_right_away": "2025-10-16 22:33:28 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/building_blocks/purple_stained_glass": {
+    "criteria": {
+      "has_glass": "2025-10-16 23:00:03 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/misc/stick": {
+    "criteria": {
+      "has_planks": "2025-10-16 22:35:42 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/building_blocks/yellow_stained_glass": {
+    "criteria": {
+      "has_glass": "2025-10-16 23:00:03 +0200"
+    },
+    "done": true
+  },
+  "stargazer:recipes/building_blocks/moon_rock_bricks_stairs": {
+    "criteria": {
+      "rock": "2025-10-16 22:47:52 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/building_blocks/lime_stained_glass": {
+    "criteria": {
+      "has_glass": "2025-10-16 23:00:03 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/building_blocks/cherry_planks": {
+    "criteria": {
+      "has_log": "2025-10-16 22:35:37 +0200"
+    },
+    "done": true
+  },
+  "stargazer:recipes/redstone/curve_planks_fence_gate": {
+    "criteria": {
+      "wood": "2025-10-16 22:48:02 +0200"
+    },
+    "done": true
+  },
+  "stargazer:recipes/building_blocks/curve_planks": {
+    "criteria": {
+      "has_log": "2025-10-16 22:35:38 +0200"
+    },
+    "done": true
+  },
+  "stargazer:recipes/redstone/moon_planks_button": {
+    "criteria": {
+      "wood": "2025-10-16 22:35:42 +0200"
+    },
+    "done": true
+  },
+  "minecraft:adventure/adventuring_time": {
+    "criteria": {
+      "minecraft:plains": "2025-10-16 22:33:28 +0200"
+    },
+    "done": false
+  },
+  "minecraft:recipes/decorations/barrel": {
+    "criteria": {
+      "has_planks": "2025-10-16 22:35:42 +0200"
+    },
+    "done": true
+  },
+  "stargazer:recipes/building_blocks/moon_planks": {
+    "criteria": {
+      "has_log": "2025-10-16 22:35:37 +0200"
+    },
+    "done": true
+  },
+  "stargazer:recipes/building_blocks/moon_planks_stairs": {
+    "criteria": {
+      "wood": "2025-10-16 22:35:42 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/tools/stone_hoe": {
+    "criteria": {
+      "has_cobblestone": "2025-10-16 22:41:56 +0200"
+    },
+    "done": true
+  },
+  "stargazer:recipes/building_blocks/moon_rock_bricks_slab": {
+    "criteria": {
+      "rock": "2025-10-16 22:47:52 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/decorations/glass_pane": {
+    "criteria": {
+      "has_glass": "2025-10-16 23:00:03 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/building_blocks/magenta_stained_glass": {
+    "criteria": {
+      "has_glass": "2025-10-16 23:00:03 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/building_blocks/white_stained_glass": {
+    "criteria": {
+      "has_glass": "2025-10-16 23:00:03 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/tools/stone_shovel": {
+    "criteria": {
+      "has_cobblestone": "2025-10-16 22:41:56 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/decorations/cherry_hanging_sign": {
+    "criteria": {
+      "has_stripped_logs": "2025-10-16 22:35:38 +0200"
+    },
+    "done": true
+  },
+  "stargazer:recipes/building_blocks/curve_planks_slab": {
+    "criteria": {
+      "wood": "2025-10-16 22:48:02 +0200"
+    },
+    "done": true
+  },
+  "stargazer:recipes/building_blocks/star_planks": {
+    "criteria": {
+      "has_log": "2025-10-16 22:35:37 +0200"
+    },
+    "done": true
+  },
+  "DataVersion": 4325
+}

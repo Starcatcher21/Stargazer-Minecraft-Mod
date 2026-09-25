@@ -1,0 +1,17 @@
+{
+  "type": "stargazer:starforge",
+  "pattern": [
+    "  S  ",
+    " SSS ",
+    "SSSSS",
+    " SSS ",
+    "S   S"
+  ],
+  "key": {
+    "S": "stargazer:red_star"
+  },
+  "result": {
+    "count": 1,
+    "id": "stargazer:red_star_block"
+  }
+}

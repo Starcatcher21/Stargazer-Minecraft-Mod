@@ -1,0 +1,19 @@
+{
+  "type": "stargazer:starforge",
+  "pattern": [
+    "  Y  ",
+    "  E  ",
+    "YECEY",
+    "  E  ",
+    "Y   Y"
+  ],
+  "key": {
+    "E": "minecraft:end_stone",
+    "C": "minecraft:cobblestone",
+    "Y": "stargazer:yellow_star"
+  },
+  "result": {
+    "count": 1,
+    "id": "stargazer:negative_block"
+  }
+}

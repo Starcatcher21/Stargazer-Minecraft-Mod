@@ -1,0 +1,21 @@
+{
+  "minecraft:recipes/decorations/crafting_table": {
+    "criteria": {
+      "unlock_right_away": "2025-02-09 17:36:33 +0100"
+    },
+    "done": true
+  },
+  "minecraft:adventure/adventuring_time": {
+    "criteria": {
+      "minecraft:plains": "2025-03-08 21:24:02 +0100"
+    },
+    "done": false
+  },
+  "stargazer:recipes/building_blocks/moonplanksfromlog": {
+    "criteria": {
+      "has_log": "2025-03-15 09:12:20 +0100"
+    },
+    "done": true
+  },
+  "DataVersion": 4189
+}

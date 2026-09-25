@@ -1,0 +1,15 @@
+{
+  "cobble": {
+    "Name": "stargazer:moon_rock"
+  },
+  "fluid": "#stargazer:dream",
+  "lava": {
+    "Name": "minecraft:water",
+    "Properties": {
+      "level": "0"
+    }
+  },
+  "obsidian": {
+    "Name": "stargazer:moon_rock"
+  }
+}

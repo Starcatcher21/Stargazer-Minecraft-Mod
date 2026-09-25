@@ -1,0 +1,10 @@
+{
+  "type": "stargazer:moon_welder",
+  "item1": "minecraft:oak_sapling",
+  "item2": "minecraft:oak_log",
+  "moon_phase": 2,
+  "result": {
+    "count": 1,
+    "id": "stargazer:oak_hedge"
+  }
+}

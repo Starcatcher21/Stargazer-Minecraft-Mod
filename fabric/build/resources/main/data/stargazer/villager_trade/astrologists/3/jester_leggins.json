@@ -1,0 +1,25 @@
+{
+  "wants": {
+    "id": "minecraft:amethyst_shard",
+    "count": {
+      "type": "minecraft:uniform",
+      "min": 6,
+      "max": 16
+    }
+  },
+  "gives": {
+    "id": "stargazer:jester_leggins",
+    "count": 1
+  },
+  "given_item_modifiers": [],
+  "max_uses": {
+    "type": "minecraft:uniform",
+    "min": 6,
+    "max": 14
+  },
+  "xp": {
+    "type": "minecraft:uniform",
+    "min": 7,
+    "max": 17
+  }
+}

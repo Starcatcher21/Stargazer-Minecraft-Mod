@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "stage=start": {
+      "model": "stargazer:block/geode_fruit_stage1"
+    },
+    "stage=middle": {
+      "model": "stargazer:block/geode_fruit_stage2"
+    },
+    "stage=ending": {
+      "model": "stargazer:block/geode_fruit_stage3"
+    },
+    "stage=grown,facing=north": {
+      "model": "stargazer:block/geode_fruit_stage4"
+    },
+    "stage=grown,facing=south": {
+      "model": "stargazer:block/geode_fruit_stage4",
+			"y": 180
+    },
+    "stage=grown,facing=east": {
+      "model": "stargazer:block/geode_fruit_stage4",
+			"y": 90
+    },
+    "stage=grown,facing=west": {
+      "model": "stargazer:block/geode_fruit_stage4",
+			"y": -90
+    }
+  }
+}

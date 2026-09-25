@@ -1,0 +1,27 @@
+{
+  "stargazer:recipes/misc/craftingfrommoon": {
+    "criteria": {
+      "has_planks": "2025-03-08 16:40:01 +0100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/decorations/crafting_table": {
+    "criteria": {
+      "unlock_right_away": "2025-03-08 16:39:53 +0100"
+    },
+    "done": true
+  },
+  "minecraft:adventure/adventuring_time": {
+    "criteria": {
+      "minecraft:plains": "2025-03-08 16:39:54 +0100"
+    },
+    "done": false
+  },
+  "minecraft:story/root": {
+    "criteria": {
+      "crafting_table": "2025-03-08 16:40:01 +0100"
+    },
+    "done": true
+  },
+  "DataVersion": 4189
+}

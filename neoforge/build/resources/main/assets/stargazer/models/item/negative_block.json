@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "stargazer:item/negative",
+    "east": "stargazer:item/negative_side",
+    "north": "stargazer:item/negative_front",
+    "particle": "stargazer:item/negative_front",
+    "south": "stargazer:item/negative_side",
+    "up": "stargazer:item/negative_top",
+    "west": "stargazer:item/negative_front"
+  }
+}

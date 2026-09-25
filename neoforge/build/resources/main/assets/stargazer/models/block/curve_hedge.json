@@ -1,0 +1,7 @@
+{
+  "parent": "stargazer:block/hedge",
+  "textures": {
+    "side": "stargazer:block/curve_log_side",
+    "top": "stargazer:block/curve_log_top"
+  }
+}

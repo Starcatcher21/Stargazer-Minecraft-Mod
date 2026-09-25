@@ -1,0 +1,39 @@
+{
+  "minecraft:recipes/decorations/glow_item_frame": {
+    "criteria": {
+      "has_item_frame": "2025-03-08 21:55:44 +0100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/decorations/crafting_table": {
+    "criteria": {
+      "unlock_right_away": "2025-03-08 21:55:00 +0100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/misc/stick": {
+    "criteria": {
+      "has_planks": "2025-03-08 21:55:00 +0100"
+    },
+    "done": true
+  },
+  "stargazer:recipes/misc/star_forge": {
+    "criteria": {
+      "has_moon_rock": "2025-03-08 21:55:11 +0100"
+    },
+    "done": true
+  },
+  "minecraft:adventure/adventuring_time": {
+    "criteria": {
+      "minecraft:plains": "2025-03-08 21:55:01 +0100"
+    },
+    "done": false
+  },
+  "minecraft:recipes/decorations/barrel": {
+    "criteria": {
+      "has_planks": "2025-03-08 21:55:00 +0100"
+    },
+    "done": true
+  },
+  "DataVersion": 4189
+}

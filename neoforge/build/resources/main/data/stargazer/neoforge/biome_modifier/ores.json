@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "#stargazer:moon",
+  "features": [
+    "stargazer:prismatic_ore",
+    "stargazer:crystal_ore",
+    "stargazer:iron_ore"
+  ],
+  "step": "underground_ores"
+}

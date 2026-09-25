@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "stargazer:block/yellow_moon_planks_slab"
+    },
+    "type=double": {
+      "model": "stargazer:block/yellow_moon_planks"
+    },
+    "type=top": {
+      "model": "stargazer:block/yellow_moon_planks_slab_top"
+    }
+  }
+}

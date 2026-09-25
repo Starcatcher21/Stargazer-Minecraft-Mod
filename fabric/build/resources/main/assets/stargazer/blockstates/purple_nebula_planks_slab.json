@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "stargazer:block/purple_nebula_planks_slab"
+    },
+    "type=double": {
+      "model": "stargazer:block/purple_nebula_planks"
+    },
+    "type=top": {
+      "model": "stargazer:block/purple_nebula_planks_slab_top"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:add",
+  "argument1": {
+    "type": "minecraft:y_clamped_gradient",
+    "from_value": 1.2,
+    "from_y": -64,
+    "to_value": -1.5,
+    "to_y": 320
+  },
+  "argument2": {
+    "type": "minecraft:add",
+    "argument1": {
+      "type": "minecraft:cube",
+      "argument": {
+        "type": "minecraft:squeeze",
+        "argument": 3.4
+      }
+    },
+    "argument2": {
+      "type": "minecraft:shifted_noise",
+      "noise": "stargazer:cosmic",
+      "xz_scale": 3.2,
+      "y_scale": 4.6,
+      "shift_x": 0,
+      "shift_y": 1.2,
+      "shift_z": 0
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "type": "stargazer:moon_welder",
+  "item1": "stargazer:moon_rock",
+  "item2": "minecraft:sand",
+  "moon_phase": 0,
+  "result": {
+    "count": 4,
+    "id": "stargazer:moon_glass_shard"
+  }
+}

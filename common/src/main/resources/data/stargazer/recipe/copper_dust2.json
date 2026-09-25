@@ -1,0 +1,8 @@
+{
+  "type": "stargazer:star_crusher",
+  "item1": "#c:raw_materials/copper",
+  "result": {
+    "count": 4,
+    "id": "stargazer:copper_dust"
+  }
+}

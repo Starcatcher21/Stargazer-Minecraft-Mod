@@ -1,0 +1,113 @@
+#version 151
+
+#define NOISE_SCALE 3.0
+#define ANIMATION_SPEED 2.2
+
+#moj_import <minecraft:fog.glsl>
+#moj_import <minecraft:projection.glsl>
+#moj_import <minecraft:dynamictransforms.glsl>
+#moj_import <minecraft:globals.glsl>
+
+in vec4 vertexColor;
+in vec2 texCoord0;
+in vec4 lightMapColor;
+in vec3 positionXYZ;
+
+uniform sampler2D Sampler0;
+
+out vec4 fragColor;
+
+// Simple 2D Pseudo-random noise function
+float noise(in vec2 uv) {
+return fract(sin(dot(uv, vec2(12.9898, 78.233))) * 43758.5453123);
+}
+
+// Smooth 2D Value Noise for flowing waves
+float smoothNoise(in vec2 uv) {
+vec2 i = floor(uv);
+vec2 f = fract(uv);
+f = f * f * (3.0 - 2.0 * f);
+
+float a = noise(i);
+float b = noise(i + vec2(1.0, 0.0));
+float c = noise(i + vec2(0.0, 1.0));
+float d = noise(i + vec2(1.0, 1.0));
+
+return mix(mix(a, b, f.x), mix(c, d, f.x), f.y);
+}
+
+// Fractal Brownian Motion to layer the noise
+float fbm(in vec2 uv) {
+float value = 0.0;
+float amplitude = 0.5;
+for (int i = 0; i < 8; i++) {
+value += amplitude * smoothNoise(uv);
+uv *= 2.2;
+amplitude *= 0.5;
+}
+return value;
+}
+
+void main() {
+// 1. Sample the base texture color
+vec4 baseColor = texture(Sampler0, texCoord0);
+
+// 2. Setup animation time
+float time = GameTime * 1200.0 * ANIMATION_SPEED;
+
+// --- MODIFIED SECTION: TRIPLANAR COORD PROJECTION ---
+// Calculate the surface normal (the direction the face is pointing)
+// cross() on derivatives gives us the face direction in the fragment shader
+vec3 fdx = dFdx(positionXYZ);
+vec3 fdy = dFdy(positionXYZ);
+vec3 normal = normalize(cross(fdx, fdy));
+vec3 absNormal = abs(normal);
+
+vec2 projectedCoords;
+
+// Determine which axis the face is aligned with and project accordingly
+if (absNormal.y > absNormal.x && absNormal.y > absNormal.z) {
+// Top or Bottom faces
+projectedCoords = positionXYZ.xz;
+} else if (absNormal.x > absNormal.z) {
+// East or West side faces
+projectedCoords = positionXYZ.zy;
+} else {
+// North or South side faces
+projectedCoords = positionXYZ.xy;
+}
+// ----------------------------------------------------
+
+// 3. Create shifting UV coordinates based on the dynamically projected face
+vec2 auroraUV = projectedCoords * vec2(NOISE_SCALE * 0.5, NOISE_SCALE);
+auroraUV.y += time * 0.05;
+auroraUV.x += sin(auroraUV.y * 2.0 + time * 0.03) * 0.3;
+
+// 4. Generate layered aurora noise
+float n1 = fbm(auroraUV);
+float n2 = fbm(auroraUV + vec2(time * 0.01, 0.2));
+
+float intensity = pow(n1 * n2, 2.0) * 2.0;
+intensity = smoothstep(0.0005, 1.1, intensity);
+
+// 5. Define Authentic Aurora Palette
+vec3 colorGreen  = vec3(0.0, 1.0, 0.4);
+vec3 colorCyan   = vec3(0.0, 0.8, 0.9);
+vec3 colorPurple = vec3(0.4, 0.0, 0.8);
+
+// Dynamic color shifting across the curtains
+float colorMix = sin(time * 0.05 + positionXYZ.y * 0.5) * 0.5 + 0.5;
+vec3 auroraColor = mix(colorGreen, colorCyan, colorMix);
+auroraColor = mix(auroraColor, colorPurple, smoothstep(0.4, 0.9, intensity));
+
+// 6. Deep Atmospheric Night Sky Background
+vec3 nightSky = vec3(0.02, 0.2, 0.02) + (colorPurple * 0.03) * NOISE_SCALE;
+
+// 7. Combine Layers
+vec3 finalRGB = (baseColor.rgb * vertexColor.rgb) + nightSky + (auroraColor * intensity * 1.6);
+float finalAlpha = max(baseColor.a, 1.0) * vertexColor.a * ColorModulator.a;
+
+// 8. Final Output
+fragColor = vec4(finalRGB, finalAlpha) * ColorModulator;
+fragColor.rgb = max(fragColor.rgb, auroraColor * intensity * 0.8 + nightSky);
+}

@@ -1,0 +1,10 @@
+{
+  "type": "stargazer:moon_welder",
+  "item1": "stargazer:dead_eye_bat",
+  "item2": "minecraft:slime_ball",
+  "moon_phase": 0,
+  "result": {
+    "count": 1,
+    "id": "stargazer:living_eye"
+  }
+}

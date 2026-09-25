@@ -1,0 +1,10 @@
+{
+	"variants": {
+		"moisture=true": {
+			"model": "stargazer:block/moon_farmland_moist"
+		},
+		"moisture=false": {
+			"model": "stargazer:block/moon_farmland"
+		}
+	}
+}

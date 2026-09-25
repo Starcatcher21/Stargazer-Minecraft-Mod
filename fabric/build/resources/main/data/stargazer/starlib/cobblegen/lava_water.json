@@ -1,0 +1,15 @@
+{
+  "cobble": {
+    "Name": "minecraft:cobblestone"
+  },
+  "fluid": "#minecraft:water",
+  "lava": {
+    "Name": "minecraft:lava",
+    "Properties": {
+      "level": "0"
+    }
+  },
+  "obsidian": {
+    "Name": "minecraft:obsidian"
+  }
+}

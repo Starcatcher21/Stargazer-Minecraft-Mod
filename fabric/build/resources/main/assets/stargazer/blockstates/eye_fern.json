@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "eye=true": {
+      "model": "stargazer:block/opened_eye_fern"
+    },
+    "eye=false": {
+      "model": "stargazer:block/closed_eye_fern"
+    }
+  }
+}

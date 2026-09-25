@@ -1,0 +1,38 @@
+{
+  "parent": "stargazer:ghost",
+  "criteria": {
+    "adventure": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "minecraft:type_specific/player": {
+                "looking_at": {
+                  "minecraft:entity_type": "stargazer:ghost",
+                  "minecraft:nbt": "{tag:\"adventure\"}"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    }
+  },
+  "display": {
+    "description": "Look Jake I'm a ghost",
+    "hidden": true,
+    "icon": {
+      "id": "stargazer:ghost_spawn_egg"
+    },
+    "title": "It's Adventure Time"
+  },
+  "requirements": [
+    [
+      "adventure"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

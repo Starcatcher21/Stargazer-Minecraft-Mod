@@ -1,0 +1,94 @@
+package com.github.starcatcher21.stargazer.worldgen.features.trees.bubbles;
+
+import com.github.starcatcher21.stargazer.block.ModBlock;
+import com.github.starcatcher21.starlib.worldgen.features.trees.Tree;
+import com.github.starcatcher21.starlib.worldgen.features.trees.TreeConfig;
+import com.google.common.collect.ImmutableList;
+import com.mojang.serialization.Codec;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+import dev.architectury.platform.Mod;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
+
+public class Bubbles extends Feature<TreeConfig> {
+    public static final ImmutableList<Direction> GROW_DIRECTIONS = ImmutableList.of(
+            Direction.SOUTH, Direction.NORTH, Direction.EAST, Direction.WEST
+    );
+    public static ArrayList<Tree> TREELIST = new ArrayList<>();
+    public static Tree R3;
+    public static Tree G3;
+    public static Tree B3;
+    public static Tree R2;
+    public static Tree G2;
+    public static Tree B2;
+    public static Tree I3;
+    public static Tree I2;
+
+    public Bubbles(Codec<TreeConfig> codec) {
+        super(codec);
+    }
+
+    public static Tree register(String name) {
+        Tree tree = new Tree(true, name, Blocks.AIR.defaultBlockState(), ModBlock.NORED_BLOCK.get().defaultBlockState());
+        TREELIST.add(tree);
+        return tree;
+    }
+    public static void init() {
+        ModBlock.NOBLUE_BLOCK.listen(block -> {
+            R3 = register("R3");
+            G3 = register("G3");
+            B3 = register("B3");
+            R2 = register("R2");
+            G2 = register("G2");
+            B2 = register("B2");
+            I3 = register("I3");
+            I2 = register("I2");
+            G3.clearLeave();
+            B3.clearLeave();
+            G2.clearLeave();
+            B2.clearLeave();
+            I2.clearLeave();
+            I3.clearLeave();
+            G3.addLeave(ModBlock.NOGREEN_BLOCK.get().defaultBlockState());
+            G2.addLeave(ModBlock.NOGREEN_BLOCK.get().defaultBlockState());
+            B3.addLeave(ModBlock.NOBLUE_BLOCK.get().defaultBlockState());
+            B2.addLeave(ModBlock.NOBLUE_BLOCK.get().defaultBlockState());
+            I3.addLeave(ModBlock.NEGATIVE_BLOCK.get().defaultBlockState());
+            I2.addLeave(ModBlock.NEGATIVE_BLOCK.get().defaultBlockState());
+            txt.init(R3);
+            txt.init(G3);
+            txt.init(B3);
+            txt.init(I3);
+            dxd.init(R2);
+            dxd.init(G2);
+            dxd.init(B2);
+            dxd.init(I2);
+        });
+    }
+
+    @Override
+    public boolean place(FeaturePlaceContext<TreeConfig> context) {
+        TreeConfig config = context.config();
+        List<String> allowed = config.NAMES;
+        List<Tree> TREES;
+        if (config.BLACKLIST) {
+            TREES = TREELIST.stream().filter(name -> !allowed.contains(name.name)).toList();
+        } else {
+            TREES = TREELIST.stream().filter(name -> allowed.contains(name.name)).toList();
+        }
+        BlockPos pos = context.origin();
+        Random random = new Random();
+        Tree tree = TREES.get(random.nextInt(TREES.size()));
+        if (tree.canGrow(context.level(), pos)) {
+            tree.Grow(context.level(), pos);
+            return true;
+        }
+        return false;
+    }
+}

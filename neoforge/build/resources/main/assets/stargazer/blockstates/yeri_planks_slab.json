@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "stargazer:block/yeri_planks_slab"
+    },
+    "type=double": {
+      "model": "stargazer:block/yeri_planks"
+    },
+    "type=top": {
+      "model": "stargazer:block/yeri_planks_slab_top"
+    }
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/template_farmland",
+  "textures": {
+    "dirt": "stargazer:block/moon_rock",
+    "top": "stargazer:block/moon_farmland_moist"
+  }
+}

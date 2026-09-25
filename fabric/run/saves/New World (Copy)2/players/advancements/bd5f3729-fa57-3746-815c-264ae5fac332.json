@@ -1,0 +1,45 @@
+{
+  "minecraft:recipes/building_blocks/jungle_wood": {
+    "criteria": {
+      "has_log": "2025-07-23 19:58:32 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/building_blocks/jungle_planks": {
+    "criteria": {
+      "has_logs": "2025-07-23 19:58:32 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/misc/charcoal": {
+    "criteria": {
+      "has_log": "2025-07-23 19:58:32 +0200"
+    },
+    "done": true
+  },
+  "minecraft:recipes/decorations/crafting_table": {
+    "criteria": {
+      "unlock_right_away": "2025-07-23 19:58:17 +0200"
+    },
+    "done": true
+  },
+  "minecraft:adventure/adventuring_time": {
+    "criteria": {
+      "minecraft:plains": "2025-07-23 19:58:18 +0200"
+    },
+    "done": false
+  },
+  "stargazer:recipes/building_blocks/moon_planks": {
+    "criteria": {
+      "has_log": "2025-07-23 19:58:32 +0200"
+    },
+    "done": true
+  },
+  "stargazer:recipes/building_blocks/star_planks": {
+    "criteria": {
+      "has_log": "2025-07-23 19:58:32 +0200"
+    },
+    "done": true
+  },
+  "DataVersion": 4325
+}

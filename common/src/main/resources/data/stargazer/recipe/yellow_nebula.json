@@ -1,0 +1,10 @@
+{
+  "type": "stargazer:moon_welder",
+  "item1": "#minecraft:saplings",
+  "item2": "stargazer:yellow_star",
+  "moon_phase": 0,
+  "result": {
+    "count": 1,
+    "id": "stargazer:yellow_nebula_regrow_core"
+  }
+}

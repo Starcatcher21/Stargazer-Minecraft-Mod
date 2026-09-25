@@ -1,0 +1,23 @@
+{
+  "required": true,
+  "package": "com.github.starcatcher21.stargazer.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "minVersion": "0.8",
+  "mixins": [
+    "PlayerClassMixin",
+    "FluidBlockMixin",
+    "BrewingRecipeRegMixin",
+    "FarmlandMixin",
+    "WorldMixin",
+    "IceBlockMixin",
+    "EntityMixin",
+    "FishingBobberEntityMixin"
+  ],
+  "client": [
+    "WorldRendererMixin",
+    "SkyRenderingMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

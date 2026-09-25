@@ -1,0 +1,10 @@
+{
+  "type": "stargazer:moon_welder",
+  "item1": "minecraft:spruce_sapling",
+  "item2": "minecraft:spruce_log",
+  "moon_phase": 2,
+  "result": {
+    "count": 1,
+    "id": "stargazer:spruce_hedge"
+  }
+}

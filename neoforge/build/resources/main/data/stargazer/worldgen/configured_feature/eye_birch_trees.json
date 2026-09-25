@@ -1,0 +1,11 @@
+{
+  "type": "stargazer:eye_birch_trees",
+  "config": {
+    "blacklist": true,
+    "names": [],
+    "grow_on": [
+      {"Name":  "stargazer:moon_rock_nylium"},
+      {"Name": "minecraft:grass_block"}
+    ]
+  }
+}

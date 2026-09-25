@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "stargazer:block/curve_planks",
+    "side": "stargazer:block/curve_planks",
+    "top": "stargazer:block/curve_planks"
+  }
+}

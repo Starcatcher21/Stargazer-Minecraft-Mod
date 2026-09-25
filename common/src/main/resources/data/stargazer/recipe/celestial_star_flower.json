@@ -1,0 +1,18 @@
+{
+  "type": "stargazer:starforge",
+  "pattern": [
+    "  S  ",
+    "     ",
+    "S F S",
+    "     ",
+    "S   S"
+  ],
+  "key": {
+    "F": "stargazer:star_flower",
+    "S": "#stargazer:star"
+  },
+  "result": {
+    "count": 1,
+    "id": "stargazer:celestial_star_flower"
+  }
+}

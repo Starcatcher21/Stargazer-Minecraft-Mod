@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "stargazer:block/blue_moon_planks",
+    "side": "stargazer:block/blue_moon_planks",
+    "top": "stargazer:block/blue_moon_planks"
+  }
+}

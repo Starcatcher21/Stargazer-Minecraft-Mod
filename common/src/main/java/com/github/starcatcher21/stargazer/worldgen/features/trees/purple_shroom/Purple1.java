@@ -1,0 +1,17 @@
+package com.github.starcatcher21.stargazer.worldgen.features.trees.purple_shroom;
+
+import com.github.starcatcher21.stargazer.block.register.StarBlocks;
+import com.github.starcatcher21.starlib.worldgen.features.trees.Tree;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.block.Blocks;
+
+public class Purple1 {
+    public static void init(Tree tree) {
+        StarBlocks.COSMIC_BLOCK.listen(tree::addReplacableBlock);
+        tree.addReplacableBlock(Blocks.AIR);
+        Tree base = PurpleBase.base;
+        Tree cap = PurpleBase.cap;
+        Tree.addBranch(tree, base, Direction.NORTH);
+        Tree.addBranch(tree, Tree.offset(Tree.offset(cap, Direction.NORTH, 2), Direction.UP, 9), Direction.NORTH);
+    }
+}

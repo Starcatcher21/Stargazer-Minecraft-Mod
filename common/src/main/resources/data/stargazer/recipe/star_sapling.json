@@ -1,0 +1,19 @@
+{
+  "type": "stargazer:starforge",
+  "pattern": [
+    "  S  ",
+    "  M  ",
+    "SMIMS",
+    "  M  ",
+    "S   S"
+  ],
+  "key": {
+    "M": "minecraft:dirt",
+    "I": "#minecraft:saplings",
+    "S": "#stargazer:star"
+  },
+  "result": {
+    "count": 1,
+    "id": "stargazer:star_sapling"
+  }
+}

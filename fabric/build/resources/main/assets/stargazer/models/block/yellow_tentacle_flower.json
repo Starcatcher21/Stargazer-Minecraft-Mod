@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "stargazer:block/yellow_tentacle_flower"
+  }
+}

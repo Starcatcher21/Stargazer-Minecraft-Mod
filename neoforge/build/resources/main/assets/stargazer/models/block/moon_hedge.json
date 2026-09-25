@@ -1,0 +1,7 @@
+{
+  "parent": "stargazer:block/hedge",
+  "textures": {
+    "side": "stargazer:block/moon_log_side",
+    "top": "stargazer:block/moon_log_top"
+  }
+}

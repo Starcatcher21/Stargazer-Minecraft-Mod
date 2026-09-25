@@ -1,0 +1,19 @@
+{
+  "type": "stargazer:starforge",
+  "pattern": [
+    "  Y  ",
+    " GYG ",
+    "YYSYY",
+    " GYG ",
+    "Y   Y"
+  ],
+  "key": {
+    "S": "minecraft:paper",
+    "Y": "stargazer:yellow_star",
+    "G": "minecraft:glass"
+  },
+  "result": {
+    "count": 1,
+    "id": "stargazer:star_display"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "type": "stargazer:moon_welder",
+  "item1": "stargazer:geode_fruit",
+  "item2": "minecraft:glass",
+  "moon_phase": 8,
+  "result": {
+    "count": 1,
+    "id": "stargazer:cooked_geode_fruit"
+  }
+}

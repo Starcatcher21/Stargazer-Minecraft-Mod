@@ -1,0 +1,9 @@
+{
+	"parent": "minecraft:block/cube_bottom_top",
+	"textures": {
+		"side": "stargazer:block/moon_rock_nylium_side",
+		"bottom": "stargazer:block/moon_rock",
+		"top": "stargazer:block/moon_rock_nylium_top",
+		"particle": "stargazer:block/moon_rock_nylium_side"
+	}
+}

@@ -1,0 +1,47 @@
+{
+  "stats": {
+    "minecraft:picked_up": {
+      "stargazer:yellow_star": 60,
+      "stargazer:comet_fragment": 1,
+      "stargazer:polished_black_moon_rock": 4,
+      "stargazer:polished_moon_rock": 10,
+      "stargazer:forget_me_now": 1,
+      "stargazer:stardust": 10,
+      "stargazer:moon_rock": 145,
+      "stargazer:end_star": 50,
+      "stargazer:red_star": 1,
+      "stargazer:blue_star": 1,
+      "stargazer:supernova": 14,
+      "stargazer:polished_black_moon_rock_purple": 6
+    },
+    "minecraft:custom": {
+      "minecraft:time_since_rest": 11547,
+      "minecraft:walk_one_cm": 16824,
+      "minecraft:leave_game": 25,
+      "minecraft:walk_under_water_one_cm": 156,
+      "minecraft:play_time": 26250,
+      "minecraft:star_catched": 3,
+      "minecraft:jump": 348,
+      "minecraft:time_since_death": 11510,
+      "minecraft:sprint_one_cm": 34293,
+      "minecraft:fall_one_cm": 1563,
+      "minecraft:total_world_time": 26250,
+      "minecraft:fly_one_cm": 148893,
+      "minecraft:walk_on_water_one_cm": 86,
+      "minecraft:crouch_one_cm": 1159,
+      "minecraft:sneak_time": 617,
+      "minecraft:deaths": 2
+    },
+    "minecraft:used": {
+      "stargazer:lodestar": 2,
+      "minecraft:chiseled_copper": 7,
+      "minecraft:cut_copper_stairs": 5,
+      "stargazer:star_generator": 1,
+      "minecraft:cut_copper": 9,
+      "stargazer:star_crusher": 2,
+      "minecraft:spyglass": 80,
+      "stargazer:night_watcher": 1
+    }
+  },
+  "DataVersion": 4903
+}

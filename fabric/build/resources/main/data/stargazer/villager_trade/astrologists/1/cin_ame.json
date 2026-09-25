@@ -1,0 +1,25 @@
+{
+  "wants": {
+    "id": "minecraft:copper_ingot",
+    "count": {
+      "type": "minecraft:uniform",
+      "min": 4,
+      "max": 8
+    }
+  },
+  "gives": {
+    "id": "minecraft:amethyst_shard",
+    "count": 3
+  },
+  "given_item_modifiers": [],
+  "max_uses": {
+    "type": "minecraft:uniform",
+    "min": 4,
+    "max": 10
+  },
+  "xp": {
+    "type": "minecraft:uniform",
+    "min": 4,
+    "max": 10
+  }
+}

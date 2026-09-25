@@ -1,0 +1,18 @@
+{
+  "type": "stargazer:starforge",
+  "pattern": [
+    "  Y  ",
+    " YYY ",
+    "YSSSY",
+    " YYY ",
+    "Y   Y"
+  ],
+  "key": {
+    "S": "stargazer:yellow_cable",
+    "Y": "stargazer:blue_star"
+  },
+  "result": {
+    "count": 2,
+    "id": "stargazer:blue_cable"
+  }
+}

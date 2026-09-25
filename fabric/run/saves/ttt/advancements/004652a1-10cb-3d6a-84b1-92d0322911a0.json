@@ -1,0 +1,15 @@
+{
+  "stargazer:recipes/building_blocks/moon_rock_bricks": {
+    "criteria": {
+      "has_moon_rock": "2025-03-09 12:54:10 +0100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/decorations/crafting_table": {
+    "criteria": {
+      "unlock_right_away": "2025-03-09 12:54:07 +0100"
+    },
+    "done": true
+  },
+  "DataVersion": 4189
+}

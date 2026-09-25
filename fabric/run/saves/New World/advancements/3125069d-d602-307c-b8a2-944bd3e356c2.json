@@ -1,0 +1,33 @@
+{
+  "minecraft:recipes/decorations/composter": {
+    "criteria": {
+      "has_wood_slab": "2025-02-09 13:31:05 +0100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/decorations/crafting_table": {
+    "criteria": {
+      "unlock_right_away": "2025-02-09 13:31:05 +0100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/decorations/barrel": {
+    "criteria": {
+      "has_wood_slab": "2025-02-09 13:31:05 +0100"
+    },
+    "done": true
+  },
+  "minecraft:adventure/adventuring_time": {
+    "criteria": {
+      "minecraft:plains": "2025-02-09 13:31:06 +0100"
+    },
+    "done": false
+  },
+  "stargazer:recipes/building_blocks/moonplanksfromlog": {
+    "criteria": {
+      "has_log": "2025-03-15 09:45:45 +0100"
+    },
+    "done": true
+  },
+  "DataVersion": 4189
+}

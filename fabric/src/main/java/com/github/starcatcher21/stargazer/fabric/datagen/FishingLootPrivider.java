@@ -1,0 +1,57 @@
+package com.github.starcatcher21.stargazer.fabric.datagen;
+
+import com.github.starcatcher21.stargazer.Stargazer;
+import com.github.starcatcher21.stargazer.item.ModItems;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableSubProvider;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.entries.EmptyLootItem;
+import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
+import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
+import java.util.concurrent.CompletableFuture;
+import java.util.function.BiConsumer;
+
+public class FishingLootPrivider extends SimpleFabricLootTableSubProvider {
+    public FishingLootPrivider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registryLookup) {
+        super(output, registryLookup, LootContextParamSets.FISHING);
+    }
+
+    @Override
+    public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> lootTableBiConsumer) {
+        ResourceKey<LootTable> customFishingKey = ResourceKey.create(
+                Registries.LOOT_TABLE,
+                Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "gameplay/fishing/dream")
+        );
+
+        // Build the loot table
+        LootTable.Builder lootTable = LootTable.lootTable()
+                .withPool(
+                        LootPool.lootPool()
+                                .setRolls(ConstantValue.exactly(1.0F))
+                                .add(LootItem.lootTableItem(ModItems.GUMMY_FISH.get()).setWeight(60))
+                                .add(LootItem.lootTableItem(ModItems.GUMMY_WORM.get()).setWeight(40))
+                                .add(LootItem.lootTableItem(ModItems.COSMO_FISH.get()).setWeight(30))
+                                .add(LootItem.lootTableItem(ModItems.ENDER_FISH.get()).setWeight(30))
+                                .add(LootItem.lootTableItem(ModItems.GOLDEN_CRUCIAN.get()).setWeight(20))
+                )
+                .withPool(
+                        LootPool.lootPool()
+                                .setRolls(UniformGenerator.between(0f, 1.0f))
+                                .add(EmptyLootItem.emptyItem().setWeight(40))
+                                .add(LootItem.lootTableItem(ModItems.RED_STAR.get()).setWeight(10))
+                                .add(LootItem.lootTableItem(ModItems.YELLOW_STAR.get()).setWeight(15))
+                                .add(LootItem.lootTableItem(ModItems.PURPLE_STAR.get()).setWeight(10))
+                                .add(LootItem.lootTableItem(ModItems.BLUE_STAR.get()).setWeight(10))
+                                .add(LootItem.lootTableItem(ModItems.DREAM_STAR.get()).setWeight(5))
+                );
+
+        lootTableBiConsumer.accept(customFishingKey, lootTable);
+    }
+}

@@ -1,0 +1,39 @@
+{
+  "minecraft:recipes/decorations/crafting_table": {
+    "criteria": {
+      "unlock_right_away": "2025-02-16 20:25:12 +0100"
+    },
+    "done": true
+  },
+  "minecraft:recipes/decorations/chest": {
+    "criteria": {
+      "has_lots_of_items": "2025-02-16 20:25:12 +0100"
+    },
+    "done": true
+  },
+  "minecraft:story/root": {
+    "criteria": {
+      "crafting_table": "2025-02-16 20:25:12 +0100"
+    },
+    "done": true
+  },
+  "minecraft:adventure/adventuring_time": {
+    "criteria": {
+      "minecraft:plains": "2025-02-16 20:25:13 +0100"
+    },
+    "done": false
+  },
+  "stargazer:recipes/misc/craftingfrommoon": {
+    "criteria": {
+      "has_planks": "2025-03-08 18:58:03 +0100"
+    },
+    "done": true
+  },
+  "stargazer:recipes/misc/star_forge": {
+    "criteria": {
+      "has_moon_rock": "2025-03-08 18:56:34 +0100"
+    },
+    "done": true
+  },
+  "DataVersion": 4189
+}

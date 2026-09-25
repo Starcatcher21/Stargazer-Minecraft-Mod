@@ -1,0 +1,10 @@
+{
+  "type": "stargazer:prismatic_ore",
+  "config": {
+    "blacklist": true,
+    "names": [],
+    "grow_on": [
+      {"Name":  "stargazer:moon_rock"}
+    ]
+  }
+}

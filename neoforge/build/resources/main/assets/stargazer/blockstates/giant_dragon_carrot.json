@@ -1,0 +1,34 @@
+{
+	"variants": {
+		"side=sed": {
+			"model": "stargazer:block/giant_dragon_carrot_bottom"
+		},
+		"side=seu": {
+			"model": "stargazer:block/giant_dragon_carrot_top"
+		},
+		"side=swd": {
+			"model": "stargazer:block/giant_dragon_carrot_bottom",
+			"y": 90
+		},
+		"side=swu": {
+			"model": "stargazer:block/giant_dragon_carrot_top",
+			"y": 90
+		},
+		"side=nwd": {
+			"model": "stargazer:block/giant_dragon_carrot_bottom",
+			"y": 180
+		},
+		"side=nwu": {
+			"model": "stargazer:block/giant_dragon_carrot_top",
+			"y": 180
+		},
+		"side=ned": {
+			"model": "stargazer:block/giant_dragon_carrot_bottom",
+			"y": 270
+		},
+		"side=neu": {
+			"model": "stargazer:block/giant_dragon_carrot_top",
+			"y": 270
+		}
+	}
+}

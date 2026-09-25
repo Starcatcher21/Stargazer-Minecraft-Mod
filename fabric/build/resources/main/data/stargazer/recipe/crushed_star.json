@@ -1,0 +1,8 @@
+{
+  "type": "stargazer:star_crusher",
+  "item1": "#stargazer:star",
+  "result": {
+    "count": 8,
+    "id": "stargazer:stardust"
+  }
+}

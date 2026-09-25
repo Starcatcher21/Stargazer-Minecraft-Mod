@@ -1,0 +1,10 @@
+{
+  "type": "stargazer:moon_welder",
+  "item1": "stargazer:full_moon_sapling",
+  "item2": "stargazer:full_moon_core",
+  "moon_phase": 0,
+  "result": {
+    "count": 1,
+    "id": "stargazer:full_moon_hedge"
+  }
+}

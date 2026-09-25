@@ -1,0 +1,22 @@
+{
+  "variants": {
+    "state=middle": {
+      "model": "stargazer:block/red_teleporter_middle"
+    },
+    "state=north": {
+      "model": "stargazer:block/red_teleporter_stair"
+    },
+    "state=south": {
+      "model": "stargazer:block/red_teleporter_stair",
+			"y": 180
+    },
+    "state=east": {
+      "model": "stargazer:block/red_teleporter_stair",
+			"y": 90
+    },
+    "state=west": {
+      "model": "stargazer:block/red_teleporter_stair",
+			"y": 270
+    }
+  }
+}

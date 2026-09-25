@@ -1,0 +1,97 @@
+package com.github.starcatcher21.stargazer.block.clases.wander;
+
+import com.github.starcatcher21.stargazer.Stargazer;
+import com.github.starcatcher21.stargazer.block.register.MoonBlocks;
+import com.github.starcatcher21.stargazer.block.register.Wander;
+import com.mojang.serialization.MapCodec;
+import java.util.List;
+import java.util.Optional;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.BonemealableBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+
+import static com.github.starcatcher21.stargazer.block.clases.moon.MoonRockNylium.canPropagate;
+
+
+public class Boril extends Block implements BonemealableBlock {
+    public Boril(Properties settings) {
+        super(settings);
+    }
+
+    public static final MapCodec<Boril> CODEC = Block.simpleCodec(Boril::new);
+
+    @Override
+    protected MapCodec<? extends Block> codec() {
+        return CODEC;
+    }
+
+    @Override
+    protected void randomTick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
+        if (world.getMaxLocalRawBrightness(pos.above()) >= 9) {
+            BlockState blockState = this.defaultBlockState();
+            for (int i = 0; i < 4; ++i) {
+                BlockPos blockPos = pos.offset(random.nextInt(3) - 1, random.nextInt(5) - 3, random.nextInt(3) - 1);
+                if (!world.getBlockState(blockPos).is(MoonBlocks.MOON_ROCK.get()) || !canPropagate(state, world, blockPos)) continue;
+                world.setBlockAndUpdate(blockPos, (BlockState)blockState);
+            }
+        }
+        if (!world.getBlockState(pos.above()).propagatesSkylightDown()) {
+            world.setBlockAndUpdate(pos, Wander.PUROIL.get().defaultBlockState());
+            world.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(state));
+        }
+    }
+
+    @Override
+    public boolean isValidBonemealTarget(LevelReader world, BlockPos pos, BlockState state) {
+        return world.getBlockState(pos.above()).isAir();
+    }
+
+    @Override
+    public boolean isBonemealSuccess(Level world, RandomSource random, BlockPos pos, BlockState state) {
+        return true;
+    }
+
+    @Override
+    public void performBonemeal(ServerLevel world, RandomSource random, BlockPos pos, BlockState state) {
+        BlockPos blockPos = pos.above();
+        BlockState blockState = MoonBlocks.MOON_GRASS.get().defaultBlockState();
+        Optional<Holder.Reference<PlacedFeature>> optional = world.registryAccess().lookupOrThrow(Registries.PLACED_FEATURE).get(ResourceKey.create(Registries.PLACED_FEATURE, Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "moon_grass_bone")));
+        block0: for (int i = 0; i < 128; ++i) {
+            BonemealableBlock fertilizable;
+            BlockPos blockPos2 = blockPos;
+            for (int j = 0; j < i / 16; ++j) {
+                if (!world.getBlockState((blockPos2 = blockPos2.offset(random.nextInt(3) - 1, (random.nextInt(3) - 1) * random.nextInt(3) / 2, random.nextInt(3) - 1)).below()).is(this) || world.getBlockState(blockPos2).isCollisionShapeFullBlock(world, blockPos2)) continue block0;
+            }
+            BlockState blockState2 = world.getBlockState(blockPos2);
+            if (blockState2.is(blockState.getBlock()) && random.nextInt(10) == 0 && (fertilizable = (BonemealableBlock)((Object)blockState.getBlock())).isValidBonemealTarget(world, blockPos2, blockState2)) {
+                fertilizable.performBonemeal(world, random, blockPos2, blockState2);
+            }
+            if (!blockState2.isAir()) continue;
+            if (random.nextInt(8) == 0) {
+                List<ConfiguredFeature<?, ?>> list = world.getBiome(blockPos2).value().getGenerationSettings().getBoneMealFeatures();
+                if (list.isEmpty()) continue;
+                ConfiguredFeature<?, ?> configuredFeature = list.get(random.nextInt(list.size()));
+                configuredFeature.place(world, world.getChunkSource().getGenerator(), random, blockPos2);
+            } else {
+                if (optional.isEmpty()) continue;
+                optional.get().value().place(world, world.getChunkSource().getGenerator(), random, blockPos2);
+            }
+        }
+    }
+
+    @Override
+    public Type getType() {
+        return Type.NEIGHBOR_SPREADER;
+    }}

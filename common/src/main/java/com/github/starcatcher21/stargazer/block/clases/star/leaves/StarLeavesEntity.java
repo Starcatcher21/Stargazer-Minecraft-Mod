@@ -1,0 +1,12 @@
+package com.github.starcatcher21.stargazer.block.clases.star.leaves;
+
+import com.github.starcatcher21.stargazer.block.BlockTypes;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+
+public class StarLeavesEntity extends BlockEntity {
+    public StarLeavesEntity(BlockPos pos, BlockState state) {
+        super(BlockTypes.STAR_LEAVES.get(), pos, state);
+    }
+}

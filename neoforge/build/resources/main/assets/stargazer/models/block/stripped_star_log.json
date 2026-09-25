@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "stargazer:block/stripped_star_log_top",
+    "side": "stargazer:block/stripped_star_log_side"
+  }
+}

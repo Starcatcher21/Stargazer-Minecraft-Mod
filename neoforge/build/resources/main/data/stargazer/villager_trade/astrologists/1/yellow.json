@@ -1,0 +1,25 @@
+{
+  "wants": {
+    "id": "minecraft:amethyst_shard",
+    "count": {
+      "type": "minecraft:uniform",
+      "min": 4,
+      "max": 7
+    }
+  },
+  "gives": {
+    "id": "stargazer:yellow_star",
+    "count": 4
+  },
+  "given_item_modifiers": [],
+  "max_uses": {
+    "type": "minecraft:uniform",
+    "min": 4,
+    "max": 10
+  },
+  "xp": {
+    "type": "minecraft:uniform",
+    "min": 4,
+    "max": 10
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/crop",
+  "textures": {
+    "crop": "stargazer:block/dragon_carrot_block_stage3"
+  }
+}

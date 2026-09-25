@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "b": "stargazer:polished_black_moon_rock_purple",
+    "w": "stargazer:polished_moon_rock"
+  },
+  "pattern": [
+    "wb",
+    "bw"
+  ],
+  "result": {
+    "count": 8,
+    "id": "stargazer:purple_moon_rock_tiles"
+  }
+}

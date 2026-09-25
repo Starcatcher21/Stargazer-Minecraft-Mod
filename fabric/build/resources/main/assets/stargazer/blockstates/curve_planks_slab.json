@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "stargazer:block/curve_planks_slab"
+    },
+    "type=double": {
+      "model": "stargazer:block/curve_planks"
+    },
+    "type=top": {
+      "model": "stargazer:block/curve_planks_slab_top"
+    }
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "variants": {
+    "state=middle": {
+      "model": "stargazer:block/teleporter_middle"
+    },
+    "state=north": {
+      "model": "stargazer:block/teleporter_stair"
+    },
+    "state=south": {
+      "model": "stargazer:block/teleporter_stair",
+			"y": 180
+    },
+    "state=east": {
+      "model": "stargazer:block/teleporter_stair",
+			"y": 90
+    },
+    "state=west": {
+      "model": "stargazer:block/teleporter_stair",
+			"y": 270
+    },
+    "state=north_east": {
+      "model": "stargazer:block/teleporter_stair_side"
+    },
+    "state=north_west": {
+      "model": "stargazer:block/teleporter_stair_side",
+			"y": 270
+    },
+    "state=south_east": {
+      "model": "stargazer:block/teleporter_stair_side",
+			"y": 90
+    },
+    "state=south_west": {
+      "model": "stargazer:block/teleporter_stair_side",
+			"y": 180
+    },
+    "state=ne_up": {
+      "model": "stargazer:block/teleporter_stair_side_top"
+    },
+    "state=nw_up": {
+      "model": "stargazer:block/teleporter_stair_side_top",
+      "y": 270
+    },
+    "state=se_up": {
+      "model": "stargazer:block/teleporter_stair_side_top",
+      "y": 90
+    },
+    "state=sw_up": {
+      "model": "stargazer:block/teleporter_stair_side_top",
+      "y": 180
+    }
+  }
+}

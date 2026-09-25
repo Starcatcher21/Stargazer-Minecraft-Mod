@@ -1,0 +1,7 @@
+{
+  "parent": "stargazer:block/cable_core_template",
+  "textures": {
+    "all": "stargazer:block/yellow_cable",
+    "particle": "stargazer:block/yellow_cable"
+  }
+}

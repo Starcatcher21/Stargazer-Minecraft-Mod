@@ -1,0 +1,226 @@
+---- Minecraft Crash Report ----
+// Ooh. Shiny.
+
+Time: 2025-07-25 20:19:52
+Description: Rendering Block Entity
+
+java.lang.NullPointerException: Cannot invoke "software.bernie.geckolib.animatable.instance.AnimatableInstanceCache.getManagerForId(long)" because the return value of "software.bernie.geckolib.animatable.GeoAnimatable.getAnimatableInstanceCache()" is null
+	at knot//software.bernie.geckolib.renderer.base.GeoRenderer.captureDefaultRenderState(GeoRenderer.java:145)
+	at knot//software.bernie.geckolib.renderer.GeoBlockRenderer.captureDefaultRenderState(GeoBlockRenderer.java:113)
+	at knot//software.bernie.geckolib.renderer.GeoBlockRenderer.captureDefaultRenderState(GeoBlockRenderer.java:39)
+	at knot//software.bernie.geckolib.renderer.base.GeoRenderer.fillRenderState(GeoRenderer.java:165)
+	at knot//software.bernie.geckolib.renderer.GeoBlockRenderer.render(GeoBlockRenderer.java:156)
+	at knot//net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher.render(BlockEntityRenderDispatcher.java:97)
+	at knot//net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher.render(BlockEntityRenderDispatcher.java:85)
+	at knot//net.minecraft.client.render.WorldRenderer.renderBlockEntities(WorldRenderer.java:739)
+	at knot//net.minecraft.client.render.WorldRenderer.method_62214(WorldRenderer.java:552)
+	at knot//net.minecraft.client.render.FrameGraphBuilder.run(FrameGraphBuilder.java:68)
+	at knot//net.minecraft.client.render.WorldRenderer.render(WorldRenderer.java:484)
+	at knot//net.minecraft.client.render.GameRenderer.renderWorld(GameRenderer.java:695)
+	at knot//net.minecraft.client.render.GameRenderer.render(GameRenderer.java:502)
+	at knot//net.minecraft.client.MinecraftClient.render(MinecraftClient.java:1246)
+	at knot//net.minecraft.client.MinecraftClient.run(MinecraftClient.java:882)
+	at knot//net.minecraft.client.main.Main.main(Main.java:234)
+	at net.fabricmc.loader.impl.game.minecraft.MinecraftGameProvider.launch(MinecraftGameProvider.java:480)
+	at net.fabricmc.loader.impl.launch.knot.Knot.launch(Knot.java:74)
+	at net.fabricmc.loader.impl.launch.knot.KnotClient.main(KnotClient.java:23)
+	at net.fabricmc.devlaunchinjector.Main.main(Main.java:86)
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Head --
+Thread: Render thread
+Stacktrace:
+	at knot//software.bernie.geckolib.renderer.base.GeoRenderer.captureDefaultRenderState(GeoRenderer.java:145)
+	at knot//software.bernie.geckolib.renderer.GeoBlockRenderer.captureDefaultRenderState(GeoBlockRenderer.java:113)
+	at knot//software.bernie.geckolib.renderer.GeoBlockRenderer.captureDefaultRenderState(GeoBlockRenderer.java:39)
+	at knot//software.bernie.geckolib.renderer.base.GeoRenderer.fillRenderState(GeoRenderer.java:165)
+	at knot//software.bernie.geckolib.renderer.GeoBlockRenderer.render(GeoBlockRenderer.java:156)
+	at knot//net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher.render(BlockEntityRenderDispatcher.java:97)
+	at knot//net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher.render(BlockEntityRenderDispatcher.java:85)
+	at knot//net.minecraft.client.render.WorldRenderer.renderBlockEntities(WorldRenderer.java:739)
+	at knot//net.minecraft.client.render.WorldRenderer.method_62214(WorldRenderer.java:552)
+	at knot//net.minecraft.client.render.FrameGraphBuilder.run(FrameGraphBuilder.java:68)
+	at knot//net.minecraft.client.render.WorldRenderer.render(WorldRenderer.java:484)
+	at knot//net.minecraft.client.render.GameRenderer.renderWorld(GameRenderer.java:695)
+
+-- Block Entity Details --
+Details:
+	Name: stargazer:eyejar // com.github.starcatcher21.starlib.block.clases.eyes.eyejar.EyeJarEntity
+	Cached block: Block{stargazer:eye_jar}
+	Actual block: Block{stargazer:eye_jar}
+	Block location: World: (-29,117,-10), Section: (at 3,5,6 in -2,7,-1; chunk contains blocks -32,-64,-16 to -17,319,-1), Region: (-1,-1; contains chunks -32,-32 to -1,-1, blocks -512,-64,-512 to -1,319,-1)
+Stacktrace:
+	at knot//net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher.render(BlockEntityRenderDispatcher.java:85)
+	at knot//net.minecraft.client.render.WorldRenderer.renderBlockEntities(WorldRenderer.java:739)
+	at knot//net.minecraft.client.render.WorldRenderer.method_62214(WorldRenderer.java:552)
+	at knot//net.minecraft.client.render.FrameGraphBuilder.run(FrameGraphBuilder.java:68)
+	at knot//net.minecraft.client.render.WorldRenderer.render(WorldRenderer.java:484)
+	at knot//net.minecraft.client.render.GameRenderer.renderWorld(GameRenderer.java:695)
+	at knot//net.minecraft.client.render.GameRenderer.render(GameRenderer.java:502)
+	at knot//net.minecraft.client.MinecraftClient.render(MinecraftClient.java:1246)
+	at knot//net.minecraft.client.MinecraftClient.run(MinecraftClient.java:882)
+	at knot//net.minecraft.client.main.Main.main(Main.java:234)
+	at net.fabricmc.loader.impl.game.minecraft.MinecraftGameProvider.launch(MinecraftGameProvider.java:480)
+	at net.fabricmc.loader.impl.launch.knot.Knot.launch(Knot.java:74)
+	at net.fabricmc.loader.impl.launch.knot.KnotClient.main(KnotClient.java:23)
+	at net.fabricmc.devlaunchinjector.Main.main(Main.java:86)
+
+-- Uptime --
+Details:
+	JVM uptime: 28.762s
+	Wall uptime: 17.715s
+	High-res time: 16.474s
+	Client ticks: 261 ticks / 13.050s
+Stacktrace:
+	at knot//net.minecraft.client.MinecraftClient.addDetailsToCrashReport(MinecraftClient.java:2150)
+	at knot//net.minecraft.client.MinecraftClient.printCrashReport(MinecraftClient.java:944)
+	at knot//net.minecraft.client.MinecraftClient.run(MinecraftClient.java:900)
+	at knot//net.minecraft.client.main.Main.main(Main.java:234)
+	at net.fabricmc.loader.impl.game.minecraft.MinecraftGameProvider.launch(MinecraftGameProvider.java:480)
+	at net.fabricmc.loader.impl.launch.knot.Knot.launch(Knot.java:74)
+	at net.fabricmc.loader.impl.launch.knot.KnotClient.main(KnotClient.java:23)
+	at net.fabricmc.devlaunchinjector.Main.main(Main.java:86)
+
+-- Affected level --
+Details:
+	All players: 1 total; ClientPlayerEntity{name=Player504, id=13, pos=(-30.61219061590362, 117.0, -10.578569199353451), mode=CREATIVE, permission=4}
+	Chunk stats: 961, 637
+	Level dimension: stargazer:cosmic
+	Level spawn location: World: (-41,-60,-11), Section: (at 7,4,5 in -3,-4,-1; chunk contains blocks -48,-64,-16 to -33,319,-1), Region: (-1,-1; contains chunks -32,-32 to -1,-1, blocks -512,-64,-512 to -1,319,-1)
+	Level time: 3540205 game time, 1000 day time
+	Server brand: fabric
+	Server type: Integrated singleplayer server
+	Tracked entity count: 8
+
+-- Last reload --
+Details:
+	Reload number: 1
+	Reload reason: initial
+	Finished: Yes
+	Packs: vanilla, fabric, cloth-config, fabric-api, fabric-api-base, fabric-api-lookup-api-v1, fabric-biome-api-v1, fabric-block-api-v1, fabric-block-view-api-v2, fabric-blockrenderlayer-v1, fabric-client-gametest-api-v1, fabric-client-tags-api-v1, fabric-command-api-v1, fabric-command-api-v2, fabric-commands-v0, fabric-content-registries-v0, fabric-convention-tags-v1, fabric-convention-tags-v2, fabric-crash-report-info-v1, fabric-data-attachment-api-v1, fabric-data-generation-api-v1, fabric-dimensions-v1, fabric-entity-events-v1, fabric-events-interaction-v0, fabric-game-rule-api-v1, fabric-gametest-api-v1, fabric-item-api-v1, fabric-item-group-api-v1, fabric-key-binding-api-v1, fabric-keybindings-v0, fabric-lifecycle-events-v1, fabric-loot-api-v2, fabric-loot-api-v3, fabric-message-api-v1, fabric-model-loading-api-v1, fabric-networking-api-v1, fabric-object-builder-api-v1, fabric-particles-v1, fabric-recipe-api-v1, fabric-registry-sync-v0, fabric-renderer-api-v1, fabric-renderer-indigo, fabric-rendering-data-attachment-v1, fabric-rendering-fluids-v1, fabric-rendering-v1, fabric-resource-conditions-api-v1, fabric-resource-loader-v0, fabric-screen-api-v1, fabric-screen-handler-api-v1, fabric-sound-api-v1, fabric-tag-api-v1, fabric-transfer-api-v1, fabric-transitive-access-wideners-v1, fabricloader, roughlyenoughitems, stargazer, worldedit
+
+-- System Details --
+Details:
+	Minecraft Version: 1.21.5
+	Minecraft Version ID: 1.21.5
+	Operating System: Linux (amd64) version 6.15.2-artix1-1
+	Java Version: 21.0.7, Artix Linux
+	Java VM Version: OpenJDK 64-Bit Server VM (mixed mode, sharing), Artix Linux
+	Memory: 269969864 bytes (257 MiB) / 1302331392 bytes (1242 MiB) up to 4020240384 bytes (3834 MiB)
+	CPUs: 12
+	Processor Vendor: AuthenticAMD
+	Processor Name: AMD Ryzen 5 5600H with Radeon Graphics
+	Identifier: AuthenticAMD Family 25 Model 80 Stepping 0
+	Microarchitecture: Zen 3
+	Frequency (GHz): -0.00
+	Number of physical packages: 1
+	Number of physical CPUs: 6
+	Number of logical CPUs: 12
+	Graphics card #0 name: Cezanne [Radeon Vega Series / Radeon Vega Mobile Series]
+	Graphics card #0 vendor: Advanced Micro Devices, Inc. [AMD/ATI] (0x1002)
+	Graphics card #0 VRAM (MiB): 258.00
+	Graphics card #0 deviceId: 0x1638
+	Graphics card #0 versionInfo: unknown
+	Virtual memory max (MiB): 7666.57
+	Virtual memory used (MiB): 8671.37
+	Swap memory total (MiB): 0.00
+	Swap memory used (MiB): 0.00
+	Space in storage for jna.tmpdir (MiB): <path not set>
+	Space in storage for org.lwjgl.system.SharedLibraryExtractPath (MiB): <path not set>
+	Space in storage for io.netty.native.workdir (MiB): <path not set>
+	Space in storage for java.io.tmpdir (MiB): available: 35333.46, total: 90281.65
+	Space in storage for workdir (MiB): available: 271311.44, total: 868539.00
+	JVM Flags: 0 total; 
+	Fabric Mods: 
+		architectury: Architectury 16.1.4
+		cloth-basic-math: cloth-basic-math 0.6.1
+		cloth-config: Cloth Config v17 18.0.145
+		error_notifier: Error Notifier 1.0.11
+		fabric-api: Fabric API 0.126.0+1.21.5
+		fabric-api-base: Fabric API Base 0.4.62+73a52b4b49
+		fabric-api-lookup-api-v1: Fabric API Lookup API (v1) 1.6.96+86c3a9f149
+		fabric-biome-api-v1: Fabric Biome API (v1) 16.0.7+2dd063df49
+		fabric-block-api-v1: Fabric Block API (v1) 1.1.0+ed91556f49
+		fabric-block-view-api-v2: Fabric BlockView API (v2) 1.0.26+aa6d566c49
+		fabric-blockrenderlayer-v1: Fabric BlockRenderLayer Registration (v1) 2.0.16+86c3a9f149
+		fabric-client-gametest-api-v1: Fabric Client Game Test API (v1) 4.2.0+dac2d6e349
+		fabric-client-tags-api-v1: Fabric Client Tags 1.1.37+86c3a9f149
+		fabric-command-api-v1: Fabric Command API (v1) 1.2.70+f71b366f49
+		fabric-command-api-v2: Fabric Command API (v2) 2.2.49+73a52b4b49
+		fabric-commands-v0: Fabric Commands (v0) 0.2.87+df3654b349
+		fabric-content-registries-v0: Fabric Content Registries (v0) 10.0.14+3e6c1f7d49
+		fabric-convention-tags-v1: Fabric Convention Tags 2.1.32+7f945d5b49
+		fabric-convention-tags-v2: Fabric Convention Tags (v2) 2.15.1+0570995b49
+		fabric-crash-report-info-v1: Fabric Crash Report Info (v1) 0.3.12+86c3a9f149
+		fabric-data-attachment-api-v1: Fabric Data Attachment API (v1) 1.8.3+bc514c4549
+		fabric-data-generation-api-v1: Fabric Data Generation API (v1) 22.4.2+ea72995749
+		fabric-dimensions-v1: Fabric Dimensions API (v1) 4.0.17+3e6c1f7d49
+		fabric-entity-events-v1: Fabric Entity Events (v1) 2.1.0+3ce7866349
+		fabric-events-interaction-v0: Fabric Events Interaction (v0) 4.0.15+64e3057949
+		fabric-game-rule-api-v1: Fabric Game Rule API (v1) 1.0.70+c327076a49
+		fabric-gametest-api-v1: Fabric Game Test API (v1) 3.1.3+2a6ec84b49
+		fabric-item-api-v1: Fabric Item API (v1) 11.4.1+e46fd76a49
+		fabric-item-group-api-v1: Fabric Item Group API (v1) 4.2.9+3459fc6149
+		fabric-key-binding-api-v1: Fabric Key Binding API (v1) 1.0.63+ecf51cdc49
+		fabric-keybindings-v0: Fabric Key Bindings (v0) 0.2.61+df3654b349
+		fabric-lifecycle-events-v1: Fabric Lifecycle Events (v1) 2.6.0+230071a049
+		fabric-loot-api-v2: Fabric Loot API (v2) 3.0.48+3f89f5a549
+		fabric-loot-api-v3: Fabric Loot API (v3) 1.0.36+86c3a9f149
+		fabric-message-api-v1: Fabric Message API (v1) 6.1.0+fe971bba49
+		fabric-model-loading-api-v1: Fabric Model Loading API (v1) 5.2.1+5281b90749
+		fabric-networking-api-v1: Fabric Networking API (v1) 4.5.0+775be32c49
+		fabric-object-builder-api-v1: Fabric Object Builder API (v1) 21.1.1+b8d6ba7049
+		fabric-particles-v1: Fabric Particles (v1) 4.1.2+112e550e49
+		fabric-recipe-api-v1: Fabric Recipe API (v1) 8.1.8+3235ab3249
+		fabric-registry-sync-v0: Fabric Registry Sync (v0) 6.1.21+b556383249
+		fabric-renderer-api-v1: Fabric Renderer API (v1) 6.1.0+5281b90749
+		fabric-renderer-indigo: Fabric Renderer - Indigo 3.1.0+5281b90749
+		fabric-rendering-data-attachment-v1: Fabric Rendering Data Attachment (v1) 0.3.64+73761d2e49
+		fabric-rendering-fluids-v1: Fabric Rendering Fluids (v1) 3.1.27+86c3a9f149
+		fabric-rendering-v1: Fabric Rendering (v1) 11.1.11+5490746649
+		fabric-resource-conditions-api-v1: Fabric Resource Conditions API (v1) 5.0.21+73a52b4b49
+		fabric-resource-loader-v0: Fabric Resource Loader (v0) 3.1.7+847e5f5c49
+		fabric-screen-api-v1: Fabric Screen API (v1) 2.0.46+86c3a9f149
+		fabric-screen-handler-api-v1: Fabric Screen Handler API (v1) 1.3.128+c327076a49
+		fabric-sound-api-v1: Fabric Sound API (v1) 1.0.38+86c3a9f149
+		fabric-tag-api-v1: Fabric Tag API (v1) 1.0.17+ecf51cdc49
+		fabric-transfer-api-v1: Fabric Transfer API (v1) 5.4.24+7b20cbb049
+		fabric-transitive-access-wideners-v1: Fabric Transitive Access Wideners (v1) 6.3.17+f17a180c49
+		fabricloader: Fabric Loader 0.16.14
+		geckolib: GeckoLib 5 5.0.2
+		java: OpenJDK 64-Bit Server VM 21
+		minecraft: Minecraft 1.21.5
+		mixinextras: MixinExtras 0.4.1
+		roughlyenoughitems: Roughly Enough Items 19.0.809
+		stargazer: STARGAZER 1.0.0
+		worldedit: WorldEdit 7.3.14+7149-8bea01b
+			worldeditcui_protocol: WorldEditCUI Protocol (Fabric) 4.0.1
+	Launched Version: Fabric
+	Backend library: LWJGL version 3.3.3-snapshot
+	Backend API: AMD Radeon Graphics (radeonsi, renoir, ACO, DRM 3.63, 6.15.2-artix1-1) GL version 4.6 (Core Profile) Mesa 25.1.4-arch1.1, AMD
+	Window size: 1457x708
+	GFLW Platform: x11
+	Render Extensions: GL_KHR_debug, GL_ARB_vertex_attrib_binding, GL_ARB_direct_state_access
+	GL debug messages: 
+	Is Modded: Definitely; Client brand changed to 'fabric'; Server brand changed to 'fabric'
+	Universe: 400921fb54442d18
+	Type: Integrated Server (map_client.txt)
+	Graphics mode: fancy
+	Render Distance: 12/12 chunks
+	Resource Packs: vanilla, fabric, cloth-config, fabric-api, fabric-api-base, fabric-api-lookup-api-v1, fabric-biome-api-v1, fabric-block-api-v1, fabric-block-view-api-v2, fabric-blockrenderlayer-v1, fabric-client-gametest-api-v1, fabric-client-tags-api-v1, fabric-command-api-v1, fabric-command-api-v2, fabric-commands-v0, fabric-content-registries-v0, fabric-convention-tags-v1, fabric-convention-tags-v2, fabric-crash-report-info-v1, fabric-data-attachment-api-v1, fabric-data-generation-api-v1, fabric-dimensions-v1, fabric-entity-events-v1, fabric-events-interaction-v0, fabric-game-rule-api-v1, fabric-gametest-api-v1, fabric-item-api-v1, fabric-item-group-api-v1, fabric-key-binding-api-v1, fabric-keybindings-v0, fabric-lifecycle-events-v1, fabric-loot-api-v2, fabric-loot-api-v3, fabric-message-api-v1, fabric-model-loading-api-v1, fabric-networking-api-v1, fabric-object-builder-api-v1, fabric-particles-v1, fabric-recipe-api-v1, fabric-registry-sync-v0, fabric-renderer-api-v1, fabric-renderer-indigo, fabric-rendering-data-attachment-v1, fabric-rendering-fluids-v1, fabric-rendering-v1, fabric-resource-conditions-api-v1, fabric-resource-loader-v0, fabric-screen-api-v1, fabric-screen-handler-api-v1, fabric-sound-api-v1, fabric-tag-api-v1, fabric-transfer-api-v1, fabric-transitive-access-wideners-v1, fabricloader, roughlyenoughitems, stargazer, worldedit (incompatible)
+	Current Language: en_us
+	Locale: en
+	System encoding: UTF-8
+	File encoding: UTF-8
+	CPU: 12x AMD Ryzen 5 5600H with Radeon Graphics
+	Server Running: true
+	Player Count: 1 / 8; [ServerPlayerEntity['Player504'/13, l='ServerLevel[New World]', x=-30.61, y=117.00, z=-10.58]]
+	Active Data Packs: vanilla, fabric, fabric-convention-tags-v2, fabric-gametest-api-v1, stargazer
+	Available Data Packs: fabric, fabric-convention-tags-v2, fabric-gametest-api-v1, minecart_improvements, redstone_experiments, stargazer, trade_rebalance, vanilla
+	Enabled Feature Flags: minecraft:vanilla
+	World Generation: Experimental
+	World Seed: 92386881410606280
+	Suppressed Exceptions: ~~NONE~~

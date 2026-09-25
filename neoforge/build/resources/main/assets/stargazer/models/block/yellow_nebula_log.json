@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "stargazer:block/yellow_nebula_log_top",
+    "side": "stargazer:block/yellow_nebula_log_side"
+  }
+}

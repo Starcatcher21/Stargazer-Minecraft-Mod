@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "stargazer:block/purple_nebula_planks",
+    "side": "stargazer:block/purple_nebula_planks",
+    "top": "stargazer:block/purple_nebula_planks"
+  }
+}

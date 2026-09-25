@@ -1,0 +1,18 @@
+{
+  "type": "stargazer:starforge",
+  "pattern": [
+    "  S  ",
+    " SBS ",
+    "SBBBS",
+    " SSS ",
+    "S   S"
+  ],
+  "key": {
+    "B": "minecraft:black_concrete",
+    "S": "stargazer:stardust"
+  },
+  "result": {
+    "count": 4,
+    "id": "stargazer:cosmic_block"
+  }
+}

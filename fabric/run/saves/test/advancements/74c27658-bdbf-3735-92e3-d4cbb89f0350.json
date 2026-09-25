@@ -1,0 +1,15 @@
+{
+  "minecraft:recipes/decorations/crafting_table": {
+    "criteria": {
+      "unlock_right_away": "2025-01-12 13:58:59 +0100"
+    },
+    "done": true
+  },
+  "gsad:recipes/misc/stardust": {
+    "criteria": {
+      "has_dream_block": "2025-01-12 13:58:59 +0100"
+    },
+    "done": true
+  },
+  "DataVersion": 4189
+}

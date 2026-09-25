@@ -1,0 +1,161 @@
+---- Minecraft Crash Report ----
+// Ooh. Shiny.
+
+Time: 2026-09-24 15:17:36
+Description: Bootstrap
+
+net.neoforged.fml.ModLoadingException: Loading errors encountered:
+	- Stargazer (stargazer) has failed to load correctly
+	  java.lang.IllegalArgumentException: Expected @SubscribeEvent method public static void com.github.starcatcher21.stargazer.neoforge.client.StargazerNeoForgeRenderEvents.onRenderLevelStage(net.neoforged.neoforge.client.event.RenderLevelStageEvent$AfterSky) to NOT be static
+	  because register() was called with an instance type.
+	  Either make the method non-static, or call register(StargazerNeoForgeRenderEvents.class).
+	  
+Loading warnings encountered:
+	- loadwarning.neoforge.onlyin
+	- loadwarning.neoforge.onlyin
+	- Mod roughlyenoughitems uses the deprecated `logoFile` property; change to `bannerFile` and/or (for square icons) `iconFile`
+	- Mod cloth_config uses the deprecated `logoFile` property; change to `bannerFile` and/or (for square icons) `iconFile`
+	- Mod geckolib uses the deprecated `logoFile` property; change to `bannerFile` and/or (for square icons) `iconFile`
+	- Mod architectury uses the deprecated `logoFile` property; change to `bannerFile` and/or (for square icons) `iconFile`
+
+	at net.neoforged.fml.ModLoader.waitForFuture(ModLoader.java:253) ~[loader-11.0.16.jar:11.0] {}
+	at net.neoforged.fml.ModLoader.dispatchParallelTask(ModLoader.java:216) ~[loader-11.0.16.jar:11.0] {}
+	at net.neoforged.fml.ModLoader.constructMods(ModLoader.java:124) ~[loader-11.0.16.jar:11.0] {}
+	at net.neoforged.fml.ModLoader.gatherAndInitializeMods(ModLoader.java:101) ~[loader-11.0.16.jar:11.0] {}
+	at TRANSFORMER/neoforge@26.2.0.52-beta/net.neoforged.neoforge.internal.CommonModLoader.begin(CommonModLoader.java:49) ~[forge-universal.jar:?] {}
+	at TRANSFORMER/neoforge@26.2.0.52-beta/net.neoforged.neoforge.client.loading.ClientModLoader.begin(ClientModLoader.java:55) ~[forge-universal.jar:?] {}
+	at TRANSFORMER/minecraft@26.2/net.minecraft.client.main.Main.main(Main.java:167) [neoforge-26.2.0.52-beta-minecraft-merged-dd54c0cecb-26.2.jar:?] {}
+	at net.neoforged.fml.startup.Client.main(Client.java:19) [loader-11.0.16.jar:11.0] {}
+	at net.fabricmc.devlaunchinjector.Main.main(Main.java:86) [dev-launch-injector-0.2.1+build.8.jar:?] {}
+	at dev.architectury.transformer.TransformerRuntime.main(TransformerRuntime.java:220) [architectury-transformer-5.2.92-runtime.jar:5.2.92] {}
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Head --
+Thread: main
+Stacktrace:
+	at net.neoforged.fml.ModLoader.waitForFuture(ModLoader.java:253) ~[loader-11.0.16.jar:11.0] {}
+	at net.neoforged.fml.ModLoader.dispatchParallelTask(ModLoader.java:216) ~[loader-11.0.16.jar:11.0] {}
+	at net.neoforged.fml.ModLoader.constructMods(ModLoader.java:124) ~[loader-11.0.16.jar:11.0] {}
+	at net.neoforged.fml.ModLoader.gatherAndInitializeMods(ModLoader.java:101) ~[loader-11.0.16.jar:11.0] {}
+	at TRANSFORMER/neoforge@26.2.0.52-beta/net.neoforged.neoforge.internal.CommonModLoader.begin(CommonModLoader.java:49) ~[forge-universal.jar:?] {}
+	at TRANSFORMER/neoforge@26.2.0.52-beta/net.neoforged.neoforge.client.loading.ClientModLoader.begin(ClientModLoader.java:55) ~[forge-universal.jar:?] {}
+-- Initialization --
+Details:
+	Modules: 
+Stacktrace:
+	at TRANSFORMER/minecraft@26.2/net.minecraft.client.main.Main.main(Main.java:167) [neoforge-26.2.0.52-beta-minecraft-merged-dd54c0cecb-26.2.jar:?] {}
+	at net.neoforged.fml.startup.Client.main(Client.java:19) [loader-11.0.16.jar:11.0] {}
+	at net.fabricmc.devlaunchinjector.Main.main(Main.java:86) [dev-launch-injector-0.2.1+build.8.jar:?] {}
+	at dev.architectury.transformer.TransformerRuntime.main(TransformerRuntime.java:220) [architectury-transformer-5.2.92-runtime.jar:5.2.92] {}
+
+
+-- System Details --
+Details:
+	Minecraft Version: 26.2
+	Minecraft Version ID: 26.2
+	Operating System: Linux (amd64) version 7.2.6-zen2-1-zen
+	Java Version: 26.0.2.1, Arch Linux
+	Java VM Version: OpenJDK 64-Bit Server VM (mixed mode, sharing), Arch Linux
+	Memory: 696956544 bytes (664 MiB) / 2480930816 bytes (2366 MiB) up to 4018143232 bytes (3832 MiB)
+	Memory (heap): init: 008MiB, used: 1700MiB, committed: 2366MiB, max: 3832MiB
+	Memory (non-head): init: 007MiB, used: 144MiB, committed: 146MiB, max: 000MiB
+	CPUs: 12
+	Processor Vendor: AuthenticAMD
+	Processor Name: AMD Ryzen 5 5600H with Radeon Graphics
+	Identifier: AuthenticAMD Family 25 Model 80 Stepping 0
+	Microarchitecture: Zen 3
+	Frequency (GHz): -0.00
+	Number of physical packages: 1
+	Number of physical CPUs: 6
+	Number of logical CPUs: 12
+	Graphics card #0 name: TU117M [GeForce GTX 1650 Mobile / Max-Q]
+	Graphics card #0 vendor: NVIDIA Corporation (0x10de)
+	Graphics card #0 VRAM (MiB): 288.00
+	Graphics card #0 deviceId: 0x1f9d
+	Graphics card #0 versionInfo: unknown
+	Graphics card #1 name: Cezanne [Radeon Vega Series / Radeon Vega Mobile Series]
+	Graphics card #1 vendor: Advanced Micro Devices, Inc. [AMD/ATI] (0x1002)
+	Graphics card #1 VRAM (MiB): 258.00
+	Graphics card #1 deviceId: 0x1638
+	Graphics card #1 versionInfo: unknown
+	Virtual memory max (MiB): 7663.58
+	Virtual memory used (MiB): 10713.97
+	Swap memory total (MiB): 0.00
+	Swap memory used (MiB): 0.00
+	Space in storage for jna.tmpdir (MiB): <path not set>
+	Space in storage for org.lwjgl.system.SharedLibraryExtractPath (MiB): <path not set>
+	Space in storage for io.netty.native.workdir (MiB): <path not set>
+	Space in storage for java.io.tmpdir (MiB): available: 30927.16, total: 90281.65
+	Space in storage for workdir (MiB): available: 96824.25, total: 868539.00
+	Operating System Version: GNU/Linux Artix Linux unknown (unknown) build 7.2.6-zen2-1-zen
+	Process Elevated: false
+	Process Loads: Uptime: 14s, user: 47s (342.55%), kernel: 2s (11.64%), total: 48s (354.19%)
+	Process Virtual Size (MiB): 6830.65
+	Process Resident Size (MiB): 2956.30
+	JVM Flags: 2 total; -XX:StackShadowPages=32 -XX:StackShadowPages=32
+	Debug Flags: 0 total; 
+	Launched Version: 26.2.0.52-beta
+	Backend library: LWJGL version 3.4.1+2
+	Window size: <not initialized>
+	Surface Info: <no surface>
+	GFLW Platform: null
+	Graphics Device: <none>
+	GL debug messages: <no renderer available>
+	Is Modded: Definitely; Client brand changed to 'neoforge'
+	Universe: 404
+	Type: Client
+	Locale: en
+	System encoding: UTF-8
+	File encoding: UTF-8
+	CPU: 12x AMD Ryzen 5 5600H with Radeon Graphics
+	Class Processors: 
+		00.00%: neoforge:neoforge_dev_dist_cleaner
+		00.00%: neoforge:computing_frames (marker)
+		00.00%: neoforge:runtime_enum_extender
+		04.29%: neoforge:access_transformer
+		00.44%: neoforge:mixin
+		00.00%: neoforge:simple_processors_default (marker)
+		00.02%: neoforge.coremods:field_to_getter.net.minecraft.world.level.biome.biome
+		00.02%: neoforge.coremods:field_to_getter.net.minecraft.world.level.block.flowerpotblock
+		00.02%: neoforge.coremods:field_to_getter.net.minecraft.world.level.levelgen.structure.structure
+		00.31%: neoforge.coremods:method_redirector
+	Mod List: 
+		architectury-neoforge-21.0.7.jar                  |Architectury                  |architectury                  |21.0.7              |Manifest: 40e598b365e645ea0335400d59bde08eea59aabe0646869b5d6e36fc346ce747
+		cloth-config-neoforge-26.2.155.jar                |Cloth Config v26.2 API        |cloth_config                  |26.2.155            |Manifest: 650cdc79fcb3332dd08d75634443b93b012dba49b748359a4a97f0975bc55c31
+		geckolib-neoforge-26.2-5.5.3.jar                  |GeckoLib 5                    |geckolib                      |5.5.3               |Manifest: 695e119a37602b98b23d9bcc0cb3463783b4be0f2957b79d1e4153ec067e9dc3
+		2755148935256689128.jar                           |generated_1016463             |generated_1016463             |1                   |Manifest: c5f08b90b3feef464c5022ea757067e01837a05b623d506faf2b841c3e3bc121
+		neoforge-26.2.0.52-beta-minecraft-merged-dd54c0cec|Minecraft                     |minecraft                     |26.2                |Manifest: NOSIGNATURE
+		forge-universal.jar                               |NeoForge                      |neoforge                      |26.2.0.52-beta      |Manifest: NOSIGNATURE
+		RoughlyEnoughItems-neoforge-26.2.820.jar          |Roughly Enough Items (REI)    |roughlyenoughitems            |26.2.820            |Manifest: d46284ac4d8b0d714cba03f62178ab57d8ca6805acf700855db0ab1e84dfebad
+		main                                              |Stargazer                     |stargazer                     |0.0.9               |Manifest: NOSIGNATURE
+		starlib-neoforge-1.0.3.jar                        |Starlib                       |starlib                       |1.0.3               |Manifest: da85def6936eff98f98d73e34275a5b62c4d06272d7c1ee3ebf0cd5a6c702f3b
+	Crash Report UUID: 87e97978-72c6-44dc-9ecb-895b0b1a881d
+	FML: 11.0.16
+	NeoForge: 26.2.0.52-beta
+	Class Processors: 
+		00.00%: neoforge:neoforge_dev_dist_cleaner
+		00.00%: neoforge:computing_frames (marker)
+		00.00%: neoforge:runtime_enum_extender
+		04.29%: neoforge:access_transformer
+		00.44%: neoforge:mixin
+		00.00%: neoforge:simple_processors_default (marker)
+		00.02%: neoforge.coremods:field_to_getter.net.minecraft.world.level.biome.biome
+		00.02%: neoforge.coremods:field_to_getter.net.minecraft.world.level.block.flowerpotblock
+		00.02%: neoforge.coremods:field_to_getter.net.minecraft.world.level.levelgen.structure.structure
+		00.31%: neoforge.coremods:method_redirector
+	Mod List: 
+		architectury-neoforge-21.0.7.jar                  |Architectury                  |architectury                  |21.0.7              |Manifest: 40e598b365e645ea0335400d59bde08eea59aabe0646869b5d6e36fc346ce747
+		cloth-config-neoforge-26.2.155.jar                |Cloth Config v26.2 API        |cloth_config                  |26.2.155            |Manifest: 650cdc79fcb3332dd08d75634443b93b012dba49b748359a4a97f0975bc55c31
+		geckolib-neoforge-26.2-5.5.3.jar                  |GeckoLib 5                    |geckolib                      |5.5.3               |Manifest: 695e119a37602b98b23d9bcc0cb3463783b4be0f2957b79d1e4153ec067e9dc3
+		2755148935256689128.jar                           |generated_1016463             |generated_1016463             |1                   |Manifest: c5f08b90b3feef464c5022ea757067e01837a05b623d506faf2b841c3e3bc121
+		neoforge-26.2.0.52-beta-minecraft-merged-dd54c0cec|Minecraft                     |minecraft                     |26.2                |Manifest: NOSIGNATURE
+		forge-universal.jar                               |NeoForge                      |neoforge                      |26.2.0.52-beta      |Manifest: NOSIGNATURE
+		RoughlyEnoughItems-neoforge-26.2.820.jar          |Roughly Enough Items (REI)    |roughlyenoughitems            |26.2.820            |Manifest: d46284ac4d8b0d714cba03f62178ab57d8ca6805acf700855db0ab1e84dfebad
+		main                                              |Stargazer                     |stargazer                     |0.0.9               |Manifest: NOSIGNATURE
+		starlib-neoforge-1.0.3.jar                        |Starlib                       |starlib                       |1.0.3               |Manifest: da85def6936eff98f98d73e34275a5b62c4d06272d7c1ee3ebf0cd5a6c702f3b
+	Crash Report UUID: a805872d-a9df-4411-a32f-9e4a22c06a78
+	FML: 11.0.16
+	NeoForge: 26.2.0.52-beta

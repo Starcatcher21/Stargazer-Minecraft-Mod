@@ -1,0 +1,21 @@
+{
+  "minecraft:recipes/decorations/crafting_table": {
+    "criteria": {
+      "unlock_right_away": "2025-11-12 21:05:51 +0100"
+    },
+    "done": true
+  },
+  "stargazer:recipes/building_blocks/moon_rock_bricks_stairs": {
+    "criteria": {
+      "rock": "2025-11-12 21:06:06 +0100"
+    },
+    "done": true
+  },
+  "stargazer:recipes/building_blocks/moon_rock_bricks_slab": {
+    "criteria": {
+      "rock": "2025-11-12 21:06:06 +0100"
+    },
+    "done": true
+  },
+  "DataVersion": 4325
+}

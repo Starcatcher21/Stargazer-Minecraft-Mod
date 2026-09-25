@@ -1,0 +1,10 @@
+{
+  "type": "stargazer:moon_welder",
+  "item1": "minecraft:glass_bottle",
+  "item2": "stargazer:living_eye",
+  "moon_phase": 4,
+  "result": {
+    "count": 1,
+    "id": "stargazer:eye_jar"
+  }
+}

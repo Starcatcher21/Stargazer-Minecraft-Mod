@@ -1,0 +1,64 @@
+{
+	"variants": {
+		"flower_amount=1,facing=west": {
+			"model": "stargazer:block/eyes1"
+		},
+		"flower_amount=2,facing=west": {
+			"model": "stargazer:block/eyes2"
+		},
+		"flower_amount=3,facing=west": {
+			"model": "stargazer:block/eyes3"
+		},
+		"flower_amount=4,facing=west": {
+			"model": "stargazer:block/eyes4"
+		},
+		"flower_amount=1,facing=north": {
+			"model": "stargazer:block/eyes1",
+			"y": 90
+		},
+		"flower_amount=2,facing=north": {
+			"model": "stargazer:block/eyes2",
+			"y": 90
+		},
+		"flower_amount=3,facing=north": {
+			"model": "stargazer:block/eyes3",
+			"y": 90
+		},
+		"flower_amount=4,facing=north": {
+			"model": "stargazer:block/eyes4",
+			"y": 90
+		},
+		"flower_amount=1,facing=east": {
+			"model": "stargazer:block/eyes1",
+			"y": 180
+		},
+		"flower_amount=2,facing=east": {
+			"model": "stargazer:block/eyes2",
+			"y": 180
+		},
+		"flower_amount=3,facing=east": {
+			"model": "stargazer:block/eyes3",
+			"y": 180
+		},
+		"flower_amount=4,facing=east": {
+			"model": "stargazer:block/eyes4",
+			"y": 180
+		},
+		"flower_amount=1,facing=south": {
+			"model": "stargazer:block/eyes1",
+			"y": 270
+		},
+		"flower_amount=2,facing=south": {
+			"model": "stargazer:block/eyes2",
+			"y": 270
+		},
+		"flower_amount=3,facing=south": {
+			"model": "stargazer:block/eyes3",
+			"y": 270
+		},
+		"flower_amount=4,facing=south": {
+			"model": "stargazer:block/eyes4",
+			"y": 270
+		}
+	}
+}
