@@ -1,6 +1,7 @@
 {
   "values": [
     "stargazer:trunn_log",
+    "stargazer:umbrella_log",
     "stargazer:moon_log",
     "stargazer:curve_log",
     "stargazer:stripped_curve_log",
@@ -18,6 +19,7 @@
     "stargazer:purple_nebula_log",
     "stargazer:acacia_hedge",
     "stargazer:birch_hedge",
+    "stargazer:umbrella_hedge",
     "stargazer:cherry_hedge",
     "stargazer:dark_oak_hedge",
     "stargazer:jungle_hedge",

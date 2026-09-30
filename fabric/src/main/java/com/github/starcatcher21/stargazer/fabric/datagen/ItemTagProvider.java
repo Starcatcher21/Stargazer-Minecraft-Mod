@@ -33,12 +33,11 @@ public class ItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .add(ModItems.IRON_DUST.get().builtInRegistryHolder().key())
                 .add(ModItems.COPPER_DUST.get().builtInRegistryHolder().key())
                 .add(ModItems.GOLD_DUST.get().builtInRegistryHolder().key())
+                .add(ModItems.FULL_MOON_DUST.get().builtInRegistryHolder().key())
                 .add(ModItems.STARDUST.get().builtInRegistryHolder().key());
         builder(CustomTags.COPPER_DUST).add(ModItems.COPPER_DUST.get().builtInRegistryHolder().key());
         builder(CustomTags.IRON_DUST).add(ModItems.IRON_DUST.get().builtInRegistryHolder().key());
         builder(CustomTags.GOLD_DUST).add(ModItems.GOLD_DUST.get().builtInRegistryHolder().key());
-        builder(ConventionalItemTags.BUCKETS)
-                .add(ModItems.DREAM_BUCKET.get().builtInRegistryHolder().key());
         builder(ConventionalItemTags.CROPS)
                 .add(Crops.BROODY.get().builtInRegistryHolder().key(), Crops.DRAGON_CARROT.get().builtInRegistryHolder().key(), Crops.EYE_BALLS.get().builtInRegistryHolder().key());
         builder(CustomTags.COSMIC)
@@ -65,6 +64,7 @@ public class ItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .add(Darkness.STRIPPED_LOG_OF_DARKNESS.get().asItem().builtInRegistryHolder().key());
         builder(ItemTags.SAPLINGS)
                 .add(MoonBlocks.MOON_SAPLING.get().asItem().builtInRegistryHolder().key())
+                .add(Wander.UMBRELLA_SAPLING.get().asItem().builtInRegistryHolder().key())
                 .add(StarBlocks.STAR_SAPLING.get().asItem().builtInRegistryHolder().key())
                 .add(Darkness.DARKNESS_SAPLING.get().asItem().builtInRegistryHolder().key())
                 .add(MoonBlocks.CURVE_SAPLING.get().asItem().builtInRegistryHolder().key())

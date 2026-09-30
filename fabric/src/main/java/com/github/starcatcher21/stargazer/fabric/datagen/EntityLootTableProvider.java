@@ -10,6 +10,7 @@ import net.minecraft.advancements.predicates.NbtPredicate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Util;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -63,24 +64,8 @@ public class EntityLootTableProvider extends FabricEntityLootSubProvider {
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 4.0f)))
                 ));
         this.add(EntityRegistry.AMETHYST_TURTLE_ENTITY.get(), LootTable.lootTable()
-                .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(0.0f)).add(LootItem.lootTableItem(MoonBlocks.FORGET_ME_NOW.get()))
-                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 0.0f)))
-                ));
-        this.add(EntityRegistry.THROWABLE_STAR_ENTITY.get(), LootTable.lootTable()
-                .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(0.0f)).add(LootItem.lootTableItem(MoonBlocks.FORGET_ME_NOW.get()))
-                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 0.0f)))
-                ));
-        this.add(EntityRegistry.BLACK_FOX_ENTITY.get(), LootTable.lootTable()
-                .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(0.0f)).add(LootItem.lootTableItem(MoonBlocks.FORGET_ME_NOW.get()))
-                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 0.0f)))
-                ));
-        this.add(EntityRegistry.SCRUBY_ENTITY.get(), LootTable.lootTable()
-                .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(0.0f)).add(LootItem.lootTableItem(MoonBlocks.FORGET_ME_NOW.get()))
-                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 0.0f)))
-                ));
-        this.add(EntityRegistry.STAR_ENTITY.get(), LootTable.lootTable()
-                .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(0.0f)).add(LootItem.lootTableItem(MoonBlocks.FORGET_ME_NOW.get()))
-                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 0.0f)))
+                .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0f)).add(LootItem.lootTableItem(Items.AMETHYST_SHARD))
+                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0f, 3.0f)))
                 ));
     }
 

@@ -81,6 +81,7 @@ public class LootTableProvider extends FabricBlockLootSubProvider {
         dropSelf(Energy.STAR_CRUSHER.get());
         add(Wander.BORIL.get(), oreDrops(Wander.BORIL.get(), Wander.PUROIL.get(), 1.0f, 1.0f));
         dropSelf(Wander.TRUNN_LOG.get());
+        dropSelf(Wander.UMBRELLA_LOG.get());
         add(Wander.TRUNN_LEAVES.get(), createLeavesDrops(Wander.TRUNN_LEAVES.get(), Wander.TRUNN_SAPLING.get(), 0.035F));
         dropSelf(ModBlock.GRAVE.get());
         add(ModBlock.INFESTED_CALCITE.get(), oreDrops(ModBlock.INFESTED_CALCITE.get(), Blocks.CALCITE, 1.0f, 1.0f));

@@ -28,7 +28,6 @@ import com.github.starcatcher21.stargazer.worldgen.CustomFeatures;
 import com.github.starcatcher21.stargazer.worldgen.features.PlacedFeatures;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.TreesRegistry;
 import dev.architectury.event.events.common.LifecycleEvent;
-import dev.architectury.event.events.common.PlayerEvent;
 import dev.architectury.event.events.common.TickEvent;
 import net.minecraft.core.Registry;
 import net.minecraft.server.level.ServerPlayer;
@@ -55,6 +54,7 @@ public class Stargazer {
 		CustomFeatures.init();
 		StatusEffects.init();
 		Potions.init();
+		GameRules.init();
 		DamageTypeRegistry.init();
 		BiomeReg.init();
 		BiomeTags.init();

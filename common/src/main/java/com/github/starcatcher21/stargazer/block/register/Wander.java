@@ -1,5 +1,3 @@
-// TODO(Ravel): Failed to fully resolve file: null cannot be cast to non-null type com.intellij.psi.PsiClass
-// TODO(Ravel): Failed to fully resolve file: null cannot be cast to non-null type com.intellij.psi.PsiClass
 package com.github.starcatcher21.stargazer.block.register;
 
 import com.github.starcatcher21.stargazer.Stargazer;
@@ -58,6 +56,28 @@ public class Wander {
             .instabreak()
     );
     public static final RegistrySupplier<Block> POTTED_TRUNN_SAPLING = registerWoItem("potted_trunn_sapling", settings -> new FlowerPotBlock(TRUNN_SAPLING.get(), settings), BlockBehaviour.Properties.ofFullCopy(Blocks.POTTED_ALLIUM).noOcclusion());
+
+    public static final RegistrySupplier<Block> UMBRELLA_LOG = register("umbrella_log", (settings) -> new MoonLog(null, settings), BlockBehaviour.Properties.of()
+            .forceSolidOn()
+            .sound(SoundType.WOOD)
+            .strength(2.0F)
+            .mapColor(MapColor.COLOR_BROWN)
+    );
+    public static final RegistrySupplier<Block> UMBRELLA_LEAVES = register("umbrella_leaves", (settings) -> new CustomLeaves(0x3ffcaa, settings), BlockBehaviour.Properties.of()
+            .forceSolidOn()
+            .noOcclusion()
+            .randomTicks()
+            .sound(SoundType.GRASS)
+            .strength(0.2F)
+            .mapColor(MapColor.EMERALD)
+    );
+    public static final RegistrySupplier<Block> UMBRELLA_SAPLING = register("umbrella_sapling", (BlockBehaviour.Properties settings) -> new CustomWanderSapling(Helpers.configuredFeatureOf(Stargazer.MOD_ID, "umbrella_trees"), settings), BlockBehaviour.Properties.of()
+            .noCollision()
+            .sound(SoundType.GRASS)
+            .randomTicks()
+            .instabreak()
+    );
+    public static final RegistrySupplier<Block> POTTED_UMBRELLA_SAPLING = registerWoItem("potted_umbrella_sapling", settings -> new FlowerPotBlock(UMBRELLA_SAPLING.get(), settings), BlockBehaviour.Properties.ofFullCopy(Blocks.POTTED_ALLIUM).noOcclusion());
 
     public static void init() {}
 }

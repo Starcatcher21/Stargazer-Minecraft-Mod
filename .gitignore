@@ -1,0 +1,13 @@
+/common/src/main/resources/resources.zip
+/fabric/run/
+/fabric/.gradle/
+/fabric/build/
+/neoforge/.gradle/
+/neoforge/build/
+/neoforge/run/
+/common/src/main/generated/
+/common/.gradle/
+/common/build/
+/common/run/
+/build/
+/.gradle/

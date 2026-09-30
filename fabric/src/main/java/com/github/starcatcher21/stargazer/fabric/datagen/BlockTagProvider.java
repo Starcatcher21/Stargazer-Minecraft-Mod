@@ -28,6 +28,7 @@ public class BlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
         // Wood
         builder(BlockTags.MINEABLE_WITH_AXE)
                 .add(Wander.TRUNN_LOG.get().properties().blockId())
+                .add(Wander.UMBRELLA_LOG.get().properties().blockId())
                 .add(MoonBlocks.MOON_LOG.get().properties().blockId())
                 .add(MoonBlocks.MOON_PLANKS_DOOR.get().properties().blockId())
                 .add(RedOrbBlocks.YERI_LOG.get().properties().blockId())
@@ -102,6 +103,7 @@ public class BlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
                 .add(Darkness.STRIPPED_LOG_OF_DARKNESS.get().properties().blockId());
         builder(BlockTags.LOGS)
                 .add(Wander.TRUNN_LOG.get().properties().blockId())
+                .add(Wander.UMBRELLA_LOG.get().properties().blockId())
                 .add(MoonBlocks.MOON_LOG.get().properties().blockId())
                 .add(MoonBlocks.CURVE_LOG.get().properties().blockId())
                 .add(MoonBlocks.STRIPPED_CURVE_LOG.get().properties().blockId())
@@ -119,6 +121,7 @@ public class BlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
                 .add(Nebulas.PURPLE_NEBULA_LOG.get().properties().blockId())
                 .add(Hedges.ACACIA_HEDGE.get().properties().blockId())
                 .add(Hedges.BIRCH_HEDGE.get().properties().blockId())
+                .add(Hedges.UMBRELLA_HEDGE.get().properties().blockId())
                 .add(Hedges.CHERRY_HEDGE.get().properties().blockId())
                 .add(Hedges.DARK_OAK_HEDGE.get().properties().blockId())
                 .add(Hedges.JUNGLE_HEDGE.get().properties().blockId())
@@ -137,6 +140,7 @@ public class BlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
                 .add(Darkness.STRIPPED_LOG_OF_DARKNESS.get().properties().blockId());
         builder(BlockTags.LEAVES)
                 .add(Wander.TRUNN_LEAVES.get().properties().blockId())
+                .add(Wander.UMBRELLA_LEAVES.get().properties().blockId())
                 .add(MoonBlocks.MOON_LEAVES.get().properties().blockId())
                 .add(MoonBlocks.CURVE_LEAVES.get().properties().blockId())
                 .add(EyeBloodBlocks.EYE_LEAVES.get().properties().blockId())
@@ -150,6 +154,8 @@ public class BlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
                 .add(RedOrbBlocks.SPIRO_LEAVES.get().properties().blockId())
                 .add(Darkness.DARKNESS_LEAVES.get().properties().blockId());
         builder(BlockTags.MINEABLE_WITH_HOE)
+                .add(Wander.TRUNN_LEAVES.get().properties().blockId())
+                .add(Wander.UMBRELLA_LEAVES.get().properties().blockId())
                 .add(MoonBlocks.MOON_LEAVES.get().properties().blockId())
                 .add(ModBlock.BONE_LEAVES.get().properties().blockId())
                 .add(MoonBlocks.CURVE_LEAVES.get().properties().blockId())

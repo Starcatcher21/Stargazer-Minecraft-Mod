@@ -97,7 +97,7 @@ public class YellowCable extends BaseEntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, BlockState state, BlockEntityType<T> type) {
-        return createTickerHelper(type, BlockTypes.BLUE_CABLE.get(), BaseCableEntity::tick); // Replace with respective cable BlockType
+        return createTickerHelper(type, BlockTypes.YELLOW_CABLE.get(), BaseCableEntity::tick); // Replace with respective cable BlockType
     }
 
     @Override

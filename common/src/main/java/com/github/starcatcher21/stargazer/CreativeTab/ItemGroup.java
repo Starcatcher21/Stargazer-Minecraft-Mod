@@ -131,6 +131,7 @@ public class ItemGroup {
                         output.accept(MoonBlocks.FULL_MOON_LEAVES.get());
                         output.accept(MoonBlocks.FULL_MOON_CORE.get());
                         output.accept(MoonBlocks.FULL_MOON_SAPLING.get());
+                        output.accept(ModItems.FULL_MOON_DUST.get());
                         output.accept(MoonBlocks.MOON_PLANKS.get());
                         output.accept(MoonBlocks.MOON_PLANKS_DOOR.get());
                         output.accept(MoonBlocks.MOON_PLANKS_SLAB.get());
@@ -299,6 +300,7 @@ public class ItemGroup {
                         output.accept(Hedges.YERI_HEDGE.get());
                         output.accept(Hedges.SPIRO_HEDGE.get());
                         output.accept(Hedges.TRUNN_HEDGE.get());
+                        output.accept(Hedges.UMBRELLA_HEDGE.get());
                         // Red Orb
                         output.accept(RedOrbBlocks.RED_ROCK.get());
                         output.accept(RedOrbBlocks.RED_ROCK_SLAB.get());
@@ -324,7 +326,9 @@ public class ItemGroup {
                         output.accept(Wander.TRUNN_LOG.get());
                         output.accept(Wander.TRUNN_LEAVES.get());
                         output.accept(Wander.TRUNN_SAPLING.get());
-                        output.accept(ModItems.DREAM_BUCKET.get());
+                        output.accept(Wander.UMBRELLA_LOG.get());
+                        output.accept(Wander.UMBRELLA_LEAVES.get());
+                        output.accept(Wander.UMBRELLA_SAPLING.get());
                         // Energy
                         output.accept(Energy.STARMACHINE_BLOCK.get());
                         output.accept(Energy.STARGENERATOR.get());

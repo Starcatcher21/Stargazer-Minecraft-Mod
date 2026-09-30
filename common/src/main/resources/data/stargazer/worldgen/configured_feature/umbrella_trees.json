@@ -1,0 +1,10 @@
+{
+  "type": "stargazer:umbrella_trees",
+  "config": {
+    "blacklist": true,
+    "names": [],
+    "grow_on": [
+      {"Name":  "stargazer:boril"}
+    ]
+  }
+}

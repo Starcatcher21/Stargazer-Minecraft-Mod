@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "stargazer:block/trunn_sapling"
+    "model": "stargazer:item/trunn_sapling"
   }
 }

@@ -134,6 +134,13 @@ public class Hedges {
             .strength(2.0F)
             .mapColor(MapColor.COLOR_PINK)
     );
+    public static final RegistrySupplier<Block> UMBRELLA_HEDGE = register("umbrella_hedge", settings -> new Hedge(Wander.UMBRELLA_LEAVES, settings), BlockBehaviour.Properties.of()
+            .forceSolidOn()
+            .sound(SoundType.WOOD)
+            .randomTicks()
+            .strength(2.0F)
+            .mapColor(MapColor.COLOR_BROWN)
+    );
     public static void init() {
     }
 }

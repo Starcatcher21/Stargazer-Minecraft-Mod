@@ -1,7 +1,6 @@
 package com.github.starcatcher21.stargazer.fabric.datagen;
 
 import com.github.starcatcher21.stargazer.Stargazer;
-import com.github.starcatcher21.stargazer.block.ModFluids;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.minecraft.core.HolderLookup;
@@ -25,8 +24,5 @@ public class FluidTagProvider extends FabricTagsProvider.FluidTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider wrapperLookup) {
-        builder(DREAM)
-                .add(ModFluids.DREAM.getFlowing().builtInRegistryHolder().key())
-                .add(ModFluids.DREAM.builtInRegistryHolder().key());
     }
 }

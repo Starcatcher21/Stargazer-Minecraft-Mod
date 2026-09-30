@@ -22,23 +22,29 @@ public class EnergyHooksImpl {
         return level.getCapability(Capabilities.Energy.BLOCK, pos, side) != null;
     }
 
-    public static void pushEnergy(Level level, BlockPos pos, Direction side, ModEnergyStorage source, long maxAmount) {
-        EnergyHandler targetHandler = level.getCapability(Capabilities.Energy.BLOCK, pos.relative(side), side.getOpposite());
-        if (targetHandler == null) return;
+    public static long pushEnergy(Level level, BlockPos pos, Direction side, ModEnergyStorage source, long maxAmount) {
+        EnergyHandler targetHandler = level.getCapability(
+                Capabilities.Energy.BLOCK,
+                pos.relative(side),
+                side.getOpposite()
+        );
+        if (targetHandler == null) return 0L;
 
         long simulateExtract = source.extractEnergy(maxAmount, true);
-        if (simulateExtract <= 0) return;
+        if (simulateExtract <= 0L) return 0L;
 
+        int toInsert = (int) Math.min(simulateExtract, Integer.MAX_VALUE);
+
+        long inserted = 0L;
         try (Transaction tx = Transaction.openRoot()) {
-            long inserted = targetHandler.insert((int) simulateExtract, tx);
-            if (inserted > 0) {
+            inserted = targetHandler.insert(toInsert, tx);
+            if (inserted > 0L) {
                 source.extractEnergy(inserted, false);
                 tx.commit();
             }
         }
-    }
-
-    public static void onRegisterCapabilities(RegisterCapabilitiesEvent event) {
+        return inserted;
+    }    public static void onRegisterCapabilities(RegisterCapabilitiesEvent event) {
         event.registerBlockEntity(Capabilities.Energy.BLOCK, BlockTypes.STAR_GENERATOR.get(), (be, dir) -> adapt(be.energyStorage));
         event.registerBlockEntity(Capabilities.Energy.BLOCK, BlockTypes.NIGHT_WATCHER.get(), (be, dir) -> adapt(be.energyStorage));
         event.registerBlockEntity(Capabilities.Energy.BLOCK, BlockTypes.STAR_CRUSHER.get(), (be, dir) -> adapt(be.energyStorage));

@@ -67,16 +67,16 @@ public class DarkStar extends Item {
         if (!(world.getBlockState(pos.relative(Direction.EAST, 1)).equals(Blocks.POLISHED_BLACKSTONE_BRICK_STAIRS.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST)))) {
             return false;
         }
-        if (!(world.getBlockState(pos.relative(Direction.NORTH, 1).relative(Direction.EAST, 1)).getBlock().equals(Chess.BLACK_BRICKS))) {
+        if (!(world.getBlockState(pos.relative(Direction.NORTH, 1).relative(Direction.EAST, 1)).getBlock().equals(Chess.BLACK_BRICKS.get()))) {
             return false;
         }
-        if (!(world.getBlockState(pos.relative(Direction.NORTH, 1).relative(Direction.WEST, 1)).getBlock().equals(Chess.BLACK_BRICKS))) {
+        if (!(world.getBlockState(pos.relative(Direction.NORTH, 1).relative(Direction.WEST, 1)).getBlock().equals(Chess.BLACK_BRICKS.get()))) {
             return false;
         }
-        if (!(world.getBlockState(pos.relative(Direction.SOUTH, 1).relative(Direction.EAST, 1)).getBlock().equals(Chess.BLACK_BRICKS))) {
+        if (!(world.getBlockState(pos.relative(Direction.SOUTH, 1).relative(Direction.EAST, 1)).getBlock().equals(Chess.BLACK_BRICKS.get()))) {
             return false;
         }
-        if (!(world.getBlockState(pos.relative(Direction.SOUTH, 1).relative(Direction.WEST, 1)).getBlock().equals(Chess.BLACK_BRICKS))) {
+        if (!(world.getBlockState(pos.relative(Direction.SOUTH, 1).relative(Direction.WEST, 1)).getBlock().equals(Chess.BLACK_BRICKS.get()))) {
             return false;
         }
         return true;
@@ -97,16 +97,16 @@ public class DarkStar extends Item {
         if (!(world.getBlockState(pos.relative(Direction.EAST, 1)).equals(Blocks.END_STONE_BRICK_STAIRS.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST)))) {
             return false;
         }
-        if (!(world.getBlockState(pos.relative(Direction.NORTH, 1).relative(Direction.EAST, 1)).getBlock().equals(Chess.WHITE_BRICKS))) {
+        if (!(world.getBlockState(pos.relative(Direction.NORTH, 1).relative(Direction.EAST, 1)).getBlock().equals(Chess.WHITE_BRICKS.get()))) {
             return false;
         }
-        if (!(world.getBlockState(pos.relative(Direction.NORTH, 1).relative(Direction.WEST, 1)).getBlock().equals(Chess.WHITE_BRICKS))) {
+        if (!(world.getBlockState(pos.relative(Direction.NORTH, 1).relative(Direction.WEST, 1)).getBlock().equals(Chess.WHITE_BRICKS.get()))) {
             return false;
         }
-        if (!(world.getBlockState(pos.relative(Direction.SOUTH, 1).relative(Direction.EAST, 1)).getBlock().equals(Chess.WHITE_BRICKS))) {
+        if (!(world.getBlockState(pos.relative(Direction.SOUTH, 1).relative(Direction.EAST, 1)).getBlock().equals(Chess.WHITE_BRICKS.get()))) {
             return false;
         }
-        if (!(world.getBlockState(pos.relative(Direction.SOUTH, 1).relative(Direction.WEST, 1)).getBlock().equals(Chess.WHITE_BRICKS))) {
+        if (!(world.getBlockState(pos.relative(Direction.SOUTH, 1).relative(Direction.WEST, 1)).getBlock().equals(Chess.WHITE_BRICKS.get()))) {
             return false;
         }
         return true;

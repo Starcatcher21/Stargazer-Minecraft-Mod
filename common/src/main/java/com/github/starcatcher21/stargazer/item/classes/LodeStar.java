@@ -51,7 +51,7 @@ public class LodeStar extends Item {
     }
 
     public static Boolean isProperRedTeleporter(Level world, BlockPos pos) {
-        if (!(world.getBlockState(pos).getBlock().equals(RedOrbBlocks.POLISHED_RED_ROCK))) {
+        if (!(world.getBlockState(pos).getBlock().equals(RedOrbBlocks.POLISHED_RED_ROCK.get()))) {
             return false;
         }
         if (!(world.getBlockState(pos.relative(Direction.NORTH, 1)).equals(RedOrbBlocks.RED_ROCK_STAIRS.get().defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH)))) {

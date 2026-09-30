@@ -25,6 +25,7 @@ import com.github.starcatcher21.stargazer.worldgen.features.trees.purple_shroom.
 import com.github.starcatcher21.stargazer.worldgen.features.trees.spiro.SpiroTrees;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.star.StarTrees;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.trunn.TrunnTrees;
+import com.github.starcatcher21.stargazer.worldgen.features.trees.umbrella.UmbrellaTrees;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.yeri.YeriTrees;
 import com.github.starcatcher21.starlib.worldgen.features.trees.TreeConfig;
 import dev.architectury.registry.registries.DeferredRegister;
@@ -63,6 +64,7 @@ public class CustomFeatures {
     public static final RegistrySupplier<Feature<?>> bubbles = register("bubbles", () -> new Bubbles(TreeConfig.CODEC));
     public static final RegistrySupplier<Feature<?>> trunn_trees = register("trunn_trees", () -> new TrunnTrees(TreeConfig.CODEC));
     public static final RegistrySupplier<Feature<?>> glass_trees = register("glass_trees", () -> new GlassTrees(TreeConfig.CODEC));
+    public static final RegistrySupplier<Feature<?>> umbrella_trees = register("umbrella_trees", () -> new UmbrellaTrees(TreeConfig.CODEC));
 
     public static <T extends Feature<?>> RegistrySupplier<T> register(String id, Supplier<T> entry) {
         return FEATURES.register(id, entry);

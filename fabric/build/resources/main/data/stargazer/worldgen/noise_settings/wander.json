@@ -153,7 +153,8 @@
                             "type": "minecraft:biome",
                             "biome_is": [
                               "stargazer:bubble_field",
-                              "stargazer:trunn_forest"
+                              "stargazer:trunn_forest",
+                              "stargazer:umbrella_forest"
                             ]
                           },
                           "then_run": {

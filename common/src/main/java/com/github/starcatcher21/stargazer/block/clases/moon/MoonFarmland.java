@@ -95,7 +95,7 @@ public class MoonFarmland extends Block {
 
     public static boolean isSprinklerNearby(LevelReader world, BlockPos pos) {
         for (BlockPos blockPos : BlockPos.betweenClosed(pos.offset(-1, 1, -1), pos.offset(1, 1, 1))) {
-            if (!world.getBlockState(blockPos).getBlock().equals(ModBlock.SPRINKLER)) continue;
+            if (!world.getBlockState(blockPos).getBlock().equals(ModBlock.SPRINKLER.get())) continue;
             return true;
         }
         return false;

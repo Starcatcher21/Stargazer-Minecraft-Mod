@@ -2,3 +2,4 @@
 /give star_catcher_ stargazer:lodestar
 /effect give star_catcher_ minecraft:night_vision infinite 1 true
 /kill
+/effect give star_catcher_ minecraft:night_vision infinite 1 true

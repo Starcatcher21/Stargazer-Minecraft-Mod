@@ -2,10 +2,10 @@
 a7cf1d7ae31b068559e22506fb4c48e2c16cbf1b data/minecraft/tags/block/dragon_immune.json
 734f8ec6638393b7930ec0c61e4a2583ba5764da data/minecraft/tags/block/fence_gates.json
 04c0972dc0e56d20172120b83a96109568cf19f5 data/minecraft/tags/block/fences.json
-7c2b90c634c0496ef46c9bdf3de2f4d845168798 data/minecraft/tags/block/leaves.json
-0aa3a487ac06d0904784bcaaec245d012c8a5bdd data/minecraft/tags/block/logs.json
-3322ba4de58a81b446a6c079cf8edc4b917adee2 data/minecraft/tags/block/mineable/axe.json
-13a6b60361e7f2df9a387269f509c24d46760d4e data/minecraft/tags/block/mineable/hoe.json
+482140b622d720cd25ef9b2a89c496267e5f60ea data/minecraft/tags/block/leaves.json
+5455a2334ba79ec76eae23b96f1ae524da61f81f data/minecraft/tags/block/logs.json
+a006a6d9ecc77953685318ba18f0d99a81cf08df data/minecraft/tags/block/mineable/axe.json
+35ae01eccc84d890908dae66fcd9a08c61a86514 data/minecraft/tags/block/mineable/hoe.json
 8ee2e1d9c031b80ec37392f4eb858e40a967f7b8 data/minecraft/tags/block/mineable/pickaxe.json
 e56a0d560f071a244912569c7275ae48844e1a06 data/minecraft/tags/block/mineable/shovel.json
 77dff466b34b9a7e9861a22b67b094b176a5bdc3 data/minecraft/tags/block/needs_iron_tool.json

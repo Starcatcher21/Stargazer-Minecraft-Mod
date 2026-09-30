@@ -135,6 +135,7 @@ public class ModelProvider extends FabricModelProvider {
         blockStateModelGenerator.createAxisAlignedPillarBlock(Darkness.STRIPPED_LOG_OF_DARKNESS.get(), TexturedModel.COLUMN);
         blockStateModelGenerator.createTrivialCube(Darkness.DARKNESS_LEAVES.get());
         blockStateModelGenerator.createTrivialCube(Wander.TRUNN_LEAVES.get());
+        blockStateModelGenerator.createTrivialCube(Wander.UMBRELLA_LEAVES.get());
 
         blockStateModelGenerator.family(Darkness.DARKNESS_PLANKS.get())
                 .stairs(Darkness.DARKNESS_PLANKS_STAIRS.get())
@@ -158,6 +159,7 @@ public class ModelProvider extends FabricModelProvider {
         registerCustomFlowerPotPlant(blockStateModelGenerator, MoonBlocks.FULL_MOON_SAPLING.get(), MoonBlocks.POTTED_FULL_MOON_SAPLING.get(), MoonBlocks.MOON_ROCK.get(), BlockModelGenerators.PlantType.NOT_TINTED);
         registerCustomFlowerPotPlant(blockStateModelGenerator, RedOrbBlocks.SPIRO_SAPLING.get(), RedOrbBlocks.POTTED_SPIRO_SAPLING.get(), RedOrbBlocks.RED_ROCK.get(), BlockModelGenerators.PlantType.NOT_TINTED);
         registerCustomFlowerPotPlant(blockStateModelGenerator, Wander.TRUNN_SAPLING.get(), Wander.POTTED_TRUNN_SAPLING.get(), Wander.PUROIL.get(), BlockModelGenerators.PlantType.NOT_TINTED);
+        registerCustomFlowerPotPlant(blockStateModelGenerator, Wander.UMBRELLA_SAPLING.get(), Wander.POTTED_UMBRELLA_SAPLING.get(), Wander.PUROIL.get(), BlockModelGenerators.PlantType.NOT_TINTED);
         // flowers
         registerCustomFlowerPotPlant(blockStateModelGenerator, StarBlocks.STAR_FLOWER.get(), StarBlocks.POTTED_STAR_FLOWER.get(), MoonBlocks.MOON_ROCK.get(), BlockModelGenerators.PlantType.NOT_TINTED);
         registerCustomFlowerPotPlant(blockStateModelGenerator, StarBlocks.CELESTIAL_STAR_FLOWER.get(), StarBlocks.POTTED_CELESTIAL_STAR_FLOWER.get(), MoonBlocks.MOON_ROCK.get(), BlockModelGenerators.PlantType.NOT_TINTED);
@@ -179,6 +181,7 @@ public class ModelProvider extends FabricModelProvider {
         blockStateModelGenerator.createAxisAlignedPillarBlock(Nebulas.PURPLE_NEBULA_LOG.get(), TexturedModel.COLUMN);
         blockStateModelGenerator.createAxisAlignedPillarBlock(Nebulas.YELLOW_NEBULA_LOG.get(), TexturedModel.COLUMN);
         blockStateModelGenerator.createAxisAlignedPillarBlock(Wander.TRUNN_LOG.get(), TexturedModel.COLUMN);
+        blockStateModelGenerator.createAxisAlignedPillarBlock(Wander.UMBRELLA_LOG.get(), TexturedModel.COLUMN);
         blockStateModelGenerator.createTrivialCube(Nebulas.BLUE_NEBULA_LEAVES.get());
         blockStateModelGenerator.family(Nebulas.BLUE_NEBULA_PLANKS.get())
                 .stairs(Nebulas.BLUE_NEBULA_PLANKS_STAIRS.get())
@@ -258,6 +261,7 @@ public class ModelProvider extends FabricModelProvider {
         registerHedgeSide(blockStateModelGenerator, Hedges.YERI_HEDGE.get(), RedOrbBlocks.YERI_LOG.get());
         registerHedgeSide(blockStateModelGenerator, Hedges.SPIRO_HEDGE.get(), RedOrbBlocks.SPIRO_LOG.get());
         registerHedgeSide(blockStateModelGenerator, Hedges.TRUNN_HEDGE.get(), Wander.TRUNN_LOG.get());
+        registerHedgeSide(blockStateModelGenerator, Hedges.UMBRELLA_HEDGE.get(), Wander.UMBRELLA_LOG.get());
         // Red Orb
         blockStateModelGenerator.family(RedOrbBlocks.RED_ROCK.get())
                 .stairs(RedOrbBlocks.RED_ROCK_STAIRS.get())
@@ -293,11 +297,11 @@ public class ModelProvider extends FabricModelProvider {
     @Override
     public void generateItemModels(ItemModelGenerators itemModelGenerator) {
         itemModelGenerator.generateFlatItem(ModItems.LODESTAR.get(), ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.FULL_MOON_DUST.get(), ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.IRON_DUST.get(), ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.GOLD_DUST.get(), ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.COPPER_DUST.get(), ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.SUPERNOVA.get(), ModelTemplates.FLAT_ITEM);
-        itemModelGenerator.generateFlatItem(ModItems.DREAM_BUCKET.get(), ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.DARKSTAR.get(), ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.STARDUST.get(), ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.GEODE_FRUIT.get(), ModelTemplates.FLAT_ITEM);
@@ -371,6 +375,8 @@ public class ModelProvider extends FabricModelProvider {
         blockGeneratedItem(itemModelGenerator, Nebulas.YELLOW_TENTACLE_FLOWER.get());
         blockGeneratedItem(itemModelGenerator, MoonBlocks.PURPLE_MUSHROOM.get());
         blockGeneratedItem(itemModelGenerator, MoonBlocks.MOON_SAPLING.get());
+        blockGeneratedItem(itemModelGenerator, Wander.UMBRELLA_SAPLING.get());
+        blockGeneratedItem(itemModelGenerator, Wander.TRUNN_SAPLING.get());
         blockGeneratedItem(itemModelGenerator, MoonBlocks.CURVE_SAPLING.get());
         blockGeneratedItem(itemModelGenerator, StarBlocks.STAR_SAPLING.get());
         blockGeneratedItem(itemModelGenerator, RedOrbBlocks.YERI_SAPLING.get());

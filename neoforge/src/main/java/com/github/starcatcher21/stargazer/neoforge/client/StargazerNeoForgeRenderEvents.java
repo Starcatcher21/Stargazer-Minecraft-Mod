@@ -3,6 +3,7 @@ package com.github.starcatcher21.stargazer.neoforge.client;
 import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.renderer.SkyStarRenderer;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.state.level.LevelRenderState;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;

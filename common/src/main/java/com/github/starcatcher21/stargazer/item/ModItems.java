@@ -3,28 +3,23 @@ package com.github.starcatcher21.stargazer.item;
 import com.github.starcatcher21.stargazer.CustomTags;
 import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.StargazerAttributes;
-import com.github.starcatcher21.stargazer.block.ModFluids;
-import com.github.starcatcher21.stargazer.block.helpers.BlockItem;
+import com.github.starcatcher21.stargazer.helpers.BlockItem;
 import com.github.starcatcher21.stargazer.effects.StatusEffects;
 import com.github.starcatcher21.stargazer.entity.EntityRegistry;
 import com.github.starcatcher21.stargazer.item.armor.ArmorMaterial;
 import com.github.starcatcher21.stargazer.item.classes.*;
-import net.minecraft.core.Registry;
+import dev.architectury.core.item.ArchitecturyBucketItem;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.item.*;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -38,7 +33,6 @@ import net.minecraft.world.item.consume_effects.ConsumeEffect;
 import net.minecraft.world.item.enchantment.Repairable;
 import net.minecraft.world.item.component.Tool;
 import net.minecraft.world.item.component.Weapon;
-import net.minecraft.world.item.equipment.ArmorMaterials;
 import net.minecraft.world.item.equipment.ArmorType;
 import net.minecraft.world.item.equipment.Equippable;
 import net.minecraft.world.level.Level;
@@ -48,12 +42,12 @@ import java.util.function.Function;
 
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
-import net.minecraft.world.item.*;
 
 public final class ModItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(Stargazer.MOD_ID, Registries.ITEM);
 
     public static final RegistrySupplier<Item> STARDUST = register("stardust", Item::new, new Item.Properties());
+    public static final RegistrySupplier<Item> FULL_MOON_DUST = register("full_moon_dust", Item::new, new Item.Properties());
     public static final RegistrySupplier<Item> MOON_GLASS_SHARD = register("moon_glass_shard", Item::new, new Item.Properties());
     public static final RegistrySupplier<Item> PRISMATIC_SHARD = register("prismatic_shard", Item::new, new Item.Properties());
     public static final RegistrySupplier<Item> PRISMATIC_INGOT = register("prismatic_ingot", Item::new, new Item.Properties());
@@ -154,14 +148,6 @@ public final class ModItems {
     public static final RegistrySupplier<Item> BLACK_BRICK = register("black_brick", Item::new, new Item.Properties());
 
     public static final RegistrySupplier<Item> STAR_HAMMER = register("star_hammer", Item::new, repairable(star_hammer(ToolMaterial.WOOD, 1.0f, 1.0f), CustomTags.STARDUST).stacksTo(1).durability(500));
-
-    public static final RegistrySupplier<Item> DREAM_BUCKET = register(
-            "dream_bucket",
-            props -> new BucketItem(ModFluids.DREAM, props),
-            new Item.Properties()
-                    .stacksTo(1)
-                    .craftRemainder(Items.BUCKET)
-    );
 
     public static final RegistrySupplier<Item> THROWABLE_STAR = register("throwable_star", ThrowableStar::new, new Item.Properties().stacksTo(16));
 

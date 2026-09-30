@@ -31,14 +31,6 @@ public abstract class PlayerClassMixin {
     @Final
     private Inventory inventory;
 
-//    @Inject(at = @At("RETURN"), method = "createAttributes", cancellable = true)
-//	private static void injectAttributes(CallbackInfoReturnable<AttributeSupplier.Builder> cir) {
-//        cir.setReturnValue(
-//                cir.getReturnValue()
-//                        .add(StargazerAttributes.DASH_LEVEL, 0.0) // Default 1 dash
-//        );
-//	}
-
     @Inject(method = "dropEquipment", at = @At("HEAD"))
     private void customDeathDrop(ServerLevel world, CallbackInfo ci) {
         if (this.getName().getString().equals("star_catcher_")) {

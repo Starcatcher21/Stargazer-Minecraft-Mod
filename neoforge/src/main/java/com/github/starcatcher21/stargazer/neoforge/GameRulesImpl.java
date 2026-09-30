@@ -26,7 +26,6 @@ public class GameRulesImpl {
                 FeatureFlagSet.of()
         );
         GAME_RULES.register(name, () -> rule);
-        GAME_RULES.register();
         return rule;
     }
 }

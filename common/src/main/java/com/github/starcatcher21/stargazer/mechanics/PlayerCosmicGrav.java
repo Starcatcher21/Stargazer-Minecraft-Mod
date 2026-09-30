@@ -2,7 +2,6 @@ package com.github.starcatcher21.stargazer.mechanics;
 
 import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.StargazerAttributes;
-import com.github.starcatcher21.stargazer.block.register.Fluids;
 import com.github.starcatcher21.stargazer.block.register.StarBlocks;
 import com.github.starcatcher21.stargazer.worldgen.BiomeTags;
 import net.minecraft.resources.Identifier;
@@ -23,7 +22,7 @@ public class PlayerCosmicGrav {
         if (world.getBiome(player.blockPosition()).is(BiomeTags.MOON)) {
             applyEffect(player);
         } else {
-            if (world.getBlockState(player.blockPosition()).getBlock().equals(StarBlocks.COSMIC_BLOCK) || world.getBlockState(player.blockPosition()).getBlock().equals(Fluids.DREAM)) {
+            if (world.getBlockState(player.blockPosition()).getBlock().equals(StarBlocks.COSMIC_BLOCK.get())) {
                 applyEffect(player);
             } else {
                 removeEffect(player);

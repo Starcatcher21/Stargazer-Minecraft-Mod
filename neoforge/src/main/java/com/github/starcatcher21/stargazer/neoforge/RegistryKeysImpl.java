@@ -39,9 +39,6 @@ public class RegistryKeysImpl {
     }
 
     public static void init() {
-        // NeoForge handles automatic registration via the Mod Event Bus and @EventBusSubscriber.
-        // Ensure you hook up ENTITY_DATA_SERIALIZERS to your mod event bus in your main NeoForge mod initializer class:
-        // ENTITY_DATA_SRIALIZERS.register(modEventBus);
     }
 
     @SubscribeEvent

@@ -1,38 +1,20 @@
 {
   "stats": {
-    "minecraft:picked_up": {
-      "stargazer:yellow_star": 115,
-      "stargazer:supernova": 12
+    "minecraft:custom": {
+      "minecraft:sprint_one_cm": 113,
+      "minecraft:time_since_rest": 818,
+      "minecraft:walk_one_cm": 559,
+      "minecraft:total_world_time": 837,
+      "minecraft:leave_game": 2,
+      "minecraft:fly_one_cm": 26,
+      "minecraft:play_time": 818,
+      "minecraft:jump": 1,
+      "minecraft:time_since_death": 818
     },
     "minecraft:used": {
-      "stargazer:lodestar": 4,
-      "minecraft:chiseled_copper": 9,
-      "minecraft:cut_copper_stairs": 9,
-      "stargazer:star_generator": 2,
-      "minecraft:cut_copper": 13,
-      "stargazer:purple_cable": 1,
-      "stargazer:ghost_spawn_egg": 1,
-      "stargazer:night_watcher": 3
-    },
-    "minecraft:dropped": {
-      "stargazer:black_moon_rock": 1
-    },
-    "minecraft:custom": {
-      "minecraft:time_since_rest": 5463,
-      "minecraft:walk_one_cm": 17965,
-      "minecraft:leave_game": 20,
-      "minecraft:mob_kills": 1,
-      "minecraft:damage_dealt": 20,
-      "minecraft:play_time": 17933,
-      "minecraft:jump": 215,
-      "minecraft:time_since_death": 5441,
-      "minecraft:drop": 1,
-      "minecraft:sprint_one_cm": 22012,
-      "minecraft:total_world_time": 20485,
-      "minecraft:fly_one_cm": 141118,
-      "minecraft:crouch_one_cm": 136,
-      "minecraft:sneak_time": 185,
-      "minecraft:deaths": 1
+      "stargazer:star_generator": 1,
+      "stargazer:purple_cable": 2,
+      "stargazer:night_watcher": 1
     }
   },
   "DataVersion": 4903

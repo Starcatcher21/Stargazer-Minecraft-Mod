@@ -18,8 +18,6 @@ import com.github.starcatcher21.stargazer.block.register.*;
 import com.github.starcatcher21.stargazer.item.ModItems;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
-import net.minecraft.core.Registry;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
@@ -194,7 +192,6 @@ public class ModBlock {
     }
 
     public static void init() {
-        Fluids.init();
         MoonBlocks.init();
         StarBlocks.init();
         EyeBloodBlocks.init();

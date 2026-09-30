@@ -42,7 +42,7 @@ public class EquipmentAssetProvider implements DataProvider {
         Map<ResourceKey<net.minecraft.world.item.equipment.EquipmentAsset>, EquipmentClientInfo> equipmentAsstes = new HashMap<>();
         bootstrap((id, asset) -> {
             if (equipmentAsstes.putIfAbsent(id, asset) != null) {
-                throw new IllegalStateException("Tried to register equipment asset twice for id: " + id);
+                throw new IllegalStateException("Tried to init equipment asset twice for id: " + id);
             }
         });
         return DataProvider.saveAll(cache, EquipmentClientInfo.CODEC, this.pathProvider::json, equipmentAsstes);

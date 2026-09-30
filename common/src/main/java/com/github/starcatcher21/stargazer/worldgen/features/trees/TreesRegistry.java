@@ -19,6 +19,7 @@ import com.github.starcatcher21.stargazer.worldgen.features.trees.purple_shroom.
 import com.github.starcatcher21.stargazer.worldgen.features.trees.spiro.SpiroTrees;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.star.StarTrees;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.trunn.TrunnTrees;
+import com.github.starcatcher21.stargazer.worldgen.features.trees.umbrella.UmbrellaTrees;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.yeri.YeriTrees;
 
 // North negative Z
@@ -47,5 +48,6 @@ public class TreesRegistry {
         GlassTrees.init();
         CrystalOre.init();
         IronOre.init();
+        UmbrellaTrees.init();
     }
 }

@@ -67,11 +67,12 @@ processResources {
     }
 }
 
-// 3. Configure shadow task to bundle common classes
 shadowJar {
     exclude "architectury.common.json"
     configurations = [project.configurations.shadowBundle]
     archiveClassifier = "dev-shadow"
+    // Do NOT run in dev runtime
+    onlyIf { !project.hasProperty("dev") }
 }
 
 // 4. Swap classifiers so the final output built by gradle is the shadowed JAR

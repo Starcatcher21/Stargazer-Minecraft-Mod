@@ -1,5 +1,6 @@
 package com.github.starcatcher21.stargazer.fabric.datagen.lang;
 
+import com.github.starcatcher21.stargazer.CreativeTab.ItemGroup;
 import com.github.starcatcher21.stargazer.StargazerAttributes;
 import com.github.starcatcher21.stargazer.block.ModBlock;
 import com.github.starcatcher21.stargazer.block.clases.MoonWelder;
@@ -28,6 +29,7 @@ public class ModEngLangProvider extends FabricLanguageProvider {
     @Override
     public void generateTranslations(HolderLookup.Provider wrapperLookup, TranslationBuilder translationBuilder) {
         translationBuilder.add(ModItems.STAR_BOOK.get(), "Book of Stars 1");
+        translationBuilder.add(ItemGroup.STAR_GROUP.get().getDisplayName().getString(), "Stargazer");
         translationBuilder.add("stat.stargazer.star_catched", "Star Catched");
         translationBuilder.add(MoonBlocks.COMET_BLOCK.get(), "Comet Block");
         translationBuilder.add(ModItems.END_STAR.get(), "End Star");
@@ -74,7 +76,6 @@ public class ModEngLangProvider extends FabricLanguageProvider {
         translationBuilder.add(ModBlock.END_TELEPORTER.get(), "End Teleporter");
         translationBuilder.add(MoonBlocks.GEODE_FRUIT.get(), "Geode Fruit");
         translationBuilder.add(ModBlock.MOON_WELDER.get(), "Moon Welder");
-        translationBuilder.add(ModItems.DREAM_BUCKET.get(), "Dream Bucket");
         translationBuilder.add(ModItems.THROWABLE_STAR.get(), "Throwable Star");
         translationBuilder.add(StarBlocks.STAR_DISPLAY.get(), "Star Display");
         translationBuilder.add(ModItems.GUMMY_FISH.get(), "Gummy Fish");
@@ -325,12 +326,15 @@ public class ModEngLangProvider extends FabricLanguageProvider {
         translationBuilder.add("item.minecraft.potion.effect."+Potions.CosmoFeel.get().name(), "Potion of Cosmic Feeling");
         translationBuilder.add("item.minecraft.splash_potion.effect."+Potions.CosmoFeel.get().name(), "Splash Potion of Cosmic Feeling");
         translationBuilder.add("item.minecraft.lingering_potion.effect."+Potions.CosmoFeel.get().name(), "Lingering Potion of Cosmic Feeling");
+        translationBuilder.add("item.minecraft.tipped_arrow.effect."+Potions.CosmoFeel.get().name(), "Arrow of Cosmic Feeling");
         translationBuilder.add("item.minecraft.potion.effect."+Potions.GlassHands.get().name(), "Potion of Glass Hands");
         translationBuilder.add("item.minecraft.splash_potion.effect."+Potions.GlassHands.get().name(), "Splash Potion of Glass Hands");
         translationBuilder.add("item.minecraft.lingering_potion.effect."+Potions.GlassHands.get().name(), "Lingering Potion of Glass Hands");
+        translationBuilder.add("item.minecraft.tipped_arrow.effect."+Potions.GlassHands.get().name(), "Arrow of Glass Hands");
         translationBuilder.add("item.minecraft.potion.effect."+Potions.Hydro.get().name(), "Potion of Hydrophobic");
         translationBuilder.add("item.minecraft.splash_potion.effect."+Potions.Hydro.get().name(), "Splash Potion of Hydrophobic");
         translationBuilder.add("item.minecraft.lingering_potion.effect."+Potions.Hydro.get().name(), "Lingering Potion of Hydrophobic");
+        translationBuilder.add("item.minecraft.tipped_arrow.effect."+Potions.Hydro.get().name(), "Arrow of Hydrophobic");
         // Effects
         translationBuilder.add("effect.stargazer.hydrophobic", "Hydrophobic");
         translationBuilder.add("effect.stargazer.cosmofeeling", "Cosmic Feeling");
@@ -399,7 +403,12 @@ public class ModEngLangProvider extends FabricLanguageProvider {
         translationBuilder.add(Wander.TRUNN_LOG.get(), "Trunn Log");
         translationBuilder.add(Wander.TRUNN_LEAVES.get(), "Trunn Leaves");
         translationBuilder.add(Wander.TRUNN_SAPLING.get(), "Trunn Sapling");
+        translationBuilder.add(Wander.UMBRELLA_LOG.get(), "Umbrella Log");
+        translationBuilder.add(ModItems.FULL_MOON_DUST.get(), "Full Moon Dust");
+        translationBuilder.add(Wander.UMBRELLA_LEAVES.get(), "Umbrella Leaves");
+        translationBuilder.add(Wander.UMBRELLA_SAPLING.get(), "Umbrella Sapling");
         translationBuilder.add(Hedges.TRUNN_HEDGE.get(), "Trunn Hedge");
+        translationBuilder.add(Hedges.UMBRELLA_HEDGE.get(), "Umbrella Hedge");
         translationBuilder.add(ModItems.MASK_OF_LUNA.get(), "Mask of Luna");
         translationBuilder.add(ModItems.JESTER_BOOTS.get(), "Jester Boots");
         translationBuilder.add(ModItems.JESTER_LEGGINS.get(), "Jester Leggings");

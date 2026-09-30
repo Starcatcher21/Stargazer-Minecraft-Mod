@@ -10,8 +10,7 @@
     "FarmlandMixin",
     "WorldMixin",
     "IceBlockMixin",
-    "EntityMixin",
-    "FishingBobberEntityMixin"
+    "EntityMixin"
   ],
   "client": [
     "WorldRendererMixin",

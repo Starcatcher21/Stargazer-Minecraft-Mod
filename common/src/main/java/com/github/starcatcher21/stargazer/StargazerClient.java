@@ -19,8 +19,6 @@ import com.github.starcatcher21.stargazer.entity.renderers.*;
 import com.github.starcatcher21.stargazer.mechanics.dash.DashClient;
 import com.github.starcatcher21.stargazer.mechanics.star.StargazeClient;
 import com.github.starcatcher21.stargazer.particle.ParticlesClient;
-import com.github.starcatcher21.stargazer.renderer.CustomRederPipelines;
-import com.github.starcatcher21.stargazer.renderer.SkyStarRenderer;
 import com.github.starcatcher21.stargazer.screens.ScreenHandlerTypes;
 import com.github.starcatcher21.stargazer.screens.handled.*;
 import dev.architectury.event.events.client.ClientTickEvent;
@@ -28,9 +26,7 @@ import dev.architectury.registry.client.gui.MenuScreenRegistry;
 import dev.architectury.registry.client.level.entity.EntityRendererRegistry;
 import dev.architectury.registry.client.rendering.BlockEntityRendererRegistry;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.DoubleBlockCombiner;
-import org.apache.commons.compress.compressors.lz77support.LZ77Compressor;
+import net.minecraft.resources.Identifier;
 
 public class StargazerClient {
     public static void initClient() {

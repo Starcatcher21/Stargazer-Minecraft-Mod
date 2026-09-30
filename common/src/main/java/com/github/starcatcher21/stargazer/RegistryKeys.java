@@ -14,7 +14,6 @@ public class RegistryKeys {
 
     @ExpectPlatform
     public static void init() {
-        // Implemented per-platform
         throw new AssertionError();
     }
 }

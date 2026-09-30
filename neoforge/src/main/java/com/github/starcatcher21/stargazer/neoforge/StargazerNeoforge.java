@@ -9,6 +9,7 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.client.event.AddClientReloadListenersEvent;
 import net.neoforged.neoforge.common.NeoForge;
 
 @Mod(Stargazer.MOD_ID)
@@ -17,10 +18,10 @@ public final class StargazerNeoforge {
     public StargazerNeoforge(IEventBus modEventBus, Dist dist) {
         modEventBus.addListener(this::commonSetup);
 
-
         RegistryKeysImpl.ENTITY_DATA_SERIALIZERS.register(modEventBus);
 
         Stargazer.initCommon();
+        GameRulesImpl.GAME_RULES.register();
         if (dist.isClient()) {
             StargazerClient.initClient();
             NeoForge.EVENT_BUS.register(StargazerNeoForgeRenderEvents.class);

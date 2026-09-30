@@ -5,7 +5,9 @@
       "can_set_spawn": "never",
       "can_sleep": "never",
       "explodes": true
-    }
+    },
+    "minecraft:visual/sun_angle": 180,
+    "minecraft:visual/moon_angle": 180
   },
   "ambient_light": 0.4,
   "has_fixed_time": true,

@@ -46,3 +46,10 @@ type = "required"
 versionRange = "[1.0.3,)"
 ordering = "NONE"
 side = "BOTH"
+
+[[dependencies.stargazer]]
+modId = "roughlyenoughitems"
+type = "optional"
+versionRange = "[16.0.0,)"
+ordering = "AFTER"
+side = "CLIENT"

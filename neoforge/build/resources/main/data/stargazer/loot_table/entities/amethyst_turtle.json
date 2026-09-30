@@ -5,20 +5,20 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "stargazer:forget_me_now"
+          "name": "minecraft:amethyst_shard"
         }
       ],
       "functions": [
         {
           "count": {
             "type": "minecraft:uniform",
-            "max": 0.0,
+            "max": 3.0,
             "min": 0.0
           },
           "function": "minecraft:set_count"
         }
       ],
-      "rolls": 0.0
+      "rolls": 1.0
     }
   ]
 }
