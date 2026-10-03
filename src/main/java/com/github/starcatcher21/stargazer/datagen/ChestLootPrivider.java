@@ -29,12 +29,12 @@ public class ChestLootPrivider extends SimpleFabricLootTableSubProvider {
 
         ResourceKey<LootTable> cometKey = ResourceKey.create(
                 Registries.LOOT_TABLE,
-                Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "gameplay/comet")
+              Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "gameplay/comet")
         );
 
         ResourceKey<LootTable> seedKey = ResourceKey.create(
                 Registries.LOOT_TABLE,
-                Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "gameplay/seed_packet")
+              Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "gameplay/seed_packet")
         );
 
         LootTable.Builder lootTableComet = LootTable.lootTable()

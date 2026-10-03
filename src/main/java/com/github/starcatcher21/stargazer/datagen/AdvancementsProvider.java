@@ -60,7 +60,7 @@ public class AdvancementsProvider extends FabricAdvancementProvider {
                         MoonBlocks.MOON_ROCK.get(), // The display icon
                         Component.literal("Stargazer"), // The title
                         Component.literal("Are you ready for cosmic adventures"), // The description
-                        Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "gui/advancements/backgrounds/stars"), // Background image for the tab in the advancements page, if this is a root advancement (has no parent)
+                      Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "gui/advancements/backgrounds/stars"), // Background image for the tab in the advancements page, if this is a root advancement (has no parent)
                         AdvancementType.TASK, // TASK, CHALLENGE, or GOAL
                         false, // Show the toast when completing it
                         false, // Announce it to chat

@@ -11,9 +11,9 @@ import com.geckolib.renderer.base.GeoRenderState;
 *///? }
 
 public class ScrubyModel extends GeoModel<Scruby> {
-    private final Identifier model = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "entity/scruby");
-    private final Identifier animations = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "entity/scruby");
-    private final Identifier texture = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/scruby.png");
+    private final Identifier model =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "entity/scruby");
+    private final Identifier animations =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "entity/scruby");
+    private final Identifier texture =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/scruby.png");
 
     //? if >= 26.2 {
     @Override

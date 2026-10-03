@@ -14,7 +14,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class Aurora extends BaseEntityBlock {
     public static final MapCodec<Aurora> CODEC = simpleCodec(Aurora::new);
-    public static final Identifier TEXTURE = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/block/aurora.png");
+    public static final Identifier TEXTURE =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/block/aurora.png");
     @Override
     public MapCodec<? extends Aurora> codec() {
         return CODEC;

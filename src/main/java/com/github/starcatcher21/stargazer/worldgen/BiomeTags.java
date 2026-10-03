@@ -11,7 +11,7 @@ public class BiomeTags {
     public static final TagKey<Biome> RED_ORB = register("red_orb");
 
     private static TagKey<Biome> register(String name) {
-        return TagKey.create(Registries.BIOME, Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, name));
+        return TagKey.create(Registries.BIOME,Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, name));
     }
     public static void init() {
     }

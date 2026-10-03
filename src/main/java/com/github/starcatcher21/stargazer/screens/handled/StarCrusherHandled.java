@@ -11,8 +11,8 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
 
 public class StarCrusherHandled extends AbstractContainerScreen<StarCrusherScreenHandler> {
-    private static final Identifier TEXTURE = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/starcrusher.png");
-    private static final Identifier ARROW_TEXTURE = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/arrow_progress_down2.png");
+    private static final Identifier TEXTURE =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/starcrusher.png");
+    private static final Identifier ARROW_TEXTURE =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/arrow_progress_down2.png");
 
     public StarCrusherHandled(StarCrusherScreenHandler handler, Inventory inventory, Component title) {
         super(handler, inventory, title, 176, 200);

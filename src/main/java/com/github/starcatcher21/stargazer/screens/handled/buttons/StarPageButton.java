@@ -20,10 +20,10 @@ import net.minecraft.sounds.SoundEvents;
 @Environment(EnvType.CLIENT)
 //? }
 public class StarPageButton extends Button {
-    private static final Identifier PAGE_FORWARD_HIGHLIGHTED_SPRITE = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "widget/page_forward_highlighted");
-    private static final Identifier PAGE_FORWARD_SPRITE = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "widget/page_forward");
-    private static final Identifier PAGE_BACKWARD_HIGHLIGHTED_SPRITE = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "widget/page_backward_highlighted");
-    private static final Identifier PAGE_BACKWARD_SPRITE = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "widget/page_backward");
+    private static final Identifier PAGE_FORWARD_HIGHLIGHTED_SPRITE =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "widget/page_forward_highlighted");
+    private static final Identifier PAGE_FORWARD_SPRITE =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "widget/page_forward");
+    private static final Identifier PAGE_BACKWARD_HIGHLIGHTED_SPRITE =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "widget/page_backward_highlighted");
+    private static final Identifier PAGE_BACKWARD_SPRITE =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "widget/page_backward");
     private static final Component PAGE_BUTTON_NEXT = Component.translatable("book.page_button.next");
     private static final Component PAGE_BUTTON_PREVIOUS = Component.translatable("book.page_button.previous");
     private final boolean isForward;

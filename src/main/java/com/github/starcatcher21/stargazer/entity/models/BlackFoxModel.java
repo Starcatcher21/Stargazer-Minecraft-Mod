@@ -11,9 +11,9 @@ import com.geckolib.renderer.base.GeoRenderState;
 *///? }
 
 public class BlackFoxModel extends GeoModel<BlackFox> {
-    private final Identifier model = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "entity/black_fox");
-    private final Identifier animations = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "entity/black_fox");
-    private final Identifier texture = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/black_fox.png");
+    private final Identifier model =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "entity/black_fox");
+    private final Identifier animations =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "entity/black_fox");
+    private final Identifier texture =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/black_fox.png");
 
     //? if >= 26.2 {
     @Override

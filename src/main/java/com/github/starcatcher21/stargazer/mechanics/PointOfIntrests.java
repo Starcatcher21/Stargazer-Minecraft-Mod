@@ -29,7 +29,7 @@ public class PointOfIntrests {
     public static final ResourceKey<PoiType> STAR_FORGE_KEY = registerPOIKey("star_forge");
 
     public static ResourceKey<PoiType> registerPOIKey(String name) {
-        return ResourceKey.create(Registries.POINT_OF_INTEREST_TYPE, Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, name));
+        return ResourceKey.create(Registries.POINT_OF_INTEREST_TYPE,Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, name));
     }
 
     private static RegistrySupplier<PoiType> registerPOI(String name, RegistrySupplier<Block> block, int ticketCount, int searchDistance) {

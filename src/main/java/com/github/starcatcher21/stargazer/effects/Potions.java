@@ -23,7 +23,7 @@ public class Potions {
     private static RegistrySupplier<Potion> register(
             String name, RegistrySupplier<MobEffect> effect, int duration) {
         return POTIONS.register(
-                Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, name),
+              Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, name),
                 () -> new Potion(name, new MobEffectInstance(effect.asHolder(), duration))
         );
     }

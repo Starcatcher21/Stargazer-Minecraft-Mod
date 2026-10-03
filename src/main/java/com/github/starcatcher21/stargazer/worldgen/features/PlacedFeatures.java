@@ -9,15 +9,15 @@ import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 public class PlacedFeatures {
     public static final ResourceKey<PlacedFeature> PRISMATIC_ORE = ResourceKey.create(
             Registries.PLACED_FEATURE,
-            Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "prismatic_ore")
+          Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "prismatic_ore")
     );
     public static final ResourceKey<PlacedFeature> CRYSTAL_ORE = ResourceKey.create(
             Registries.PLACED_FEATURE,
-            Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "crystal_ore")
+          Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "crystal_ore")
     );
     public static final ResourceKey<PlacedFeature> IRON_ORE = ResourceKey.create(
             Registries.PLACED_FEATURE,
-            Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "iron_ore")
+          Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "iron_ore")
     );
 
     public static void init() {

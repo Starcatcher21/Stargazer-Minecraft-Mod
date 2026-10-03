@@ -7,7 +7,9 @@ import com.github.starcatcher21.stargazer.effects.Potions;
 import com.github.starcatcher21.stargazer.effects.StatusEffects;
 import com.github.starcatcher21.stargazer.energy.EnergyHooks;
 import com.github.starcatcher21.stargazer.entity.EntityRegistry;
+//? if >= 26.2 {
 import com.github.starcatcher21.stargazer.item.ConsumeEffectsRegistry;
+//? }
 import com.github.starcatcher21.stargazer.item.ModItems;
 import com.github.starcatcher21.stargazer.mechanics.DamageTypeRegistry;
 import com.github.starcatcher21.stargazer.mechanics.PlayerCosmicGrav;
@@ -52,7 +54,6 @@ import net.minecraft.world.entity.player.Player;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.neoforged.neoforge.client.event.AddClientReloadListenersEvent;
 import net.neoforged.neoforge.common.NeoForge;
 *///?}
 
@@ -88,7 +89,6 @@ public final class Stargazer
         RegistryKeys.ENTITY_DATA_SERIALIZERS.register(modEventBus);
 
         initCommon();
-        GameRules.GAME_RULES.register();
         if (dist.isClient()) {
             StargazerClient.initClient();
             NeoForge.EVENT_BUS.register(StargazerNeoForgeRenderEvents.class);

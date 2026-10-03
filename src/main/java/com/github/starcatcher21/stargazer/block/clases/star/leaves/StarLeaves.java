@@ -34,7 +34,7 @@ import java.util.OptionalInt;
 
 public class StarLeaves extends BaseEntityBlock implements SimpleWaterloggedBlock {
     public static final MapCodec<StarLeaves> CODEC = simpleCodec(StarLeaves::new);
-    public static final Identifier TEXTURE = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/block/star_leaves.png");
+    public static final Identifier TEXTURE =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/block/star_leaves.png");
     protected final float leafParticleChance = 0.5F;
     public static final int MAX_DISTANCE = 7;
     public static final IntegerProperty DISTANCE = BlockStateProperties.DISTANCE;

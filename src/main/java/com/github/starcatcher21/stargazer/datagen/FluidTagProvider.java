@@ -20,7 +20,7 @@ public class FluidTagProvider extends FabricTagsProvider.FluidTagsProvider {
     public static final TagKey<Fluid> DREAM = of("dream");
 
     private static TagKey<Fluid> of(String id) {
-        return TagKey.create(Registries.FLUID, Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, id));
+        return TagKey.create(Registries.FLUID,Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, id));
     }
 
     @Override

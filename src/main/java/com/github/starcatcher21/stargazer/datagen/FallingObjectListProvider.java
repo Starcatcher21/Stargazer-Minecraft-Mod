@@ -101,23 +101,23 @@ public class FallingObjectListProvider extends FallingObjectListDataProvider {
     @Override
     protected void addFallingObjectList(BiConsumer<Identifier, FallingObjectsList> exporter, HolderLookup.Provider registries) {
         exporter.accept(
-                Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "overworld"),
+              Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "overworld"),
                 OVERWORLD
         );
         exporter.accept(
-                Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "chess"),
+              Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "chess"),
                 CHESS
         );
         exporter.accept(
-                Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "cosmic"),
+              Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "cosmic"),
                 COSMIC
         );
         exporter.accept(
-                Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "red_orb"),
+              Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "red_orb"),
                 RED_ORB
         );
         exporter.accept(
-                Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "end"),
+              Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "end"),
                 END
         );
     }

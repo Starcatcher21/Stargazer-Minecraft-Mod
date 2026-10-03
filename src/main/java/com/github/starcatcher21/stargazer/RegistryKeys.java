@@ -57,7 +57,7 @@ public class RegistryKeys {
                 Patterns.CODEC
         );
         FabricEntityDataRegistry.register(
-                Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "patterns_component"),
+              Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "patterns_component"),
                 RegistryKeys.PATTERN_COMPONENT2
         );
         //? }

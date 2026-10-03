@@ -20,8 +20,12 @@ public class StatusEffects {
     public static RegistrySupplier<MobEffect> GLASS = register("glasshands", new GlassHands(MobEffectCategory.HARMFUL, 60460));
 
     public static RegistrySupplier<MobEffect> register(String path, MobEffect status) {
-        final Identifier identifier = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, path);
+        final Identifier identifier =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, path);
         return EFFECTS.register(identifier, () -> status);
+    }
+
+    public static Holder<MobEffect> getHolder(MobEffect status) {
+        return BuiltInRegistries.MOB_EFFECT.wrapAsHolder(status);
     }
 
     public static void init() {

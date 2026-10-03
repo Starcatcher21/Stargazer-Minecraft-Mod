@@ -177,7 +177,7 @@ public class ModBlock {
     public static RegistrySupplier<Block> register(String path, Function<BlockBehaviour.Properties, Block> factory, BlockBehaviour.Properties settings) {
         RegistrySupplier<Block> blockSupplier = registerWoItem(path, factory, settings);
 
-        Identifier identifier = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, path);
+        Identifier identifier =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, path);
         ResourceKey<Item> itemKey = ResourceKey.create(Registries.ITEM, identifier);
 
         ITEMS.register(path, () -> new BlockItem(getRaw(blockSupplier), new Item.Properties().useBlockDescriptionPrefix().setId(itemKey)));
@@ -186,7 +186,7 @@ public class ModBlock {
     }
 
     public static RegistrySupplier<Block> registerWoItem(String path, Function<BlockBehaviour.Properties, Block> factory, BlockBehaviour.Properties settings) {
-        Identifier identifier = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, path);
+        Identifier identifier =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, path);
         ResourceKey<Block> registryKey = ResourceKey.create(Registries.BLOCK, identifier);
 
         return BLOCKS.register(path, () -> {

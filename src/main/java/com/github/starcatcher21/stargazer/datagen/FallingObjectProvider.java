@@ -110,47 +110,47 @@ public class FallingObjectProvider extends FallingObjectDataProvider {
     @Override
     protected void addFallingObject(BiConsumer<Identifier, FallingObject> exporter, HolderLookup.Provider registries) {
         exporter.accept(
-                Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "black_brick"),
+              Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "black_brick"),
                 BLACK_BRICK
         );
         exporter.accept(
-                Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "black_star"),
+              Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "black_star"),
                 BLACK_STAR
         );
         exporter.accept(
-                Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "blue_star"),
+              Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "blue_star"),
                 BLUE_STAR
         );
         exporter.accept(
-                Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "red_star"),
+              Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "red_star"),
                 RED_STAR
         );
         exporter.accept(
-                Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "purple_star"),
+              Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "purple_star"),
                 PURPLE_STAR
         );
         exporter.accept(
-                Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "yellow_star"),
+              Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "yellow_star"),
                 YELLOW_STAR
         );
         exporter.accept(
-                Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "comet_fragment"),
+              Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "comet_fragment"),
                 COMET_FRAGMENT
         );
         exporter.accept(
-                Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "moon_rock"),
+              Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "moon_rock"),
                 MOON_ROCK
         );
         exporter.accept(
-                Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "red_rock"),
+              Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "red_rock"),
                 RED_ROCK
         );
         exporter.accept(
-                Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "star_book"),
+              Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "star_book"),
                 STAR_BOOK
         );
         exporter.accept(
-                Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "white_brick"),
+              Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "white_brick"),
                 WHITE_BRICK
         );
     }

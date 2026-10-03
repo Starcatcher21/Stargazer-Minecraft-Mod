@@ -31,9 +31,9 @@ import java.util.OptionalDouble;
 public final class SkyStarRenderer {
     private static final SkyStarRenderer INSTANCE = new SkyStarRenderer();
 
-    private static final Identifier STAR_TEXTURE = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/environment/stargazer_star_sheet.png");
-    private static final Identifier STAR_TEXTURE2 = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/environment/stargazer_star2_sheet.png");
-    private static final Identifier STAR_TEXTURE3 = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/environment/wander_sky2.png");
+    private static final Identifier STAR_TEXTURE =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/environment/stargazer_star_sheet.png");
+    private static final Identifier STAR_TEXTURE2 =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/environment/stargazer_star2_sheet.png");
+    private static final Identifier STAR_TEXTURE3 =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/environment/wander_sky2.png");
 
     private static final int DEFAULT_STAR_COUNT = 128;
     private static final float DEFAULT_STAR_RADIUS = 96.0F;

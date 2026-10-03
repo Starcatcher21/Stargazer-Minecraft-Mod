@@ -119,7 +119,7 @@ public class Nebulas {
             .mapColor(MapColor.COLOR_CYAN)
     );
 
-    public static final RegistrySupplier<Block> BLUE_NEBULA_REGROW_CORE = register("blue_nebula_regrow_core", settings -> new NebulaCore(ResourceKey.create(Registries.CONFIGURED_FEATURE, Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "blue_nebula_trees")), BLUE_TENTACLE_FLOWER.get(), settings), BlockBehaviour.Properties.of()
+    public static final RegistrySupplier<Block> BLUE_NEBULA_REGROW_CORE = register("blue_nebula_regrow_core", settings -> new NebulaCore(ResourceKey.create(Registries.CONFIGURED_FEATURE,Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "blue_nebula_trees")), BLUE_TENTACLE_FLOWER.get(), settings), BlockBehaviour.Properties.of()
             .forceSolidOn()
             .randomTicks()
             .sound(SoundType.WOOD)
@@ -192,7 +192,7 @@ public class Nebulas {
             .mapColor(MapColor.COLOR_RED)
     );
 
-    public static final RegistrySupplier<Block> RED_NEBULA_REGROW_CORE = register("red_nebula_regrow_core", settings -> new NebulaCore(ResourceKey.create(Registries.CONFIGURED_FEATURE, Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "red_nebula_trees")), RED_TENTACLE_FLOWER.get(), settings), BlockBehaviour.Properties.of()
+    public static final RegistrySupplier<Block> RED_NEBULA_REGROW_CORE = register("red_nebula_regrow_core", settings -> new NebulaCore(ResourceKey.create(Registries.CONFIGURED_FEATURE,Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "red_nebula_trees")), RED_TENTACLE_FLOWER.get(), settings), BlockBehaviour.Properties.of()
             .forceSolidOn()
             .randomTicks()
             .sound(SoundType.WOOD)
@@ -249,7 +249,7 @@ public class Nebulas {
             .mapColor(MapColor.COLOR_PURPLE)
     );
 
-    public static final RegistrySupplier<Block> PURPLE_NEBULA_REGROW_CORE = register("purple_nebula_regrow_core", settings -> new NebulaCore(ResourceKey.create(Registries.CONFIGURED_FEATURE, Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "purple_nebula_trees")), PURPLE_TENTACLE_FLOWER.get(), settings), BlockBehaviour.Properties.of()
+    public static final RegistrySupplier<Block> PURPLE_NEBULA_REGROW_CORE = register("purple_nebula_regrow_core", settings -> new NebulaCore(ResourceKey.create(Registries.CONFIGURED_FEATURE,Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "purple_nebula_trees")), PURPLE_TENTACLE_FLOWER.get(), settings), BlockBehaviour.Properties.of()
             .forceSolidOn()
             .randomTicks()
             .sound(SoundType.WOOD)
@@ -322,7 +322,7 @@ public class Nebulas {
             .mapColor(MapColor.COLOR_YELLOW)
     );
 
-    public static final RegistrySupplier<Block> YELLOW_NEBULA_REGROW_CORE = register("yellow_nebula_regrow_core", settings -> new NebulaCore(ResourceKey.create(Registries.CONFIGURED_FEATURE, Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "yellow_nebula_trees")), YELLOW_TENTACLE_FLOWER.get(), settings), BlockBehaviour.Properties.of()
+    public static final RegistrySupplier<Block> YELLOW_NEBULA_REGROW_CORE = register("yellow_nebula_regrow_core", settings -> new NebulaCore(ResourceKey.create(Registries.CONFIGURED_FEATURE,Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "yellow_nebula_trees")), YELLOW_TENTACLE_FLOWER.get(), settings), BlockBehaviour.Properties.of()
             .forceSolidOn()
             .randomTicks()
             .sound(SoundType.WOOD)

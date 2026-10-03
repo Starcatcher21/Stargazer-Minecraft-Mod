@@ -28,7 +28,7 @@ public class FishingLootPrivider extends SimpleFabricLootTableSubProvider {
     public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> lootTableBiConsumer) {
         ResourceKey<LootTable> customFishingKey = ResourceKey.create(
                 Registries.LOOT_TABLE,
-                Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "gameplay/fishing/dream")
+              Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "gameplay/fishing/dream")
         );
 
         // Build the loot table

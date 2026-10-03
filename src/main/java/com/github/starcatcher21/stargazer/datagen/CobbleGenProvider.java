@@ -68,31 +68,31 @@ public class CobbleGenProvider extends CobblegenDataProvider {
     @Override
     protected void addCobblegen(BiConsumer<Identifier, CobbleGen> exporter, HolderLookup.Provider registries) {
         exporter.accept(
-                Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "blue"),
+              Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "blue"),
                 BLUE
         );
         exporter.accept(
-                Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "red"),
+              Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "red"),
                 RED
         );
         exporter.accept(
-                Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "green"),
+              Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "green"),
                 GREEN
         );
         exporter.accept(
-                Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "cosmic_lava"),
+              Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "cosmic_lava"),
                 COSMIC_LAVA
         );
         exporter.accept(
-                Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "cosmic_water"),
+              Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "cosmic_water"),
                 COSMIC_WATER
         );
         exporter.accept(
-                Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "lava_water"),
+              Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "lava_water"),
                 LAVA_WATER
         );
         exporter.accept(
-                Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "negative_water"),
+              Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "negative_water"),
                 NEGATIVE_WATER
         );
     }

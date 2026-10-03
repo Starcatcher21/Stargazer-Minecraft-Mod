@@ -46,8 +46,8 @@ public class StarBookHandled extends AbstractContainerScreen<StarBookScreenHandl
         super.extractBackground(context, mouseX, mouseY, deltaTicks);
 
         Identifier pageTexture = page <= maxPage
-                ? Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/book/page" + page + ".png")
-                : Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/book/pagesoon.png");
+                ?Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/book/page" + page + ".png")
+                :Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/book/pagesoon.png");
         this.clearWidgets();
         StarPageButton buttonn = new StarPageButton(this.leftPos + 244, this.topPos + 157, true, _ -> page = page < maxPage + 1 ? page + 1 : maxPage + 1, true);
         StarPageButton button = new StarPageButton(this.leftPos + 7, this.topPos + 157, false, _ -> page = page > 0 ? page - 1 : 0, true);
@@ -63,8 +63,8 @@ public class StarBookHandled extends AbstractContainerScreen<StarBookScreenHandl
     /*@Override
     protected void renderBg(GuiGraphics context, float deltaTiicks, int mouseX, int mouseY) {
         Identifier pageTexture = page <= maxPage
-                ? Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/book/page" + page + ".png")
-                : Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/book/pagesoon.png");
+                ?Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/book/page" + page + ".png")
+                :Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/book/pagesoon.png");
         this.clearWidgets();
         StarPageButton buttonn = new StarPageButton(this.leftPos + 244, this.topPos + 157, true, (arg) -> page = page < maxPage + 1 ? page + 1 : maxPage + 1, true);
         StarPageButton button = new StarPageButton(this.leftPos + 7, this.topPos + 157, false, (arg) -> page = page > 0 ? page - 1 : 0, true);

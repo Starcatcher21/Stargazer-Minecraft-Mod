@@ -11,9 +11,9 @@ import com.geckolib.renderer.base.GeoRenderState;
 *///? }
 
 public class EyeBatModel extends GeoModel<EyeBat> {
-    private final Identifier model = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "entity/eye_bat");
-    private final Identifier animations = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "entity/eye_bat");
-    private final Identifier texture = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/eye_bat.png");
+    private final Identifier model =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "entity/eye_bat");
+    private final Identifier animations =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "entity/eye_bat");
+    private final Identifier texture =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/eye_bat.png");
 
     //? if >= 26.2 {
     @Override

@@ -14,16 +14,16 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.level.Level;
 
 public class MoonWelderHandled extends AbstractContainerScreen<MoonWelderScreenHandler> {
-    private static final Identifier TEXTURE = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/moon_welder/moon_welder.png");
-    public static final Identifier FULL = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/moon/full.png");
-    public static final Identifier NEW = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/moon/new.png");
-    public static final Identifier THIRD = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/moon/third.png");
-    public static final Identifier FIRST = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/moon/first.png");
-    public static final Identifier WAXING_CRESCENT = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/moon/waxing_crescent.png");
-    public static final Identifier WAXING_GIBBOUS = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/moon/waxing_gibbous.png");
-    public static final Identifier WANING_CRESCENT = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/moon/waning_crescent.png");
-    public static final Identifier WANING_GIBBOUS = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/moon/waning_gibbous.png");
-    public static final Identifier SUN = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/moon/sun.png");
+    private static final Identifier TEXTURE =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/moon_welder/moon_welder.png");
+    public static final Identifier FULL =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/moon/full.png");
+    public static final Identifier NEW =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/moon/new.png");
+    public static final Identifier THIRD =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/moon/third.png");
+    public static final Identifier FIRST =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/moon/first.png");
+    public static final Identifier WAXING_CRESCENT =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/moon/waxing_crescent.png");
+    public static final Identifier WAXING_GIBBOUS =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/moon/waxing_gibbous.png");
+    public static final Identifier WANING_CRESCENT =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/moon/waning_crescent.png");
+    public static final Identifier WANING_GIBBOUS =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/moon/waning_gibbous.png");
+    public static final Identifier SUN =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/moon/sun.png");
 
     public MoonWelderHandled(MoonWelderScreenHandler handler, Inventory inventory, Component title) {
         super(handler, inventory, title, 176, 200);

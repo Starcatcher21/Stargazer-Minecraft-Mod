@@ -24,7 +24,7 @@ import java.util.Optional;
 import static com.github.starcatcher21.stargazer.screens.handled.MoonWelderHandled.*;
 
 public class StarCrusherCategory implements DisplayCategory<StarCrusherDisplay> {
-    public static final Identifier TEXTURE = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/star_crusher_gui.png");
+    public static final Identifier TEXTURE =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/star_crusher_gui.png");
     public static final CategoryIdentifier<StarCrusherDisplay> STARFORGE = CategoryIdentifier.of(Stargazer.MOD_ID, "star_crusher");
     @Override
     public CategoryIdentifier<? extends StarCrusherDisplay> getCategoryIdentifier() {

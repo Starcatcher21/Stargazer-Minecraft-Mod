@@ -1,3 +1,4 @@
+//? if >= 26.2 {
 package com.github.starcatcher21.stargazer.item;
 
 import com.github.starcatcher21.stargazer.Stargazer;
@@ -26,3 +27,4 @@ public class ConsumeEffectsRegistry {
         CONSUME_EFFECT_TYPES.register();
     }
 }
+//? }

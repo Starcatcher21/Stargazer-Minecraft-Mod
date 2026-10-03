@@ -11,9 +11,9 @@ import com.geckolib.renderer.base.GeoRenderState;
 *///? }
 
 public class BlackRookModel extends GeoModel<BlackRook> {
-    private final Identifier model = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "entity/rook");
-    private final Identifier animations = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "entity/rook");
-    private final Identifier texture = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/black_rook.png");
+    private final Identifier model =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "entity/rook");
+    private final Identifier animations =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "entity/rook");
+    private final Identifier texture =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/black_rook.png");
 
     //? if >= 26.2 {
     @Override

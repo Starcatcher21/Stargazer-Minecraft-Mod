@@ -16,23 +16,23 @@ import java.util.Set;
 import net.minecraft.resources.Identifier;
 
 public class GhostModel extends GeoModel<Ghost> {
-    private final Identifier model = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "entity/ghost");
-    private final Identifier animations = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "entity/ghost");
-    private final Identifier texture = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/ghost.png");
-    private final Identifier texture_blinky = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/ghost_blinky.png");
-    private final Identifier texture_clyde = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/ghost_clyde.png");
-    private final Identifier texture_inky = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/ghost_inky.png");
-    private final Identifier texture_pinky = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/ghost_pinky.png");
-    private final Identifier texture_dead = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/pacman_ghost_dead.png");
-    private final Identifier texture_hurt = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/pacman_ghost_hurt.png");
+    private final Identifier model =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "entity/ghost");
+    private final Identifier animations =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "entity/ghost");
+    private final Identifier texture =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/ghost.png");
+    private final Identifier texture_blinky =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/ghost_blinky.png");
+    private final Identifier texture_clyde =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/ghost_clyde.png");
+    private final Identifier texture_inky =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/ghost_inky.png");
+    private final Identifier texture_pinky =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/ghost_pinky.png");
+    private final Identifier texture_dead =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/pacman_ghost_dead.png");
+    private final Identifier texture_hurt =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/pacman_ghost_hurt.png");
     public static final Set<String> pacman = Set.of("blinky", "shadow", "clyde", "pokey", "inky", "bashful", "pinky", "speedy");
-    private final Identifier texture_trans = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/ghost_trans.png");
-    private final Identifier texture_cat = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/ghost_cat.png");
+    private final Identifier texture_trans =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/ghost_trans.png");
+    private final Identifier texture_cat =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/ghost_cat.png");
 
-    private final Identifier texture_cipher = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/ghost_cipher.png");
+    private final Identifier texture_cipher =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/ghost_cipher.png");
     public static final Set<String> bill = Set.of("bill", "bill cipher", "cipher", "gold", "golden triangle", "60 degrees that comes in threes");
-    public static final Identifier texture_finn = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/ghost_finn.png");
-    public static final Identifier texture_jake = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/ghost_jake.png");
+    public static final Identifier texture_finn =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/ghost_finn.png");
+    public static final Identifier texture_jake =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/ghost_jake.png");
     public static final Set<String> adventure = Set.of("finn", "finn the human", "finn martens", "jake", "jake the dog");
 
     //? if >= 26.2 {

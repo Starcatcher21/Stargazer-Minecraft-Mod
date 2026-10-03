@@ -2,7 +2,11 @@ package com.github.starcatcher21.stargazer.compat;
 
 import com.github.starcatcher21.stargazer.screens.recipe.serializer.RawStarforgeShapedRecipe;
 import com.github.starcatcher21.stargazer.screens.recipe.serializer.ShapedStarforgeRecipe;
+//? if >= 26.2 {
+
 import com.github.starcatcher21.stargazer.screens.recipe.serializer.ShapedStarforgeRecipeDisplay;
+
+//? }
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.display.Display;
 import me.shedaniel.rei.api.common.display.DisplaySerializer;
@@ -14,13 +18,17 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.PlacementInfo;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
+//? if >= 26.2 {
+
 import net.minecraft.world.item.crafting.display.RecipeDisplayId;
+import net.minecraft.world.item.crafting.PlacementInfo;
+import net.minecraft.world.item.ItemStackTemplate;
+
+//? }
 import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.Nullable;
 
@@ -36,8 +44,15 @@ public class StarforgeDisplay extends BasicDisplay {
     @Nullable
     private ShapedStarforgeRecipe recipe;
     private EntryIngredient out;
+
     public StarforgeDisplay(ShapedStarforgeRecipe recipe) {
+        //? if >= 26.2 {
+        
         this(recipe.placementInfo(), Collections.singletonList(EntryIngredients.of(recipe.getResult())), recipe.getIngredients());
+        
+        //? } else {
+        /*this(EntryIngredients.ofIngredients(recipe.getIngredients()), Collections.singletonList(EntryIngredients.of(recipe.getResult())), recipe.getIngredients());
+        *///? }
         this.recipe = recipe;
     }
 
@@ -45,12 +60,23 @@ public class StarforgeDisplay extends BasicDisplay {
         this(inputs, Collections.singletonList(outputs));
     }
 
+    //? if >= 26.2 {
+    
     public StarforgeDisplay(PlacementInfo placement, List<EntryIngredient> outputs, List<Optional<Ingredient>> ingredient) {
         super(EntryIngredients.ofIngredients(placement.ingredients()), outputs);
         this.in = EntryIngredients.ofIngredients(placement.ingredients());
         this.place = ingredient;
         this.out = outputs.getFirst();
     }
+    
+    //? } else {
+    /*public StarforgeDisplay(List<EntryIngredient> inputs, List<EntryIngredient> outputs, List<Optional<Ingredient>> ingredient) {
+        super(inputs, outputs);
+        this.in = inputs;
+        this.place = ingredient;
+        this.out = outputs.getFirst();
+    }
+    *///? }
 
     public StarforgeDisplay(List<EntryIngredient> inputs, List<EntryIngredient> outputs) {
         super(inputs, outputs);
@@ -58,18 +84,30 @@ public class StarforgeDisplay extends BasicDisplay {
         this.out = outputs.getFirst();
     }
 
+    //? if >= 26.2 {
+    
     public StarforgeDisplay(ShapedStarforgeRecipeDisplay shapedStarforgeRecipeDisplay, Optional<RecipeDisplayId> networkRecipeId) {
         this(getRecipe(networkRecipeId));
     }
+    
+    //? }
 
     public StarforgeDisplay(Recipe<?> recipe) {
         this((ShapedStarforgeRecipe) recipe);
     }
 
     private static ShapedStarforgeRecipe emptyRecipe() {
-        return new ShapedStarforgeRecipe("", new RawStarforgeShapedRecipe(0,0, List.of(Optional.empty()), Optional.empty()), ItemStackTemplate.fromStack(Blocks.AIR.asItem().getDefaultInstance()));
+        //? if >= 26.2 {
+        
+        return new ShapedStarforgeRecipe("", new RawStarforgeShapedRecipe(0, 0, List.of(Optional.empty()), Optional.empty()), ItemStackTemplate.fromStack(Blocks.AIR.asItem().getDefaultInstance()));
+        
+        //? } else {
+        /*return new ShapedStarforgeRecipe("", new RawStarforgeShapedRecipe(0, 0, List.of(Optional.empty()), Optional.empty()), new ItemStack(Blocks.AIR));
+        *///? }
     }
 
+    //? if >= 26.2 {
+    
     public static ShapedStarforgeRecipe getRecipe(Optional<RecipeDisplayId> networkRecipeId) {
         if (networkRecipeId.isPresent() && Minecraft.getInstance().getSingleplayerServer() != null) {
             RecipeManager.ServerDisplayInfo recip = Minecraft.getInstance().getSingleplayerServer().getRecipeManager().getRecipeFromDisplay(networkRecipeId.get());
@@ -79,6 +117,8 @@ public class StarforgeDisplay extends BasicDisplay {
         }
         return emptyRecipe();
     }
+    
+    //? }
 
     public static ShapedStarforgeRecipe getRecipe(Identifier id) {
         if (Minecraft.getInstance().getSingleplayerServer() != null) {
@@ -100,15 +140,12 @@ public class StarforgeDisplay extends BasicDisplay {
     }
 
     List<EntryIngredient> getIngedientsList() {
-
         List<EntryIngredient> list = new ArrayList<>(14);
-
         List<EntryIngredient> inputEntries = getInputEntries();
 
         for (int i = 0; i < 14; i++) {
-            EntryIngredient stacks;
             try {
-                stacks = inputEntries.get(i);
+                EntryIngredient stacks = inputEntries.get(i);
                 list.add(stacks);
             } catch (Exception ignored) {}
         }
@@ -131,10 +168,10 @@ public class StarforgeDisplay extends BasicDisplay {
     public List<EntryIngredient> ingredients() {
         return this.in;
     }
+
     public ShapedStarforgeRecipe recipe() {
         return this.recipe;
     }
-
 
     @Override
     public @Nullable DisplaySerializer<? extends Display> getSerializer() {

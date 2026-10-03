@@ -24,21 +24,21 @@ public class StarRenderer<R extends EntityRenderState & GeoRenderState> extends 
 //? } else {
 /*public class StarRenderer extends GeoEntityRenderer<Star> {
 *///? }
-    public static Identifier BASE = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/patterns/base.png");
-    public static Identifier MOON = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/patterns/moon.png");
-    public static Identifier PONK = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/patterns/ponk.png");
-    public static Identifier PACMAN = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/patterns/pacman.png");
-    public static Identifier SUN = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/patterns/sun.png");
-    public static Identifier FISH = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/patterns/fish.png");
-    public static Identifier BRICK = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/patterns/brick.png");
-    public static Identifier CREEPER = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/patterns/creeper.png");
+    public static Identifier BASE =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/patterns/base.png");
+    public static Identifier MOON =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/patterns/moon.png");
+    public static Identifier PONK =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/patterns/ponk.png");
+    public static Identifier PACMAN =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/patterns/pacman.png");
+    public static Identifier SUN =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/patterns/sun.png");
+    public static Identifier FISH =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/patterns/fish.png");
+    public static Identifier BRICK =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/patterns/brick.png");
+    public static Identifier CREEPER =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/patterns/creeper.png");
     public StarRenderer(EntityRendererProvider.Context context) {
         super(context, new StarModel());
 
 
         //? if >= 26.2 {
         withRenderLayer(new TextureLayerGeoLayer<>(this,
-                Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/patterns/base.png"),
+              Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/patterns/base.png"),
                 RenderTypes::armorCutoutNoCull){
             @Override
             protected Identifier getTextureResource(R renderState) {

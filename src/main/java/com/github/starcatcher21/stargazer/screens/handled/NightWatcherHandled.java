@@ -11,8 +11,8 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
 
 public class NightWatcherHandled extends AbstractContainerScreen<NightWatcherScreenHandler> {
-    private static final Identifier TEXTURE = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/nightwatcher.png");
-    private static final Identifier ARROW_TEXTURE = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/arrow_progress_down.png");
+    private static final Identifier TEXTURE =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/nightwatcher.png");
+    private static final Identifier ARROW_TEXTURE =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/arrow_progress_down.png");
 
     public NightWatcherHandled(NightWatcherScreenHandler handler, Inventory inventory, Component title) {
         super(handler, inventory, title, 176, 200);

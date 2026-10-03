@@ -26,7 +26,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 public class CosmicBlock extends BaseEntityBlock {
     private final static Random random = new Random();
     private final static float velocity = 0.06F;
-    public static final Identifier TEXTURE = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/block/dream_block.png");
+    public static final Identifier TEXTURE =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/block/dream_block.png");
     @Override
     protected MapCodec<? extends CosmicBlock> codec() {
         return simpleCodec(CosmicBlock::new);

@@ -67,7 +67,7 @@ public class Boril extends Block implements BonemealableBlock {
     public void performBonemeal(ServerLevel world, RandomSource random, BlockPos pos, BlockState state) {
         BlockPos blockPos = pos.above();
         BlockState blockState = MoonBlocks.MOON_GRASS.get().defaultBlockState();
-        Optional<Holder.Reference<PlacedFeature>> optional = world.registryAccess().lookupOrThrow(Registries.PLACED_FEATURE).get(ResourceKey.create(Registries.PLACED_FEATURE, Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "moon_grass_bone")));
+        Optional<Holder.Reference<PlacedFeature>> optional = world.registryAccess().lookupOrThrow(Registries.PLACED_FEATURE).get(ResourceKey.create(Registries.PLACED_FEATURE,Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "moon_grass_bone")));
         block0: for (int i = 0; i < 128; ++i) {
             BonemealableBlock fertilizable;
             BlockPos blockPos2 = blockPos;

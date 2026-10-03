@@ -34,13 +34,13 @@ public class CustomTags {
     public static final TagKey<BannerPattern> STAR_PATTERNS = registerPatterns("star");
 
     private static TagKey<Item> register(String name) {
-        return TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, name));
+        return TagKey.create(Registries.ITEM,Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, name));
     }
     private static TagKey<Block> registerBlock(String name) {
-        return TagKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, name));
+        return TagKey.create(Registries.BLOCK,Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, name));
     }
     private static TagKey<BannerPattern> registerPatterns(String id) {
-        return TagKey.create(Registries.BANNER_PATTERN, Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, id));
+        return TagKey.create(Registries.BANNER_PATTERN,Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, id));
     }
 
     public static final TagKey<Item> IRON_DUST = registerC("dusts/iron");
@@ -48,13 +48,13 @@ public class CustomTags {
     public static final TagKey<Item> GOLD_DUST = registerC("dusts/gold");
 
     private static TagKey<Item> registerC(String name) {
-        return TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("c", name));
+        return TagKey.create(Registries.ITEM,Identifier.fromNamespaceAndPath("c", name));
     }
 
     public static final TagKey<Fluid> DREAM = of("dream");
 
     private static TagKey<Fluid> of(String id) {
-        return TagKey.create(Registries.FLUID, Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, id));
+        return TagKey.create(Registries.FLUID,Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, id));
     }
 
     public static void init() {}

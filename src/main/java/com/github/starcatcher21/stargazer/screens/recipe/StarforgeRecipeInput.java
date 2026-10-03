@@ -1,7 +1,13 @@
 package com.github.starcatcher21.stargazer.screens.recipe;
 
 import java.util.List;
+//? if >= 26.2 {
+
 import net.minecraft.world.entity.player.StackedItemContents;
+
+//? } else {
+/*import net.minecraft.world.entity.player.StackedContents;
+*///? }
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeInput;
 
@@ -11,7 +17,15 @@ public class StarforgeRecipeInput
     private final int width;
     private final int height;
     private final List<ItemStack> stacks;
+
+    //? if >= 26.2 {
+    
     private final StackedItemContents matcher = new StackedItemContents();
+    
+    //? } else {
+    /*private final StackedContents matcher = new StackedContents();
+    *///? }
+
     private final int stackCount;
 
     private StarforgeRecipeInput(int width, int height, List<ItemStack> stacks) {
@@ -22,7 +36,13 @@ public class StarforgeRecipeInput
         for (ItemStack itemStack : stacks) {
             if (itemStack.isEmpty()) continue;
             ++i;
+            //? if >= 26.2 {
+            
             this.matcher.accountStack(itemStack, 1);
+            
+            //? } else {
+            /*this.matcher.accountStack(itemStack);
+            *///? }
         }
         this.stackCount = i;
     }
@@ -54,7 +74,13 @@ public class StarforgeRecipeInput
         return this.stackCount == 0;
     }
 
+    //? if >= 26.2 {
+    
     public StackedItemContents getRecipeMatcher() {
+    
+    //? } else {
+    /*public StackedContents getRecipeMatcher() {
+        *///? }
         return this.matcher;
     }
 
@@ -80,18 +106,29 @@ public class StarforgeRecipeInput
         }
         if (o instanceof StarforgeRecipeInput) {
             StarforgeRecipeInput craftingRecipeInput = (StarforgeRecipeInput) o;
+            //? if >= 26.2 {
+            
             return this.width == craftingRecipeInput.width && this.height == craftingRecipeInput.height && this.stackCount == craftingRecipeInput.stackCount && ItemStack.listMatches(this.stacks, craftingRecipeInput.stacks);
+            
+            //? } else {
+            /*return this.width == craftingRecipeInput.width && this.height == craftingRecipeInput.height && this.stackCount == craftingRecipeInput.stackCount && ItemStack.listMatches(this.stacks, craftingRecipeInput.stacks);
+            *///? }
         }
         return false;
     }
 
     public int hashCode() {
+        //? if >= 26.2 {
+        
         int i = ItemStack.hashStackList(this.stacks);
+        
+        //? } else {
+        /*int i = ItemStack.hashStackList(this.stacks);
+        *///? }
         i = 31 * i + this.width;
         i = 31 * i + this.height;
         return i;
     }
-
 
     public record Positioned(StarforgeRecipeInput input, int left, int top) {
         public static final Positioned EMPTY = new Positioned(StarforgeRecipeInput.EMPTY, 0, 0);

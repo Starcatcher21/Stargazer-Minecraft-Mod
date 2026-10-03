@@ -36,7 +36,7 @@ public class ModVillagers {
     );
 
     public static final ResourceKey<VillagerProfession> ASTROLOGISTS_KEY =
-            ResourceKey.create(Registries.VILLAGER_PROFESSION, Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "astrologists"));
+            ResourceKey.create(Registries.VILLAGER_PROFESSION,Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "astrologists"));
     //? }
 
     public static void init() {

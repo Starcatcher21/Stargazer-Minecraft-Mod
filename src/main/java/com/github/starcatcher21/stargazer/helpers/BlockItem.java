@@ -4,11 +4,10 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 import dev.architectury.registry.registries.RegistrySupplier;
-import net.minecraft.advancements.triggers.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.server.permissions.Permissions;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
@@ -18,8 +17,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.component.BlockItemStateProperties;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.component.ItemContainerContents;
-import net.minecraft.world.item.component.TypedEntityData;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
@@ -31,9 +30,17 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.gameevent.GameEvent.Context;
+//? if >= 26.2 {
 import net.minecraft.world.level.storage.TagValueOutput;
-import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.item.component.TypedEntityData;
+import net.minecraft.server.permissions.Permissions;
+import net.minecraft.advancements.triggers.CriteriaTriggers;
 import org.jspecify.annotations.Nullable;
+//? } else {
+/*import net.minecraft.advancements.CriteriaTriggers;
+import javax.annotation.Nullable;
+*///? }
+import net.minecraft.world.phys.shapes.CollisionContext;
 
 public class BlockItem extends Item {
     private final Supplier<Block> blockSupplier;
@@ -51,7 +58,16 @@ public class BlockItem extends Item {
 
     public InteractionResult useOn(final UseOnContext context) {
         InteractionResult placeResult = this.place(new BlockPlaceContext(context));
+        //? if >= 26.2 {
         return !placeResult.consumesAction() && context.getItemInHand().has(DataComponents.CONSUMABLE) ? super.use(context.getLevel(), context.getPlayer(), context.getHand()) : placeResult;
+        //? } else {
+        /*if (!placeResult.consumesAction() && context.getItemInHand().has(DataComponents.FOOD)) {
+            InteractionResult interactionresult1 = super.use(context.getLevel(), context.getPlayer(), context.getHand()).getResult();
+            return interactionresult1 == InteractionResult.CONSUME ? InteractionResult.CONSUME_PARTIAL : interactionresult1;
+        } else {
+            return placeResult;
+        }
+        *///? }
     }
 
     public InteractionResult place(final BlockPlaceContext placeContext) {
@@ -137,7 +153,12 @@ public class BlockItem extends Item {
 
     protected boolean canPlace(final BlockPlaceContext context, final BlockState stateForPlacement) {
         Player player = context.getPlayer();
+        //? if >= 26.2 {
         return (!this.mustSurvive() || stateForPlacement.canSurvive(context.getLevel(), context.getClickedPos())) && context.getLevel().isUnobstructed(stateForPlacement, context.getClickedPos(), CollisionContext.placementContext(player));
+        //? } else {
+        /*CollisionContext collisioncontext = player == null ? CollisionContext.empty() : CollisionContext.of(player);
+        return (!this.mustSurvive() || stateForPlacement.canSurvive(context.getLevel(), context.getClickedPos())) && context.getLevel().isUnobstructed(stateForPlacement, context.getClickedPos(), collisioncontext);
+        *///? }
     }
 
     protected boolean mustSurvive() {
@@ -149,10 +170,11 @@ public class BlockItem extends Item {
     }
 
     public static boolean updateCustomBlockEntityTag(final Level level, final @Nullable Player player, final BlockPos pos, final ItemStack itemStack) {
+        //? if >= 26.2 {
         if (level.isClientSide()) {
             return false;
         } else {
-            TypedEntityData<BlockEntityType<?>> customData = (TypedEntityData)itemStack.get(DataComponents.BLOCK_ENTITY_DATA);
+            TypedEntityData<BlockEntityType<?>> customData = (TypedEntityData) itemStack.get(DataComponents.BLOCK_ENTITY_DATA);
             if (customData != null) {
                 BlockEntity blockEntity = level.getBlockEntity(pos);
                 if (blockEntity != null) {
@@ -171,8 +193,18 @@ public class BlockItem extends Item {
 
             return false;
         }
+        //? } else {
+        /*BlockEntity blockentity = level.getBlockEntity(pos);
+        if (blockentity != null) {
+            blockentity.applyComponentsFromItemStack(itemStack);
+            blockentity.setChanged();
+            return true;
+        }
+        return false;
+        *///? }
     }
 
+    //? if >= 26.2 {
     public boolean shouldPrintOpWarning(final ItemStack stack, final @Nullable Player player) {
         if (player != null && player.permissions().hasPermission(Permissions.COMMANDS_GAMEMASTER)) {
             TypedEntityData<BlockEntityType<?>> blockEntityData = (TypedEntityData)stack.get(DataComponents.BLOCK_ENTITY_DATA);
@@ -183,6 +215,7 @@ public class BlockItem extends Item {
 
         return false;
     }
+    //? }
 
     public Block getBlock() {
         return this.blockSupplier.get();
@@ -199,10 +232,15 @@ public class BlockItem extends Item {
     public void onDestroyed(final ItemEntity entity) {
         ItemContainerContents container = (ItemContainerContents)entity.getItem().set(DataComponents.CONTAINER, ItemContainerContents.EMPTY);
         if (container != null) {
+            //? if >= 26.2 {
             ItemUtils.onContainerDestroyed(entity, container.nonEmptyItemCopyStream());
+            //? } else {
+            /*ItemUtils.onContainerDestroyed(entity, container.nonEmptyItemsCopy());
+            *///? }
         }
     }
 
+    //? if >= 26.2 {
     public static void setBlockEntityData(final ItemStack stack, final BlockEntityType<?> type, final TagValueOutput output) {
         output.discard("id");
         if (output.isEmpty()) {
@@ -212,4 +250,16 @@ public class BlockItem extends Item {
             stack.set(DataComponents.BLOCK_ENTITY_DATA, TypedEntityData.of(type, output.buildResult()));
         }
     }
+    //? } else {
+    /*public static void setBlockEntityData(ItemStack itemStack, BlockEntityType<?> type, CompoundTag compoundTag) {
+        compoundTag.remove("id");
+        if (compoundTag.isEmpty()) {
+            itemStack.remove(DataComponents.BLOCK_ENTITY_DATA);
+        } else {
+            BlockEntity.addEntityType(compoundTag, type);
+            itemStack.set(DataComponents.BLOCK_ENTITY_DATA, CustomData.of(compoundTag));
+        }
+
+    }
+    *///? }
 }

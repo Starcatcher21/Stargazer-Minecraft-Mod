@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class StarforgeCategory implements DisplayCategory<StarforgeDisplay> {
-    public static final Identifier TEXTURE = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/starforge/starforge_gui.png");
+    public static final Identifier TEXTURE =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/starforge/starforge_gui.png");
     public static final CategoryIdentifier<StarforgeDisplay> STARFORGE = CategoryIdentifier.of(Stargazer.MOD_ID, "starforge");
     @Override
     public CategoryIdentifier<? extends StarforgeDisplay> getCategoryIdentifier() {

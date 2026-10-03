@@ -6,9 +6,9 @@ import com.geckolib.model.GeoModel;
 import com.geckolib.renderer.base.GeoRenderState;
 
 public class StarDisplayModel extends GeoModel<StarDisplayEntity> {
-    private final Identifier model = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "block/star_display");
-    private final Identifier animations = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "block/star_display");
-    private final Identifier texture = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/star_yellow.png");
+    private final Identifier model =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "block/star_display");
+    private final Identifier animations =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "block/star_display");
+    private final Identifier texture =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/star_yellow.png");
 
     @Override
     public Identifier getModelResource(GeoRenderState renderState) {

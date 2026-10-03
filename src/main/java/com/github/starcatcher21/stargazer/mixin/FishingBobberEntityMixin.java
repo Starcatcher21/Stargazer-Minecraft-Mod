@@ -72,7 +72,7 @@ public class FishingBobberEntityMixin {
         if (bobber.level().getFluidState(bobber.blockPosition()).is(CustomTags.DREAM)) {
             ResourceKey<LootTable> customLootKey = ResourceKey.create(
                     Registries.LOOT_TABLE,
-                    Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "gameplay/fishing/dream")
+                  Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "gameplay/fishing/dream")
             );
             return lookup.getLootTable(customLootKey);
         }

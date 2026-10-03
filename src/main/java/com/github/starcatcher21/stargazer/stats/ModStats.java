@@ -17,7 +17,7 @@ public class ModStats {
     public static final RegistrySupplier<Identifier> STAR_CATCHED = register("star_catched");
 
     private static RegistrySupplier<Identifier> register(String id) {
-        Identifier identifier = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, id);
+        Identifier identifier =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, id);
         return STATS.register(id, () -> identifier);
     }
 

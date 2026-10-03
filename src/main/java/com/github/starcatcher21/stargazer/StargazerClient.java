@@ -22,7 +22,9 @@ import com.github.starcatcher21.stargazer.particle.ParticlesClient;
 import com.github.starcatcher21.stargazer.screens.ScreenHandlerTypes;
 import com.github.starcatcher21.stargazer.screens.handled.*;
 import dev.architectury.event.events.client.ClientTickEvent;
+//? if >= 26.2 {
 import dev.architectury.registry.client.gui.MenuScreenRegistry;
+//? }
 import dev.architectury.registry.client.level.entity.EntityRendererRegistry;
 import dev.architectury.registry.client.rendering.BlockEntityRendererRegistry;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
@@ -51,6 +53,7 @@ public final class StargazerClient /*? if fabric {*/implements ClientModInitiali
 
         Stargazer.LOGGER.info("Loading GeckoLib Block Rendering");
 
+        //? if >= 26.2 {
         BlockTypes.STAR_TRAP.listen(type -> BlockEntityRendererRegistry.register(
                 type,
                 context -> new GeoBlockRenderer<>(context, new StarTrapModel())
@@ -65,6 +68,22 @@ public final class StargazerClient /*? if fabric {*/implements ClientModInitiali
                 type,
                 context -> new StarDisplayRenderer<>(context, new StarDisplayModel())
         ));
+        //? } else {
+        /*BlockTypes.STAR_TRAP.listen(type -> BlockEntityRendererRegistry.register(
+                type,
+                context -> new GeoBlockRenderer<>(new StarTrapModel())
+        ));
+
+        BlockTypes.EYE_JAR.listen(type -> BlockEntityRendererRegistry.register(
+                type,
+                context -> new GeoBlockRenderer<>(new EyeJarModel())
+        ));
+
+        BlockTypes.STAR_DISPLAY.listen(type -> BlockEntityRendererRegistry.register(
+                type,
+                context -> new StarDisplayRenderer<>(new StarDisplayModel())
+        ));
+        *///? }
 
         // Particles
         ParticlesClient.init();

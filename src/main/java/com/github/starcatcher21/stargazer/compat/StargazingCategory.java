@@ -16,9 +16,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class StargazingCategory implements DisplayCategory<StargazingDisplay> {
-    public static final Identifier NIGHT_TEXTURE = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/stargazing_night.png");
-    public static final Identifier DAY_TEXTURE = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/stargazing_day.png");
-    public static final Identifier TEXTURE = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/stargazing.png");
+    public static final Identifier NIGHT_TEXTURE =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/stargazing_night.png");
+    public static final Identifier DAY_TEXTURE =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/stargazing_day.png");
+    public static final Identifier TEXTURE =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/stargazing.png");
     public static final CategoryIdentifier<StargazingDisplay> STARFORGE = CategoryIdentifier.of(Stargazer.MOD_ID, "stargazing");
     public static final String TranslationKey = "category.rei.stargazer.stargazing";
     @Override

@@ -19,7 +19,7 @@ public class StargazerAttributes {
     );
 
     private static Holder<Attribute> registerCustom(String id, String name, Attribute attribute) {
-        return Registry.registerForHolder(BuiltInRegistries.ATTRIBUTE, Identifier.fromNamespaceAndPath(id, name), attribute);
+        return Registry.registerForHolder(BuiltInRegistries.ATTRIBUTE,Identifier.fromNamespaceAndPath(id, name), attribute);
     }
 
     public static void init() {}

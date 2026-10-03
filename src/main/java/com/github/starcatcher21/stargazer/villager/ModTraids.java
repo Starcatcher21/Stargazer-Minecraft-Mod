@@ -112,7 +112,7 @@ public class ModTraids {
 
     //? if >= 26.2 {
     public static ResourceKey<TradeSet> resourceKey(final String path) {
-        return ResourceKey.create(Registries.TRADE_SET, Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, path));
+        return ResourceKey.create(Registries.TRADE_SET,Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, path));
     }
     //? }
 }

@@ -20,12 +20,12 @@ public class SoundEffects {
     public static final RegistrySupplier<SoundEvent> COSMIC_MUSIC = register("cosmic.music");
 
     private static RegistrySupplier<SoundEvent> register(String path) {
-        Identifier id = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, path);
+        Identifier id =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, path);
         return SOUND_EVENTS.register(path, () -> SoundEvent.createVariableRangeEvent(id));
     }
 
     private static RegistrySupplier<SoundEvent> registerWithRange(String path, float distanceToTravel) {
-        Identifier id = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, path);
+        Identifier id =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, path);
         return SOUND_EVENTS.register(path, () -> SoundEvent.createFixedRangeEvent(id, distanceToTravel));
     }
 
