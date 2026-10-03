@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:smelting",
-  "experience": 0.7,
-  "group": "gold_ingot",
-  "ingredient": "stargazer:gold_dust",
-  "result": {
-    "id": "minecraft:gold_ingot"
-  }
-}

@@ -1,0 +1,8 @@
+{
+  "type": "stargazer:star_crusher",
+  "item1": "minecraft:amethyst_shard",
+  "result": {
+    "count": 1,
+    "id": "stargazer:amethyst_dust"
+  }
+}

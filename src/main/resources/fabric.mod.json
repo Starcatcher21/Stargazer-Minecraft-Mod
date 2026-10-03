@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "id": "${id}",
+  "version": "${version}",
+
+  "name": "${name}",
+  "description": "${description}",
+  "authors": [
+    "Starcatcher"
+  ],
+
+  "license": "MIT",
+  "icon": "assets/${id}/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "${group}.${id}.Stargazer"
+    ],
+    "client": [
+      "${group}.${id}.StargazerClient"
+    ],
+    "fabric-datagen": [
+      "${group}.${id}.StargazerDataGenerator"
+    ]
+  },
+  "mixins": [
+    "${id}.mixins.json"
+  ],
+  "accessWidener": "stargazer.accesswidener",
+  "depends": {
+    "fabricloader": "*",
+    "fabric-api": ">=${fabricVersion}",
+    "minecraft": ">=${minecraftVersionVirtual}",
+		"architectury": ">=21.0.7",
+    "fabric-api": "*",
+    "geckolib": ">=5.5.3",
+    "starlib": ">=1.0.4"
+  }
+}

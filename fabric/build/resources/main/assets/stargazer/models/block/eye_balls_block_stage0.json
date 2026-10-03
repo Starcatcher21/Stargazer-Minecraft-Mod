@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/crop",
-  "textures": {
-    "crop": "stargazer:block/eye_balls_block_stage0"
-  }
-}

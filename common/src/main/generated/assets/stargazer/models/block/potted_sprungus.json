@@ -1,7 +1,0 @@
-{
-  "parent": "stargazer:block/potted_plant_custom",
-  "textures": {
-    "dirt": "stargazer:block/moon_rock",
-    "plant": "stargazer:block/sprungus"
-  }
-}

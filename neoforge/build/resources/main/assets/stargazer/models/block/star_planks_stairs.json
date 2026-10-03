@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/stairs",
-  "textures": {
-    "bottom": "stargazer:block/star_planks",
-    "side": "stargazer:block/star_planks",
-    "top": "stargazer:block/star_planks"
-  }
-}

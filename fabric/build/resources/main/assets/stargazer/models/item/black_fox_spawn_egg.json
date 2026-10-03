@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "stargazer:item/black_fox_spawn_egg"
-  }
-}

@@ -1,0 +1,8 @@
+{
+  "type": "stargazer:star_crusher",
+  "item1": "stargazer:amethyst_dust_block",
+  "result": {
+    "count": 1,
+    "id": "stargazer:pure_amethyst_dust"
+  }
+}

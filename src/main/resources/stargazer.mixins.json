@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "package": "com.github.starcatcher21.stargazer.mixin",
+  "minVersion": "0.8",
+  "mixins": [
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

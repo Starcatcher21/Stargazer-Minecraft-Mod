@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/slab_top",
-  "textures": {
-    "bottom": "stargazer:block/red_rock",
-    "side": "stargazer:block/red_rock",
-    "top": "stargazer:block/red_rock"
-  }
-}

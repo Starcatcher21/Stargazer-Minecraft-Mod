@@ -1,0 +1,10 @@
+{
+  "type": "stargazer:moon_welder",
+  "item1": "stargazer:moon_boots",
+  "item2": "stargazer:pure_amethyst_ingot",
+  "moon_phase": 0,
+  "result": {
+    "count": 1,
+    "id": "stargazer:amethyst_boots"
+  }
+}

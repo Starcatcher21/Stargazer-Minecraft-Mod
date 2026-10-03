@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/cube_column",
-  "textures": {
-    "end": "stargazer:block/curve_log_top",
-    "side": "stargazer:block/curve_log_side"
-  }
-}

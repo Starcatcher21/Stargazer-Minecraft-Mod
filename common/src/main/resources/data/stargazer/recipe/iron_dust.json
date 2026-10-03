@@ -1,8 +1,0 @@
-{
-  "type": "stargazer:star_crusher",
-  "item1": "#c:ores/iron",
-  "result": {
-    "count": 4,
-    "id": "stargazer:iron_dust"
-  }
-}

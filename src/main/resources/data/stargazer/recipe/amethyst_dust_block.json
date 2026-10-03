@@ -1,0 +1,17 @@
+{
+  "type": "stargazer:starforge",
+  "pattern": [
+    "  S  ",
+    " SSS ",
+    "SSSSS",
+    " SSS ",
+    "S   S"
+  ],
+  "key": {
+    "S": "stargazer:amethyst_dust"
+  },
+  "result": {
+    "count": 1,
+    "id": "stargazer:amethyst_dust_block"
+  }
+}
