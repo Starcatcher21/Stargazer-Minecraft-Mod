@@ -20,20 +20,20 @@ import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import com.geckolib.animatable.GeoAnimatable;
-import com.geckolib.animatable.GeoEntity;
-import com.geckolib.animatable.instance.AnimatableInstanceCache;
-import com.geckolib.animation.AnimationController;
-import com.geckolib.util.GeckoLibUtil;
-import com.geckolib.animation.RawAnimation;
+import software.bernie.geckolib.animatable.GeoAnimatable;
+import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.animation.AnimationController;
+import software.bernie.geckolib.util.GeckoLibUtil;
+import software.bernie.geckolib.animation.RawAnimation;
 //? if >= 26.2 {
-import com.geckolib.animatable.manager.AnimatableManager;
-import com.geckolib.animation.object.PlayState;
-import com.geckolib.animation.state.AnimationTest;
-//? } else {
-/*import com.geckolib.animation.AnimatableManager;
-import com.geckolib.animation.PlayState;
-*///? }
+/*import software.bernie.geckolib.animatable.manager.AnimatableManager;
+import software.bernie.geckolib.animation.object.PlayState;
+import software.bernie.geckolib.animation.state.AnimationTest;
+*///? } else {
+import software.bernie.geckolib.animation.AnimatableManager;
+import software.bernie.geckolib.animation.PlayState;
+//? }
 
 public class EyeBat extends PathfinderMob implements GeoEntity {
     protected static final RawAnimation WALK_ANIM = RawAnimation.begin().thenLoop("eye_bat.fly");
@@ -68,23 +68,23 @@ public class EyeBat extends PathfinderMob implements GeoEntity {
         birdNavigation.setCanOpenDoors(false);
         birdNavigation.setCanFloat(true);
         //? if >= 26.2 {
-        birdNavigation.setRequiredPathLength(48.0F);
-        //? }
+        /*birdNavigation.setRequiredPathLength(48.0F);
+        *///? }
         return birdNavigation;
     }
 
     @Override
     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
         //? if >= 26.2 {
-        controllers.add(new AnimationController<GeoAnimatable>("MovementController", 5, this::AnimController));
-        //? }
+        /*controllers.add(new AnimationController<GeoAnimatable>("MovementController", 5, this::AnimController));
+        *///? }
     }
 
     //? if >= 26.2 {
-    private PlayState AnimController(AnimationTest<GeoAnimatable> animTest) {
+    /*private PlayState AnimController(AnimationTest<GeoAnimatable> animTest) {
         return animTest.setAndContinue(WALK_ANIM);
     }
-    //? }
+    *///? }
 
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {

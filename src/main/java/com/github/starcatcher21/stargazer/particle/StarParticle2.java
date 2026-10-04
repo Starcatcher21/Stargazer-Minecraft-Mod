@@ -1,9 +1,9 @@
 package com.github.starcatcher21.stargazer.particle;
 
 //? if fabric {
-import net.fabricmc.api.EnvType;
+/*import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-//? }
+*///? }
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -11,8 +11,8 @@ import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.RandomSource;
 
 //? if fabric {
-@Environment(EnvType.CLIENT)
-//? }
+/*@Environment(EnvType.CLIENT)
+*///? }
 public class StarParticle2 extends SingleQuadParticle {
     StarParticle2(ClientLevel world, double x, double y, double z, double velocityX, double velocityY, double velocityZ, boolean signal, TextureAtlasSprite sprite) {
         super(world, x, y, z, sprite);
@@ -54,8 +54,8 @@ public void tick() {
     }
 
     //? if fabric {
-    @Environment(EnvType.CLIENT)
-    //? }
+    /*@Environment(EnvType.CLIENT)
+    *///? }
     public static class Factory implements ParticleProvider<SimpleParticleType> {
         private final SpriteSet spriteProvider;
 

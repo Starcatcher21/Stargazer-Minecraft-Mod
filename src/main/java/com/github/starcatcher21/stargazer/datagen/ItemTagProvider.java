@@ -1,5 +1,5 @@
 /*? if fabric {*/
-package com.github.starcatcher21.stargazer.datagen;
+/*package com.github.starcatcher21.stargazer.datagen;
 
 import com.github.starcatcher21.stargazer.CustomTags;
 import com.github.starcatcher21.stargazer.block.register.*;
@@ -142,4 +142,4 @@ public class ItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .add(ModItems.CRYSTAL_MOON.get().builtInRegistryHolder().key());
     }
 }
-//? }
+*///? }

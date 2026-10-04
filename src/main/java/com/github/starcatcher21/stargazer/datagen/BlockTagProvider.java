@@ -1,5 +1,5 @@
 /*? if fabric {*/
-package com.github.starcatcher21.stargazer.datagen;
+/*package com.github.starcatcher21.stargazer.datagen;
 
 import com.github.starcatcher21.stargazer.CustomTags;
 import com.github.starcatcher21.stargazer.block.ModBlock;
@@ -346,4 +346,4 @@ public class BlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
                 .add(StarBlocks.BORDER_BLOCK.getKey());
     }
 }
-//? }
+*///? }

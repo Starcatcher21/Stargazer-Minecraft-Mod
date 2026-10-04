@@ -1,5 +1,5 @@
 /*? if fabric {*/
-package com.github.starcatcher21.stargazer.datagen;
+/*package com.github.starcatcher21.stargazer.datagen;
 
 import com.github.starcatcher21.stargazer.block.ModBlock;
 import com.github.starcatcher21.stargazer.block.clases.Hedge;
@@ -384,4 +384,4 @@ public class LootTableProvider extends FabricBlockLootSubProvider {
         );
     }
 }
-//? }
+*///? }

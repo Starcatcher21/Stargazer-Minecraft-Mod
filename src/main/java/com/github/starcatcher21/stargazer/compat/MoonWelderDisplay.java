@@ -11,17 +11,17 @@ import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 //? if >= 26.2 {
-import net.minecraft.world.item.ItemStackTemplate;
+/*import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.PlacementInfo;
 import net.minecraft.world.item.crafting.display.RecipeDisplayId;
-//?}
+*///?}
 import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.Nullable;
 
@@ -38,29 +38,29 @@ public class MoonWelderDisplay extends BasicDisplay {
 
     /* ---------------- 26.2+ ------------------------------------------- */
     //? if >= 26.2 {
-    public MoonWelderDisplay(ShapedMoonWelderRecipe recipe) {
+    /*public MoonWelderDisplay(ShapedMoonWelderRecipe recipe) {
         this(recipe.placementInfo(),
                 Collections.singletonList(EntryIngredients.ofItemStacks(
                         Collections.singletonList(recipe.getResult().copy()))),
                 recipe.getIngredients());
         this.recipe = recipe;
     }
-    //?} else {
-    /*public MoonWelderDisplay(ShapedMoonWelderRecipe recipe) {
+    *///?} else {
+    public MoonWelderDisplay(ShapedMoonWelderRecipe recipe) {
         this(toInputs(recipe.getIngredients()),
              Collections.singletonList(EntryIngredients.ofItemStacks(
                  Collections.singletonList(recipe.getResult()))));
         this.place = recipe.getIngredients();
         this.recipe = recipe;
     }
-    *///?}
+    //?}
 
     public MoonWelderDisplay(List<EntryIngredient> inputs, EntryIngredient outputs) {
         this(inputs, Collections.singletonList(outputs));
     }
 
     //? if >= 26.2 {
-    public MoonWelderDisplay(PlacementInfo placement,
+    /*public MoonWelderDisplay(PlacementInfo placement,
                              List<EntryIngredient> outputs,
                              List<Optional<Ingredient>> ingredient) {
         super(EntryIngredients.ofIngredients(placement.ingredients()), outputs);
@@ -68,7 +68,7 @@ public class MoonWelderDisplay extends BasicDisplay {
         this.place = ingredient;
         this.out   = outputs.getFirst();
     }
-    //?}
+    *///?}
 
     /** Universal ctor — initialises in/out on every branch. */
     public MoonWelderDisplay(List<EntryIngredient> inputs, List<EntryIngredient> outputs) {
@@ -78,10 +78,10 @@ public class MoonWelderDisplay extends BasicDisplay {
     }
 
     //? if >= 26.2 {
-    public MoonWelderDisplay(ShapedMoonWelderRecipeDisplay d, Optional<RecipeDisplayId> id) {
+    /*public MoonWelderDisplay(ShapedMoonWelderRecipeDisplay d, Optional<RecipeDisplayId> id) {
         this(getRecipe(id));
     }
-    //?}
+    *///?}
 
     public MoonWelderDisplay(Recipe<?> recipe) {
         this((ShapedMoonWelderRecipe) recipe);
@@ -99,24 +99,24 @@ public class MoonWelderDisplay extends BasicDisplay {
 
     private static ShapedMoonWelderRecipe emptyRecipe() {
         //? if >= 26.2 {
-        return new ShapedMoonWelderRecipe("",
+        /*return new ShapedMoonWelderRecipe("",
                 new RawMoonWelderShapedRecipe(0, 0,
                         Ingredient.of(Blocks.AIR.asItem()),
                         Ingredient.of(Blocks.AIR.asItem()),
                         0, Optional.empty()),
                 ItemStackTemplate.fromStack(ItemStack.EMPTY));
-        //?} else {
-        /*return new ShapedMoonWelderRecipe("",
+        *///?} else {
+        return new ShapedMoonWelderRecipe("",
             new RawMoonWelderShapedRecipe(0, 0,
                 Ingredient.of(Blocks.AIR.asItem()),
                 Ingredient.of(Blocks.AIR.asItem()),
                 0, Optional.empty()),
             ItemStack.EMPTY);
-        *///?}
+        //?}
     }
 
     //? if >= 26.2 {
-    public static ShapedMoonWelderRecipe getRecipe(Optional<RecipeDisplayId> id) {
+    /*public static ShapedMoonWelderRecipe getRecipe(Optional<RecipeDisplayId> id) {
         if (id.isPresent() && Minecraft.getInstance().getSingleplayerServer() != null) {
             var info = Minecraft.getInstance().getSingleplayerServer()
                     .getRecipeManager().getRecipeFromDisplay(id.get());
@@ -124,18 +124,18 @@ public class MoonWelderDisplay extends BasicDisplay {
         }
         return emptyRecipe();
     }
-    //?}
+    *///?}
 
-    public static ShapedMoonWelderRecipe getRecipe(Identifier id) {
+    public static ShapedMoonWelderRecipe getRecipe(ResourceLocation id) {
         var server = Minecraft.getInstance().getSingleplayerServer();
         if (server != null) {
             //? if >= 26.2 {
-            Optional<? extends RecipeHolder<?>> h =
-                    server.getRecipeManager().byKey(ResourceKey.create(Registries.RECIPE, id));
-            //?} else {
             /*Optional<? extends RecipeHolder<?>> h =
+                    server.getRecipeManager().byKey(ResourceKey.create(Registries.RECIPE, id));
+            *///?} else {
+            Optional<? extends RecipeHolder<?>> h =
                 server.getRecipeManager().byKey(id);
-            *///?}
+            //?}
             if (h.isPresent() && h.get().value() instanceof ShapedMoonWelderRecipe s) return s;
         }
         return emptyRecipe();
@@ -165,8 +165,8 @@ public class MoonWelderDisplay extends BasicDisplay {
     public ShapedMoonWelderRecipe recipe() { return this.recipe; }
 
     //? if >= 26.2 {
-    @Override
-    //?}
+    /*@Override
+    *///?}
     public @Nullable DisplaySerializer<? extends Display> getSerializer() {
         return StargazerREICommon.MOONWELDER;
     }

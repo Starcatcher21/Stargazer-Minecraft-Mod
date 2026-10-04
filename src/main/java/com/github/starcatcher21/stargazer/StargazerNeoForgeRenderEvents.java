@@ -1,5 +1,5 @@
 //? if neoforge {
-/*package com.github.starcatcher21.stargazer;
+package com.github.starcatcher21.stargazer;
 
 import com.github.starcatcher21.stargazer.renderer.SkyStarRenderer;
 import net.minecraft.client.Minecraft;
@@ -13,7 +13,7 @@ import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
 public class StargazerNeoForgeRenderEvents {
 
     //? if >= 26.2 {
-    @SubscribeEvent
+    /*@SubscribeEvent
     public static void onRenderLevelStage(RenderLevelStageEvent.AfterSky event) {
         Minecraft client = Minecraft.getInstance();
         if (client.level != null && client.gameRenderer.mainCamera() != null) {
@@ -27,8 +27,8 @@ public class StargazerNeoForgeRenderEvents {
             );
         }
     }
-    //? } else {
-    /^@SubscribeEvent
+    *///? } else {
+    @SubscribeEvent
     public static void onRenderLevelStage(RenderLevelStageEvent event) {
         if (event.getStage() == RenderLevelStageEvent.Stage.AFTER_SKY) {
             Minecraft client = Minecraft.getInstance();
@@ -44,6 +44,6 @@ public class StargazerNeoForgeRenderEvents {
             }
         }
     }
-    ^///? }
+    //? }
 }
-*///? }
+//? }

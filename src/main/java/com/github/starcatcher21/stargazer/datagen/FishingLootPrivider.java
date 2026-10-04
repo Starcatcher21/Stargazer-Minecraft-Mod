@@ -1,5 +1,5 @@
 /*? if fabric {*/
-package com.github.starcatcher21.stargazer.datagen;
+/*package com.github.starcatcher21.stargazer.datagen;
 
 import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.item.ModItems;
@@ -7,7 +7,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableSubProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -28,7 +28,7 @@ public class FishingLootPrivider extends SimpleFabricLootTableSubProvider {
     public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> lootTableBiConsumer) {
         ResourceKey<LootTable> customFishingKey = ResourceKey.create(
                 Registries.LOOT_TABLE,
-              Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "gameplay/fishing/dream")
+              ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "gameplay/fishing/dream")
         );
 
         // Build the loot table
@@ -56,4 +56,4 @@ public class FishingLootPrivider extends SimpleFabricLootTableSubProvider {
         lootTableBiConsumer.accept(customFishingKey, lootTable);
     }
 }
-//? }
+*///? }

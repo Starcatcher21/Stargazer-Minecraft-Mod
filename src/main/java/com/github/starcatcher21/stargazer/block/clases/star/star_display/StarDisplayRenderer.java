@@ -18,9 +18,9 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
 import org.jspecify.annotations.Nullable;
-import com.geckolib.model.GeoModel;
-import com.geckolib.renderer.GeoBlockRenderer;
-import com.geckolib.renderer.base.GeoRenderState;
+import software.bernie.geckolib.model.GeoModel;
+import software.bernie.geckolib.renderer.GeoBlockRenderer;
+import software.bernie.geckolib.renderer.base.GeoRenderState;
 
 public class StarDisplayRenderer<R extends BlockEntityRenderState & GeoRenderState> extends GeoBlockRenderer<StarDisplayEntity, R> {
     public StarDisplayRenderer(BlockEntityRendererProvider.Context context, GeoModel<StarDisplayEntity> model) {

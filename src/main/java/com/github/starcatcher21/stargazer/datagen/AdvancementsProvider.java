@@ -1,5 +1,5 @@
 /*? if fabric {*/
-package com.github.starcatcher21.stargazer.datagen;
+/*package com.github.starcatcher21.stargazer.datagen;
 
 import com.github.starcatcher21.stargazer.CustomTags;
 import com.github.starcatcher21.stargazer.Stargazer;
@@ -31,7 +31,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Util;
@@ -60,7 +60,7 @@ public class AdvancementsProvider extends FabricAdvancementProvider {
                         MoonBlocks.MOON_ROCK.get(), // The display icon
                         Component.literal("Stargazer"), // The title
                         Component.literal("Are you ready for cosmic adventures"), // The description
-                      Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "gui/advancements/backgrounds/stars"), // Background image for the tab in the advancements page, if this is a root advancement (has no parent)
+                      ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "gui/advancements/backgrounds/stars"), // Background image for the tab in the advancements page, if this is a root advancement (has no parent)
                         AdvancementType.TASK, // TASK, CHALLENGE, or GOAL
                         false, // Show the toast when completing it
                         false, // Announce it to chat
@@ -356,4 +356,4 @@ public class AdvancementsProvider extends FabricAdvancementProvider {
         return builder;
     }
 }
-//? }
+*///? }

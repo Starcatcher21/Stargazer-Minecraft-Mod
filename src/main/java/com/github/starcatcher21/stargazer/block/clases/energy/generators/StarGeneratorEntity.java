@@ -19,198 +19,233 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.storage.ValueInput;
+//? if >= 26.2 {
+/*import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
+*///?} else {
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
+//?}
 import org.jetbrains.annotations.Nullable;
 
 public class StarGeneratorEntity extends BlockEntity implements Container {
 
-	private final NonNullList<ItemStack> inventory = NonNullList.withSize(2, ItemStack.EMPTY);
-	private static final int INPUT_SLOT = 0;
-	private static final int OUTPUT_SLOT = 1;
+    private final NonNullList<ItemStack> inventory = NonNullList.withSize(2, ItemStack.EMPTY);
+    private static final int INPUT_SLOT = 0;
+    private static final int OUTPUT_SLOT = 1;
 
-	private int progress = 0;
-	private int maxProgress = 100;
+    private int progress = 0;
+    private int maxProgress = 100;
 
-	public StarGeneratorEntity(BlockPos pos, BlockState state) {
-		super(BlockTypes.STAR_GENERATOR.get(), pos, state); // Added .get() for Architectury RegistrySupplier
-	}
+    public StarGeneratorEntity(BlockPos pos, BlockState state) {
+        super(BlockTypes.STAR_GENERATOR.get(), pos, state);
+    }
 
-	public final SimpleModEnergyStorage energyStorage = new SimpleModEnergyStorage(10000, 0, 100, this::setChanged);
+    public final SimpleModEnergyStorage energyStorage =
+            new SimpleModEnergyStorage(10000, 0, 100, this::setChanged);
 
-	@Override
-	protected void loadAdditional(ValueInput nbt) {
-		super.loadAdditional(nbt);
-		ContainerHelper.loadAllItems(nbt, this.inventory);
-		energyStorage.setAmount(nbt.getLongOr("energy", 0));
-		progress = nbt.getIntOr("progress", 0);
-		maxProgress = nbt.getIntOr("max_progress", 0);
-	}
+    /* ---------------- serialization ---------------------------------- */
+    //? if >= 26.2 {
+    /*@Override
+    protected void loadAdditional(ValueInput nbt) {
+        super.loadAdditional(nbt);
+        ContainerHelper.loadAllItems(nbt, this.inventory);
+        energyStorage.setAmount(nbt.getLongOr("energy", 0));
+        progress    = nbt.getIntOr("progress", 0);
+        maxProgress = nbt.getIntOr("max_progress", 0);
+    }
 
-	@Override
-	protected void saveAdditional(ValueOutput nbt) {
-		super.saveAdditional(nbt);
-		ContainerHelper.saveAllItems(nbt, this.inventory, true);
-		nbt.putLong("energy", energyStorage.getAmount());
-		nbt.putInt("progress", progress);
-		nbt.putInt("max_progress", maxProgress);
-	}
+    @Override
+    protected void saveAdditional(ValueOutput nbt) {
+        super.saveAdditional(nbt);
+        ContainerHelper.saveAllItems(nbt, this.inventory, true);
+        nbt.putLong("energy", energyStorage.getAmount());
+        nbt.putInt("progress", progress);
+        nbt.putInt("max_progress", maxProgress);
+    }
+    *///?} else {
+    @Override
+    protected void loadAdditional(CompoundTag nbt, HolderLookup.Provider registries) {
+        super.loadAdditional(nbt, registries);
+        ContainerHelper.loadAllItems(nbt, this.inventory, registries);
+        // CompoundTag.getLong/getInt return 0 when the key is absent,
+        // matching getLongOr/getIntOr(..., 0).
+        energyStorage.setAmount(nbt.getLong("energy"));
+        progress    = nbt.getInt("progress");
+        maxProgress = nbt.getInt("max_progress");
+    }
 
-	public static void tick(Level world, BlockPos pos, BlockState state, StarGeneratorEntity sge) {
-		if (world.isClientSide()) return;
+    @Override
+    protected void saveAdditional(CompoundTag nbt, HolderLookup.Provider registries) {
+        super.saveAdditional(nbt, registries);
+        ContainerHelper.saveAllItems(nbt, this.inventory, true, registries);
+        nbt.putLong("energy", energyStorage.getAmount());
+        nbt.putInt("progress", progress);
+        nbt.putInt("max_progress", maxProgress);
+    }
+    //?}
 
-		if (sge.hasRecipe()) {
-			sge.increaseCraftingProgress();
-			setChanged(world, pos, state);
+    /* ---------------- tick ------------------------------------------- */
+    public static void tick(Level world, BlockPos pos, BlockState state, StarGeneratorEntity sge) {
+        if (world.isClientSide()) return;
 
-			if (sge.hasCraftingFinished()) {
-				sge.craftItem();
-				sge.resetProgress();
-			}
-		} else {
-			sge.resetProgress();
-		}
+        if (sge.hasRecipe()) {
+            sge.increaseCraftingProgress();
+            setChanged(world, pos, state);
 
-		SimpleModEnergyStorage source = sge.energyStorage;
-		if (source.getAmount() <= 0) return;
+            if (sge.hasCraftingFinished()) {
+                sge.craftItem();
+                sge.resetProgress();
+            }
+        } else {
+            sge.resetProgress();
+        }
 
-		for (Direction direction : Direction.values()) {
-			EnergyHooks.pushEnergy(world, pos, direction, sge.energyStorage, Long.MAX_VALUE);
-		}
-	}
+        SimpleModEnergyStorage source = sge.energyStorage;
+        if (source.getAmount() <= 0) return;
 
-	private void resetProgress() {
-		this.progress = 0;
-		this.maxProgress = 100;
-	}
+        for (Direction direction : Direction.values()) {
+            EnergyHooks.pushEnergy(world, pos, direction, sge.energyStorage, Long.MAX_VALUE);
+        }
+    }
 
-	private void craftItem() {
-		ItemStack output = new ItemStack(ModItems.SUPERNOVA.get(), 1); // Added .get() if ModItems uses RegistrySupplier
+    private void resetProgress() {
+        this.progress = 0;
+        this.maxProgress = 100;
+    }
 
-		this.removeItem(INPUT_SLOT, 1);
-		this.setItem(OUTPUT_SLOT, new ItemStack(output.getItem(),
-				this.getItem(OUTPUT_SLOT).getCount() + output.getCount()));
-		this.energyStorage.setAmount(this.energyStorage.getAmount() + 100 != this.energyStorage.getCapacity() ? this.energyStorage.getAmount() + 100 : this.energyStorage.getCapacity());
-	}
+    private void craftItem() {
+        ItemStack output = new ItemStack(ModItems.SUPERNOVA.get(), 1);
 
-	private boolean hasCraftingFinished() {
-		return this.progress >= this.maxProgress;
-	}
+        this.removeItem(INPUT_SLOT, 1);
+        this.setItem(OUTPUT_SLOT, new ItemStack(output.getItem(),
+                this.getItem(OUTPUT_SLOT).getCount() + output.getCount()));
 
-	private void increaseCraftingProgress() {
-		this.progress++;
-	}
+        long amount = this.energyStorage.getAmount() + 100;
+        this.energyStorage.setAmount(
+                amount != this.energyStorage.getCapacity()
+                        ? amount
+                        : this.energyStorage.getCapacity());
+    }
 
-	private boolean hasRecipe() {
-		ItemStack output = new ItemStack(ModItems.SUPERNOVA.get(), 1);
+    private boolean hasCraftingFinished() {
+        return this.progress >= this.maxProgress;
+    }
 
-		return this.getItem(INPUT_SLOT).is(CustomTags.STAR) &&
-				canInsertAmountIntoOutputSlot(output.getCount()) &&
-				canInsertItemIntoOutputSlot(output) &&
-				this.energyStorage.getAmount() != this.energyStorage.getCapacity();
-	}
+    private void increaseCraftingProgress() {
+        this.progress++;
+    }
 
-	private boolean canInsertItemIntoOutputSlot(ItemStack output) {
-		return this.getItem(OUTPUT_SLOT).isEmpty() || this.getItem(OUTPUT_SLOT).getItem() == output.getItem();
-	}
+    private boolean hasRecipe() {
+        ItemStack output = new ItemStack(ModItems.SUPERNOVA.get(), 1);
 
-	private boolean canInsertAmountIntoOutputSlot(int count) {
-		int maxCount = this.getItem(OUTPUT_SLOT).isEmpty() ? 64 : this.getItem(OUTPUT_SLOT).getMaxStackSize();
-		int currentCount = this.getItem(OUTPUT_SLOT).getCount();
+        return this.getItem(INPUT_SLOT).is(CustomTags.STAR)
+                && canInsertAmountIntoOutputSlot(output.getCount())
+                && canInsertItemIntoOutputSlot(output)
+                && this.energyStorage.getAmount() != this.energyStorage.getCapacity();
+    }
 
-		return maxCount >= currentCount + count;
-	}
+    private boolean canInsertItemIntoOutputSlot(ItemStack output) {
+        return this.getItem(OUTPUT_SLOT).isEmpty()
+                || this.getItem(OUTPUT_SLOT).getItem() == output.getItem();
+    }
 
-	@Override
-	public int getContainerSize() {
-		return this.inventory.size();
-	}
+    private boolean canInsertAmountIntoOutputSlot(int count) {
+        int maxCount = this.getItem(OUTPUT_SLOT).isEmpty()
+                ? 64
+                : this.getItem(OUTPUT_SLOT).getMaxStackSize();
+        int currentCount = this.getItem(OUTPUT_SLOT).getCount();
+        return maxCount >= currentCount + count;
+    }
 
-	@Override
-	public boolean isEmpty() {
-		for (ItemStack itemStack : this.inventory) {
-			if (!itemStack.isEmpty()) return false;
-		}
-		return true;
-	}
+    /* ---------------- Container impl --------------------------------- */
+    @Override public int getContainerSize() { return this.inventory.size(); }
 
-	@Override
-	public ItemStack getItem(int slot) {
-		return this.inventory.get(slot);
-	}
+    @Override
+    public boolean isEmpty() {
+        for (ItemStack itemStack : this.inventory) {
+            if (!itemStack.isEmpty()) return false;
+        }
+        return true;
+    }
 
-	@Override
-	public ItemStack removeItem(int slot, int amount) {
-		ItemStack result = ContainerHelper.removeItem(this.inventory, slot, amount);
-		if (!result.isEmpty()) setChanged();
-		return result;
-	}
+    @Override public ItemStack getItem(int slot) { return this.inventory.get(slot); }
 
-	@Override
-	public ItemStack removeItemNoUpdate(int slot) {
-		return ContainerHelper.takeItem(this.inventory, slot);
-	}
+    @Override
+    public ItemStack removeItem(int slot, int amount) {
+        ItemStack result = ContainerHelper.removeItem(this.inventory, slot, amount);
+        if (!result.isEmpty()) setChanged();
+        return result;
+    }
 
-	@Override
-	public void setItem(int slot, ItemStack stack) {
-		this.inventory.set(slot, stack);
-		if (stack.getCount() > getMaxStackSize()) {
-			stack.setCount(getMaxStackSize());
-		}
-		setChanged();
-	}
+    @Override
+    public ItemStack removeItemNoUpdate(int slot) {
+        return ContainerHelper.takeItem(this.inventory, slot);
+    }
 
-	@Override
-	public boolean stillValid(Player player) {
-		return Container.stillValidBlockEntity(this, player);
-	}
+    @Override
+    public void setItem(int slot, ItemStack stack) {
+        this.inventory.set(slot, stack);
+        if (stack.getCount() > getMaxStackSize()) {
+            stack.setCount(getMaxStackSize());
+        }
+        setChanged();
+    }
 
-	@Override
-	public boolean canPlaceItem(int slot, ItemStack stack) {
-		return slot == INPUT_SLOT && stack.is(CustomTags.STAR);
-	}
+    @Override
+    public boolean stillValid(Player player) {
+        return Container.stillValidBlockEntity(this, player);
+    }
 
-	@Override
-	public boolean canTakeItem(Container hopperInventory, int slot, ItemStack stack) {
-		return slot == OUTPUT_SLOT;
-	}
+    @Override
+    public boolean canPlaceItem(int slot, ItemStack stack) {
+        return slot == INPUT_SLOT && stack.is(CustomTags.STAR);
+    }
 
-	@Override
-	public void clearContent() {
-		this.inventory.clear();
-		setChanged();
-	}
+    //? if >= 26.2 {
+    /*@Override
+    public boolean canTakeItem(Container hopperInventory, int slot, ItemStack stack) {
+        return slot == OUTPUT_SLOT;
+    }
+    *///?} else {
+    // 1.21.1 Container does not declare canTakeItem; hopper extraction uses
+    // canPlaceItem + slot rules instead. If you need the same behaviour,
+    // override canPlaceItem on the hopper side or use a separate ItemHandler.
+    //?}
 
-	public final ContainerData propertyDelegate = new ContainerData() {
-		@Override
-		public int get(int index) {
-			return switch (index) {
-				case 0 -> (int) energyStorage.getAmount();
-				case 1 -> (int) energyStorage.getCapacity();
-				case 2 -> progress;
-				case 3 -> maxProgress;
-				default -> 0;
-			};
-		}
+    @Override
+    public void clearContent() {
+        this.inventory.clear();
+        setChanged();
+    }
 
-		@Override
-		public void set(int index, int value) {
-			switch (index) {
-				case 0 -> energyStorage.setAmount(value);
-				case 2 -> progress = value;
-				case 3 -> maxProgress = value;
-			}
-		}
+    public final ContainerData propertyDelegate = new ContainerData() {
+        @Override
+        public int get(int index) {
+            return switch (index) {
+                case 0 -> (int) energyStorage.getAmount();
+                case 1 -> (int) energyStorage.getCapacity();
+                case 2 -> progress;
+                case 3 -> maxProgress;
+                default -> 0;
+            };
+        }
 
-		@Override
-		public int getCount() {
-			return 4;
-		}
-	};
+        @Override
+        public void set(int index, int value) {
+            switch (index) {
+                case 0 -> energyStorage.setAmount(value);
+                case 2 -> progress = value;
+                case 3 -> maxProgress = value;
+            }
+        }
 
-	@Nullable
-	@Override
-	public Packet<ClientGamePacketListener> getUpdatePacket() {
-		return ClientboundBlockEntityDataPacket.create(this);
-	}
+        @Override public int getCount() { return 4; }
+    };
+
+    @Nullable
+    @Override
+    public Packet<ClientGamePacketListener> getUpdatePacket() {
+        return ClientboundBlockEntityDataPacket.create(this);
+    }
 }

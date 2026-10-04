@@ -15,23 +15,23 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 //? if >= 26.2 {
-import com.geckolib.animatable.GeoAnimatable;
-import com.geckolib.animatable.GeoEntity;
-import com.geckolib.animatable.instance.AnimatableInstanceCache;
-import com.geckolib.animatable.manager.AnimatableManager;
-import com.geckolib.animation.AnimationController;
-import com.geckolib.animation.object.PlayState;
-import com.geckolib.animation.state.AnimationTest;
-import com.geckolib.util.GeckoLibUtil;
-//? } else {
-/*import com.geckolib.animatable.GeoAnimatable;
-import com.geckolib.animatable.GeoEntity;
-import com.geckolib.animatable.instance.AnimatableInstanceCache;
-import com.geckolib.animation.AnimatableManager;
-import com.geckolib.animation.AnimationController;
-import com.geckolib.animation.PlayState;
-import com.geckolib.util.GeckoLibUtil;
-*///? }
+/*import software.bernie.geckolib.animatable.GeoAnimatable;
+import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.animatable.manager.AnimatableManager;
+import software.bernie.geckolib.animation.AnimationController;
+import software.bernie.geckolib.animation.object.PlayState;
+import software.bernie.geckolib.animation.state.AnimationTest;
+import software.bernie.geckolib.util.GeckoLibUtil;
+*///? } else {
+import software.bernie.geckolib.animatable.GeoAnimatable;
+import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.animation.AnimatableManager;
+import software.bernie.geckolib.animation.AnimationController;
+import software.bernie.geckolib.animation.PlayState;
+import software.bernie.geckolib.util.GeckoLibUtil;
+//? }
 
 public class Rook extends PathfinderMob implements GeoEntity {
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
@@ -50,15 +50,15 @@ public class Rook extends PathfinderMob implements GeoEntity {
     @Override
     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
         //? if >= 26.2 {
-        controllers.add(new AnimationController<GeoAnimatable>("MovementController", 5, this::AnimController));
-        //? }
+        /*controllers.add(new AnimationController<GeoAnimatable>("MovementController", 5, this::AnimController));
+        *///? }
     }
 
     //? if >= 26.2 {
-    private PlayState AnimController(AnimationTest<GeoAnimatable> animTest) {
+    /*private PlayState AnimController(AnimationTest<GeoAnimatable> animTest) {
         return PlayState.STOP;
     }
-    //? }
+    *///? }
 
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {

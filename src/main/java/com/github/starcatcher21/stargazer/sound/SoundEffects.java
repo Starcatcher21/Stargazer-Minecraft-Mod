@@ -4,7 +4,7 @@ import com.github.starcatcher21.stargazer.Stargazer;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 
 public class SoundEffects {
@@ -20,12 +20,12 @@ public class SoundEffects {
     public static final RegistrySupplier<SoundEvent> COSMIC_MUSIC = register("cosmic.music");
 
     private static RegistrySupplier<SoundEvent> register(String path) {
-        Identifier id =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, path);
+        ResourceLocation id =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, path);
         return SOUND_EVENTS.register(path, () -> SoundEvent.createVariableRangeEvent(id));
     }
 
     private static RegistrySupplier<SoundEvent> registerWithRange(String path, float distanceToTravel) {
-        Identifier id =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, path);
+        ResourceLocation id =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, path);
         return SOUND_EVENTS.register(path, () -> SoundEvent.createFixedRangeEvent(id, distanceToTravel));
     }
 

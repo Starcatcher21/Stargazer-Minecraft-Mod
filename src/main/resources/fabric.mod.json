@@ -22,6 +22,12 @@
     ],
     "fabric-datagen": [
       "${group}.${id}.StargazerDataGenerator"
+    ],
+    "rei_client": [
+      "${group}.${id}.compat.StargazerREIClient"
+    ],
+    "rei_common": [
+      "${group}.${id}.compat.StargazerREICommon"
     ]
   },
   "mixins": [

@@ -1,5 +1,5 @@
 //? if fabric {
-package com.github.starcatcher21.stargazer;
+/*package com.github.starcatcher21.stargazer;
 
 import com.github.starcatcher21.stargazer.renderer.SkyDimensionChecks;
 import com.github.starcatcher21.stargazer.renderer.SkyStarRenderer;
@@ -51,4 +51,4 @@ public final class FabricSkyStarRenderer {
         }
     }
 }
-//? }
+*///? }

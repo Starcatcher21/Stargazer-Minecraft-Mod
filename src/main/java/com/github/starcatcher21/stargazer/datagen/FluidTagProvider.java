@@ -1,12 +1,12 @@
 /*? if fabric {*/
-package com.github.starcatcher21.stargazer.datagen;
+/*package com.github.starcatcher21.stargazer.datagen;
 
 import com.github.starcatcher21.stargazer.Stargazer;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.material.Fluid;
 
@@ -20,11 +20,11 @@ public class FluidTagProvider extends FabricTagsProvider.FluidTagsProvider {
     public static final TagKey<Fluid> DREAM = of("dream");
 
     private static TagKey<Fluid> of(String id) {
-        return TagKey.create(Registries.FLUID,Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, id));
+        return TagKey.create(Registries.FLUID,ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, id));
     }
 
     @Override
     protected void addTags(HolderLookup.Provider wrapperLookup) {
     }
 }
-//? }
+*///? }

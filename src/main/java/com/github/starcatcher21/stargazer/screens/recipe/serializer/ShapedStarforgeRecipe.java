@@ -13,9 +13,9 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.network.codec.ByteBufCodecs;
 //? if >= 26.2 {
 
-import net.minecraft.world.item.ItemStackTemplate;
+/*import net.minecraft.world.item.ItemStackTemplate;
 
-//? }
+*///? }
 import net.minecraft.world.item.crafting.*;
 import org.jetbrains.annotations.Nullable;
 
@@ -33,25 +33,25 @@ public class ShapedStarforgeRecipe
     final RawStarforgeShapedRecipe raw;
     //? if >= 26.2 {
     
-    final ItemStackTemplate result;
+    /*final ItemStackTemplate result;
     
-    //? } else {
-    /*final ItemStack result;
-    *///? }
+    *///? } else {
+    final ItemStack result;
+    //? }
     final String group;
     final boolean showNotification;
     //? if >= 26.2 {
-    @Nullable
+    /*@Nullable
     private PlacementInfo ingredientPlacement;
-    //? }
+    *///? }
 
     //? if >= 26.2 {
     
-    public ShapedStarforgeRecipe(String group, RawStarforgeShapedRecipe raw, ItemStackTemplate result, boolean showNotification) {
+    /*public ShapedStarforgeRecipe(String group, RawStarforgeShapedRecipe raw, ItemStackTemplate result, boolean showNotification) {
     
-    //? } else {
-    /*public ShapedStarforgeRecipe(String group, RawStarforgeShapedRecipe raw, ItemStack result, boolean showNotification) {
-        *///? }
+    *///? } else {
+    public ShapedStarforgeRecipe(String group, RawStarforgeShapedRecipe raw, ItemStack result, boolean showNotification) {
+        //? }
         this.group = group;
         this.raw = raw;
         this.result = result;
@@ -60,11 +60,11 @@ public class ShapedStarforgeRecipe
 
     //? if >= 26.2 {
     
-    public ShapedStarforgeRecipe(String group, RawStarforgeShapedRecipe raw, ItemStackTemplate result) {
+    /*public ShapedStarforgeRecipe(String group, RawStarforgeShapedRecipe raw, ItemStackTemplate result) {
     
-    //? } else {
-    /*public ShapedStarforgeRecipe(String group, RawStarforgeShapedRecipe raw, ItemStack result) {
-        *///? }
+    *///? } else {
+    public ShapedStarforgeRecipe(String group, RawStarforgeShapedRecipe raw, ItemStack result) {
+        //? }
         this(group, raw, result, true);
     }
 
@@ -74,8 +74,8 @@ public class ShapedStarforgeRecipe
     }
 
     //? if >= 26.2 {
-    @Override
-    //? }
+    /*@Override
+    *///? }
     public String group() {
         return this.group;
     }
@@ -84,11 +84,11 @@ public class ShapedStarforgeRecipe
     public ItemStack craft(StarforgeRecipeInput craftingRecipeInput, RegistryAccess registryManager) {
         //? if >= 26.2 {
         
-        return this.result.create();
+        /*return this.result.create();
         
-        //? } else {
-        /*return this.result.copy();
-        *///? }
+        *///? } else {
+        return this.result.copy();
+        //? }
     }
 
     @Override
@@ -97,36 +97,36 @@ public class ShapedStarforgeRecipe
     }
 
     //? if >= 26.2 {
-    @VisibleForTesting
+    /*@VisibleForTesting
     public List<Optional<Ingredient>> getIngredients() {
         return this.raw.getIngredients();
     }
-    //? } else {
-    /*@VisibleForTesting
+    *///? } else {
+    @VisibleForTesting
     public NonNullList<Ingredient> getIngredients() {
         return this.raw.getIngredients();
     }
-    *///? }
+    //? }
 
     //? if >= 26.2 {
-    @Override
+    /*@Override
     public PlacementInfo placementInfo() {
         if (this.ingredientPlacement == null) {
             this.ingredientPlacement = PlacementInfo.createFromOptionals(this.raw.getIngredients());
         }
         return this.ingredientPlacement;
     }
-    //? }
+    *///? }
 
 
     public ItemStack getResult() {
         //? if >= 26.2 {
         
-        return this.result.create();
+        /*return this.result.create();
         
-        //? } else {
-        /*return this.result.copy();
-        *///? }
+        *///? } else {
+        return this.result.copy();
+        //? }
     }
 
     @Override
@@ -145,30 +145,30 @@ public class ShapedStarforgeRecipe
 
     //? if 26.2 {
     //? } else {
-    /*@Override
+    @Override
     public boolean canCraftInDimensions(int i, int j) {
-        return false;
+        return true;
     }
 
     @Override
     public ItemStack getResultItem(HolderLookup.Provider arg) {
         return this.getResult();
     }
-    *///? }
+    //? }
 
     @Override
     public ItemStack assemble(StarforgeRecipeInput input
             //? if < 26.2 {
-            /*, HolderLookup.Provider holderLookupProvider
-            *///? }
+            , HolderLookup.Provider holderLookupProvider
+            //? }
     ) {
         //? if >= 26.2 {
         
-        return this.result.create();
+        /*return this.result.create();
         
-        //? } else {
-        /*return this.result.copy();
-        *///? }
+        *///? } else {
+        return this.result.copy();
+        //? }
     }
 
     public int getWidth() {
@@ -180,22 +180,22 @@ public class ShapedStarforgeRecipe
     }
 
     //? if >= 26.2 {
-    @Override
+    /*@Override
     public RecipeBookCategory recipeBookCategory() {
         return RecipeBookCategories.CAMPFIRE;
     }
-    //? }
+    *///? }
 
     public static final MapCodec<ShapedStarforgeRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             Codec.STRING.optionalFieldOf("group", "").forGetter(recipe -> recipe.group),
             RawStarforgeShapedRecipe.CODEC.forGetter(recipe -> recipe.raw),
             //? if >= 26.2 {
             
-            ItemStackTemplate.CODEC.fieldOf("result").forGetter(recipe -> recipe.result)
+            /*ItemStackTemplate.CODEC.fieldOf("result").forGetter(recipe -> recipe.result)
             
-            //? } else {
-            /*ItemStack.CODEC.fieldOf("result").forGetter(recipe -> recipe.result)
-            *///? }
+            *///? } else {
+            ItemStack.CODEC.fieldOf("result").forGetter(recipe -> recipe.result)
+            //? }
     ).apply(instance, ShapedStarforgeRecipe::new));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, ShapedStarforgeRecipe> STREAM_CODEC = StreamCodec.composite(
@@ -203,11 +203,11 @@ public class ShapedStarforgeRecipe
             RawStarforgeShapedRecipe.PACKET_CODEC, recipe -> recipe.raw,
             //? if >= 26.2 {
             
-            ItemStackTemplate.STREAM_CODEC, recipe -> recipe.result,
+            /*ItemStackTemplate.STREAM_CODEC, recipe -> recipe.result,
             
-            //? } else {
-            /*ItemStack.STREAM_CODEC, recipe -> recipe.result,
-            *///? }
+            *///? } else {
+            ItemStack.STREAM_CODEC, recipe -> recipe.result,
+            //? }
             ShapedStarforgeRecipe::new
     );
 

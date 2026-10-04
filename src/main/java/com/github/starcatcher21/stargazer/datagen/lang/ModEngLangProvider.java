@@ -1,5 +1,5 @@
 /*? if fabric {*/
-package com.github.starcatcher21.stargazer.fabric.datagen.lang;
+/*package com.github.starcatcher21.stargazer.fabric.datagen.lang;
 
 import com.github.starcatcher21.stargazer.CreativeTab.ItemGroup;
 import com.github.starcatcher21.stargazer.StargazerAttributes;
@@ -447,4 +447,4 @@ public class ModEngLangProvider extends FabricLanguageProvider {
         translationBuilder.add(ModItems.SUPERNOVA.get(), "Supernova");
     }
 }
-//? }
+*///? }

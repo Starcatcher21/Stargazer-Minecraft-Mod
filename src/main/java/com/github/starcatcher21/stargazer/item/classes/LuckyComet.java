@@ -2,7 +2,7 @@ package com.github.starcatcher21.stargazer.item.classes;
 
 import com.github.starcatcher21.stargazer.Stargazer;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
@@ -32,7 +32,7 @@ public class LuckyComet extends Item {
         }
         ResourceKey<LootTable> customLootKey = ResourceKey.create(
                 Registries.LOOT_TABLE,
-              Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "gameplay/comet")
+              ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "gameplay/comet")
         );
         MinecraftServer server = world.getServer();
         if (server != null) {

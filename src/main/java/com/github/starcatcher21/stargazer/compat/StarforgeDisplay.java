@@ -4,9 +4,9 @@ import com.github.starcatcher21.stargazer.screens.recipe.serializer.RawStarforge
 import com.github.starcatcher21.stargazer.screens.recipe.serializer.ShapedStarforgeRecipe;
 //? if >= 26.2 {
 
-import com.github.starcatcher21.stargazer.screens.recipe.serializer.ShapedStarforgeRecipeDisplay;
+/*import com.github.starcatcher21.stargazer.screens.recipe.serializer.ShapedStarforgeRecipeDisplay;
 
-//? }
+*///? }
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.display.Display;
 import me.shedaniel.rei.api.common.display.DisplaySerializer;
@@ -15,7 +15,7 @@ import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -24,11 +24,11 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 //? if >= 26.2 {
 
-import net.minecraft.world.item.crafting.display.RecipeDisplayId;
+/*import net.minecraft.world.item.crafting.display.RecipeDisplayId;
 import net.minecraft.world.item.crafting.PlacementInfo;
 import net.minecraft.world.item.ItemStackTemplate;
 
-//? }
+*///? }
 import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.Nullable;
 
@@ -48,11 +48,11 @@ public class StarforgeDisplay extends BasicDisplay {
     public StarforgeDisplay(ShapedStarforgeRecipe recipe) {
         //? if >= 26.2 {
         
-        this(recipe.placementInfo(), Collections.singletonList(EntryIngredients.of(recipe.getResult())), recipe.getIngredients());
+        /*this(recipe.placementInfo(), Collections.singletonList(EntryIngredients.of(recipe.getResult())), recipe.getIngredients());
         
-        //? } else {
-        /*this(EntryIngredients.ofIngredients(recipe.getIngredients()), Collections.singletonList(EntryIngredients.of(recipe.getResult())), recipe.getIngredients());
-        *///? }
+        *///? } else {
+        this(EntryIngredients.ofIngredients(recipe.getIngredients()), Collections.singletonList(EntryIngredients.of(recipe.getResult())), recipe.getIngredients());
+        //? }
         this.recipe = recipe;
     }
 
@@ -62,21 +62,21 @@ public class StarforgeDisplay extends BasicDisplay {
 
     //? if >= 26.2 {
     
-    public StarforgeDisplay(PlacementInfo placement, List<EntryIngredient> outputs, List<Optional<Ingredient>> ingredient) {
+    /*public StarforgeDisplay(PlacementInfo placement, List<EntryIngredient> outputs, List<Optional<Ingredient>> ingredient) {
         super(EntryIngredients.ofIngredients(placement.ingredients()), outputs);
         this.in = EntryIngredients.ofIngredients(placement.ingredients());
         this.place = ingredient;
         this.out = outputs.getFirst();
     }
     
-    //? } else {
-    /*public StarforgeDisplay(List<EntryIngredient> inputs, List<EntryIngredient> outputs, List<Optional<Ingredient>> ingredient) {
+    *///? } else {
+    public StarforgeDisplay(List<EntryIngredient> inputs, List<EntryIngredient> outputs, List<Optional<Ingredient>> ingredient) {
         super(inputs, outputs);
         this.in = inputs;
         this.place = ingredient;
         this.out = outputs.getFirst();
     }
-    *///? }
+    //? }
 
     public StarforgeDisplay(List<EntryIngredient> inputs, List<EntryIngredient> outputs) {
         super(inputs, outputs);
@@ -86,11 +86,11 @@ public class StarforgeDisplay extends BasicDisplay {
 
     //? if >= 26.2 {
     
-    public StarforgeDisplay(ShapedStarforgeRecipeDisplay shapedStarforgeRecipeDisplay, Optional<RecipeDisplayId> networkRecipeId) {
+    /*public StarforgeDisplay(ShapedStarforgeRecipeDisplay shapedStarforgeRecipeDisplay, Optional<RecipeDisplayId> networkRecipeId) {
         this(getRecipe(networkRecipeId));
     }
     
-    //? }
+    *///? }
 
     public StarforgeDisplay(Recipe<?> recipe) {
         this((ShapedStarforgeRecipe) recipe);
@@ -99,16 +99,16 @@ public class StarforgeDisplay extends BasicDisplay {
     private static ShapedStarforgeRecipe emptyRecipe() {
         //? if >= 26.2 {
         
-        return new ShapedStarforgeRecipe("", new RawStarforgeShapedRecipe(0, 0, List.of(Optional.empty()), Optional.empty()), ItemStackTemplate.fromStack(Blocks.AIR.asItem().getDefaultInstance()));
+        /*return new ShapedStarforgeRecipe("", new RawStarforgeShapedRecipe(0, 0, List.of(Optional.empty()), Optional.empty()), ItemStackTemplate.fromStack(Blocks.AIR.asItem().getDefaultInstance()));
         
-        //? } else {
-        /*return new ShapedStarforgeRecipe("", new RawStarforgeShapedRecipe(0, 0, List.of(Optional.empty()), Optional.empty()), new ItemStack(Blocks.AIR));
-        *///? }
+        *///? } else {
+        return new ShapedStarforgeRecipe("", new RawStarforgeShapedRecipe(0, 0, List.of(Optional.empty()), Optional.empty()), new ItemStack(Blocks.AIR));
+        //? }
     }
 
     //? if >= 26.2 {
     
-    public static ShapedStarforgeRecipe getRecipe(Optional<RecipeDisplayId> networkRecipeId) {
+    /*public static ShapedStarforgeRecipe getRecipe(Optional<RecipeDisplayId> networkRecipeId) {
         if (networkRecipeId.isPresent() && Minecraft.getInstance().getSingleplayerServer() != null) {
             RecipeManager.ServerDisplayInfo recip = Minecraft.getInstance().getSingleplayerServer().getRecipeManager().getRecipeFromDisplay(networkRecipeId.get());
             if (recip != null && recip.parent().value() instanceof ShapedStarforgeRecipe ssr) {
@@ -118,9 +118,9 @@ public class StarforgeDisplay extends BasicDisplay {
         return emptyRecipe();
     }
     
-    //? }
+    *///? }
 
-    public static ShapedStarforgeRecipe getRecipe(Identifier id) {
+    public static ShapedStarforgeRecipe getRecipe(ResourceLocation id) {
         if (Minecraft.getInstance().getSingleplayerServer() != null) {
             Optional<RecipeHolder<?>> recip = Minecraft.getInstance().getSingleplayerServer().getRecipeManager().byKey(ResourceKey.create(Registries.RECIPE, id));
             if (recip.isPresent() && recip.get().value() instanceof ShapedStarforgeRecipe ssr) {

@@ -10,7 +10,7 @@ import me.shedaniel.rei.api.common.display.basic.BasicDisplay;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
@@ -30,7 +30,7 @@ public class StargazingDisplay extends BasicDisplay {
         super(inputs, outputs);
         this.in = inputs;
         this.out = outputs;
-        this.world = ResourceKey.create(Registries.DIMENSION, Identifier.withDefaultNamespace("overworld"));
+        this.world = ResourceKey.create(Registries.DIMENSION, ResourceLocation.withDefaultNamespace("overworld"));
         this.dayState = FallingObjectDayState.Night;
     }
 

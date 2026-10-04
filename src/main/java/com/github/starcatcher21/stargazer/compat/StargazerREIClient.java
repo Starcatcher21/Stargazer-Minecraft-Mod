@@ -16,8 +16,14 @@ import me.shedaniel.rei.api.client.registry.category.CategoryRegistry;
 import me.shedaniel.rei.api.client.registry.display.DisplayRegistry;
 import me.shedaniel.rei.api.client.registry.screen.ScreenRegistry;
 import me.shedaniel.rei.api.common.util.EntryStacks;
+//? if neoforge {
+import me.shedaniel.rei.forge.REIPluginClient;
+//? }
 import net.minecraft.world.item.Items;
 
+//? if neoforge {
+@REIPluginClient
+//? }
 public class StargazerREIClient implements REIClientPlugin {
     @Override
     public void registerCategories(CategoryRegistry registry) {

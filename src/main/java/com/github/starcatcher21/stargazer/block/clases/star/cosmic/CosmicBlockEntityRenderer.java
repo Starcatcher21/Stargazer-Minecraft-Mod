@@ -4,9 +4,9 @@ import com.github.starcatcher21.stargazer.renderer.CustomRenderLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 //? if fabric {
-import net.fabricmc.api.EnvType;
+/*import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-//? }
+*///? }
 import net.minecraft.client.renderer.FaceInfo;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
@@ -29,8 +29,8 @@ import java.util.List;
 import java.util.Map;
 
 //? if fabric {
-@Environment(value= EnvType.CLIENT)
-//? }
+/*@Environment(value= EnvType.CLIENT)
+*///? }
 public class CosmicBlockEntityRenderer<T extends CosmicBlockEntity>
         implements BlockEntityRenderer<T, CosmicBlockEntityRenderState> {
     public CosmicBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {

@@ -1,39 +1,26 @@
 package com.github.starcatcher21.stargazer.mixin;
 
-import com.github.starcatcher21.stargazer.CustomTags;
 import com.github.starcatcher21.stargazer.CustomWorlds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.tags.FluidTags;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityFluidInteraction;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Optional;
-import java.util.Set;
 
 @Mixin(Entity.class)
 public abstract class EntityMixin {
     @Shadow
     private Level level;
-
-    @Mutable
-    @Shadow
-    @Final
-    private EntityFluidInteraction fluidInteraction;
 
     @Shadow
     public abstract boolean isInWater();
@@ -56,20 +43,8 @@ public abstract class EntityMixin {
     @Shadow
     public abstract boolean isPushedByFluid();
 
-    @Inject(method = "<init>", at = @At("RETURN"))
-    private void trackDreamFluid(EntityType<?> entityType, Level level, CallbackInfo ci) {
-        this.fluidInteraction = new EntityFluidInteraction(Set.of(FluidTags.WATER, FluidTags.LAVA, CustomTags.DREAM));
-    }
-
-    @Inject(method = "updateFluidInteraction", at = @At("TAIL"), cancellable = true)
-    private void updateDreamFluidInteraction(CallbackInfoReturnable<Boolean> cir) {
-        if (this.fluidInteraction.isInFluid(CustomTags.DREAM)) {
-            if (this.isPushedByFluid()) {
-                this.fluidInteraction.applyCurrentTo(CustomTags.DREAM, (Entity) (Object) this, 0.014D);
-            }
-            cir.setReturnValue(true);
-        }
-    }
+    @Shadow
+    public abstract int getMaxFallDistance();
 
     @Inject(method = "checkFallDamage", at = @At("HEAD"), cancellable = true)
     private void checkFall(double d, boolean bl, BlockState blockState, BlockPos blockPos, CallbackInfo ci) {
@@ -81,7 +56,11 @@ public abstract class EntityMixin {
 
             if (bl) {
                 if (this.fallDistance / 1.25 > 0.0) {
-                    blockState.getBlock().fallOn(this.level(), blockState, blockPos, (Entity) (Object) this, this.fallDistance / 1.25);
+                    //? if >= 26.2 {
+                    /*blockState.getBlock().fallOn(this.level(), blockState, blockPos, (Entity) (Object) this, this.fallDistance / 1.25);
+                    *///? } else {
+                    blockState.getBlock().fallOn(this.level(), blockState, blockPos, (Entity) (Object) this, (float) (this.getMaxFallDistance() / 1.25));
+                    //? }
                     this.level()
                             .gameEvent(
                                     GameEvent.HIT_GROUND,

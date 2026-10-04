@@ -5,22 +5,22 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
 //? if neoforge {
-/*import net.neoforged.bus.api.IEventBus;
+import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.transfer.energy.EnergyHandler;
 import net.neoforged.neoforge.transfer.transaction.Transaction;
 import net.neoforged.neoforge.transfer.transaction.TransactionContext;
-*///? } else {
-import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
+//? } else {
+/*import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import team.reborn.energy.api.EnergyStorage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
-//? }
+*///? }
 
 public class EnergyHooks {
     public static long pushEnergy(Level level, BlockPos pos, Direction direction, ModEnergyStorage source, long maxAmount) {
         //? if neoforge {
-        /*EnergyHandler targetHandler = level.getCapability(
+        EnergyHandler targetHandler = level.getCapability(
                 Capabilities.Energy.BLOCK,
                 pos.relative(direction),
                 direction.getOpposite()
@@ -41,8 +41,8 @@ public class EnergyHooks {
             }
         }
         return inserted;
-        *///? } else {
-        EnergyStorage target = EnergyStorage.SIDED.find(level, pos.relative(direction), direction.getOpposite());
+        //? } else {
+        /*EnergyStorage target = EnergyStorage.SIDED.find(level, pos.relative(direction), direction.getOpposite());
         if (target == null) return 0;
 
         try (Transaction transaction = Transaction.openOuter()) {
@@ -57,7 +57,7 @@ public class EnergyHooks {
             }
         }
         return 0;
-        //? }
+        *///? }
 
     }
     
@@ -69,14 +69,14 @@ public class EnergyHooks {
 
     public static boolean hasEnergyCapability(Level level, BlockPos pos, Direction side) {
         //? if neoforge {
-        /*return level.getCapability(Capabilities.Energy.BLOCK, pos, side) != null;
-        *///? } else {
-        return EnergyStorage.SIDED.find(level, pos, side) != null;
-        //? }
+        return level.getCapability(Capabilities.Energy.BLOCK, pos, side) != null;
+        //? } else {
+        /*return EnergyStorage.SIDED.find(level, pos, side) != null;
+        *///? }
     }
 
     //? if neoforge {
-    /*public static EnergyHandler adapt(ModEnergyStorage storage) {
+    public static EnergyHandler adapt(ModEnergyStorage storage) {
         return new EnergyHandler() {
             @Override
             public long getCapacityAsLong() {
@@ -109,8 +109,8 @@ public class EnergyHooks {
         event.registerBlockEntity(Capabilities.Energy.BLOCK, BlockTypes.PURPLE_CABLE.get(), (be, dir) -> adapt(be.energyStorage));
     }
 
-    *///? } else {
-    private static EnergyStorage adapt(ModEnergyStorage storage) {
+    //? } else {
+    /*private static EnergyStorage adapt(ModEnergyStorage storage) {
         return new EnergyStorage() {
             @Override
             public long insert(long maxAmount, TransactionContext transaction) {
@@ -131,11 +131,11 @@ public class EnergyHooks {
         };
     }
 
-    //? }
+    *///? }
 
-    public static void init(/*? if neoforge {*//*IEventBus modEventBus *//*? } */) {
+    public static void init(/*? if neoforge {*/IEventBus modEventBus /*? } */) {
         //? if neoforge {
-        /*modEventBus.addListener(EnergyHooks::onRegisterCapabilities);
-        *///? }
+        modEventBus.addListener(EnergyHooks::onRegisterCapabilities);
+        //? }
     }
 }

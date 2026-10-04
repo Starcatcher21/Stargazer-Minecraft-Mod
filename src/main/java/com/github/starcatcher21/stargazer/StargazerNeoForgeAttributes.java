@@ -1,5 +1,5 @@
 //? if neoforge {
-/*package com.github.starcatcher21.stargazer;
+package com.github.starcatcher21.stargazer;
 
 import net.minecraft.world.entity.EntityTypes;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -16,4 +16,4 @@ public class StargazerNeoForgeAttributes {
         }
     }
 }
-*///? }
+//? }

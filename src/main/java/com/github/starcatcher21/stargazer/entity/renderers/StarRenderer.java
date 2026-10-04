@@ -8,61 +8,61 @@ import com.github.starcatcher21.stargazer.nbt.Patterns;
 import com.github.starcatcher21.stargazer.nbt.StarPattern;
 import com.github.starcatcher21.stargazer.nbt.StarPatternsComponent;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.resources.Identifier;
-import com.geckolib.renderer.GeoEntityRenderer;
+import net.minecraft.resources.ResourceLocation;
+import software.bernie.geckolib.renderer.GeoEntityRenderer;
 //? if >= 26.2 {
-import net.minecraft.client.renderer.entity.state.EntityRenderState;
+/*import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import org.jspecify.annotations.Nullable;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
-import com.geckolib.renderer.base.GeoRenderState;
-import com.geckolib.renderer.layer.builtin.TextureLayerGeoLayer;
-//? } else {
+import software.bernie.geckolib.renderer.base.GeoRenderState;
+import software.bernie.geckolib.renderer.layer.builtin.TextureLayerGeoLayer;
+*///? } else {
 //? }
 
 //? if >= 26.2 {
-public class StarRenderer<R extends EntityRenderState & GeoRenderState> extends GeoEntityRenderer<Star, R> {
-//? } else {
-/*public class StarRenderer extends GeoEntityRenderer<Star> {
-*///? }
-    public static Identifier BASE =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/patterns/base.png");
-    public static Identifier MOON =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/patterns/moon.png");
-    public static Identifier PONK =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/patterns/ponk.png");
-    public static Identifier PACMAN =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/patterns/pacman.png");
-    public static Identifier SUN =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/patterns/sun.png");
-    public static Identifier FISH =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/patterns/fish.png");
-    public static Identifier BRICK =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/patterns/brick.png");
-    public static Identifier CREEPER =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/patterns/creeper.png");
+/*public class StarRenderer<R extends EntityRenderState & GeoRenderState> extends GeoEntityRenderer<Star, R> {
+*///? } else {
+public class StarRenderer extends GeoEntityRenderer<Star> {
+//? }
+    public static ResourceLocation BASE =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/patterns/base.png");
+    public static ResourceLocation MOON =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/patterns/moon.png");
+    public static ResourceLocation PONK =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/patterns/ponk.png");
+    public static ResourceLocation PACMAN =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/patterns/pacman.png");
+    public static ResourceLocation SUN =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/patterns/sun.png");
+    public static ResourceLocation FISH =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/patterns/fish.png");
+    public static ResourceLocation BRICK =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/patterns/brick.png");
+    public static ResourceLocation CREEPER =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/patterns/creeper.png");
     public StarRenderer(EntityRendererProvider.Context context) {
         super(context, new StarModel());
 
 
         //? if >= 26.2 {
-        withRenderLayer(new TextureLayerGeoLayer<>(this,
-              Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/patterns/base.png"),
+        /*withRenderLayer(new TextureLayerGeoLayer<>(this,
+              ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/patterns/base.png"),
                 RenderTypes::armorCutoutNoCull){
             @Override
-            protected Identifier getTextureResource(R renderState) {
+            protected ResourceLocation getTextureResource(R renderState) {
                 StarPatternsComponent spc = renderState.getGeckolibData(DataTickets.STAR_PATTERN);
                 try {
                     for (StarPattern pattern : Patterns.patternList) {
                         if (spc.layers().getFirst().pattern().assetId().equals(pattern.assetId())) {
-                            return Identifier.fromNamespaceAndPath(pattern.assetId().getNamespace(), "textures/entity/patterns/"+pattern.assetId().getPath()+".png");
+                            return ResourceLocation.fromNamespaceAndPath(pattern.assetId().getNamespace(), "textures/entity/patterns/"+pattern.assetId().getPath()+".png");
                         }
                     }
                 } catch (Exception ignored) {
                 }
-                return Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/patterns/base.png");
+                return ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/patterns/base.png");
             }
         });
-        //? } else {
+        *///? } else {
         //? }
     }
 
     //? if >= 26.2 {
-    @Override
+    /*@Override
     public void addRenderData(Star animatable, @Nullable Void relatedObject, R renderState, float partialTick) {
         renderState.addGeckolibData(DataTickets.DYE_COLOR, animatable.getDyeColor());
         renderState.addGeckolibData(DataTickets.STAR_PATTERN, animatable.getSPC());
     }
-    //? }
+    *///? }
 }

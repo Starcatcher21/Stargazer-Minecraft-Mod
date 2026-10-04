@@ -8,8 +8,8 @@ import com.github.starcatcher21.stargazer.effects.StatusEffects;
 import com.github.starcatcher21.stargazer.energy.EnergyHooks;
 import com.github.starcatcher21.stargazer.entity.EntityRegistry;
 //? if >= 26.2 {
-import com.github.starcatcher21.stargazer.item.ConsumeEffectsRegistry;
-//? }
+/*import com.github.starcatcher21.stargazer.item.ConsumeEffectsRegistry;
+*///? }
 import com.github.starcatcher21.stargazer.item.ModItems;
 import com.github.starcatcher21.stargazer.mechanics.DamageTypeRegistry;
 import com.github.starcatcher21.stargazer.mechanics.PlayerCosmicGrav;
@@ -34,42 +34,43 @@ import dev.architectury.event.events.common.LifecycleEvent;
 import dev.architectury.event.events.common.TickEvent;
 import net.minecraft.core.Registry;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.level.Level;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import static com.github.starcatcher21.stargazer.villager.ModVillagers.init;
 
 //? if fabric {
-import com.github.starcatcher21.stargazer.GameRules;
+/*import com.github.starcatcher21.stargazer.GameRules;
 import com.github.starcatcher21.stargazer.StargazerAttributes;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderingRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.player.Player;
-//?}
+*///?}
 
 //? if neoforge {
-/*import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
-*///?}
+//?}
 
 //? if neoforge {
-/*@Mod(Stargazer.MOD_ID)
-*///?}
+@Mod(Stargazer.MOD_ID)
+//?}
 public final class Stargazer
 //? if fabric {
-        implements ModInitializer
-//?}
+        /*implements ModInitializer
+*///?}
 {
     public static final String MOD_ID = "stargazer";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
     //? if fabric {
-    @Override
+    /*@Override
     public void onInitialize() {
         initCommon();
         GameRules.init();
@@ -80,10 +81,10 @@ public final class Stargazer
                 Player.createAttributes().add(StargazerAttributes.DASH_LEVEL, 0.0)
         );
     }
-    //?}
+    *///?}
 
     //? if neoforge {
-    /*public Stargazer(IEventBus modEventBus, Dist dist) {
+    public Stargazer(IEventBus modEventBus, Dist dist) {
         modEventBus.addListener(this::commonSetup);
 
         RegistryKeys.ENTITY_DATA_SERIALIZERS.register(modEventBus);
@@ -99,7 +100,7 @@ public final class Stargazer
 
     private void commonSetup(FMLCommonSetupEvent event) {
     }
-    *///?}
+    //?}
 
     public static void initCommon() {
         EntityRegistry.init();
@@ -119,7 +120,9 @@ public final class Stargazer
         DamageTypeRegistry.init();
         BiomeReg.init();
         BiomeTags.init();
-        ConsumeEffectsRegistry.init();
+        //? if >= 26.2 {
+        /*ConsumeEffectsRegistry.init();
+        *///? }
         BlockTypes.init();
         PointOfIntrests.init();
         ItemGroup.init();
@@ -143,7 +146,7 @@ public final class Stargazer
         });
 
         // Replaced Fabric ServerTickEvents with Architectury TickEvent
-        TickEvent.SERVER_LEVEL_POST.register(level -> {
+        TickEvent.SERVER_LEVEL_POST.register( level -> {
             for (ServerPlayer player : level.players()) {
                 PlayerCosmicGrav.tick(player);
                 PlayerRedOrbGrav.tick(player);

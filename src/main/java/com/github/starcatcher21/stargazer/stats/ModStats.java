@@ -6,7 +6,7 @@ import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.stats.StatFormatter;
 import net.minecraft.stats.Stats;
 
@@ -17,7 +17,7 @@ public class ModStats {
     public static final RegistrySupplier<Identifier> STAR_CATCHED = register("star_catched");
 
     private static RegistrySupplier<Identifier> register(String id) {
-        Identifier identifier =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, id);
+        ResourceLocation identifier =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, id);
         return STATS.register(id, () -> identifier);
     }
 

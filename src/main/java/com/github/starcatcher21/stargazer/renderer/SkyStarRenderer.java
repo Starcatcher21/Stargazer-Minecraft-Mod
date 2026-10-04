@@ -15,7 +15,7 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.StagedVertexBuffer;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.texture.AbstractTexture;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.phys.Vec3;
@@ -31,9 +31,9 @@ import java.util.OptionalDouble;
 public final class SkyStarRenderer {
     private static final SkyStarRenderer INSTANCE = new SkyStarRenderer();
 
-    private static final Identifier STAR_TEXTURE =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/environment/stargazer_star_sheet.png");
-    private static final Identifier STAR_TEXTURE2 =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/environment/stargazer_star2_sheet.png");
-    private static final Identifier STAR_TEXTURE3 =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/environment/wander_sky2.png");
+    private static final ResourceLocation STAR_TEXTURE =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/environment/stargazer_star_sheet.png");
+    private static final ResourceLocation STAR_TEXTURE2 =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/environment/stargazer_star2_sheet.png");
+    private static final ResourceLocation STAR_TEXTURE3 =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/environment/wander_sky2.png");
 
     private static final int DEFAULT_STAR_COUNT = 128;
     private static final float DEFAULT_STAR_RADIUS = 96.0F;
@@ -203,7 +203,7 @@ public final class SkyStarRenderer {
         buffer.addVertex(matrix, (float) p3.x, (float) p3.y, (float) p3.z).setUv(u0, v0).setColor(red, green, blue, alpha);
     }
 
-    private static void draw(Minecraft client, StagedVertexBuffer.ExecuteInfo info, RenderPipeline pipeline, Identifier textureId) {
+    private static void draw(Minecraft client, StagedVertexBuffer.ExecuteInfo info, RenderPipeline pipeline, ResourceLocation textureId) {
         GpuBufferSlice dynamicTransforms = RenderSystem.getDynamicUniforms()
                 .writeTransform(RenderSystem.getModelViewMatrixCopy(), COLOR_MODULATOR, MODEL_OFFSET, TEXTURE_MATRIX);
 
@@ -273,7 +273,7 @@ public final class SkyStarRenderer {
     }
 
     // --- RECORDS ---
-    private record StarSettings(Identifier texture, int starCount, float starRadius) {
+    private record StarSettings(ResourceLocation texture, int starCount, float starRadius) {
         @Nullable
         private static StarSettings forDimension(ResourceKey<DimensionType> dimensionType) {
             if (dimensionType.equals(CustomWorlds.COSMIC_TYPE)) {

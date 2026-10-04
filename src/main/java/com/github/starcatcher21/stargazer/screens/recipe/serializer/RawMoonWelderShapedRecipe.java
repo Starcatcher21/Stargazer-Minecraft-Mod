@@ -1,12 +1,12 @@
-// TODO(Ravel): Failed to fully resolve file: null cannot be cast to non-null type com.intellij.psi.PsiClass
-// TODO(Ravel): Failed to fully resolve file: null cannot be cast to non-null type com.intellij.psi.PsiClass
 package com.github.starcatcher21.stargazer.screens.recipe.serializer;
 
 import com.github.starcatcher21.stargazer.screens.recipe.MoonWelderRecipeInput;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.world.attribute.EnvironmentAttributes;
+//? if >= 26.2 {
+/*import net.minecraft.world.attribute.EnvironmentAttributes;
+ *///?}
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,17 +21,23 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 
 public class RawMoonWelderShapedRecipe {
+
     public static final MapCodec<RawMoonWelderShapedRecipe> CODEC = Data.CODEC.flatXmap(
             RawMoonWelderShapedRecipe::fromData,
-            recipe -> recipe.data.map(DataResult::success).orElseGet(() -> DataResult.error(() -> "Cannot encode unpacked recipe")));
-    public static final StreamCodec<RegistryFriendlyByteBuf, RawMoonWelderShapedRecipe> PACKET_CODEC = StreamCodec.composite(
-            ByteBufCodecs.VAR_INT, recipe -> recipe.width,
-            ByteBufCodecs.VAR_INT, recipe -> recipe.height,
-            Ingredient.CONTENTS_STREAM_CODEC, recipe -> recipe.item1,
-            Ingredient.CONTENTS_STREAM_CODEC, recipe -> recipe.item2,
-            ByteBufCodecs.INT, recipe -> recipe.moonPhase,
-            RawMoonWelderShapedRecipe::create);
+            recipe -> recipe.data.map(DataResult::success)
+                    .orElseGet(() -> DataResult.error(() -> "Cannot encode unpacked recipe")));
+
+    public static final StreamCodec<RegistryFriendlyByteBuf, RawMoonWelderShapedRecipe> PACKET_CODEC =
+            StreamCodec.composite(
+                    ByteBufCodecs.VAR_INT, recipe -> recipe.width,
+                    ByteBufCodecs.VAR_INT, recipe -> recipe.height,
+                    Ingredient.CONTENTS_STREAM_CODEC, recipe -> recipe.item1,
+                    Ingredient.CONTENTS_STREAM_CODEC, recipe -> recipe.item2,
+                    ByteBufCodecs.INT,     recipe -> recipe.moonPhase,
+                    RawMoonWelderShapedRecipe::create);
+
     private static final Logger log = LoggerFactory.getLogger(RawMoonWelderShapedRecipe.class);
+
     private final int width;
     private final int height;
     private final Optional<Data> data;
@@ -39,8 +45,9 @@ public class RawMoonWelderShapedRecipe {
     private final Ingredient item2;
     private final int moonPhase;
 
-
-    public RawMoonWelderShapedRecipe(int width, int height, Ingredient item1, Ingredient item2, int moonPhase, Optional<Data> data) {
+    public RawMoonWelderShapedRecipe(int width, int height,
+                                     Ingredient item1, Ingredient item2,
+                                     int moonPhase, Optional<Data> data) {
         this.width = width;
         this.height = height;
         this.item1 = item1;
@@ -49,62 +56,74 @@ public class RawMoonWelderShapedRecipe {
         this.moonPhase = moonPhase;
     }
 
-    private static RawMoonWelderShapedRecipe create(Integer width, Integer height, Ingredient item1, Ingredient item2, int moonPhase) {
+    private static RawMoonWelderShapedRecipe create(Integer width, Integer height,
+                                                    Ingredient item1, Ingredient item2,
+                                                    int moonPhase) {
         return new RawMoonWelderShapedRecipe(width, height, item1, item2, moonPhase, Optional.empty());
     }
 
-    public static RawMoonWelderShapedRecipe create(Ingredient item1, Ingredient item2, int MoonPhase) {
-        Data data = new Data(item1, item2, MoonPhase);
+    public static RawMoonWelderShapedRecipe create(Ingredient item1, Ingredient item2, int moonPhase) {
+        Data data = new Data(item1, item2, moonPhase);
         return RawMoonWelderShapedRecipe.fromData(data).getOrThrow();
     }
 
-
     private static DataResult<RawMoonWelderShapedRecipe> fromData(Data data) {
-        return DataResult.success(new RawMoonWelderShapedRecipe(2, 1, data.item1, data.item2, data.moonPhase, Optional.of(data)));
+        return DataResult.success(new RawMoonWelderShapedRecipe(
+                2, 1, data.item1, data.item2, data.moonPhase, Optional.of(data)));
     }
 
     public boolean matches(MoonWelderRecipeInput input, Level world) {
         Ingredient item1 = this.item1;
         Ingredient item2 = this.item2;
+
         ItemStack stack;
         ItemStack stack2;
-        try {
-            stack = input.getItem(0);
-        } catch (Exception e) {
-            stack = new ItemStack(Blocks.AIR.asItem());
-        }
-        try {
-            stack2 = input.getItem(1);
-        } catch (Exception e) {
-            stack2 = new ItemStack(Blocks.AIR.asItem());
-        }
+        try { stack  = input.getItem(0); }
+        catch (Exception e) { stack = new ItemStack(Blocks.AIR.asItem()); }
+        try { stack2 = input.getItem(1); }
+        catch (Exception e) { stack2 = new ItemStack(Blocks.AIR.asItem()); }
+
+        //? if >= 26.2 {
+        /*boolean isDark = world.isDarkOutside();
+        int currentMoonPhase = world.environmentAttributes()
+                                    .getDimensionValue(EnvironmentAttributes.MOON_PHASE)
+                                    .index();
+        *///?} else {
+        boolean isDark = world.isNight();
+        int currentMoonPhase = world.getMoonPhase();
+        //?}
+
         if (this.getMoonPhase() > 7) {
-            if (world.isDarkOutside()) return false;
-            return Ingredient.testOptionalIngredient(Optional.of(item1), stack) && Ingredient.testOptionalIngredient(Optional.of(item2), stack2);
+            // Recipe declares "any phase" — requires daylight.
+            if (isDark) return false;
+            //? if >= 26.2 {
+            /*return Ingredient.testOptionalIngredient(Optional.of(item1), stack)
+                    && Ingredient.testOptionalIngredient(Optional.of(item2), stack2);
+            *///?} else {
+            return testOptionalIngredient(Optional.of(item1), stack)
+                    && testOptionalIngredient(Optional.of(item2), stack2);
+            //?}
         }
-        if (this.getMoonPhase() != world.environmentAttributes().getDimensionValue(EnvironmentAttributes.MOON_PHASE).index() || !world.isDarkOutside()) return false;
-        return Ingredient.testOptionalIngredient(Optional.of(item1), stack) && Ingredient.testOptionalIngredient(Optional.of(item2), stack2);
+
+        if (this.getMoonPhase() != currentMoonPhase || !isDark) return false;
+        //? if >= 26.2 {
+        /*return Ingredient.testOptionalIngredient(Optional.of(item1), stack)
+                && Ingredient.testOptionalIngredient(Optional.of(item2), stack2);
+        *///?} else {
+        return testOptionalIngredient(Optional.of(item1), stack)
+                && testOptionalIngredient(Optional.of(item2), stack2);
+        //?}
     }
 
-    public int getWidth() {
-        return this.width;
+    private static boolean testOptionalIngredient(Optional<Ingredient> optional, ItemStack stack) {
+        return optional.map(ingredient -> ingredient.test(stack)).orElse(true);
     }
 
-    public int getHeight() {
-        return this.height;
-    }
-
-    public Ingredient getItem1() {
-        return this.item1;
-    }
-
-    public Ingredient getItem2() {
-        return this.item2;
-    }
-
-    public int getMoonPhase() {
-        return this.moonPhase;
-    }
+    public int getWidth()  { return this.width; }
+    public int getHeight() { return this.height; }
+    public Ingredient getItem1() { return this.item1; }
+    public Ingredient getItem2() { return this.item2; }
+    public int getMoonPhase() { return this.moonPhase; }
 
     public record Data(Ingredient item1, Ingredient item2, int moonPhase) {
         public static final MapCodec<Data> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
@@ -113,5 +132,4 @@ public class RawMoonWelderShapedRecipe {
                 ExtraCodecs.NON_NEGATIVE_INT.fieldOf("moon_phase").forGetter(Data::moonPhase)
         ).apply(instance, Data::new));
     }
-
 }

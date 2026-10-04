@@ -1,5 +1,5 @@
 /*? if fabric {*/
-package com.github.starcatcher21.stargazer.datagen;
+/*package com.github.starcatcher21.stargazer.datagen;
 
 import com.github.starcatcher21.stargazer.block.register.MoonBlocks;
 import com.github.starcatcher21.stargazer.entity.EntityRegistry;
@@ -71,4 +71,4 @@ public class EntityLootTableProvider extends FabricEntityLootSubProvider {
     }
 
 }
-//? }
+*///? }

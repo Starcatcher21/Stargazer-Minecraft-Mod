@@ -6,11 +6,11 @@ import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
 public class StarforgeHandled extends AbstractContainerScreen<StarforgeScreenHandler> {
-    private static final Identifier TEXTURE =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/starforge/starforge.png");
+    private static final ResourceLocation TEXTURE =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/starforge/starforge.png");
 
     public StarforgeHandled(StarforgeScreenHandler handler, Inventory inventory, Component title) {
         super(handler, inventory, title, 176, 200);

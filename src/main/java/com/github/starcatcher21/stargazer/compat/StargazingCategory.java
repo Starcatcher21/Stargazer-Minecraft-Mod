@@ -10,15 +10,15 @@ import me.shedaniel.rei.api.client.registry.display.DisplayCategory;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
 import java.util.LinkedList;
 import java.util.List;
 
 public class StargazingCategory implements DisplayCategory<StargazingDisplay> {
-    public static final Identifier NIGHT_TEXTURE =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/stargazing_night.png");
-    public static final Identifier DAY_TEXTURE =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/stargazing_day.png");
-    public static final Identifier TEXTURE =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/stargazing.png");
+    public static final ResourceLocation NIGHT_TEXTURE =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/stargazing_night.png");
+    public static final ResourceLocation DAY_TEXTURE =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/stargazing_day.png");
+    public static final ResourceLocation TEXTURE =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/stargazing.png");
     public static final CategoryIdentifier<StargazingDisplay> STARFORGE = CategoryIdentifier.of(Stargazer.MOD_ID, "stargazing");
     public static final String TranslationKey = "category.rei.stargazer.stargazing";
     @Override

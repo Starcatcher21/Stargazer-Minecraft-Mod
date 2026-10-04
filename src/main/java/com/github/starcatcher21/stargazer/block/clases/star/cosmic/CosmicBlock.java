@@ -8,7 +8,7 @@ import java.util.Random;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
@@ -26,7 +26,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 public class CosmicBlock extends BaseEntityBlock {
     private final static Random random = new Random();
     private final static float velocity = 0.06F;
-    public static final Identifier TEXTURE =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/block/dream_block.png");
+    public static final ResourceLocation TEXTURE =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/block/dream_block.png");
     @Override
     protected MapCodec<? extends CosmicBlock> codec() {
         return simpleCodec(CosmicBlock::new);
@@ -40,7 +40,7 @@ public class CosmicBlock extends BaseEntityBlock {
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter view, BlockPos pos, CollisionContext context) {
-        if (context.isHoldingItem(BuiltInRegistries.ITEM.getValue(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "cosmic_block"))) || context.isHoldingItem(ModItems.STAR_HAMMER.get())) {
+        if (context.isHoldingItem(BuiltInRegistries.ITEM.getValue(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "cosmic_block"))) || context.isHoldingItem(ModItems.STAR_HAMMER.get())) {
             return Shapes.block();
         } else {
             return Shapes.box(0.0, 0.0, 0.0, 0.01, 0.01, 0.01);

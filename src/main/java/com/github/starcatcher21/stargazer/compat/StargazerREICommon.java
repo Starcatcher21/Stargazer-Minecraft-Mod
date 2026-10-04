@@ -9,23 +9,29 @@ import com.github.starcatcher21.starlib.mechanics.star.FallingObjectsList;
 import me.shedaniel.rei.api.common.display.DisplaySerializer;
 import me.shedaniel.rei.api.common.display.DisplaySerializerRegistry;
 //? if >= 26.2 {
-import me.shedaniel.rei.api.common.plugins.REICommonPlugin;
+/*import me.shedaniel.rei.api.common.plugins.REICommonPlugin;
 import me.shedaniel.rei.api.common.registry.display.ServerDisplayRegistry;
-//? } else {
-/*import me.shedaniel.rei.api.common.entry.settings.EntrySettingsAdapterRegistry;
+*///? } else {
+import me.shedaniel.rei.api.common.entry.settings.EntrySettingsAdapterRegistry;
 import me.shedaniel.rei.api.common.entry.type.EntryTypeRegistry;
 import me.shedaniel.rei.api.common.plugins.REIPlugin;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
-*///? }
-import net.minecraft.resources.Identifier;
+//? }
+//? if neoforge {
+import me.shedaniel.rei.forge.REIPluginCommon;
+//? }
+import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
+//? if neoforge {
+@REIPluginCommon
+//? }
 public class StargazerREICommon implements
         //? if >= 26.2 {
-        REICommonPlugin
-        //? } else {
-        /*REIPlugin
-        *///? }
+        /*REICommonPlugin
+        *///? } else {
+        REIPlugin
+        //? }
 {
     public static DisplaySerializer<StarforgeDisplay> STARFORGE = new StarforgeDisplaySerializer();
     public static DisplaySerializer<MoonWelderDisplay> MOONWELDER = new MoonWelderDisplaySerializer();
@@ -35,22 +41,22 @@ public class StargazerREICommon implements
     @Override
     public void registerDisplaySerializer(DisplaySerializerRegistry registry) {
         //? if >= 26.2 {
-        registry.register(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "starforge_display_serializer"), STARFORGE);
-        registry.register(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "moon_welder_display_serializer"), MOONWELDER);
-        registry.register(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "stargazing_display_serializer"), STARGAZING);
-        registry.register(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "star_crusher_display_serializer"), STAR_CRUSHER);
+        /*registry.register(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "starforge_display_serializer"), STARFORGE);
+        registry.register(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "moon_welder_display_serializer"), MOONWELDER);
+        registry.register(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "stargazing_display_serializer"), STARGAZING);
+        registry.register(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "star_crusher_display_serializer"), STAR_CRUSHER);
         REICommonPlugin.super.registerDisplaySerializer(registry);
-        //? } else {
-        /*registry.register(CategoryIdentifier.of(Stargazer.MOD_ID, "starforge_display_serializer"), STARFORGE);
+        *///? } else {
+        registry.register(CategoryIdentifier.of(Stargazer.MOD_ID, "starforge_display_serializer"), STARFORGE);
         registry.register(CategoryIdentifier.of(Stargazer.MOD_ID, "moon_welder_display_serializer"), MOONWELDER);
         registry.register(CategoryIdentifier.of(Stargazer.MOD_ID, "stargazing_display_serializer"), STARGAZING);
         registry.register(CategoryIdentifier.of(Stargazer.MOD_ID, "star_crusher_display_serializer"), STAR_CRUSHER);
         REIPlugin.super.registerDisplaySerializer(registry);
-        *///? }
+        //? }
     }
 
     //? if >= 26.2 {
-    @Override
+    /*@Override
     public void registerDisplays(ServerDisplayRegistry registry) {
         registry.beginRecipeFiller(ShapedStarforgeRecipe.class)
                 .filterType(RecipeTypes.STARFORGE.get())
@@ -65,10 +71,10 @@ public class StargazerREICommon implements
                 .fill(StarCrusherDisplay::of);
         REICommonPlugin.super.registerDisplays(registry);
     }
-    //? }
+    *///? }
 
     //? if < 26.2 {
-    /*@Override
+    @Override
     public int compareTo(@NotNull Object o) {
         return 0;
     }
@@ -77,5 +83,5 @@ public class StargazerREICommon implements
     public Class getPluginProviderClass() {
         return null;
     }
-    *///? }
+    //? }
 }

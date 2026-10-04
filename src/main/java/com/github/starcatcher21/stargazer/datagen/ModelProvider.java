@@ -1,5 +1,5 @@
 /*? if fabric {*/
-package com.github.starcatcher21.stargazer.datagen;
+/*package com.github.starcatcher21.stargazer.datagen;
 
 import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.block.ModBlock;
@@ -26,7 +26,7 @@ import net.minecraft.client.renderer.item.EmptyModel;
 import net.minecraft.client.renderer.item.ItemModel;
 import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.random.WeightedList;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -50,7 +50,7 @@ public class ModelProvider extends FabricModelProvider {
             Int2ObjectMap<Identifier> models = new Int2ObjectOpenHashMap();
             blockModelGenerators.blockStateOutput.accept(MultiVariantGenerator.dispatch(block).with(PropertyDispatch.initial(property).generate((i) -> {
                 int stage = stages[i];
-                return plainVariant((Identifier)models.computeIfAbsent(stage, (s) -> blockModelGenerators.createSuffixedVariant(block, "_stage" + s, ModelTemplates.CROP, TextureMapping::crop)));
+                return plainVariant((ResourceLocation)models.computeIfAbsent(stage, (s) -> blockModelGenerators.createSuffixedVariant(block, "_stage" + s, ModelTemplates.CROP, TextureMapping::crop)));
             })));
         }
     }
@@ -217,15 +217,15 @@ public class ModelProvider extends FabricModelProvider {
         blockStateModelGenerator.createTrivialCube(MoonBlocks.SUN_ENRICHED_MOON_ROCK.get());
         blockStateModelGenerator.createTrivialCube(MoonBlocks.POLISHED_SUN_ENRICHED_MOON_ROCK.get());
         TextureMapping dyliumMap = new TextureMapping()
-                .put(TextureSlot.TOP, new Material(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "block/dylium_top")))
-                .put(TextureSlot.BOTTOM, new Material(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "block/moon_rock")))
-                .put(TextureSlot.SIDE, new Material(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "block/dylium_side")));
+                .put(TextureSlot.TOP, new Material(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "block/dylium_top")))
+                .put(TextureSlot.BOTTOM, new Material(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "block/moon_rock")))
+                .put(TextureSlot.SIDE, new Material(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "block/dylium_side")));
 
         registerTopBottom(blockStateModelGenerator, Darkness.DYLIUM.get(), dyliumMap);
         TextureMapping BorilMap = new TextureMapping()
-                .put(TextureSlot.TOP, new Material(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "block/boril_top")))
-                .put(TextureSlot.BOTTOM, new Material(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "block/puroil")))
-                .put(TextureSlot.SIDE, new Material(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "block/boril_side")));
+                .put(TextureSlot.TOP, new Material(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "block/boril_top")))
+                .put(TextureSlot.BOTTOM, new Material(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "block/puroil")))
+                .put(TextureSlot.SIDE, new Material(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "block/boril_side")));
 
         registerTopBottom(blockStateModelGenerator, Wander.BORIL.get(), BorilMap);
         blockStateModelGenerator.createTrivialCube(Wander.PUROIL.get());
@@ -414,8 +414,8 @@ public class ModelProvider extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(ModItems.BLACK_FOX_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
     }
 
-    public static final ModelTemplate CUSTOM_POT_CROSS = new ModelTemplate(Optional.of(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "block/potted_plant_custom")), Optional.empty(), TextureSlot.PLANT, TextureSlot.DIRT);
-    public static final ModelTemplate HEDGE = new ModelTemplate(Optional.of(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "block/hedge")), Optional.empty(), TextureSlot.TOP, TextureSlot.SIDE);
+    public static final ModelTemplate CUSTOM_POT_CROSS = new ModelTemplate(Optional.of(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "block/potted_plant_custom")), Optional.empty(), TextureSlot.PLANT, TextureSlot.DIRT);
+    public static final ModelTemplate HEDGE = new ModelTemplate(Optional.of(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "block/hedge")), Optional.empty(), TextureSlot.TOP, TextureSlot.SIDE);
 
     public final void registerCustomFlowerPotPlant(BlockModelGenerators blockStateModelGenerator, Block plantBlock, Block flowerPotBlock, Block dirt, BlockModelGenerators.PlantType tintType) {
         blockStateModelGenerator.createCrossBlock(plantBlock, tintType);
@@ -466,9 +466,9 @@ public class ModelProvider extends FabricModelProvider {
         blockGen.itemModelOutput.accept(block.asItem(), ItemModelUtils.plainModel(ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(block.asItem()), map, blockGen.modelOutput)));
     }
 
-    public Identifier getBlockTexture(Block block) {
-        Identifier id = BuiltInRegistries.BLOCK.getKey(block);
-        return Identifier.fromNamespaceAndPath(id.getNamespace(), "block/" + id.getPath());
+    public ResourceLocation getBlockTexture(Block block) {
+        ResourceLocation id = BuiltInRegistries.BLOCK.getKey(block);
+        return ResourceLocation.fromNamespaceAndPath(id.getNamespace(), "block/" + id.getPath());
     }
 
     public static final ModelTemplate CABLE_CORE_TEMPLATE = block("cable_core_template", TextureSlot.ALL, TextureSlot.PARTICLE);
@@ -476,10 +476,10 @@ public class ModelProvider extends FabricModelProvider {
 
     // helper method for creating Models
     private static ModelTemplate block(String parent, TextureSlot... requiredTextureKeys) {
-        return new ModelTemplate(Optional.of(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "block/" + parent)), Optional.empty(), requiredTextureKeys);
+        return new ModelTemplate(Optional.of(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "block/" + parent)), Optional.empty(), requiredTextureKeys);
     }
 
-    private BlockModelDefinitionGenerator createCableBlockStates(Block cableBlock, Identifier core, Identifier side) {
+    private BlockModelDefinitionGenerator createCableBlockStates(Block cableBlock, ResourceLocation core, ResourceLocation side) {
         // 1. Core and Base Side Models
         Variant cableCoreModel = BlockModelGenerators.plainModel(core);
         Variant cableSideModel = BlockModelGenerators.plainModel(side);
@@ -514,8 +514,8 @@ public class ModelProvider extends FabricModelProvider {
     }
     public void registerCable(BlockModelGenerators generator, Block block) {
         TextureMapping map = getCableMap(block);
-        Identifier core = CABLE_CORE_TEMPLATE.create(block, map, generator.modelOutput);
-        Identifier side = CABLE_SIDE_TEMPLATE.create(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID,"block/"+BuiltInRegistries.BLOCK.getKey(block).getPath()+"_side"), map, generator.modelOutput);
+        ResourceLocation core = CABLE_CORE_TEMPLATE.create(block, map, generator.modelOutput);
+        ResourceLocation side = CABLE_SIDE_TEMPLATE.create(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID,"block/"+BuiltInRegistries.BLOCK.getKey(block).getPath()+"_side"), map, generator.modelOutput);
         generator.blockStateOutput.accept(createCableBlockStates(block, core, side));
         generator.registerSimpleItemModel(block.asItem(), core);
     }
@@ -526,4 +526,4 @@ public class ModelProvider extends FabricModelProvider {
         return map;
     }
 }
-//? }
+*///? }

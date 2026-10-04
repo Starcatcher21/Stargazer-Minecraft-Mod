@@ -4,7 +4,7 @@ import com.github.starcatcher21.stargazer.Stargazer;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.alchemy.Potion;
@@ -23,7 +23,7 @@ public class Potions {
     private static RegistrySupplier<Potion> register(
             String name, RegistrySupplier<MobEffect> effect, int duration) {
         return POTIONS.register(
-              Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, name),
+              ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, name),
                 () -> new Potion(name, new MobEffectInstance(effect.asHolder(), duration))
         );
     }

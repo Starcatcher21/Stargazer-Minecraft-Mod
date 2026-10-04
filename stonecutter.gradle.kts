@@ -15,4 +15,4 @@ stonecutter {
     }
 }
 
-stonecutter active "26.2-fabric" /* [SC] DO NOT EDIT */
+stonecutter active "1.21.1-neoforge" /* [SC] DO NOT EDIT */

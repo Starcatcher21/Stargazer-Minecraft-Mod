@@ -1,5 +1,5 @@
 /*? if fabric {*/
-package com.github.starcatcher21.stargazer.datagen;
+/*package com.github.starcatcher21.stargazer.datagen;
 
 import com.github.starcatcher21.stargazer.block.register.MoonBlocks;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
@@ -22,4 +22,4 @@ public class POITagProvider extends FabricTagsProvider {
                 .add(MoonBlocks.STAR_FORGE.getKey());
     }
 }
-//? }
+*///? }

@@ -11,19 +11,19 @@ import net.minecraft.client.renderer.BindGroupLayouts;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 //? if neoforge {
-/*import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.RegisterRenderPipelinesEvent;
-*///? }
+//? }
 
 import static net.minecraft.client.renderer.RenderPipelines.*;
 
 //? if neoforge {
-/*@EventBusSubscriber(modid = Stargazer.MOD_ID, value = Dist.CLIENT)
-*///? }
+@EventBusSubscriber(modid = Stargazer.MOD_ID, value = Dist.CLIENT)
+//? }
 public class CustomRederPipelines {
     // SNIPPETS
     // BLOCKS
@@ -32,8 +32,8 @@ public class CustomRederPipelines {
             )
             .withBindGroupLayout(BindGroupLayouts.MATRICES_PROJECTION)
             .withBindGroupLayout(BindGroupLayouts.FOG)
-            .withVertexShader(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "core/rendertype_cosmic"))
-            .withFragmentShader(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "core/rendertype_cosmic"))
+            .withVertexShader(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "core/rendertype_cosmic"))
+            .withFragmentShader(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "core/rendertype_cosmic"))
             .withBindGroupLayout(BindGroupLayouts.SAMPLER0_SAMPLER1)
             .withVertexBinding(0, DefaultVertexFormat.POSITION)
             .withPrimitiveTopology(PrimitiveTopology.QUADS)
@@ -46,8 +46,8 @@ public class CustomRederPipelines {
             .withBindGroupLayout(BindGroupLayouts.MATRICES_PROJECTION)
             .withBindGroupLayout(BindGroupLayouts.FOG)
             .withBindGroupLayout(BindGroupLayouts.LIGHTMAP_INFO)
-            .withVertexShader(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "core/rendertype_translucent"))
-            .withFragmentShader(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "core/rendertype_aurora"))
+            .withVertexShader(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "core/rendertype_translucent"))
+            .withFragmentShader(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "core/rendertype_aurora"))
             .withBindGroupLayout(BindGroupLayouts.SAMPLER0_SAMPLER2)
             .withVertexBinding(0, DefaultVertexFormat.POSITION_TEX_COLOR)
             .withPrimitiveTopology(PrimitiveTopology.QUADS)
@@ -56,8 +56,8 @@ public class CustomRederPipelines {
     public static final RenderPipeline.Snippet RENDERTYPE_STAR_LEAVES_SNIPPET = RenderPipeline.builder(
                     MATRICES_FOG_SNIPPET
             )
-            .withVertexShader(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "core/rendertype_cosmic"))
-            .withFragmentShader(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "core/rendertype_star_leaves"))
+            .withVertexShader(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "core/rendertype_cosmic"))
+            .withFragmentShader(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "core/rendertype_star_leaves"))
             .withBindGroupLayout(BindGroupLayouts.SAMPLER0_SAMPLER1)
             .withPrimitiveTopology(PrimitiveTopology.QUADS)
             .withVertexBinding(0, DefaultVertexFormat.POSITION_COLOR)
@@ -66,8 +66,8 @@ public class CustomRederPipelines {
 
     public static final RenderPipeline.Snippet RENDERTYPE_STAR_BARIER_SNIPPET = RenderPipeline.builder(
                     MATRICES_FOG_SNIPPET
-            ).withVertexShader(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "core/rendertype_star_barrier"))
-            .withFragmentShader(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "core/rendertype_star_barrier"))
+            ).withVertexShader(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "core/rendertype_star_barrier"))
+            .withFragmentShader(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "core/rendertype_star_barrier"))
             .withBindGroupLayout(BindGroupLayouts.SAMPLER0_SAMPLER1)
             .withVertexBinding(0, DefaultVertexFormat.POSITION_TEX_COLOR)
             .withPrimitiveTopology(PrimitiveTopology.QUADS)
@@ -76,8 +76,8 @@ public class CustomRederPipelines {
     public static final RenderPipeline.Snippet RENDERTYPE_NEGATIVE_SNIPPET = RenderPipeline.builder(
                     MATRICES_FOG_SNIPPET
             )
-            .withVertexShader(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "core/rendertype_cube"))
-		    .withFragmentShader(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "core/position_tex_color"))
+            .withVertexShader(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "core/rendertype_cube"))
+		    .withFragmentShader(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "core/position_tex_color"))
             .withBindGroupLayout(BindGroupLayouts.SAMPLER0_SAMPLER2)
             .withColorTargetState(new ColorTargetState(BlendFunction.INVERT))
             .withPrimitiveTopology(PrimitiveTopology.QUADS)
@@ -88,8 +88,8 @@ public class CustomRederPipelines {
     public static final RenderPipeline.Snippet RENDERTYPE_NO_RED_SNIPPET = RenderPipeline.builder(
                     MATRICES_FOG_SNIPPET
             )
-            .withVertexShader(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "core/rendertype_cube"))
-            .withFragmentShader(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "core/position_tex_color_red"))
+            .withVertexShader(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "core/rendertype_cube"))
+            .withFragmentShader(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "core/position_tex_color_red"))
             .withBindGroupLayout(BindGroupLayouts.SAMPLER0_SAMPLER2)
             .withColorTargetState(new ColorTargetState(BlendFunction.INVERT))
             .withPrimitiveTopology(PrimitiveTopology.QUADS)
@@ -100,8 +100,8 @@ public class CustomRederPipelines {
     public static final RenderPipeline.Snippet RENDERTYPE_NO_GREEN_SNIPPET = RenderPipeline.builder(
                     MATRICES_FOG_SNIPPET
             )
-            .withVertexShader(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "core/rendertype_cube"))
-            .withFragmentShader(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "core/position_tex_color_green"))
+            .withVertexShader(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "core/rendertype_cube"))
+            .withFragmentShader(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "core/position_tex_color_green"))
             .withBindGroupLayout(BindGroupLayouts.SAMPLER0_SAMPLER2)
             .withColorTargetState(new ColorTargetState(BlendFunction.INVERT))
             .withPrimitiveTopology(PrimitiveTopology.QUADS)
@@ -112,8 +112,8 @@ public class CustomRederPipelines {
     public static final RenderPipeline.Snippet RENDERTYPE_NO_BLUE_SNIPPET = RenderPipeline.builder(
                     MATRICES_FOG_SNIPPET
             )
-            .withVertexShader(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "core/rendertype_cube"))
-            .withFragmentShader(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "core/position_tex_color_blue"))
+            .withVertexShader(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "core/rendertype_cube"))
+            .withFragmentShader(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "core/position_tex_color_blue"))
             .withBindGroupLayout(BindGroupLayouts.SAMPLER0_SAMPLER1)
             .withColorTargetState(new ColorTargetState(BlendFunction.INVERT))
             .withPrimitiveTopology(PrimitiveTopology.QUADS)
@@ -126,8 +126,8 @@ public class CustomRederPipelines {
     public static final RenderPipeline POSITION_SOFT_SKY = register(
             RenderPipeline.builder()
                     .withLocation("pipeline/soft_sky")
-                    .withVertexShader(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "core/soft_sky"))
-                    .withFragmentShader(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "core/soft_sky"))
+                    .withVertexShader(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "core/soft_sky"))
+                    .withFragmentShader(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "core/soft_sky"))
                     .withPrimitiveTopology(PrimitiveTopology.QUADS)
                     .withVertexBinding(0, DefaultVertexFormat.POSITION)
                     .withDepthStencilState(new DepthStencilState(CompareOp.NEVER_PASS, false))
@@ -138,8 +138,8 @@ public class CustomRederPipelines {
     public static final RenderPipeline POSITION_TEX_COLOR_DEPTH_PINNED_STARS = register(
             RenderPipeline.builder(MATRICES_FOG_SNIPPET)
                     .withLocation("pipeline/depth_pinned_stars")
-                    .withVertexShader(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "core/sky_stars"))
-                    .withFragmentShader(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "core/sky_stars"))
+                    .withVertexShader(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "core/sky_stars"))
+                    .withFragmentShader(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "core/sky_stars"))
                     .withBindGroupLayout(BindGroupLayouts.SAMPLER0)
                     .withPrimitiveTopology(PrimitiveTopology.QUADS)
                     .withVertexBinding(0, DefaultVertexFormat.POSITION_TEX_COLOR)
@@ -174,14 +174,14 @@ public class CustomRederPipelines {
 
     private static RenderPipeline register(final RenderPipeline pipeline) {
         //? if fabric {
-        PIPELINES_BY_LOCATION.put(pipeline.getLocation(), pipeline);
+        /*PIPELINES_BY_LOCATION.put(pipeline.getLocation(), pipeline);
         return pipeline;
-        //? } else {
-        /*return pipeline;
-        *///? }
+        *///? } else {
+        return pipeline;
+        //? }
     }
     //? if neoforge {
-    /*@SubscribeEvent
+    @SubscribeEvent
     public static void onRegisterRenderPipelines(RegisterRenderPipelinesEvent event) {
         event.registerPipeline(CustomRederPipelines.COSMIC);
         event.registerPipeline(CustomRederPipelines.STAR_LEAVES);
@@ -194,6 +194,6 @@ public class CustomRederPipelines {
         event.registerPipeline(CustomRederPipelines.POSITION_SOFT_SKY);
         event.registerPipeline(CustomRederPipelines.POSITION_TEX_COLOR_DEPTH_PINNED_STARS);
     }
-    *///? }
+    //? }
 
 }

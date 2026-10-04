@@ -1,9 +1,9 @@
 package com.github.starcatcher21.stargazer.particle;
 
 //? if fabric {
-import net.fabricmc.api.EnvType;
+/*import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-//? }
+*///? }
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -12,8 +12,8 @@ import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.RandomSource;
 
 //? if fabric {
-@Environment(EnvType.CLIENT)
-//? }
+/*@Environment(EnvType.CLIENT)
+*///? }
 public class StarParticle extends SingleQuadParticle {
     private static final float ACCELERATION_SCALE = 0.0025F;
     private static final int INITIAL_LIFETIME = 300;
@@ -96,8 +96,8 @@ public class StarParticle extends SingleQuadParticle {
     }
 
     //? if fabric {
-    @Environment(EnvType.CLIENT)
-    //? }
+    /*@Environment(EnvType.CLIENT)
+    *///? }
     public static class Factory implements ParticleProvider<SimpleParticleType> {
         private final SpriteSet spriteProvider;
 
@@ -113,8 +113,8 @@ public class StarParticle extends SingleQuadParticle {
     }
 
     //? if fabric {
-    @Environment(EnvType.CLIENT)
-    //? }
+    /*@Environment(EnvType.CLIENT)
+    *///? }
     public static class TintedLeavesFactory implements ParticleProvider<ColorParticleOption> {
         private final SpriteSet spriteProvider;
 

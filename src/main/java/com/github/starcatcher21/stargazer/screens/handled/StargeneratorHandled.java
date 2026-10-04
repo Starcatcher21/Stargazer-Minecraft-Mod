@@ -6,13 +6,13 @@ import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
 
 public class StargeneratorHandled extends AbstractContainerScreen<StarGeneratorScreenHandler> {
-    private static final Identifier TEXTURE =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/stargenerator.png");
-    private static final Identifier ARROW_TEXTURE =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/arrow_progress.png");
+    private static final ResourceLocation TEXTURE =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/stargenerator.png");
+    private static final ResourceLocation ARROW_TEXTURE =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/arrow_progress.png");
 
     public StargeneratorHandled(StarGeneratorScreenHandler handler, Inventory inventory, Component title) {
         super(handler, inventory, title, 176, 200);

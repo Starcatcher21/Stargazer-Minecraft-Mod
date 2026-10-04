@@ -1,5 +1,5 @@
 /*? if fabric {*/
-package com.github.starcatcher21.stargazer.datagen;
+/*package com.github.starcatcher21.stargazer.datagen;
 
 import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.item.armor.EquipmentAsset;
@@ -8,7 +8,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.resources.ResourceKey;
 
 import java.util.HashMap;
@@ -26,19 +26,19 @@ public class EquipmentAssetProvider implements DataProvider {
     private static void bootstrap(BiConsumer<ResourceKey<net.minecraft.world.item.equipment.EquipmentAsset>, EquipmentClientInfo> consumer) {
         consumer.accept(EquipmentAsset.MASK_OF_LUNA,
                 EquipmentClientInfo.builder()
-                        .addHumanoidLayers(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "mask_of_luna"))
+                        .addHumanoidLayers(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "mask_of_luna"))
                         .build());
         consumer.accept(EquipmentAsset.JESTER,
                 EquipmentClientInfo.builder()
-                        .addHumanoidLayers(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "jester"))
+                        .addHumanoidLayers(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "jester"))
                         .build());
         consumer.accept(EquipmentAsset.MOON,
                 EquipmentClientInfo.builder()
-                        .addHumanoidLayers(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "moon"))
+                        .addHumanoidLayers(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "moon"))
                         .build());
         consumer.accept(EquipmentAsset.AMETHYST,
                 EquipmentClientInfo.builder()
-                        .addHumanoidLayers(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "amethyst"))
+                        .addHumanoidLayers(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "amethyst"))
                         .build());
     }
 
@@ -58,4 +58,4 @@ public class EquipmentAssetProvider implements DataProvider {
         return "Stargazer Equipment Asset Definitions";
     }
 }
-//? }
+*///? }

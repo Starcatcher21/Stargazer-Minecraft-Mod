@@ -5,7 +5,7 @@ import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.ParticleUtils;
@@ -34,7 +34,7 @@ import java.util.OptionalInt;
 
 public class StarLeaves extends BaseEntityBlock implements SimpleWaterloggedBlock {
     public static final MapCodec<StarLeaves> CODEC = simpleCodec(StarLeaves::new);
-    public static final Identifier TEXTURE =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/block/star_leaves.png");
+    public static final ResourceLocation TEXTURE =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/block/star_leaves.png");
     protected final float leafParticleChance = 0.5F;
     public static final int MAX_DISTANCE = 7;
     public static final IntegerProperty DISTANCE = BlockStateProperties.DISTANCE;

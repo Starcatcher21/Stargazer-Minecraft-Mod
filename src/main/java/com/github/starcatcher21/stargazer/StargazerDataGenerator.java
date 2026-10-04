@@ -1,5 +1,5 @@
 /*? if fabric {*/
-package com.github.starcatcher21.stargazer;
+/*package com.github.starcatcher21.stargazer;
 
 import com.github.starcatcher21.stargazer.datagen.*;
 import com.github.starcatcher21.stargazer.fabric.datagen.lang.ModEngLangProvider;
@@ -77,4 +77,4 @@ public class StargazerDataGenerator implements DataGeneratorEntrypoint {
 		}
 	}
 }
-/*?}*/
+*//*?}*/

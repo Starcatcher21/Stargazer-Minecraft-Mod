@@ -1,5 +1,5 @@
 //? if <= 1.21.1 {
-/*package com.github.starcatcher21.stargazer.block.older1211;
+package com.github.starcatcher21.stargazer.block.older1211;
 
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
@@ -43,4 +43,4 @@ public abstract class VegetationBlock extends Block {
         return type == PathComputationType.AIR && !this.hasCollision ? true : super.isPathfindable(state, type);
     }
 }
-*///? }
+//? }

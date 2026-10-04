@@ -19,7 +19,7 @@ import com.github.starcatcher21.stargazer.item.ModItems;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.ColorRGBA;
 import net.minecraft.world.effect.MobEffects;
@@ -43,7 +43,7 @@ public class ModBlock {
 
     private static final Map<Identifier, Block> INSTANCE_CACHE = new ConcurrentHashMap<>();
 
-    public static void cacheBlock(Identifier id, Block block) {
+    public static void cacheBlock(ResourceLocation id, Block block) {
         if (id != null && block != null) {
             INSTANCE_CACHE.put(id, block);
         }
@@ -51,7 +51,7 @@ public class ModBlock {
 
     public static Block getRaw(RegistrySupplier<Block> supplier) {
         if (supplier == null) return null;
-        Identifier id = supplier.getId();
+        ResourceLocation id = supplier.getId();
         if (id != null) {
             Block cached = INSTANCE_CACHE.get(id);
             if (cached != null) return cached;
@@ -177,7 +177,7 @@ public class ModBlock {
     public static RegistrySupplier<Block> register(String path, Function<BlockBehaviour.Properties, Block> factory, BlockBehaviour.Properties settings) {
         RegistrySupplier<Block> blockSupplier = registerWoItem(path, factory, settings);
 
-        Identifier identifier =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, path);
+        ResourceLocation identifier =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, path);
         ResourceKey<Item> itemKey = ResourceKey.create(Registries.ITEM, identifier);
 
         ITEMS.register(path, () -> new BlockItem(getRaw(blockSupplier), new Item.Properties().useBlockDescriptionPrefix().setId(itemKey)));
@@ -186,7 +186,7 @@ public class ModBlock {
     }
 
     public static RegistrySupplier<Block> registerWoItem(String path, Function<BlockBehaviour.Properties, Block> factory, BlockBehaviour.Properties settings) {
-        Identifier identifier =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, path);
+        ResourceLocation identifier =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, path);
         ResourceKey<Block> registryKey = ResourceKey.create(Registries.BLOCK, identifier);
 
         return BLOCKS.register(path, () -> {

@@ -1,5 +1,5 @@
 /*? if fabric {*/
-package com.github.starcatcher21.stargazer.datagen;
+/*package com.github.starcatcher21.stargazer.datagen;
 
 import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.block.register.MoonBlocks;
@@ -11,7 +11,7 @@ import com.github.starcatcher21.starlib.mechanics.star.FallingObject;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
@@ -110,49 +110,49 @@ public class FallingObjectProvider extends FallingObjectDataProvider {
     @Override
     protected void addFallingObject(BiConsumer<Identifier, FallingObject> exporter, HolderLookup.Provider registries) {
         exporter.accept(
-              Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "black_brick"),
+              ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "black_brick"),
                 BLACK_BRICK
         );
         exporter.accept(
-              Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "black_star"),
+              ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "black_star"),
                 BLACK_STAR
         );
         exporter.accept(
-              Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "blue_star"),
+              ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "blue_star"),
                 BLUE_STAR
         );
         exporter.accept(
-              Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "red_star"),
+              ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "red_star"),
                 RED_STAR
         );
         exporter.accept(
-              Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "purple_star"),
+              ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "purple_star"),
                 PURPLE_STAR
         );
         exporter.accept(
-              Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "yellow_star"),
+              ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "yellow_star"),
                 YELLOW_STAR
         );
         exporter.accept(
-              Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "comet_fragment"),
+              ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "comet_fragment"),
                 COMET_FRAGMENT
         );
         exporter.accept(
-              Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "moon_rock"),
+              ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "moon_rock"),
                 MOON_ROCK
         );
         exporter.accept(
-              Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "red_rock"),
+              ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "red_rock"),
                 RED_ROCK
         );
         exporter.accept(
-              Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "star_book"),
+              ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "star_book"),
                 STAR_BOOK
         );
         exporter.accept(
-              Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "white_brick"),
+              ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "white_brick"),
                 WHITE_BRICK
         );
     }
 }
-//? }
+*///? }

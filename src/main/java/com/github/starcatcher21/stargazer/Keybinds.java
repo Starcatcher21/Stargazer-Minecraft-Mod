@@ -2,7 +2,7 @@ package com.github.starcatcher21.stargazer;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.KeyMapping;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import org.lwjgl.glfw.GLFW;
 
 public class Keybinds {
@@ -11,7 +11,7 @@ public class Keybinds {
             "key.stargazer.dash",
             InputConstants.Type.KEYSYM,
             GLFW.GLFW_KEY_X,
-            new KeyMapping.Category(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "stargazer"))
+            new KeyMapping.Category(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "stargazer"))
     );
 
     public static void init() {
