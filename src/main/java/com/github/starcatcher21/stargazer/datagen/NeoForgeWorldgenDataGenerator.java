@@ -15,7 +15,7 @@ public final class NeoForgeWorldgenDataGenerator {
     private NeoForgeWorldgenDataGenerator() {}
 
     //? if >= 26.2 {
-    public static void gatherServerData(GatherDataEvent.Server event) {
+    /*public static void gatherServerData(GatherDataEvent.Server event) {
         gatherData(event);
     }
 
@@ -29,11 +29,11 @@ public final class NeoForgeWorldgenDataGenerator {
                 event.getLookupProvider()
         ));
     }
-    //?}
+    *///?}
 
     public static void gatherData(GatherDataEvent event) {
         //? if >= 26.2 {
-        if (event instanceof GatherDataEvent.Server) {
+        /*if (event instanceof GatherDataEvent.Server) {
             DatapackBuiltinEntriesProvider worldgenProvider = new DatapackBuiltinEntriesProvider(
                     event.getGenerator().getPackOutput(),
                     event.getLookupProvider(),
@@ -81,19 +81,19 @@ public final class NeoForgeWorldgenDataGenerator {
                     event.getLookupProvider()
             ));
             //? if >= 26.2 {
-            event.addProvider(new AdvancementsProvider(
+            /^event.addProvider(new AdvancementsProvider(
                     event.getGenerator().getPackOutput(),
                     worldgenProvider.getRegistryProvider()
             ));
-            //?}
+            ^///?}
             //? if >= 26.2 {
-            event.addProvider(new RecipeProvider(
+            /^event.addProvider(new RecipeProvider(
                     event.getGenerator().getPackOutput(),
                     worldgenProvider.getRegistryProvider()
             ));
-            //?}
+            ^///?}
         }
-        //?} else {
+        *///?} else {
         DatapackBuiltinEntriesProvider worldgenProvider = new DatapackBuiltinEntriesProvider(
                         event.getGenerator().getPackOutput(),
                         event.getLookupProvider(),

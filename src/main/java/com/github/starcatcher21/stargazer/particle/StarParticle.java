@@ -171,10 +171,10 @@ public class StarParticle extends TextureSheetParticle {
     }
 
     //? if >= 26.2 {
-    /*
-    //? if fabric {
-    @Environment(value = EnvType.CLIENT)
-    //? }
+    
+    /*//? if fabric {
+    /^@Environment(value = EnvType.CLIENT)
+    ^///? }
     public static class TintedLeavesFactory implements ParticleProvider<ColorParticleOption> {
         private final SpriteSet spriteProvider;
 

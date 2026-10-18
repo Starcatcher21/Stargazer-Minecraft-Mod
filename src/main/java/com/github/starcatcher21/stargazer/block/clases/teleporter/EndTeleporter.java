@@ -394,15 +394,15 @@ public class EndTeleporter extends Block {
         *///?} else {
         Map<Direction, VoxelShape> SIDEMAP = Map.of(
                 Direction.NORTH, SIDESHAPE,
-                Direction.SOUTH, SIDESHAPE.getFaceShape(Direction.SOUTH),
-                Direction.EAST, SIDESHAPE.getFaceShape(Direction.EAST),
-                Direction.WEST, SIDESHAPE.getFaceShape(Direction.WEST)
+                Direction.SOUTH, com.github.starcatcher21.stargazer.helpers.Shapes.rotateShape(Direction.NORTH, Direction.SOUTH, SIDESHAPE),
+                Direction.EAST, com.github.starcatcher21.stargazer.helpers.Shapes.rotateShape(Direction.NORTH, Direction.EAST, SIDESHAPE),
+                Direction.WEST, com.github.starcatcher21.stargazer.helpers.Shapes.rotateShape(Direction.NORTH, Direction.WEST, SIDESHAPE)
         );
         Map<Direction, VoxelShape> CORNERMAP = Map.of(
                 Direction.NORTH, CORNERSHAPE,
-                Direction.SOUTH, CORNERSHAPE.getFaceShape(Direction.SOUTH),
-                Direction.EAST, CORNERSHAPE.getFaceShape(Direction.EAST),
-                Direction.WEST, CORNERSHAPE.getFaceShape(Direction.WEST)
+                Direction.SOUTH, com.github.starcatcher21.stargazer.helpers.Shapes.rotateShape(Direction.NORTH, Direction.SOUTH, CORNERSHAPE),
+                Direction.EAST, com.github.starcatcher21.stargazer.helpers.Shapes.rotateShape(Direction.NORTH, Direction.EAST, CORNERSHAPE),
+                Direction.WEST, com.github.starcatcher21.stargazer.helpers.Shapes.rotateShape(Direction.NORTH, Direction.WEST, CORNERSHAPE)
         );
         //?}
         EndTeleporterState cts = state.getValue(STATE);

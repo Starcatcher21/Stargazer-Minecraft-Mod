@@ -1,6 +1,7 @@
 {
 	"credit": "Made with Blockbench",
-	"textures": {
+  "render_type": "minecraft:cutout",
+  "textures": {
 		"1": "stargazer:block/moon_planks_door_top",
 		"2": "stargazer:block/moon_planks_door_side",
 		"particle": "stargazer:block/moon_planks_door_top"

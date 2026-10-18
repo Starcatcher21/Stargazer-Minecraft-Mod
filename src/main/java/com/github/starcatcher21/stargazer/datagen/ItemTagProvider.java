@@ -1,13 +1,13 @@
 /*? if fabric || neoforge {*/
-/*package com.github.starcatcher21.stargazer.datagen;
+package com.github.starcatcher21.stargazer.datagen;
 
 import com.github.starcatcher21.stargazer.CustomTags;
 import com.github.starcatcher21.stargazer.block.register.*;
 import com.github.starcatcher21.stargazer.item.ModItems;
 //? if fabric {
-import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+/*import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
-//?} else if < 26.2 {
+*///?} else if < 26.2 {
 import com.github.starcatcher21.stargazer.Stargazer;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
@@ -15,11 +15,11 @@ import net.minecraft.data.tags.TagsProvider.TagAppender;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 //?}
 //? if neoforge && >= 26.2 {
-import com.github.starcatcher21.stargazer.Stargazer;
+/*import com.github.starcatcher21.stargazer.Stargazer;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.data.tags.TagAppender;
-//?}
+*///?}
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
@@ -34,12 +34,12 @@ import static com.github.starcatcher21.stargazer.CustomTags.STARDUST;
 
 public class ItemTagProvider
 //? if fabric {
-        extends FabricTagsProvider.ItemTagsProvider {
+        /*extends FabricTagsProvider.ItemTagsProvider {
 
     public ItemTagProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> completableFuture) {
         super(output, completableFuture);
     }
-//?} else if < 26.2 {
+*///?} else if < 26.2 {
         extends IntrinsicHolderTagsProvider<Item> {
 
     public ItemTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> completableFuture, ExistingFileHelper existingFileHelper) {
@@ -50,7 +50,7 @@ public class ItemTagProvider
         return tag(tag);
     }
 //?} else {
-        extends TagsProvider<Item> {
+        /*extends TagsProvider<Item> {
 
     public ItemTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> completableFuture) {
         super(output, Registries.ITEM, completableFuture, Stargazer.MOD_ID);
@@ -59,7 +59,7 @@ public class ItemTagProvider
     private TagAppender<Item> builder(net.minecraft.tags.TagKey<Item> tag) {
         return tag(tag);
     }
-//?}
+*///?}
 
     @Override
     protected void addTags(HolderLookup.Provider wrapperLookup) {
@@ -182,4 +182,4 @@ public class ItemTagProvider
                 .add(ModItems.CRYSTAL_MOON.get().builtInRegistryHolder().key());
     }
 }
-*///? }
+//? }

@@ -24,12 +24,12 @@ public class StargazerAttributes {
                     new RangedAttribute("attribute.name.stargazer.dash_level", 1.0, 0.0, Integer.MAX_VALUE)
                             .setSyncable(true));
     //?} else {
-    public static final Holder<Attribute> DASH_LEVEL = registerCustom(
+    /*public static final Holder<Attribute> DASH_LEVEL = registerCustom(
             Stargazer.MOD_ID,
             "dash_level",
             new RangedAttribute("attribute.name.stargazer.dash_level", 1.0, 0.0, Integer.MAX_VALUE).setSyncable(true)
     );
-    //?}
+    *///?}
 
     //? if neoforge {
     public static void init(IEventBus modEventBus) {
@@ -38,11 +38,11 @@ public class StargazerAttributes {
     //?}
 
     //? if >= 26.2 {
-    private static Holder<Attribute> registerCustom(String id, String name, Attribute attribute) {
+    /*private static Holder<Attribute> registerCustom(String id, String name, Attribute attribute) {
         return Registry.registerForHolder(BuiltInRegistries.ATTRIBUTE,
                 ResourceLocation.fromNamespaceAndPath(id, name), attribute);
     }
-    //?}
+    *///?}
 
     public static void init() {}
 }

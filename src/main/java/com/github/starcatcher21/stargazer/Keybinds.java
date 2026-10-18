@@ -10,7 +10,7 @@ public class Keybinds {
             "key.stargazer.dash",
             InputConstants.Type.KEYSYM,
             GLFW.GLFW_KEY_X,
-            new KeyMapping.Category(net.minecraft.resources.Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "stargazer"))
+            new KeyMapping.Category(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "stargazer"))
     );
     *///? } else {
     public static final KeyMapping DASH_KEY = new KeyMapping(

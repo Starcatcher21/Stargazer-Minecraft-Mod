@@ -87,8 +87,8 @@ public final class WorldgenDataBootstrap {
 
     private static Codec<DensityFunction> densityFunctionCodec() {
         //? if >= 26.2 {
-        return net.minecraft.world.level.levelgen.DensityFunctions.DIRECT_CODEC;
-        //?} else {
+        /*return net.minecraft.world.level.levelgen.DensityFunctions.DIRECT_CODEC;
+        *///?} else {
         return DensityFunction.DIRECT_CODEC;
         //?}
     }

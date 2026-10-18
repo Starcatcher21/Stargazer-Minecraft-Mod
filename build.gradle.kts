@@ -18,8 +18,6 @@ repositories {
 }
 
 subprojects {
-    apply(plugin = "java")
-
     sourceSets {
         named("main") {
             resources {
@@ -51,15 +49,6 @@ subprojects {
                 )
             }
         }
-    }
-}
-
-project(":1.21.1-neoforge") {
-    sourceSets.named("main") {
-        java.setSrcDirs(listOf(layout.buildDirectory.dir("generated/stonecutter/main/java")))
-    }
-    tasks.named("compileJava") {
-        dependsOn(tasks.named("stonecutterGenerate"))
     }
 }
 

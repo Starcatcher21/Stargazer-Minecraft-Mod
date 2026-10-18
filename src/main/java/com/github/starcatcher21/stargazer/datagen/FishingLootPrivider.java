@@ -1,12 +1,12 @@
 /*? if fabric || neoforge {*/
-/*package com.github.starcatcher21.stargazer.datagen;
+package com.github.starcatcher21.stargazer.datagen;
 
 import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.item.ModItems;
 //? if fabric {
-import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+/*import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableSubProvider;
-//?} else {
+*///?} else {
 import net.minecraft.data.loot.LootTableSubProvider;
 //?}
 import net.minecraft.core.HolderLookup;
@@ -25,11 +25,11 @@ import java.util.function.BiConsumer;
 
 public class FishingLootPrivider
 //? if fabric {
-        extends SimpleFabricLootTableSubProvider {
+        /*extends SimpleFabricLootTableSubProvider {
     public FishingLootPrivider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registryLookup) {
         super(output, registryLookup, LootContextParamSets.FISHING);
     }
-//?} else {
+*///?} else {
         implements LootTableSubProvider {
     public FishingLootPrivider(HolderLookup.Provider registryLookup) {}
 //?}
@@ -66,4 +66,4 @@ public class FishingLootPrivider
         lootTableBiConsumer.accept(customFishingKey, lootTable);
     }
 }
-*///? }
+//? }

@@ -50,8 +50,8 @@ public class MoonWelderCategory implements DisplayCategory<MoonWelderDisplay> {
         widgets.add(Widgets.createTexturedWidget(TEXTURE, new Rectangle(startPoint.x - 7, startPoint.y - 7, 146, 102)));
         int moonphase = display.recipe().getMoonPhase();
         //? if >= 26.2 {
-        /*if (Minecraft.getInstance().getSingleplayerServer().overworld().getGameRules().get(GameRules.MOON)) {*/
-        //?} else {
+        /*if (Minecraft.getInstance().getSingleplayerServer().overworld().getGameRules().get(GameRules.MOON)) {
+        *///?} else {
         if (Minecraft.getInstance().getSingleplayerServer().overworld().getGameRules().getBoolean(GameRules.MOON)) {
         //?}
             switch (moonphase) {

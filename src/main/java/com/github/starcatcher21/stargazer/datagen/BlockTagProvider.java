@@ -1,23 +1,23 @@
 /*? if fabric || neoforge {*/
-/*package com.github.starcatcher21.stargazer.datagen;
+package com.github.starcatcher21.stargazer.datagen;
 
 import com.github.starcatcher21.stargazer.CustomTags;
 import com.github.starcatcher21.stargazer.block.ModBlock;
 import com.github.starcatcher21.stargazer.block.register.*;
 //? if fabric {
-import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+/*import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
-//?} else if < 26.2 {
+*///?} else if < 26.2 {
 import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.common.data.BlockTagsProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.minecraft.data.tags.TagsProvider.TagAppender;
 //?}
 //? if neoforge && >= 26.2 {
-import net.minecraft.data.PackOutput;
+/*import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.data.tags.TagAppender;
-//?}
+*///?}
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.BlockTags;
@@ -26,11 +26,11 @@ import java.util.concurrent.CompletableFuture;
 
 public class BlockTagProvider
 //? if fabric {
-        extends FabricTagsProvider.BlockTagsProvider {
+        /*extends FabricTagsProvider.BlockTagsProvider {
     public BlockTagProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
         super(output, registriesFuture);
     }
-//?} else if < 26.2 {
+*///?} else if < 26.2 {
         extends BlockTagsProvider {
     public BlockTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture, ExistingFileHelper existingFileHelper) {
         super(output, registriesFuture, com.github.starcatcher21.stargazer.Stargazer.MOD_ID, existingFileHelper);
@@ -40,7 +40,7 @@ public class BlockTagProvider
         return tag(tag);
     }
 //?} else {
-        extends TagsProvider<net.minecraft.world.level.block.Block> {
+        /*extends TagsProvider<net.minecraft.world.level.block.Block> {
     public BlockTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
         super(output, Registries.BLOCK, registriesFuture, com.github.starcatcher21.stargazer.Stargazer.MOD_ID);
     }
@@ -48,7 +48,7 @@ public class BlockTagProvider
     private TagAppender<net.minecraft.world.level.block.Block> builder(net.minecraft.tags.TagKey<net.minecraft.world.level.block.Block> tag) {
         return tag(tag);
     }
-//?}
+*///?}
 
     @Override
     protected void addTags(HolderLookup.Provider wrapperLookup) {
@@ -356,7 +356,7 @@ public class BlockTagProvider
                 .add(RedOrbBlocks.YERI_PLANKS_FENCE_GATE.getKey())
                 .add(MoonBlocks.YELLOW_MOON_PLANKS_FENCE_GATE.getKey());
         //? if >= 26.2 {
-        builder(CustomTags.COPPER_BLOCKS)
+        /*builder(CustomTags.COPPER_BLOCKS)
                 .add(Blocks.COPPER_BLOCK.weathering().unaffected().builtInRegistryHolder().key())
                 .add(Blocks.COPPER_BLOCK.waxed().unaffected().builtInRegistryHolder().key())
                 .add(Blocks.CUT_COPPER.weathering().unaffected().builtInRegistryHolder().key())
@@ -365,13 +365,13 @@ public class BlockTagProvider
                 .add(Blocks.CHISELED_COPPER.waxed().unaffected().builtInRegistryHolder().key())
                 .add(Blocks.CUT_COPPER_STAIRS.weathering().unaffected().builtInRegistryHolder().key())
                 .add(Blocks.CUT_COPPER_STAIRS.waxed().unaffected().builtInRegistryHolder().key());
-        //?}
+        *///?}
         // other
         //? if >= 26.2 {
-        builder(BlockTags.OVERRIDES_MUSHROOM_LIGHT_REQUIREMENT)
+        /*builder(BlockTags.OVERRIDES_MUSHROOM_LIGHT_REQUIREMENT)
                 .add(MoonBlocks.MOON_ROCK_NYLIUM.getKey())
                 .add(Darkness.DYLIUM.getKey());
-        //?}
+        *///?}
         builder(CustomTags.STAR_HAMMER_MINABLE)
                 .add(StarBlocks.COSMIC_BLOCK.getKey())
                 .add(ModBlock.NEGATIVE_BLOCK.getKey())
@@ -383,4 +383,4 @@ public class BlockTagProvider
                 .add(StarBlocks.BORDER_BLOCK.getKey());
     }
 }
-*///? }
+//? }

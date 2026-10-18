@@ -1,13 +1,13 @@
 /*? if fabric || neoforge {*/
-/*package com.github.starcatcher21.stargazer.datagen;
+package com.github.starcatcher21.stargazer.datagen;
 
 import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.block.register.Crops;
 import com.github.starcatcher21.stargazer.item.ModItems;
 //? if fabric {
-import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+/*import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableSubProvider;
-//?} else {
+*///?} else {
 import net.minecraft.data.loot.LootTableSubProvider;
 //?}
 import net.minecraft.core.HolderLookup;
@@ -25,11 +25,11 @@ import java.util.function.BiConsumer;
 
 public class ChestLootPrivider
 //? if fabric {
-        extends SimpleFabricLootTableSubProvider {
+        /*extends SimpleFabricLootTableSubProvider {
     public ChestLootPrivider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registryLookup) {
         super(output, registryLookup, LootContextParamSets.CHEST);
     }
-//?} else {
+*///?} else {
         implements LootTableSubProvider {
     public ChestLootPrivider(HolderLookup.Provider registryLookup) {}
 //?}
@@ -54,8 +54,8 @@ public class ChestLootPrivider
                                 .add(LootItem.lootTableItem(Items.IRON_NUGGET).setWeight(60))
                                 .add(LootItem.lootTableItem(Items.GOLD_NUGGET).setWeight(50))
                                 //? if >= 26.2 {
-                                .add(LootItem.lootTableItem(Items.COPPER_NUGGET).setWeight(50))
-                                //?} else {
+                                /*.add(LootItem.lootTableItem(Items.COPPER_NUGGET).setWeight(50))
+                                *///?} else {
                                 .add(LootItem.lootTableItem(Items.COPPER_INGOT).setWeight(50))
                                 //?}
                                 .add(LootItem.lootTableItem(Items.RAW_IRON).setWeight(30))
@@ -79,4 +79,4 @@ public class ChestLootPrivider
         lootTableBiConsumer.accept(seedKey, lootTableSeedPacket);
     }
 }
-*///? }
+//? }

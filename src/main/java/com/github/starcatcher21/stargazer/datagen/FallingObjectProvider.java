@@ -1,5 +1,5 @@
 /*? if fabric || neoforge {*/
-/*package com.github.starcatcher21.stargazer.datagen;
+package com.github.starcatcher21.stargazer.datagen;
 
 import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.block.register.MoonBlocks;
@@ -155,4 +155,4 @@ public class FallingObjectProvider extends FallingObjectDataProvider {
         );
     }
 }
-*///? }
+//? }

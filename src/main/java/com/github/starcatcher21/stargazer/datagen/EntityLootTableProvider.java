@@ -1,28 +1,28 @@
 /*? if fabric || neoforge {*/
-/*package com.github.starcatcher21.stargazer.datagen;
+package com.github.starcatcher21.stargazer.datagen;
 
 import com.github.starcatcher21.stargazer.block.register.MoonBlocks;
 import com.github.starcatcher21.stargazer.entity.EntityRegistry;
 import com.github.starcatcher21.stargazer.item.ModItems;
 //? if fabric {
-import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+/*import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricEntityLootSubProvider;
-//?} else {
+*///?} else {
 import net.minecraft.data.loot.EntityLootSubProvider;
 import net.minecraft.world.flag.FeatureFlags;
 //?}
 //? if >= 26.2 {
-import net.minecraft.advancements.predicates.entity.EntityPredicate;
+/*import net.minecraft.advancements.predicates.entity.EntityPredicate;
 import net.minecraft.advancements.predicates.NbtPredicate;
-//?} else {
+*///?} else {
 import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.advancements.critereon.NbtPredicate;
 //?}
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 //? if >= 26.2 {
-import net.minecraft.util.Util;
-//?} else {
+/*import net.minecraft.util.Util;
+*///?} else {
 import net.minecraft.Util;
 //?}
 import net.minecraft.world.item.Items;
@@ -41,11 +41,11 @@ import java.util.stream.Stream;
 
 public class EntityLootTableProvider
 //? if fabric {
-        extends FabricEntityLootSubProvider {
+        /*extends FabricEntityLootSubProvider {
     public EntityLootTableProvider(FabricPackOutput output, @NotNull CompletableFuture<HolderLookup.Provider> registryLookup) {
         super(output, registryLookup);
     }
-//?} else {
+*///?} else {
         extends EntityLootSubProvider {
     public EntityLootTableProvider(HolderLookup.Provider registryLookup) {
         super(FeatureFlags.REGISTRY.allFlags(), registryLookup);
@@ -105,4 +105,4 @@ public class EntityLootTableProvider
     }
 
 }
-*///? }
+//? }

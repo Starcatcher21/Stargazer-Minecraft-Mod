@@ -1,5 +1,5 @@
 /*? if fabric || neoforge {*/
-/*package com.github.starcatcher21.stargazer.datagen;
+package com.github.starcatcher21.stargazer.datagen;
 
 import com.github.starcatcher21.stargazer.block.ModBlock;
 import com.github.starcatcher21.stargazer.block.clases.Hedge;
@@ -12,9 +12,9 @@ import com.github.starcatcher21.stargazer.entity.Star;
 import com.github.starcatcher21.stargazer.item.ModItems;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.nebulas.Red;
 //? if fabric {
-import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+/*import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootSubProvider;
-//?} else {
+*///?} else {
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.world.flag.FeatureFlags;
 import java.util.HashSet;
@@ -22,8 +22,8 @@ import java.util.Set;
 import java.util.function.Function;
 //?}
 //? if >= 26.2 {
-import net.minecraft.advancements.predicates.StatePropertiesPredicate;
-//?} else {
+/*import net.minecraft.advancements.predicates.StatePropertiesPredicate;
+*///?} else {
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 //?}
 import net.minecraft.core.HolderGetter;
@@ -37,8 +37,8 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 //? if >= 26.2 {
-import net.minecraft.world.level.block.FlowerBedBlock;
-//?} else {
+/*import net.minecraft.world.level.block.FlowerBedBlock;
+*///?} else {
 import com.github.starcatcher21.stargazer.block.older1211.FlowerBedBlock;
 //?}
 import net.minecraft.world.level.storage.loot.LootPool;
@@ -57,11 +57,11 @@ import java.util.concurrent.CompletableFuture;
 
 public class LootTableProvider
 //? if fabric {
-        extends FabricBlockLootSubProvider {
+        /*extends FabricBlockLootSubProvider {
     public LootTableProvider(FabricPackOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
         super(dataOutput, registryLookup);
     }
-//?} else {
+*///?} else {
         extends BlockLootSubProvider {
     private final Set<Block> generatedBlocks = new HashSet<>();
 
@@ -430,4 +430,4 @@ public class LootTableProvider
         );
     }
 }
-*///? }
+//? }

@@ -9,6 +9,7 @@ import com.mojang.math.OctahedralGroup;
 import it.unimi.dsi.fastutil.doubles.DoubleList;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderSet;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
@@ -415,21 +416,21 @@ public class CopperTeleporter extends Block {
         *///?} else {
         Map<Direction, VoxelShape> SIDEMAP = Map.of(
                 Direction.NORTH, SIDESHAPE,
-                Direction.SOUTH, SIDESHAPE.getFaceShape(Direction.SOUTH),
-                Direction.EAST, SIDESHAPE.getFaceShape(Direction.EAST),
-                Direction.WEST, SIDESHAPE.getFaceShape(Direction.WEST)
+                Direction.SOUTH, com.github.starcatcher21.stargazer.helpers.Shapes.rotateShape(Direction.NORTH, Direction.SOUTH, SIDESHAPE),
+                Direction.EAST, com.github.starcatcher21.stargazer.helpers.Shapes.rotateShape(Direction.NORTH, Direction.EAST, SIDESHAPE),
+                Direction.WEST, com.github.starcatcher21.stargazer.helpers.Shapes.rotateShape(Direction.NORTH, Direction.WEST, SIDESHAPE)
         );
         Map<Direction, VoxelShape> CORNERMAP = Map.of(
                 Direction.NORTH, CORNERSHAPE,
-                Direction.SOUTH, CORNERSHAPE.getFaceShape(Direction.SOUTH),
-                Direction.EAST, CORNERSHAPE.getFaceShape(Direction.EAST),
-                Direction.WEST, CORNERSHAPE.getFaceShape(Direction.WEST)
+                Direction.SOUTH, com.github.starcatcher21.stargazer.helpers.Shapes.rotateShape(Direction.NORTH, Direction.SOUTH, CORNERSHAPE),
+                Direction.EAST, com.github.starcatcher21.stargazer.helpers.Shapes.rotateShape(Direction.NORTH, Direction.EAST, CORNERSHAPE),
+                Direction.WEST, com.github.starcatcher21.stargazer.helpers.Shapes.rotateShape(Direction.NORTH, Direction.WEST, CORNERSHAPE)
         );
         Map<Direction, VoxelShape> CORNERTOPMAP = Map.of(
                 Direction.NORTH, CORNERTOPSHAPE,
-                Direction.SOUTH, CORNERTOPSHAPE.getFaceShape(Direction.SOUTH),
-                Direction.EAST, CORNERTOPSHAPE.getFaceShape(Direction.EAST),
-                Direction.WEST, CORNERTOPSHAPE.getFaceShape(Direction.WEST)
+                Direction.SOUTH, com.github.starcatcher21.stargazer.helpers.Shapes.rotateShape(Direction.NORTH, Direction.SOUTH, CORNERTOPSHAPE),
+                Direction.EAST, com.github.starcatcher21.stargazer.helpers.Shapes.rotateShape(Direction.NORTH, Direction.EAST, CORNERTOPSHAPE),
+                Direction.WEST, com.github.starcatcher21.stargazer.helpers.Shapes.rotateShape(Direction.NORTH, Direction.WEST, CORNERTOPSHAPE)
         );
         //?}
         CopperTeleporterState cts = state.getValue(STATE);

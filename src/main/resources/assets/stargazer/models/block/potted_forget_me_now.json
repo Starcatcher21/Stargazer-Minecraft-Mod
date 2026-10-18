@@ -1,6 +1,7 @@
 {
 	"credit": "Made with Blockbench",
-	"textures": {
+  "render_type": "minecraft:cutout",
+  "textures": {
 		"3": "stargazer:block/forget_me_now",
 		"particle": "block/flower_pot",
 		"flowerpot": "block/flower_pot",

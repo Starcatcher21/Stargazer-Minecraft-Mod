@@ -87,7 +87,7 @@ public final class Stargazer
     public Stargazer(IEventBus modEventBus, Dist dist) {
         modEventBus.addListener(this::commonSetup);
         //? if >= 26.2 {
-        modEventBus.addListener(
+        /*modEventBus.addListener(
                 net.neoforged.neoforge.data.event.GatherDataEvent.Server.class,
                 com.github.starcatcher21.stargazer.datagen.NeoForgeWorldgenDataGenerator::gatherServerData
         );
@@ -95,7 +95,7 @@ public final class Stargazer
                 net.neoforged.neoforge.data.event.GatherDataEvent.Client.class,
                 com.github.starcatcher21.stargazer.datagen.NeoForgeWorldgenDataGenerator::gatherClientData
         );
-        //?} else {
+        *///?} else {
         modEventBus.addListener(com.github.starcatcher21.stargazer.datagen.NeoForgeWorldgenDataGenerator::gatherData);
         //?}
 
