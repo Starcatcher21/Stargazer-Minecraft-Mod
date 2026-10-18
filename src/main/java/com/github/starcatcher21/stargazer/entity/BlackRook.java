@@ -24,12 +24,9 @@ import software.bernie.geckolib.animation.object.PlayState;
 import software.bernie.geckolib.animation.state.AnimationTest;
 import software.bernie.geckolib.util.GeckoLibUtil;
 *///? } else {
-import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.AnimatableManager;
-import software.bernie.geckolib.animation.AnimationController;
-import software.bernie.geckolib.animation.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 //? }
 
@@ -49,16 +46,7 @@ public class BlackRook extends PathfinderMob implements GeoEntity {
 
     @Override
     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
-        //? if >= 26.2 {
-        /*controllers.add(new AnimationController<GeoAnimatable>("MovementController", 5, this::AnimController));
-        *///? }
     }
-
-    //? if >= 26.2 {
-    /*private PlayState AnimController(AnimationTest<GeoAnimatable> animTest) {
-        return PlayState.STOP;
-    }
-    *///? }
 
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {

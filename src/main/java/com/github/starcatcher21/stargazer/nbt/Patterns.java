@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
@@ -16,12 +18,20 @@ import net.minecraft.world.item.Item;
 public class Patterns {
     public static final Codec<Patterns> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             ResourceLocation.CODEC.fieldOf("asset_id").forGetter(Patterns::getPattern),
-            Codec.list(Item.CODEC).fieldOf("items").forGetter(Patterns::getItems)
+            //? if >= 26.2 {
+            /*Codec.list(Item.CODEC).fieldOf("items").forGetter(Patterns::getItems)
+            *///?} else {
+            BuiltInRegistries.ITEM.holderByNameCodec().listOf().fieldOf("items").forGetter(Patterns::getItems)
+            //?}
     ).apply(instance, Patterns::new));
     public static final StreamCodec<RegistryFriendlyByteBuf, Patterns> PACKET_CODEC = StreamCodec.composite(
             ResourceLocation.STREAM_CODEC,
             Patterns::getPattern,
-            Item.STREAM_CODEC.apply(ByteBufCodecs.list()),
+            //? if >= 26.2 {
+            /*Item.STREAM_CODEC.apply(ByteBufCodecs.list()),
+            *///?} else {
+            ByteBufCodecs.holderRegistry(Registries.ITEM).apply(ByteBufCodecs.list()),
+            //?}
             Patterns::getItems,
             Patterns::new
     );

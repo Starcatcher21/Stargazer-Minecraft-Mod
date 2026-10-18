@@ -207,11 +207,10 @@ public class StarGeneratorEntity extends BlockEntity implements Container {
     public boolean canTakeItem(Container hopperInventory, int slot, ItemStack stack) {
         return slot == OUTPUT_SLOT;
     }
-    *///?} else {
-    // 1.21.1 Container does not declare canTakeItem; hopper extraction uses
-    // canPlaceItem + slot rules instead. If you need the same behaviour,
-    // override canPlaceItem on the hopper side or use a separate ItemHandler.
-    //?}
+    *///? }
+     /*1.21.1 Container does not declare canTakeItem; hopper extraction uses
+     canPlaceItem + slot rules instead. If you need the same behaviour,
+     override canPlaceItem on the hopper side or use a separate ItemHandler.*/
 
     @Override
     public void clearContent() {

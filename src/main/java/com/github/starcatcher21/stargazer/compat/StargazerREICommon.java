@@ -54,7 +54,6 @@ public class StargazerREICommon implements
         REIPlugin.super.registerDisplaySerializer(registry);
         //? }
     }
-
     //? if >= 26.2 {
     /*@Override
     public void registerDisplays(ServerDisplayRegistry registry) {

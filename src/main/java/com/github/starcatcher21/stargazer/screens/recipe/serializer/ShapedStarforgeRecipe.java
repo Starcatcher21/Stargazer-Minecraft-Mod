@@ -104,7 +104,11 @@ public class ShapedStarforgeRecipe
     *///? } else {
     @VisibleForTesting
     public NonNullList<Ingredient> getIngredients() {
-        return this.raw.getIngredients();
+        NonNullList<Ingredient> ingredients = NonNullList.withSize(this.raw.getIngredients().size(), Ingredient.EMPTY);
+        for (int i = 0; i < ingredients.size(); i++) {
+            ingredients.set(i, this.raw.getIngredients().get(i).orElse(Ingredient.EMPTY));
+        }
+        return ingredients;
     }
     //? }
 
@@ -211,5 +215,19 @@ public class ShapedStarforgeRecipe
             ShapedStarforgeRecipe::new
     );
 
-    public static final RecipeSerializer<ShapedStarforgeRecipe> SERIALIZER = new RecipeSerializer<>(CODEC, STREAM_CODEC);
+    //? if >= 26.2 {
+    /*public static final RecipeSerializer<ShapedStarforgeRecipe> SERIALIZER = new RecipeSerializer<>(CODEC, STREAM_CODEC);
+     *///?} else {
+    public static final RecipeSerializer<ShapedStarforgeRecipe> SERIALIZER = new RecipeSerializer<>() {
+        @Override
+        public MapCodec<ShapedStarforgeRecipe> codec() {
+            return CODEC;
+        }
+
+        @Override
+        public StreamCodec<RegistryFriendlyByteBuf, ShapedStarforgeRecipe> streamCodec() {
+            return STREAM_CODEC;
+        }
+    };
+    //?}
 }

@@ -11,7 +11,7 @@ import software.bernie.geckolib.model.GeoModel;
 //? }
 
 public class EyeBatModel extends GeoModel<EyeBat> {
-    private final ResourceLocation model =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "entity/eye_bat");
+    private final ResourceLocation model =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "geo/entity/eye_bat.geo.json");
     private final ResourceLocation animations =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "entity/eye_bat");
     private final ResourceLocation texture =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/eye_bat.png");
 

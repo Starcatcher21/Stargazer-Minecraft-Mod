@@ -9,6 +9,9 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+//? if < 26.2 {
+import net.minecraft.world.InteractionResultHolder;
+//? }
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -26,7 +29,11 @@ public class LuckyComet extends Item {
     }
 
     @Override
-    public InteractionResult use(Level world, Player user, InteractionHand hand) {
+    //? if >= 26.2 {
+    /*public InteractionResult use(Level world, Player user, InteractionHand hand) {
+    *///? } else {
+    public InteractionResultHolder use(Level world, Player user, InteractionHand hand) {
+    //? }
         if (!user.hasInfiniteMaterials()) {
             user.getItemInHand(hand).shrink(1);
         }
@@ -51,6 +58,10 @@ public class LuckyComet extends Item {
             }
         }
         user.awardStat(Stats.ITEM_USED.get(this));
-        return InteractionResult.CONSUME;
+        //? if >= 26.2 {
+        /*return InteractionResult.CONSUME;
+        *///? } else {
+        return InteractionResultHolder.consume(this);
+        //? }
     }
 }

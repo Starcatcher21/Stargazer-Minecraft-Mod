@@ -1,6 +1,7 @@
-/*? if fabric {*/
-/*package com.github.starcatcher21.stargazer.fabric.datagen.lang;
+/*? if fabric || neoforge {*/
+/*package com.github.starcatcher21.stargazer.datagen.lang;
 
+import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.CreativeTab.ItemGroup;
 import com.github.starcatcher21.stargazer.StargazerAttributes;
 import com.github.starcatcher21.stargazer.block.ModBlock;
@@ -15,20 +16,105 @@ import com.github.starcatcher21.stargazer.effects.Potions;
 import com.github.starcatcher21.stargazer.entity.EntityRegistry;
 import com.github.starcatcher21.stargazer.item.ModItems;
 import com.github.starcatcher21.stargazer.item.WishingStars;
+//? if fabric {
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
+//?} else {
+import net.minecraft.data.PackOutput;
+import net.neoforged.neoforge.common.data.LanguageProvider;
+//?}
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.DyeColor;
 import java.util.Arrays;
 import java.util.concurrent.CompletableFuture;
 
-public class ModEngLangProvider extends FabricLanguageProvider {
+public class ModEngLangProvider
+//? if fabric {
+        extends FabricLanguageProvider {
     public ModEngLangProvider(FabricPackOutput dataGenerator, CompletableFuture<HolderLookup.Provider> registryLookup) {
         super(dataGenerator, "en_us", registryLookup);
     }
+//?} else {
+        extends LanguageProvider {
+    public ModEngLangProvider(PackOutput output) {
+        super(output, Stargazer.MOD_ID, "en_us");
+    }
+
     @Override
-    public void generateTranslations(HolderLookup.Provider wrapperLookup, TranslationBuilder translationBuilder) {
+    protected void addTranslations() {
+        populateTranslations(this::addTranslation);
+    }
+
+    private void addTranslation(Object key, String value) {
+        if (key instanceof String translationKey) {
+            add(translationKey, value);
+        } else if (key instanceof net.minecraft.world.level.block.Block block) {
+            add(block, value);
+        } else if (key instanceof net.minecraft.world.item.Item item) {
+            add(item, value);
+        } else if (key instanceof net.minecraft.world.entity.EntityType<?> entityType) {
+            add(entityType, value);
+        } else if (key instanceof net.minecraft.world.effect.MobEffect effect) {
+            add(effect, value);
+        } else if (key instanceof Holder<?> holder
+                && holder.value() instanceof net.minecraft.world.entity.ai.attributes.Attribute attribute) {
+            add(attribute.getDescriptionId(), value);
+        } else if (key instanceof net.minecraft.world.entity.ai.attributes.Attribute attribute) {
+            add(attribute.getDescriptionId(), value);
+        } else if (key instanceof net.minecraft.tags.TagKey<?> tag) {
+            add(tag, value);
+        //? if >= 26.2 {
+        } else if (key instanceof net.minecraft.resources.Identifier identifier) {
+        //?} else {
+        } else if (key instanceof net.minecraft.resources.ResourceLocation identifier) {
+        //?}
+            add(identifier.toLanguageKey(), value);
+        } else {
+            throw new IllegalArgumentException("Unsupported translation key type: " + key.getClass().getName());
+        }
+    }
+//?}
+
+    @FunctionalInterface
+    private interface TranslationSink {
+        void add(Object key, String value);
+    }
+
+    //? if fabric {
+    @Override
+    public void generateTranslations(HolderLookup.Provider wrapperLookup, FabricLanguageProvider.TranslationBuilder translationBuilder) {
+        populateTranslations((key, value) -> {
+            if (key instanceof String string) {
+                translationBuilder.add(string, value);
+            } else if (key instanceof net.minecraft.world.level.block.Block block) {
+                translationBuilder.add(block, value);
+            } else if (key instanceof net.minecraft.world.item.Item item) {
+                translationBuilder.add(item, value);
+            } else if (key instanceof net.minecraft.world.entity.EntityType<?> entityType) {
+                translationBuilder.add(entityType, value);
+            } else if (key instanceof net.minecraft.world.effect.MobEffect effect) {
+                translationBuilder.add(effect, value);
+            } else if (key instanceof Holder<?> holder
+                    && holder.value() instanceof net.minecraft.world.entity.ai.attributes.Attribute attribute) {
+                translationBuilder.add((Holder<net.minecraft.world.entity.ai.attributes.Attribute>) holder, value);
+            } else if (key instanceof net.minecraft.tags.TagKey<?> tag) {
+                translationBuilder.add(tag, value);
+            //? if >= 26.2 {
+            } else if (key instanceof net.minecraft.resources.Identifier identifier) {
+            //?} else {
+            } else if (key instanceof net.minecraft.resources.ResourceLocation identifier) {
+            //?}
+                translationBuilder.add(identifier, value);
+            } else {
+                throw new IllegalArgumentException("Unsupported translation key type: " + key.getClass().getName());
+            }
+        });
+    }
+    //?}
+
+    private static void populateTranslations(TranslationSink translationBuilder) {
         translationBuilder.add(ModItems.STAR_BOOK.get(), "Book of Stars 1");
         translationBuilder.add(ItemGroup.STAR_GROUP.get().getDisplayName().getString(), "Stargazer");
         translationBuilder.add("stat.stargazer.star_catched", "Star Catched");
@@ -322,20 +408,19 @@ public class ModEngLangProvider extends FabricLanguageProvider {
         translationBuilder.add(Crops.DRAGON_CARROT.get(), "Dragon Carrot");
         translationBuilder.add(Crops.BROODY.get(), "Broody");
         translationBuilder.add(Crops.EYE_BALLS.get(), "Eye Balls");
-        translationBuilder.add(Crops.GIANT_DRAGON_CARROT.get(), "Giant Dragon Carrot");
         // Potions
-        translationBuilder.add("item.minecraft.potion.effect."+Potions.CosmoFeel.get().name(), "Potion of Cosmic Feeling");
-        translationBuilder.add("item.minecraft.splash_potion.effect."+Potions.CosmoFeel.get().name(), "Splash Potion of Cosmic Feeling");
-        translationBuilder.add("item.minecraft.lingering_potion.effect."+Potions.CosmoFeel.get().name(), "Lingering Potion of Cosmic Feeling");
-        translationBuilder.add("item.minecraft.tipped_arrow.effect."+Potions.CosmoFeel.get().name(), "Arrow of Cosmic Feeling");
-        translationBuilder.add("item.minecraft.potion.effect."+Potions.GlassHands.get().name(), "Potion of Glass Hands");
-        translationBuilder.add("item.minecraft.splash_potion.effect."+Potions.GlassHands.get().name(), "Splash Potion of Glass Hands");
-        translationBuilder.add("item.minecraft.lingering_potion.effect."+Potions.GlassHands.get().name(), "Lingering Potion of Glass Hands");
-        translationBuilder.add("item.minecraft.tipped_arrow.effect."+Potions.GlassHands.get().name(), "Arrow of Glass Hands");
-        translationBuilder.add("item.minecraft.potion.effect."+Potions.Hydro.get().name(), "Potion of Hydrophobic");
-        translationBuilder.add("item.minecraft.splash_potion.effect."+Potions.Hydro.get().name(), "Splash Potion of Hydrophobic");
-        translationBuilder.add("item.minecraft.lingering_potion.effect."+Potions.Hydro.get().name(), "Lingering Potion of Hydrophobic");
-        translationBuilder.add("item.minecraft.tipped_arrow.effect."+Potions.Hydro.get().name(), "Arrow of Hydrophobic");
+        translationBuilder.add("item.minecraft.potion.effect." + potionTranslationName(Potions.CosmoFeel.get()), "Potion of Cosmic Feeling");
+        translationBuilder.add("item.minecraft.splash_potion.effect." + potionTranslationName(Potions.CosmoFeel.get()), "Splash Potion of Cosmic Feeling");
+        translationBuilder.add("item.minecraft.lingering_potion.effect." + potionTranslationName(Potions.CosmoFeel.get()), "Lingering Potion of Cosmic Feeling");
+        translationBuilder.add("item.minecraft.tipped_arrow.effect." + potionTranslationName(Potions.CosmoFeel.get()), "Arrow of Cosmic Feeling");
+        translationBuilder.add("item.minecraft.potion.effect." + potionTranslationName(Potions.GlassHands.get()), "Potion of Glass Hands");
+        translationBuilder.add("item.minecraft.splash_potion.effect." + potionTranslationName(Potions.GlassHands.get()), "Splash Potion of Glass Hands");
+        translationBuilder.add("item.minecraft.lingering_potion.effect." + potionTranslationName(Potions.GlassHands.get()), "Lingering Potion of Glass Hands");
+        translationBuilder.add("item.minecraft.tipped_arrow.effect." + potionTranslationName(Potions.GlassHands.get()), "Arrow of Glass Hands");
+        translationBuilder.add("item.minecraft.potion.effect." + potionTranslationName(Potions.Hydro.get()), "Potion of Hydrophobic");
+        translationBuilder.add("item.minecraft.splash_potion.effect." + potionTranslationName(Potions.Hydro.get()), "Splash Potion of Hydrophobic");
+        translationBuilder.add("item.minecraft.lingering_potion.effect." + potionTranslationName(Potions.Hydro.get()), "Lingering Potion of Hydrophobic");
+        translationBuilder.add("item.minecraft.tipped_arrow.effect." + potionTranslationName(Potions.Hydro.get()), "Arrow of Hydrophobic");
         // Effects
         translationBuilder.add("effect.stargazer.hydrophobic", "Hydrophobic");
         translationBuilder.add("effect.stargazer.cosmofeeling", "Cosmic Feeling");
@@ -388,10 +473,8 @@ public class ModEngLangProvider extends FabricLanguageProvider {
         translationBuilder.add(RedOrbBlocks.YERI_PLANKS_BUTTON.get(), "Yeri Button");
         translationBuilder.add(RedOrbBlocks.YERI_PLANKS_FENCE.get(), "Yeri Fence");
         translationBuilder.add(RedOrbBlocks.YERI_PLANKS_FENCE_GATE.get(), "Yeri Fence Gate");
-        translationBuilder.add(RedOrbBlocks.RED_ORB_PLATFORM.get(), "Red Orb Platform");
         translationBuilder.add(RedOrbBlocks.GREEN_ROCK.get(), "Green Rock");
         translationBuilder.add(RedOrbBlocks.BLUE_GRASS.get(), "Blue Grass");
-        translationBuilder.add(ModItems.RED_ORB_PLATFORM_BASE.get(), "Red Orb Platform Base");
         translationBuilder.add(MoonBlocks.FULL_MOON_SAPLING.get(), "Full Moon Sapling");
         translationBuilder.add(RedOrbBlocks.POINTY.get(), "Pointy");
         translationBuilder.add(ModItems.STAR_HAMMER.get(), "Star Hammer");
@@ -446,5 +529,13 @@ public class ModEngLangProvider extends FabricLanguageProvider {
         translationBuilder.add(ModItems.GOLD_DUST.get(), "Gold Dust");
         translationBuilder.add(ModItems.SUPERNOVA.get(), "Supernova");
     }
+
+    private static String potionTranslationName(Object potion) {
+        //? if >= 26.2 {
+        return ((net.minecraft.world.item.alchemy.Potion) potion).name();
+        //?} else {
+        return BuiltInRegistries.POTION.getKey((net.minecraft.world.item.alchemy.Potion) potion).getPath();
+        //?}
+    }
 }
-*///? }
+*///?}

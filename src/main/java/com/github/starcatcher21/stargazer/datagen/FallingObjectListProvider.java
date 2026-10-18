@@ -1,4 +1,4 @@
-/*? if fabric {*/
+/*? if fabric || neoforge {*/
 /*package com.github.starcatcher21.stargazer.datagen;
 
 import com.github.starcatcher21.stargazer.CustomWorlds;
@@ -6,7 +6,7 @@ import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.starlib.datagen.provider.FallingObjectListDataProvider;
 import com.github.starcatcher21.starlib.mechanics.star.FallingObjectDayState;
 import com.github.starcatcher21.starlib.mechanics.star.FallingObjectsList;
-import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.minecraft.data.PackOutput;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.resources.ResourceLocation;
@@ -18,7 +18,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 
 public class FallingObjectListProvider extends FallingObjectListDataProvider {
-    public FallingObjectListProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+    public FallingObjectListProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
         super(output, registriesFuture);
     }
 
@@ -99,7 +99,7 @@ public class FallingObjectListProvider extends FallingObjectListDataProvider {
     );
 
     @Override
-    protected void addFallingObjectList(BiConsumer<Identifier, FallingObjectsList> exporter, HolderLookup.Provider registries) {
+    protected void addFallingObjectList(BiConsumer<ResourceLocation, FallingObjectsList> exporter, HolderLookup.Provider registries) {
         exporter.accept(
               ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "overworld"),
                 OVERWORLD

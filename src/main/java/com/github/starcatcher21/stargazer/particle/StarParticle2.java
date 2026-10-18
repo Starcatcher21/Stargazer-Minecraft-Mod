@@ -12,8 +12,9 @@ import net.minecraft.util.RandomSource;
 
 //? if fabric {
 /*@Environment(EnvType.CLIENT)
-*///? }
-public class StarParticle2 extends SingleQuadParticle {
+ *///? }
+//? if >= 26.2 {
+/*public class StarParticle2 extends SingleQuadParticle {
     StarParticle2(ClientLevel world, double x, double y, double z, double velocityX, double velocityY, double velocityZ, boolean signal, TextureAtlasSprite sprite) {
         super(world, x, y, z, sprite);
         this.setAlpha(1.0f);
@@ -23,14 +24,31 @@ public class StarParticle2 extends SingleQuadParticle {
         } else {
             this.lifetime = this.random.nextInt(50) + 40;
         }
-
         this.gravity = 3.0E-6F;
         this.xd = velocityX;
         this.yd = velocityY + this.random.nextFloat() / 500.0F;
         this.zd = velocityZ;
     }
+*///?} else {
+public class StarParticle2 extends TextureSheetParticle {
+    StarParticle2(ClientLevel world, double x, double y, double z, double velocityX, double velocityY, double velocityZ, boolean signal, TextureAtlasSprite sprite) {
+        super(world, x, y, z);
+        this.setSprite(sprite);
+        this.setAlpha(1.0f);
+        this.setSize(0.05F, 0.05F);
+        if (signal) {
+            this.lifetime = this.random.nextInt(50) + 140;
+        } else {
+            this.lifetime = this.random.nextInt(50) + 40;
+        }
+        this.gravity = 3.0E-6F;
+        this.xd = velocityX;
+        this.yd = velocityY + this.random.nextFloat() / 500.0F;
+        this.zd = velocityZ;
+    }
+//?}
 
-public void tick() {
+    public void tick() {
         this.xo = this.x;
         this.yo = this.y;
         this.zo = this.z;
@@ -42,20 +60,27 @@ public void tick() {
             if (this.age >= this.lifetime - 60 && this.alpha > 0.01F) {
                 this.alpha -= 0.015F;
             }
-
         } else {
             this.remove();
         }
     }
 
+    //? if < 26.2 {
     @Override
+    public ParticleRenderType getRenderType() {
+        return ParticleRenderType.PARTICLE_SHEET_TRANSLUCENT;
+    }
+    //? } else {
+    /*@Override
     public Layer getLayer() {
         return Layer.TRANSLUCENT;
     }
+    *///? }
+
 
     //? if fabric {
     /*@Environment(EnvType.CLIENT)
-    *///? }
+     *///? }
     public static class Factory implements ParticleProvider<SimpleParticleType> {
         private final SpriteSet spriteProvider;
 
@@ -63,11 +88,20 @@ public void tick() {
             this.spriteProvider = spriteProvider;
         }
 
-        public Particle createParticle(
+        //? if >= 26.2 {
+        /*public Particle createParticle(
                 SimpleParticleType simpleParticleType, ClientLevel clientWorld, double d, double e, double f, double g, double h, double i, RandomSource random
         ) {
             StarParticle2 campfireSmokeParticle = new StarParticle2(clientWorld, d, e, f, g, h, i, false, this.spriteProvider.get(random));
             return campfireSmokeParticle;
         }
+        *///?} else {
+        public Particle createParticle(
+                SimpleParticleType simpleParticleType, ClientLevel clientWorld, double d, double e, double f, double g, double h, double i
+        ) {
+            StarParticle2 campfireSmokeParticle = new StarParticle2(clientWorld, d, e, f, g, h, i, false, this.spriteProvider.get(clientWorld.random));
+            return campfireSmokeParticle;
+        }
+        //?}
     }
 }

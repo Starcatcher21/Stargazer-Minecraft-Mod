@@ -19,6 +19,9 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+//? if < 26.2 {
+import net.minecraft.world.ItemInteractionResult;
+//?}
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -44,19 +47,38 @@ public class MoonRockNylium extends Block implements BonemealableBlock {
         return CODEC;
     }
 
-    @Override
+    //? if >= 26.2 {
+    /*@Override
     protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+    *///? } else {
+    @Override
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+    //?}
         if (stack.is(ItemTags.HOES)) {
             world.playSound((Entity)player, pos, SoundEvents.HOE_TILL, SoundSource.BLOCKS, 1.0f, 1.0f);
             if (!world.isClientSide()) {
                 if (player != null) {
-                    stack.hurtAndBreak(1, player, hand);
+                    //? if >= 26.2 {
+                    /*stack.hurtAndBreak(1, player, hand);
+                     *///?} else {
+                    stack.hurtAndBreak(1, player, hand == InteractionHand.MAIN_HAND
+                            ? net.minecraft.world.entity.EquipmentSlot.MAINHAND
+                            : net.minecraft.world.entity.EquipmentSlot.OFFHAND);
+                    //?}
                 }
             }
             world.setBlockAndUpdate(pos, MoonBlocks.MOON_FARMLAND.get().defaultBlockState());
-            return InteractionResult.SUCCESS;
+            //? if >= 26.2 {
+            /*return InteractionResult.SUCCESS;
+             *///?} else {
+            return ItemInteractionResult.SUCCESS;
+            //?}
         }
-        return InteractionResult.PASS;
+        //? if >= 26.2 {
+        /*return InteractionResult.PASS;
+         *///?} else {
+        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        //?}
     }
 
     private static boolean canStayAlive(final BlockState state, final LevelReader level, final BlockPos pos) {
@@ -66,11 +88,19 @@ public class MoonRockNylium extends Block implements BonemealableBlock {
             return true;
         }
 
-        if (aboveState.getFluidState().isFull()) {
+        //? if >= 26.2 {
+        /*if (aboveState.getFluidState().isFull()) {
+         *///?} else {
+        if (aboveState.getFluidState().getAmount() == 8) {
+        //?}
             return false;
         }
 
-        int lightDampeningTopFace = LightEngine.getLightDampeningInto(state, aboveState, Direction.UP, aboveState.getLightDampening());
+        //? if >= 26.2 {
+        /*int lightDampeningTopFace = LightEngine.getLightDampeningInto(state, aboveState, Direction.UP, aboveState.getLightDampening());
+         *///?} else {
+        int lightDampeningTopFace = LightEngine.getLightBlockInto(level, state, pos, aboveState, above, Direction.UP, aboveState.getLightBlock(level, above));
+        //?}
         return lightDampeningTopFace < 15;
 
     }
@@ -90,7 +120,11 @@ public class MoonRockNylium extends Block implements BonemealableBlock {
                 world.setBlockAndUpdate(blockPos, (BlockState)blockState);
             }
         }
-        if (!world.getBlockState(pos.above()).propagatesSkylightDown()) {
+        //? if >= 26.2 {
+        /*if (!world.getBlockState(pos.above()).propagatesSkylightDown()) {
+         *///?} else {
+        if (!world.getBlockState(pos.above()).propagatesSkylightDown(world, pos.above())) {
+        //?}
             world.setBlockAndUpdate(pos, MoonBlocks.MOON_ROCK.get().defaultBlockState());
             world.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(state));
         }
@@ -123,7 +157,11 @@ public class MoonRockNylium extends Block implements BonemealableBlock {
             }
             if (!blockState2.isAir()) continue;
             if (random.nextInt(8) == 0) {
-                List<ConfiguredFeature<?, ?>> list = world.getBiome(blockPos2).value().getGenerationSettings().getBoneMealFeatures();
+                //? if >= 26.2 {
+                /*List<ConfiguredFeature<?, ?>> list = world.getBiome(blockPos2).value().getGenerationSettings().getBoneMealFeatures();
+                 *///?} else {
+                List<ConfiguredFeature<?, ?>> list = world.getBiome(blockPos2).value().getGenerationSettings().getFlowerFeatures();
+                //?}
                 if (list.isEmpty()) continue;
                 ConfiguredFeature<?, ?> configuredFeature = list.get(random.nextInt(list.size()));
                 configuredFeature.place(world, world.getChunkSource().getGenerator(), random, blockPos2);

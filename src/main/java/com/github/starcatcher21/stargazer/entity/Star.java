@@ -378,7 +378,11 @@ public class Star extends Boat implements GeoEntity {
         Item item = stack.getItem();
 
         if (player instanceof ServerPlayer spe) {
-            Criterias.STAR_MODIFIER.listen(crit -> crit.trigger(spe, item));
+            //? if >= 26.2 {
+            /*Criterias.STAR_MODIFIER.listen(crit -> crit.trigger(spe, item));
+            *///? } else {
+            Criterias.STAR_MODIFIER.trigger(spe, item);
+            //? }
         }
 
         if (item instanceof DyeItem dyeItem) {

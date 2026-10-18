@@ -1,4 +1,4 @@
-/*? if fabric {*/
+/*? if fabric || (neoforge && >= 26.2) {*/
 /*package com.github.starcatcher21.stargazer.datagen;
 
 import com.github.starcatcher21.stargazer.Stargazer;

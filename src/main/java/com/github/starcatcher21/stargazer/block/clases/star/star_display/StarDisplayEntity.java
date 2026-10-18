@@ -10,20 +10,23 @@ import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.storage.ValueInput;
+//? if >= 26.2 {
+/*import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
+import software.bernie.geckolib.animatable.manager.AnimatableManager;
+import software.bernie.geckolib.animation.object.PlayState;
+import software.bernie.geckolib.animation.state.AnimationTest;
+import software.bernie.geckolib.animation.RawAnimation;
+import software.bernie.geckolib.animation.AnimationController;
+*///?} else {
+import software.bernie.geckolib.animation.*;
+//? }
 import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.GeoBlockEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animatable.manager.AnimatableManager;
-import software.bernie.geckolib.animation.AnimationController;
-import software.bernie.geckolib.animation.RawAnimation;
-import software.bernie.geckolib.animation.object.PlayState;
-import software.bernie.geckolib.animation.state.AnimationTest;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 public class StarDisplayEntity extends BlockEntity implements GeoBlockEntity {
-
 
     private NonNullList<ItemStack> inventory = NonNullList.withSize(1, ItemStack.EMPTY);
     protected static final RawAnimation ROTATO = RawAnimation.begin().thenLoop("star.rotate");
@@ -37,8 +40,9 @@ public class StarDisplayEntity extends BlockEntity implements GeoBlockEntity {
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<GeoAnimatable>(this::animControler));
+        controllers.add(new AnimationController<GeoAnimatable>(/*? if < 26.2 { */ this, /*? } */"MovementController", 5, this::AnimControler));
     }
+
     public float getRotation() {
         rotation -= 0.5f;
         if (rotation <= 0) {
@@ -56,8 +60,9 @@ public class StarDisplayEntity extends BlockEntity implements GeoBlockEntity {
         setChanged();
 
         if (this.level != null) {
-            // This forces the server to sync the packet to all nearby clients
-            this.level.sendBlockUpdated(this.worldPosition, this.getBlockState(), this.getBlockState(), 3);
+            this.level.sendBlockUpdated(this.worldPosition,
+                    this.getBlockState(),
+                    this.getBlockState(), 3);
         }
     }
 
@@ -71,7 +76,9 @@ public class StarDisplayEntity extends BlockEntity implements GeoBlockEntity {
         return this.saveWithoutMetadata(registryLookup);
     }
 
-    @Override
+    /* ---------------- serialization ---------------------------------- */
+    //? if >= 26.2 {
+    /*@Override
     protected void loadAdditional(ValueInput view) {
         super.loadAdditional(view);
         ContainerHelper.loadAllItems(view, inventory);
@@ -82,12 +89,29 @@ public class StarDisplayEntity extends BlockEntity implements GeoBlockEntity {
         super.saveAdditional(view);
         ContainerHelper.saveAllItems(view, inventory);
     }
+    *///?} else {
+    @Override
+    protected void loadAdditional(CompoundTag view, HolderLookup.Provider registries) {
+        super.loadAdditional(view, registries);
+        ContainerHelper.loadAllItems(view, inventory, registries);
+    }
+
+    @Override
+    protected void saveAdditional(CompoundTag view, HolderLookup.Provider registries) {
+        super.saveAdditional(view, registries);
+        ContainerHelper.saveAllItems(view, inventory, registries);
+    }
+    //?}
 
     public ItemStack getItem() {
         return inventory.getFirst();
     }
 
-    protected <E extends StarDisplay> PlayState animControler(final AnimationTest<?> animTest) {
+    //? if >= 26.2 {
+    /*protected PlayState AnimControler(final AnimationTest<?> animTest) {
+     *///? } else {
+    protected PlayState AnimControler(final AnimationState<GeoAnimatable> animTest) {
+        //? }
         return animTest.setAndContinue(ROTATO);
     }
 

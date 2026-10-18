@@ -23,10 +23,23 @@ public class BiomeReg {
     public static final ResourceKey<Biome> GREEN_ROCK_VALLEY = register("green_rock_valley");
     public static final ResourceKey<Biome> GLASS_FOREST = register("glass_forest");
 
-    public static final ResourceKey<Biome> BUBBLES_FIELD = register("bubbles_field");
+    public static final ResourceKey<Biome> BUBBLES_FIELD = register("bubble_field");
+
+    public static final ResourceKey<Biome> BLACK = register("black");
+    public static final ResourceKey<Biome> WHITE = register("white");
+    public static final ResourceKey<Biome> BLACKSTONE_PILLARS = register("blackstone_pillars");
+    public static final ResourceKey<Biome> SPIRO_FOREST = register("spiro_forest");
+    public static final ResourceKey<Biome> TRUNN_FOREST = register("trunn_forest");
+    public static final ResourceKey<Biome> UMBRELLA_FOREST = register("umbrella_forest");
 
     public static final List<ResourceKey<Biome>> MoonList = List.of(MOON_FOREST, MOON_WASTE, AMETHYST_SPIKES, BONE_FOREST, EYE_BIRCH_FOREST, PURPLE_SHROOM_FOREST, DARKNESS_FOREST, MOON_FIELD, MOON_VOID);
     public static final List<ResourceKey<Biome>> RedList = List.of(REDNESS, YERI_FOREST, GREEN_ROCK_VALLEY, GLASS_FOREST);
+    public static final List<ResourceKey<Biome>> ALL = List.of(
+            MOON_FOREST, MOON_WASTE, AMETHYST_SPIKES, BONE_FOREST, EYE_BIRCH_FOREST,
+            PURPLE_SHROOM_FOREST, DARKNESS_FOREST, MOON_FIELD, MOON_VOID, REDNESS,
+            YERI_FOREST, GREEN_ROCK_VALLEY, GLASS_FOREST, BUBBLES_FIELD, BLACK,
+            WHITE, BLACKSTONE_PILLARS, SPIRO_FOREST, TRUNN_FOREST, UMBRELLA_FOREST
+    );
 
     public static ResourceKey<Biome> register(String path) {
         return ResourceKey.create(Registries.BIOME,ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, path));

@@ -1,4 +1,4 @@
-/*? if fabric {*/
+/*? if fabric || neoforge {*/
 /*package com.github.starcatcher21.stargazer.datagen;
 
 import com.github.starcatcher21.stargazer.Stargazer;
@@ -8,7 +8,7 @@ import com.github.starcatcher21.starlib.datagen.provider.FallingObjectDataProvid
 import com.github.starcatcher21.stargazer.item.ModItems;
 import com.github.starcatcher21.stargazer.particle.Particles;
 import com.github.starcatcher21.starlib.mechanics.star.FallingObject;
-import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.minecraft.data.PackOutput;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.ResourceLocation;
@@ -17,7 +17,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 
 public class FallingObjectProvider extends FallingObjectDataProvider {
-    public FallingObjectProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+    public FallingObjectProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
         super(output, registriesFuture);
     }
 
@@ -108,7 +108,7 @@ public class FallingObjectProvider extends FallingObjectDataProvider {
     );
 
     @Override
-    protected void addFallingObject(BiConsumer<Identifier, FallingObject> exporter, HolderLookup.Provider registries) {
+    protected void addFallingObject(BiConsumer<ResourceLocation, FallingObject> exporter, HolderLookup.Provider registries) {
         exporter.accept(
               ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "black_brick"),
                 BLACK_BRICK

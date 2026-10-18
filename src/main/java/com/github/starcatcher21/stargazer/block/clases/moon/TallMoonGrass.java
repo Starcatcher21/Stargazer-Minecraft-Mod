@@ -15,7 +15,11 @@ import java.util.function.Supplier;
 public class TallMoonGrass
         extends DoublePlantBlock {
     public static final MapCodec<TallMoonGrass> CODEC = TallMoonGrass.simpleCodec(TallMoonGrass::new);
-    private static final VoxelShape SHAPE = Block.column(12.0, 0.0, 13.0);
+    //? if >= 26.2 {
+    /*private static final VoxelShape SHAPE = Block.column(12.0, 0.0, 13.0);
+     *///?} else {
+    private static final VoxelShape SHAPE = Block.box(2.0, 0.0, 2.0, 14.0, 16.0, 14.0);
+    //?}
 
     public MapCodec<TallMoonGrass> codec() {
         return CODEC;
@@ -35,4 +39,3 @@ public class TallMoonGrass
         return SHAPE;
     }
 }
-

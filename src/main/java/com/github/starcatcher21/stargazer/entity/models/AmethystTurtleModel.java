@@ -11,7 +11,7 @@ import software.bernie.geckolib.model.GeoModel;
 //? }
 
 public class AmethystTurtleModel extends GeoModel<AmethystTurtle> {
-    private final ResourceLocation model =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "entity/amethyst_turtle");
+    private final ResourceLocation model =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "geo/entity/amethyst_turtle.geo.json");
     private final ResourceLocation animations =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "entity/amethyst_turtle");
     private final ResourceLocation texture =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/turtle.png");
 

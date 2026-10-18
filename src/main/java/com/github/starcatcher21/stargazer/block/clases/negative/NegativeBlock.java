@@ -33,7 +33,11 @@ public class NegativeBlock extends BaseEntityBlock {
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter view, BlockPos pos, CollisionContext context) {
-        if (context.isHoldingItem(BuiltInRegistries.ITEM.getValue(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "negative_block"))) || context.isHoldingItem(ModItems.STAR_HAMMER.get())) {
+        //? if >= 26.2 {
+        /*if (context.isHoldingItem(BuiltInRegistries.ITEM.getValue(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "negative_block"))) || context.isHoldingItem(ModItems.STAR_HAMMER.get())) {
+         *///?} else {
+        if (context.isHoldingItem(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "negative_block"))) || context.isHoldingItem(ModItems.STAR_HAMMER.get())) {
+        //?}
             return Shapes.block();
         } else {
             return Shapes.box(0.0, 0.0, 0.0, 0.01, 0.01, 0.01);
@@ -48,7 +52,11 @@ public class NegativeBlock extends BaseEntityBlock {
     public void setPlacedBy(Level world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
         if (placer != null) {
             if (placer instanceof ServerPlayer spe) {
-                Criterias.NEGATIVE.listen(crit -> crit.trigger(spe));
+                //? if >= 26.2 {
+                /*Criterias.NEGATIVE.get().trigger(spe);
+                 *///?} else {
+                Criterias.NEGATIVE.trigger(spe);
+                //?}
             }
         }
         super.setPlacedBy(world, pos, state, placer, itemStack);

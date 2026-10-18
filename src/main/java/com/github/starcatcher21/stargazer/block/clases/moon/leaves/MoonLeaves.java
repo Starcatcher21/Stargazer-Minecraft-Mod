@@ -5,6 +5,7 @@ import com.github.starcatcher21.stargazer.block.clases.moon.geode_fruit.GeodeFru
 import com.github.starcatcher21.stargazer.block.clases.moon.geode_fruit.GeodeFruitStage;
 import com.github.starcatcher21.stargazer.block.register.MoonBlocks;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.state.BlockState;
@@ -26,7 +27,8 @@ public class MoonLeaves extends CustomLeaves {
             super.randomTick(state, world, pos, random);
         } else {
             if (world.getBlockState(pos.below()).isAir() && random.nextInt(45) == 0) {
-                world.setBlockAndUpdate(pos.below(), MoonBlocks.GEODE_FRUIT.get().defaultBlockState().setValue(GeodeFruit.STAGE, GeodeFruitStage.start).setValue(GeodeFruit.FACING, GeodeFruit.FACING.getPossibleValues().get(random.nextIntBetweenInclusive(0, GeodeFruit.FACING.getPossibleValues().size() - 1))));
+                Direction[] facings = GeodeFruit.FACING.getPossibleValues().toArray(Direction[]::new);
+                world.setBlockAndUpdate(pos.below(), MoonBlocks.GEODE_FRUIT.get().defaultBlockState().setValue(GeodeFruit.STAGE, GeodeFruitStage.start).setValue(GeodeFruit.FACING, facings[random.nextInt(facings.length)]));
             }
         }
     }

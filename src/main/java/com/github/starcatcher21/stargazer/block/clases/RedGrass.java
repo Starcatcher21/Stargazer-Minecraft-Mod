@@ -9,7 +9,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BonemealableBlock;
-import net.minecraft.world.level.block.VegetationBlock;
+//? if >= 26.2 {
+/*import net.minecraft.world.level.block.VegetationBlock;
+*///? } else {
+import com.github.starcatcher21.stargazer.block.older1211.VegetationBlock;
+//? }
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -18,7 +22,7 @@ public class RedGrass
         extends VegetationBlock
         implements BonemealableBlock {
     public static final MapCodec<RedGrass> CODEC = RedGrass.simpleCodec(RedGrass::new);
-    private static final VoxelShape SHAPE = Block.column(12.0, 0.0, 13.0);
+    private static final VoxelShape SHAPE = Block.box(0.0, 0.0, 0.0, 12.0, 13.0, 12.0);
 
     public MapCodec<RedGrass> codec() {
         return CODEC;

@@ -8,7 +8,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.InsideBlockEffectApplier;
 import net.minecraft.world.entity.monster.Ravager;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -16,7 +15,12 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BonemealableBlock;
-import net.minecraft.world.level.block.VegetationBlock;
+//? if >= 26.2 {
+/*import net.minecraft.world.level.block.VegetationBlock;
+import net.minecraft.world.entity.InsideBlockEffectApplier;
+*///?} else {
+import com.github.starcatcher21.stargazer.block.older1211.VegetationBlock;
+//?}
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -28,14 +32,26 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.IntFunction;
 
-public class MoonCrop
-        extends VegetationBlock
-        implements BonemealableBlock {
+public class MoonCrop extends VegetationBlock implements BonemealableBlock {
     public static final MapCodec<MoonCrop> CODEC = MoonCrop.simpleCodec(MoonCrop::new);
     public static final int MAX_AGE = 7;
     public static final IntegerProperty AGE = BlockStateProperties.AGE_7;
-    private static final VoxelShape[] SHAPES_BY_AGE = Block.boxes(7, age -> Block.column(16.0, 0.0, 2 + age * 2));
+
+    //? if >= 26.2 {
+    /*private static final VoxelShape[] SHAPES_BY_AGE =
+        Block.boxes(7, age -> Block.column(16.0, 0.0, 2 + age * 2));
+    *///?} else {
+    private static final VoxelShape[] SHAPES_BY_AGE = makeShapes();
+    private static VoxelShape[] makeShapes() {
+        VoxelShape[] shapes = new VoxelShape[8];
+        for (int age = 0; age < shapes.length; age++) {
+            shapes[age] = Block.box(0.0,0.0, 0.0, 16.0, 2 + age * 2, 16.0);
+        }
+        return shapes;
+    }
+    //?}
 
     @Nullable
     public Block giantCrop = null;
@@ -44,15 +60,14 @@ public class MoonCrop
         return CODEC;
     }
 
-
     public MoonCrop(Properties settings) {
         super(settings);
-        this.registerDefaultState((BlockState)((BlockState)this.stateDefinition.any()).setValue(this.getAgeProperty(), 0));
+        this.registerDefaultState(this.stateDefinition.any().setValue(this.getAgeProperty(), 0));
     }
 
-    public MoonCrop(Properties settings, @Nullable  Block crop) {
+    public MoonCrop(Properties settings, @Nullable Block crop) {
         super(settings);
-        this.registerDefaultState((BlockState)((BlockState)this.stateDefinition.any()).setValue(this.getAgeProperty(), 0));
+        this.registerDefaultState(this.stateDefinition.any().setValue(this.getAgeProperty(), 0));
         this.giantCrop = crop;
     }
 
@@ -60,7 +75,6 @@ public class MoonCrop
     protected VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
         return SHAPES_BY_AGE[this.getAge(state)];
     }
-
 
     @Override
     protected boolean mayPlaceOn(BlockState floor, BlockGetter world, BlockPos pos) {
@@ -80,7 +94,7 @@ public class MoonCrop
     }
 
     public BlockState withAge(int age) {
-        return (BlockState)this.defaultBlockState().setValue(this.getAgeProperty(), age);
+        return this.defaultBlockState().setValue(this.getAgeProperty(), age);
     }
 
     public final boolean isMature(BlockState state) {
@@ -96,7 +110,9 @@ public class MoonCrop
     protected void randomTick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
         float f;
         int i;
-        if (world.getRawBrightness(pos, 0) >= 9 && (i = this.getAge(state)) < this.getMaxAge() && random.nextInt((int)(25.0f / (f = MoonCrop.getAvailableMoisture(this, world, pos))) + 1) == 0) {
+        if (world.getRawBrightness(pos, 0) >= 9
+                && (i = this.getAge(state)) < this.getMaxAge()
+                && random.nextInt((int)(25.0f / (f = MoonCrop.getAvailableMoisture(this, world, pos))) + 1) == 0) {
             world.setBlock(pos, this.withAge(i + 1), Block.UPDATE_CLIENTS);
         }
     }
@@ -108,18 +124,20 @@ public class MoonCrop
         if (state.getValue(AGE).equals(this.getMaxAge()) && giantCrop != null) {
             List<Boolean> list = new ArrayList<>();
             for (BlockPos blockPos : BlockPos.betweenClosed(pos, pos.offset(1, 0, 1))) {
-                if (world.getBlockState(blockPos).equals(this.defaultBlockState().setValue(AGE, this.getMaxAge())) && world.getBlockState(blockPos.above()).getBlock().equals(Blocks.AIR)) {
+                if (world.getBlockState(blockPos).equals(this.defaultBlockState().setValue(AGE, this.getMaxAge()))
+                        && world.getBlockState(blockPos.above()).getBlock().equals(Blocks.AIR)) {
                     list.add(true);
                 }
             }
             if (list.size() == 4) {
-                GiantDragonCarrot.place(world, pos, giantCrop.defaultBlockState().setValue(GiantCrop.SIDE, GiantCropSide.nwd));
+                GiantCrop.place(world, pos, giantCrop.defaultBlockState().setValue(GiantCrop.SIDE, GiantCropSide.sed));
                 return;
             } else {
                 list = new ArrayList<>();
             }
             for (BlockPos blockPos : BlockPos.betweenClosed(pos, pos.offset(-1, 0, -1))) {
-                if (world.getBlockState(blockPos).equals(this.defaultBlockState().setValue(AGE, this.getMaxAge())) && world.getBlockState(blockPos.above()).getBlock().equals(Blocks.AIR)) {
+                if (world.getBlockState(blockPos).equals(this.defaultBlockState().setValue(AGE, this.getMaxAge()))
+                        && world.getBlockState(blockPos.above()).getBlock().equals(Blocks.AIR)) {
                     list.add(true);
                 }
             }
@@ -130,7 +148,8 @@ public class MoonCrop
                 list = new ArrayList<>();
             }
             for (BlockPos blockPos : BlockPos.betweenClosed(pos, pos.offset(1, 0, -1))) {
-                if (world.getBlockState(blockPos).equals(this.defaultBlockState().setValue(AGE, this.getMaxAge())) && world.getBlockState(blockPos.above()).getBlock().equals(Blocks.AIR)) {
+                if (world.getBlockState(blockPos).equals(this.defaultBlockState().setValue(AGE, this.getMaxAge()))
+                        && world.getBlockState(blockPos.above()).getBlock().equals(Blocks.AIR)) {
                     list.add(true);
                 }
             }
@@ -141,7 +160,8 @@ public class MoonCrop
                 list = new ArrayList<>();
             }
             for (BlockPos blockPos : BlockPos.betweenClosed(pos, pos.offset(-1, 0, 1))) {
-                if (world.getBlockState(blockPos).equals(this.defaultBlockState().setValue(AGE, this.getMaxAge())) && world.getBlockState(blockPos.above()).getBlock().equals(Blocks.AIR)) {
+                if (world.getBlockState(blockPos).equals(this.defaultBlockState().setValue(AGE, this.getMaxAge()))
+                        && world.getBlockState(blockPos.above()).getBlock().equals(Blocks.AIR)) {
                     list.add(true);
                 }
             }
@@ -185,7 +205,10 @@ public class MoonCrop
             f /= 2.0f;
         } else {
             boolean bl32;
-            boolean bl4 = bl32 = world.getBlockState(blockPos4.north()).is(block) || world.getBlockState(blockPos5.north()).is(block) || world.getBlockState(blockPos5.south()).is(block) || world.getBlockState(blockPos4.south()).is(block);
+            boolean bl4 = bl32 = world.getBlockState(blockPos4.north()).is(block)
+                    || world.getBlockState(blockPos5.north()).is(block)
+                    || world.getBlockState(blockPos5.south()).is(block)
+                    || world.getBlockState(blockPos4.south()).is(block);
             if (bl32) {
                 f /= 2.0f;
             }
@@ -202,16 +225,31 @@ public class MoonCrop
         return world.getRawBrightness(pos, 0) >= 8;
     }
 
-    @Override
-    protected void entityInside(BlockState state, Level world, BlockPos pos, Entity entity, InsideBlockEffectApplier handler, boolean bl) {
-        if (world instanceof ServerLevel) {
-            ServerLevel serverWorld = (ServerLevel)world;
-            if (entity instanceof Ravager && serverWorld.getGameRules().get(net.minecraft.world.level.gamerules.GameRules.MOB_GRIEFING)) {
+    /* ---------------- entityInside (signature differs) --------------- */
+    //? if >= 26.2 {
+    /*@Override
+    protected void entityInside(BlockState state, Level world, BlockPos pos, Entity entity,
+                                InsideBlockEffectApplier handler, boolean bl) {
+        if (world instanceof ServerLevel serverWorld) {
+            if (entity instanceof Ravager
+                    && serverWorld.getGameRules().get(net.minecraft.world.level.gamerules.GameRules.MOB_GRIEFING)) {
                 serverWorld.destroyBlock(pos, true, entity);
             }
         }
         super.entityInside(state, world, pos, entity, handler, bl);
     }
+    *///?} else {
+    @Override
+    protected void entityInside(BlockState state, Level world, BlockPos pos, Entity entity) {
+        if (world instanceof ServerLevel serverWorld) {
+            if (entity instanceof Ravager
+                    && serverWorld.getGameRules().getBoolean(net.minecraft.world.level.GameRules.RULE_MOBGRIEFING)) {
+                serverWorld.destroyBlock(pos, true, entity);
+            }
+        }
+        super.entityInside(state, world, pos, entity);
+    }
+    //?}
 
     @Override
     public boolean isValidBonemealTarget(LevelReader world, BlockPos pos, BlockState state) {

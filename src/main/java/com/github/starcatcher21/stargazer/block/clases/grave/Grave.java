@@ -7,8 +7,10 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -82,7 +84,12 @@ public class Grave extends BaseEntityBlock {
 
             if (active) {
                 if (item instanceof ShovelItem) {
-                    stack.hurtWithoutBreaking(1, player);
+                    //? if >= 26.2 {
+                    /*stack.hurtWithoutBreaking(1, player);
+                     *///?} else {
+                    stack.hurtAndBreak(1, player, player.getUsedItemHand() == InteractionHand.MAIN_HAND
+                            ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND);
+                    //?}
                     world.setBlockAndUpdate(pos, state.setValue(ACTIVATED, false));
                     BlockEntity be = world.getBlockEntity(pos);
                     if (be instanceof GraveEntity ge) {

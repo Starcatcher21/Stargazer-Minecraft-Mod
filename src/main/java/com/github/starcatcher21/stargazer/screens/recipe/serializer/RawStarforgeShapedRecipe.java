@@ -31,7 +31,12 @@ public class RawStarforgeShapedRecipe {
             recipe -> recipe.data.map(DataResult::success).orElseGet(() -> DataResult.error(() -> "Cannot encode unpacked recipe")));
     public static final StreamCodec<RegistryFriendlyByteBuf, RawStarforgeShapedRecipe> PACKET_CODEC = StreamCodec.composite(ByteBufCodecs.VAR_INT,
             recipe -> recipe.width, ByteBufCodecs.VAR_INT,
-            recipe -> recipe.height, Ingredient.OPTIONAL_CONTENTS_STREAM_CODEC.apply(ByteBufCodecs.list()),
+            recipe -> recipe.height,
+            //? if >= 26.2 {
+            /*Ingredient.OPTIONAL_CONTENTS_STREAM_CODEC.apply(ByteBufCodecs.list()),
+             *///?} else {
+            ByteBufCodecs.optional(Ingredient.CONTENTS_STREAM_CODEC).apply(ByteBufCodecs.list()),
+            //?}
             recipe -> recipe.ingredients, RawStarforgeShapedRecipe::create);
     private static final Logger log = LoggerFactory.getLogger(RawStarforgeShapedRecipe.class);
     private final int width;
@@ -126,7 +131,11 @@ public class RawStarforgeShapedRecipe {
             } catch (Exception e) {
                 stack = new ItemStack(Blocks.AIR.asItem());
             }
-            if (Ingredient.testOptionalIngredient(optional, stack)) continue;
+            //? if >= 26.2 {
+            /*if (Ingredient.testOptionalIngredient(optional, stack)) continue;
+             *///?} else {
+            if (optional.isEmpty() || optional.get().test(stack)) continue;
+            //?}
             return false;
         }
         return true;

@@ -40,7 +40,11 @@ public class RedOrbBlocks {
     );
     public static final RegistrySupplier<Block> BLUE_GRASS = register("blue_grass", RedGrass::new, BlockBehaviour.Properties.of()
             .mapColor(MapColor.COLOR_CYAN)
-            .noCollision()
+            //? if >= 26.2 {
+            /*.noCollision()
+             *///? } else {
+            .noCollission()
+            //? }
             .instabreak()
             .sound(SoundType.GRASS)
             .offsetType(BlockBehaviour.OffsetType.XZ)
@@ -48,7 +52,11 @@ public class RedOrbBlocks {
     );
     public static final RegistrySupplier<Block> POINTY = register("pointy", (settings) -> new OrbFlower(MobEffects.GLOWING, 10.0f, settings), BlockBehaviour.Properties.of()
             .mapColor(MapColor.COLOR_CYAN)
-            .noCollision()
+            //? if >= 26.2 {
+            /*.noCollision()
+             *///? } else {
+            .noCollission()
+            //? }
             .instabreak()
             .sound(SoundType.GRASS)
             .offsetType(BlockBehaviour.OffsetType.XZ)
@@ -57,7 +65,11 @@ public class RedOrbBlocks {
     public static final RegistrySupplier<Block> POTTED_POINTY = registerWoItem("potted_pointy", settings -> new FlowerPotBlock(POINTY.get(), settings), BlockBehaviour.Properties.ofFullCopy(Blocks.POTTED_ALLIUM).noOcclusion());
     public static final RegistrySupplier<Block> PETRICY = register("petricy", (settings) -> new RedHangingFlower(MobEffects.GLOWING, 10.0f, settings), BlockBehaviour.Properties.of()
             .mapColor(MapColor.COLOR_CYAN)
-            .noCollision()
+            //? if >= 26.2 {
+            /*.noCollision()
+             *///? } else {
+            .noCollission()
+            //? }
             .instabreak()
             .sound(SoundType.GRASS)
             .offsetType(BlockBehaviour.OffsetType.XZ)
@@ -151,7 +163,11 @@ public class RedOrbBlocks {
             .mapColor(MapColor.COLOR_YELLOW)
     );
     public static final RegistrySupplier<Block> YERI_PLANKS_BUTTON = register("yeri_planks_button", (BlockBehaviour.Properties settings) -> new ButtonBlock(BlockSetType.OAK, 30, (BlockBehaviour.Properties) settings), BlockBehaviour.Properties.of()
-            .noCollision()
+            //? if >= 26.2 {
+            /*.noCollision()
+             *///? } else {
+            .noCollission()
+            //? }
             .sound(SoundType.WOOD)
             .instrument(NoteBlockInstrument.BASS)
             .strength(1.0F)
@@ -166,7 +182,11 @@ public class RedOrbBlocks {
             .mapColor(MapColor.COLOR_YELLOW)
     );
     public static final RegistrySupplier<Block> YERI_SAPLING = register("yeri_sapling", (BlockBehaviour.Properties settings) -> new CustomRedSapling(Helpers.configuredFeatureOf(Stargazer.MOD_ID, "yeri_trees"), settings), BlockBehaviour.Properties.of()
-            .noCollision()
+            //? if >= 26.2 {
+            /*.noCollision()
+             *///? } else {
+            .noCollission()
+            //? }
             .sound(SoundType.GRASS)
             .randomTicks()
             .instabreak()
@@ -174,19 +194,17 @@ public class RedOrbBlocks {
     public static final RegistrySupplier<Block> POTTED_YERI_SAPLING = registerWoItem("potted_yeri_sapling", settings -> new FlowerPotBlock(YERI_SAPLING.get(), settings), BlockBehaviour.Properties.ofFullCopy(Blocks.POTTED_ALLIUM).noOcclusion());
 
     public static final RegistrySupplier<Block> SPIRO_SAPLING = register("spiro_sapling", (BlockBehaviour.Properties settings) -> new CustomRedSapling(Helpers.configuredFeatureOf(Stargazer.MOD_ID, "spiro_trees"), settings), BlockBehaviour.Properties.of()
-            .noCollision()
+            //? if >= 26.2 {
+            /*.noCollision()
+             *///? } else {
+            .noCollission()
+            //? }
             .sound(SoundType.GRASS)
             .randomTicks()
             .instabreak()
     );
     public static final RegistrySupplier<Block> POTTED_SPIRO_SAPLING = registerWoItem("potted_spiro_sapling", settings -> new FlowerPotBlock(SPIRO_SAPLING.get(), settings), BlockBehaviour.Properties.ofFullCopy(Blocks.POTTED_ALLIUM).noOcclusion());
 
-    public static final RegistrySupplier<Block> RED_ORB_PLATFORM = register("red_orb_platform", RedOrbPlatform::new, BlockBehaviour.Properties.of()
-            .forceSolidOn()
-            .sound(SoundType.METAL)
-            .strength(0.4f)
-            .mapColor(MapColor.PODZOL)
-    );
     public static final RegistrySupplier<Block> GLASS_LOG = register("glass_log", (settings) -> new MoonLog(null, settings), BlockBehaviour.Properties.ofFullCopy(Blocks.GLASS)
     );
 

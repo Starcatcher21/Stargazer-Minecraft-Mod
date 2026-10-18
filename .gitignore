@@ -10,6 +10,15 @@ build/
 out/
 classes/
 versions/*-*/**
+!versions/1.21.1-neoforge/
+!versions/1.21.1-neoforge/src/
+!versions/1.21.1-neoforge/src/main/
+!versions/1.21.1-neoforge/src/main/resources/
+!versions/1.21.1-neoforge/src/main/resources/assets/
+!versions/1.21.1-neoforge/src/main/resources/assets/stargazer/
+!versions/1.21.1-neoforge/src/main/resources/assets/stargazer/shaders/
+!versions/1.21.1-neoforge/src/main/resources/assets/stargazer/shaders/core/
+!versions/1.21.1-neoforge/src/main/resources/assets/stargazer/shaders/core/**
 !gradle-wrapper.jar
 
 # Ignore Gradle GUI config
@@ -43,5 +52,4 @@ hs_err_*.log
 replay_*.log
 *.hprof
 *.jfr
-
 

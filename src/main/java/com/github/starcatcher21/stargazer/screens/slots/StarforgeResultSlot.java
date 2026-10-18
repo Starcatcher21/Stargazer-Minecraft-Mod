@@ -53,7 +53,11 @@ public class StarforgeResultSlot
     @Override
     protected void checkTakeAchievements(ItemStack stack) {
         if (this.amount > 0) {
-            stack.onCraftedBy(this.player, this.amount);
+            //? if >= 26.2 {
+            /*stack.onCraftedBy(this.player, this.amount);
+             *///?} else {
+            stack.onCraftedBy(this.player.level(), this.player, this.amount);
+            //?}
         }
         this.amount = 0;
     }
@@ -69,7 +73,11 @@ public class StarforgeResultSlot
     private NonNullList<ItemStack> getRecipeRemainders(StarforgeRecipeInput input, Level world) {
         if (world instanceof ServerLevel) {
             ServerLevel serverWorld = (ServerLevel)world;
-            return serverWorld.recipeAccess().getRecipeFor(RecipeTypes.STARFORGE.get(), input, serverWorld).map(recipe -> ((StarforgeRecipe)recipe.value()).getRecipeRemainders(input)).orElseGet(() -> StarforgeResultSlot.copyInput(input));
+            //? if >= 26.2 {
+            /*return serverWorld.recipeAccess().getRecipeFor(RecipeTypes.STARFORGE.get(), input, serverWorld).map(recipe -> ((StarforgeRecipe)recipe.value()).getRecipeRemainders(input)).orElseGet(() -> StarforgeResultSlot.copyInput(input));
+             *///?} else {
+            return serverWorld.getRecipeManager().getRecipeFor(RecipeTypes.STARFORGE.get(), input, serverWorld).map(recipe -> ((StarforgeRecipe)recipe.value()).getRecipeRemainders(input)).orElseGet(() -> StarforgeResultSlot.copyInput(input));
+            //?}
         }
         return StarforgeRecipe.collectRecipeRemainders(input);
     }
@@ -104,7 +112,11 @@ public class StarforgeResultSlot
             }
         }
         if (player instanceof ServerPlayer spe) {
-            Criterias.FORGE_CRAFT.listen(crit -> crit.trigger(spe, stack.getItem()));
+            //? if >= 26.2 {
+            /*Criterias.FORGE_CRAFT.listen(crit -> crit.trigger(spe, stack.getItem()));
+             *///?} else {
+            Criterias.FORGE_CRAFT.trigger(spe, stack.getItem());
+            //?}
         }
     }
 }

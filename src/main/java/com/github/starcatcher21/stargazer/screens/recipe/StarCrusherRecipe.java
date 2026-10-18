@@ -28,7 +28,11 @@ public interface StarCrusherRecipe
         NonNullList<ItemStack> defaultedList = NonNullList.withSize(input.size(), ItemStack.EMPTY);
         for (int i = 0; i < defaultedList.size(); ++i) {
             Item item = input.getItem(i).getItem();
-            defaultedList.set(i, item.getCraftingRemainder().create());
+            //? if >= 26.2 {
+            /*defaultedList.set(i, item.getCraftingRemainder().create());
+             *///?} else {
+            defaultedList.set(i, input.getItem(i).getCraftingRemainingItem());
+            //?}
         }
         return defaultedList;
     }

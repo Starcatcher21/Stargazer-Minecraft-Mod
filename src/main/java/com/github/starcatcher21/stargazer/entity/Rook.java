@@ -49,16 +49,7 @@ public class Rook extends PathfinderMob implements GeoEntity {
 
     @Override
     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
-        //? if >= 26.2 {
-        /*controllers.add(new AnimationController<GeoAnimatable>("MovementController", 5, this::AnimController));
-        *///? }
     }
-
-    //? if >= 26.2 {
-    /*private PlayState AnimController(AnimationTest<GeoAnimatable> animTest) {
-        return PlayState.STOP;
-    }
-    *///? }
 
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {

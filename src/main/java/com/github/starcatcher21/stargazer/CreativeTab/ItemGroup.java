@@ -316,8 +316,6 @@ public class ItemGroup {
                         output.accept(RedOrbBlocks.YERI_PLANKS_FENCE_GATE.get());
                         output.accept(RedOrbBlocks.YERI_PLANKS_BUTTON.get());
                         output.accept(RedOrbBlocks.YERI_PLANKS_DOOR.get());
-                        output.accept(ModItems.RED_ORB_PLATFORM_BASE.get());
-                        output.accept(RedOrbBlocks.RED_ORB_PLATFORM.get());
                         output.accept(RedOrbBlocks.GREEN_ROCK.get());
                         output.accept(RedOrbBlocks.BLUE_GRASS.get());
                         output.accept(RedOrbBlocks.POINTY.get());

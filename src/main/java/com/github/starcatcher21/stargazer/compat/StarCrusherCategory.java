@@ -30,7 +30,6 @@ public class StarCrusherCategory implements DisplayCategory<StarCrusherDisplay> 
     public CategoryIdentifier<? extends StarCrusherDisplay> getCategoryIdentifier() {
         return STARFORGE;
     }
-
     @Override
     public Component getTitle() {
         return StarCrusher.TITLE;

@@ -15,17 +15,33 @@ public class Hydrophobic extends MobEffect {
         super(category, color);
     }
 
-    @Override
+    //? if >= 26.2 {
+    /*@Override
     public boolean applyEffectTick(ServerLevel world, LivingEntity entity, int amplifier) {
+    *///? } else {
+    @Override
+    public boolean applyEffectTick(LivingEntity entity, int amplifier) {
+        if (!(entity.level() instanceof ServerLevel world)) {
+            return false;
+        }
+    //?}
         if (world.getFluidState(entity.blockPosition()).is(FluidTags.WATER)) {
             DamageSource damageSource = new DamageSource(
                     world.registryAccess()
                             .lookupOrThrow(Registries.DAMAGE_TYPE)
-                            .get(DamageTypeRegistry.WATER_DAMAGE.identifier()).get()
+                            .getOrThrow(DamageTypeRegistry.WATER_DAMAGE)
             );
-            entity.hurtServer(world, damageSource, 1F * (amplifier + 1));
+            //? if >= 26.2 {
+            /*entity.hurtServer(world, damageSource, amplifier + 1.0F);
+             *///?} else {
+            entity.hurt(damageSource, amplifier + 1.0F);
+            //?}
         }
-        return super.applyEffectTick(world, entity, amplifier);
+        //? if >= 26.2 {
+        /*return super.applyEffectTick(world, entity, amplifier);
+         *///?} else {
+        return super.applyEffectTick(entity, amplifier);
+        //?}
     }
 
     @Override

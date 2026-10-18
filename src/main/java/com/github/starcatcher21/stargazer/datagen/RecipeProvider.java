@@ -1,11 +1,18 @@
-/*? if fabric {*/
+/*? if fabric || neoforge {*/
 /*package com.github.starcatcher21.stargazer.datagen;
 
 import com.github.starcatcher21.stargazer.CustomTags;
 import com.github.starcatcher21.stargazer.block.register.*;
 import com.github.starcatcher21.stargazer.item.ModItems;
+//? if fabric {
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
+//?} else {
+import net.minecraft.data.PackOutput;
+//? if >= 26.2 {
+import net.minecraft.data.recipes.RecipeProvider.Runner;
+//?}
+//?}
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
@@ -15,20 +22,109 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.CookingBookCategory;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 import java.util.Collections;
 import java.util.concurrent.CompletableFuture;
 
-public class RecipeProvider extends FabricRecipeProvider {
+public class RecipeProvider
+//? if fabric {
+        extends FabricRecipeProvider {
     public RecipeProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
         super(output, registriesFuture);
     }
+//?} else if >= 26.2 {
+        extends Runner {
+    public RecipeProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+        super(output, registriesFuture);
+    }
+//?} else {
+        extends net.minecraft.data.recipes.RecipeProvider {
+    private final PackOutput packOutput;
+    private final CompletableFuture<HolderLookup.Provider> registriesFuture;
+
+    public RecipeProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+        super(output, registriesFuture);
+        this.packOutput = output;
+        this.registriesFuture = registriesFuture;
+    }
 
     @Override
+    protected void buildRecipes(RecipeOutput recipeOutput, HolderLookup.Provider registries) {
+        new RecipeBody(registries, recipeOutput).buildRecipes();
+    }
+//?}
+
+    //? if >= 26.2 {
+    @Override
     protected net.minecraft.data.recipes.RecipeProvider createRecipeProvider(HolderLookup.Provider wrapperLookup, RecipeOutput recipeExporter) {
-        return new net.minecraft.data.recipes.RecipeProvider(wrapperLookup, recipeExporter) {
+        return new RecipeBody(wrapperLookup, recipeExporter);
+    }
+    //?}
+
+    private class RecipeBody extends net.minecraft.data.recipes.RecipeProvider {
+        private final HolderLookup.Provider wrapperLookup;
+        private final RecipeOutput recipeOutput;
+        private final RecipeOutput output;
+
+        private RecipeBody(HolderLookup.Provider wrapperLookup, RecipeOutput recipeOutput) {
+            //? if >= 26.2 {
+            super(wrapperLookup, recipeOutput);
+            //?} else {
+            super(RecipeProvider.this.packOutput, RecipeProvider.this.registriesFuture);
+            //?}
+            this.wrapperLookup = wrapperLookup;
+            this.recipeOutput = recipeOutput;
+            this.output = recipeOutput;
+        }
+
+        //? if < 26.2 {
+        private ShapedRecipeBuilder shaped(RecipeCategory category, ItemLike result) {
+            return ShapedRecipeBuilder.shaped(category, result);
+        }
+
+        private ShapedRecipeBuilder shaped(RecipeCategory category, ItemLike result, int count) {
+            return ShapedRecipeBuilder.shaped(category, result, count);
+        }
+
+        private ShapelessRecipeBuilder shapeless(RecipeCategory category, ItemLike result) {
+            return ShapelessRecipeBuilder.shapeless(category, result);
+        }
+
+        private ShapelessRecipeBuilder shapeless(RecipeCategory category, ItemLike result, int count) {
+            return ShapelessRecipeBuilder.shapeless(category, result, count);
+        }
+
+        private void oreSmelting(
+                java.util.List<ItemLike> ingredients,
+                RecipeCategory recipeCategory,
+                CookingBookCategory ignoredCookingCategory,
+                ItemLike result,
+                float experience,
+                int cookingTime,
+                String group) {
+            net.minecraft.data.recipes.RecipeProvider.oreSmelting(
+                    output, ingredients, recipeCategory, result, experience, cookingTime, group);
+        }
+
+        private void oreBlasting(
+                java.util.List<ItemLike> ingredients,
+                RecipeCategory recipeCategory,
+                CookingBookCategory ignoredCookingCategory,
+                ItemLike result,
+                float experience,
+                int cookingTime,
+                String group) {
+            net.minecraft.data.recipes.RecipeProvider.oreBlasting(
+                    output, ingredients, recipeCategory, result, experience, cookingTime, group);
+        }
+        //?}
+
+            //? if >= 26.2 {
             @Override
+            //?}
             public void buildRecipes() {
                 HolderGetter<Item> items = wrapperLookup.lookupOrThrow(Registries.ITEM);
 
@@ -522,12 +618,13 @@ public class RecipeProvider extends FabricRecipeProvider {
                 oreBlasting(Collections.singletonList((ItemLike) ModItems.IRON_DUST.get()), RecipeCategory.MISC, CookingBookCategory.MISC, Items.IRON_INGOT, 0.7f, 100, "iron_ingot"); // Fixed with .get()
                 oreBlasting(Collections.singletonList((ItemLike) ModItems.GOLD_DUST.get()), RecipeCategory.MISC, CookingBookCategory.MISC, Items.GOLD_INGOT, 0.7f, 100, "gold_ingot"); // Fixed with .get()
             }
-        };
     }
 
+    //? if fabric || >= 26.2 {
     @Override
     public String getName() {
         return "stargazer";
     }
+    //?}
 }
 *///? }

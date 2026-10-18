@@ -25,6 +25,9 @@ import dev.architectury.event.events.client.ClientTickEvent;
 //? if >= 26.2 {
 /*import dev.architectury.registry.client.gui.MenuScreenRegistry;
 *///? }
+//? if < 26.2 {
+import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
+//?}
 import dev.architectury.registry.client.level.entity.EntityRendererRegistry;
 import dev.architectury.registry.client.rendering.BlockEntityRendererRegistry;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
@@ -81,7 +84,7 @@ public final class StargazerClient /*? if fabric {*//*implements ClientModInitia
 
         BlockTypes.STAR_DISPLAY.listen(type -> BlockEntityRendererRegistry.register(
                 type,
-                context -> new StarDisplayRenderer<>(new StarDisplayModel())
+                context -> new StarDisplayRenderer(context, new StarDisplayModel())
         ));
         //? }
 
@@ -103,13 +106,6 @@ public final class StargazerClient /*? if fabric {*//*implements ClientModInitia
         EntityRendererRegistry.register(EntityRegistry.BLACK_FOX_ENTITY, BlackFoxRenderer::new);
 
         // Screens
-        ScreenHandlerTypes.STARFORGE_HANDLER.listen(screen -> MenuScreenRegistry.registerScreenFactory(screen, StarforgeHandled::new));
-        ScreenHandlerTypes.MOON_WELDER_HANDLER.listen(screen -> MenuScreenRegistry.registerScreenFactory(screen, MoonWelderHandled::new));
-        ScreenHandlerTypes.NIGHTWATCHER_HANDLER.listen(screen -> MenuScreenRegistry.registerScreenFactory(screen, NightWatcherHandled::new));
-        ScreenHandlerTypes.STARGENERATOR_HANDLER.listen(screen -> MenuScreenRegistry.registerScreenFactory(screen, StargeneratorHandled::new));
-        ScreenHandlerTypes.STARBOOK_HANDLER.listen(screen -> MenuScreenRegistry.registerScreenFactory(screen, StarBookHandled::new));
-        ScreenHandlerTypes.STARCRUSHER_HANDLER.listen(screen -> MenuScreenRegistry.registerScreenFactory(screen, StarCrusherHandled::new));
-
         // Tick Events
         Stargazer.LOGGER.info("Loading End Client Tick Events");
         ClientTickEvent.CLIENT_POST.register(client -> {
@@ -118,8 +114,20 @@ public final class StargazerClient /*? if fabric {*//*implements ClientModInitia
                 DashClient.tick();
                 StargazeClient.clientTick(client);
             }
+
         });
     }
+
+    //? if < 26.2 {
+    public static void registerScreens(RegisterMenuScreensEvent event) {
+        event.register(ScreenHandlerTypes.STARFORGE_HANDLER.get(), StarforgeHandled::new);
+        event.register(ScreenHandlerTypes.MOON_WELDER_HANDLER.get(), MoonWelderHandled::new);
+        event.register(ScreenHandlerTypes.NIGHTWATCHER_HANDLER.get(), NightWatcherHandled::new);
+        event.register(ScreenHandlerTypes.STARGENERATOR_HANDLER.get(), StargeneratorHandled::new);
+        event.register(ScreenHandlerTypes.STARBOOK_HANDLER.get(), StarBookHandled::new);
+        event.register(ScreenHandlerTypes.STARCRUSHER_HANDLER.get(), StarCrusherHandled::new);
+    }
+    //?}
 
     //? if fabric {
     /*@Override

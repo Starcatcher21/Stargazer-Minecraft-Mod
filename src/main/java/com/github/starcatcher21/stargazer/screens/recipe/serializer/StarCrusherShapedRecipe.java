@@ -53,7 +53,7 @@ public class StarCrusherShapedRecipe {
         } catch (Exception e) {
             stack = new ItemStack(Blocks.AIR.asItem());
         }
-        return Ingredient.testOptionalIngredient(Optional.of(item1), stack);
+        return item1.test(stack);
     }
 
     public Ingredient getItem1() {

@@ -16,7 +16,11 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SuspiciousEffectHolder;
-import net.minecraft.world.level.block.VegetationBlock;
+//? if >= 26.2 {
+/*import net.minecraft.world.level.block.VegetationBlock;
+*///? } else {
+import com.github.starcatcher21.stargazer.block.older1211.VegetationBlock;
+//? }
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -29,7 +33,7 @@ public class RedHangingFlower
         implements SuspiciousEffectHolder {
     protected static final MapCodec<SuspiciousStewEffects> STEW_EFFECT_CODEC = SuspiciousStewEffects.CODEC.fieldOf("suspicious_stew_effects");
     public static final MapCodec<RedHangingFlower> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(STEW_EFFECT_CODEC.forGetter(RedHangingFlower::getSuspiciousEffects), RedHangingFlower.propertiesCodec()).apply(instance, RedHangingFlower::new));
-    private static final VoxelShape SHAPE = Block.column(6.0, 0.0, 10.0);
+    private static final VoxelShape SHAPE = Block.box(2.0, 0.0, 2.0, 7.0, 7.0, 7.0);
     private final SuspiciousStewEffects stewEffects;
 
     public MapCodec<? extends RedHangingFlower> codec() {
@@ -69,7 +73,8 @@ public class RedHangingFlower
 
     @Override
     protected VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
-        return SHAPE.move(state.getOffset(pos)).move(0.0, 0.5, 0.0);
+        var offset = state.getOffset(/*? if < 26.2 { */world, /*? } */pos);
+        return SHAPE.move(offset.x, offset.y, offset.z).move(0.0, 0.5, 0.0);
     }
 
     @Override

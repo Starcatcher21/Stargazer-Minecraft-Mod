@@ -11,12 +11,18 @@ import net.minecraft.world.item.component.SuspiciousStewEffects;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SuspiciousEffectHolder;
-import net.minecraft.world.level.block.VegetationBlock;
+//? if >= 26.2 {
+/*import net.minecraft.world.level.block.VegetationBlock;
+*///? } else {
+import com.github.starcatcher21.stargazer.block.older1211.VegetationBlock;
+//? }
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Vector3d;
 
 import java.util.List;
 
@@ -25,7 +31,7 @@ public class CosmicFlower
         implements SuspiciousEffectHolder {
     protected static final MapCodec<SuspiciousStewEffects> STEW_EFFECT_CODEC = SuspiciousStewEffects.CODEC.fieldOf("suspicious_stew_effects");
     public static final MapCodec<CosmicFlower> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(STEW_EFFECT_CODEC.forGetter(CosmicFlower::getSuspiciousEffects), CosmicFlower.propertiesCodec()).apply(instance, CosmicFlower::new));
-    private static final VoxelShape SHAPE = Block.column(6.0, 0.0, 10.0);
+    private static final VoxelShape SHAPE = Block.box(2.0, 0.0, 2.0, 7.0, 7.0, 7.0);
     private final SuspiciousStewEffects stewEffects;
 
     public MapCodec<? extends CosmicFlower> codec() {
@@ -52,7 +58,8 @@ public class CosmicFlower
 
     @Override
     protected VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
-        return SHAPE.move(state.getOffset(pos));
+        var offset = state.getOffset(/*? if < 26.2 { */ world, /*? } */ pos);
+        return SHAPE.move(offset.x, offset.y, offset.z);
     }
 
     @Override

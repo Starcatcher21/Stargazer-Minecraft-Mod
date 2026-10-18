@@ -1,4 +1,4 @@
-/*? if fabric {*/
+/*? if fabric || neoforge {*/
 /*package com.github.starcatcher21.stargazer.datagen;
 
 import com.github.starcatcher21.stargazer.block.ModBlock;
@@ -11,9 +11,21 @@ import com.github.starcatcher21.stargazer.block.register.*;
 import com.github.starcatcher21.stargazer.entity.Star;
 import com.github.starcatcher21.stargazer.item.ModItems;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.nebulas.Red;
+//? if fabric {
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootSubProvider;
+//?} else {
+import net.minecraft.data.loot.BlockLootSubProvider;
+import net.minecraft.world.flag.FeatureFlags;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.function.Function;
+//?}
+//? if >= 26.2 {
 import net.minecraft.advancements.predicates.StatePropertiesPredicate;
+//?} else {
+import net.minecraft.advancements.critereon.StatePropertiesPredicate;
+//?}
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
@@ -24,7 +36,11 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+//? if >= 26.2 {
 import net.minecraft.world.level.block.FlowerBedBlock;
+//?} else {
+import com.github.starcatcher21.stargazer.block.older1211.FlowerBedBlock;
+//?}
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
@@ -39,10 +55,37 @@ import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import java.util.concurrent.CompletableFuture;
 
-public class LootTableProvider extends FabricBlockLootSubProvider {
+public class LootTableProvider
+//? if fabric {
+        extends FabricBlockLootSubProvider {
     public LootTableProvider(FabricPackOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
         super(dataOutput, registryLookup);
     }
+//?} else {
+        extends BlockLootSubProvider {
+    private final Set<Block> generatedBlocks = new HashSet<>();
+
+    public LootTableProvider(HolderLookup.Provider registryLookup) {
+        super(Set.of(), FeatureFlags.REGISTRY.allFlags(), registryLookup);
+    }
+
+    @Override
+    protected Iterable<Block> getKnownBlocks() {
+        return generatedBlocks;
+    }
+
+    @Override
+    protected void add(Block block, Function<Block, LootTable.Builder> builder) {
+        generatedBlocks.add(block);
+        super.add(block, builder);
+    }
+
+    @Override
+    protected void add(Block block, LootTable.Builder builder) {
+        generatedBlocks.add(block);
+        super.add(block, builder);
+    }
+//?}
 
     public LootTable.Builder oreDrops(Block drop, ItemLike raw, float min, float max) {
         HolderLookup.RegistryLookup<Enchantment> enchantments = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
@@ -55,6 +98,10 @@ public class LootTableProvider extends FabricBlockLootSubProvider {
 
     public LootTable.Builder conditionDrop(Block crop, Item product, LootItemCondition.Builder condition) {
         return this.applyExplosionDecay(crop, LootTable.lootTable().withPool(LootPool.lootPool().add(((LootPoolSingletonContainer.Builder)LootItem.lootTableItem(product).when(condition)))));
+    }
+
+    public LootTable.Builder createShearsOrSilkTouchOnlyDrop(Block block) {
+        return this.createSilkTouchOrShearsDispatchTable(block, LootItem.lootTableItem(block));
     }
 
     public LootTable.Builder cropDrops(Block leaves, Item crop, float ... cropChance) {
@@ -335,7 +382,6 @@ public class LootTableProvider extends FabricBlockLootSubProvider {
         dropSelf(RedOrbBlocks.YERI_PLANKS_FENCE.get());
         dropSelf(RedOrbBlocks.YERI_PLANKS_FENCE_GATE.get());
         dropSelf(RedOrbBlocks.YERI_PLANKS_BUTTON.get());
-        dropSelf(RedOrbBlocks.RED_ORB_PLATFORM.get());
         dropSelf(RedOrbBlocks.GREEN_ROCK.get());
         dropSelf(RedOrbBlocks.SPIRO_LOG.get());
         dropSelf(RedOrbBlocks.SPIRO_SAPLING.get());

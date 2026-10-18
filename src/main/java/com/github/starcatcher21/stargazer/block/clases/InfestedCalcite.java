@@ -4,7 +4,6 @@ import com.github.starcatcher21.stargazer.block.ModBlock;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.references.BlockIds;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -13,21 +12,39 @@ import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Blocks;
+//? if >= 26.2 {
+/*import net.minecraft.references.BlockIds;
 import net.minecraft.world.level.block.SpreadingSnowyBlock;
+*///?} else {
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.level.block.SpreadingSnowyDirtBlock;
+//?}
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.lighting.LightEngine;
 import net.minecraft.world.phys.BlockHitResult;
 
-public class InfestedCalcite extends SpreadingSnowyBlock {
+//? if >= 26.2 {
+/*public class InfestedCalcite extends SpreadingSnowyBlock {
+ *///?} else {
+public class InfestedCalcite extends SpreadingSnowyDirtBlock {
+    //?}
     public static final MapCodec<InfestedCalcite> CODEC = simpleCodec(InfestedCalcite::new);
 
     public InfestedCalcite(final Properties properties) {
-        super(properties, Blocks.CALCITE.builtInRegistryHolder().key());
+        //? if >= 26.2 {
+        /*super(properties, Blocks.CALCITE.builtInRegistryHolder().key());
+         *///?} else {
+        super(properties);
+        //?}
     }
 
     @Override
-    protected MapCodec<? extends SpreadingSnowyBlock> codec() {
+    //? if >= 26.2 {
+    /*protected MapCodec<? extends SpreadingSnowyBlock> codec() {
+    *///? } else {
+    protected MapCodec<? extends SpreadingSnowyDirtBlock> codec() {
+    //? }
         return CODEC;
     }
 
@@ -45,7 +62,11 @@ public class InfestedCalcite extends SpreadingSnowyBlock {
         if (blockState.getFluidState().getAmount() == 8) {
             return false;
         }
-        int i = LightEngine.getLightDampeningInto(state, blockState, Direction.UP, blockState.getLightDampening());
+        //? if >= 26.2 {
+        /*int i = LightEngine.getLightDampeningInto(state, blockState, Direction.UP, blockState.getLightDampening());
+        *///? } else {
+        int i = LightEngine.getLightBlockInto(world, blockState, blockPos, blockState, blockPos, Direction.UP, blockState.getLightBlock(world, pos.above()));
+        //? }
         return i < 15;
     }
 

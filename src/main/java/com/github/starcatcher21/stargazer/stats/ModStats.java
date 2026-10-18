@@ -11,12 +11,12 @@ import net.minecraft.stats.StatFormatter;
 import net.minecraft.stats.Stats;
 
 public class ModStats {
-    public static final DeferredRegister<Identifier> STATS =
+    public static final DeferredRegister<ResourceLocation> STATS =
             DeferredRegister.create(Stargazer.MOD_ID, Registries.CUSTOM_STAT);
 
-    public static final RegistrySupplier<Identifier> STAR_CATCHED = register("star_catched");
+    public static final RegistrySupplier<ResourceLocation> STAR_CATCHED = register("star_catched");
 
-    private static RegistrySupplier<Identifier> register(String id) {
+    private static RegistrySupplier<ResourceLocation> register(String id) {
         ResourceLocation identifier =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, id);
         return STATS.register(id, () -> identifier);
     }

@@ -1,7 +1,6 @@
 package com.github.starcatcher21.stargazer.entity.renderers;
 
 import com.github.starcatcher21.stargazer.Stargazer;
-import com.github.starcatcher21.stargazer.entity.DataTickets;
 import com.github.starcatcher21.stargazer.entity.Star;
 import com.github.starcatcher21.stargazer.entity.models.StarModel;
 import com.github.starcatcher21.stargazer.nbt.Patterns;
@@ -12,6 +11,7 @@ import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 //? if >= 26.2 {
 /*import net.minecraft.client.renderer.entity.state.EntityRenderState;
+import com.github.starcatcher21.stargazer.entity.DataTickets;
 import org.jspecify.annotations.Nullable;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 import software.bernie.geckolib.renderer.base.GeoRenderState;

@@ -6,6 +6,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+//? if < 26.2 {
+import net.minecraft.world.ItemInteractionResult;
+//?}
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -53,9 +56,17 @@ public class StarDisplay extends BaseEntityBlock {
     }
 
     @Override
-    protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+    //? if >= 26.2 {
+    /*protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+    *///?} else {
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+    //?}
         if (!player.getAbilities().mayBuild) {
-            return InteractionResult.PASS;
+            //? if >= 26.2 {
+            /*return InteractionResult.PASS;
+             *///?} else {
+            return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+            //?}
         } else {
             BlockEntity be = world.getBlockEntity(pos);
             if (be instanceof StarDisplayEntity ge) {
@@ -74,7 +85,11 @@ public class StarDisplay extends BaseEntityBlock {
                     }
                 }
             }
-            return InteractionResult.SUCCESS;
+            //? if >= 26.2 {
+            /*return InteractionResult.SUCCESS;
+             *///?} else {
+            return ItemInteractionResult.SUCCESS;
+            //?}
         }
     }
 

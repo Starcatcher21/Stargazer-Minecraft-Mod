@@ -33,36 +33,76 @@ import static com.github.starcatcher21.stargazer.block.ModBlock.register;
 import static com.github.starcatcher21.stargazer.block.ModBlock.registerWoItem;
 
 public class Nebulas {
-    public static final RegistrySupplier<Block> RED_TENTACLE_FLOWER = register("red_tentacle_flower", settings -> new CosmicFlower(MobEffects.INSTANT_DAMAGE, 5.0f, settings), BlockBehaviour.Properties.of()
+    public static final RegistrySupplier<Block> RED_TENTACLE_FLOWER = register("red_tentacle_flower", settings -> new CosmicFlower(
+            //? if >= 26.2 {
+            /*MobEffects.INSTANT_DAMAGE
+             *///?} else {
+            MobEffects.HARM
+            //?}
+            , 5.0f, settings), BlockBehaviour.Properties.of()
             .mapColor(MapColor.COLOR_RED)
-            .noCollision()
+            //? if >= 26.2 {
+            /*.noCollision()
+             *///? } else {
+            .noCollission()
+            //? }
             .instabreak()
             .sound(SoundType.GRASS)
             .offsetType(BlockBehaviour.OffsetType.XZ)
             .pushReaction(PushReaction.DESTROY)
     );
     public static final RegistrySupplier<Block> POTTED_RED_TENTACLE_FLOWER = registerWoItem("potted_red_tentacle_flower", settings -> new FlowerPotBlock(RED_TENTACLE_FLOWER.get(), settings), BlockBehaviour.Properties.ofFullCopy(Blocks.POTTED_ALLIUM).noOcclusion());
-    public static final RegistrySupplier<Block> BLUE_TENTACLE_FLOWER = register("blue_tentacle_flower", settings -> new CosmicFlower(MobEffects.INSTANT_DAMAGE, 5.0f, settings), BlockBehaviour.Properties.of()
+    public static final RegistrySupplier<Block> BLUE_TENTACLE_FLOWER = register("blue_tentacle_flower", settings -> new CosmicFlower(
+            //? if >= 26.2 {
+            /*MobEffects.INSTANT_DAMAGE
+             *///?} else {
+            MobEffects.HARM
+            //?}
+            , 5.0f, settings), BlockBehaviour.Properties.of()
             .mapColor(MapColor.COLOR_CYAN)
-            .noCollision()
+            //? if >= 26.2 {
+            /*.noCollision()
+             *///? } else {
+            .noCollission()
+            //? }
             .instabreak()
             .sound(SoundType.GRASS)
             .offsetType(BlockBehaviour.OffsetType.XZ)
             .pushReaction(PushReaction.DESTROY)
     );
     public static final RegistrySupplier<Block> POTTED_BLUE_TENTACLE_FLOWER = registerWoItem("potted_blue_tentacle_flower", settings -> new FlowerPotBlock(BLUE_TENTACLE_FLOWER.get(), settings), BlockBehaviour.Properties.ofFullCopy(Blocks.POTTED_ALLIUM).noOcclusion());
-    public static final RegistrySupplier<Block> PURPLE_TENTACLE_FLOWER = register("purple_tentacle_flower", settings -> new CosmicFlower(MobEffects.INSTANT_DAMAGE, 5.0f, settings), BlockBehaviour.Properties.of()
+    public static final RegistrySupplier<Block> PURPLE_TENTACLE_FLOWER = register("purple_tentacle_flower", settings -> new CosmicFlower(
+            //? if >= 26.2 {
+            /*MobEffects.INSTANT_DAMAGE
+             *///?} else {
+            MobEffects.HARM
+            //?}
+            , 5.0f, settings), BlockBehaviour.Properties.of()
             .mapColor(MapColor.COLOR_PURPLE)
-            .noCollision()
+            //? if >= 26.2 {
+            /*.noCollision()
+             *///? } else {
+            .noCollission()
+            //? }
             .instabreak()
             .sound(SoundType.GRASS)
             .offsetType(BlockBehaviour.OffsetType.XZ)
             .pushReaction(PushReaction.DESTROY)
     );
     public static final RegistrySupplier<Block> POTTED_PURPLE_TENTACLE_FLOWER = registerWoItem("potted_purple_tentacle_flower", settings -> new FlowerPotBlock(PURPLE_TENTACLE_FLOWER.get(), settings), BlockBehaviour.Properties.ofFullCopy(Blocks.POTTED_ALLIUM).noOcclusion());
-    public static final RegistrySupplier<Block> YELLOW_TENTACLE_FLOWER = register("yellow_tentacle_flower", settings -> new CosmicFlower(MobEffects.INSTANT_DAMAGE, 5.0f, settings), BlockBehaviour.Properties.of()
+    public static final RegistrySupplier<Block> YELLOW_TENTACLE_FLOWER = register("yellow_tentacle_flower", settings -> new CosmicFlower(
+            //? if >= 26.2 {
+            /*MobEffects.INSTANT_DAMAGE
+             *///?} else {
+            MobEffects.HARM
+            //?}
+            , 5.0f, settings), BlockBehaviour.Properties.of()
             .mapColor(MapColor.COLOR_YELLOW)
-            .noCollision()
+            //? if >= 26.2 {
+            /*.noCollision()
+             *///? } else {
+            .noCollission()
+            //? }
             .instabreak()
             .sound(SoundType.GRASS)
             .offsetType(BlockBehaviour.OffsetType.XZ)
@@ -112,7 +152,11 @@ public class Nebulas {
             .mapColor(MapColor.COLOR_CYAN)
     );
     public static final RegistrySupplier<Block> BLUE_NEBULA_PLANKS_BUTTON = register("blue_nebula_planks_button", (BlockBehaviour.Properties settings) -> new ButtonBlock(BlockSetType.OAK, 30, (BlockBehaviour.Properties) settings), BlockBehaviour.Properties.of()
-            .noCollision()
+            //? if >= 26.2 {
+            /*.noCollision()
+             *///? } else {
+            .noCollission()
+            //? }
             .sound(SoundType.WOOD)
             .instrument(NoteBlockInstrument.BASS)
             .strength(1.0F)
@@ -127,7 +171,7 @@ public class Nebulas {
             .mapColor(MapColor.COLOR_CYAN)
     );
 
-    public static final RegistrySupplier<Block> BLUE_NEBULA_LEAVES = register("blue_nebula_leaves", (settings) -> new NebulaLeaves(CommonColors.HIGH_CONTRAST_DIAMOND, settings), BlockBehaviour.Properties.of()
+    public static final RegistrySupplier<Block> BLUE_NEBULA_LEAVES = register("blue_nebula_leaves", (settings) -> new NebulaLeaves(0x40E0D0, settings), BlockBehaviour.Properties.of()
             .randomTicks()
             .noOcclusion()
             .sound(SoundType.GRASS)
@@ -177,7 +221,11 @@ public class Nebulas {
             .mapColor(MapColor.COLOR_RED)
     );
     public static final RegistrySupplier<Block> RED_NEBULA_PLANKS_BUTTON = register("red_nebula_planks_button", (BlockBehaviour.Properties settings) -> new ButtonBlock(BlockSetType.OAK, 30, (BlockBehaviour.Properties) settings), BlockBehaviour.Properties.of()
-            .noCollision()
+            //? if >= 26.2 {
+            /*.noCollision()
+             *///? } else {
+            .noCollission()
+            //? }
             .sound(SoundType.WOOD)
             .instrument(NoteBlockInstrument.BASS)
             .strength(1.0F)
@@ -242,7 +290,11 @@ public class Nebulas {
             .mapColor(MapColor.COLOR_PURPLE)
     );
     public static final RegistrySupplier<Block> PURPLE_NEBULA_PLANKS_BUTTON = register("purple_nebula_planks_button", (BlockBehaviour.Properties settings) -> new ButtonBlock(BlockSetType.OAK, 30, (BlockBehaviour.Properties) settings), BlockBehaviour.Properties.of()
-            .noCollision()
+            //? if >= 26.2 {
+            /*.noCollision()
+             *///? } else {
+            .noCollission()
+            //? }
             .sound(SoundType.WOOD)
             .instrument(NoteBlockInstrument.BASS)
             .strength(1.0F)
@@ -257,7 +309,7 @@ public class Nebulas {
             .mapColor(MapColor.COLOR_PURPLE)
     );
 
-    public static final RegistrySupplier<Block> PURPLE_NEBULA_LEAVES = register("purple_nebula_leaves", (settings) -> new NebulaLeaves(CommonColors.DARK_PURPLE, settings), BlockBehaviour.Properties.of()
+    public static final RegistrySupplier<Block> PURPLE_NEBULA_LEAVES = register("purple_nebula_leaves", (settings) -> new NebulaLeaves(0x5A257A, settings), BlockBehaviour.Properties.of()
             .noOcclusion()
             .randomTicks()
             .sound(SoundType.GRASS)
@@ -307,7 +359,11 @@ public class Nebulas {
             .mapColor(MapColor.COLOR_YELLOW)
     );
     public static final RegistrySupplier<Block> YELLOW_NEBULA_PLANKS_BUTTON = register("yellow_nebula_planks_button", (BlockBehaviour.Properties settings) -> new ButtonBlock(BlockSetType.OAK, 30, (BlockBehaviour.Properties) settings), BlockBehaviour.Properties.of()
-            .noCollision()
+            //? if >= 26.2 {
+            /*.noCollision()
+             *///? } else {
+            .noCollission()
+            //? }
             .sound(SoundType.WOOD)
             .instrument(NoteBlockInstrument.BASS)
             .strength(1.0F)

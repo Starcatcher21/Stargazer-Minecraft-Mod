@@ -54,6 +54,15 @@ subprojects {
     }
 }
 
+project(":1.21.1-neoforge") {
+    sourceSets.named("main") {
+        java.setSrcDirs(listOf(layout.buildDirectory.dir("generated/stonecutter/main/java")))
+    }
+    tasks.named("compileJava") {
+        dependsOn(tasks.named("stonecutterGenerate"))
+    }
+}
+
 loom {
     version = project.mod.version
     enableTransitiveAccessWideners = true
@@ -135,13 +144,14 @@ dependencies {
     }
 
     // --- Roughly Enough Items (REI) ---
-    compileOnly("me.shedaniel:RoughlyEnoughItems-api:${project.mod.prop("rei_version")}")
+    val reiVersion = project.mod.prop("rei_version")
     if (isFabric) {
-        compileOnly("me.shedaniel:RoughlyEnoughItems-api-fabric:${project.mod.prop("rei_version")}")
-        runtimeOnly("me.shedaniel:RoughlyEnoughItems-fabric:${project.mod.prop("rei_version")}")
+        compileOnly("me.shedaniel:RoughlyEnoughItems-api:$reiVersion")
+        compileOnly("me.shedaniel:RoughlyEnoughItems-api-fabric:$reiVersion")
+        runtimeOnly("me.shedaniel:RoughlyEnoughItems-fabric:$reiVersion")
     } else if (isNeoForge) {
-        compileOnly("me.shedaniel:RoughlyEnoughItems-api-neoforge:${project.mod.prop("rei_version")}")
-        runtimeOnly("me.shedaniel:RoughlyEnoughItems-neoforge:${project.mod.prop("rei_version")}")
+        compileOnly("me.shedaniel:RoughlyEnoughItems-api-neoforge:$reiVersion")
+        runtimeOnly("me.shedaniel:RoughlyEnoughItems-neoforge:$reiVersion")
     }
 
     // --- Cloth Config ---
@@ -154,11 +164,13 @@ dependencies {
 
     // --- Architectury API ---
     val archVer = project.mod.prop("architectury_api_version")
-    implementation("dev.architectury:architectury:${archVer}")
     if (isFabric) {
+        implementation("dev.architectury:architectury:${archVer}")
         api("dev.architectury:architectury-fabric:$archVer")
     } else if (isNeoForge) {
-        implementation("dev.architectury:architectury-neoforge:$archVer")
+        implementation("dev.architectury:architectury-neoforge:$archVer") {
+            exclude(group = "dev.architectury", module = "architectury")
+        }
     }
 
     // --- StarLib ---

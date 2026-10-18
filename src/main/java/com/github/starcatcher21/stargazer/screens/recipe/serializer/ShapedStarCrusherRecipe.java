@@ -100,7 +100,7 @@ public class ShapedStarCrusherRecipe implements StarCrusherRecipe {
         } catch (Exception e) {
             stack = new ItemStack(Blocks.AIR.asItem());
         }
-        return Ingredient.testOptionalIngredient(Optional.of(item1), stack);
+        return item1.test(stack);
     }
 
     //? if >= 26.2 {
@@ -194,7 +194,7 @@ public class ShapedStarCrusherRecipe implements StarCrusherRecipe {
             );
 
     public static final RecipeSerializer<ShapedStarCrusherRecipe> SERIALIZER =
-            new RecipeSerializer<>(CODEC, STREAM_CODEC);
+    new RecipeSerializer<>(CODEC, STREAM_CODEC);
     *///?} else {
     public static final MapCodec<ShapedStarCrusherRecipe> CODEC =
         RecordCodecBuilder.mapCodec(instance -> instance.group(
@@ -211,8 +211,16 @@ public class ShapedStarCrusherRecipe implements StarCrusherRecipe {
             ShapedStarCrusherRecipe::new
         );
 
-    // 1.21.1 RecipeSerializer has a different construction path.
-    public static final RecipeSerializer<ShapedStarCrusherRecipe> SERIALIZER =
-        new RecipeSerializer<>(CODEC, STREAM_CODEC);
+    public static final RecipeSerializer<ShapedStarCrusherRecipe> SERIALIZER = new RecipeSerializer<>() {
+        @Override
+        public MapCodec<ShapedStarCrusherRecipe> codec() {
+            return CODEC;
+        }
+
+        @Override
+        public StreamCodec<RegistryFriendlyByteBuf, ShapedStarCrusherRecipe> streamCodec() {
+            return STREAM_CODEC;
+        }
+    };
     //?}
 }

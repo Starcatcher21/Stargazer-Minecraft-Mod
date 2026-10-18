@@ -38,7 +38,11 @@ public class StarBarrierBlock extends BaseEntityBlock {
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter view, BlockPos pos, CollisionContext context) {
-        if (context.isHoldingItem(BuiltInRegistries.ITEM.getValue(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "star_barrier_block"))) || context.isHoldingItem(ModItems.STAR_HAMMER.get())) {
+        //? if >= 26.2 {
+        /*if (context.isHoldingItem(BuiltInRegistries.ITEM.getValue(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "star_barrier_block"))) || context.isHoldingItem(ModItems.STAR_HAMMER.get())) {
+         *///?} else {
+        if (context.isHoldingItem(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "star_barrier_block"))) || context.isHoldingItem(ModItems.STAR_HAMMER.get())) {
+        //?}
             return Shapes.block();
         } else {
             return Shapes.box(0.0, 0.0, 0.0, 0.01, 0.01, 0.01);

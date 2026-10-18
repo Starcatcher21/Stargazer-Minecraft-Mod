@@ -47,7 +47,11 @@ public class Boril extends Block implements BonemealableBlock {
                 world.setBlockAndUpdate(blockPos, (BlockState)blockState);
             }
         }
-        if (!world.getBlockState(pos.above()).propagatesSkylightDown()) {
+        //? if >= 26.2 {
+        /*if (!world.getBlockState(pos.above()).propagatesSkylightDown()) {
+         *///?} else {
+        if (!world.getBlockState(pos.above()).propagatesSkylightDown(world, pos.above())) {
+        //?}
             world.setBlockAndUpdate(pos, Wander.PUROIL.get().defaultBlockState());
             world.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(state));
         }
@@ -80,7 +84,11 @@ public class Boril extends Block implements BonemealableBlock {
             }
             if (!blockState2.isAir()) continue;
             if (random.nextInt(8) == 0) {
-                List<ConfiguredFeature<?, ?>> list = world.getBiome(blockPos2).value().getGenerationSettings().getBoneMealFeatures();
+                //? if >= 26.2 {
+                /*List<ConfiguredFeature<?, ?>> list = world.getBiome(blockPos2).value().getGenerationSettings().getBoneMealFeatures();
+                 *///?} else {
+                List<ConfiguredFeature<?, ?>> list = world.getBiome(blockPos2).value().getGenerationSettings().getFlowerFeatures();
+                //?}
                 if (list.isEmpty()) continue;
                 ConfiguredFeature<?, ?> configuredFeature = list.get(random.nextInt(list.size()));
                 configuredFeature.place(world, world.getChunkSource().getGenerator(), random, blockPos2);

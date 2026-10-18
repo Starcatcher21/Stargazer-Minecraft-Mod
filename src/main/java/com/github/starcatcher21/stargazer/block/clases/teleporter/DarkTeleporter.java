@@ -7,16 +7,13 @@ import com.github.starcatcher21.stargazer.mechanics.PointOfIntrests;
 import com.github.starcatcher21.stargazer.particle.Particles;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.BlockUtil;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.*;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Relative;
 import net.minecraft.world.entity.ai.village.poi.PoiManager;
 import net.minecraft.world.entity.ai.village.poi.PoiRecord;
 import net.minecraft.world.entity.player.Player;
@@ -26,8 +23,17 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelHeightAccessor;
 import net.minecraft.world.level.LevelReader;
+//? if >= 26.2 {
+/*import net.minecraft.util.BlockUtil;
 import net.minecraft.world.level.ScheduledTickAccess;
+import net.minecraft.world.level.portal.TeleportTransition;
+import net.minecraft.world.entity.Relative;
+*///?} else {
+import net.minecraft.BlockUtil;
+import net.minecraft.world.level.portal.DimensionTransition;
+//?}
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
@@ -40,12 +46,10 @@ import net.minecraft.world.level.border.WorldBorder;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraft.world.level.portal.TeleportTransition;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
-import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.Shapes;
-import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraft.world.phys.shapes.*;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -101,7 +105,6 @@ public class DarkTeleporter extends Block {
         }
     }
 
-
     @Override
     public BlockState playerWillDestroy(Level world, BlockPos pos, BlockState state, Player player) {
         if (state.getValue(STATE).equals(DarkTeleporterState.middle)) {
@@ -130,7 +133,6 @@ public class DarkTeleporter extends Block {
             if (state2.hasProperty(STATE) && state2.getValue(STATE).equals(DarkTeleporterState.middle)) {
                 breakPortal(world, pos.west());
             }
-
         }
         if (state.getValue(STATE).equals(DarkTeleporterState.north_west)) {
             BlockState state2 = world.getBlockState(pos.south().east());
@@ -159,7 +161,6 @@ public class DarkTeleporter extends Block {
         return super.playerWillDestroy(world, pos, world.getBlockState(pos), player);
     }
 
-
     public void breakPortal(LevelAccessor world, BlockPos root) {
         world.setBlock(root, Blocks.OBSIDIAN.defaultBlockState(), Block.UPDATE_ALL);
         world.setBlock(root.north(), Blocks.POLISHED_BLACKSTONE_BRICK_STAIRS.defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, Direction.NORTH.getOpposite()), Block.UPDATE_ALL);
@@ -171,7 +172,9 @@ public class DarkTeleporter extends Block {
         world.setBlock(root.south().west(), Chess.BLACK_BRICKS.get().defaultBlockState(), Block.UPDATE_ALL);
         world.setBlock(root.south().east(), Chess.BLACK_BRICKS.get().defaultBlockState(), Block.UPDATE_ALL);
     }
-    @Override
+
+    //? if >= 26.2 {
+    /*@Override
     protected ItemStack getCloneItemStack(LevelReader world, BlockPos pos, BlockState state, boolean includeData) {
         DarkTeleporterState cts = state.getValue(STATE);
         if (cts.equals(DarkTeleporterState.middle)) {
@@ -182,8 +185,22 @@ public class DarkTeleporter extends Block {
         }
         return Chess.BLACK_BRICKS.get().asItem().getDefaultInstance();
     }
-
+    *///?} else {
     @Override
+    public ItemStack getCloneItemStack(BlockState state, HitResult target, LevelReader level, BlockPos pos, Player player) {
+        DarkTeleporterState cts = state.getValue(STATE);
+        if (cts.equals(DarkTeleporterState.middle)) {
+            return Blocks.OBSIDIAN.asItem().getDefaultInstance();
+        }
+        if (cts.equals(DarkTeleporterState.north) || cts.equals(DarkTeleporterState.south) || cts.equals(DarkTeleporterState.west) || cts.equals(DarkTeleporterState.east)) {
+            return Blocks.POLISHED_BLACKSTONE_BRICK_STAIRS.asItem().getDefaultInstance();
+        }
+        return Chess.BLACK_BRICKS.get().asItem().getDefaultInstance();
+    }
+    //?}
+
+    //? if >= 26.2 {
+    /*@Override
     protected BlockState updateShape(
             BlockState state,
             LevelReader world,
@@ -200,13 +217,34 @@ public class DarkTeleporter extends Block {
 
         return state;
     }
+    *///?} else {
+    @Override
+    protected BlockState updateShape(
+            BlockState state,
+            Direction direction,
+            BlockState neighborState,
+            LevelAccessor world,
+            BlockPos pos,
+            BlockPos neighborPos
+    ) {
+        if (state.getValue(WATERLOGGED)) {
+            world.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
+        }
+        return state;
+    }
+    //?}
 
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit) {
         if (state.getValue(STATE).equals(DarkTeleporterState.middle)) {
             if (world instanceof ServerLevel sw) {
-                TeleportTransition target = createTeleportTarget(sw, player, pos);
-                player.teleport(target);
+                //? if >= 26.2 {
+                /*TeleportTransition target = createTeleportTarget(sw, player, pos);
+                if (target != null) player.teleport(target);
+                *///?} else {
+                DimensionTransition target = createTeleportTarget(sw, player, pos);
+                if (target != null) player.changeDimension(target);
+                //?}
             }
         }
         return InteractionResult.PASS;
@@ -214,28 +252,48 @@ public class DarkTeleporter extends Block {
 
     @Override
     public void stepOn(Level world, BlockPos pos, BlockState state, Entity entity) {
-        if (!(entity instanceof Player)) {
-            if (state.getValue(STATE).equals(DarkTeleporterState.middle)) {
-                if (world instanceof ServerLevel sw) {
-                    TeleportTransition target = createTeleportTarget(sw, entity, pos);
-                    TeleportTransition newTarget = target.withPosition(target.position().relative(Direction.NORTH, 1));
-                    entity.teleport(newTarget);
-                }
+        if (!(entity instanceof Player)
+                && state.getValue(STATE).equals(DarkTeleporterState.middle)
+                && world instanceof ServerLevel sw) {
+            //? if >= 26.2 {
+            /*TeleportTransition target = createTeleportTarget(sw, entity, pos);
+            if (target != null) {
+                TeleportTransition newTarget = target.withPosition(
+                        target.position().relative(Direction.NORTH, 1));
+                entity.teleport(newTarget);
             }
+            *///?} else {
+            DimensionTransition target = createTeleportTarget(sw, entity, pos);
+            if (target != null) {
+                DimensionTransition newTarget = new DimensionTransition(
+                        sw,
+                        entity,
+                        target.postDimensionTransition()
+                );
+                entity.changeDimension(newTarget);
+            }
+            //?}
         }
         super.stepOn(world, pos, state, entity);
     }
 
-    @Nullable
+    //? if >= 26.2 {
+    /*@Nullable
     public TeleportTransition createTeleportTarget(ServerLevel world, Entity entity, BlockPos pos) {
-        ResourceKey<Level> registryKey = world.dimension() == CustomWorlds.WANDER ? Level.OVERWORLD : CustomWorlds.WANDER;
-        ServerLevel serverWorld = world.getServer().getLevel(registryKey);
-        if (serverWorld == null) {
-            return null;
-        }
-        WorldBorder worldBorder = serverWorld.getWorldBorder();
-        return this.getOrCreateExitPortalTarget(registryKey, serverWorld, entity, pos, worldBorder);
+        ResourceKey<Level> key = world.dimension() == CustomWorlds.WANDER ? Level.OVERWORLD : CustomWorlds.WANDER;
+        ServerLevel serverWorld = world.getServer().getLevel(key);
+        if (serverWorld == null) return null;
+        return getOrCreateExitPortalTarget(key, serverWorld, entity, pos, serverWorld.getWorldBorder());
     }
+    *///?} else {
+    @Nullable
+    public DimensionTransition createTeleportTarget(ServerLevel world, Entity entity, BlockPos pos) {
+        ResourceKey<Level> key = world.dimension() == CustomWorlds.WANDER ? Level.OVERWORLD : CustomWorlds.WANDER;
+        ServerLevel serverWorld = world.getServer().getLevel(key);
+        if (serverWorld == null) return null;
+        return getOrCreateExitPortalTarget(key, serverWorld, entity, pos, serverWorld.getWorldBorder());
+    }
+    //?}
 
     public List<BlockPos> getPortalPos(BlockPos pos, ServerLevel world, WorldBorder worldBorder) {
         PoiManager pointOfInterestStorage = world.getPoiManager();
@@ -249,24 +307,46 @@ public class DarkTeleporter extends Block {
                 .toList();
     }
 
-    private TeleportTransition getOrCreateExitPortalTarget(ResourceKey<Level> worldKey, ServerLevel world, Entity entity2, BlockPos pos, WorldBorder worldBorder) {
-        TeleportTransition.PostTeleportTransition postDimensionTransition;
+    //? if >= 26.2 {
+    /*private TeleportTransition getOrCreateExitPortalTarget(ResourceKey<Level> worldKey,
+                                                          ServerLevel world, Entity entity2,
+                                                          BlockPos pos, WorldBorder worldBorder) {
+        TeleportTransition.PostTeleportTransition post;
         BlockUtil.FoundRectangle rectangle;
         List<BlockPos> optional = getPortalPos(pos, world, worldBorder);
         if (!optional.isEmpty()) {
             BlockPos blockPos = optional.getFirst();
             rectangle = new BlockUtil.FoundRectangle(blockPos, 1, 3);
-            postDimensionTransition = TeleportTransition.PLAY_PORTAL_SOUND.then(entity -> entity.placePortalTicket(pos));
+            post = TeleportTransition.PLAY_PORTAL_SOUND.then(e -> e.placePortalTicket(pos));
         } else {
-            if (worldKey.equals(CustomWorlds.COSMIC) && pos.getY() < 100) {
-                rectangle = createPortal(worldKey, world, new BlockPos(pos.getX(), 100, pos.getZ())).get();
-            } else {
-                rectangle = createPortal(worldKey, world, new BlockPos(pos.getX(), 60, pos.getZ())).get();
-            }
-            postDimensionTransition = TeleportTransition.PLAY_PORTAL_SOUND.then(TeleportTransition.PLACE_PORTAL_TICKET);
+            int y = worldKey.equals(CustomWorlds.WANDER) && pos.getY() < 100 ? 100 : 60;
+            rectangle = createPortal(worldKey, world, new BlockPos(pos.getX(), y, pos.getZ())).get();
+            post = TeleportTransition.PLAY_PORTAL_SOUND.then(TeleportTransition.PLACE_PORTAL_TICKET);
         }
-        return new TeleportTransition(world, Vec3.atCenterOf(rectangle.minCorner.above()), Vec3.ZERO, entity2.getYRot(), entity2.getXRot(), Relative.union(Relative.DELTA, Relative.ROTATION), postDimensionTransition);
+        return new TeleportTransition(world, Vec3.atCenterOf(rectangle.minCorner.above()),
+                Vec3.ZERO, entity2.getYRot(), entity2.getXRot(),
+                Relative.union(Relative.DELTA, Relative.ROTATION), post);
     }
+    *///?} else {
+    private DimensionTransition getOrCreateExitPortalTarget(ResourceKey<Level> worldKey,
+                                                            ServerLevel world, Entity entity2,
+                                                            BlockPos pos, WorldBorder worldBorder) {
+        DimensionTransition.PostDimensionTransition post;
+        BlockUtil.FoundRectangle rectangle;
+        List<BlockPos> optional = getPortalPos(pos, world, worldBorder);
+        if (!optional.isEmpty()) {
+            BlockPos blockPos = optional.getFirst();
+            rectangle = new BlockUtil.FoundRectangle(blockPos, 1, 3);
+            post = DimensionTransition.PLAY_PORTAL_SOUND.then(e -> e.placePortalTicket(pos));
+        } else {
+            int y = worldKey.equals(CustomWorlds.WANDER) && pos.getY() < 100 ? 100 : 60;
+            rectangle = createPortal(worldKey, world, new BlockPos(pos.getX(), y, pos.getZ())).get();
+            post = DimensionTransition.PLAY_PORTAL_SOUND.then(DimensionTransition.PLACE_PORTAL_TICKET);
+        }
+        return new DimensionTransition(world, Vec3.atCenterOf(rectangle.minCorner.above()),
+                Vec3.ZERO, entity2.getYRot(), entity2.getXRot(), post);
+    }
+    //?}
 
     @Override
     protected FluidState getFluidState(BlockState state) {
@@ -275,41 +355,41 @@ public class DarkTeleporter extends Block {
 
     @Override
     protected VoxelShape getCollisionShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
-        return collision(state,world,pos,context);
+        return collision(state, world, pos, context);
     }
 
     @Override
     protected VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
-        return collision(state,world,pos,context);
+        return collision(state, world, pos, context);
     }
 
     protected VoxelShape collision(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
-        Map<Direction, VoxelShape> SIDEMAP = Shapes.rotateAll(SIDESHAPE);
+        //? if >= 26.2 {
+        /*Map<Direction, VoxelShape> SIDEMAP = Shapes.rotateAll(SIDESHAPE);
         Map<Direction, VoxelShape> CORNERMAP = Shapes.rotateAll(CORNERSHAPE);
-        if (state.getValue(STATE).equals(DarkTeleporterState.north)) {
-            return SIDEMAP.get(Direction.NORTH);
-        }
-        if (state.getValue(STATE).equals(DarkTeleporterState.south)) {
-            return SIDEMAP.get(Direction.SOUTH);
-        }
-        if (state.getValue(STATE).equals(DarkTeleporterState.east)) {
-            return SIDEMAP.get(Direction.EAST);
-        }
-        if (state.getValue(STATE).equals(DarkTeleporterState.west)) {
-            return SIDEMAP.get(Direction.WEST);
-        }
-        if (state.getValue(STATE).equals(DarkTeleporterState.north_east)) {
-            return CORNERMAP.get(Direction.NORTH);
-        }
-        if (state.getValue(STATE).equals(DarkTeleporterState.north_west)) {
-            return CORNERMAP.get(Direction.WEST);
-        }
-        if (state.getValue(STATE).equals(DarkTeleporterState.south_east)) {
-            return CORNERMAP.get(Direction.EAST);
-        }
-        if (state.getValue(STATE).equals(DarkTeleporterState.south_west)) {
-            return CORNERMAP.get(Direction.SOUTH);
-        }
+        *///?} else {
+        Map<Direction, VoxelShape> SIDEMAP = Map.of(
+                Direction.NORTH, SIDESHAPE,
+                Direction.SOUTH, SIDESHAPE.getFaceShape(Direction.SOUTH),
+                Direction.EAST, SIDESHAPE.getFaceShape(Direction.EAST),
+                Direction.WEST, SIDESHAPE.getFaceShape(Direction.WEST)
+        );
+        Map<Direction, VoxelShape> CORNERMAP = Map.of(
+                Direction.NORTH, CORNERSHAPE,
+                Direction.SOUTH, CORNERSHAPE.getFaceShape(Direction.SOUTH),
+                Direction.EAST, CORNERSHAPE.getFaceShape(Direction.EAST),
+                Direction.WEST, CORNERSHAPE.getFaceShape(Direction.WEST)
+        );
+        //?}
+        DarkTeleporterState cts = state.getValue(STATE);
+        if (cts == DarkTeleporterState.north) return SIDEMAP.get(Direction.NORTH);
+        if (cts == DarkTeleporterState.south) return SIDEMAP.get(Direction.SOUTH);
+        if (cts == DarkTeleporterState.east)  return SIDEMAP.get(Direction.EAST);
+        if (cts == DarkTeleporterState.west)  return SIDEMAP.get(Direction.WEST);
+        if (cts == DarkTeleporterState.north_east) return CORNERMAP.get(Direction.NORTH);
+        if (cts == DarkTeleporterState.north_west) return CORNERMAP.get(Direction.WEST);
+        if (cts == DarkTeleporterState.south_east) return CORNERMAP.get(Direction.EAST);
+        if (cts == DarkTeleporterState.south_west) return CORNERMAP.get(Direction.SOUTH);
         return MIDDLESHAPE;
     }
 
@@ -331,7 +411,6 @@ public class DarkTeleporter extends Block {
     public void setPlacedBy(Level world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
         portalPlace(world, pos, false, false);
     }
-
 
     public static void portalPlace(Level world, BlockPos root, Boolean isAir, Boolean isPlatform) {
         world.setBlockAndUpdate(root, ModBlock.DARK_TELEPORTER.get().defaultBlockState().setValue(DarkTeleporter.STATE, DarkTeleporterState.middle));
@@ -430,17 +509,29 @@ public class DarkTeleporter extends Block {
         double e = -1.0;
         BlockPos blockPos2 = null;
         WorldBorder worldBorder = world.getWorldBorder();
-        int i = Math.min(world.getMaxY(), world.getMinY() + world.getHeight() - 1);
+        //? if >= 26.2 {
+        /*int i = Math.min(world.getMaxY(), world.getMinY() + world.getHeight() - 1);
+         *///?} else {
+        int i = Math.min(((LevelHeightAccessor) world).getMaxBuildHeight(), ((LevelHeightAccessor) world).getMinBuildHeight() + world.getHeight() - 1);
+        //?}
         boolean j = true;
         BlockPos.MutableBlockPos mutable = pos.mutable();
         for (BlockPos.MutableBlockPos mutable2 : BlockPos.spiralAround(pos, 0, Direction.EAST, Direction.SOUTH)) {
             int k = Math.min(i, world.getHeight(Heightmap.Types.MOTION_BLOCKING, mutable2.getX(), mutable2.getZ()));
             if (!worldBorder.isWithinBounds(mutable2)) continue;
-            for (l = k; l >= world.getMinY(); --l) {
+            //? if >= 26.2 {
+            /*for (l = k; l >= world.getMinY(); --l) {
+             *///?} else {
+            for (l = k; l >= ((LevelHeightAccessor) world).getMinBuildHeight(); --l) {
+                //?}
                 mutable2.setY(l);
                 if (!this.isBlockStateValid(world, mutable2)) continue;
                 m = l;
-                while (l > world.getMinY() && this.isBlockStateValid(world, mutable2.move(Direction.DOWN))) {
+                //? if >= 26.2 {
+                /*while (l > world.getMinY() && this.isBlockStateValid(world, mutable2.move(Direction.DOWN))) {
+                 *///?} else {
+                while (l > ((LevelHeightAccessor) world).getMinBuildHeight() && this.isBlockStateValid(world, mutable2.move(Direction.DOWN))) {
+                    //?}
                     --l;
                 }
                 if (l + 4 > i || (n = m - l) > 0 && n < 3) continue;
@@ -463,10 +554,18 @@ public class DarkTeleporter extends Block {
         if (d == -1.0) {
             int p = i - 9;
             int o;
-            if (worldKey.equals(CustomWorlds.COSMIC)) {
-                o = Math.max(world.getMinY() - -1, 120);
+            if (worldKey.equals(CustomWorlds.WANDER)) {
+                //? if >= 26.2 {
+                /*o = Math.max(world.getMinY() - -1, 120);
+                 *///?} else {
+                o = Math.max(((LevelHeightAccessor) world).getMinBuildHeight() - -1, 120);
+                //?}
             } else {
-                o = Math.max(world.getMinY() - -1, 70);
+                //? if >= 26.2 {
+                /*o = Math.max(world.getMinY() - -1, 70);
+                 *///?} else {
+                o = Math.max(((LevelHeightAccessor) world).getMinBuildHeight() - -1, 70);
+                //?}
             }
             if (p < o) {
                 return Optional.empty();

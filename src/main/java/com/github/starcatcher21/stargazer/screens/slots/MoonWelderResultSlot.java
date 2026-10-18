@@ -54,7 +54,11 @@ public class MoonWelderResultSlot
     @Override
     protected void checkTakeAchievements(ItemStack stack) {
         if (this.amount > 0) {
-            stack.onCraftedBy(this.player, this.amount);
+            //? if >= 26.2 {
+            /*stack.onCraftedBy(this.player, this.amount);
+             *///?} else {
+            stack.onCraftedBy(this.player.level(), this.player, this.amount);
+            //?}
         }
         this.amount = 0;
     }
@@ -70,7 +74,11 @@ public class MoonWelderResultSlot
     private NonNullList<ItemStack> getRecipeRemainders(MoonWelderRecipeInput input, Level world) {
         if (world instanceof ServerLevel) {
             ServerLevel serverWorld = (ServerLevel)world;
-            return serverWorld.recipeAccess().getRecipeFor(RecipeTypes.MOON_WELDER.get(), input, serverWorld).map(recipe -> ((MoonWelderRecipe)recipe.value()).getRecipeRemainders(input)).orElseGet(() -> MoonWelderResultSlot.copyInput(input));
+            //? if >= 26.2 {
+            /*return serverWorld.recipeAccess().getRecipeFor(RecipeTypes.MOON_WELDER.get(), input, serverWorld).map(recipe -> ((MoonWelderRecipe)recipe.value()).getRecipeRemainders(input)).orElseGet(() -> MoonWelderResultSlot.copyInput(input));
+             *///?} else {
+            return serverWorld.getRecipeManager().getRecipeFor(RecipeTypes.MOON_WELDER.get(), input, serverWorld).map(recipe -> ((MoonWelderRecipe)recipe.value()).getRecipeRemainders(input)).orElseGet(() -> MoonWelderResultSlot.copyInput(input));
+            //?}
         }
         return MoonWelderRecipe.collectRecipeRemainders(input);
     }
@@ -105,7 +113,11 @@ public class MoonWelderResultSlot
             }
         }
         if (player instanceof ServerPlayer spe) {
-            Criterias.MOON_WELD.listen(crit -> crit.trigger(spe, stack.getItem()));
+            //? if >= 26.2 {
+            /*Criterias.MOON_WELD.listen(crit -> crit.trigger(spe, stack.getItem()));
+             *///?} else {
+            Criterias.MOON_WELD.trigger(spe, stack.getItem());
+            //?}
         }
     }
 

@@ -1,19 +1,19 @@
 package com.github.starcatcher21.stargazer.entity.models;
 
 import com.github.starcatcher21.stargazer.Stargazer;
-import com.github.starcatcher21.stargazer.entity.DataTickets;
 import com.github.starcatcher21.stargazer.entity.Star;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.DyeColor;
 //? if >= 26.2 {
 /*import software.bernie.geckolib.model.GeoModel;
+import com.github.starcatcher21.stargazer.entity.DataTickets;
 import software.bernie.geckolib.renderer.base.GeoRenderState;
 *///? } else {
 import software.bernie.geckolib.model.GeoModel;
 //? }
 
 public class StarModel extends GeoModel<Star> {
-    private final ResourceLocation model =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "entity/star");
+    private final ResourceLocation model =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "geo/entity/star.geo.json");
     private final ResourceLocation animations =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "entity/star");
     private final ResourceLocation yellow =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/star_yellow.png");
     private final ResourceLocation red =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/star_red.png");

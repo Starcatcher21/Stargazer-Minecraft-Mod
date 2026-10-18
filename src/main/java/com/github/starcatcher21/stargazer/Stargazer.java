@@ -86,11 +86,30 @@ public final class Stargazer
     //? if neoforge {
     public Stargazer(IEventBus modEventBus, Dist dist) {
         modEventBus.addListener(this::commonSetup);
+        //? if >= 26.2 {
+        modEventBus.addListener(
+                net.neoforged.neoforge.data.event.GatherDataEvent.Server.class,
+                com.github.starcatcher21.stargazer.datagen.NeoForgeWorldgenDataGenerator::gatherServerData
+        );
+        modEventBus.addListener(
+                net.neoforged.neoforge.data.event.GatherDataEvent.Client.class,
+                com.github.starcatcher21.stargazer.datagen.NeoForgeWorldgenDataGenerator::gatherClientData
+        );
+        //?} else {
+        modEventBus.addListener(com.github.starcatcher21.stargazer.datagen.NeoForgeWorldgenDataGenerator::gatherData);
+        //?}
 
         RegistryKeys.ENTITY_DATA_SERIALIZERS.register(modEventBus);
+        StargazerAttributes.init(modEventBus);
+        //? if < 26.2 {
+        Criterias.init(modEventBus);
+        //?}
 
         initCommon();
         if (dist.isClient()) {
+            //? if < 26.2 {
+            modEventBus.addListener(StargazerClient::registerScreens);
+            //?}
             StargazerClient.initClient();
             NeoForge.EVENT_BUS.register(StargazerNeoForgeRenderEvents.class);
         }
@@ -107,6 +126,7 @@ public final class Stargazer
         StargazerNetworking.registerPackets();
         ModItems.init();
         SoundEffects.init();
+        StatusEffects.init();
         ModBlock.init();
         RegistryKeys.init();
         ComponentTypes.init();
@@ -114,7 +134,6 @@ public final class Stargazer
         Patterns.init();
         ScreenHandlerTypes.init();
         CustomFeatures.init();
-        StatusEffects.init();
         Potions.init();
         GameRules.init();
         DamageTypeRegistry.init();
@@ -137,8 +156,12 @@ public final class Stargazer
         // Replaced Fabric ServerLifecycleEvents with Architectury LifecycleEvent
         LifecycleEvent.SERVER_STARTED.register(server -> {
             var registryManager = server.registryAccess();
-            Registry<Patterns> patterns = registryManager.lookupOrThrow(RegistryKeys.STAR_PATTERN);
-            LOGGER.info("Loaded: " + patterns.keySet().size() + " Star Patterns");
+            //? if >= 26.2 {
+            /*long patternCount = registryManager.lookupOrThrow(RegistryKeys.STAR_PATTERN).size();
+             *///?} else {
+            long patternCount = registryManager.lookupOrThrow(RegistryKeys.STAR_PATTERN).listElements().count();
+            //?}
+            LOGGER.info("Loaded: " + patternCount + " Star Patterns");
         });
 
         LifecycleEvent.SETUP.register(() -> {

@@ -16,6 +16,7 @@ import com.github.starcatcher21.stargazer.block.clases.teleporter.EndTeleporter;
 import com.github.starcatcher21.stargazer.block.clases.teleporter.RedTeleporter;
 import com.github.starcatcher21.stargazer.block.register.*;
 import com.github.starcatcher21.stargazer.item.ModItems;
+import com.mojang.serialization.MapCodec;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.registries.Registries;
@@ -41,7 +42,7 @@ public class ModBlock {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(Stargazer.MOD_ID, Registries.BLOCK);
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(Stargazer.MOD_ID, Registries.ITEM);
 
-    private static final Map<Identifier, Block> INSTANCE_CACHE = new ConcurrentHashMap<>();
+    private static final Map<ResourceLocation, Block> INSTANCE_CACHE = new ConcurrentHashMap<>();
 
     public static void cacheBlock(ResourceLocation id, Block block) {
         if (id != null && block != null) {
@@ -68,7 +69,11 @@ public class ModBlock {
 
     public static final RegistrySupplier<Block> NEGATIVE_BLOCK = register("negative_block", NegativeBlock::new, BlockBehaviour.Properties.of()
             .noOcclusion()
-            .noCollision()
+            //? if >= 26.2 {
+            /*.noCollision()
+            *///? } else {
+            .noCollission()
+            //? }
             .requiresCorrectToolForDrops()
             .strength(0.2f)
             .pushReaction(PushReaction.BLOCK)
@@ -76,7 +81,11 @@ public class ModBlock {
 
     public static final RegistrySupplier<Block> NORED_BLOCK = register("no_red_block", NoRedBlock::new, BlockBehaviour.Properties.of()
             .noOcclusion()
-            .noCollision()
+            //? if >= 26.2 {
+            /*.noCollision()
+             *///? } else {
+            .noCollission()
+            //? }
             .requiresCorrectToolForDrops()
             .strength(0.2f)
             .pushReaction(PushReaction.BLOCK)
@@ -84,7 +93,11 @@ public class ModBlock {
 
     public static final RegistrySupplier<Block> NOGREEN_BLOCK = register("no_green_block", NoGreenBlock::new, BlockBehaviour.Properties.of()
             .noOcclusion()
-            .noCollision()
+            //? if >= 26.2 {
+            /*.noCollision()
+             *///? } else {
+            .noCollission()
+            //? }
             .requiresCorrectToolForDrops()
             .strength(0.2f)
             .pushReaction(PushReaction.BLOCK)
@@ -92,7 +105,11 @@ public class ModBlock {
 
     public static final RegistrySupplier<Block> NOBLUE_BLOCK = register("no_blue_block", NoBlueBlock::new, BlockBehaviour.Properties.of()
             .noOcclusion()
-            .noCollision()
+            //? if >= 26.2 {
+            /*.noCollision()
+             *///? } else {
+            .noCollission()
+            //? }
             .requiresCorrectToolForDrops()
             .strength(0.2f)
             .pushReaction(PushReaction.BLOCK)
@@ -116,7 +133,11 @@ public class ModBlock {
 
     public static final RegistrySupplier<Block> BONEFLOWER = register("boneflower", settings -> new CosmicFlower(MobEffects.BLINDNESS, 5.0f, settings), BlockBehaviour.Properties.of()
             .mapColor(MapColor.COLOR_PURPLE)
-            .noCollision()
+            //? if >= 26.2 {
+            /*.noCollision()
+             *///? } else {
+            .noCollission()
+            //? }
             .instabreak()
             .sound(SoundType.GRASS)
             .offsetType(BlockBehaviour.OffsetType.XZ)
@@ -167,10 +188,20 @@ public class ModBlock {
             .sound(SoundType.METAL)
     );
 
-    public static final RegistrySupplier<Block> AMETHYST_DUST_BLOCK = register("amethyst_dust_block", properties -> new SandBlock(new ColorRGBA(0x8B5DCAFF), properties), BlockBehaviour.Properties.of()
+    public static final RegistrySupplier<Block> AMETHYST_DUST_BLOCK = register("amethyst_dust_block", properties -> /*? if >= 26.2 { *//*new SandBlock(new ColorRGBA(0x8B5DCAFF), properties) *//*? } else { */ new FallingBlock(properties) {
+                @Override
+                protected MapCodec<? extends FallingBlock> codec() {
+                    return simpleCodec(c -> this);
+                }
+            } /*? } */, BlockBehaviour.Properties.of()
             .sound(SoundType.SAND)
     );
-    public static final RegistrySupplier<Block> PURE_AMETHYST_DUST_BLOCK = register("pure_amethyst_dust_block", properties -> new SandBlock(new ColorRGBA(0x8B5DCAFF), properties), BlockBehaviour.Properties.of()
+    public static final RegistrySupplier<Block> PURE_AMETHYST_DUST_BLOCK = register("pure_amethyst_dust_block", properties -> /*? if >= 26.2 { *//*new SandBlock(new ColorRGBA(0x8B5DCAFF), properties) *//*? } else { */ new FallingBlock(properties) {
+                @Override
+                protected MapCodec<? extends FallingBlock> codec() {
+                    return simpleCodec(c -> this);
+                }
+            } /*? } */, BlockBehaviour.Properties.of()
             .sound(SoundType.SAND)
     );
 
@@ -180,7 +211,7 @@ public class ModBlock {
         ResourceLocation identifier =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, path);
         ResourceKey<Item> itemKey = ResourceKey.create(Registries.ITEM, identifier);
 
-        ITEMS.register(path, () -> new BlockItem(getRaw(blockSupplier), new Item.Properties().useBlockDescriptionPrefix().setId(itemKey)));
+        ITEMS.register(path, () -> new BlockItem(getRaw(blockSupplier), new Item.Properties()/*? if >= 26.2 { *//*.useBlockDescriptionPrefix().setId(itemKey)*//*? } */));
 
         return blockSupplier;
     }
@@ -190,7 +221,7 @@ public class ModBlock {
         ResourceKey<Block> registryKey = ResourceKey.create(Registries.BLOCK, identifier);
 
         return BLOCKS.register(path, () -> {
-            Block block = factory.apply(settings.setId(registryKey));
+            Block block = factory.apply(settings/*? if >= 26.2 { */ /*.setId(registryKey) *//*? } */);
             INSTANCE_CACHE.put(identifier, block);
             return block;
         });

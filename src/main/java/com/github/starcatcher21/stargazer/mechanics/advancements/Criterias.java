@@ -12,6 +12,10 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
+//? if < 26.2 {
+import net.minecraft.advancements.CriterionTrigger;
+import net.neoforged.bus.api.IEventBus;
+//?}
 
 public class Criterias {
     //? if >= 26.2 {
@@ -41,17 +45,31 @@ public class Criterias {
     public static final Negative NEGATIVE = new Negative();
     //? }
 
+    //? if < 26.2 {
+    private static final net.neoforged.neoforge.registries.DeferredRegister<CriterionTrigger<?>> TRIGGERS =
+            net.neoforged.neoforge.registries.DeferredRegister.create(Registries.TRIGGER_TYPE, Stargazer.MOD_ID);
+
+    static {
+        TRIGGERS.register("starcatching", () -> STARCATCHING);
+        TRIGGERS.register("star_modifier", () -> STAR_MODIFIER);
+        TRIGGERS.register("cosmic_portal", () -> COSMIC_PORTAL);
+        TRIGGERS.register("star_trap", () -> STAR_TRAP);
+        TRIGGERS.register("forge_craft", () -> FORGE_CRAFT);
+        TRIGGERS.register("moon_weld", () -> MOON_WELD);
+        TRIGGERS.register("negative", () -> NEGATIVE);
+    }
+    //?}
+
     public static void init() {
         //? if >= 26.2 {
         /*TRIGGERS.register();
         *///? } else {
-        CriteriaTriggers.register("starcatching", STARCATCHING);
-        CriteriaTriggers.register("star_modifier", STAR_MODIFIER);
-        CriteriaTriggers.register("cosmic_portal", COSMIC_PORTAL);
-        CriteriaTriggers.register("star_trap", STAR_TRAP);
-        CriteriaTriggers.register("forge_craft", FORGE_CRAFT);
-        CriteriaTriggers.register("moon_weld", MOON_WELD);
-        CriteriaTriggers.register("negative", NEGATIVE);
         //? }
     }
+
+    //? if < 26.2 {
+    public static void init(IEventBus modEventBus) {
+        TRIGGERS.register(modEventBus);
+    }
+    //?}
 }

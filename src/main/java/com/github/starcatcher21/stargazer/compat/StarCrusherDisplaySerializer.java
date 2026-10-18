@@ -5,6 +5,7 @@ import com.github.starcatcher21.stargazer.screens.recipe.serializer.ShapedStarCr
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.shedaniel.rei.api.common.display.DisplaySerializer;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 
@@ -19,13 +20,25 @@ public class StarCrusherDisplaySerializer implements DisplaySerializer<StarCrush
             StarCrusherDisplay::recipe,
             StarCrusherDisplay::new
     );
-    @Override
+    //? if >= 26.2 {
+    /*@Override
     public MapCodec<StarCrusherDisplay> codec() {
         return CODEC;
     }
 
-    @Override
     public StreamCodec<RegistryFriendlyByteBuf, StarCrusherDisplay> streamCodec() {
         return PACKET_CODEC;
     }
+    *///? } else {
+    @Override
+    public CompoundTag save(CompoundTag tag, StarCrusherDisplay display) {
+        tag.put("recipe", LegacyDisplayCodec.encode(ShapedStarCrusherRecipe.CODEC.codec(), display.recipe()));
+        return tag;
+    }
+
+    @Override
+    public StarCrusherDisplay read(CompoundTag tag) {
+        return new StarCrusherDisplay(LegacyDisplayCodec.decode(ShapedStarCrusherRecipe.CODEC.codec(), tag.get("recipe")));
+    }
+    //? }
 }

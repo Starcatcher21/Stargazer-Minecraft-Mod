@@ -3,12 +3,11 @@ package com.github.starcatcher21.stargazer.item.classes;
 import com.github.starcatcher21.stargazer.screens.StarBookScreenHandler;
 import net.minecraft.network.chat.Component;
 import net.minecraft.stats.Stats;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.MenuProvider;
-import net.minecraft.world.SimpleMenuProvider;
+import net.minecraft.world.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 
 public class StarBook extends Item {
@@ -18,7 +17,7 @@ public class StarBook extends Item {
     }
 
     @Override
-    public InteractionResult use(Level world, Player user, InteractionHand hand) {
+    public /*? if 26.2 { *//*InteractionResult*//*? } else { */ InteractionResultHolder /*? } */ use(Level world, Player user, InteractionHand hand) {
         if (!world.isClientSide()) {
 
             MenuProvider factory = new SimpleMenuProvider(
@@ -30,6 +29,10 @@ public class StarBook extends Item {
         }
 
         user.awardStat(Stats.ITEM_USED.get(this));
-        return InteractionResult.SUCCESS;
+        //? if >= 26.2 {
+        /*return InteractionResult.SUCCESS;
+        *///? } else {
+        return InteractionResultHolder.success(Items.AIR.getDefaultInstance());
+        //? }
     }
 }

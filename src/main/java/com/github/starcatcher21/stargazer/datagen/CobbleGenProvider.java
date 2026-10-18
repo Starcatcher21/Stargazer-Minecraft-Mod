@@ -1,4 +1,4 @@
-/*? if fabric {*/
+/*? if fabric || neoforge {*/
 /*package com.github.starcatcher21.stargazer.datagen;
 
 import com.github.starcatcher21.stargazer.Stargazer;
@@ -8,7 +8,7 @@ import com.github.starcatcher21.stargazer.block.register.RedOrbBlocks;
 import com.github.starcatcher21.stargazer.block.register.StarBlocks;
 import com.github.starcatcher21.starlib.datagen.provider.CobblegenDataProvider;
 import com.github.starcatcher21.starlib.mechanics.Generators.CobbleGen;
-import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.minecraft.data.PackOutput;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.FluidTags;
@@ -18,7 +18,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 
 public class CobbleGenProvider extends CobblegenDataProvider {
-    public CobbleGenProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+    public CobbleGenProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
         super(output, registriesFuture);
     }
 
@@ -66,7 +66,7 @@ public class CobbleGenProvider extends CobblegenDataProvider {
     );
 
     @Override
-    protected void addCobblegen(BiConsumer<Identifier, CobbleGen> exporter, HolderLookup.Provider registries) {
+    protected void addCobblegen(BiConsumer<ResourceLocation, CobbleGen> exporter, HolderLookup.Provider registries) {
         exporter.accept(
               ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "blue"),
                 BLUE

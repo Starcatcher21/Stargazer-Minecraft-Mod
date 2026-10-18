@@ -11,7 +11,7 @@ import software.bernie.geckolib.model.GeoModel;
 //? }
 
 public class BlackRookModel extends GeoModel<BlackRook> {
-    private final ResourceLocation model =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "entity/rook");
+    private final ResourceLocation model =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "geo/entity/rook.geo.json");
     private final ResourceLocation animations =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "entity/rook");
     private final ResourceLocation texture =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/black_rook.png");
 

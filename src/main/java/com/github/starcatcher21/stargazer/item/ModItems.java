@@ -221,7 +221,6 @@ public final class ModItems {
     );
     public static final RegistrySupplier<Item> ECTOPLASM = register("ectoplasm", Item::new, new Item.Properties().stacksTo(16));
     public static final RegistrySupplier<Item> COOLER_ECTOPLASM = register("cooler_ectoplasm", Item::new, new Item.Properties().stacksTo(16));
-    public static final RegistrySupplier<Item> RED_ORB_PLATFORM_BASE = register("red_orb_platform_base", Item::new, new Item.Properties());
     public static final RegistrySupplier<Item> WHITE_BRICK = register("white_brick", Item::new, new Item.Properties());
     public static final RegistrySupplier<Item> BLACK_BRICK = register("black_brick", Item::new, new Item.Properties());
 

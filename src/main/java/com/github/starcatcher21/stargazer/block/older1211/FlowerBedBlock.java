@@ -2,6 +2,7 @@
 package com.github.starcatcher21.stargazer.block.older1211;
 
 import com.mojang.serialization.MapCodec;
+import java.util.Map;
 import java.util.function.Function;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -29,7 +30,7 @@ public class FlowerBedBlock extends VegetationBlock implements BonemealableBlock
     public static final MapCodec<FlowerBedBlock> CODEC = simpleCodec(FlowerBedBlock::new);
     public static final EnumProperty<Direction> FACING;
     public static final IntegerProperty AMOUNT;
-    private final Function<BlockState, VoxelShape> shapes;
+    private final Map<BlockState, VoxelShape> shapes;
 
     public MapCodec<FlowerBedBlock> codec() {
         return CODEC;
@@ -41,8 +42,8 @@ public class FlowerBedBlock extends VegetationBlock implements BonemealableBlock
         this.shapes = this.makeShapes();
     }
 
-    private Function<BlockState, VoxelShape> makeShapes() {
-        return (Function<BlockState, VoxelShape>) this.getShapeForEachState(this.getShapeCalculator(FACING, AMOUNT));
+    private Map<BlockState, VoxelShape> makeShapes() {
+        return this.getShapeForEachState(this.getShapeCalculator(FACING, AMOUNT));
     }
 
     public BlockState rotate(final BlockState state, final Rotation rotation) {
@@ -58,7 +59,7 @@ public class FlowerBedBlock extends VegetationBlock implements BonemealableBlock
     }
 
     public VoxelShape getShape(final BlockState state, final BlockGetter level, final BlockPos pos, final CollisionContext context) {
-        return (VoxelShape)this.shapes.apply(state);
+        return this.shapes.get(state);
     }
 
     public double getShapeHeight() {

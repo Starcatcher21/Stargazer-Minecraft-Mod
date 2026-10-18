@@ -5,12 +5,7 @@ import com.github.starcatcher21.stargazer.entity.models.GhostModel;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.EntityEvent;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.PathfinderMob;
-import net.minecraft.world.entity.Pose;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.FlyingMoveControl;
@@ -39,6 +34,7 @@ import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.AnimatableManager;
 import software.bernie.geckolib.animation.AnimationController;
+import software.bernie.geckolib.animation.AnimationState;
 import software.bernie.geckolib.animation.PlayState;
 import software.bernie.geckolib.animation.RawAnimation;
 import software.bernie.geckolib.util.GeckoLibUtil;
@@ -86,13 +82,14 @@ public class Ghost extends PathfinderMob implements GeoEntity {
 
     @Override
     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
-        //? if >= 26.2 {
-        /*controllers.add(new AnimationController<GeoAnimatable>("MovementController", 5, this::AnimController));
-        *///? }
+        controllers.add(new AnimationController<GeoAnimatable>(/*? if < 26.2 { */ this, /*? } */"MovementController", 5, this::AnimControler));
     }
 
     //? if >= 26.2 {
-    /*private PlayState AnimController(AnimationTest<GeoAnimatable> animTest) {
+    /*protected PlayState AnimControler(final AnimationTest<?> animTest) {
+    *///? } else {
+    protected PlayState AnimControler(final AnimationState<GeoAnimatable> animTest) {
+    //? }
         int rand = this.random.nextInt(5);
         if (rand > 3 & !animTest.isMoving()) {
             return animTest.setAndContinue(IDLE_ANIM);
@@ -103,7 +100,6 @@ public class Ghost extends PathfinderMob implements GeoEntity {
         }
         return PlayState.STOP;
     }
-    *///? }
 
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {

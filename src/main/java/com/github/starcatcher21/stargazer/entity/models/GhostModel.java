@@ -1,10 +1,10 @@
 package com.github.starcatcher21.stargazer.entity.models;
 
 import com.github.starcatcher21.stargazer.Stargazer;
-import com.github.starcatcher21.stargazer.entity.DataTickets;
 import com.github.starcatcher21.stargazer.entity.Ghost;
 //? if >= 26.2 {
 /*import software.bernie.geckolib.model.GeoModel;
+import com.github.starcatcher21.stargazer.entity.DataTickets;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import software.bernie.geckolib.renderer.base.GeoRenderState;
 *///? } else {
@@ -16,7 +16,7 @@ import java.util.Set;
 import net.minecraft.resources.ResourceLocation;
 
 public class GhostModel extends GeoModel<Ghost> {
-    private final ResourceLocation model =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "entity/ghost");
+    private final ResourceLocation model =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "geo/entity/ghost.geo.json");
     private final ResourceLocation animations =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "entity/ghost");
     private final ResourceLocation texture =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/ghost.png");
     private final ResourceLocation texture_blinky =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/ghost_blinky.png");

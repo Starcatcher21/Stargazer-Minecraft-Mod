@@ -296,7 +296,11 @@ public class MoonBlocks {
             .mapColor(MapColor.SNOW)
     );
     public static final RegistrySupplier<Block> MOON_PLANKS_BUTTON = register("moon_planks_button", (BlockBehaviour.Properties settings) -> new ButtonBlock(BlockSetType.OAK, 30, (BlockBehaviour.Properties) settings), BlockBehaviour.Properties.of()
-            .noCollision()
+            //? if >= 26.2 {
+            /*.noCollision()
+             *///? } else {
+            .noCollission()
+            //? }
             .sound(SoundType.WOOD)
             .instrument(NoteBlockInstrument.BASS)
             .strength(1.0F)
@@ -338,7 +342,11 @@ public class MoonBlocks {
             .mapColor(MapColor.COLOR_RED)
     );
     public static final RegistrySupplier<Block> RED_MOON_PLANKS_BUTTON = register("red_moon_planks_button", (BlockBehaviour.Properties settings) -> new ButtonBlock(BlockSetType.OAK, 30, (BlockBehaviour.Properties) settings), BlockBehaviour.Properties.of()
-            .noCollision()
+            //? if >= 26.2 {
+            /*.noCollision()
+             *///? } else {
+            .noCollission()
+            //? }
             .sound(SoundType.WOOD)
             .instrument(NoteBlockInstrument.BASS)
             .strength(1.0F)
@@ -380,7 +388,11 @@ public class MoonBlocks {
             .mapColor(MapColor.COLOR_BLUE)
     );
     public static final RegistrySupplier<Block> BLUE_MOON_PLANKS_BUTTON = register("blue_moon_planks_button", (BlockBehaviour.Properties settings) -> new ButtonBlock(BlockSetType.OAK, 30, (BlockBehaviour.Properties) settings), BlockBehaviour.Properties.of()
-            .noCollision()
+            //? if >= 26.2 {
+            /*.noCollision()
+             *///? } else {
+            .noCollission()
+            //? }
             .sound(SoundType.WOOD)
             .instrument(NoteBlockInstrument.BASS)
             .strength(1.0F)
@@ -422,7 +434,11 @@ public class MoonBlocks {
             .mapColor(MapColor.COLOR_YELLOW)
     );
     public static final RegistrySupplier<Block> YELLOW_MOON_PLANKS_BUTTON = register("yellow_moon_planks_button", (BlockBehaviour.Properties settings) -> new ButtonBlock(BlockSetType.OAK, 30, (BlockBehaviour.Properties) settings), BlockBehaviour.Properties.of()
-            .noCollision()
+            //? if >= 26.2 {
+            /*.noCollision()
+             *///? } else {
+            .noCollission()
+            //? }
             .sound(SoundType.WOOD)
             .instrument(NoteBlockInstrument.BASS)
             .strength(1.0F)
@@ -464,13 +480,17 @@ public class MoonBlocks {
             .mapColor(MapColor.ICE)
     );
     public static final RegistrySupplier<Block> PURPLE_MOON_PLANKS_BUTTON = register("purple_moon_planks_button", (BlockBehaviour.Properties settings) -> new ButtonBlock(BlockSetType.OAK, 30, (BlockBehaviour.Properties) settings), BlockBehaviour.Properties.of()
-            .noCollision()
+            //? if >= 26.2 {
+            /*.noCollision()
+             *///? } else {
+            .noCollission()
+            //? }
             .sound(SoundType.WOOD)
             .instrument(NoteBlockInstrument.BASS)
             .strength(1.0F)
             .mapColor(MapColor.ICE)
     );
-    public static final RegistrySupplier<Block> MOON_LEAVES = register("moon_leaves", (settings) -> new MoonLeaves(CommonColors.DARK_PURPLE, settings), BlockBehaviour.Properties.of()
+    public static final RegistrySupplier<Block> MOON_LEAVES = register("moon_leaves", (settings) -> new MoonLeaves(0x5A257A, settings), BlockBehaviour.Properties.of()
             .forceSolidOn()
             .noOcclusion()
             .randomTicks()
@@ -486,7 +506,11 @@ public class MoonBlocks {
             .mapColor(MapColor.FIRE)
     );
     public static final RegistrySupplier<Block> MOON_SAPLING = register("moon_sapling", (BlockBehaviour.Properties settings) -> new CustomSapling(Helpers.configuredFeatureOf(Stargazer.MOD_ID, "moon_trees"), settings), BlockBehaviour.Properties.of()
-            .noCollision()
+            //? if >= 26.2 {
+            /*.noCollision()
+             *///? } else {
+            .noCollission()
+            //? }
             .sound(SoundType.GRASS)
             .randomTicks()
             .instabreak()
@@ -494,14 +518,22 @@ public class MoonBlocks {
     public static final RegistrySupplier<Block> POTTED_MOON_SAPLING = registerWoItem("potted_moon_sapling", settings -> new FlowerPotBlock(MOON_SAPLING.get(), settings), BlockBehaviour.Properties.ofFullCopy(Blocks.POTTED_ALLIUM).noOcclusion());
 
     public static final RegistrySupplier<Block> FULL_MOON_SAPLING = register("full_moon_sapling", (BlockBehaviour.Properties settings) -> new CustomSapling(Helpers.configuredFeatureOf(Stargazer.MOD_ID, "full_moon_trees"), settings), BlockBehaviour.Properties.of()
-            .noCollision()
+            //? if >= 26.2 {
+            /*.noCollision()
+             *///? } else {
+            .noCollission()
+            //? }
             .sound(SoundType.GRASS)
             .randomTicks()
             .instabreak()
     );
     public static final RegistrySupplier<Block> POTTED_FULL_MOON_SAPLING = registerWoItem("potted_full_moon_sapling", settings -> new FlowerPotBlock(FULL_MOON_SAPLING.get(), settings), BlockBehaviour.Properties.ofFullCopy(Blocks.POTTED_ALLIUM).noOcclusion());
     public static final RegistrySupplier<Block> CURVE_SAPLING = register("curve_sapling", (BlockBehaviour.Properties settings) -> new CustomSapling(Helpers.configuredFeatureOf(Stargazer.MOD_ID, "curve_trees"), settings), BlockBehaviour.Properties.of()
-            .noCollision()
+            //? if >= 26.2 {
+            /*.noCollision()
+             *///? } else {
+            .noCollission()
+            //? }
             .sound(SoundType.GRASS)
             .randomTicks()
             .instabreak()
@@ -509,7 +541,11 @@ public class MoonBlocks {
     public static final RegistrySupplier<Block> POTTED_CURVE_SAPLING = registerWoItem("potted_curve_sapling", settings -> new FlowerPotBlock(CURVE_SAPLING.get(), settings), BlockBehaviour.Properties.ofFullCopy(Blocks.POTTED_ALLIUM).noOcclusion());
     public static final RegistrySupplier<Block> MOON_GRASS = register("moon_grass", MoonGrass::new, BlockBehaviour.Properties.of()
             .mapColor(MapColor.COLOR_PURPLE)
-            .noCollision()
+            //? if >= 26.2 {
+            /*.noCollision()
+             *///? } else {
+            .noCollission()
+            //? }
             .instabreak()
             .sound(SoundType.GRASS)
             .offsetType(BlockBehaviour.OffsetType.XZ)
@@ -517,7 +553,11 @@ public class MoonBlocks {
     );
     public static final RegistrySupplier<Block> MOON_FERN = register("moon_fern", MoonFern::new, BlockBehaviour.Properties.of()
             .mapColor(MapColor.COLOR_PURPLE)
-            .noCollision()
+            //? if >= 26.2 {
+            /*.noCollision()
+             *///? } else {
+            .noCollission()
+            //? }
             .instabreak()
             .sound(SoundType.GRASS)
             .offsetType(BlockBehaviour.OffsetType.XZ)
@@ -525,7 +565,11 @@ public class MoonBlocks {
     );
     public static final RegistrySupplier<Block> TALL_MOON_GRASS = register("tall_moon_grass", TallMoonGrass::new, BlockBehaviour.Properties.of()
             .mapColor(MapColor.COLOR_PURPLE)
-            .noCollision()
+            //? if >= 26.2 {
+            /*.noCollision()
+             *///? } else {
+            .noCollission()
+            //? }
             .instabreak()
             .sound(SoundType.GRASS)
             .offsetType(BlockBehaviour.OffsetType.XZ)
@@ -576,7 +620,11 @@ public class MoonBlocks {
             .mapColor(MapColor.COLOR_PURPLE)
     );
     public static final RegistrySupplier<Block> CURVE_PLANKS_BUTTON = register("curve_planks_button", (BlockBehaviour.Properties settings) -> new ButtonBlock(BlockSetType.OAK, 30, (BlockBehaviour.Properties) settings), BlockBehaviour.Properties.of()
-            .noCollision()
+            //? if >= 26.2 {
+            /*.noCollision()
+             *///? } else {
+            .noCollission()
+            //? }
             .sound(SoundType.WOOD)
             .instrument(NoteBlockInstrument.BASS)
             .strength(1.0F)
@@ -595,18 +643,30 @@ public class MoonBlocks {
             .sound(SoundType.PINK_PETALS)
             .ignitedByLava()
             .randomTicks()
-            .noCollision()
+            //? if >= 26.2 {
+            /*.noCollision()
+             *///? } else {
+            .noCollission()
+            //? }
     );
     public static final RegistrySupplier<Block> POTTED_PURPLE_MUSHROOM = registerWoItem("potted_purple_mushroom", settings -> new FlowerPotBlock(PURPLE_MUSHROOM.get(), settings), BlockBehaviour.Properties.ofFullCopy(Blocks.POTTED_ALLIUM).noOcclusion());
     public static final RegistrySupplier<Block> GEODE_FRUIT = registerWoItem("geode_fruit_block", GeodeFruit::new, BlockBehaviour.Properties.of()
             .strength(1.0f)
-            .noCollision()
+            //? if >= 26.2 {
+            /*.noCollision()
+             *///? } else {
+            .noCollission()
+            //? }
             .randomTicks()
             .sound(SoundType.STONE)
     );
     public static final RegistrySupplier<Block> STAR_TRAP = register("star_trap", StarTrap::new, BlockBehaviour.Properties.of()
             .mapColor(MapColor.COLOR_PURPLE)
-            .noCollision()
+            //? if >= 26.2 {
+            /*.noCollision()
+             *///? } else {
+            .noCollission()
+            //? }
             .instabreak()
             .sound(SoundType.GRASS)
             .pushReaction(PushReaction.DESTROY)
@@ -614,15 +674,23 @@ public class MoonBlocks {
 
     public static final RegistrySupplier<Block> FORGET_ME_NOW = register("forget_me_now", ForgetMeNow::new, BlockBehaviour.Properties.of()
             .mapColor(MapColor.NETHER)
-            .noCollision()
+            //? if >= 26.2 {
+            /*.noCollision()
+             *///? } else {
+            .noCollission()
+            //? }
             .sound(SoundType.PINK_PETALS)
             .pushReaction(PushReaction.DESTROY)
     );
     public static final RegistrySupplier<Block> POTTED_FORGET_ME_NOW = registerWoItem("potted_forget_me_now", (BlockBehaviour.Properties settings) -> new FlowerPotBlock(FORGET_ME_NOW.get(), settings), BlockBehaviour.Properties.ofFullCopy(Blocks.POTTED_ALLIUM).noOcclusion());
 
-    public static final RegistrySupplier<Block> SPRUNGUS = register("sprungus", settings -> new CosmicFlower(StatusEffects.COSMO.asHolder(), 5.0f, settings), BlockBehaviour.Properties.of()
+    public static final RegistrySupplier<Block> SPRUNGUS = register("sprungus", settings -> new CosmicFlower(StatusEffects.getHolder(StatusEffects.COSMO.get()), 5.0f, settings), BlockBehaviour.Properties.of()
             .mapColor(MapColor.COLOR_CYAN)
-            .noCollision()
+            //? if >= 26.2 {
+            /*.noCollision()
+             *///? } else {
+            .noCollission()
+            //? }
             .instabreak()
             .sound(SoundType.GRASS)
             .offsetType(BlockBehaviour.OffsetType.XZ)

@@ -2,17 +2,21 @@ package com.github.starcatcher21.stargazer.screens.recipeInputs;
 
 import com.github.starcatcher21.stargazer.screens.recipe.MoonWelderRecipeInput;
 import com.github.starcatcher21.stargazer.screens.recipe.MoonWelderRecipeInventory;
-import com.github.starcatcher21.stargazer.screens.recipe.StarforgeRecipeInput;
 import java.util.List;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.player.StackedItemContents;
+//? if >= 26.2 {
+/*import net.minecraft.world.entity.player.StackedItemContents;
+ *///?} else {
+import net.minecraft.world.entity.player.StackedContents;
+import net.minecraft.core.Holder;
+import net.minecraft.world.item.Item;
+//?}
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 
-public class MoonWelderInventory
-        implements MoonWelderRecipeInventory {
+public class MoonWelderInventory implements MoonWelderRecipeInventory {
     private final NonNullList<ItemStack> stacks;
     private final AbstractContainerMenu handler;
 
@@ -105,10 +109,22 @@ public class MoonWelderInventory
         return createPositionedRecipeInput().input();
     }
 
-    @Override
+    /* ---------------- fillStackedContents (signature differs) -------- */
+    //? if >= 26.2 {
+    /*@Override
     public void fillStackedContents(StackedItemContents finder) {
         for (ItemStack itemStack : this.stacks) {
             finder.accountSimpleStack(itemStack);
         }
     }
+    *///?} else {
+    @Override
+    public void fillStackedContents(StackedContents finder) {
+        for (ItemStack itemStack : this.stacks) {
+            if (!itemStack.isEmpty()) {
+                finder.accountStack(itemStack);
+            }
+        }
+    }
+    //?}
 }

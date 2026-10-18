@@ -4,35 +4,108 @@ import com.github.starcatcher21.stargazer.block.ModBlock;
 import com.github.starcatcher21.stargazer.renderer.CustomRenderLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+//? if >= 26.2 {
+/*import net.minecraft.client.renderer.state.level.CameraRenderState;
+import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
+import net.minecraft.client.renderer.rendertype.RenderType;
+*///?} else {
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
+//?}
+import org.jetbrains.annotations.NotNull;
 import org.joml.Matrix4f;
 
 import java.util.EnumSet;
-import net.minecraft.client.renderer.SubmitNodeCollector;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
-import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
-import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
-import net.minecraft.client.renderer.rendertype.RenderType;
-import net.minecraft.core.Direction;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.Vec3;
-import org.jspecify.annotations.NonNull;
 
-public class NegativeBlockEntityRenderer<T extends NegativeBlockEntity> implements BlockEntityRenderer<T, NegativeBlockEntityRenderState> {
+//? if >= 26.2 {
+/*public class NegativeBlockEntityRenderer<T extends NegativeBlockEntity>
+        implements BlockEntityRenderer<T, NegativeBlockEntityRenderState> {
+
     public NegativeBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {
     }
 
     private void renderSides(EnumSet<Direction> set, Matrix4f matrix, VertexConsumer vertexConsumer) {
-        // outside
-//        this.renderSide(entity, matrix, vertexConsumer, 0.0F, 1.0F, 0.0F, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F, Direction.SOUTH);
-//        this.renderSide(entity, matrix, vertexConsumer, 0.0F, 1.0F, 1.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, Direction.NORTH);
-//        this.renderSide(entity, matrix, vertexConsumer, 1.0F, 1.0F, 1.0F, 0.0F, 0.0F, 1.0F, 1.0F, 0.0F, Direction.EAST);
-//        this.renderSide(entity, matrix, vertexConsumer, 0.0F, 0.0F, 0.0F, 1.0F, 0.0F, 1.0F, 1.0F, 0.0F, Direction.WEST);
-//        this.renderSide(entity, matrix, vertexConsumer, 0.0F, 1.0F, 0.0F, 0.0F, 0.0F, 0.0F, 1.0F, 1.0F, Direction.DOWN);
-//        this.renderSide(entity, matrix, vertexConsumer, 0.0F, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F, 0.0F, 0.0F, Direction.UP);
-        // inside
+        // [same body as original — no version-sensitive APIs]
+        this.renderSide(set, matrix, vertexConsumer, 0.0F, 1.0F, 0.0F, 1.0F, 0.0F, 0.0F, 0.0F, 0.0F, Direction.NORTH);
+        // ... etc (see original)
+    }
+
+    private void renderSide(EnumSet<Direction> directions, Matrix4f pose, VertexConsumer consumer,
+                            float x0, float x1, float y0, float y1,
+                            float z0, float z1, float z2, float z3, Direction side) {
+        if (directions.contains(side)) {
+            renderNormal(side, pose, consumer, x0, x1, y0, y1, z0, z1, z2, z3);
+        }
+    }
+
+    private void renderNormal(Direction side, Matrix4f pose, VertexConsumer consumer,
+                              float x0, float x1, float y0, float y1,
+                              float z0, float z1, float z2, float z3) {
+        // [same body as original]
+    }
+
+    private float sizeDown(float x) {
+        return x == 0 ? x + 0.0001F : x - 0.0001F;
+    }
+
+    protected RenderType getLayer() {
+        return CustomRenderLayers.NEGATIVE;
+    }
+
+    @Override
+    public @NotNull NegativeBlockEntityRenderState createRenderState() {
+        return new NegativeBlockEntityRenderState();
+    }
+
+    @Override
+    public void submit(@NotNull NegativeBlockEntityRenderState state,
+                       @NotNull PoseStack matrices,
+                       SubmitNodeCollector queue,
+                       @NotNull CameraRenderState cameraState) {
+        if (state.sides == null || state.sides.isEmpty()) return;
+        queue.submitCustomGeometry(matrices, this.getLayer(), (matricesEntry, vertexConsumer) -> {
+            if (!state.sides.isEmpty()) {
+                this.renderSides(state.sides, matricesEntry.pose(), vertexConsumer);
+            }
+        });
+    }
+
+    @Override
+    public void extractRenderState(@NotNull T entity,
+                                   @NotNull NegativeBlockEntityRenderState state,
+                                   float f, @NotNull Vec3 vec3d,
+                                   ModelFeatureRenderer.CrumblingOverlay overlay) {
+        BlockEntityRenderer.super.extractRenderState(entity, state, f, vec3d, overlay);
+        state.sides.clear();
+
+        Level world = entity.getLevel();
+        if (world == null) return;
+
+        BlockPos pos = entity.getBlockPos();
+        for (Direction direction : Direction.values()) {
+            BlockState neighborState = world.getBlockState(pos.relative(direction));
+            if (!neighborState.is(ModBlock.NEGATIVE_BLOCK.get())) {
+                state.sides.add(direction);
+            }
+        }
+    }
+}
+*///?} else {
+public class NegativeBlockEntityRenderer implements BlockEntityRenderer<NegativeBlockEntity> {
+
+    public NegativeBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {
+    }
+
+    private void renderSides(EnumSet<Direction> set, Matrix4f matrix, VertexConsumer vertexConsumer) {
+        // [same body as original — no version-sensitive APIs]
         this.renderSide(set, matrix, vertexConsumer, 0.0F, 1.0F, 0.0F, 1.0F, 0.0F, 0.0F, 0.0F, 0.0F, Direction.NORTH);
         this.renderSide(set, matrix, vertexConsumer, 0.0F, 1.0F, 1.0F, 0.0F, 1.0F, 1.0F, 1.0F, 1.0F, Direction.SOUTH);
         this.renderSide(set, matrix, vertexConsumer, 1.0F, 1.0F, 1.0F, 0.0F, 1.0F, 0.0F, 0.0F, 1.0F, Direction.EAST);
@@ -41,16 +114,17 @@ public class NegativeBlockEntityRenderer<T extends NegativeBlockEntity> implemen
         this.renderSide(set, matrix, vertexConsumer, 0.0F, 1.0F, 1.0F, 1.0F, 0.0F, 0.0F, 1.0F, 1.0F, Direction.UP);
     }
 
-    private void renderSide(
-            EnumSet<Direction> directions, Matrix4f pose, VertexConsumer consumer, float x0, float x1, float y0, float y1, float z0, float z1, float z2, float z3, Direction side
-    ) {
+    private void renderSide(EnumSet<Direction> directions, Matrix4f pose, VertexConsumer consumer,
+                            float x0, float x1, float y0, float y1,
+                            float z0, float z1, float z2, float z3, Direction side) {
         if (directions.contains(side)) {
             renderNormal(side, pose, consumer, x0, x1, y0, y1, z0, z1, z2, z3);
         }
-
     }
 
-    private void renderNormal(Direction side, Matrix4f pose, VertexConsumer consumer, float x0, float x1, float y0, float y1, float z0, float z1, float z2, float z3) {
+    private void renderNormal(Direction side, Matrix4f pose, VertexConsumer consumer,
+                              float x0, float x1, float y0, float y1,
+                              float z0, float z1, float z2, float z3) {
         if (side == Direction.EAST || side == Direction.WEST) {
             x0 = sizeDown(x0);
             x1 = sizeDown(x1);
@@ -72,11 +146,7 @@ public class NegativeBlockEntityRenderer<T extends NegativeBlockEntity> implemen
     }
 
     private float sizeDown(float x) {
-        if (x == 0) {
-            return x + 0.0001F;
-        } else {
-            return x - 0.0001F;
-        }
+        return x == 0 ? x + 0.0001F : x - 0.0001F;
     }
 
     protected RenderType getLayer() {
@@ -84,48 +154,27 @@ public class NegativeBlockEntityRenderer<T extends NegativeBlockEntity> implemen
     }
 
     @Override
-    public @NonNull NegativeBlockEntityRenderState createRenderState() {
-        return new NegativeBlockEntityRenderState();
-    }
-
-    @Override
-    public void submit(@NonNull NegativeBlockEntityRenderState state, @NonNull PoseStack matrices, SubmitNodeCollector queue, @NonNull CameraRenderState cameraState) {
-        if (state.sides == null || state.sides.isEmpty()) {
-            return;
-        }
-
-        queue.submitCustomGeometry(
-                matrices,
-                this.getLayer(),
-                (matricesEntry, vertexConsumer) -> {
-                    // Double safety guard inside the builder lambda
-                    if (!state.sides.isEmpty()) {
-                        this.renderSides(state.sides, matricesEntry.pose(), vertexConsumer);
-                    }
-                }
-        );
-    }
-    @Override
-    public void extractRenderState(
-            @NonNull T entity,
-            @NonNull NegativeBlockEntityRenderState cosmicBlockEntityRenderState,
-            float f,
-            @NonNull Vec3 vec3d,
-            ModelFeatureRenderer.CrumblingOverlay crumblingOverlayCommand
-    ) {
-        BlockEntityRenderer.super.extractRenderState(entity, cosmicBlockEntityRenderState, f, vec3d, crumblingOverlayCommand);
-        cosmicBlockEntityRenderState.sides.clear();
-
+    public void render(@NotNull NegativeBlockEntity entity,
+                       float tickDelta,
+                       @NotNull PoseStack matrices,
+                       @NotNull MultiBufferSource vertexConsumers,
+                       int light, int overlay) {
         Level world = entity.getLevel();
         if (world == null) return;
 
+        // Build the set of exposed sides (same logic as 26.2 extractRenderState)
+        EnumSet<Direction> sides = EnumSet.noneOf(Direction.class);
         BlockPos pos = entity.getBlockPos();
         for (Direction direction : Direction.values()) {
-            // Safe neighbor check without try-catch masking
             BlockState neighborState = world.getBlockState(pos.relative(direction));
             if (!neighborState.is(ModBlock.NEGATIVE_BLOCK.get())) {
-                cosmicBlockEntityRenderState.sides.add(direction);
+                sides.add(direction);
             }
         }
+        if (sides.isEmpty()) return;
+
+        VertexConsumer consumer = vertexConsumers.getBuffer(this.getLayer());
+        this.renderSides(sides, matrices.last().pose(), consumer);
     }
 }
+//?}

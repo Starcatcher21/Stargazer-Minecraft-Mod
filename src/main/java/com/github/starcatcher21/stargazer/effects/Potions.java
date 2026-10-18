@@ -24,7 +24,7 @@ public class Potions {
             String name, RegistrySupplier<MobEffect> effect, int duration) {
         return POTIONS.register(
               ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, name),
-                () -> new Potion(name, new MobEffectInstance(effect.asHolder(), duration))
+                () -> new Potion(name, new MobEffectInstance(StatusEffects.getHolder(effect.get()), duration))
         );
     }
 

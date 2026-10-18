@@ -2,18 +2,21 @@ package com.github.starcatcher21.stargazer.block.clases.energy.cables;
 
 import com.github.starcatcher21.stargazer.block.BlockTypes;
 import com.github.starcatcher21.stargazer.energy.EnergyHooks;
-import com.github.starcatcher21.stargazer.energy.ModEnergyStorage;
-import com.github.starcatcher21.stargazer.energy.SimpleModEnergyStorage;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
-import net.minecraft.util.Util;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.ScheduledTickAccess;
+//? if >= 26.2 {
+/*import net.minecraft.world.level.ScheduledTickAccess;
+import net.minecraft.util.Util;
+ *///?} else {
+import net.minecraft.Util;
+//? }
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.PipeBlock;
@@ -26,7 +29,7 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jspecify.annotations.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -46,10 +49,10 @@ public class BlueCable extends BaseEntityBlock {
     private static final Map<Direction, VoxelShape> DIRECTION_SHAPES = Util.make(new HashMap<>(), map -> {
         map.put(Direction.NORTH, Block.box(6, 6, 0, 10, 10, 6));
         map.put(Direction.SOUTH, Block.box(6, 6, 10, 10, 10, 16));
-        map.put(Direction.WEST, Block.box(0, 6, 6, 6, 10, 10));
-        map.put(Direction.EAST, Block.box(10, 6, 6, 16, 10, 10));
-        map.put(Direction.DOWN, Block.box(6, 0, 6, 10, 6, 10));
-        map.put(Direction.UP, Block.box(6, 10, 6, 10, 16, 10));
+        map.put(Direction.WEST,  Block.box(0, 6, 6, 6, 10, 10));
+        map.put(Direction.EAST,  Block.box(10, 6, 6, 16, 10, 10));
+        map.put(Direction.DOWN,  Block.box(6, 0, 6, 10, 6, 10));
+        map.put(Direction.UP,    Block.box(6, 10, 6, 10, 16, 10));
     });
 
     private final VoxelShape[] SHAPE_CACHE;
@@ -99,8 +102,9 @@ public class BlueCable extends BaseEntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, BlockState state, BlockEntityType<T> type) {
-        return createTickerHelper(type, BlockTypes.BLUE_CABLE.get(), BaseCableEntity::tick); // Replace with respective cable BlockType
+        return createTickerHelper(type, BlockTypes.BLUE_CABLE.get(), BaseCableEntity::tick);
     }
+
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext ctx) {
         BlockGetter world = ctx.getLevel();
@@ -114,11 +118,25 @@ public class BlueCable extends BaseEntityBlock {
         return state;
     }
 
-    @Override
-    protected BlockState updateShape(BlockState state, LevelReader world, ScheduledTickAccess tickView, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, RandomSource random) {
+    /* ---------------- updateShape (signature differs) ---------------- */
+    //? if >= 26.2 {
+    /*@Override
+    protected BlockState updateShape(BlockState state, LevelReader world,
+                                     ScheduledTickAccess tickView, BlockPos pos,
+                                     Direction direction, BlockPos neighborPos,
+                                     BlockState neighborState, RandomSource random) {
         boolean canConnect = this.shouldConnectTo(world, neighborPos, direction);
         return state.setValue(FACING_PROPERTIES.get(direction), canConnect);
     }
+    *///?} else {
+    @Override
+    protected BlockState updateShape(BlockState state, Direction direction,
+                                     BlockState neighborState, LevelAccessor world,
+                                     BlockPos pos, BlockPos neighborPos) {
+        boolean canConnect = this.shouldConnectTo(world, neighborPos, direction);
+        return state.setValue(FACING_PROPERTIES.get(direction), canConnect);
+    }
+    //?}
 
     private int getShapeIndex(BlockState state) {
         int index = 0;

@@ -1,6 +1,5 @@
 package com.github.starcatcher21.stargazer.entity.renderers;
 
-import com.github.starcatcher21.stargazer.entity.DataTickets;
 import com.github.starcatcher21.stargazer.entity.Ghost;
 import com.github.starcatcher21.stargazer.entity.models.GhostModel;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -8,6 +7,7 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 //? if >= 26.2 {
 /*import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import org.jspecify.annotations.Nullable;
+import com.github.starcatcher21.stargazer.entity.DataTickets;
 import software.bernie.geckolib.renderer.base.GeoRenderState;
 import software.bernie.geckolib.renderer.layer.builtin.AutoGlowingGeoLayer;
 *///? } else {

@@ -50,7 +50,11 @@ public class Wander {
     );
 
     public static final RegistrySupplier<Block> TRUNN_SAPLING = register("trunn_sapling", (BlockBehaviour.Properties settings) -> new CustomWanderSapling(Helpers.configuredFeatureOf(Stargazer.MOD_ID, "trunn_trees"), settings), BlockBehaviour.Properties.of()
-            .noCollision()
+            //? if >= 26.2 {
+            /*.noCollision()
+             *///? } else {
+            .noCollission()
+            //? }
             .sound(SoundType.GRASS)
             .randomTicks()
             .instabreak()
@@ -72,7 +76,11 @@ public class Wander {
             .mapColor(MapColor.EMERALD)
     );
     public static final RegistrySupplier<Block> UMBRELLA_SAPLING = register("umbrella_sapling", (BlockBehaviour.Properties settings) -> new CustomWanderSapling(Helpers.configuredFeatureOf(Stargazer.MOD_ID, "umbrella_trees"), settings), BlockBehaviour.Properties.of()
-            .noCollision()
+            //? if >= 26.2 {
+            /*.noCollision()
+             *///? } else {
+            .noCollission()
+            //? }
             .sound(SoundType.GRASS)
             .randomTicks()
             .instabreak()

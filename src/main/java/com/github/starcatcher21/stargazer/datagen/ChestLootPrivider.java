@@ -1,11 +1,15 @@
-/*? if fabric {*/
+/*? if fabric || neoforge {*/
 /*package com.github.starcatcher21.stargazer.datagen;
 
 import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.block.register.Crops;
 import com.github.starcatcher21.stargazer.item.ModItems;
+//? if fabric {
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableSubProvider;
+//?} else {
+import net.minecraft.data.loot.LootTableSubProvider;
+//?}
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
@@ -19,10 +23,16 @@ import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 
-public class ChestLootPrivider extends SimpleFabricLootTableSubProvider {
+public class ChestLootPrivider
+//? if fabric {
+        extends SimpleFabricLootTableSubProvider {
     public ChestLootPrivider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registryLookup) {
         super(output, registryLookup, LootContextParamSets.CHEST);
     }
+//?} else {
+        implements LootTableSubProvider {
+    public ChestLootPrivider(HolderLookup.Provider registryLookup) {}
+//?}
 
     @Override
     public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> lootTableBiConsumer) {
@@ -43,7 +53,11 @@ public class ChestLootPrivider extends SimpleFabricLootTableSubProvider {
                                 .setRolls(UniformGenerator.between(1.0f, 5.0f))
                                 .add(LootItem.lootTableItem(Items.IRON_NUGGET).setWeight(60))
                                 .add(LootItem.lootTableItem(Items.GOLD_NUGGET).setWeight(50))
+                                //? if >= 26.2 {
                                 .add(LootItem.lootTableItem(Items.COPPER_NUGGET).setWeight(50))
+                                //?} else {
+                                .add(LootItem.lootTableItem(Items.COPPER_INGOT).setWeight(50))
+                                //?}
                                 .add(LootItem.lootTableItem(Items.RAW_IRON).setWeight(30))
                                 .add(LootItem.lootTableItem(Items.RAW_GOLD).setWeight(30))
                                 .add(LootItem.lootTableItem(Items.RAW_COPPER).setWeight(30))

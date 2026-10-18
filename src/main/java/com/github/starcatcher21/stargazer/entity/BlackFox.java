@@ -1,6 +1,7 @@
 package com.github.starcatcher21.stargazer.entity;
 
 import com.github.starcatcher21.stargazer.block.register.Crops;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
@@ -23,6 +24,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
+import software.bernie.geckolib.animation.RawAnimation;
 //? if >= 26.2 {
 /*import software.bernie.geckolib.animatable.GeoAnimatable;
 import software.bernie.geckolib.animatable.GeoEntity;
@@ -40,8 +42,8 @@ import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.AnimatableManager;
 import software.bernie.geckolib.animation.AnimationController;
 import software.bernie.geckolib.animation.PlayState;
-import software.bernie.geckolib.animation.RawAnimation;
 import software.bernie.geckolib.util.GeckoLibUtil;
+import software.bernie.geckolib.animation.AnimationState;
 //? }
 
 public class BlackFox extends TamableAnimal implements GeoEntity {
@@ -62,19 +64,20 @@ public class BlackFox extends TamableAnimal implements GeoEntity {
 
     @Override
     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
-        //? if >= 26.2 {
-        /*controllers.add(new AnimationController<GeoAnimatable>("MovementController", 5, this::AnimController));
-        *///? }
+        controllers.add(new AnimationController<GeoAnimatable>(/*? if < 26.2 { */ this, /*? } */"MovementController", 5, this::AnimControler));
     }
 
+
     //? if >= 26.2 {
-    /*private PlayState AnimController(AnimationTest<GeoAnimatable> animTest) {
+    /*protected PlayState AnimControler(final AnimationTest<?> animTest) {
+    *///? } else {
+    protected PlayState AnimControler(final AnimationState<GeoAnimatable> animTest) {
+    //? }
         if (animTest.isMoving()) {
             return animTest.setAndContinue(WALK_ANIM);
         }
         return animTest.setAndContinue(LOOK_ANIM);
     }
-    *///? }
 
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
@@ -109,7 +112,11 @@ public class BlackFox extends TamableAnimal implements GeoEntity {
                 this.usePlayerItem(player, hand, itemStack);
                 this.tryTame(player);
                 this.setPersistenceRequired();
-                this.playEatingSound();
+                //? if >= 26.2 {
+                /*this.playEatingSound();
+                *///? } else {
+                this.playSound(SoundEvents.GENERIC_EAT, 0.5F, 1.0F);
+                //? }
             }
             return InteractionResult.SUCCESS;
         }

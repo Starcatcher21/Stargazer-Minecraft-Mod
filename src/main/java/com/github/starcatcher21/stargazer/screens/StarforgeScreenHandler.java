@@ -57,20 +57,38 @@ public class StarforgeScreenHandler
         this.player = playerInventory.player;
         this.addResultSlot(this.player, 124, 35);
         this.addInputSlots(30, 32);
-        this.addStandardInventorySlots(playerInventory, 8, 119);
+        for (int row = 0; row < 3; row++) {
+            for (int column = 0; column < 9; column++) {
+                this.addSlot(new Slot(playerInventory, column + row * 9 + 9, 8 + column * 18, 119 + row * 18));
+            }
+        }
+        for (int column = 0; column < 9; column++) {
+            this.addSlot(new Slot(playerInventory, column, 8 + column * 18, 177));
+        }
     }
 
     protected static void updateResult(AbstractContainerMenu handler, ServerLevel world, Player player, StarforgeRecipeInventory craftingInventory, ResultContainer resultInventory, @Nullable RecipeHolder<?> recipe) {
         StarforgeRecipeInput craftingRecipeInput = craftingInventory.createRecipeInput();
         ServerPlayer serverPlayerEntity = (ServerPlayer)player;
         ItemStack itemStack = ItemStack.EMPTY;
-        Optional<RecipeHolder<StarforgeRecipe>> optional = world.recipeAccess().getRecipeFor
+        //? if >= 26.2 {
+        /*Optional<RecipeHolder<StarforgeRecipe>> optional = world.recipeAccess().getRecipeFor
                 (RecipeTypes.STARFORGE.get(), craftingRecipeInput, (Level)world);
+        *///?} else {
+        Optional<RecipeHolder<StarforgeRecipe>> optional = world.getRecipeManager().getRecipeFor
+                (RecipeTypes.STARFORGE.get(), craftingRecipeInput, world);
+        //?}
         if (optional.isPresent()) {
             ItemStack itemStack2;
             RecipeHolder<StarforgeRecipe> recipeEntry = optional.get();
             StarforgeRecipe craftingRecipe = recipeEntry.value();
-            if (resultInventory.setRecipeUsed(serverPlayerEntity, recipeEntry) && (itemStack2 = craftingRecipe.craft(craftingRecipeInput, world.registryAccess())).isItemEnabled(world.enabledFeatures())) {
+            //? if >= 26.2 {
+            /*boolean recipeUsed = resultInventory.setRecipeUsed(serverPlayerEntity, recipeEntry);
+             *///?} else {
+            resultInventory.setRecipeUsed(recipeEntry);
+            boolean recipeUsed = true;
+            //?}
+            if (recipeUsed && (itemStack2 = craftingRecipe.craft(craftingRecipeInput, world.registryAccess())).isItemEnabled(world.enabledFeatures())) {
                 itemStack = itemStack2;
             }
         }

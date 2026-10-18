@@ -25,7 +25,6 @@ public class StargazingCategory implements DisplayCategory<StargazingDisplay> {
     public CategoryIdentifier<? extends StargazingDisplay> getCategoryIdentifier() {
         return STARFORGE;
     }
-
     @Override
     public Component getTitle() {
         return Component.translatable(TranslationKey);
@@ -64,7 +63,7 @@ public class StargazingCategory implements DisplayCategory<StargazingDisplay> {
                 .backgroundEnabled(false)
                 .entries(totalOutputs) // This allows the output slot to cycle through all falling objects
                 .markOutput());
-        String path = display.getWorld().identifier().getPath();
+        String path = display.getWorld().location().getPath();
         Component text = Component.nullToEmpty(path.substring(0, 1).toUpperCase() + path.substring(1));
         widgets.add(Widgets.createLabel(new Point(startPoint.x + 70, startPoint.y), text));
 

@@ -33,7 +33,6 @@ public class StargazingDisplay extends BasicDisplay {
         this.world = ResourceKey.create(Registries.DIMENSION, ResourceLocation.withDefaultNamespace("overworld"));
         this.dayState = FallingObjectDayState.Night;
     }
-
     public StargazingDisplay(List<FallingObject> list) {
         this(List.of(EntryIngredients.of(Items.SPYGLASS.getDefaultInstance())), list.stream().map(fallingObject -> EntryIngredients.of(fallingObject.item.value().getDefaultInstance())).toList());
     }
@@ -62,8 +61,10 @@ public class StargazingDisplay extends BasicDisplay {
         return StargazingCategory.STARFORGE;
     }
 
-    @Override
+    //? if >= 26.2 {
+    /*@Override
     public @Nullable DisplaySerializer<? extends Display> getSerializer() {
         return StargazerREICommon.STARGAZING;
     }
+    *///? }
 }

@@ -2,7 +2,11 @@ package com.github.starcatcher21.stargazer.block.clases.star.log;
 
 import com.github.starcatcher21.stargazer.block.register.StarBlocks;
 import com.mojang.serialization.MapCodec;
-import net.minecraft.advancements.triggers.CriteriaTriggers;
+//? if >= 26.2 {
+/*import net.minecraft.advancements.triggers.CriteriaTriggers;
+ *///?} else {
+import net.minecraft.advancements.CriteriaTriggers;
+//?}
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
@@ -11,6 +15,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -23,6 +28,10 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 
+//? if < 26.2 {
+import net.minecraft.world.ItemInteractionResult;
+//?}
+
 public class StarLog extends DirectionalBlock {
     public static final MapCodec<StarLog> CODEC = simpleCodec(StarLog::new);
 
@@ -31,30 +40,55 @@ public class StarLog extends DirectionalBlock {
         return CODEC;
     }
 
-    @Override
-    protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        if (stack.tags().toList().contains(ItemTags.AXES)) {
-            BlockState newState = StarBlocks.STRIPPED_STAR_LOG.get().defaultBlockState().setValue(BlockStateProperties.AXIS, state.getValue(BlockStateProperties.AXIS));
-            world.playSound(player, pos, SoundEvents.AXE_STRIP, SoundSource.BLOCKS, 1.0F, 1.0F);
-            if (player instanceof ServerPlayer) {
-                CriteriaTriggers.ITEM_USED_ON_BLOCK.trigger((ServerPlayer)player, pos, stack);
-            }
-            world.setBlock(pos, newState, Block.UPDATE_ALL_IMMEDIATE);
-            world.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, newState));
-            if (player != null) {
-                if (!player.hasInfiniteMaterials() && stack.isDamageableItem()) {
-                    stack.hurtWithoutBreaking(1, player);
-                }
-            }
-            return InteractionResult.SUCCESS;
-        } else {
+    /* ---------------- useItemOn (return type differs) ---------------- */
+    //? if >= 26.2 {
+    /*@Override
+    protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level world,
+                                          BlockPos pos, Player player,
+                                          InteractionHand hand, BlockHitResult hit) {
+        if (!stack.is(ItemTags.AXES)) {
             return InteractionResult.PASS;
         }
+        BlockState newState = StarBlocks.STRIPPED_STAR_LOG.get().defaultBlockState()
+                .setValue(BlockStateProperties.AXIS, state.getValue(BlockStateProperties.AXIS));
+        world.playSound(player, pos, SoundEvents.AXE_STRIP, SoundSource.BLOCKS, 1.0F, 1.0F);
+        if (player instanceof ServerPlayer sp) {
+            CriteriaTriggers.ITEM_USED_ON_BLOCK.trigger(sp, pos, stack);
+        }
+        world.setBlock(pos, newState, Block.UPDATE_ALL_IMMEDIATE);
+        world.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, newState));
+        if (!player.hasInfiniteMaterials() && stack.isDamageableItem()) {
+            stack.hurtWithoutBreaking(1, player);
+        }
+        return InteractionResult.SUCCESS;
     }
+    *///?} else {
+    @Override
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level world,
+                                              BlockPos pos, Player player,
+                                              InteractionHand hand, BlockHitResult hit) {
+        if (!stack.is(ItemTags.AXES)) {
+            return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        }
+        BlockState newState = StarBlocks.STRIPPED_STAR_LOG.get().defaultBlockState()
+                .setValue(BlockStateProperties.AXIS, state.getValue(BlockStateProperties.AXIS));
+        world.playSound(player, pos, SoundEvents.AXE_STRIP, SoundSource.BLOCKS, 1.0F, 1.0F);
+        if (player instanceof ServerPlayer sp) {
+            CriteriaTriggers.ITEM_USED_ON_BLOCK.trigger(sp, pos, stack);
+        }
+        world.setBlock(pos, newState, Block.UPDATE_ALL_IMMEDIATE);
+        world.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, newState));
+        if (!player.getAbilities().instabuild && stack.isDamageableItem()) {
+            stack.hurtAndBreak(1, player, EquipmentSlot.MAINHAND);
+        }
+        return ItemInteractionResult.SUCCESS;
+    }
+    //?}
 
     public StarLog(Properties settings) {
         super(settings);
-        this.registerDefaultState(this.defaultBlockState().setValue(BlockStateProperties.AXIS, Direction.Axis.Y));
+        this.registerDefaultState(this.defaultBlockState()
+                .setValue(BlockStateProperties.AXIS, Direction.Axis.Y));
     }
 
     @Override
@@ -64,6 +98,7 @@ public class StarLog extends DirectionalBlock {
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext ctx) {
-        return super.getStateForPlacement(ctx).setValue(BlockStateProperties.AXIS, ctx.getClickedFace().getAxis());
+        return super.getStateForPlacement(ctx)
+                .setValue(BlockStateProperties.AXIS, ctx.getClickedFace().getAxis());
     }
 }

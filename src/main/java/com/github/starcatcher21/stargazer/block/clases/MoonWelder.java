@@ -3,6 +3,8 @@ package com.github.starcatcher21.stargazer.block.clases;
 import com.github.starcatcher21.stargazer.screens.MoonWelderScreenHandler;
 import com.mojang.serialization.MapCodec;
 import java.util.Map;
+import java.util.ArrayList;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -68,8 +70,50 @@ public class MoonWelder extends Block {
     @Override
     protected VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
         Direction dir = state.getValue(BlockStateProperties.HORIZONTAL_FACING);
-        Map<Direction, VoxelShape> S4MAP = Shapes.rotateAll(shape);
+        //? if >= 26.2 {
+        /*Map<Direction, VoxelShape> S4MAP = Shapes.rotateAll(shape);
         return S4MAP.get(dir);
+        *///?} else {
+        return rotateShape(shape, dir);
+        //?}
+    }
+
+    private static VoxelShape rotateShape(VoxelShape shape, Direction direction) {
+        VoxelShape rotated = Shapes.empty();
+        for (AABB box : shape.toAabbs()) {
+            double minX;
+            double maxX;
+            double minZ;
+            double maxZ;
+            switch (direction) {
+                case EAST -> {
+                    minX = 1.0 - box.maxZ;
+                    maxX = 1.0 - box.minZ;
+                    minZ = box.minX;
+                    maxZ = box.maxX;
+                }
+                case SOUTH -> {
+                    minX = 1.0 - box.maxX;
+                    maxX = 1.0 - box.minX;
+                    minZ = 1.0 - box.maxZ;
+                    maxZ = 1.0 - box.minZ;
+                }
+                case WEST -> {
+                    minX = box.minZ;
+                    maxX = box.maxZ;
+                    minZ = 1.0 - box.maxX;
+                    maxZ = 1.0 - box.minX;
+                }
+                default -> {
+                    minX = box.minX;
+                    maxX = box.maxX;
+                    minZ = box.minZ;
+                    maxZ = box.maxZ;
+                }
+            }
+            rotated = Shapes.or(rotated, Shapes.box(minX, box.minY, minZ, maxX, box.maxY, maxZ));
+        }
+        return rotated;
     }
 
     @Override

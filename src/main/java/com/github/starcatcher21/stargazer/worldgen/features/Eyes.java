@@ -12,7 +12,9 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.level.WorldGenLevel;
 //? if >= 26.2 {
 /*import net.minecraft.world.level.block.FlowerBedBlock;
-*///? }
+*///? } else {
+import com.github.starcatcher21.stargazer.block.older1211.FlowerBedBlock;
+//? }
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
@@ -53,9 +55,12 @@ public class Eyes extends Feature<NoneFeatureConfiguration> {
 
     private BlockState getState() {
         Random rand = new Random();
-        Direction direction = FlowerBedBlock.FACING.getPossibleValues().get(rand.nextInt(FlowerBedBlock.FACING.getPossibleValues().toArray().length));
-        BlockState forgor = EyeBloodBlocks.EYES.get().defaultBlockState().setValue(FlowerBedBlock.FACING, direction).setValue(FlowerBedBlock.AMOUNT, rand.nextInt(1,4));
-        return forgor;
+        ImmutableList<Direction> possibleValues =
+                ImmutableList.copyOf(FlowerBedBlock.FACING.getPossibleValues());
+        Direction direction = possibleValues.get(rand.nextInt(possibleValues.size()));
+        return EyeBloodBlocks.EYES.get().defaultBlockState()
+                .setValue(FlowerBedBlock.FACING, direction)
+                .setValue(FlowerBedBlock.AMOUNT, rand.nextInt(1, 4));
     }
 
     private ArrayList<BlockPos> next(WorldGenLevel world, BlockPos pos) {

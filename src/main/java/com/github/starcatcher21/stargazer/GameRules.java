@@ -18,8 +18,8 @@ public class GameRules {
     public static final net.minecraft.world.level.gamerules.GameRule<Boolean> MOON = register("showmoonphaseinrei", true, net.minecraft.world.level.gamerules.GameRuleCategory.MISC);
     
     *///? } else {
-    public static final net.minecraft.world.level.GameRules.Key<?> DASH = register("allowdashing", true, net.minecraft.world.level.GameRules.Category.PLAYER);
-    public static final net.minecraft.world.level.GameRules.Key<?> MOON = register("showmoonphaseinrei", true, net.minecraft.world.level.GameRules.Category.MISC);
+    public static final net.minecraft.world.level.GameRules.Key<net.minecraft.world.level.GameRules.BooleanValue> DASH = register("allowdashing", true, net.minecraft.world.level.GameRules.Category.PLAYER);
+    public static final net.minecraft.world.level.GameRules.Key<net.minecraft.world.level.GameRules.BooleanValue> MOON = register("showmoonphaseinrei", true, net.minecraft.world.level.GameRules.Category.MISC);
     //? }
 
     //? if >= 26.2 {
@@ -45,7 +45,7 @@ public class GameRules {
     }
     
     *///? } else {
-    public static net.minecraft.world.level.GameRules.Key<?> register(String name, boolean defaultValue, net.minecraft.world.level.GameRules.Category category) {
+    public static net.minecraft.world.level.GameRules.Key<net.minecraft.world.level.GameRules.BooleanValue> register(String name, boolean defaultValue, net.minecraft.world.level.GameRules.Category category) {
         //? if fabric {
         /*return GameRuleBuilder.forBoolean(defaultValue)
                 .category(category)

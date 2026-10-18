@@ -119,7 +119,11 @@ public class StarBlocks {
             .mapColor(MapColor.COLOR_BLACK)
     );
     public static final RegistrySupplier<Block> STAR_PLANKS_BUTTON = register("star_planks_button", (BlockBehaviour.Properties settings) -> new ButtonBlock(BlockSetType.OAK, 30, (BlockBehaviour.Properties) settings), BlockBehaviour.Properties.of()
-            .noCollision()
+            //? if >= 26.2 {
+            /*.noCollision()
+             *///? } else {
+            .noCollission()
+            //? }
             .sound(SoundType.WOOD)
             .instrument(NoteBlockInstrument.BASS)
             .strength(1.0F)
@@ -138,24 +142,36 @@ public class StarBlocks {
             .mapColor(MapColor.COLOR_CYAN)
     );
     public static final RegistrySupplier<Block> STAR_SAPLING = register("star_sapling", (BlockBehaviour.Properties settings) -> new CustomSapling(Helpers.configuredFeatureOf(Stargazer.MOD_ID, "star_trees"), settings), BlockBehaviour.Properties.of()
-            .noCollision()
+            //? if >= 26.2 {
+            /*.noCollision()
+             *///? } else {
+            .noCollission()
+            //? }
             .sound(SoundType.GRASS)
             .randomTicks()
             .instabreak()
     );
     public static final RegistrySupplier<Block> POTTED_STAR_SAPLING = registerWoItem("potted_star_sapling", settings -> new FlowerPotBlock(STAR_SAPLING.get(), settings), BlockBehaviour.Properties.ofFullCopy(Blocks.POTTED_ALLIUM).noOcclusion());
-    public static final RegistrySupplier<Block> STAR_FLOWER = register("star_flower", settings -> new CosmicFlower(StatusEffects.COSMO.asHolder(), 5.0f, settings), BlockBehaviour.Properties.of()
+    public static final RegistrySupplier<Block> STAR_FLOWER = register("star_flower", settings -> new CosmicFlower(StatusEffects.getHolder(StatusEffects.COSMO.get()), 5.0f, settings), BlockBehaviour.Properties.of()
             .mapColor(MapColor.COLOR_YELLOW)
-            .noCollision()
+            //? if >= 26.2 {
+            /*.noCollision()
+             *///? } else {
+            .noCollission()
+            //? }
             .instabreak()
             .sound(SoundType.GRASS)
             .offsetType(BlockBehaviour.OffsetType.XZ)
             .pushReaction(PushReaction.DESTROY)
     );
     public static final RegistrySupplier<Block> POTTED_STAR_FLOWER = registerWoItem("potted_star_flower", settings -> new FlowerPotBlock(STAR_FLOWER.get(), settings), BlockBehaviour.Properties.ofFullCopy(Blocks.POTTED_ALLIUM).noOcclusion());
-    public static final RegistrySupplier<Block> CELESTIAL_STAR_FLOWER = register("celestial_star_flower", settings -> new CosmicFlower(StatusEffects.COSMO.asHolder(), 5.0f, settings), BlockBehaviour.Properties.of()
+    public static final RegistrySupplier<Block> CELESTIAL_STAR_FLOWER = register("celestial_star_flower", settings -> new CosmicFlower(StatusEffects.getHolder(StatusEffects.COSMO.get()), 5.0f, settings), BlockBehaviour.Properties.of()
             .mapColor(MapColor.COLOR_YELLOW)
-            .noCollision()
+            //? if >= 26.2 {
+            /*.noCollision()
+             *///? } else {
+            .noCollission()
+            //? }
             .instabreak()
             .sound(SoundType.GRASS)
             .offsetType(BlockBehaviour.OffsetType.XZ)

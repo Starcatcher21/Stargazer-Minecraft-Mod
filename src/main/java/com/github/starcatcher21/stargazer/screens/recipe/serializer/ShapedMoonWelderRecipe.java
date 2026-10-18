@@ -244,6 +244,20 @@ public class ShapedMoonWelderRecipe implements MoonWelderRecipe {
             );
     //?}
 
-    public static final RecipeSerializer<ShapedMoonWelderRecipe> SERIALIZER =
+    //? if >= 26.2 {
+    /*public static final RecipeSerializer<ShapedMoonWelderRecipe> SERIALIZER =
             new RecipeSerializer<>(CODEC, STREAM_CODEC);
+    *///?} else {
+    public static final RecipeSerializer<ShapedMoonWelderRecipe> SERIALIZER = new RecipeSerializer<>() {
+        @Override
+        public MapCodec<ShapedMoonWelderRecipe> codec() {
+            return CODEC;
+        }
+
+        @Override
+        public StreamCodec<RegistryFriendlyByteBuf, ShapedMoonWelderRecipe> streamCodec() {
+            return STREAM_CODEC;
+        }
+    };
+    //?}
 }

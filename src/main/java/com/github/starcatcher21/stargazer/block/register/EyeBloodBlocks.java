@@ -50,7 +50,11 @@ public class EyeBloodBlocks {
 
     public static final RegistrySupplier<Block> EYE_FERN = register("eye_fern", EyeFern::new, BlockBehaviour.Properties.of()
             .mapColor(MapColor.FIRE)
-            .noCollision()
+            //? if >= 26.2 {
+            /*.noCollision()
+             *///? } else {
+            .noCollission()
+            //? }
             .instabreak()
             .randomTicks()
             .sound(SoundType.GRASS)
@@ -60,7 +64,11 @@ public class EyeBloodBlocks {
 
     public static final RegistrySupplier<Block> EYES = register("eyes", Eyes::new, BlockBehaviour.Properties.of()
             .mapColor(MapColor.NETHER)
-            .noCollision()
+            //? if >= 26.2 {
+            /*.noCollision()
+             *///? } else {
+            .noCollission()
+            //? }
             .sound(SoundType.PINK_PETALS)
             .pushReaction(PushReaction.DESTROY)
     );

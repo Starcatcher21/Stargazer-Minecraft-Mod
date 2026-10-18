@@ -29,7 +29,6 @@ public class StarforgeCategory implements DisplayCategory<StarforgeDisplay> {
     public CategoryIdentifier<? extends StarforgeDisplay> getCategoryIdentifier() {
         return STARFORGE;
     }
-
     @Override
     public Component getTitle() {
         return Starforge.TITLE;

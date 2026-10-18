@@ -6,9 +6,15 @@ import com.github.starcatcher21.stargazer.block.register.MoonBlocks;
 import com.github.starcatcher21.stargazer.screens.handled.MoonWelderHandled;
 import com.github.starcatcher21.stargazer.screens.handled.StarCrusherHandled;
 import com.github.starcatcher21.stargazer.screens.handled.StarforgeHandled;
-import com.github.starcatcher21.stargazer.screens.recipe.serializer.ShapedMoonWelderRecipeDisplay;
+//? if >= 26.2 {
+/*import com.github.starcatcher21.stargazer.screens.recipe.serializer.ShapedMoonWelderRecipeDisplay;
 import com.github.starcatcher21.stargazer.screens.recipe.serializer.ShapedStarforgeRecipeDisplay;
 import com.github.starcatcher21.stargazer.screens.recipe.serializer.StarCrusherRecipeDisplay;
+*///?} else {
+import com.github.starcatcher21.stargazer.screens.recipe.serializer.ShapedMoonWelderRecipe;
+import com.github.starcatcher21.stargazer.screens.recipe.serializer.ShapedStarCrusherRecipe;
+import com.github.starcatcher21.stargazer.screens.recipe.serializer.ShapedStarforgeRecipe;
+//?}
 import com.github.starcatcher21.starlib.mechanics.star.FallingObjectsList;
 import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.plugins.REIClientPlugin;
@@ -25,20 +31,29 @@ import net.minecraft.world.item.Items;
 @REIPluginClient
 //? }
 public class StargazerREIClient implements REIClientPlugin {
+
     @Override
     public void registerCategories(CategoryRegistry registry) {
         registry.add(new StarforgeCategory());
-        registry.addWorkstations(StarforgeCategory.STARFORGE, EntryStacks.of(MoonBlocks.STAR_FORGE.get().asItem().getDefaultInstance()));
-        registry.add(new MoonWelderCategory());
-        registry.addWorkstations(MoonWelderCategory.STARFORGE, EntryStacks.of(ModBlock.MOON_WELDER.get().asItem().getDefaultInstance()));
-        registry.add(new StargazingCategory());
-        registry.addWorkstations(StargazingCategory.STARFORGE, EntryStacks.of(Items.SPYGLASS.getDefaultInstance()));
-        registry.add(new StarCrusherCategory());
-        registry.addWorkstations(StarCrusherCategory.STARFORGE, EntryStacks.of(Energy.STAR_CRUSHER.get().asItem().getDefaultInstance()));
-    }
+        registry.addWorkstations(StarforgeCategory.STARFORGE,
+                EntryStacks.of(MoonBlocks.STAR_FORGE.get().asItem().getDefaultInstance()));
 
+        registry.add(new MoonWelderCategory());
+        registry.addWorkstations(MoonWelderCategory.STARFORGE,
+                EntryStacks.of(ModBlock.MOON_WELDER.get().asItem().getDefaultInstance()));
+
+        registry.add(new StargazingCategory());
+        registry.addWorkstations(StargazingCategory.STARFORGE,
+                EntryStacks.of(Items.SPYGLASS.getDefaultInstance()));
+
+        registry.add(new StarCrusherCategory());
+        registry.addWorkstations(StarCrusherCategory.STARFORGE,
+                EntryStacks.of(Energy.STAR_CRUSHER.get().asItem().getDefaultInstance()));
+    }
     @Override
     public void registerDisplays(DisplayRegistry registry) {
+        //? if >= 26.2 {
+        /*// 26.2: REI fills from RecipeDisplay classes and their RecipeDisplay.Type.
         registry.beginRecipeFiller(ShapedStarforgeRecipeDisplay.class)
                 .filterType(ShapedStarforgeRecipeDisplay.SERIALIZER)
                 .fill(StarforgeDisplay::new);
@@ -48,6 +63,12 @@ public class StargazerREIClient implements REIClientPlugin {
         registry.beginRecipeFiller(StarCrusherRecipeDisplay.class)
                 .filterType(StarCrusherRecipeDisplay.SERIALIZER)
                 .fill(StarCrusherDisplay::new);
+        *///?} else {
+        // 1.21.1: REI fills from Recipe classes directly. No RecipeDisplay layer exists.
+        registry.registerFiller(ShapedStarforgeRecipe.class, StarforgeDisplay::new);
+        registry.registerFiller(ShapedMoonWelderRecipe.class, MoonWelderDisplay::new);
+        registry.registerFiller(ShapedStarCrusherRecipe.class, StarCrusherDisplay::new);
+        //?}
 
         for (FallingObjectsList objectsList : FallingObjectsList.list2) {
             registry.add(new StargazingDisplay(objectsList));
@@ -56,22 +77,28 @@ public class StargazerREIClient implements REIClientPlugin {
 
     @Override
     public void registerScreens(ScreenRegistry registry) {
-        registry.registerClickArea(screen -> new Rectangle(
-                (screen.width - 180) / 2 + 90,
-                (screen.height - 205) / 2 + 22,
-                27, 13), StarforgeHandled.class, StarforgeCategory.STARFORGE
-        );
+        registry.registerClickArea(
+                screen -> new Rectangle(
+                        (screen.width - 180) / 2 + 90,
+                        (screen.height - 205) / 2 + 22,
+                        27, 13),
+                StarforgeHandled.class,
+                StarforgeCategory.STARFORGE);
 
-        registry.registerClickArea(screen -> new Rectangle(
-                (screen.width - 180) / 2 + 92,
-                (screen.height - 205) / 2 + 43,
-                9, 10), MoonWelderHandled.class, MoonWelderCategory.STARFORGE
-        );
+        registry.registerClickArea(
+                screen -> new Rectangle(
+                        (screen.width - 180) / 2 + 92,
+                        (screen.height - 205) / 2 + 43,
+                        9, 10),
+                MoonWelderHandled.class,
+                MoonWelderCategory.STARFORGE);
 
-        registry.registerClickArea(screen -> new Rectangle(
-                (screen.width - 180) / 2 + 52,
-                (screen.height - 205) / 2 + 31,
-                9, 47), StarCrusherHandled.class, StarCrusherCategory.STARFORGE
-        );
+        registry.registerClickArea(
+                screen -> new Rectangle(
+                        (screen.width - 180) / 2 + 52,
+                        (screen.height - 205) / 2 + 31,
+                        9, 47),
+                StarCrusherHandled.class,
+                StarCrusherCategory.STARFORGE);
     }
 }

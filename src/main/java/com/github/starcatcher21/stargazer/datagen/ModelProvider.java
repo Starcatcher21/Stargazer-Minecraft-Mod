@@ -1,4 +1,4 @@
-/*? if fabric {*/
+/*? if fabric || (neoforge && >= 26.2) {*/
 /*package com.github.starcatcher21.stargazer.datagen;
 
 import com.github.starcatcher21.stargazer.Stargazer;
@@ -13,8 +13,12 @@ import com.mojang.math.Quadrant;
 import com.mojang.serialization.MapCodec;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
+//? if fabric {
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+//?} else {
+import net.minecraft.data.PackOutput;
+//?}
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.MultiVariant;
@@ -35,19 +39,58 @@ import net.minecraft.world.level.block.state.properties.Property;
 import org.joml.Matrix4fc;
 
 import java.util.Optional;
+//? if neoforge && >= 26.2 {
+import java.util.Set;
+import java.util.stream.Stream;
+//?}
 
 import static net.minecraft.client.data.models.BlockModelGenerators.plainVariant;
 
-public class ModelProvider extends FabricModelProvider {
+public class ModelProvider
+//? if fabric {
+        extends FabricModelProvider {
     public ModelProvider(FabricPackOutput output) {
         super(output);
     }
+//?} else {
+        extends net.minecraft.client.data.models.ModelProvider {
+    public ModelProvider(PackOutput output) {
+        super(output, Stargazer.MOD_ID);
+    }
+
+    @Override
+    protected void registerModels(BlockModelGenerators blockModelGenerators, ItemModelGenerators itemModelGenerators) {
+        generateBlockStateModels(blockModelGenerators);
+        generateItemModels(itemModelGenerators);
+    }
+
+    //? if neoforge && >= 26.2 {
+    @Override
+    protected Stream<? extends net.minecraft.core.Holder<Block>> getKnownBlocks() {
+        Set<String> sourceBlockstates = Set.of(
+                "grave", "negative_block", "no_red_block", "no_green_block", "no_blue_block",
+                "infested_calcite", "copper_teleporter", "dark_teleporter", "end_teleporter",
+                "red_teleporter", "sprinkler", "moon_welder", "moon_farmland", "moon_rock_nylium",
+                "moon_rock_tiles", "purple_moon_rock_tiles", "star_forge", "moon_planks_door",
+                "star_stone", "geode_fruit_block", "star_trap", "forget_me_now",
+                "potted_forget_me_now", "cosmic_block", "star_barrier_block", "border_block",
+                "star_leaves", "aurora", "star_display", "eye_log", "eye_jar", "eye_fern",
+                "eyes", "gradi", "potted_gradi", "chessboard"
+        );
+        return BuiltInRegistries.BLOCK.listElements()
+                .filter(holder -> {
+                    ResourceLocation id = BuiltInRegistries.BLOCK.getKey(holder.value());
+                    return id.getNamespace().equals(Stargazer.MOD_ID) && !sourceBlockstates.contains(id.getPath());
+                });
+    }
+    //?}
+//?}
 
     public final void createCropBlock(BlockModelGenerators blockModelGenerators, final Block block, final Property<Integer> property, final int... stages) {
         if (property.getPossibleValues().size() != stages.length) {
             throw new IllegalArgumentException();
         } else {
-            Int2ObjectMap<Identifier> models = new Int2ObjectOpenHashMap();
+            Int2ObjectMap<ResourceLocation> models = new Int2ObjectOpenHashMap();
             blockModelGenerators.blockStateOutput.accept(MultiVariantGenerator.dispatch(block).with(PropertyDispatch.initial(property).generate((i) -> {
                 int stage = stages[i];
                 return plainVariant((ResourceLocation)models.computeIfAbsent(stage, (s) -> blockModelGenerators.createSuffixedVariant(block, "_stage" + s, ModelTemplates.CROP, TextureMapping::crop)));
@@ -55,7 +98,9 @@ public class ModelProvider extends FabricModelProvider {
         }
     }
 
+    //? if fabric {
     @Override
+    //?}
     public void generateBlockStateModels(BlockModelGenerators blockStateModelGenerator) {
         blockStateModelGenerator.createTrivialCube(ModBlock.BONE_LEAVES.get());
         // planks
@@ -317,7 +362,9 @@ public class ModelProvider extends FabricModelProvider {
         blockGeneratedItem(blockStateModelGenerator, MoonBlocks.SPRUNGUS.get());
     }
 
+    //? if fabric {
     @Override
+    //?}
     public void generateItemModels(ItemModelGenerators itemModelGenerator) {
         itemModelGenerator.generateFlatItem(ModItems.LODESTAR.get(), ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.FULL_MOON_DUST.get(), ModelTemplates.FLAT_ITEM);
@@ -336,7 +383,6 @@ public class ModelProvider extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(ModItems.BLACK_COOKED_GEODE_FRUIT.get(), ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.BLUE_STAR.get(), ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.RED_STAR.get(), ModelTemplates.FLAT_ITEM);
-        itemModelGenerator.generateFlatItem(ModItems.RED_ORB_PLATFORM_BASE.get(), ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.YELLOW_STAR.get(), ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.END_STAR.get(), ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.PURPLE_STAR.get(), ModelTemplates.FLAT_ITEM);

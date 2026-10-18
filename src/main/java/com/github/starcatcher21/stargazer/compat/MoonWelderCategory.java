@@ -32,7 +32,6 @@ public class MoonWelderCategory implements DisplayCategory<MoonWelderDisplay> {
     public CategoryIdentifier<? extends MoonWelderDisplay> getCategoryIdentifier() {
         return STARFORGE;
     }
-
     @Override
     public Component getTitle() {
         return MoonWelder.TITLE;
@@ -50,7 +49,11 @@ public class MoonWelderCategory implements DisplayCategory<MoonWelderDisplay> {
 
         widgets.add(Widgets.createTexturedWidget(TEXTURE, new Rectangle(startPoint.x - 7, startPoint.y - 7, 146, 102)));
         int moonphase = display.recipe().getMoonPhase();
-        if (Minecraft.getInstance().getSingleplayerServer().findRespawnDimension().getGameRules().get(GameRules.MOON)) {
+        //? if >= 26.2 {
+        /*if (Minecraft.getInstance().getSingleplayerServer().overworld().getGameRules().get(GameRules.MOON)) {*/
+        //?} else {
+        if (Minecraft.getInstance().getSingleplayerServer().overworld().getGameRules().getBoolean(GameRules.MOON)) {
+        //?}
             switch (moonphase) {
                 case 0:
                     widgets.add(Widgets.createTexturedWidget(FULL, startPoint.x + 10, startPoint.y + 10, 0, 0, 16, 16, 16, 16));

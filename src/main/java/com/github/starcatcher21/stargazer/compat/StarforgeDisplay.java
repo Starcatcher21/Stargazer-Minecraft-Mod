@@ -51,11 +51,10 @@ public class StarforgeDisplay extends BasicDisplay {
         /*this(recipe.placementInfo(), Collections.singletonList(EntryIngredients.of(recipe.getResult())), recipe.getIngredients());
         
         *///? } else {
-        this(EntryIngredients.ofIngredients(recipe.getIngredients()), Collections.singletonList(EntryIngredients.of(recipe.getResult())), recipe.getIngredients());
+        this(EntryIngredients.ofIngredients(recipe.getIngredients()), Collections.singletonList(EntryIngredients.of(recipe.getResult())), toOptionalList(recipe.getIngredients()));
         //? }
         this.recipe = recipe;
     }
-
     public StarforgeDisplay(List<EntryIngredient> inputs, EntryIngredient outputs) {
         this(inputs, Collections.singletonList(outputs));
     }
@@ -122,12 +121,20 @@ public class StarforgeDisplay extends BasicDisplay {
 
     public static ShapedStarforgeRecipe getRecipe(ResourceLocation id) {
         if (Minecraft.getInstance().getSingleplayerServer() != null) {
-            Optional<RecipeHolder<?>> recip = Minecraft.getInstance().getSingleplayerServer().getRecipeManager().byKey(ResourceKey.create(Registries.RECIPE, id));
+            //? if >= 26.2 {
+            /*Optional<RecipeHolder<?>> recip = Minecraft.getInstance().getSingleplayerServer().getRecipeManager().byKey(ResourceKey.create(Registries.RECIPE, id));
+            *///? } else {
+            Optional<RecipeHolder<?>> recip = Minecraft.getInstance().getSingleplayerServer().getRecipeManager().byKey(id);
+            //? }
             if (recip.isPresent() && recip.get().value() instanceof ShapedStarforgeRecipe ssr) {
                 return ssr;
             }
         }
         return emptyRecipe();
+    }
+
+    private static List<Optional<Ingredient>> toOptionalList(List<Ingredient> ingredients) {
+        return ingredients.stream().map(Optional::of).toList();
     }
 
     public static StarforgeDisplay of(RecipeHolder<? extends Recipe<?>> holder) {
@@ -173,7 +180,9 @@ public class StarforgeDisplay extends BasicDisplay {
         return this.recipe;
     }
 
-    @Override
+    //? if >= 26.2 {
+    /*@Override
+    *///?}
     public @Nullable DisplaySerializer<? extends Display> getSerializer() {
         return StargazerREICommon.STARFORGE;
     }

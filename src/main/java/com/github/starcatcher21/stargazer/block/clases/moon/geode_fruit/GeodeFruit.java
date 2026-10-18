@@ -8,8 +8,11 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.ScheduledTickAccess;
+//? if >= 26.2 {
+/*import net.minecraft.world.level.ScheduledTickAccess;
+ *///?}
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -49,12 +52,13 @@ public class GeodeFruit extends Block {
 
     public GeodeFruit(Properties settings) {
         super(settings);
-        this.registerDefaultState(this.defaultBlockState().setValue(STAGE, GeodeFruitStage.start).setValue(FACING, Direction.NORTH));
+        this.registerDefaultState(this.defaultBlockState()
+                .setValue(STAGE, GeodeFruitStage.start)
+                .setValue(FACING, Direction.NORTH));
     }
 
     @Override
     protected VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
-        Map<Direction, VoxelShape> S4MAP = Shapes.rotateAll(stage4Shape);
         if (state.getValue(STAGE).equals(GeodeFruitStage.start)) {
             return stage1Shape;
         } else if (state.getValue(STAGE).equals(GeodeFruitStage.middle)) {
@@ -62,8 +66,34 @@ public class GeodeFruit extends Block {
         } else if (state.getValue(STAGE).equals(GeodeFruitStage.ending)) {
             return stage3Shape;
         } else {
-            return S4MAP.get(state.getValue(FACING));
+            return switch (state.getValue(FACING)) {
+                case EAST  -> rotateY(stage4Shape, 1);
+                case SOUTH -> rotateY(stage4Shape, 2);
+                case WEST  -> rotateY(stage4Shape, 3);
+                default    -> stage4Shape; // NORTH
+            };
         }
+    }
+
+    private static VoxelShape rotateY(VoxelShape shape, int turns) {
+        final VoxelShape[] result = {Shapes.empty()};
+        // forAllBoxes gives (minX, minY, minZ, maxX, maxY, maxZ)
+        shape.forAllBoxes((x1, y1, z1, x2, y2, z2) -> {
+            double nx1 = x1, nz1 = z1, nx2 = x2, nz2 = z2;
+            for (int i = 0; i < turns; i++) {
+                // 90° Y rotation: (x, z) -> (1 - z, x)
+                double ox1 = nx1, oz1 = nz1, ox2 = nx2, oz2 = nz2;
+                nx1 = 1 - oz2;   // new minX from old maxZ
+                nz1 = ox1;       // new minZ from old minX
+                nx2 = 1 - oz1;   // new maxX from old minZ
+                nz2 = ox2;       // new maxZ from old maxX
+            }
+            result[0] = Shapes.box(
+                    Math.min(nx1, nx2), y1, Math.min(nz1, nz2),
+                    Math.max(nx1, nx2), y2, Math.max(nz1, nz2)
+            );
+        });
+        return result[0];
     }
 
     @Override
@@ -99,13 +129,29 @@ public class GeodeFruit extends Block {
         return blockState.isFaceSturdy(world, blockPos, Direction.DOWN) || blockState.is(BlockTags.LEAVES);
     }
 
-    @Override
-    protected BlockState updateShape(BlockState state, LevelReader world, ScheduledTickAccess tickView, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, RandomSource random) {
+    /* ---------------- updateShape (signature differs) ---------------- */
+    //? if >= 26.2 {
+    /*@Override
+    protected BlockState updateShape(BlockState state, LevelReader world,
+                                     ScheduledTickAccess tickView, BlockPos pos,
+                                     Direction direction, BlockPos neighborPos,
+                                     BlockState neighborState, RandomSource random) {
         if (direction == Direction.UP && !this.canSurvive(state, world, pos)) {
             return Blocks.AIR.defaultBlockState();
         }
         return super.updateShape(state, world, tickView, pos, direction, neighborPos, neighborState, random);
     }
+    *///?} else {
+    @Override
+    protected BlockState updateShape(BlockState state, Direction direction,
+                                     BlockState neighborState, LevelAccessor world,
+                                     BlockPos pos, BlockPos neighborPos) {
+        if (direction == Direction.UP && !this.canSurvive(state, world, pos)) {
+            return Blocks.AIR.defaultBlockState();
+        }
+        return super.updateShape(state, direction, neighborState, world, pos, neighborPos);
+    }
+    //?}
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {

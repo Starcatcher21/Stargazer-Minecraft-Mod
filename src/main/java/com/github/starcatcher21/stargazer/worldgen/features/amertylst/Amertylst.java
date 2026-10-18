@@ -34,7 +34,11 @@ public class Amertylst extends Feature<AmertylstConfig> {
         RandomSource random = context.random();
         Direction offsetDir = OFFSET_DIRECTIONS.get(random.nextIntBetweenInclusive(0, OFFSET_DIRECTIONS.size()-1));
         WorldGenLevel structureWorldAccess = context.level();
-        while (structureWorldAccess.isEmptyBlock(blockPos) && blockPos.getY() > structureWorldAccess.getMinY() + 2) {
+        //? if >= 26.2 {
+        /*while (structureWorldAccess.isEmptyBlock(blockPos) && blockPos.getY() > structureWorldAccess.getMinY() + 2) {
+        *///? } else {
+        while (structureWorldAccess.isEmptyBlock(blockPos) && blockPos.getY() > structureWorldAccess.getMinBuildHeight() + 2) {
+        //? }
             blockPos = blockPos.below();
         }
         boolean chunks = !context.level().hasNearbyAlivePlayer(context.origin().getX(), context.origin().getY(), context.origin().getZ(), 100);

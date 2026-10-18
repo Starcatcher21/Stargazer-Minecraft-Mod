@@ -4,6 +4,8 @@ import com.mojang.serialization.MapCodec;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.BlockTags;
@@ -45,7 +47,7 @@ public class GiantCrop
     @Override
     public void destroy(LevelAccessor world, BlockPos pos, BlockState state) {
         super.destroy(world, pos, state);
-        for (BlockPos blockPos : BlockPos.betweenClosed(getBox(pos, state))) {
+        for (BlockPos blockPos : getBlockPositions(getBox(pos, state))) {
             world.destroyBlock(blockPos, false);
         }
     }
@@ -58,7 +60,7 @@ public class GiantCrop
 
     public static void place(Level world, BlockPos pos, BlockState state) {
         GiantCropSide side = GiantCropSide.nwd;
-        for (BlockPos blockPos : BlockPos.betweenClosed(getBox(pos, state))) {
+        for (BlockPos blockPos : getBlockPositions(getBox(pos, state))) {
             world.setBlockAndUpdate(blockPos, state.setValue(SIDE, side));
             side = nexPlaceState(side);
         }
@@ -86,7 +88,7 @@ public class GiantCrop
 
     @Override
     protected boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) {
-        for (BlockPos blockPos : BlockPos.betweenClosed(getBox(pos, state))) {
+        for (BlockPos blockPos : getBlockPositions(getBox(pos, state))) {
             if (!world.getBlockState(blockPos).is(BlockTags.REPLACEABLE) && !world.getBlockState(blockPos).isAir()) {
                 return false;
             }
@@ -96,24 +98,22 @@ public class GiantCrop
 
     @Override
     protected VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
-        Map<Direction, VoxelShape> B = Shapes.rotateAll(BOTTOM);
-        Map<Direction, VoxelShape> T = Shapes.rotateAll(TOP);
         if (state.getValue(SIDE).equals(GiantCropSide.sed)) {
-            return B.get(Direction.NORTH);
+            return BOTTOM;
         } else if (state.getValue(SIDE).equals(GiantCropSide.swd)) {
-            return B.get(Direction.EAST);
+            return BOTTOM;
         } else if (state.getValue(SIDE).equals(GiantCropSide.ned)) {
-            return B.get(Direction.WEST);
+            return BOTTOM;
         } else if (state.getValue(SIDE).equals(GiantCropSide.nwd)) {
-            return B.get(Direction.SOUTH);
+            return BOTTOM;
         } else if (state.getValue(SIDE).equals(GiantCropSide.seu)) {
-            return T.get(Direction.NORTH);
+            return TOP;
         } else if (state.getValue(SIDE).equals(GiantCropSide.swu)) {
-            return T.get(Direction.EAST);
+            return TOP;
         } else if (state.getValue(SIDE).equals(GiantCropSide.neu)) {
-            return T.get(Direction.WEST);
+            return TOP;
         } else if (state.getValue(SIDE).equals(GiantCropSide.nwu)) {
-            return T.get(Direction.SOUTH);
+            return TOP;
         } else {
             return TOP;
         }
@@ -150,13 +150,35 @@ public class GiantCrop
         return new AABB(pos);
     }
 
+    private static List<BlockPos> getBlockPositions(AABB box) {
+        List<BlockPos> positions = new ArrayList<>();
+        int minX = (int) Math.floor(box.minX);
+        int minY = (int) Math.floor(box.minY);
+        int minZ = (int) Math.floor(box.minZ);
+        int maxX = (int) Math.floor(box.maxX);
+        int maxY = (int) Math.floor(box.maxY);
+        int maxZ = (int) Math.floor(box.maxZ);
+        for (int x = minX; x <= maxX; x++) {
+            for (int y = minY; y <= maxY; y++) {
+                for (int z = minZ; z <= maxZ; z++) {
+                    positions.add(new BlockPos(x, y, z));
+                }
+            }
+        }
+        return positions;
+    }
 
     protected ItemLike getSeedsItem() {
         return Items.WHEAT_SEEDS;
     }
 
-    @Override
+    //? if >= 26.2 {
+    /*@Override
     protected ItemStack getCloneItemStack(LevelReader world, BlockPos pos, BlockState state, boolean includeData) {
+    *///? } else {
+    @Override
+    public ItemStack getCloneItemStack(BlockState state, net.minecraft.world.phys.HitResult target, LevelReader world, BlockPos pos, net.minecraft.world.entity.player.Player player) {
+    //?}
         return new ItemStack(this.getSeedsItem());
     }
 

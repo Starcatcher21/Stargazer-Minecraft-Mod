@@ -8,20 +8,20 @@ import me.shedaniel.rei.api.common.display.basic.BasicDisplay;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
 import net.minecraft.client.Minecraft;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
-import net.minecraft.world.item.crafting.RecipeManager;
 //? if >= 26.2 {
-/*import net.minecraft.world.item.crafting.display.RecipeDisplayId;
+/*import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.crafting.display.RecipeDisplayId;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.PlacementInfo;
-import org.jetbrains.annotations.Nullable;
+import net.minecraft.world.item.crafting.RecipeManager;
 *///?}
+import org.jetbrains.annotations.Nullable;
 import net.minecraft.world.level.block.Blocks;
 
 import java.util.ArrayList;
@@ -48,13 +48,14 @@ public class StarCrusherDisplay extends BasicDisplay {
     }
     *///?} else {
     /* ------------------------------------------------------------------ */
-    /* 1.21.1 : no PlacementInfo, getResult() returns ItemStack           */
+    /* 1.21.1 : no PlacementInfo, getResult() returns ItemStack,          */
+    /*          getIngredients() returns NonNullList<Ingredient>          */
     /* ------------------------------------------------------------------ */
     public StarCrusherDisplay(ShapedStarCrusherRecipe recipe) {
         this(toInputs(recipe.getIngredients()),
                 Collections.singletonList(EntryIngredients.ofItemStacks(
                         Collections.singletonList(recipe.getResult()))));
-        this.place = recipe.getIngredients();
+        this.place = toOptionalList(recipe.getIngredients());
         this.recipe = recipe;
     }
     //?}
@@ -68,16 +69,16 @@ public class StarCrusherDisplay extends BasicDisplay {
                               List<EntryIngredient> outputs,
                               List<Optional<Ingredient>> ingredient) {
         super(EntryIngredients.ofIngredients(placement.ingredients()), outputs);
-        this.in = EntryIngredients.ofIngredients(placement.ingredients());
+        this.in    = EntryIngredients.ofIngredients(placement.ingredients());
         this.place = ingredient;
-        this.out = outputs.getFirst();
+        this.out   = outputs.getFirst();
     }
     *///?}
 
     /** Universal ctor — guarantees in/out are assigned on every branch. */
     public StarCrusherDisplay(List<EntryIngredient> inputs, List<EntryIngredient> outputs) {
         super(inputs, outputs);
-        this.in = inputs;
+        this.in  = inputs;
         this.out = outputs.getFirst();
     }
 
@@ -96,15 +97,32 @@ public class StarCrusherDisplay extends BasicDisplay {
     /* helpers                                                            */
     /* ------------------------------------------------------------------ */
 
-    /** List<Optional<Ingredient>> -> List<EntryIngredient> using only the
-     *  most portable REI entry points (no ofIngredients(Collection) needed). */
-    private static List<EntryIngredient> toInputs(List<Optional<Ingredient>> src) {
+    //? if >= 26.2 {
+    /*private static List<EntryIngredient> toInputs(List<Optional<Ingredient>> src) {
         List<EntryIngredient> out = new ArrayList<>(src.size());
         for (Optional<Ingredient> opt : src) {
             out.add(opt.map(EntryIngredients::ofIngredient).orElseGet(EntryIngredient::empty));
         }
         return out;
     }
+    *///?} else {
+    // 1.21.1: recipe.getIngredients() returns NonNullList<Ingredient> (vanilla signature).
+    private static List<EntryIngredient> toInputs(List<Ingredient> src) {
+        List<EntryIngredient> out = new ArrayList<>(src.size());
+        for (Ingredient ing : src) {
+            out.add(EntryIngredients.ofIngredient(ing));
+        }
+        return out;
+    }
+
+    private static List<Optional<Ingredient>> toOptionalList(List<Ingredient> src) {
+        List<Optional<Ingredient>> out = new ArrayList<>(src.size());
+        for (Ingredient ing : src) {
+            out.add(Optional.of(ing));
+        }
+        return out;
+    }
+    //?}
 
     private static ShapedStarCrusherRecipe emptyRecipe() {
         //? if >= 26.2 {
@@ -181,7 +199,7 @@ public class StarCrusherDisplay extends BasicDisplay {
 
     //? if >= 26.2 {
     /*@Override
-    *///? }
+     *///?}
     public @Nullable DisplaySerializer<? extends Display> getSerializer() {
         return StargazerREICommon.STAR_CRUSHER;
     }

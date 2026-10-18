@@ -6,12 +6,17 @@ import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
-import net.minecraft.util.Util;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.ScheduledTickAccess;
+//? if >= 26.2 {
+/*import net.minecraft.world.level.ScheduledTickAccess;
+import net.minecraft.util.Util;
+*///?} else {
+import net.minecraft.Util;
+//? }
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.PipeBlock;
@@ -24,7 +29,7 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jspecify.annotations.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -97,8 +102,9 @@ public class PurpleCable extends BaseEntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level world, BlockState state, BlockEntityType<T> type) {
-        return createTickerHelper(type, BlockTypes.PURPLE_CABLE.get(), BaseCableEntity::tick); // Replace with respective cable BlockType
+        return createTickerHelper(type, BlockTypes.PURPLE_CABLE.get(), BaseCableEntity::tick);
     }
+
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext ctx) {
         BlockGetter world = ctx.getLevel();
@@ -112,11 +118,25 @@ public class PurpleCable extends BaseEntityBlock {
         return state;
     }
 
-    @Override
-    protected BlockState updateShape(BlockState state, LevelReader world, ScheduledTickAccess tickView, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, RandomSource random) {
+    /* ---------------- updateShape (signature differs) ---------------- */
+    //? if >= 26.2 {
+    /*@Override
+    protected BlockState updateShape(BlockState state, LevelReader world,
+                                     ScheduledTickAccess tickView, BlockPos pos,
+                                     Direction direction, BlockPos neighborPos,
+                                     BlockState neighborState, RandomSource random) {
         boolean canConnect = this.shouldConnectTo(world, neighborPos, direction);
         return state.setValue(FACING_PROPERTIES.get(direction), canConnect);
     }
+    *///?} else {
+    @Override
+    protected BlockState updateShape(BlockState state, Direction direction,
+                                     BlockState neighborState, LevelAccessor world,
+                                     BlockPos pos, BlockPos neighborPos) {
+        boolean canConnect = this.shouldConnectTo(world, neighborPos, direction);
+        return state.setValue(FACING_PROPERTIES.get(direction), canConnect);
+    }
+    //?}
 
     private int getShapeIndex(BlockState state) {
         int index = 0;
@@ -147,5 +167,4 @@ public class PurpleCable extends BaseEntityBlock {
     public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new PurpleCableEntity(pos, state);
     }
-
 }

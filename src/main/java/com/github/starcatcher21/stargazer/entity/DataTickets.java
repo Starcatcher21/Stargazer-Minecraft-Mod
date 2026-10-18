@@ -1,4 +1,5 @@
-package com.github.starcatcher21.stargazer.entity;
+//? if 26.2 {
+/*package com.github.starcatcher21.stargazer.entity;
 
 import com.github.starcatcher21.stargazer.nbt.StarPatternsComponent;
 import net.minecraft.world.item.DyeColor;
@@ -12,3 +13,4 @@ public class DataTickets {
     public static final DataTicket<ItemStack> INVENTORY = DataTicket.create("inventory", ItemStack.class);
     public static final DataTicket<Float> ROTATION = DataTicket.create("rotation", Float.class);
 }
+*///? }

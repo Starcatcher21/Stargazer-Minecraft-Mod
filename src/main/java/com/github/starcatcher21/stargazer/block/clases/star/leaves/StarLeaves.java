@@ -15,12 +15,13 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.ScheduledTickAccess;
+//? if >= 26.2 {
+/*import net.minecraft.world.level.ScheduledTickAccess;
+ *///?}
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -34,7 +35,8 @@ import java.util.OptionalInt;
 
 public class StarLeaves extends BaseEntityBlock implements SimpleWaterloggedBlock {
     public static final MapCodec<StarLeaves> CODEC = simpleCodec(StarLeaves::new);
-    public static final ResourceLocation TEXTURE =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/block/star_leaves.png");
+    public static final ResourceLocation TEXTURE =
+            ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/block/star_leaves.png");
     protected final float leafParticleChance = 0.5F;
     public static final int MAX_DISTANCE = 7;
     public static final IntegerProperty DISTANCE = BlockStateProperties.DISTANCE;
@@ -51,7 +53,10 @@ public class StarLeaves extends BaseEntityBlock implements SimpleWaterloggedBloc
     public StarLeaves(Properties settings) {
         super(settings);
         this.registerDefaultState(
-                this.stateDefinition.any().setValue(DISTANCE, Integer.valueOf(7)).setValue(PERSISTENT, Boolean.valueOf(false)).setValue(WATERLOGGED, Boolean.valueOf(false))
+                this.stateDefinition.any()
+                        .setValue(DISTANCE, 7)
+                        .setValue(PERSISTENT, false)
+                        .setValue(WATERLOGGED, false)
         );
     }
 
@@ -62,7 +67,7 @@ public class StarLeaves extends BaseEntityBlock implements SimpleWaterloggedBloc
 
     @Override
     protected boolean isRandomlyTicking(BlockState state) {
-        return (Integer)state.getValue(DISTANCE) == 7 && !(Boolean)state.getValue(PERSISTENT);
+        return state.getValue(DISTANCE) == 7 && !state.getValue(PERSISTENT);
     }
 
     @Override
@@ -74,7 +79,7 @@ public class StarLeaves extends BaseEntityBlock implements SimpleWaterloggedBloc
     }
 
     protected boolean shouldDecay(BlockState state) {
-        return !(Boolean)state.getValue(PERSISTENT) && (Integer)state.getValue(DISTANCE) == 7;
+        return !state.getValue(PERSISTENT) && state.getValue(DISTANCE) == 7;
     }
 
     @Override
@@ -82,28 +87,41 @@ public class StarLeaves extends BaseEntityBlock implements SimpleWaterloggedBloc
         world.setBlock(pos, updateDistanceFromLogs(state, world, pos), Block.UPDATE_ALL);
     }
 
-    @Override
-    protected BlockState updateShape(
-            BlockState state,
-            LevelReader world,
-            ScheduledTickAccess tickView,
-            BlockPos pos,
-            Direction direction,
-            BlockPos neighborPos,
-            BlockState neighborState,
-            RandomSource random
-    ) {
-        if ((Boolean)state.getValue(WATERLOGGED)) {
+    /* ---------------- updateShape (signature differs) ---------------- */
+    //? if >= 26.2 {
+    /*@Override
+    protected BlockState updateShape(BlockState state, LevelReader world,
+                                     ScheduledTickAccess tickView, BlockPos pos,
+                                     Direction direction, BlockPos neighborPos,
+                                     BlockState neighborState, RandomSource random) {
+        if (state.getValue(WATERLOGGED)) {
             tickView.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
         }
 
         int i = getDistanceFromLog(neighborState) + 1;
-        if (i != 1 || (Integer)state.getValue(DISTANCE) != i) {
+        if (i != 1 || state.getValue(DISTANCE) != i) {
             tickView.scheduleTick(pos, this, 1);
         }
 
         return state;
     }
+    *///?} else {
+    @Override
+    protected BlockState updateShape(BlockState state, Direction direction,
+                                     BlockState neighborState, LevelAccessor world,
+                                     BlockPos pos, BlockPos neighborPos) {
+        if (state.getValue(WATERLOGGED)) {
+            world.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
+        }
+
+        int i = getDistanceFromLog(neighborState) + 1;
+        if (i != 1 || state.getValue(DISTANCE) != i) {
+            world.scheduleTick(pos, this, 1);
+        }
+
+        return state;
+    }
+    //?}
 
     private static BlockState updateDistanceFromLogs(BlockState state, LevelAccessor world, BlockPos pos) {
         int i = 7;
@@ -117,7 +135,7 @@ public class StarLeaves extends BaseEntityBlock implements SimpleWaterloggedBloc
             }
         }
 
-        return state.setValue(DISTANCE, Integer.valueOf(i));
+        return state.setValue(DISTANCE, i);
     }
 
     private static int getDistanceFromLog(BlockState state) {
@@ -128,7 +146,7 @@ public class StarLeaves extends BaseEntityBlock implements SimpleWaterloggedBloc
         if (state.is(BlockTags.LOGS)) {
             return OptionalInt.of(0);
         } else {
-            return state.hasProperty(DISTANCE) ? OptionalInt.of((Integer)state.getValue(DISTANCE)) : OptionalInt.empty();
+            return state.hasProperty(DISTANCE) ? OptionalInt.of(state.getValue(DISTANCE)) : OptionalInt.empty();
         }
     }
 
@@ -159,8 +177,8 @@ public class StarLeaves extends BaseEntityBlock implements SimpleWaterloggedBloc
     public BlockState getStateForPlacement(BlockPlaceContext ctx) {
         FluidState fluidState = ctx.getLevel().getFluidState(ctx.getClickedPos());
         BlockState blockState = this.defaultBlockState()
-                .setValue(PERSISTENT, Boolean.valueOf(true))
-                .setValue(WATERLOGGED, Boolean.valueOf(fluidState.getType() == Fluids.WATER));
+                .setValue(PERSISTENT, true)
+                .setValue(WATERLOGGED, fluidState.getType() == Fluids.WATER);
         return updateDistanceFromLogs(blockState, ctx.getLevel(), ctx.getClickedPos());
     }
 

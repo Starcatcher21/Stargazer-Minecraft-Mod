@@ -33,6 +33,7 @@ import software.bernie.geckolib.animation.state.AnimationTest;
 *///? } else {
 import software.bernie.geckolib.animation.AnimatableManager;
 import software.bernie.geckolib.animation.PlayState;
+import software.bernie.geckolib.animation.AnimationState;
 //? }
 
 public class EyeBat extends PathfinderMob implements GeoEntity {
@@ -75,16 +76,17 @@ public class EyeBat extends PathfinderMob implements GeoEntity {
 
     @Override
     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
-        //? if >= 26.2 {
-        /*controllers.add(new AnimationController<GeoAnimatable>("MovementController", 5, this::AnimController));
-        *///? }
+        controllers.add(new AnimationController<GeoAnimatable>(/*? if < 26.2 { */ this, /*? } */"MovementController", 5, this::AnimControler));
     }
 
+
     //? if >= 26.2 {
-    /*private PlayState AnimController(AnimationTest<GeoAnimatable> animTest) {
+    /*protected PlayState AnimControler(final AnimationTest<?> animTest) {
+    *///? } else {
+    protected PlayState AnimControler(final AnimationState<GeoAnimatable> animTest) {
+    //? }
         return animTest.setAndContinue(WALK_ANIM);
     }
-    *///? }
 
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {

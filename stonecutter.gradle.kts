@@ -9,8 +9,10 @@ stonecutter {
             replace(".Identifier;", ".ResourceLocation;")
             replace(" Identifier", " ResourceLocation")
             replace("(Identifier", "(ResourceLocation")
+            replace("<Identifier", "<ResourceLocation")
             replace("Identifier.fromNamespace", "ResourceLocation.fromNamespace")
             replace("com.geckolib", "software.bernie.geckolib")
+            replace(".identifier()", ".location()")
         }
     }
 }

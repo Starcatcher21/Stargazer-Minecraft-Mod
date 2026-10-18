@@ -9,10 +9,9 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.*;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Relative;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -20,7 +19,13 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
+//? if >= 26.2 {
+/*import net.minecraft.world.entity.Relative;
 import net.minecraft.world.level.ScheduledTickAccess;
+import net.minecraft.world.level.portal.TeleportTransition;
+*///?} else {
+import net.minecraft.world.level.portal.DimensionTransition;
+//?}
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
@@ -32,13 +37,11 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.levelgen.feature.EndPlatformFeature;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraft.world.level.portal.TeleportTransition;
 import net.minecraft.world.level.storage.LevelData;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
-import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.Shapes;
-import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraft.world.phys.shapes.*;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
@@ -93,7 +96,6 @@ public class EndTeleporter extends Block {
         }
     }
 
-
     @Override
     public BlockState playerWillDestroy(Level world, BlockPos pos, BlockState state, Player player) {
         if (state.getValue(STATE).equals(EndTeleporterState.middle)) {
@@ -122,7 +124,6 @@ public class EndTeleporter extends Block {
             if (state2.hasProperty(STATE) && state2.getValue(STATE).equals(EndTeleporterState.middle)) {
                 breakPortal(world, pos.west());
             }
-
         }
         if (state.getValue(STATE).equals(EndTeleporterState.north_west)) {
             BlockState state2 = world.getBlockState(pos.south().east());
@@ -151,7 +152,6 @@ public class EndTeleporter extends Block {
         return super.playerWillDestroy(world, pos, world.getBlockState(pos), player);
     }
 
-
     public void breakPortal(LevelAccessor world, BlockPos root) {
         world.setBlock(root, Blocks.END_STONE_BRICKS.defaultBlockState(), Block.UPDATE_ALL);
         world.setBlock(root.north(), Blocks.END_STONE_BRICK_STAIRS.defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, Direction.NORTH.getOpposite()), Block.UPDATE_ALL);
@@ -163,7 +163,9 @@ public class EndTeleporter extends Block {
         world.setBlock(root.south().west(), Chess.WHITE_BRICKS.get().defaultBlockState(), Block.UPDATE_ALL);
         world.setBlock(root.south().east(), Chess.WHITE_BRICKS.get().defaultBlockState(), Block.UPDATE_ALL);
     }
-    @Override
+
+    //? if >= 26.2 {
+    /*@Override
     protected ItemStack getCloneItemStack(LevelReader world, BlockPos pos, BlockState state, boolean includeData) {
         EndTeleporterState cts = state.getValue(STATE);
         if (cts.equals(EndTeleporterState.middle)) {
@@ -174,8 +176,22 @@ public class EndTeleporter extends Block {
         }
         return Chess.WHITE_BRICKS.get().asItem().getDefaultInstance();
     }
-
+    *///?} else {
     @Override
+    public ItemStack getCloneItemStack(BlockState state, HitResult target, LevelReader level, BlockPos pos, Player player) {
+        EndTeleporterState cts = state.getValue(STATE);
+        if (cts.equals(EndTeleporterState.middle)) {
+            return Blocks.END_STONE_BRICKS.asItem().getDefaultInstance();
+        }
+        if (cts.equals(EndTeleporterState.north) || cts.equals(EndTeleporterState.south) || cts.equals(EndTeleporterState.west) || cts.equals(EndTeleporterState.east)) {
+            return Blocks.END_STONE_BRICK_STAIRS.asItem().getDefaultInstance();
+        }
+        return Chess.WHITE_BRICKS.get().asItem().getDefaultInstance();
+    }
+    //?}
+
+    //? if >= 26.2 {
+    /*@Override
     protected BlockState updateShape(
             BlockState state,
             LevelReader world,
@@ -186,19 +202,40 @@ public class EndTeleporter extends Block {
             BlockState neighborState,
             RandomSource random
     ) {
-        if ((Boolean)state.getValue(WATERLOGGED)) {
+        if ((Boolean) state.getValue(WATERLOGGED)) {
             tickView.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
         }
 
         return state;
     }
+    *///?} else {
+    @Override
+    protected BlockState updateShape(
+            BlockState state,
+            Direction direction,
+            BlockState neighborState,
+            LevelAccessor world,
+            BlockPos pos,
+            BlockPos neighborPos
+    ) {
+        if (state.getValue(WATERLOGGED)) {
+            world.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
+        }
+        return state;
+    }
+    //?}
 
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit) {
         if (state.getValue(STATE).equals(EndTeleporterState.middle)) {
             if (world instanceof ServerLevel sw) {
-                TeleportTransition target = createTeleportTarget(sw, player, pos);
-                player.teleport(target);
+                //? if >= 26.2 {
+                /*TeleportTransition target = createTeleportTarget(sw, player, pos);
+                if (target != null) player.teleport(target);
+                *///?} else {
+                DimensionTransition target = createTeleportTarget(sw, player, pos);
+                if (target != null) player.changeDimension(target);
+                //?}
             }
         }
         return InteractionResult.PASS;
@@ -206,19 +243,33 @@ public class EndTeleporter extends Block {
 
     @Override
     public void stepOn(Level world, BlockPos pos, BlockState state, Entity entity) {
-        if (!(entity instanceof Player)) {
-            if (state.getValue(STATE).equals(EndTeleporterState.middle)) {
-                if (world instanceof ServerLevel sw) {
-                    TeleportTransition target = createTeleportTarget(sw, entity, pos);
-                    TeleportTransition newTarget = target.withPosition(target.position().relative(Direction.NORTH, 1));
-                    entity.teleport(newTarget);
-                }
+        if (!(entity instanceof Player)
+                && state.getValue(STATE).equals(EndTeleporterState.middle)
+                && world instanceof ServerLevel sw) {
+            //? if >= 26.2 {
+            /*TeleportTransition target = createTeleportTarget(sw, entity, pos);
+            if (target != null) {
+                TeleportTransition newTarget = target.withPosition(
+                        target.position().relative(Direction.NORTH, 1));
+                entity.teleport(newTarget);
             }
+            *///?} else {
+            DimensionTransition target = createTeleportTarget(sw, entity, pos);
+            if (target != null) {
+                DimensionTransition newTarget = new DimensionTransition(
+                        sw,
+                        entity,
+                        target.postDimensionTransition()
+                );
+                entity.changeDimension(newTarget);
+            }
+            //?}
         }
         super.stepOn(world, pos, state, entity);
     }
 
-    @Nullable
+    //? if >= 26.2 {
+    /*@Nullable
     public TeleportTransition createTeleportTarget(ServerLevel world, Entity entity, BlockPos pos) {
         LevelData.RespawnData spawnPoint = world.getRespawnData();
         ResourceKey<Level> registryKey = world.dimension();
@@ -257,6 +308,69 @@ public class EndTeleporter extends Block {
             );
         }
     }
+    *///?} else {
+    @Nullable
+    public DimensionTransition createTeleportTarget(ServerLevel world, Entity entity, BlockPos pos) {
+        ResourceKey<Level> registryKey = world.dimension();
+        boolean bl = registryKey == Level.END;
+        ResourceKey<Level> registryKey2 = bl ? Level.OVERWORLD : Level.END;
+        ServerLevel serverWorld = world.getServer().getLevel(registryKey2);
+        if (serverWorld == null) {
+            return null;
+        }
+
+        Vec3 vec3d;
+        float f;
+        float g;
+
+        if (!bl) {
+            BlockPos blockPos = ServerLevel.END_SPAWN_POINT;
+            vec3d = Vec3.atBottomCenterOf(blockPos);
+            EndPlatformFeature.createEndPlatform(serverWorld, blockPos.below(), true);
+            f = Direction.WEST.toYRot();
+            g = 0.0F;
+            if (entity instanceof ServerPlayer) {
+                vec3d = vec3d.subtract(0.0, 1.0, 0.0);
+            }
+        } else {
+            if (entity instanceof ServerPlayer serverPlayer) {
+                BlockPos respawnPos = serverPlayer.getRespawnPosition();
+                ResourceKey<Level> respawnDim = serverPlayer.getRespawnDimension();
+                if (respawnPos != null && respawnDim != null) {
+                    ServerLevel respawnWorld = world.getServer().getLevel(respawnDim);
+                    if (respawnWorld != null) {
+                        serverWorld = respawnWorld;
+                        vec3d = Vec3.atBottomCenterOf(respawnPos);
+                        f = serverPlayer.getRespawnAngle();
+                        g = 0.0F;
+                    } else {
+                        BlockPos worldSpawn = serverWorld.getSharedSpawnPos();
+                        vec3d = Vec3.atBottomCenterOf(worldSpawn);
+                        f = serverWorld.getSharedSpawnAngle();
+                        g = 0.0F;
+                    }
+                } else {
+                    BlockPos worldSpawn = serverWorld.getSharedSpawnPos();
+                    vec3d = Vec3.atBottomCenterOf(worldSpawn);
+                    f = serverWorld.getSharedSpawnAngle();
+                    g = 0.0F;
+                }
+            } else {
+                BlockPos worldSpawn = serverWorld.getSharedSpawnPos();
+                vec3d = Vec3.atBottomCenterOf(worldSpawn);
+                f = serverWorld.getSharedSpawnAngle();
+                g = 0.0F;
+            }
+        }
+
+        // Older DimensionTransition constructor: (ServerLevel, Vec3 pos, Vec3 velocity,
+        //                                      float yaw, float pitch, PostDimensionTransition)
+        return new DimensionTransition(
+                serverWorld, vec3d, Vec3.ZERO, f, g,
+                DimensionTransition.PLAY_PORTAL_SOUND.then(DimensionTransition.PLACE_PORTAL_TICKET)
+        );
+    }
+    //?}
 
     @Override
     protected FluidState getFluidState(BlockState state) {
@@ -265,41 +379,41 @@ public class EndTeleporter extends Block {
 
     @Override
     protected VoxelShape getCollisionShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
-        return collision(state,world,pos,context);
+        return collision(state, world, pos, context);
     }
 
     @Override
     protected VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
-        return collision(state,world,pos,context);
+        return collision(state, world, pos, context);
     }
 
     protected VoxelShape collision(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
-        Map<Direction, VoxelShape> SIDEMAP = Shapes.rotateAll(SIDESHAPE);
+        //? if >= 26.2 {
+        /*Map<Direction, VoxelShape> SIDEMAP = Shapes.rotateAll(SIDESHAPE);
         Map<Direction, VoxelShape> CORNERMAP = Shapes.rotateAll(CORNERSHAPE);
-        if (state.getValue(STATE).equals(EndTeleporterState.north)) {
-            return SIDEMAP.get(Direction.NORTH);
-        }
-        if (state.getValue(STATE).equals(EndTeleporterState.south)) {
-            return SIDEMAP.get(Direction.SOUTH);
-        }
-        if (state.getValue(STATE).equals(EndTeleporterState.east)) {
-            return SIDEMAP.get(Direction.EAST);
-        }
-        if (state.getValue(STATE).equals(EndTeleporterState.west)) {
-            return SIDEMAP.get(Direction.WEST);
-        }
-        if (state.getValue(STATE).equals(EndTeleporterState.north_east)) {
-            return CORNERMAP.get(Direction.NORTH);
-        }
-        if (state.getValue(STATE).equals(EndTeleporterState.north_west)) {
-            return CORNERMAP.get(Direction.WEST);
-        }
-        if (state.getValue(STATE).equals(EndTeleporterState.south_east)) {
-            return CORNERMAP.get(Direction.EAST);
-        }
-        if (state.getValue(STATE).equals(EndTeleporterState.south_west)) {
-            return CORNERMAP.get(Direction.SOUTH);
-        }
+        *///?} else {
+        Map<Direction, VoxelShape> SIDEMAP = Map.of(
+                Direction.NORTH, SIDESHAPE,
+                Direction.SOUTH, SIDESHAPE.getFaceShape(Direction.SOUTH),
+                Direction.EAST, SIDESHAPE.getFaceShape(Direction.EAST),
+                Direction.WEST, SIDESHAPE.getFaceShape(Direction.WEST)
+        );
+        Map<Direction, VoxelShape> CORNERMAP = Map.of(
+                Direction.NORTH, CORNERSHAPE,
+                Direction.SOUTH, CORNERSHAPE.getFaceShape(Direction.SOUTH),
+                Direction.EAST, CORNERSHAPE.getFaceShape(Direction.EAST),
+                Direction.WEST, CORNERSHAPE.getFaceShape(Direction.WEST)
+        );
+        //?}
+        EndTeleporterState cts = state.getValue(STATE);
+        if (cts == EndTeleporterState.north) return SIDEMAP.get(Direction.NORTH);
+        if (cts == EndTeleporterState.south) return SIDEMAP.get(Direction.SOUTH);
+        if (cts == EndTeleporterState.east)  return SIDEMAP.get(Direction.EAST);
+        if (cts == EndTeleporterState.west)  return SIDEMAP.get(Direction.WEST);
+        if (cts == EndTeleporterState.north_east) return CORNERMAP.get(Direction.NORTH);
+        if (cts == EndTeleporterState.north_west) return CORNERMAP.get(Direction.WEST);
+        if (cts == EndTeleporterState.south_east) return CORNERMAP.get(Direction.EAST);
+        if (cts == EndTeleporterState.south_west) return CORNERMAP.get(Direction.SOUTH);
         return MIDDLESHAPE;
     }
 
@@ -321,7 +435,6 @@ public class EndTeleporter extends Block {
     public void setPlacedBy(Level world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
         portalPlace(world, pos, false, false);
     }
-
 
     public static void portalPlace(Level world, BlockPos root, Boolean isAir, Boolean isPlatform) {
         world.setBlockAndUpdate(root, ModBlock.END_TELEPORTER.get().defaultBlockState().setValue(EndTeleporter.STATE, EndTeleporterState.middle));

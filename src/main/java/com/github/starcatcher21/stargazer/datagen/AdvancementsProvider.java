@@ -1,4 +1,4 @@
-/*? if fabric {*/
+/*? if fabric || neoforge {*/
 /*package com.github.starcatcher21.stargazer.datagen;
 
 import com.github.starcatcher21.stargazer.CustomTags;
@@ -12,12 +12,19 @@ import com.github.starcatcher21.stargazer.item.WishingStars;
 import com.github.starcatcher21.stargazer.mechanics.DamageTypeRegistry;
 import com.github.starcatcher21.stargazer.mechanics.advancements.*;
 import com.github.starcatcher21.stargazer.worldgen.BiomeReg;
+import dev.architectury.registry.registries.RegistrySupplier;
+//? if fabric {
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
+//?} else {
+import net.minecraft.data.PackOutput;
+import net.minecraft.data.advancements.AdvancementProvider;
+//?}
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.AdvancementType;
+//? if >= 26.2 {
 import net.minecraft.advancements.predicates.entity.EntityPredicate;
 import net.minecraft.advancements.predicates.ItemPredicate;
 import net.minecraft.advancements.predicates.LocationPredicate;
@@ -26,6 +33,16 @@ import net.minecraft.advancements.triggers.PlayerHurtEntityTrigger;
 import net.minecraft.advancements.predicates.entity.PlayerPredicate;
 import net.minecraft.advancements.triggers.PlayerTrigger;
 import net.minecraft.advancements.predicates.TagPredicate;
+//?} else {
+import net.minecraft.advancements.critereon.EntityPredicate;
+import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.advancements.critereon.LocationPredicate;
+import net.minecraft.advancements.critereon.NbtPredicate;
+import net.minecraft.advancements.critereon.PlayerHurtEntityTrigger;
+import net.minecraft.advancements.critereon.PlayerPredicate;
+import net.minecraft.advancements.critereon.PlayerTrigger;
+import net.minecraft.advancements.critereon.TagPredicate;
+//?}
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
@@ -34,9 +51,15 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
+//? if >= 26.2 {
 import net.minecraft.util.Util;
+//?} else {
+import net.minecraft.Util;
+//?}
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Blocks;
 import java.util.List;
@@ -44,17 +67,32 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
-public class AdvancementsProvider extends FabricAdvancementProvider {
+public class AdvancementsProvider
+//? if fabric {
+        extends FabricAdvancementProvider {
     public AdvancementsProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registryLookup) {
         super(output, registryLookup);
     }
+//?} else {
+        extends AdvancementProvider {
+    public AdvancementsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registryLookup) {
+        super(output, registryLookup, List.of(AdvancementsProvider::generateAdvancements));
+    }
+//?}
 
-    public static final TagKey<DamageType> STAR_TRAP = TagKey.create(Registries.DAMAGE_TYPE, DamageTypeRegistry.STAR_TRAP.identifier());
+    public static final TagKey<DamageType> STAR_TRAP = TagKey.create(Registries.DAMAGE_TYPE, DamageTypeRegistry.STAR_TRAP.location());
 
+    //? if fabric {
     @Override
     public void generateAdvancement(HolderLookup.Provider wrapperLookup, Consumer<AdvancementHolder> consumer) {
+        generateAdvancements(wrapperLookup, consumer);
+    }
+    //?}
+
+    private static void generateAdvancements(HolderLookup.Provider wrapperLookup, Consumer<AdvancementHolder> consumer) {
         HolderGetter registryEntryLookupEntity = wrapperLookup.lookupOrThrow(Registries.ENTITY_TYPE);
         HolderGetter registryEntryLookupItem = wrapperLookup.lookupOrThrow(Registries.ITEM);
+        HolderGetter registryEntryLookupBiome = wrapperLookup.lookupOrThrow(Registries.BIOME);
         AdvancementHolder stars = Advancement.Builder.advancement()
                 .display(
                         MoonBlocks.MOON_ROCK.get(), // The display icon
@@ -80,7 +118,7 @@ public class AdvancementsProvider extends FabricAdvancementProvider {
                         true, // Announce it to chat
                         false // Hide it in the advancement tab until it's achieved
                 )
-                .addCriterion("watch_stars", Criterias.STARCATCHING.get().createCriterion(new Starcatching.Conditions(Optional.empty(), Optional.empty())))
+                .addCriterion("watch_stars", registryValue(Criterias.STARCATCHING).createCriterion(new Starcatching.Conditions(Optional.empty(), Optional.empty())))
                 .save(consumer, Stargazer.MOD_ID + ":airplane");
         AdvancementHolder book = Advancement.Builder.advancement()
                 .parent(airplane)
@@ -94,14 +132,14 @@ public class AdvancementsProvider extends FabricAdvancementProvider {
                         true, // Announce it to chat
                         false // Hide it in the advancement tab until it's achieved
                 )
-                .addCriterion("watch_stars", Criterias.STARCATCHING.get().createCriterion(new Starcatching.Conditions(Optional.empty(), Optional.of(ItemPredicate.Builder.item().of(registryEntryLookupItem, ModItems.STAR_BOOK.get()).build()))))
+                .addCriterion("watch_stars", registryValue(Criterias.STARCATCHING).createCriterion(new Starcatching.Conditions(Optional.empty(), Optional.of(itemPredicate(registryEntryLookupItem, ModItems.STAR_BOOK.get())))))
                 .save(consumer, Stargazer.MOD_ID + ":book");
         AdvancementHolder negative = Advancement.Builder.advancement()
                 .parent(stars)
                 .display(
                         ModBlock.NEGATIVE_BLOCK.get().asItem(), // The display icon
                         Component.literal("evitageN"), // The title
-                        Component.literal("I see in negative"), // The descriptionu                .addCriterion("watch_stars", Criterias.starcatching.createCriterion(new Starcatching.Conditions(Optional.empty(), Optional.of(ItemPredicate.Builder.item().of(registryEntryLookupItem, ModItems.STAR_BOOK).build()))))
+                        Component.literal("I see in negative"), // The description
 
                         null,
                         AdvancementType.TASK, // TASK, CHALLENGE, or GOAL
@@ -109,7 +147,7 @@ public class AdvancementsProvider extends FabricAdvancementProvider {
                         true, // Announce it to chat
                         true // Hide it in the advancement tab until it's achieved
                 )
-                .addCriterion("negative", Criterias.NEGATIVE.get().createCriterion(new Negative.Conditions(Optional.empty())))
+                .addCriterion("negative", registryValue(Criterias.NEGATIVE).createCriterion(new Negative.Conditions(Optional.empty())))
                 .save(consumer, Stargazer.MOD_ID + ":negative");
         AdvancementHolder brick = Advancement.Builder.advancement()
                 .parent(airplane)
@@ -123,13 +161,17 @@ public class AdvancementsProvider extends FabricAdvancementProvider {
                         true, // Announce it to chat
                         false // Hide it in the advancement tab until it's achieved
                 )
-                .addCriterion("watch_stars", Criterias.STARCATCHING.get().createCriterion(new Starcatching.Conditions(Optional.empty(), Optional.of(ItemPredicate.Builder.item().of(registryEntryLookupItem, CustomTags.CHESS_BRICK).build()))))
+                .addCriterion("watch_stars", registryValue(Criterias.STARCATCHING).createCriterion(new Starcatching.Conditions(Optional.empty(), Optional.of(itemTagPredicate(registryEntryLookupItem, CustomTags.CHESS_BRICK)))))
                 .save(consumer, Stargazer.MOD_ID + ":brick");
 
         AdvancementHolder portal = Advancement.Builder.advancement()
                 .parent(airplane)
                 .display(
-                        Blocks.CUT_COPPER.weathering().unaffected(), // The display icon
+                        //? if >= 26.2 {
+                        Blocks.CUT_COPPER.weathering().unaffected(),
+                        //?} else {
+                        Blocks.CUT_COPPER,
+                        //?}
                         Component.literal("Where are we going?"), // The title
                         Component.literal("Open a portal to the unknown"), // The description
                         null,
@@ -138,7 +180,7 @@ public class AdvancementsProvider extends FabricAdvancementProvider {
                         true, // Announce it to chat
                         false // Hide it in the advancement tab until it's achieved
                 )
-                .addCriterion("open_portal", Criterias.COSMIC_PORTAL.get().createCriterion(new CosmicPortal.Conditions(Optional.empty())))
+                .addCriterion("open_portal", registryValue(Criterias.COSMIC_PORTAL).createCriterion(new CosmicPortal.Conditions(Optional.empty())))
                 .save(consumer, Stargazer.MOD_ID + ":portal");
 
         TagPredicate<DamageType> star = TagPredicate.is(STAR_TRAP);
@@ -146,7 +188,7 @@ public class AdvancementsProvider extends FabricAdvancementProvider {
         AdvancementHolder teeth_plant = Advancement.Builder.advancement()
                 .parent(portal)
                 .display(
-                        MoonBlocks.STAR_TRAP.get(), // The display icon
+                        registryValue(MoonBlocks.STAR_TRAP), // The display icon
                         Component.literal("Does this plant have teeth?"), // The title
                         Component.literal("Ouch that hurts"), // The description
                         null,
@@ -155,7 +197,7 @@ public class AdvancementsProvider extends FabricAdvancementProvider {
                         true, // Announce it to chat
                         true // Hide it in the advancement tab until it's achieved
                 )
-                .addCriterion("hurt", Criterias.STAR_TRAP.get().createCriterion(new StarTrap.Conditions(Optional.empty())))
+                .addCriterion("hurt", registryValue(Criterias.STAR_TRAP).createCriterion(new StarTrap.Conditions(Optional.empty())))
                 .save(consumer, Stargazer.MOD_ID + ":teeth_plant");
 
 
@@ -173,12 +215,11 @@ public class AdvancementsProvider extends FabricAdvancementProvider {
                         false // Hide it in the advancement tab until it's achieved
                 )
                 .addCriterion("ghost", PlayerTrigger.TriggerInstance.located(
-                        Optional.of(EntityPredicate.Builder.entity()
-                                .player(PlayerPredicate.Builder.player()
-                                        .setLookingAt(EntityPredicate.Builder.entity()
-                                                .of(registryEntryLookupEntity, EntityRegistry.GHOST_ENTITY.get())
-                                        ).build())
-                                .build())))
+                        Optional.of(lookingAtEntityPredicate(
+                                registryEntryLookupEntity,
+                                registryValue(EntityRegistry.GHOST_ENTITY),
+                                Optional.empty()
+                        ).build())))
                 .save(consumer, Stargazer.MOD_ID + ":ghost");
 
         AdvancementHolder gravity = Advancement.Builder.advancement()
@@ -193,7 +234,7 @@ public class AdvancementsProvider extends FabricAdvancementProvider {
                         true, // Announce it to chat
                         true // Hide it in the advancement tab until it's achieved
                 )
-                .addCriterion("hurt", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(Optional.empty(), Optional.of(EntityPredicate.Builder.entity().of(registryEntryLookupEntity, EntityRegistry.GHOST_ENTITY.get()).build())))
+                .addCriterion("hurt", PlayerHurtEntityTrigger.TriggerInstance.playerHurtEntity(Optional.empty(), Optional.of(entityPredicate(registryEntryLookupEntity, registryValue(EntityRegistry.GHOST_ENTITY)).build())))
                 .save(consumer, Stargazer.MOD_ID + ":gravity");
 
         AdvancementHolder pac = Advancement.Builder.advancement()
@@ -209,15 +250,11 @@ public class AdvancementsProvider extends FabricAdvancementProvider {
                         true // Hide it in the advancement tab until it's achieved
                 )
                 .addCriterion("pacman look", PlayerTrigger.TriggerInstance.located(
-                        Optional.of(EntityPredicate.Builder.entity()
-                                .player(PlayerPredicate.Builder.player()
-                                        .setLookingAt(EntityPredicate.Builder.entity()
-                                                .of(registryEntryLookupEntity, EntityRegistry.GHOST_ENTITY.get())
-                                                .nbt(new NbtPredicate(Util.make(new CompoundTag(), nbt -> {
-                                                    nbt.putString("tag", "pacman");
-                                                })))
-                                        ).build())
-                                .build())))
+                        Optional.of(lookingAtEntityPredicate(
+                                registryEntryLookupEntity,
+                                registryValue(EntityRegistry.GHOST_ENTITY),
+                                Optional.of("pacman")
+                        ).build())))
                 .save(consumer, Stargazer.MOD_ID + ":pac");
 
 
@@ -234,15 +271,11 @@ public class AdvancementsProvider extends FabricAdvancementProvider {
                         true // Hide it in the advancement tab until it's achieved
                 )
                 .addCriterion("meet again", PlayerTrigger.TriggerInstance.located(
-                        Optional.of(EntityPredicate.Builder.entity()
-                                .player(PlayerPredicate.Builder.player()
-                                        .setLookingAt(EntityPredicate.Builder.entity()
-                                                .of(registryEntryLookupEntity, EntityRegistry.GHOST_ENTITY.get())
-                                                .nbt(new NbtPredicate(Util.make(new CompoundTag(), nbt -> {
-                                                    nbt.putString("tag", "bill");
-                                                })))
-                                        ).build())
-                                .build())))
+                        Optional.of(lookingAtEntityPredicate(
+                                registryEntryLookupEntity,
+                                registryValue(EntityRegistry.GHOST_ENTITY),
+                                Optional.of("bill")
+                        ).build())))
                 .save(consumer, Stargazer.MOD_ID + ":bill");
 
         AdvancementHolder adventures = Advancement.Builder.advancement()
@@ -258,15 +291,11 @@ public class AdvancementsProvider extends FabricAdvancementProvider {
                         true // Hide it in the advancement tab until it's achieved
                 )
                 .addCriterion("adventure", PlayerTrigger.TriggerInstance.located(
-                        Optional.of(EntityPredicate.Builder.entity()
-                                .player(PlayerPredicate.Builder.player()
-                                        .setLookingAt(EntityPredicate.Builder.entity()
-                                                .of(registryEntryLookupEntity, EntityRegistry.GHOST_ENTITY.get())
-                                                .nbt(new NbtPredicate(Util.make(new CompoundTag(), nbt -> {
-                                                    nbt.putString("tag", "adventure");
-                                                })))
-                                        ).build())
-                                .build())))
+                        Optional.of(lookingAtEntityPredicate(
+                                registryEntryLookupEntity,
+                                registryValue(EntityRegistry.GHOST_ENTITY),
+                                Optional.of("adventure")
+                        ).build())))
                 .save(consumer, Stargazer.MOD_ID + ":adventure");
 
         requireListedBiomesVisited(Advancement.Builder.advancement(), wrapperLookup, BiomeReg.MoonList)
@@ -285,7 +314,7 @@ public class AdvancementsProvider extends FabricAdvancementProvider {
                 .save(consumer, Stargazer.MOD_ID + ":exotic_turist");
         AdvancementHolder Wishing = Advancement.Builder.advancement()
                 .parent(portal)
-                .addCriterion("craft", Criterias.FORGE_CRAFT.get().createCriterion(new ForgeCraft.Conditions(Optional.empty(), Optional.of(ItemPredicate.Builder.item().of(registryEntryLookupItem, WishingStars.WISHING_STAR.get()).build()))))
+                .addCriterion("craft", registryValue(Criterias.FORGE_CRAFT).createCriterion(new ForgeCraft.Conditions(Optional.empty(), Optional.of(itemPredicate(registryEntryLookupItem, WishingStars.WISHING_STAR.get())))))
                 .display(
                         WishingStars.WISHING_STAR.get(),
                         Component.literal("Make a Wish"),
@@ -300,7 +329,7 @@ public class AdvancementsProvider extends FabricAdvancementProvider {
 
         AdvancementHolder Milk = Advancement.Builder.advancement()
                 .parent(Wishing)
-                .addCriterion("milk", Criterias.STAR_MODIFIER.get().createCriterion(new StarModifier.Conditions(Optional.empty(), Optional.of(ItemPredicate.Builder.item().of(registryEntryLookupItem, Items.MILK_BUCKET).build()))))
+                .addCriterion("milk", registryValue(Criterias.STAR_MODIFIER).createCriterion(new StarModifier.Conditions(Optional.empty(), Optional.of(itemPredicate(registryEntryLookupItem, Items.MILK_BUCKET)))))
                 .display(
                         WishingStars.WISHING_STAR.get(),
                         Component.literal("This isn't a milk"),
@@ -325,7 +354,7 @@ public class AdvancementsProvider extends FabricAdvancementProvider {
                         true, // Announce it to chat
                         false // Hide it in the advancement tab until it's achieved
                 )
-                .addCriterion("craft", Criterias.FORGE_CRAFT.get().createCriterion(new ForgeCraft.Conditions(Optional.empty(), Optional.of(ItemPredicate.Builder.item().of(registryEntryLookupItem, CustomTags.COSMIC).build()))))
+                .addCriterion("craft", registryValue(Criterias.FORGE_CRAFT).createCriterion(new ForgeCraft.Conditions(Optional.empty(), Optional.of(itemTagPredicate(registryEntryLookupItem, CustomTags.COSMIC)))))
                 .save(consumer, Stargazer.MOD_ID + ":home");
         AdvancementHolder Red = Advancement.Builder.advancement()
                 .parent(portal)
@@ -339,7 +368,13 @@ public class AdvancementsProvider extends FabricAdvancementProvider {
                         true, // Announce it to chat
                         false // Hide it in the advancement tab until it's achieved
                 )
-                .addCriterion("craft", Criterias.MOON_WELD.get().createCriterion(new MoonWeld.Conditions(Optional.empty(), Optional.of(ItemPredicate.Builder.item().of(registryEntryLookupItem, RedOrbBlocks.RED_ORB_PLATFORM.get().asItem()).build()))))
+                .addCriterion(
+                        "visit_red_planet",
+                        PlayerTrigger.TriggerInstance.located(
+                                LocationPredicate.Builder.inBiome(registryEntryLookupBiome.getOrThrow(BiomeReg.REDNESS))
+                        )
+                )
+//                .addCriterion("craft", Criterias.MOON_WELD.get().createCriterion(new MoonWeld.Conditions(Optional.empty(), Optional.of(ItemPredicate.Builder.item().of(registryEntryLookupItem, RedOrbBlocks.RED_ORB_PLATFORM.get().asItem()).build()))))
                 .save(consumer, Stargazer.MOD_ID + ":red");
     }
 
@@ -347,7 +382,7 @@ public class AdvancementsProvider extends FabricAdvancementProvider {
         HolderGetter registryEntryLookup = registries.lookupOrThrow(Registries.BIOME);
         for (ResourceKey<Biome> registryKey : biomes) {
             builder.addCriterion(
-                    "visited_" + registryKey.identifier().getPath(),
+                    "visited_" + registryKey.location().getPath(),
                     PlayerTrigger.TriggerInstance.located(
                             LocationPredicate.Builder.inBiome(registryEntryLookup.getOrThrow(registryKey))
                     )
@@ -355,5 +390,51 @@ public class AdvancementsProvider extends FabricAdvancementProvider {
         }
         return builder;
     }
+
+    private static <T> T registryValue(T value) {
+        return value;
+    }
+
+    private static <T> T registryValue(RegistrySupplier<T> value) {
+        return value.get();
+    }
+
+    private static ItemPredicate itemPredicate(HolderGetter<Item> items, Item item) {
+        //? if >= 26.2 {
+        return ItemPredicate.Builder.item().of(items, item).build();
+        //?} else {
+        return ItemPredicate.Builder.item().of(item).build();
+        //?}
+    }
+
+    private static ItemPredicate itemTagPredicate(HolderGetter<Item> items, TagKey<Item> tag) {
+        //? if >= 26.2 {
+        return ItemPredicate.Builder.item().of(items, tag).build();
+        //?} else {
+        return ItemPredicate.Builder.item().of(tag).build();
+        //?}
+    }
+
+    private static EntityPredicate.Builder entityPredicate(
+            HolderGetter<EntityType<?>> entities, EntityType<?> entityType) {
+        //? if >= 26.2 {
+        return EntityPredicate.Builder.entity().of(entities, entityType);
+        //?} else {
+        return EntityPredicate.Builder.entity().of(entityType);
+        //?}
+    }
+
+    private static EntityPredicate.Builder lookingAtEntityPredicate(
+            HolderGetter<EntityType<?>> entities, EntityType<?> entityType, Optional<String> tag) {
+        EntityPredicate.Builder lookedAt = entityPredicate(entities, entityType);
+        tag.ifPresent(value -> lookedAt.nbt(new NbtPredicate(Util.make(
+                new CompoundTag(), nbt -> nbt.putString("tag", value)))));
+        PlayerPredicate.Builder player = PlayerPredicate.Builder.player().setLookingAt(lookedAt);
+        //? if >= 26.2 {
+        return EntityPredicate.Builder.entity().player(player.build());
+        //?} else {
+        return EntityPredicate.Builder.entity().subPredicate(player.build());
+        //?}
+    }
 }
-*///? }
+*///?}
