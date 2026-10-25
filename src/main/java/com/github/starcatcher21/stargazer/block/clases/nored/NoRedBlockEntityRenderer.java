@@ -8,14 +8,14 @@ import org.joml.Matrix4f;
 
 import java.util.EnumSet;
 //? if >= 26.2 {
-/*import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.rendertype.RenderType;
-*///?} else {
-import net.minecraft.client.renderer.MultiBufferSource;
+//?} else {
+/*import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
-//?}
+*///?}
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.Direction;
@@ -23,7 +23,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
 //? if >= 26.2 {
-/*public class NoRedBlockEntityRenderer<T extends NoRedBlockEntity>
+public class NoRedBlockEntityRenderer<T extends NoRedBlockEntity>
         implements BlockEntityRenderer<T, NoRedBlockEntityRenderState> {
 
     public NoRedBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {
@@ -107,8 +107,8 @@ import net.minecraft.world.phys.Vec3;
         }
     }
 }
-*///?} else {
-public class NoRedBlockEntityRenderer implements BlockEntityRenderer<NoRedBlockEntity> {
+//?} else {
+/*public class NoRedBlockEntityRenderer implements BlockEntityRenderer<NoRedBlockEntity> {
 
     public NoRedBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {
     }
@@ -183,4 +183,4 @@ public class NoRedBlockEntityRenderer implements BlockEntityRenderer<NoRedBlockE
         this.renderSides(sides, matrices.last().pose(), consumer);
     }
 }
-//?}
+*///?}

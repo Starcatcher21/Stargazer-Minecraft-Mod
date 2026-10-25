@@ -5,30 +5,30 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeInput;
 
 //? if >= 26.2 {
-/*import net.minecraft.world.entity.player.StackedItemContents;
-*///?} else {
-import net.minecraft.world.entity.player.StackedContents;
- //?}
+import net.minecraft.world.entity.player.StackedItemContents;
+//?} else {
+/*import net.minecraft.world.entity.player.StackedContents;
+ *///?}
 
 public class StarCrusherRecipeInput implements RecipeInput {
 
     //? if >= 26.2 {
-    /*public static final StarCrusherRecipeInput EMPTY =
-            new StarCrusherRecipeInput(List.of());
-    *///?} else {
     public static final StarCrusherRecipeInput EMPTY =
+            new StarCrusherRecipeInput(List.of());
+    //?} else {
+    /*public static final StarCrusherRecipeInput EMPTY =
         new StarCrusherRecipeInput(List.of());
-    //?}
+    *///?}
 
     private final List<ItemStack> stacks;
     private final int stackCount;
 
     //? if >= 26.2 {
-    /*private final StackedItemContents matcher = new StackedItemContents();
-    *///?} else {
-    // 1.21.1 has no StackedItemContents class. Use StackedContents instead.
+    private final StackedItemContents matcher = new StackedItemContents();
+    //?} else {
+    /*// 1.21.1 has no StackedItemContents class. Use StackedContents instead.
     private final StackedContents matcher = new StackedContents();
-    //?}
+    *///?}
 
     public StarCrusherRecipeInput(List<ItemStack> stacks) {
         this.stacks = stacks;
@@ -37,10 +37,10 @@ public class StarCrusherRecipeInput implements RecipeInput {
             if (itemStack.isEmpty()) continue;
             ++i;
             //? if >= 26.2 {
-            /*this.matcher.accountStack(itemStack, 1);
-            *///?} else {
-            this.matcher.accountStack(itemStack);
-            //?}
+            this.matcher.accountStack(itemStack, 1);
+            //?} else {
+            /*this.matcher.accountStack(itemStack);
+            *///?}
         }
         this.stackCount = i;
     }
@@ -69,10 +69,10 @@ public class StarCrusherRecipeInput implements RecipeInput {
     }
 
     //? if >= 26.2 {
-    /*public StackedItemContents getRecipeMatcher() {
+    public StackedItemContents getRecipeMatcher() {
         return this.matcher;
     }
-    *///?}
+    //?}
 
     public List<ItemStack> getStacks() {
         return this.stacks;
@@ -97,14 +97,14 @@ public class StarCrusherRecipeInput implements RecipeInput {
     @Override
     public int hashCode() {
         //? if >= 26.2 {
-        /*int i = ItemStack.hashStackList(this.stacks);
-        *///?} else {
-        // 1.21.1: hashStackList does not exist; combine per-stack hashes.
+        int i = ItemStack.hashStackList(this.stacks);
+        //?} else {
+        /*// 1.21.1: hashStackList does not exist; combine per-stack hashes.
         int i = 1;
         for (ItemStack stack : this.stacks) {
             i = 31 * i + ItemStack.hashItemAndComponents(stack);
         }
-        //?}
+        *///?}
         i = 31 * i + 1;
         i = 31 * i + 1;
         return i;

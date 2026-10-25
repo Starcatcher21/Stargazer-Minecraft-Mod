@@ -6,20 +6,20 @@ import com.github.starcatcher21.stargazer.block.clases.star.cosmic.CosmicBlock;
 import com.github.starcatcher21.stargazer.block.clases.star.leaves.StarLeaves;
 
 //? if >= 26.2 {
-/*import net.minecraft.client.renderer.rendertype.RenderSetup;
+import net.minecraft.client.renderer.rendertype.RenderSetup;
 import net.minecraft.client.renderer.rendertype.RenderType;
-*///?} else {
-import com.mojang.blaze3d.vertex.DefaultVertexFormat;
+//?} else {
+/*import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.resources.ResourceLocation;
-//?}
+import net.minecraft.resources.Identifier;
+*///?}
 
 public class CustomRenderLayers {
 
     //? if >= 26.2 {
-    /*public static final RenderType COSMIC = RenderType.create(
+    public static final RenderType COSMIC = RenderType.create(
             "cosmic",
             RenderSetup.builder(CustomRederPipelines.COSMIC)
                     .withTexture("Sampler0", CosmicBlock.TEXTURE)
@@ -30,35 +30,41 @@ public class CustomRenderLayers {
             "star_leaves",
             RenderSetup.builder(CustomRederPipelines.STAR_LEAVES)
                     .withTexture("Sampler0", StarLeaves.TEXTURE)
+                    .useLightmap()
                     .createRenderSetup()
     );
     public static final RenderType STAR_BARRIER = RenderType.create(
             "star_barrier",
             RenderSetup.builder(CustomRederPipelines.STAR_BARRIER)
                     .withTexture("Sampler0", StarBarrierBlock.TEXTURE)
+                    .useLightmap()
                     .createRenderSetup()
     );
     public static final RenderType NEGATIVE = RenderType.create(
             "negative",
             RenderSetup.builder(CustomRederPipelines.NEGATIVE)
+                    .withTexture("Sampler0", StarBarrierBlock.TEXTURE)
                     .useLightmap()
                     .createRenderSetup()
     );
     public static final RenderType NO_RED = RenderType.create(
             "no_red",
             RenderSetup.builder(CustomRederPipelines.NO_RED)
+                    .withTexture("Sampler0", StarBarrierBlock.TEXTURE)
                     .useLightmap()
                     .createRenderSetup()
     );
     public static final RenderType NO_GREEN = RenderType.create(
             "no_green",
             RenderSetup.builder(CustomRederPipelines.NO_GREEN)
+                    .withTexture("Sampler0", StarBarrierBlock.TEXTURE)
                     .useLightmap()
                     .createRenderSetup()
     );
     public static final RenderType NO_BLUE = RenderType.create(
             "no_blue",
             RenderSetup.builder(CustomRederPipelines.NO_BLUE)
+                    .withTexture("Sampler0", StarBarrierBlock.TEXTURE)
                     .useLightmap()
                     .createRenderSetup()
     );
@@ -66,11 +72,10 @@ public class CustomRenderLayers {
             "aurora",
             RenderSetup.builder(CustomRederPipelines.AURORA)
                     .withTexture("Sampler0", Aurora.TEXTURE)
-                    .useLightmap()
                     .createRenderSetup()
     );
-    *///?} else {
-    /* ---------------- 1.21.1 legacy RenderType API ------------------ */
+    //?} else {
+    /*/^ ---------------- 1.21.1 legacy RenderType API ------------------ ^/
 
     public static final RenderType COSMIC = RenderType.create(
             "cosmic",
@@ -207,5 +212,5 @@ public class CustomRenderLayers {
                     .setLightmapState(RenderStateShard.LIGHTMAP)
                     .createCompositeState(false)
     );
-    //?}
+    *///?}
 }

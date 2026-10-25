@@ -3,10 +3,10 @@ package com.github.starcatcher21.stargazer.block.clases.star.log;
 import com.github.starcatcher21.stargazer.block.register.StarBlocks;
 import com.mojang.serialization.MapCodec;
 //? if >= 26.2 {
-/*import net.minecraft.advancements.triggers.CriteriaTriggers;
- *///?} else {
-import net.minecraft.advancements.CriteriaTriggers;
-//?}
+import net.minecraft.advancements.triggers.CriteriaTriggers;
+ //?} else {
+/*import net.minecraft.advancements.CriteriaTriggers;
+*///?}
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
@@ -21,7 +21,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.DirectionalBlock;
+import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -29,20 +29,20 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 
 //? if < 26.2 {
-import net.minecraft.world.ItemInteractionResult;
-//?}
+/*import net.minecraft.world.ItemInteractionResult;
+*///?}
 
-public class StarLog extends DirectionalBlock {
+public class StarLog extends RotatedPillarBlock {
     public static final MapCodec<StarLog> CODEC = simpleCodec(StarLog::new);
 
     @Override
-    protected MapCodec<? extends DirectionalBlock> codec() {
+    public MapCodec<? extends RotatedPillarBlock> codec() {
         return CODEC;
     }
 
     /* ---------------- useItemOn (return type differs) ---------------- */
     //? if >= 26.2 {
-    /*@Override
+    @Override
     protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level world,
                                           BlockPos pos, Player player,
                                           InteractionHand hand, BlockHitResult hit) {
@@ -62,8 +62,8 @@ public class StarLog extends DirectionalBlock {
         }
         return InteractionResult.SUCCESS;
     }
-    *///?} else {
-    @Override
+    //?} else {
+    /*@Override
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level world,
                                               BlockPos pos, Player player,
                                               InteractionHand hand, BlockHitResult hit) {
@@ -83,7 +83,7 @@ public class StarLog extends DirectionalBlock {
         }
         return ItemInteractionResult.SUCCESS;
     }
-    //?}
+    *///?}
 
     public StarLog(Properties settings) {
         super(settings);

@@ -49,10 +49,10 @@ public class Darkness {
     public static final RegistrySupplier<Block> ROSE_OF_PAIN = register("rose_of_pain", settings -> new CosmicFlower(MobEffects.DARKNESS, 5.0f, settings), BlockBehaviour.Properties.of()
             .mapColor(MapColor.COLOR_GRAY)
             //? if >= 26.2 {
-            /*.noCollision()
-             *///? } else {
-            .noCollission()
-            //? }
+            .noCollision()
+             //? } else {
+            /*.noCollission()
+            *///? }
             .instabreak()
             .sound(SoundType.GRASS)
             .offsetType(BlockBehaviour.OffsetType.XZ)
@@ -67,10 +67,10 @@ public class Darkness {
     );
     public static final RegistrySupplier<Block> DARKNESS_SAPLING = register("darkness_sapling", (BlockBehaviour.Properties settings) -> new CustomSapling(Helpers.configuredFeatureOf(Stargazer.MOD_ID, "darkness_trees"), settings), BlockBehaviour.Properties.of()
             //? if >= 26.2 {
-            /*.noCollision()
-             *///? } else {
-            .noCollission()
-            //? }
+            .noCollision()
+             //? } else {
+            /*.noCollission()
+            *///? }
             .sound(SoundType.GRASS)
             .randomTicks()
             .instabreak()
@@ -137,10 +137,10 @@ public class Darkness {
     );
     public static final RegistrySupplier<Block> DARKNESS_PLANKS_BUTTON = register("darkness_planks_button", (BlockBehaviour.Properties settings) -> new ButtonBlock(BlockSetType.OAK, 30, (BlockBehaviour.Properties) settings), BlockBehaviour.Properties.of()
             //? if >= 26.2 {
-            /*.noCollision()
-             *///? } else {
-            .noCollission()
-            //? }
+            .noCollision()
+             //? } else {
+            /*.noCollission()
+            *///? }
             .sound(SoundType.WOOD)
             .instrument(NoteBlockInstrument.BASS)
             .strength(1.0F)
@@ -150,10 +150,10 @@ public class Darkness {
     public static final RegistrySupplier<Block> GRADI = register("gradi", ForgetMeNow::new, BlockBehaviour.Properties.of()
             .mapColor(MapColor.SNOW)
             //? if >= 26.2 {
-            /*.noCollision()
-             *///? } else {
-            .noCollission()
-            //? }
+            .noCollision()
+             //? } else {
+            /*.noCollission()
+            *///? }
             .sound(SoundType.PINK_PETALS)
             .pushReaction(PushReaction.DESTROY)
     );

@@ -2,29 +2,13 @@
   "type": "minecraft:simple_block",
   "config": {
     "to_place": {
-      "type": "minecraft:rule_based_state_provider",
-      "rules": [
+      "type": "minecraft:weighted_state_provider",
+      "entries": [
         {
-          "if_true": {
-            "type": "minecraft:matching_blocks",
-            "offset": [
-              0,
-              -1,
-              0
-            ],
-            "blocks": "stargazer:moon_rock_nylium"
+          "data": {
+            "Name": "stargazer:star_trap"
           },
-          "then": {
-            "type": "minecraft:weighted_state_provider",
-            "entries": [
-              {
-                "weight": 1,
-                "data": {
-                  "Name": "stargazer:star_trap"
-                }
-              }
-            ]
-          }
+          "weight": 1
         }
       ]
     }

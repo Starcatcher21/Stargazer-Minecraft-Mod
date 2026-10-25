@@ -19,11 +19,10 @@ void main() {
     mat2 rotate = mat2_rotate_z(radians(45.0));
     mat2 scale = mat2(1.0);
     mat4 fin = mat4(scale * rotate) * translate;
-    vec4 color = textureProj(Sampler0, texProj0 * fin);
+vec4 color = textureProj(Sampler0, texProj0 * fin);
 #ifdef ALPHA_CUTOUT
     if (color.a < ALPHA_CUTOUT) {
-        discard;
-    }
-#endif
-    fragColor = vec4(1.0, 0.5, 0.5, 1.0);
+discard;
 }
+#endif
+fragColor = color * vec4(1.0, 0.5, 0.5, 1.0); }

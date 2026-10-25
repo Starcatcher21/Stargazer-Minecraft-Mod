@@ -10,7 +10,7 @@ import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
@@ -18,7 +18,7 @@ import net.minecraft.world.level.block.Block;
 public class ItemGroup {
     public static final DeferredRegister<CreativeModeTab> TABS = DeferredRegister.create(Stargazer.MOD_ID, Registries.CREATIVE_MODE_TAB);
 
-    public static final RegistrySupplier<CreativeModeTab> STAR_GROUP = TABS.register(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "star_group"), () -> CreativeTabRegistry.create(
+    public static final RegistrySupplier<CreativeModeTab> STAR_GROUP = TABS.register(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "star_group"), () -> CreativeTabRegistry.create(
             builder -> builder
                     .icon(() -> new ItemStack(ModItems.YELLOW_STAR.get()))
                     .title(Component.translatable("itemGroup.Stargazer"))
@@ -224,7 +224,7 @@ public class ItemGroup {
                         output.accept(Nebulas.PURPLE_NEBULA_PLANKS_SLAB.get());
                         output.accept(Nebulas.PURPLE_NEBULA_PLANKS_STAIRS.get());
                         output.accept(Nebulas.PURPLE_NEBULA_LEAVES.get());
-                        output.accept(Nebulas.PURPLE_NEBULA_REGROW_CORE.get());
+                        output.accept(Nebulas.PURPLE_NEBULA_CORE.get());
                         output.accept(ModItems.BLUE_STAR.get());
                         output.accept(StarBlocks.BLUE_STAR_BLOCK.get());
                         output.accept(Nebulas.BLUE_NEBULA_LOG.get());
@@ -235,7 +235,7 @@ public class ItemGroup {
                         output.accept(Nebulas.BLUE_NEBULA_PLANKS_SLAB.get());
                         output.accept(Nebulas.BLUE_NEBULA_PLANKS_STAIRS.get());
                         output.accept(Nebulas.BLUE_NEBULA_LEAVES.get());
-                        output.accept(Nebulas.BLUE_NEBULA_REGROW_CORE.get());
+                        output.accept(Nebulas.BLUE_NEBULA_CORE.get());
                         output.accept(ModItems.RED_STAR.get());
                         output.accept(StarBlocks.RED_STAR_BLOCK.get());
                         output.accept(Nebulas.RED_NEBULA_LOG.get());
@@ -246,7 +246,7 @@ public class ItemGroup {
                         output.accept(Nebulas.RED_NEBULA_PLANKS_SLAB.get());
                         output.accept(Nebulas.RED_NEBULA_PLANKS_STAIRS.get());
                         output.accept(Nebulas.RED_NEBULA_LEAVES.get());
-                        output.accept(Nebulas.RED_NEBULA_REGROW_CORE.get());
+                        output.accept(Nebulas.RED_NEBULA_CORE.get());
                         output.accept(ModItems.END_STAR.get());
                         output.accept(ModItems.YELLOW_STAR.get());
                         output.accept(StarBlocks.YELLOW_STAR_BLOCK.get());
@@ -258,7 +258,7 @@ public class ItemGroup {
                         output.accept(Nebulas.YELLOW_NEBULA_PLANKS_SLAB.get());
                         output.accept(Nebulas.YELLOW_NEBULA_PLANKS_STAIRS.get());
                         output.accept(Nebulas.YELLOW_NEBULA_LEAVES.get());
-                        output.accept(Nebulas.YELLOW_NEBULA_REGROW_CORE.get());
+                        output.accept(Nebulas.YELLOW_NEBULA_CORE.get());
                         output.accept(ModItems.LODESTAR.get());
                         output.accept(ModItems.GEODE_FRUIT.get());
                         output.accept(ModItems.COOKED_GEODE_FRUIT.get());
@@ -291,7 +291,9 @@ public class ItemGroup {
                         output.accept(Hedges.DARK_OAK_HEDGE.get());
                         output.accept(Hedges.JUNGLE_HEDGE.get());
                         output.accept(Hedges.MANGROVE_HEDGE.get());
+                        //? if >= 26.2 {
                         output.accept(Hedges.PALE_HEDGE.get());
+                        //? }
                         output.accept(Hedges.SPRUCE_HEDGE.get());
                         output.accept(Hedges.MOON_HEDGE.get());
                         output.accept(Hedges.CURVE_HEDGE.get());

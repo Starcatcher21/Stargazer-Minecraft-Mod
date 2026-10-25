@@ -66,10 +66,10 @@ public class ModEngLangProvider
         } else if (key instanceof net.minecraft.tags.TagKey<?> tag) {
             add(tag, value);
         //? if >= 26.2 {
-        /*} else if (key instanceof net.minecraft.resources.Identifier identifier) {
-        *///?} else {
-        } else if (key instanceof net.minecraft.resources.ResourceLocation identifier) {
-        //?}
+        } else if (key instanceof net.minecraft.resources.Identifier identifier) {
+        //?} else {
+        /*} else if (key instanceof net.minecraft.resources.ResourceLocation identifier) {
+        *///?}
             add(identifier.toLanguageKey(), value);
         } else {
             throw new IllegalArgumentException("Unsupported translation key type: " + key.getClass().getName());
@@ -102,10 +102,10 @@ public class ModEngLangProvider
             } else if (key instanceof net.minecraft.tags.TagKey<?> tag) {
                 translationBuilder.add(tag, value);
             //? if >= 26.2 {
-            /^} else if (key instanceof net.minecraft.resources.Identifier identifier) {
-            ^///?} else {
-            } else if (key instanceof net.minecraft.resources.ResourceLocation identifier) {
-            //?}
+            } else if (key instanceof net.minecraft.resources.Identifier identifier) {
+            //?} else {
+            /^} else if (key instanceof net.minecraft.resources.ResourceLocation identifier) {
+            ^///?}
                 translationBuilder.add(identifier, value);
             } else {
                 throw new IllegalArgumentException("Unsupported translation key type: " + key.getClass().getName());
@@ -329,7 +329,7 @@ public class ModEngLangProvider
         translationBuilder.add(Nebulas.YELLOW_NEBULA_PLANKS_FENCE_GATE.get(), "Yellow Nebula Fence Gate");
         translationBuilder.add(Nebulas.YELLOW_NEBULA_PLANKS_SLAB.get(), "Yellow Nebula Slab");
         translationBuilder.add(Nebulas.YELLOW_NEBULA_PLANKS_STAIRS.get(), "Yellow Nebula Stairs");
-        translationBuilder.add(Nebulas.YELLOW_NEBULA_REGROW_CORE.get(), "Yellow Nebula Regrow Core");
+        translationBuilder.add(Nebulas.YELLOW_NEBULA_CORE.get(), "Yellow Nebula Regrow Core");
         translationBuilder.add(Nebulas.YELLOW_NEBULA_LEAVES.get(), "Yellow Nebula Stars");
         translationBuilder.add(ModItems.RED_STAR.get(), "Red Star");
         translationBuilder.add(Nebulas.RED_NEBULA_LOG.get(), "Red Nebula Core");
@@ -339,7 +339,7 @@ public class ModEngLangProvider
         translationBuilder.add(Nebulas.RED_NEBULA_PLANKS_FENCE_GATE.get(), "Red Nebula Fence Gate");
         translationBuilder.add(Nebulas.RED_NEBULA_PLANKS_SLAB.get(), "Red Nebula Slab");
         translationBuilder.add(Nebulas.RED_NEBULA_PLANKS_STAIRS.get(), "Red Nebula Stairs");
-        translationBuilder.add(Nebulas.RED_NEBULA_REGROW_CORE.get(), "Red Nebula Regrow Core");
+        translationBuilder.add(Nebulas.RED_NEBULA_CORE.get(), "Red Nebula Regrow Core");
         translationBuilder.add(Nebulas.RED_NEBULA_LEAVES.get(), "Red Nebula Stars");
         translationBuilder.add(ModItems.BLUE_STAR.get(), "Blue Star");
         translationBuilder.add(Nebulas.BLUE_NEBULA_LOG.get(), "Blue Nebula Core");
@@ -349,7 +349,7 @@ public class ModEngLangProvider
         translationBuilder.add(Nebulas.BLUE_NEBULA_PLANKS_FENCE_GATE.get(), "Blue Nebula Fence Gate");
         translationBuilder.add(Nebulas.BLUE_NEBULA_PLANKS_SLAB.get(), "Blue Nebula Slab");
         translationBuilder.add(Nebulas.BLUE_NEBULA_PLANKS_STAIRS.get(), "Blue Nebula Stairs");
-        translationBuilder.add(Nebulas.BLUE_NEBULA_REGROW_CORE.get(), "Blue Nebula Regrow Core");
+        translationBuilder.add(Nebulas.BLUE_NEBULA_CORE.get(), "Blue Nebula Regrow Core");
         translationBuilder.add(Nebulas.BLUE_NEBULA_LEAVES.get(), "Blue Nebula Stars");
         translationBuilder.add(ModItems.PURPLE_STAR.get(), "Purple Star");
         translationBuilder.add(Nebulas.PURPLE_NEBULA_LOG.get(), "Purple Nebula Core");
@@ -359,7 +359,7 @@ public class ModEngLangProvider
         translationBuilder.add(Nebulas.PURPLE_NEBULA_PLANKS_FENCE_GATE.get(), "Purple Nebula Fence Gate");
         translationBuilder.add(Nebulas.PURPLE_NEBULA_PLANKS_SLAB.get(), "Purple Nebula Slab");
         translationBuilder.add(Nebulas.PURPLE_NEBULA_PLANKS_STAIRS.get(), "Purple Nebula Stairs");
-        translationBuilder.add(Nebulas.PURPLE_NEBULA_REGROW_CORE.get(), "Purple Nebula Regrow Core");
+        translationBuilder.add(Nebulas.PURPLE_NEBULA_CORE.get(), "Purple Nebula Regrow Core");
         translationBuilder.add(Nebulas.PURPLE_NEBULA_LEAVES.get(), "Purple Nebula Stars");
         translationBuilder.add(ModItems.LODESTAR.get(), "Lodestar");
         translationBuilder.add(ModItems.GEODE_FRUIT.get(), "Geode Fruit");
@@ -453,7 +453,9 @@ public class ModEngLangProvider
         translationBuilder.add(Hedges.MANGROVE_HEDGE.get(), "Mangrove Hedge");
         translationBuilder.add(Hedges.MOON_HEDGE.get(), "Moon Hedge");
         translationBuilder.add(Hedges.OAK_HEDGE.get(), "Oak Hedge");
+        //? if >= 26.2 {
         translationBuilder.add(Hedges.PALE_HEDGE.get(), "Pale Oak Hedge");
+        //? }
         translationBuilder.add(Hedges.SPRUCE_HEDGE.get(), "Spruce Hedge");
         translationBuilder.add(Hedges.STAR_HEDGE.get(), "Star Hedge");
         translationBuilder.add(Hedges.YERI_HEDGE.get(), "Yeri Hedge");
@@ -532,10 +534,10 @@ public class ModEngLangProvider
 
     private static String potionTranslationName(Object potion) {
         //? if >= 26.2 {
-        /*return ((net.minecraft.world.item.alchemy.Potion) potion).name();
-        *///?} else {
-        return BuiltInRegistries.POTION.getKey((net.minecraft.world.item.alchemy.Potion) potion).getPath();
-        //?}
+        return ((net.minecraft.world.item.alchemy.Potion) potion).name();
+        //?} else {
+        /*return BuiltInRegistries.POTION.getKey((net.minecraft.world.item.alchemy.Potion) potion).getPath();
+        *///?}
     }
 }
 //?}

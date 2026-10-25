@@ -7,6 +7,7 @@ import com.github.starcatcher21.stargazer.screens.recipe.StarCrusherRecipeInput;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.world.item.crafting.ShapedRecipe;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,7 +26,6 @@ public class StarCrusherShapedRecipe {
     public static final StreamCodec<RegistryFriendlyByteBuf, StarCrusherShapedRecipe> PACKET_CODEC = StreamCodec.composite(
             Ingredient.CONTENTS_STREAM_CODEC, recipe -> recipe.item1,
             StarCrusherShapedRecipe::create);
-    private static final Logger log = LoggerFactory.getLogger(StarCrusherShapedRecipe.class);
     private final Optional<Data> data;
     private final Ingredient item1;
 

@@ -5,44 +5,45 @@ import com.github.starcatcher21.stargazer.screens.MoonWelderScreenHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 //? if >= 26.2 {
-/*import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.world.attribute.EnvironmentAttributeSystem;
 import net.minecraft.world.attribute.EnvironmentAttributes;
-*///?} else {
-import net.minecraft.client.gui.GuiGraphics;
-//?}
+//?} else {
+/*import net.minecraft.client.gui.GuiGraphics;
+*///?}
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.level.Level;
 
 public class MoonWelderHandled extends AbstractContainerScreen<MoonWelderScreenHandler> {
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/moon_welder/moon_welder.png");
-    public static final ResourceLocation FULL           = ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/moon/full.png");
-    public static final ResourceLocation NEW            = ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/moon/new.png");
-    public static final ResourceLocation THIRD          = ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/moon/third.png");
-    public static final ResourceLocation FIRST          = ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/moon/first.png");
-    public static final ResourceLocation WAXING_CRESCENT= ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/moon/waxing_crescent.png");
-    public static final ResourceLocation WAXING_GIBBOUS = ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/moon/waxing_gibbous.png");
-    public static final ResourceLocation WANING_CRESCENT= ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/moon/waning_crescent.png");
-    public static final ResourceLocation WANING_GIBBOUS = ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/moon/waning_gibbous.png");
-    public static final ResourceLocation SUN            = ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/moon/sun.png");
+    private static final Identifier TEXTURE = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/moon_welder/moon_welder.png");
+    public static final Identifier FULL           = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/moon/full.png");
+    public static final Identifier NEW            = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/moon/new.png");
+    public static final Identifier THIRD          = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/moon/third.png");
+    public static final Identifier FIRST          = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/moon/first.png");
+    public static final Identifier WAXING_CRESCENT= Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/moon/waxing_crescent.png");
+    public static final Identifier WAXING_GIBBOUS = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/moon/waxing_gibbous.png");
+    public static final Identifier WANING_CRESCENT= Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/moon/waning_crescent.png");
+    public static final Identifier WANING_GIBBOUS = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/moon/waning_gibbous.png");
+    public static final Identifier SUN            = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/moon/sun.png");
 
     public MoonWelderHandled(MoonWelderScreenHandler handler, Inventory inventory, Component title) {
         //? if >= 26.2 {
-        /*super(handler, inventory, title, 176, 200);
-        *///? } else {
-        super(handler, inventory, title);
-        //? }
+        super(handler, inventory, title, 176, 200);
+         //? } else {
+        /*super(handler, inventory, title);
+        this.imageHeight = 176;
+        this.imageWidth = 200;
+        *///? }
         this.titleLabelX = 103;
         this.titleLabelY = 10;
         this.inventoryLabelY = 85;
     }
 
-    /* ---------------- 26.2+ ------------------------------------------- */
     //? if >= 26.2 {
-    /*@Override
+    @Override
     public void extractBackground(GuiGraphicsExtractor context, int mouseX, int mouseY, float deltaTicks) {
         super.extractBackground(context, mouseX, mouseY, deltaTicks);
 
@@ -53,7 +54,7 @@ public class MoonWelderHandled extends AbstractContainerScreen<MoonWelderScreenH
 
         Level world = Minecraft.getInstance().level;
         if (world != null) {
-            ResourceLocation phaseTexture = SUN;
+            Identifier phaseTexture = SUN;
             if (!world.isBrightOutside()) {
                 EnvironmentAttributeSystem envAccess = world.environmentAttributes();
                 int moonPhase = envAccess.getDimensionValue(EnvironmentAttributes.MOON_PHASE).index();
@@ -72,21 +73,19 @@ public class MoonWelderHandled extends AbstractContainerScreen<MoonWelderScreenH
             context.blit(RenderPipelines.GUI_TEXTURED, phaseTexture, i + 10, j + 10, 0, 0, 16, 16, 16, 16);
         }
     }
-    *///?} else {
-    /* ---------------- 1.21.1 ----------------------------------------- */
-    @Override
-    public void render(GuiGraphics context, int mouseX, int mouseY, float deltaTicks) {
-        super.render(context, mouseX, mouseY, deltaTicks);
-
+    //?} else {
+    /*@Override
+    protected void renderBg(GuiGraphics context, float deltaTicks, int mouseX, int mouseY) {
         int i = this.leftPos;
         int j = this.topPos;
 
-        // 1.21.1 blit: (texture, x, y, u, v, w, h, texW, texH)
+        // Background drawn in renderBg so the vanilla item tooltip
+        // (rendered later in AbstractContainerScreen.render) stays on top.
         context.blit(TEXTURE, i, j, 0, 0, this.imageWidth, this.imageHeight, 256, 256);
 
         Level world = Minecraft.getInstance().level;
         if (world != null) {
-            ResourceLocation phaseTexture = SUN;
+            Identifier phaseTexture = SUN;
             if (world.isNight()) {
                 int moonPhase = world.getMoonPhase();
                 phaseTexture = switch (moonPhase) {
@@ -106,8 +105,9 @@ public class MoonWelderHandled extends AbstractContainerScreen<MoonWelderScreenH
     }
 
     @Override
-    protected void renderBg(GuiGraphics arg, float f, int i, int j) {
-
+    public void render(GuiGraphics arg, int l, int m, float g) {
+        super.render(arg, l, m, g);
+        super.renderTooltip(arg, l, m);
     }
-    //?}
+    *///?}
 }

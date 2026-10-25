@@ -15,7 +15,7 @@ import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.crafting.Ingredient;
 import java.util.LinkedList;
 import java.util.List;
@@ -24,7 +24,7 @@ import java.util.Optional;
 import static com.github.starcatcher21.stargazer.screens.handled.MoonWelderHandled.*;
 
 public class StarCrusherCategory implements DisplayCategory<StarCrusherDisplay> {
-    public static final ResourceLocation TEXTURE =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/star_crusher_gui.png");
+    public static final Identifier TEXTURE =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/star_crusher_gui.png");
     public static final CategoryIdentifier<StarCrusherDisplay> STARFORGE = CategoryIdentifier.of(Stargazer.MOD_ID, "star_crusher");
     @Override
     public CategoryIdentifier<? extends StarCrusherDisplay> getCategoryIdentifier() {
@@ -45,33 +45,26 @@ public class StarCrusherCategory implements DisplayCategory<StarCrusherDisplay> 
         Point startPoint = new Point(bounds.getCenterX() - 72, bounds.getMinY() + 10);
         List<Widget> widgets = new LinkedList<>();
 
-        widgets.add(Widgets.createTexturedWidget(TEXTURE, new Rectangle(startPoint.x - 7, startPoint.y - 7, 146, 102)));
+        widgets.add(Widgets.createTexturedWidget(
+                TEXTURE, new Rectangle(startPoint.x - 7, startPoint.y - 7, 146, 102)));
 
-        List<Optional<Ingredient>> input = display.placement();
-        List<EntryIngredient> entry = display.getIngedientsList();
+        Slot inputSlot = Widgets.createSlot(new Point(startPoint.x + 41, startPoint.y + 6))
+                .backgroundEnabled(false)
+                .markInput();
 
-        List<Slot> slots = Lists.newArrayList();
-
-        slots.add(Widgets.createSlot(new Point(startPoint.x + 41, startPoint.y + 6)).backgroundEnabled(false).markInput());
-
-        int curEntry = 0;
-        if (input != null) {
-            for (int i = 0; i < 1; i++) {
-                Optional<Ingredient> ingredient = input.get(i);
-                if (ingredient.isPresent()) {
-                    slots.get(i).entries(entry.get(curEntry));
-                    curEntry++;
-                }
-            }
-        } else {
-            for (int i = 0; i < slots.size(); i++) { //  Safe looping
-                slots.get(i).entries(entry.getFirst());
-            }
+        List<EntryIngredient> inputs = display.getIngedientsList();
+        if (!inputs.isEmpty()) {
+            inputSlot.entries(inputs.get(0));
         }
-        widgets.addAll(slots);
+        widgets.add(inputSlot);
 
-        widgets.add(Widgets.createSlot(new Point(startPoint.x + 41, startPoint.y + 73)).backgroundEnabled(false)
-                .entries(display.getOutputEntries().get(0)).markOutput());
+        List<EntryIngredient> outputs = display.getOutputEntries();
+        if (!outputs.isEmpty()) {
+            widgets.add(Widgets.createSlot(new Point(startPoint.x + 41, startPoint.y + 73))
+                    .backgroundEnabled(false)
+                    .entries(outputs.get(0))
+                    .markOutput());
+        }
 
         return widgets;
     }

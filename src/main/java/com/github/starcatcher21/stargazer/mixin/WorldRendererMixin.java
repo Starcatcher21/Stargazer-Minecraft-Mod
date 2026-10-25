@@ -14,10 +14,10 @@ import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.world.level.Level;
 
 //? if >= 26.2 {
-/*import com.mojang.blaze3d.framegraph.FramePass;
+import com.mojang.blaze3d.framegraph.FramePass;
 import net.minecraft.client.renderer.SkyRenderer;
-*///?} else {
-import com.mojang.blaze3d.systems.RenderSystem;
+//?} else {
+/*import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.BufferUploader;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
@@ -26,7 +26,7 @@ import com.mojang.blaze3d.vertex.VertexFormat;
 import net.minecraft.client.Camera;
 import net.minecraft.client.renderer.GameRenderer;
 import org.joml.Matrix4f;
-//?}
+*///?}
 
 @Mixin(LevelRenderer.class)
 public class WorldRendererMixin {
@@ -34,7 +34,7 @@ public class WorldRendererMixin {
     // ====================================================================
     // 26.2 branch — redirect the sky pass's FramePass.executes(Runnable)
     // ====================================================================
-    //? if >= 26.2 {
+    //? if >= 26.2 && fabric {
     /*@Shadow private SkyRenderer skyRenderer;
 
     @Redirect(
@@ -60,7 +60,7 @@ public class WorldRendererMixin {
     // 1.21.1 branch — inject into LevelRenderer.renderSky and cancel
     // ====================================================================
     //? if < 26.2 {
-    @Inject(
+    /*@Inject(
             method = "renderSky(Lorg/joml/Matrix4f;Lorg/joml/Matrix4f;FLnet/minecraft/client/Camera;ZLjava/lang/Runnable;)V",
             at = @At("HEAD"),
             cancellable = true
@@ -111,5 +111,5 @@ public class WorldRendererMixin {
         RenderSystem.enableCull();
         RenderSystem.disableBlend();
     }
-    //?}
+    *///?}
 }

@@ -4,21 +4,25 @@ import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.screens.StarforgeScreenHandler;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
 //? if >= 26.2 {
-/*import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.RenderPipelines;
-*///?} else {
-import net.minecraft.client.gui.GuiGraphics;
-//?}
+//?} else {
+/*import net.minecraft.client.gui.GuiGraphics;
+*///?}
 
 public class StarforgeHandled extends AbstractContainerScreen<StarforgeScreenHandler> {
-    private static final ResourceLocation TEXTURE =
-            ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/starforge/starforge.png");
+    private static final Identifier TEXTURE =
+            Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/starforge/starforge.png");
 
     public StarforgeHandled(StarforgeScreenHandler handler, Inventory inventory, Component title) {
-        super(handler, inventory, title /*? if >= 26.2 { *//*, 176, 200*//*? } */);
+        super(handler, inventory, title /*? if >= 26.2 { */, 176, 200/*? } */);
+        //? if < 26.2 {
+        /*this.imageHeight = 200;
+        this.imageWidth = 176;
+        *///? }
         this.titleLabelX = 110;
         this.titleLabelY = 10;
         this.inventoryLabelY = 108;
@@ -26,7 +30,7 @@ public class StarforgeHandled extends AbstractContainerScreen<StarforgeScreenHan
 
     /* ---------------- 26.2+ ------------------------------------------- */
     //? if >= 26.2 {
-    /*@Override
+    @Override
     public void extractBackground(GuiGraphicsExtractor context, int mouseX, int mouseY, float deltaTicks) {
         super.extractBackground(context, mouseX, mouseY, deltaTicks);
         context.blit(RenderPipelines.GUI_TEXTURED, TEXTURE,
@@ -35,8 +39,8 @@ public class StarforgeHandled extends AbstractContainerScreen<StarforgeScreenHan
                 this.imageWidth, this.imageHeight,
                 256, 256);
     }
-    *///?} else {
-    /* ---------------- 1.21.1 ----------------------------------------- */
+    //?} else {
+    /*/^ ---------------- 1.21.1 ----------------------------------------- ^/
     @Override
     public void renderBg(GuiGraphics context, float deltaTicks, int mouseX, int mouseY) {
         context.blit(TEXTURE,
@@ -45,5 +49,11 @@ public class StarforgeHandled extends AbstractContainerScreen<StarforgeScreenHan
                 this.imageWidth, this.imageHeight,
                 256, 256);
     }
-    //?}
+
+    @Override
+    public void render(GuiGraphics arg, int l, int m, float g) {
+        super.render(arg, l, m, g);
+        this.renderTooltip(arg, l, m);
+    }
+    *///?}
 }

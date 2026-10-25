@@ -6,7 +6,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.phys.Vec3;
@@ -16,7 +16,7 @@ import org.joml.Matrix4f;
 import java.util.Optional;
 
 //? if >= 26.2 {
-/*import com.mojang.blaze3d.PrimitiveTopology;
+import com.mojang.blaze3d.PrimitiveTopology;
 import com.mojang.blaze3d.buffers.GpuBufferSlice;
 import com.mojang.blaze3d.pipeline.RenderPipeline;
 import com.mojang.blaze3d.pipeline.RenderTarget;
@@ -33,7 +33,8 @@ import org.joml.Vector3f;
 import org.joml.Vector4f;
 
 import java.util.OptionalDouble;
-*///?} else {
+//?} else {
+/*import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.BufferUploader;
@@ -41,14 +42,14 @@ import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import net.minecraft.client.renderer.GameRenderer;
-//?}
+*///?}
 
 public final class SkyStarRenderer {
     private static final SkyStarRenderer INSTANCE = new SkyStarRenderer();
 
-    private static final ResourceLocation STAR_TEXTURE  = ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/environment/stargazer_star_sheet.png");
-    private static final ResourceLocation STAR_TEXTURE2 = ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/environment/stargazer_star2_sheet.png");
-    private static final ResourceLocation STAR_TEXTURE3 = ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/environment/wander_sky2.png");
+    private static final Identifier STAR_TEXTURE  = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/environment/stargazer_star_sheet.png");
+    private static final Identifier STAR_TEXTURE2 = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/environment/stargazer_star2_sheet.png");
+    private static final Identifier STAR_TEXTURE3 = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/environment/wander_sky2.png");
 
     private static final int   DEFAULT_STAR_COUNT  = 128;
     private static final float DEFAULT_STAR_RADIUS = 96.0F;
@@ -61,7 +62,7 @@ public final class SkyStarRenderer {
     private static final int STAR_SPRITE_COUNT  = 39;
 
     //? if >= 26.2 {
-    /*private static final Vector4f COLOR_MODULATOR = new Vector4f(1.0F, 1.0F, 1.0F, 1.0F);
+    private static final Vector4f COLOR_MODULATOR = new Vector4f(1.0F, 1.0F, 1.0F, 1.0F);
     private static final Vector3f MODEL_OFFSET    = new Vector3f();
     private static final Matrix4f TEXTURE_MATRIX  = new Matrix4f();
 
@@ -111,7 +112,7 @@ public final class SkyStarRenderer {
     }
 
     private static void draw(Minecraft client, StagedVertexBuffer.ExecuteInfo info,
-                             RenderPipeline pipeline, ResourceLocation textureId) {
+                             RenderPipeline pipeline, Identifier textureId) {
         GpuBufferSlice dynamicTransforms = RenderSystem.getDynamicUniforms()
                 .writeTransform(RenderSystem.getModelViewMatrixCopy(),
                                 COLOR_MODULATOR, MODEL_OFFSET, TEXTURE_MATRIX);
@@ -142,10 +143,10 @@ public final class SkyStarRenderer {
     public static void close() {
         STAGED_BUFFER.close();
     }
-    *///?} else {
-    /* ---------------- 1.21.1: legacy immediate-mode rendering ---------- */
+    //?} else {
+    /*/^ ---------------- 1.21.1: legacy immediate-mode rendering ---------- ^/
 
-    public static void renderDirect(PoseStack poseStack, ClientLevel level,
+    public static void renderDirect(PoseStack poseStack, Matrix4f matrix4f, ClientLevel level,
                                     Vec3 cameraPos, long gameTime) {
         if (!SkyDimensionChecks.isStargazerSkyDimension(level)) return;
 
@@ -165,19 +166,29 @@ public final class SkyStarRenderer {
                 DefaultVertexFormat.POSITION_TEX_COLOR);
 
         PoseStack local = new PoseStack();
+        local.mulPose(matrix4f);
         local.last().pose().set(poseStack.last().pose());
-        local.translate(-cameraPos.x, -cameraPos.y, -cameraPos.z);
 
         buildStars(buffer, local.last().pose(), cameraPos, gameTime,
                 settings.starCount(), settings.starRadius());
 
+        RenderSystem.enableBlend();
+        RenderSystem.defaultBlendFunc();
+        RenderSystem.disableCull();
+        RenderSystem.depthMask(false);     // don't write depth for stars
+        RenderSystem.enableDepthTest();    // but still test against existing depth
+
         BufferUploader.drawWithShader(buffer.buildOrThrow());
+
+        RenderSystem.depthMask(true);
+        RenderSystem.enableCull();
+        RenderSystem.disableBlend();
     }
 
     public static void close() {
         // No persistent buffer to release on 1.21.1.
     }
-    //?}
+    *///?}
 
     /* ---------------- shared star building ---------------------------- */
 
@@ -211,7 +222,11 @@ public final class SkyStarRenderer {
 
             double travel = (age * 2.0D - 1.0D) * (0.24D + random01(i, 109) * 0.58D);
             Vec3 direction = baseDirection.add(motionDirection.scale(travel)).normalize();
+            //? if >= 26.2 {
             Vec3 center = camera.add(direction.scale(starRadius));
+            //? } else {
+            /*Vec3 center = direction.scale(starRadius);
+            *///? }
 
             Vec3 starGuideUp = Math.abs(direction.y) > 0.94D
                     ? new Vec3(1.0D, 0.0D, 0.0D)
@@ -303,7 +318,7 @@ public final class SkyStarRenderer {
 
     /* ---------------- records ----------------------------------------- */
 
-    private record StarSettings(ResourceLocation texture, int starCount, float starRadius) {
+    private record StarSettings(Identifier texture, int starCount, float starRadius) {
         @Nullable
         private static StarSettings forDimension(ResourceKey<DimensionType> dimensionType) {
             if (dimensionType.equals(CustomWorlds.COSMIC_TYPE))

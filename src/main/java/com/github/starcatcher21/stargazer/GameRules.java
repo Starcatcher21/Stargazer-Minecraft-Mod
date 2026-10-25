@@ -4,7 +4,7 @@ import com.mojang.brigadier.arguments.BoolArgumentType;
 import com.mojang.serialization.Codec;
 //? if fabric {
 /*import net.fabricmc.fabric.api.gamerule.v1.GameRuleBuilder;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 *///? }
 //? if neoforge {
 import net.minecraft.world.flag.FeatureFlagSet;
@@ -14,22 +14,22 @@ public class GameRules {
 
     //? if >= 26.2 {
     
-    /*public static final net.minecraft.world.level.gamerules.GameRule<Boolean> DASH = register("allowdashing", true, net.minecraft.world.level.gamerules.GameRuleCategory.PLAYER);
+    public static final net.minecraft.world.level.gamerules.GameRule<Boolean> DASH = register("allowdashing", true, net.minecraft.world.level.gamerules.GameRuleCategory.PLAYER);
     public static final net.minecraft.world.level.gamerules.GameRule<Boolean> MOON = register("showmoonphaseinrei", true, net.minecraft.world.level.gamerules.GameRuleCategory.MISC);
     
-    *///? } else {
-    public static final net.minecraft.world.level.GameRules.Key<net.minecraft.world.level.GameRules.BooleanValue> DASH = register("allowdashing", true, net.minecraft.world.level.GameRules.Category.PLAYER);
+    //? } else {
+    /*public static final net.minecraft.world.level.GameRules.Key<net.minecraft.world.level.GameRules.BooleanValue> DASH = register("allowdashing", true, net.minecraft.world.level.GameRules.Category.PLAYER);
     public static final net.minecraft.world.level.GameRules.Key<net.minecraft.world.level.GameRules.BooleanValue> MOON = register("showmoonphaseinrei", true, net.minecraft.world.level.GameRules.Category.MISC);
-    //? }
+    *///? }
 
     //? if >= 26.2 {
     
-    /*public static net.minecraft.world.level.gamerules.GameRule<Boolean> register(String name, boolean defaultValue, net.minecraft.world.level.gamerules.GameRuleCategory category) {
+    public static net.minecraft.world.level.gamerules.GameRule<Boolean> register(String name, boolean defaultValue, net.minecraft.world.level.gamerules.GameRuleCategory category) {
         //? if fabric {
-        /^return GameRuleBuilder.forBoolean(defaultValue)
+        /*return GameRuleBuilder.forBoolean(defaultValue)
                 .category(category)
-                .buildAndRegister(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, name));
-        ^///? } else {
+                .buildAndRegister(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, name));
+        *///? } else {
         net.minecraft.world.level.gamerules.GameRule<Boolean> rule = new net.minecraft.world.level.gamerules.GameRule<>(
                 category,
                 net.minecraft.world.level.gamerules.GameRuleType.BOOL,
@@ -44,19 +44,19 @@ public class GameRules {
         //? }
     }
     
-    *///? } else {
-    public static net.minecraft.world.level.GameRules.Key<net.minecraft.world.level.GameRules.BooleanValue> register(String name, boolean defaultValue, net.minecraft.world.level.GameRules.Category category) {
+    //? } else {
+    /*public static net.minecraft.world.level.GameRules.Key<net.minecraft.world.level.GameRules.BooleanValue> register(String name, boolean defaultValue, net.minecraft.world.level.GameRules.Category category) {
         //? if fabric {
-        /*return GameRuleBuilder.forBoolean(defaultValue)
+        /^return GameRuleBuilder.forBoolean(defaultValue)
                 .category(category)
-                .buildAndRegister(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, name));
-        *///? } else {
+                .buildAndRegister(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, name));
+        ^///? } else {
         net.minecraft.world.level.GameRules.Type<net.minecraft.world.level.GameRules.BooleanValue> type =
                 net.minecraft.world.level.GameRules.BooleanValue.create(defaultValue);
         return net.minecraft.world.level.GameRules.register(name, category, type);
         //? }
     }
-    //? }
+    *///? }
 
     public static void init() {}
 }

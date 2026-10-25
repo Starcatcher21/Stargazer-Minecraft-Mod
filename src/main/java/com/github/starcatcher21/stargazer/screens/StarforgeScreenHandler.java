@@ -72,22 +72,22 @@ public class StarforgeScreenHandler
         ServerPlayer serverPlayerEntity = (ServerPlayer)player;
         ItemStack itemStack = ItemStack.EMPTY;
         //? if >= 26.2 {
-        /*Optional<RecipeHolder<StarforgeRecipe>> optional = world.recipeAccess().getRecipeFor
+        Optional<RecipeHolder<StarforgeRecipe>> optional = world.recipeAccess().getRecipeFor
                 (RecipeTypes.STARFORGE.get(), craftingRecipeInput, (Level)world);
-        *///?} else {
-        Optional<RecipeHolder<StarforgeRecipe>> optional = world.getRecipeManager().getRecipeFor
+        //?} else {
+        /*Optional<RecipeHolder<StarforgeRecipe>> optional = world.getRecipeManager().getRecipeFor
                 (RecipeTypes.STARFORGE.get(), craftingRecipeInput, world);
-        //?}
+        *///?}
         if (optional.isPresent()) {
             ItemStack itemStack2;
             RecipeHolder<StarforgeRecipe> recipeEntry = optional.get();
             StarforgeRecipe craftingRecipe = recipeEntry.value();
             //? if >= 26.2 {
-            /*boolean recipeUsed = resultInventory.setRecipeUsed(serverPlayerEntity, recipeEntry);
-             *///?} else {
-            resultInventory.setRecipeUsed(recipeEntry);
+            boolean recipeUsed = resultInventory.setRecipeUsed(serverPlayerEntity, recipeEntry);
+             //?} else {
+            /*resultInventory.setRecipeUsed(recipeEntry);
             boolean recipeUsed = true;
-            //?}
+            *///?}
             if (recipeUsed && (itemStack2 = craftingRecipe.craft(craftingRecipeInput, world.registryAccess())).isItemEnabled(world.enabledFeatures())) {
                 itemStack = itemStack2;
             }

@@ -6,24 +6,26 @@ import com.github.starcatcher21.stargazer.Stargazer;
 import net.fabricmc.api.Environment;
 *///? }
 //? if >= 26.2 {
-/*import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.RenderPipelines;
+//? } else {
+/*import net.minecraft.client.gui.GuiGraphics;
 *///? }
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvents;
 
 //? if fabric {
 /*@Environment(EnvType.CLIENT)
 *///? }
 public class StarPageButton extends Button {
-    private static final ResourceLocation PAGE_FORWARD_HIGHLIGHTED_SPRITE =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "widget/page_forward_highlighted");
-    private static final ResourceLocation PAGE_FORWARD_SPRITE =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "widget/page_forward");
-    private static final ResourceLocation PAGE_BACKWARD_HIGHLIGHTED_SPRITE =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "widget/page_backward_highlighted");
-    private static final ResourceLocation PAGE_BACKWARD_SPRITE =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "widget/page_backward");
+    private static final Identifier PAGE_FORWARD_HIGHLIGHTED_SPRITE =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "widget/page_forward_highlighted");
+    private static final Identifier PAGE_FORWARD_SPRITE =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "widget/page_forward");
+    private static final Identifier PAGE_BACKWARD_HIGHLIGHTED_SPRITE =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "widget/page_backward_highlighted");
+    private static final Identifier PAGE_BACKWARD_SPRITE =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "widget/page_backward");
     private static final Component PAGE_BUTTON_NEXT = Component.translatable("book.page_button.next");
     private static final Component PAGE_BUTTON_PREVIOUS = Component.translatable("book.page_button.previous");
     private final boolean isForward;
@@ -36,9 +38,9 @@ public class StarPageButton extends Button {
     }
 
     //? if >= 26.2 {
-    /*@Override
+    @Override
     protected void extractContents(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a) {
-        ResourceLocation sprite;
+        Identifier sprite;
         if (this.isForward) {
             sprite = this.isHoveredOrFocused() ? PAGE_FORWARD_HIGHLIGHTED_SPRITE : PAGE_FORWARD_SPRITE;
         } else {
@@ -46,6 +48,17 @@ public class StarPageButton extends Button {
         }
 
         graphics.blitSprite(RenderPipelines.GUI_TEXTURED, sprite, this.getX(), this.getY(), 23, 13);
+    }
+    //? } else {
+    /*public void renderWidget(GuiGraphics arg, int i, int j, float f) {
+        Identifier resourceLocation;
+        if (this.isForward) {
+            resourceLocation = this.isHoveredOrFocused() ? PAGE_FORWARD_HIGHLIGHTED_SPRITE : PAGE_FORWARD_SPRITE;
+        } else {
+            resourceLocation = this.isHoveredOrFocused() ? PAGE_BACKWARD_HIGHLIGHTED_SPRITE : PAGE_BACKWARD_SPRITE;
+        }
+
+        arg.blitSprite(resourceLocation, this.getX(), this.getY(), 23, 13);
     }
     *///? }
 
@@ -57,10 +70,10 @@ public class StarPageButton extends Button {
     }
 
     //? if >= 26.2 {
-    /*@Override
+    @Override
     public boolean shouldTakeFocusAfterInteraction() {
         return false;
     }
-    *///? }
+    //? }
 }
 

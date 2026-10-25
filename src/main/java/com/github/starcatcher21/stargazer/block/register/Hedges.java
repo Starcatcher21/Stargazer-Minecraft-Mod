@@ -71,19 +71,15 @@ public class Hedges {
             .strength(2.0F)
             .mapColor(MapColor.COLOR_BROWN)
     );
-    public static final RegistrySupplier<Block> PALE_HEDGE = register("pale_oak_hedge", settings -> new Hedge(() ->
-            //? if >= 26.2 {
-            /*Blocks.PALE_OAK_LEAVES
-             *///?} else {
-            Blocks.BIRCH_LEAVES
-            //?}
-            , settings), BlockBehaviour.Properties.of()
+    //? if >= 26.2 {
+    public static final RegistrySupplier<Block> PALE_HEDGE = register("pale_oak_hedge", settings -> new Hedge(() -> Blocks.PALE_OAK_LEAVES, settings), BlockBehaviour.Properties.of()
             .forceSolidOn()
             .sound(SoundType.WOOD)
             .randomTicks()
             .strength(2.0F)
             .mapColor(MapColor.COLOR_BROWN)
     );
+    //? }
     public static final RegistrySupplier<Block> MOON_HEDGE = register("moon_hedge", settings -> new Hedge(MoonBlocks.MOON_LEAVES, settings), BlockBehaviour.Properties.of()
             .forceSolidOn()
             .sound(SoundType.WOOD)

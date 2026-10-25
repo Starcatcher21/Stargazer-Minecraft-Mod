@@ -22,10 +22,10 @@ import java.util.Set;
 import java.util.function.Function;
 //?}
 //? if >= 26.2 {
-/*import net.minecraft.advancements.predicates.StatePropertiesPredicate;
-*///?} else {
-import net.minecraft.advancements.critereon.StatePropertiesPredicate;
-//?}
+import net.minecraft.advancements.predicates.StatePropertiesPredicate;
+//?} else {
+/*import net.minecraft.advancements.critereon.StatePropertiesPredicate;
+*///?}
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
@@ -37,10 +37,10 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 //? if >= 26.2 {
-/*import net.minecraft.world.level.block.FlowerBedBlock;
-*///?} else {
-import com.github.starcatcher21.stargazer.block.older1211.FlowerBedBlock;
-//?}
+import net.minecraft.world.level.block.FlowerBedBlock;
+//?} else {
+/*import com.github.starcatcher21.stargazer.block.older1211.FlowerBedBlock;
+*///?}
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
@@ -296,10 +296,10 @@ public class LootTableProvider
         dropSelf(MoonBlocks.CURVE_SAPLING.get());
         dropSelf(Hedges.FULL_MOON_HEDGE.get());
         dropSelf(RedOrbBlocks.PETRICY.get());
-        dropSelf(Nebulas.PURPLE_NEBULA_REGROW_CORE.get());
-        dropSelf(Nebulas.BLUE_NEBULA_REGROW_CORE.get());
-        dropSelf(Nebulas.YELLOW_NEBULA_REGROW_CORE.get());
-        dropSelf(Nebulas.RED_NEBULA_REGROW_CORE.get());
+        dropSelf(Nebulas.PURPLE_NEBULA_CORE.get());
+        dropSelf(Nebulas.BLUE_NEBULA_CORE.get());
+        dropSelf(Nebulas.YELLOW_NEBULA_CORE.get());
+        dropSelf(Nebulas.RED_NEBULA_CORE.get());
 
         add(EyeBloodBlocks.EYE_LEAVES.get(), createShearsOrSilkTouchOnlyDrop(EyeBloodBlocks.EYE_LEAVES.get()));
         add(RedOrbBlocks.SPIRO_LEAVES.get(), createLeavesDrops(RedOrbBlocks.SPIRO_LEAVES.get(), RedOrbBlocks.SPIRO_SAPLING.get(), 0.035F));
@@ -349,7 +349,9 @@ public class LootTableProvider
         dropSelf(Hedges.MANGROVE_HEDGE.get());
         dropSelf(Hedges.MOON_HEDGE.get());
         dropSelf(Hedges.OAK_HEDGE.get());
+        //? if >= 26.2 {
         dropSelf(Hedges.PALE_HEDGE.get());
+        //? }
         dropSelf(Hedges.SPRUCE_HEDGE.get());
         dropSelf(Hedges.STAR_HEDGE.get());
         dropSelf(Hedges.YERI_HEDGE.get());

@@ -10,22 +10,25 @@ import com.github.starcatcher21.stargazer.nbt.Patterns;
 import com.github.starcatcher21.stargazer.nbt.StarPattern;
 import com.github.starcatcher21.stargazer.nbt.StarPatternsComponent;
 import com.github.starcatcher21.stargazer.particle.Particles;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ColorParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.protocol.game.ClientboundSetEntityMotionPacket;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.*;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.player.Player;
@@ -36,45 +39,45 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 //? if >= 26.2 {
-/*import net.minecraft.world.entity.vehicle.boat.AbstractBoat;
+import net.minecraft.world.entity.vehicle.boat.AbstractBoat;
 import net.minecraft.world.entity.InterpolationHandler;
 import net.minecraft.network.protocol.game.ClientboundEntityPositionSyncPacket;
 import net.minecraft.world.level.gamerules.GameRules;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import software.bernie.geckolib.animatable.GeoAnimatable;
-import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animatable.manager.AnimatableManager;
-import software.bernie.geckolib.animation.AnimationController;
-import software.bernie.geckolib.animation.RawAnimation;
-import software.bernie.geckolib.animation.object.PlayState;
-import software.bernie.geckolib.animation.state.AnimationTest;
-import software.bernie.geckolib.util.GeckoLibUtil;
-*///? } else {
-import software.bernie.geckolib.animatable.GeoAnimatable;
-import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.AnimatableManager;
-import software.bernie.geckolib.animation.AnimationController;
-import software.bernie.geckolib.animation.RawAnimation;
-import software.bernie.geckolib.animation.PlayState;
-import software.bernie.geckolib.util.GeckoLibUtil;
+import com.geckolib.animatable.GeoAnimatable;
+import com.geckolib.animatable.GeoEntity;
+import com.geckolib.animatable.instance.AnimatableInstanceCache;
+import com.geckolib.animatable.manager.AnimatableManager;
+import com.geckolib.animation.AnimationController;
+import com.geckolib.animation.RawAnimation;
+import com.geckolib.animation.object.PlayState;
+import com.geckolib.animation.state.AnimationTest;
+import com.geckolib.util.GeckoLibUtil;
+//? } else {
+/*import com.geckolib.animatable.GeoAnimatable;
+import com.geckolib.animatable.GeoEntity;
+import com.geckolib.animatable.instance.AnimatableInstanceCache;
+import com.geckolib.animation.AnimatableManager;
+import com.geckolib.animation.AnimationController;
+import com.geckolib.animation.RawAnimation;
+import com.geckolib.animation.PlayState;
+import com.geckolib.util.GeckoLibUtil;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.nbt.NbtOps;
-//? }
+*///? }
 
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 //? if >= 26.2 {
-/*public class Star extends AbstractBoat implements GeoEntity {
- *///? } else {
-public class Star extends Boat implements GeoEntity {
-    //? }
+public class Star extends AbstractBoat implements GeoEntity {
+ //? } else {
+/*public class Star extends Boat implements GeoEntity {
+    *///? }
     protected static final RawAnimation ROTATO = RawAnimation.begin().thenLoop("star.rotate");
 
     private static final EntityDataAccessor<String> DYE_COLOR_NAME = SynchedEntityData.defineId(Star.class, EntityDataSerializers.STRING);
@@ -83,28 +86,27 @@ public class Star extends Boat implements GeoEntity {
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
 
     //? if >= 26.2 {
-    /*private final InterpolationHandler interpolator = new InterpolationHandler((Entity)this, 3);
-     *///? }
+    private final InterpolationHandler interpolator = new InterpolationHandler((Entity)this, 3);
+     //? }
 
     public Star(EntityType<? extends Star> type, Level world) {
         //? if >= 26.2 {
-        /*super(type, world, () -> WishingStars.WISHING_STAR.get());
-         *///? } else {
-        super(type, world);
-        //? }
+        super(type, world, () -> WishingStars.WISHING_STAR.get());
+         //? } else {
+        /*super(type, world);
+        *///? }
         this.setNoGravity(true);
     }
 
-    //? if >= 26.2 {
-    /*@Override
-     *///? }
-    public void destroy(ServerLevel world, Item item) {
+    @Override
+    public void destroy(/*? if >= 26.2 { */ServerLevel world,/*? } */ Item item) {
         //? if >= 26.2 {
-        /*this.kill(world);
-         *///? } else {
-        this.kill();
-        //? }
-        if (world.getGameRules()./*? if >= 26.2 {*//*get( GameRules.ENTITY_DROPS*//*? } else {*/getBoolean(GameRules.RULE_DOENTITYDROPS/*?}*/)) {
+        this.kill(world);
+         //? } else {
+        /*this.kill();
+        ClientLevel world = Minecraft.getInstance().level;
+        *///? }
+        if (world.getGameRules()./*? if >= 26.2 {*/get( GameRules.ENTITY_DROPS/*? } else {*//*getBoolean(GameRules.RULE_DOENTITYDROPS*//*?}*/)) {
             Item item2;
             switch (getDyeColor()) {
                 case LIGHT_GRAY -> item2 = WishingStars.LIGHT_GRAY_WISHING_STAR.get();
@@ -128,10 +130,10 @@ public class Star extends Boat implements GeoEntity {
             itemStack.set(DataComponents.CUSTOM_NAME, this.getCustomName());
             itemStack.set(ComponentTypes.STAR_PATTERNS.get(), getSPC());
             //? if >= 26.2 {
-            /*this.spawnAtLocation(world, itemStack);
-             *///? } else {
-            this.spawnAtLocation(itemStack);
-            //? }
+            this.spawnAtLocation(world, itemStack);
+             //? } else {
+            /*this.spawnAtLocation(itemStack);
+            *///? }
         }
     }
 
@@ -146,18 +148,18 @@ public class Star extends Boat implements GeoEntity {
     @Override
     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
         //? if >= 26.2 {
-        /*controllers.add(new AnimationController<GeoAnimatable>("MovementController", 5, this::AnimController));
-         *///? } else {
-        controllers.add(new AnimationController<>(this, "MovementController", 5,
+        controllers.add(new AnimationController<GeoAnimatable>("MovementController", 5, this::AnimController));
+         //? } else {
+        /*controllers.add(new AnimationController<>(this, "MovementController", 5,
                 state -> state.setAndContinue(ROTATO)));
-        //? }
+        *///? }
     }
 
     //? if >= 26.2 {
-    /*private PlayState AnimController(AnimationTest<GeoAnimatable> animTest) {
+    private PlayState AnimController(AnimationTest<GeoAnimatable> animTest) {
         return animTest.setAndContinue(ROTATO);
     }
-    *///? }
+    //? }
 
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
@@ -165,7 +167,7 @@ public class Star extends Boat implements GeoEntity {
     }
 
     //? if >= 26.2 {
-    /*@Override
+    @Override
     public void setInitialPos(double x, double y, double z) {
         super.setInitialPos(x, y, z);
     }
@@ -174,7 +176,7 @@ public class Star extends Boat implements GeoEntity {
     protected double rideHeight(EntityDimensions dimensions) {
         return 0.3;
     }
-    *///? }
+    //? }
 
     @Override
     public void onPassengerTurned(Entity passenger) {
@@ -195,10 +197,10 @@ public class Star extends Boat implements GeoEntity {
         super.removePassenger(passenger);
         if (passenger instanceof Player pe) {
             //? if >= 1.21.2 {
-            /*if (pe.hasInfiniteMaterials()) return;
-             *///? } else {
-            if (pe.isCreative()) return;
-            //? }
+            if (pe.hasInfiniteMaterials()) return;
+             //? } else {
+            /*if (pe.isCreative()) return;
+            *///? }
             pe.getAbilities().mayfly = false;
             pe.getAbilities().flying = false;
         }
@@ -221,7 +223,7 @@ public class Star extends Boat implements GeoEntity {
     public void tick() {
         super.tick();
         //? if >= 26.2 {
-        /*this.interpolator.interpolate();
+        this.interpolator.interpolate();
         if (this.isLocalInstanceAuthoritative()) {
             if (this.getControllingPassenger() != null) {
                 this.moveRelative(this.getControllingPassenger().getSpeed(), this.getControllingPassenger().getKnownMovement());
@@ -230,12 +232,22 @@ public class Star extends Boat implements GeoEntity {
         } else {
             this.setDeltaMovement(Vec3.ZERO);
         }
-        *///? } else {
-        if (this.getControllingPassenger() != null) {
-            this.moveRelative(this.getControllingPassenger().getSpeed(), this.getControllingPassenger().getKnownMovement());
+        //? } else {
+        /*if (this.getControllingPassenger() instanceof LivingEntity player) {
+            float verticalInput = 0.0f;
+            if (player.jumping) verticalInput += 1.0f;
+
+            Vec3 input = new Vec3(player.xxa, (verticalInput - 0.5f), player.zza);
+            float flightSpeed = player.getSpeed() * 1.25f;
+            this.moveRelative(flightSpeed, input);
+
+            Vec3 motion = this.getDeltaMovement();
+            this.setDeltaMovement(motion.x * 0.8, motion.y * 0.8, motion.z * 0.8);
             this.move(MoverType.SELF, this.getDeltaMovement());
+        } else {
+            this.setDeltaMovement(Vec3.ZERO);
         }
-        //? }
+        *///? }
         pt += 1;
         if (pt >= 5) {
             ColorParticleOption tintedParticleEffect = ColorParticleOption.create(Particles.TINTED_STAR.get(), getDyeColor() != null ? getDyeColor().getFireworkColor() : 0xffff00);
@@ -246,11 +258,32 @@ public class Star extends Boat implements GeoEntity {
             if (this.level() instanceof ServerLevel serverWorld) {
                 this.syncPacketPositionCodec(this.getX(), this.getY(), this.getZ());
                 //? if >= 26.2 {
-                /*serverWorld.getChunkSource().chunkMap.sendToTrackingPlayers(this, ClientboundEntityPositionSyncPacket.of(this));
-                 *///? }
+                serverWorld.getChunkSource().chunkMap.sendToTrackingPlayers(this, ClientboundEntityPositionSyncPacket.of(this));
+                 //? } else {
+                /*serverWorld.getChunkSource().broadcast(this, new ClientboundSetEntityMotionPacket(this));
+                *///? }
             }
         }
     }
+
+    //? if < 26.2 {
+    /*@Override
+    public float getYRot() {
+        // If a player is controlling the Star, always use their yaw.
+        if (this.getControllingPassenger() != null) {
+            return this.getControllingPassenger().getYRot();
+        }
+        return super.getYRot();
+    }
+
+    @Override
+    public void setPaddleState(boolean left, boolean right) {
+    }
+
+    @Override
+    public void setInput(boolean pressingForward, boolean pressingBack, boolean pressingLeft, boolean pressingRight) {
+    }
+    *///? }
 
     @Override
     public boolean isPushable() {
@@ -260,16 +293,16 @@ public class Star extends Boat implements GeoEntity {
     @Override
     public void moveRelative(float speed, Vec3 movementInput) {
         //? if >= 26.2 {
-        /*Vec3 vec3d = Entity.getInputVector(movementInput, speed*2, this.getYRot());
-         *///? } else {
-        Vec3 vec3d = getInputVector(movementInput, speed*2, this.getYRot());
-        //? }
+        Vec3 vec3d = Entity.getInputVector(movementInput, speed*2, this.getYRot());
+         //? } else {
+        /*Vec3 vec3d = getInputVector(movementInput, speed*2, this.getYRot());
+        *///? }
         this.push(vec3d);
         this.push(0.0, this.getGravity(), 0.0);
     }
 
     //? if <= 1.21.1 {
-    private static Vec3 getInputVector(Vec3 arg, float g, float h) {
+    /*private static Vec3 getInputVector(Vec3 arg, float g, float h) {
         double d0 = arg.lengthSqr();
         if (d0 < 1.0E-7) {
             return Vec3.ZERO;
@@ -280,7 +313,7 @@ public class Star extends Boat implements GeoEntity {
             return new Vec3(vec3.x * (double)f1 - vec3.z * (double)f, vec3.y, vec3.z * (double)f1 + vec3.x * (double)f);
         }
     }
-    //? }
+    *///? }
 
     public DyeColor getDyeColor() {
         return DyeColor.byName(this.entityData.get(DYE_COLOR_NAME), DyeColor.YELLOW);
@@ -302,14 +335,14 @@ public class Star extends Boat implements GeoEntity {
             this.entityData.set(PATTEN, starPatternsComponent);
         });
     }
-    public void setSPC(Player player, ResourceLocation name) {
+    public void setSPC(Player player, Identifier name) {
         RegistryAccess drm = player.registryAccess();
         try {
             //? if >= 26.2 {
-            /*Patterns sp = drm.lookup(RegistryKeys.STAR_PATTERN).get().getValue(name);
-             *///? } else {
-            Patterns sp = drm.registry(RegistryKeys.STAR_PATTERN).get().get(name);
-            //? }
+            Patterns sp = drm.lookup(RegistryKeys.STAR_PATTERN).get().getValue(name);
+             //? } else {
+            /*Patterns sp = drm.registry(RegistryKeys.STAR_PATTERN).get().get(name);
+            *///? }
             List<StarPattern> l = Patterns.patternList.stream().filter(starPattern -> starPattern.assetId().equals(sp.pattern)).toList();
             if (!l.isEmpty()) {
                 setSPC(Optional.of(new StarPatternsComponent(List.of(new StarPatternsComponent.Layer(l.getFirst(), DyeColor.WHITE)))));
@@ -321,40 +354,40 @@ public class Star extends Boat implements GeoEntity {
 
     // 4. Update NBT methods to seamlessly interface with the data tracker
     @Override
-    public void addAdditionalSaveData(/*? if >= 26.2 { *//*ValueOutput*//*? } else { */ CompoundTag /*? }*/ nbt) {
+    public void addAdditionalSaveData(/*? if >= 26.2 { */ValueOutput/*? } else { */ /*CompoundTag *//*? }*/ nbt) {
         super.addAdditionalSaveData(nbt);
         nbt.putString("dyeColor", getDyeColor().getSerializedName());
         //? if >= 26.2 {
-        /*nbt.store("star_patterns", StarPatternsComponent.CODEC, getSPC());
-         *///? } else {
-        StarPatternsComponent.CODEC
+        nbt.store("star_patterns", StarPatternsComponent.CODEC, getSPC());
+         //? } else {
+        /*StarPatternsComponent.CODEC
                 .encodeStart(NbtOps.INSTANCE, getSPC())
                 .resultOrPartial(err -> Stargazer.LOGGER.error("Failed to encode star patterns: {}", err))
                 .ifPresent(tag -> nbt.put("star_patterns", tag));
-        //? }
+        *///? }
     }
 
     @Override
-    public void readAdditionalSaveData(/*? if >= 26.2 { *//*ValueInput*//*? } else { */ CompoundTag /*? } */ nbt) {
+    public void readAdditionalSaveData(/*? if >= 26.2 { */ValueInput/*? } else { */ /*CompoundTag *//*? } */ nbt) {
         super.readAdditionalSaveData(nbt);
         //? if >= 26.2 {
-        /*String colorName = nbt.getStringOr("dyeColor", "yellow");
-         *///? } else {
-        String colorName = nbt.getString("dyeColor");
-        //? }
+        String colorName = nbt.getStringOr("dyeColor", "yellow");
+         //? } else {
+        /*String colorName = nbt.getString("dyeColor");
+        *///? }
         DyeColor color = DyeColor.byName(colorName, DyeColor.YELLOW);
         setDyeColor(color);
         //? if >= 26.2 {
-        /*setSPC(nbt.read("star_patterns", StarPatternsComponent.CODEC));
-         *///? } else {
-        setSPC(StarPatternsComponent.CODEC
+        setSPC(nbt.read("star_patterns", StarPatternsComponent.CODEC));
+         //? } else {
+        /*setSPC(StarPatternsComponent.CODEC
                 .parse(NbtOps.INSTANCE, nbt.get("star_patterns"))
                 .resultOrPartial(err -> Stargazer.LOGGER.error("Failed to parse star patterns: {}", err)));
-        //? }
+        *///? }
     }
 
     //? if >= 26.2 {
-    /*@Override
+    @Override
     public InteractionResult interact(Player player, InteractionHand hand, Vec3 location) {
         InteractionResult actionResult = super.interact(player, hand, location);
         if (actionResult != InteractionResult.PASS) {
@@ -362,8 +395,8 @@ public class Star extends Boat implements GeoEntity {
         }
         return handleInteraction(player, hand);
     }
-    *///? } else {
-    @Override
+    //? } else {
+    /*@Override
     public InteractionResult interact(Player player, InteractionHand hand) {
         InteractionResult actionResult = super.interact(player, hand);
         if (actionResult != InteractionResult.PASS) {
@@ -371,7 +404,7 @@ public class Star extends Boat implements GeoEntity {
         }
         return handleInteraction(player, hand);
     }
-    //? }
+    *///? }
 
     private InteractionResult handleInteraction(Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
@@ -379,18 +412,18 @@ public class Star extends Boat implements GeoEntity {
 
         if (player instanceof ServerPlayer spe) {
             //? if >= 26.2 {
-            /*Criterias.STAR_MODIFIER.listen(crit -> crit.trigger(spe, item));
-            *///? } else {
-            Criterias.STAR_MODIFIER.trigger(spe, item);
-            //? }
+            Criterias.STAR_MODIFIER.listen(crit -> crit.trigger(spe, item));
+            //? } else {
+            /*Criterias.STAR_MODIFIER.trigger(spe, item);
+            *///? }
         }
 
         if (item instanceof DyeItem dyeItem) {
             //? if >= 26.2 {
-            /*setDyeColor(DyeColor.byId(DyeItem.getId(dyeItem)));
-             *///? } else {
-            setDyeColor(dyeItem.getDyeColor());
-            //? }
+            setDyeColor(DyeColor.byId(DyeItem.getId(dyeItem)));
+             //? } else {
+            /*setDyeColor(dyeItem.getDyeColor());
+            *///? }
             spawnParticles();
             return InteractionResult.SUCCESS;
         }

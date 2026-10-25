@@ -4,10 +4,10 @@ import com.github.starcatcher21.stargazer.block.register.EyeBloodBlocks;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 //? if >= 26.2 {
-/*import net.minecraft.advancements.triggers.CriteriaTriggers;
- *///?} else {
-import net.minecraft.advancements.CriteriaTriggers;
-//?}
+import net.minecraft.advancements.triggers.CriteriaTriggers;
+ //?} else {
+/*import net.minecraft.advancements.CriteriaTriggers;
+*///?}
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -25,7 +25,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.DirectionalBlock;
+import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -33,33 +33,33 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 
 //? if < 26.2 {
-import net.minecraft.world.ItemInteractionResult;
+/*import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-//?}
+*///?}
 
-public class EyeLog extends DirectionalBlock {
+public class EyeLog extends RotatedPillarBlock {
     //? if >= 26.2 {
-    /*public static final MapCodec<EyeLog> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+    public static final MapCodec<EyeLog> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             BuiltInRegistries.BLOCK.byNameCodec().fieldOf("strip").forGetter(block -> block.STRIP),
             propertiesCodec()
     ).apply(instance, EyeLog::new));
-    *///?} else {
-    public static final MapCodec<EyeLog> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+    //?} else {
+    /*public static final MapCodec<EyeLog> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             BuiltInRegistries.BLOCK.byNameCodec().fieldOf("strip").forGetter(block -> block.STRIP)
     ).apply(instance, strip -> new EyeLog(strip, BlockBehaviour.Properties.of())));
-    //?}
+    *///?}
 
     protected Block STRIP;
     protected String VARIANT;
 
     @Override
-    protected MapCodec<? extends DirectionalBlock> codec() {
+    public MapCodec<? extends RotatedPillarBlock> codec() {
         return CODEC;
     }
 
     /* ---------------- useItemOn (return type differs) ---------------- */
     //? if >= 26.2 {
-    /*@Override
+    @Override
     protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level world,
                                           BlockPos pos, Player player,
                                           InteractionHand hand, BlockHitResult hit) {
@@ -79,8 +79,8 @@ public class EyeLog extends DirectionalBlock {
         }
         return InteractionResult.SUCCESS;
     }
-    *///?} else {
-    @Override
+    //?} else {
+    /*@Override
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level world,
                                               BlockPos pos, Player player,
                                               InteractionHand hand, BlockHitResult hit) {
@@ -100,7 +100,7 @@ public class EyeLog extends DirectionalBlock {
         }
         return ItemInteractionResult.SUCCESS;
     }
-    //?}
+    *///?}
 
     @Override
     protected void randomTick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {

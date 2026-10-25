@@ -37,7 +37,6 @@
         ],
         "blocks": [
           "stargazer:moon_rock_nylium",
-          "stargazer:moon_rock",
           "minecraft:grass_block"
         ]
       }

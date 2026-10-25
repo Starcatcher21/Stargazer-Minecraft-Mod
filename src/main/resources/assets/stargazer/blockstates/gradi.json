@@ -7,7 +7,8 @@
 			"model": "stargazer:block/gradi2"
 		},
 		"flower_amount=3,facing=west": {
-			"model": "stargazer:block/gradi3"
+			"model": "stargazer:block/gradi3",
+            "y": -90
 		},
 		"flower_amount=4,facing=west": {
 			"model": "stargazer:block/gradi4"
@@ -22,7 +23,7 @@
 		},
 		"flower_amount=3,facing=north": {
 			"model": "stargazer:block/gradi3",
-			"y": 90
+			"y": 0
 		},
 		"flower_amount=4,facing=north": {
 			"model": "stargazer:block/gradi4",
@@ -38,7 +39,7 @@
 		},
 		"flower_amount=3,facing=east": {
 			"model": "stargazer:block/gradi3",
-			"y": 180
+			"y": 90
 		},
 		"flower_amount=4,facing=east": {
 			"model": "stargazer:block/gradi4",
@@ -54,7 +55,7 @@
 		},
 		"flower_amount=3,facing=south": {
 			"model": "stargazer:block/gradi3",
-			"y": 270
+			"y": 180
 		},
 		"flower_amount=4,facing=south": {
 			"model": "stargazer:block/gradi4",

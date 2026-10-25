@@ -4,11 +4,12 @@ package com.github.starcatcher21.stargazer.block.register;
 
 import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.block.clases.CosmicFlower;
+import com.github.starcatcher21.stargazer.block.clases.moon.log.MoonLog;
 import com.github.starcatcher21.stargazer.block.clases.nebulas.NebulaCore;
 import com.github.starcatcher21.stargazer.block.clases.nebulas.NebulaLeaves;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.CommonColors;
 import net.minecraft.world.effect.MobEffects;
@@ -18,7 +19,6 @@ import net.minecraft.world.level.block.ButtonBlock;
 import net.minecraft.world.level.block.FenceBlock;
 import net.minecraft.world.level.block.FenceGateBlock;
 import net.minecraft.world.level.block.FlowerPotBlock;
-import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.StairBlock;
@@ -35,17 +35,17 @@ import static com.github.starcatcher21.stargazer.block.ModBlock.registerWoItem;
 public class Nebulas {
     public static final RegistrySupplier<Block> RED_TENTACLE_FLOWER = register("red_tentacle_flower", settings -> new CosmicFlower(
             //? if >= 26.2 {
-            /*MobEffects.INSTANT_DAMAGE
-             *///?} else {
-            MobEffects.HARM
-            //?}
+            MobEffects.INSTANT_DAMAGE
+             //?} else {
+            /*MobEffects.HARM
+            *///?}
             , 5.0f, settings), BlockBehaviour.Properties.of()
             .mapColor(MapColor.COLOR_RED)
             //? if >= 26.2 {
-            /*.noCollision()
-             *///? } else {
-            .noCollission()
-            //? }
+            .noCollision()
+             //? } else {
+            /*.noCollission()
+            *///? }
             .instabreak()
             .sound(SoundType.GRASS)
             .offsetType(BlockBehaviour.OffsetType.XZ)
@@ -54,17 +54,17 @@ public class Nebulas {
     public static final RegistrySupplier<Block> POTTED_RED_TENTACLE_FLOWER = registerWoItem("potted_red_tentacle_flower", settings -> new FlowerPotBlock(RED_TENTACLE_FLOWER.get(), settings), BlockBehaviour.Properties.ofFullCopy(Blocks.POTTED_ALLIUM).noOcclusion());
     public static final RegistrySupplier<Block> BLUE_TENTACLE_FLOWER = register("blue_tentacle_flower", settings -> new CosmicFlower(
             //? if >= 26.2 {
-            /*MobEffects.INSTANT_DAMAGE
-             *///?} else {
-            MobEffects.HARM
-            //?}
+            MobEffects.INSTANT_DAMAGE
+             //?} else {
+            /*MobEffects.HARM
+            *///?}
             , 5.0f, settings), BlockBehaviour.Properties.of()
             .mapColor(MapColor.COLOR_CYAN)
             //? if >= 26.2 {
-            /*.noCollision()
-             *///? } else {
-            .noCollission()
-            //? }
+            .noCollision()
+             //? } else {
+            /*.noCollission()
+            *///? }
             .instabreak()
             .sound(SoundType.GRASS)
             .offsetType(BlockBehaviour.OffsetType.XZ)
@@ -73,17 +73,17 @@ public class Nebulas {
     public static final RegistrySupplier<Block> POTTED_BLUE_TENTACLE_FLOWER = registerWoItem("potted_blue_tentacle_flower", settings -> new FlowerPotBlock(BLUE_TENTACLE_FLOWER.get(), settings), BlockBehaviour.Properties.ofFullCopy(Blocks.POTTED_ALLIUM).noOcclusion());
     public static final RegistrySupplier<Block> PURPLE_TENTACLE_FLOWER = register("purple_tentacle_flower", settings -> new CosmicFlower(
             //? if >= 26.2 {
-            /*MobEffects.INSTANT_DAMAGE
-             *///?} else {
-            MobEffects.HARM
-            //?}
+            MobEffects.INSTANT_DAMAGE
+             //?} else {
+            /*MobEffects.HARM
+            *///?}
             , 5.0f, settings), BlockBehaviour.Properties.of()
             .mapColor(MapColor.COLOR_PURPLE)
             //? if >= 26.2 {
-            /*.noCollision()
-             *///? } else {
-            .noCollission()
-            //? }
+            .noCollision()
+             //? } else {
+            /*.noCollission()
+            *///? }
             .instabreak()
             .sound(SoundType.GRASS)
             .offsetType(BlockBehaviour.OffsetType.XZ)
@@ -92,17 +92,17 @@ public class Nebulas {
     public static final RegistrySupplier<Block> POTTED_PURPLE_TENTACLE_FLOWER = registerWoItem("potted_purple_tentacle_flower", settings -> new FlowerPotBlock(PURPLE_TENTACLE_FLOWER.get(), settings), BlockBehaviour.Properties.ofFullCopy(Blocks.POTTED_ALLIUM).noOcclusion());
     public static final RegistrySupplier<Block> YELLOW_TENTACLE_FLOWER = register("yellow_tentacle_flower", settings -> new CosmicFlower(
             //? if >= 26.2 {
-            /*MobEffects.INSTANT_DAMAGE
-             *///?} else {
-            MobEffects.HARM
-            //?}
+            MobEffects.INSTANT_DAMAGE
+             //?} else {
+            /*MobEffects.HARM
+            *///?}
             , 5.0f, settings), BlockBehaviour.Properties.of()
             .mapColor(MapColor.COLOR_YELLOW)
             //? if >= 26.2 {
-            /*.noCollision()
-             *///? } else {
-            .noCollission()
-            //? }
+            .noCollision()
+             //? } else {
+            /*.noCollission()
+            *///? }
             .instabreak()
             .sound(SoundType.GRASS)
             .offsetType(BlockBehaviour.OffsetType.XZ)
@@ -110,7 +110,7 @@ public class Nebulas {
     );
     public static final RegistrySupplier<Block> POTTED_YELLOW_TENTACLE_FLOWER = registerWoItem("potted_yellow_tentacle_flower", settings -> new FlowerPotBlock(YELLOW_TENTACLE_FLOWER.get(), settings), BlockBehaviour.Properties.ofFullCopy(Blocks.POTTED_ALLIUM).noOcclusion());
 
-    public static final RegistrySupplier<Block> BLUE_NEBULA_LOG = register("blue_nebula_log", RotatedPillarBlock::new, BlockBehaviour.Properties.of()
+    public static final RegistrySupplier<Block> BLUE_NEBULA_LOG = register("blue_nebula_log", (settings) -> new MoonLog(null, settings), BlockBehaviour.Properties.of()
             .forceSolidOn()
             .sound(SoundType.WOOD)
             .strength(2.0F)
@@ -153,17 +153,17 @@ public class Nebulas {
     );
     public static final RegistrySupplier<Block> BLUE_NEBULA_PLANKS_BUTTON = register("blue_nebula_planks_button", (BlockBehaviour.Properties settings) -> new ButtonBlock(BlockSetType.OAK, 30, (BlockBehaviour.Properties) settings), BlockBehaviour.Properties.of()
             //? if >= 26.2 {
-            /*.noCollision()
-             *///? } else {
-            .noCollission()
-            //? }
+            .noCollision()
+             //? } else {
+            /*.noCollission()
+            *///? }
             .sound(SoundType.WOOD)
             .instrument(NoteBlockInstrument.BASS)
             .strength(1.0F)
             .mapColor(MapColor.COLOR_CYAN)
     );
 
-    public static final RegistrySupplier<Block> BLUE_NEBULA_REGROW_CORE = register("blue_nebula_regrow_core", settings -> new NebulaCore(ResourceKey.create(Registries.CONFIGURED_FEATURE,ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "blue_nebula_trees")), BLUE_TENTACLE_FLOWER.get(), settings), BlockBehaviour.Properties.of()
+    public static final RegistrySupplier<Block> BLUE_NEBULA_CORE = register("blue_nebula_core", settings -> new NebulaCore(ResourceKey.create(Registries.CONFIGURED_FEATURE,Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "blue_nebula_trees")), BLUE_TENTACLE_FLOWER.get(), settings), BlockBehaviour.Properties.of()
             .forceSolidOn()
             .randomTicks()
             .sound(SoundType.WOOD)
@@ -179,7 +179,7 @@ public class Nebulas {
             .mapColor(MapColor.COLOR_CYAN)
     );
 
-    public static final RegistrySupplier<Block> RED_NEBULA_LOG = register("red_nebula_log", RotatedPillarBlock::new, BlockBehaviour.Properties.of()
+    public static final RegistrySupplier<Block> RED_NEBULA_LOG = register("red_nebula_log", (settings) -> new MoonLog(null, settings), BlockBehaviour.Properties.of()
             .forceSolidOn()
             .sound(SoundType.WOOD)
             .strength(2.0F)
@@ -222,10 +222,10 @@ public class Nebulas {
     );
     public static final RegistrySupplier<Block> RED_NEBULA_PLANKS_BUTTON = register("red_nebula_planks_button", (BlockBehaviour.Properties settings) -> new ButtonBlock(BlockSetType.OAK, 30, (BlockBehaviour.Properties) settings), BlockBehaviour.Properties.of()
             //? if >= 26.2 {
-            /*.noCollision()
-             *///? } else {
-            .noCollission()
-            //? }
+            .noCollision()
+             //? } else {
+            /*.noCollission()
+            *///? }
             .sound(SoundType.WOOD)
             .instrument(NoteBlockInstrument.BASS)
             .strength(1.0F)
@@ -240,7 +240,7 @@ public class Nebulas {
             .mapColor(MapColor.COLOR_RED)
     );
 
-    public static final RegistrySupplier<Block> RED_NEBULA_REGROW_CORE = register("red_nebula_regrow_core", settings -> new NebulaCore(ResourceKey.create(Registries.CONFIGURED_FEATURE,ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "red_nebula_trees")), RED_TENTACLE_FLOWER.get(), settings), BlockBehaviour.Properties.of()
+    public static final RegistrySupplier<Block> RED_NEBULA_CORE = register("red_nebula_core", settings -> new NebulaCore(ResourceKey.create(Registries.CONFIGURED_FEATURE,Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "red_nebula_trees")), RED_TENTACLE_FLOWER.get(), settings), BlockBehaviour.Properties.of()
             .forceSolidOn()
             .randomTicks()
             .sound(SoundType.WOOD)
@@ -248,7 +248,7 @@ public class Nebulas {
             .mapColor(MapColor.COLOR_RED)
     );
 
-    public static final RegistrySupplier<Block> PURPLE_NEBULA_LOG = register("purple_nebula_log", RotatedPillarBlock::new, BlockBehaviour.Properties.of()
+    public static final RegistrySupplier<Block> PURPLE_NEBULA_LOG = register("purple_nebula_log", (settings) -> new MoonLog(null, settings), BlockBehaviour.Properties.of()
             .forceSolidOn()
             .sound(SoundType.WOOD)
             .strength(2.0F)
@@ -291,17 +291,17 @@ public class Nebulas {
     );
     public static final RegistrySupplier<Block> PURPLE_NEBULA_PLANKS_BUTTON = register("purple_nebula_planks_button", (BlockBehaviour.Properties settings) -> new ButtonBlock(BlockSetType.OAK, 30, (BlockBehaviour.Properties) settings), BlockBehaviour.Properties.of()
             //? if >= 26.2 {
-            /*.noCollision()
-             *///? } else {
-            .noCollission()
-            //? }
+            .noCollision()
+             //? } else {
+            /*.noCollission()
+            *///? }
             .sound(SoundType.WOOD)
             .instrument(NoteBlockInstrument.BASS)
             .strength(1.0F)
             .mapColor(MapColor.COLOR_PURPLE)
     );
 
-    public static final RegistrySupplier<Block> PURPLE_NEBULA_REGROW_CORE = register("purple_nebula_regrow_core", settings -> new NebulaCore(ResourceKey.create(Registries.CONFIGURED_FEATURE,ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "purple_nebula_trees")), PURPLE_TENTACLE_FLOWER.get(), settings), BlockBehaviour.Properties.of()
+    public static final RegistrySupplier<Block> PURPLE_NEBULA_CORE = register("purple_nebula_core", settings -> new NebulaCore(ResourceKey.create(Registries.CONFIGURED_FEATURE,Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "purple_nebula_trees")), PURPLE_TENTACLE_FLOWER.get(), settings), BlockBehaviour.Properties.of()
             .forceSolidOn()
             .randomTicks()
             .sound(SoundType.WOOD)
@@ -317,7 +317,7 @@ public class Nebulas {
             .mapColor(MapColor.COLOR_PURPLE)
     );
 
-    public static final RegistrySupplier<Block> YELLOW_NEBULA_LOG = register("yellow_nebula_log", RotatedPillarBlock::new, BlockBehaviour.Properties.of()
+    public static final RegistrySupplier<Block> YELLOW_NEBULA_LOG = register("yellow_nebula_log", (settings) -> new MoonLog(null, settings), BlockBehaviour.Properties.of()
             .forceSolidOn()
             .sound(SoundType.WOOD)
             .strength(2.0F)
@@ -360,10 +360,10 @@ public class Nebulas {
     );
     public static final RegistrySupplier<Block> YELLOW_NEBULA_PLANKS_BUTTON = register("yellow_nebula_planks_button", (BlockBehaviour.Properties settings) -> new ButtonBlock(BlockSetType.OAK, 30, (BlockBehaviour.Properties) settings), BlockBehaviour.Properties.of()
             //? if >= 26.2 {
-            /*.noCollision()
-             *///? } else {
-            .noCollission()
-            //? }
+            .noCollision()
+             //? } else {
+            /*.noCollission()
+            *///? }
             .sound(SoundType.WOOD)
             .instrument(NoteBlockInstrument.BASS)
             .strength(1.0F)
@@ -378,7 +378,7 @@ public class Nebulas {
             .mapColor(MapColor.COLOR_YELLOW)
     );
 
-    public static final RegistrySupplier<Block> YELLOW_NEBULA_REGROW_CORE = register("yellow_nebula_regrow_core", settings -> new NebulaCore(ResourceKey.create(Registries.CONFIGURED_FEATURE,ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "yellow_nebula_trees")), YELLOW_TENTACLE_FLOWER.get(), settings), BlockBehaviour.Properties.of()
+    public static final RegistrySupplier<Block> YELLOW_NEBULA_CORE = register("yellow_nebula_core", settings -> new NebulaCore(ResourceKey.create(Registries.CONFIGURED_FEATURE,Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "yellow_nebula_trees")), YELLOW_TENTACLE_FLOWER.get(), settings), BlockBehaviour.Properties.of()
             .forceSolidOn()
             .randomTicks()
             .sound(SoundType.WOOD)
