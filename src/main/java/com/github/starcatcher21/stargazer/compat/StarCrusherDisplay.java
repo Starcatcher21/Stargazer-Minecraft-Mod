@@ -9,19 +9,19 @@ import me.shedaniel.rei.api.common.display.basic.BasicDisplay;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
 import net.minecraft.client.Minecraft;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 //? if >= 26.2 {
-import net.minecraft.core.registries.Registries;
+/*import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.crafting.display.RecipeDisplayId;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.PlacementInfo;
 import net.minecraft.world.item.crafting.RecipeManager;
-//?}
+*///?}
 import org.jetbrains.annotations.Nullable;
 import net.minecraft.world.level.block.Blocks;
 
@@ -40,18 +40,18 @@ public class StarCrusherDisplay extends BasicDisplay {
     /* 26.2+ : recipe carries PlacementInfo + ItemStackTemplate result    */
     /* ------------------------------------------------------------------ */
     //? if >= 26.2 {
-    public StarCrusherDisplay(ShapedStarCrusherRecipe recipe) {
+    /*public StarCrusherDisplay(ShapedStarCrusherRecipe recipe) {
         this(recipe.placementInfo(),
              Collections.singletonList(EntryIngredients.ofItemStacks(
                  Collections.singletonList(recipe.getResult().copy()))),
              recipe.getIngredients());
         this.recipe = recipe;
     }
-    //?} else {
-    /*/^ ------------------------------------------------------------------ ^/
-    /^ 1.21.1 : no PlacementInfo, getResult() returns ItemStack,          ^/
-    /^          getIngredients() returns NonNullList<Ingredient>          ^/
-    /^ ------------------------------------------------------------------ ^/
+    *///?} else {
+    /* ------------------------------------------------------------------ */
+    /* 1.21.1 : no PlacementInfo, getResult() returns ItemStack,          */
+    /*          getIngredients() returns NonNullList<Ingredient>          */
+    /* ------------------------------------------------------------------ */
     public StarCrusherDisplay(ShapedStarCrusherRecipe recipe) {
         this(toInputs(recipe.getIngredients()),
                 Collections.singletonList(EntryIngredients.ofItemStacks(
@@ -59,14 +59,14 @@ public class StarCrusherDisplay extends BasicDisplay {
         this.place = toOptionalList(recipe.getIngredients());
         this.recipe = recipe;
     }
-    *///?}
+    //?}
 
     public StarCrusherDisplay(List<EntryIngredient> inputs, EntryIngredient outputs) {
         this(inputs, Collections.singletonList(outputs));
     }
 
     //? if >= 26.2 {
-    public StarCrusherDisplay(PlacementInfo placement,
+    /*public StarCrusherDisplay(PlacementInfo placement,
                               List<EntryIngredient> outputs,
                               List<Optional<Ingredient>> ingredient) {
         super(EntryIngredients.ofIngredients(placement.ingredients()), outputs);
@@ -74,7 +74,7 @@ public class StarCrusherDisplay extends BasicDisplay {
         this.place = ingredient;
         this.out   = outputs.getFirst();
     }
-    //?}
+    *///?}
 
     /** Universal ctor — guarantees in/out are assigned on every branch. */
     public StarCrusherDisplay(List<EntryIngredient> inputs, List<EntryIngredient> outputs) {
@@ -84,36 +84,36 @@ public class StarCrusherDisplay extends BasicDisplay {
     }
 
     //? if >= 26.2 {
-    public StarCrusherDisplay(StarCrusherRecipeDisplay display,
+    /*public StarCrusherDisplay(StarCrusherRecipeDisplay display,
                               Optional<RecipeDisplayId> networkRecipeId) {
         this(getRecipe(networkRecipeId));
     }
-    //?}
+    *///?}
 
     public StarCrusherDisplay(Recipe<?> recipe) {
         this((ShapedStarCrusherRecipe) recipe);
     }
 
     //? if < 26.2 {
-    /*public StarCrusherDisplay(RecipeHolder<StarCrusherRecipe> starCrusherRecipeRecipeHolder) {
+    public StarCrusherDisplay(RecipeHolder<StarCrusherRecipe> starCrusherRecipeRecipeHolder) {
         this(starCrusherRecipeRecipeHolder.value());
     }
-    *///? }
+    //? }
 
     /* ------------------------------------------------------------------ */
     /* helpers                                                            */
     /* ------------------------------------------------------------------ */
 
     //? if >= 26.2 {
-    private static List<EntryIngredient> toInputs(List<Optional<Ingredient>> src) {
+    /*private static List<EntryIngredient> toInputs(List<Optional<Ingredient>> src) {
         List<EntryIngredient> out = new ArrayList<>(src.size());
         for (Optional<Ingredient> opt : src) {
             out.add(opt.map(EntryIngredients::ofIngredient).orElseGet(EntryIngredient::empty));
         }
         return out;
     }
-    //?} else {
-    /*private static List<EntryIngredient> toInputs(List<Ingredient> src) {
+    *///?} else {
+    private static List<EntryIngredient> toInputs(List<Ingredient> src) {
         List<EntryIngredient> out = new ArrayList<>(src.size());
         for (Ingredient ing : src) {
             out.add(EntryIngredients.ofIngredient(ing));
@@ -128,22 +128,22 @@ public class StarCrusherDisplay extends BasicDisplay {
         }
         return out;
     }
-    *///?}
+    //?}
 
     private static ShapedStarCrusherRecipe emptyRecipe() {
         //? if >= 26.2 {
-        return new ShapedStarCrusherRecipe("",
+        /*return new ShapedStarCrusherRecipe("",
             new StarCrusherShapedRecipe(Ingredient.of(Blocks.AIR.asItem()), Optional.empty()),
             ItemStackTemplate.fromStack(Blocks.AIR.asItem().getDefaultInstance()));
-        //?} else {
-        /*return new ShapedStarCrusherRecipe("",
+        *///?} else {
+        return new ShapedStarCrusherRecipe("",
                 new StarCrusherShapedRecipe(Ingredient.of(Blocks.AIR.asItem()), Optional.empty()),
                 Blocks.AIR.asItem().getDefaultInstance());
-        *///?}
+        //?}
     }
 
     //? if >= 26.2 {
-    public static ShapedStarCrusherRecipe getRecipe(Optional<RecipeDisplayId> networkRecipeId) {
+    /*public static ShapedStarCrusherRecipe getRecipe(Optional<RecipeDisplayId> networkRecipeId) {
         if (networkRecipeId.isPresent() && Minecraft.getInstance().getSingleplayerServer() != null) {
             RecipeManager.ServerDisplayInfo recip = Minecraft.getInstance()
                 .getSingleplayerServer().getRecipeManager()
@@ -154,19 +154,19 @@ public class StarCrusherDisplay extends BasicDisplay {
         }
         return emptyRecipe();
     }
-    //?}
+    *///?}
 
-    public static ShapedStarCrusherRecipe getRecipe(Identifier id) {
+    public static ShapedStarCrusherRecipe getRecipe(ResourceLocation id) {
         if (Minecraft.getInstance().getSingleplayerServer() != null) {
             //? if >= 26.2 {
-            Optional<RecipeHolder<?>> recip = Minecraft.getInstance()
+            /*Optional<RecipeHolder<?>> recip = Minecraft.getInstance()
                 .getSingleplayerServer().getRecipeManager()
                 .byKey(ResourceKey.create(Registries.RECIPE, id));
-            //?} else {
-            /*Optional<RecipeHolder<?>> recip = Minecraft.getInstance()
+            *///?} else {
+            Optional<RecipeHolder<?>> recip = Minecraft.getInstance()
                     .getSingleplayerServer().getRecipeManager()
                     .byKey(id);
-            *///?}
+            //?}
             if (recip.isPresent() && recip.get().value() instanceof ShapedStarCrusherRecipe ssr) {
                 return ssr;
             }
@@ -197,8 +197,8 @@ public class StarCrusherDisplay extends BasicDisplay {
     public ShapedStarCrusherRecipe recipe() { return this.recipe; }
 
     //? if >= 26.2 {
-    @Override
-     //?}
+    /*@Override
+     *///?}
     public @Nullable DisplaySerializer<? extends Display> getSerializer() {
         return StargazerREICommon.STAR_CRUSHER;
     }

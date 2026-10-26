@@ -66,10 +66,10 @@ public class ModEngLangProvider
         } else if (key instanceof net.minecraft.tags.TagKey<?> tag) {
             add(tag, value);
         //? if >= 26.2 {
-        } else if (key instanceof net.minecraft.resources.Identifier identifier) {
-        //?} else {
-        /*} else if (key instanceof net.minecraft.resources.ResourceLocation identifier) {
-        *///?}
+        /*} else if (key instanceof net.minecraft.resources.Identifier identifier) {
+        *///?} else {
+        } else if (key instanceof net.minecraft.resources.ResourceLocation identifier) {
+        //?}
             add(identifier.toLanguageKey(), value);
         } else {
             throw new IllegalArgumentException("Unsupported translation key type: " + key.getClass().getName());
@@ -454,8 +454,8 @@ public class ModEngLangProvider
         translationBuilder.add(Hedges.MOON_HEDGE.get(), "Moon Hedge");
         translationBuilder.add(Hedges.OAK_HEDGE.get(), "Oak Hedge");
         //? if >= 26.2 {
-        translationBuilder.add(Hedges.PALE_HEDGE.get(), "Pale Oak Hedge");
-        //? }
+        /*translationBuilder.add(Hedges.PALE_HEDGE.get(), "Pale Oak Hedge");
+        *///? }
         translationBuilder.add(Hedges.SPRUCE_HEDGE.get(), "Spruce Hedge");
         translationBuilder.add(Hedges.STAR_HEDGE.get(), "Star Hedge");
         translationBuilder.add(Hedges.YERI_HEDGE.get(), "Yeri Hedge");
@@ -534,10 +534,10 @@ public class ModEngLangProvider
 
     private static String potionTranslationName(Object potion) {
         //? if >= 26.2 {
-        return ((net.minecraft.world.item.alchemy.Potion) potion).name();
-        //?} else {
-        /*return BuiltInRegistries.POTION.getKey((net.minecraft.world.item.alchemy.Potion) potion).getPath();
-        *///?}
+        /*return ((net.minecraft.world.item.alchemy.Potion) potion).name();
+        *///?} else {
+        return BuiltInRegistries.POTION.getKey((net.minecraft.world.item.alchemy.Potion) potion).getPath();
+        //?}
     }
 }
 //?}

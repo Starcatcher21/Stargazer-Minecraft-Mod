@@ -71,11 +71,11 @@ public class MoonWelder extends Block {
     protected VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
         Direction dir = state.getValue(BlockStateProperties.HORIZONTAL_FACING);
         //? if >= 26.2 {
-        Map<Direction, VoxelShape> S4MAP = Shapes.rotateAll(shape);
+        /*Map<Direction, VoxelShape> S4MAP = Shapes.rotateAll(shape);
         return S4MAP.get(dir);
-        //?} else {
-        /*return rotateShape(shape, dir);
-        *///?}
+        *///?} else {
+        return rotateShape(shape, dir);
+        //?}
     }
 
     private static VoxelShape rotateShape(VoxelShape shape, Direction direction) {

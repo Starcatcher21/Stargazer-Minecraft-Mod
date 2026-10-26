@@ -2,7 +2,7 @@ package com.github.starcatcher21.stargazer.item.classes;
 
 import com.github.starcatcher21.stargazer.Stargazer;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
@@ -10,8 +10,8 @@ import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 //? if < 26.2 {
-/*import net.minecraft.world.InteractionResultHolder;
-*///? }
+import net.minecraft.world.InteractionResultHolder;
+//? }
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -30,16 +30,16 @@ public class LuckyComet extends Item {
 
     @Override
     //? if >= 26.2 {
-    public InteractionResult use(Level world, Player user, InteractionHand hand) {
-    //? } else {
-    /*public InteractionResultHolder use(Level world, Player user, InteractionHand hand) {
-    *///? }
+    /*public InteractionResult use(Level world, Player user, InteractionHand hand) {
+    *///? } else {
+    public InteractionResultHolder use(Level world, Player user, InteractionHand hand) {
+    //? }
         if (!user.hasInfiniteMaterials()) {
             user.getItemInHand(hand).shrink(1);
         }
         ResourceKey<LootTable> customLootKey = ResourceKey.create(
                 Registries.LOOT_TABLE,
-              Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "gameplay/comet")
+              ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "gameplay/comet")
         );
         MinecraftServer server = world.getServer();
         if (server != null) {
@@ -59,9 +59,9 @@ public class LuckyComet extends Item {
         }
         user.awardStat(Stats.ITEM_USED.get(this));
         //? if >= 26.2 {
-        return InteractionResult.CONSUME;
-        //? } else {
-        /*return InteractionResultHolder.consume(this);
-        *///? }
+        /*return InteractionResult.CONSUME;
+        *///? } else {
+        return InteractionResultHolder.consume(this);
+        //? }
     }
 }

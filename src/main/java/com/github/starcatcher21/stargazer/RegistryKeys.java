@@ -10,7 +10,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.syncher.EntityDataSerializer;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.resources.ResourceKey;
 import java.util.function.Supplier;
 //? if neoforge {
@@ -47,7 +47,7 @@ public class RegistryKeys {
     }
     //? }
 
-    public static final ResourceKey<Registry<Patterns>> STAR_PATTERN = ResourceKey.createRegistryKey(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "star_pattern"));
+    public static final ResourceKey<Registry<Patterns>> STAR_PATTERN = ResourceKey.createRegistryKey(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "star_pattern"));
     public static final EntityDataSerializer<StarPatternsComponent> PATTERN_COMPONENT2 = EntityDataSerializer.forValueType(StarPatternsComponent.PACKET_CODEC);
 
     public static void init() {
@@ -57,7 +57,7 @@ public class RegistryKeys {
                 Patterns.CODEC
         );
         FabricEntityDataRegistry.register(
-              Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "patterns_component"),
+              ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "patterns_component"),
                 RegistryKeys.PATTERN_COMPONENT2
         );
         *///? }

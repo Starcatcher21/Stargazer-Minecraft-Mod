@@ -10,7 +10,7 @@ import com.github.starcatcher21.starlib.datagen.provider.CobblegenDataProvider;
 import com.github.starcatcher21.starlib.mechanics.Generators.CobbleGen;
 import net.minecraft.data.PackOutput;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.level.block.Blocks;
 
@@ -66,33 +66,33 @@ public class CobbleGenProvider extends CobblegenDataProvider {
     );
 
     @Override
-    protected void addCobblegen(BiConsumer<Identifier, CobbleGen> exporter, HolderLookup.Provider registries) {
+    protected void addCobblegen(BiConsumer<ResourceLocation, CobbleGen> exporter, HolderLookup.Provider registries) {
         exporter.accept(
-              Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "blue"),
+              ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "blue"),
                 BLUE
         );
         exporter.accept(
-              Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "red"),
+              ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "red"),
                 RED
         );
         exporter.accept(
-              Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "green"),
+              ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "green"),
                 GREEN
         );
         exporter.accept(
-              Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "cosmic_lava"),
+              ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "cosmic_lava"),
                 COSMIC_LAVA
         );
         exporter.accept(
-              Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "cosmic_water"),
+              ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "cosmic_water"),
                 COSMIC_WATER
         );
         exporter.accept(
-              Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "lava_water"),
+              ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "lava_water"),
                 LAVA_WATER
         );
         exporter.accept(
-              Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "negative_water"),
+              ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "negative_water"),
                 NEGATIVE_WATER
         );
     }

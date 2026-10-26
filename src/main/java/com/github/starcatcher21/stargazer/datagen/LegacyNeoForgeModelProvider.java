@@ -1,5 +1,5 @@
 //? if neoforge && <= 1.21.1 {
-/*package com.github.starcatcher21.stargazer.datagen;
+package com.github.starcatcher21.stargazer.datagen;
 
 import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.block.ModBlock;
@@ -11,7 +11,7 @@ import com.github.starcatcher21.stargazer.item.WishingStars;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.*;
@@ -25,7 +25,7 @@ import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 import java.util.Set;
 
-/^*
+/**
  * 1.21.1 NeoForge port of ModelProvider.
  * <p>
  * Uses the pre-26.2 API ({@code BlockStateProvider}, {@code ModelBuilder},
@@ -37,7 +37,7 @@ import java.util.Set;
  * {@link ClassCastException}. In-game behaviour of such a block will not
  * be that of a stair/slab/door/pillar anyway — the proper fix is to make
  * the custom class extend the vanilla base class.
- ^/
+ */
 public final class LegacyNeoForgeModelProvider extends BlockStateProvider {
     private static final ExistingFileHelper.ResourceType TEXTURE_RESOURCE =
             new ExistingFileHelper.ResourceType(PackType.CLIENT_RESOURCES, ".png", "textures");
@@ -390,33 +390,33 @@ public final class LegacyNeoForgeModelProvider extends BlockStateProvider {
         return BuiltInRegistries.BLOCK.getKey(block).getPath();
     }
 
-    private static Identifier key(Block block) {
+    private static ResourceLocation key(Block block) {
         return BuiltInRegistries.BLOCK.getKey(block);
     }
 
-    private Identifier blockTex(Block block) {
+    private ResourceLocation blockTex(Block block) {
         return modLoc("block/" + name(block));
     }
 
-    private Identifier blockTex(String path) {
+    private ResourceLocation blockTex(String path) {
         return modLoc("block/" + path);
     }
 
-    /^* Simple cube + item (matches modern {@code createTrivialCube}). ^/
+    /** Simple cube + item (matches modern {@code createTrivialCube}). */
     private void cubeWithItem(Block block) {
         if (SOURCE_BLOCKSTATES.contains(name(block))) return;
         ModelFile model = models().cubeAll(name(block), blockTex(block));
         simpleBlockWithItem(block, model);
     }
 
-    /^*
+    /**
      * Wood-family: planks + stairs + slab + fence + gate + button.
      * Every child is guarded with {@code instanceof}: if a custom block
      * class doesn't extend the matching vanilla base class, it falls back
      * to a plain cube rendered with the planks texture.
-     ^/
+     */
     private void planks(Block planks, Block stairs, Block slab, Block fence, Block gate, Block button) {
-        Identifier tex = blockTex(planks);
+        ResourceLocation tex = blockTex(planks);
         simpleBlockWithItem(planks, models().cubeAll(name(planks), tex));
 
         if (stairs instanceof StairBlock s) {
@@ -450,9 +450,9 @@ public final class LegacyNeoForgeModelProvider extends BlockStateProvider {
         }
     }
 
-    /^* Stone family with just slab + stairs. ^/
+    /** Stone family with just slab + stairs. */
     private void stoneFamily(Block base, Block stairs, Block slab) {
-        Identifier tex = blockTex(base);
+        ResourceLocation tex = blockTex(base);
         simpleBlockWithItem(base, models().cubeAll(name(base), tex));
         if (stairs instanceof StairBlock s) {
             stairsBlock(s, tex);
@@ -466,18 +466,18 @@ public final class LegacyNeoForgeModelProvider extends BlockStateProvider {
         }
     }
 
-    /^*
+    /**
      * Axis-aligned pillar (log).
      * <p>
      * Always emits {@code axis=x/y/z} variants when the block has
      * {@link BlockStateProperties#AXIS}. {@code instanceof RotatedPillarBlock}
      * is not required — custom logs already define {@code AXIS} themselves.
-     ^/
+     */
     private void pillar(Block block) {
         if (SOURCE_BLOCKSTATES.contains(name(block))) return;
 
-        Identifier side = blockTex(name(block) + "_side");
-        Identifier top = blockTex(name(block) + "_top");
+        ResourceLocation side = blockTex(name(block) + "_side");
+        ResourceLocation top = blockTex(name(block) + "_top");
         if (!existingFileHelper.exists(top, TEXTURE_RESOURCE)) {
             top = side;
         }
@@ -501,18 +501,18 @@ public final class LegacyNeoForgeModelProvider extends BlockStateProvider {
         itemModels().withExistingParent(name(block), modLoc("block/" + name(block)));
     }
 
-    /^*
+    /**
      * Door with matching bottom/top textures following vanilla naming:
      * {@code {name}_bottom} / {@code {name}_top}.
      * <p>
      * Falls back to the planks texture if those files don't exist, and to
      * a plain cube if the block isn't a {@link DoorBlock}.
-     ^/
+     */
     private void door(Block block) {
         String n = name(block);
 
-        Identifier bottom = blockTex(n + "_bottom");
-        Identifier top = blockTex(n + "_top");
+        ResourceLocation bottom = blockTex(n + "_bottom");
+        ResourceLocation top = blockTex(n + "_top");
 
         if (!existingFileHelper.exists(bottom, TEXTURE_RESOURCE)) {
             // Try the planks texture: strip "_door" from the block name
@@ -530,20 +530,20 @@ public final class LegacyNeoForgeModelProvider extends BlockStateProvider {
         }
     }
 
-    /^* Cross-model plant without an item model. ^/
+    /** Cross-model plant without an item model. */
     private void cross(Block block) {
         ModelFile model = models().cross(name(block), blockTex(block)).renderType("cutout");
         simpleBlock(block, model);
     }
 
-    /^* Cross-model plant that also emits a flat item model. ^/
+    /** Cross-model plant that also emits a flat item model. */
     private void crossWithItem(Block block) {
         cross(block);
         itemModels().withExistingParent(name(block), "item/generated")
                 .texture("layer0", blockTex(block));
     }
 
-    /^* Two-part vertical plant (tall grass). ^/
+    /** Two-part vertical plant (tall grass). */
     private void doublePlant(Block block) {
         ModelFile lower = models().cross(name(block) + "_bottom", blockTex(block)).renderType("cutout");
         ModelFile upper = models().cross(name(block) + "_top", blockTex(block)).renderType("cutout");
@@ -554,12 +554,12 @@ public final class LegacyNeoForgeModelProvider extends BlockStateProvider {
                 .modelForState().modelFile(upper).addModel();
     }
 
-    /^* Mushroom block – cube_all fallback. ^/
+    /** Mushroom block – cube_all fallback. */
     private void mushroomBlock(Block block) {
         simpleBlockWithItem(block, models().cubeAll(name(block), blockTex(block)));
     }
 
-    /^* Crop block with per-stage cross models. ^/
+    /** Crop block with per-stage cross models. */
     private void crop(Block block, int... stages) {
         var builder = getVariantBuilder(block);
         for (int stage : stages) {
@@ -571,7 +571,7 @@ public final class LegacyNeoForgeModelProvider extends BlockStateProvider {
         }
     }
 
-    /^* Flower-pot plant: cross block + custom pot model + flat item model. ^/
+    /** Flower-pot plant: cross block + custom pot model + flat item model. */
     private void potPlant(Block plant, Block pot, Block dirt) {
         cross(plant);
         ModelFile potModel = models()
@@ -583,23 +583,23 @@ public final class LegacyNeoForgeModelProvider extends BlockStateProvider {
                 .texture("layer0", blockTex(plant));
     }
 
-    /^* Bottom-top cube (dylium / boril). ^/
+    /** Bottom-top cube (dylium / boril). */
     private void cubeBottomTop(Block block, String side, String bottom, String top) {
         ModelFile model = models().cubeBottomTop(
                 name(block), blockTex(side), blockTex(bottom), blockTex(top));
         simpleBlockWithItem(block, model);
     }
 
-    /^* Hedge using {@code block/hedge} template. ^/
+    /** Hedge using {@code block/hedge} template. */
     private void hedge(Block hedge, Block log) {
-        Identifier logKey = BuiltInRegistries.BLOCK.getKey(log);
+        ResourceLocation logKey = BuiltInRegistries.BLOCK.getKey(log);
         String ns = logKey.getNamespace();
-        Identifier topTex = ns.equals(Stargazer.MOD_ID)
+        ResourceLocation topTex = ns.equals(Stargazer.MOD_ID)
                 ? modLoc("block/" + logKey.getPath() + "_top")
-                : Identifier.fromNamespaceAndPath(ns, "block/" + logKey.getPath() + "_top");
-        Identifier sideTex = ns.equals(Stargazer.MOD_ID)
+                : ResourceLocation.fromNamespaceAndPath(ns, "block/" + logKey.getPath() + "_top");
+        ResourceLocation sideTex = ns.equals(Stargazer.MOD_ID)
                 ? modLoc("block/" + logKey.getPath())
-                : Identifier.fromNamespaceAndPath(ns, "block/" + logKey.getPath());
+                : ResourceLocation.fromNamespaceAndPath(ns, "block/" + logKey.getPath());
         if (!existingFileHelper.exists(topTex, TEXTURE_RESOURCE)) {
             topTex = sideTex;
         }
@@ -610,10 +610,10 @@ public final class LegacyNeoForgeModelProvider extends BlockStateProvider {
         simpleBlockWithItem(hedge, model);
     }
 
-    /^* Hedge variant that expects a distinct {@code _side} texture on the log. ^/
+    /** Hedge variant that expects a distinct {@code _side} texture on the log. */
     private void hedgeSide(Block hedge, Block log) {
-        Identifier side = blockTex(name(log) + "_side");
-        Identifier top = blockTex(name(log) + "_top");
+        ResourceLocation side = blockTex(name(log) + "_side");
+        ResourceLocation top = blockTex(name(log) + "_top");
         if (!existingFileHelper.exists(top, TEXTURE_RESOURCE)) {
             top = blockTex(log);
         }
@@ -627,9 +627,9 @@ public final class LegacyNeoForgeModelProvider extends BlockStateProvider {
         simpleBlockWithItem(hedge, model);
     }
 
-    /^* Energy cable via multipart. ^/
+    /** Energy cable via multipart. */
     private void cable(Block cable) {
-        Identifier tex = blockTex(cable);
+        ResourceLocation tex = blockTex(cable);
         ModelFile core = models()
                 .withExistingParent(name(cable), modLoc("block/cable_core_template"))
                 .texture("all", tex).texture("particle", tex);
@@ -640,41 +640,41 @@ public final class LegacyNeoForgeModelProvider extends BlockStateProvider {
         MultiPartBlockStateBuilder builder = getMultipartBuilder(cable);
         builder.part().modelFile(core).addModel();
 
-        builder.part().modelFile(side).rotationY(0).uvLock(true).addModel()
+        builder.part().modelFile(side).uvLock(false).rotationY(0).addModel()
                 .condition(YellowCable.NORTH, true);
-        builder.part().modelFile(side).rotationY(90).uvLock(true).addModel()
+        builder.part().modelFile(side).uvLock(false).rotationY(90).addModel()
                 .condition(YellowCable.EAST, true);
-        builder.part().modelFile(side).rotationY(180).uvLock(true).addModel()
+        builder.part().modelFile(side).uvLock(false).rotationY(180).addModel()
                 .condition(YellowCable.SOUTH, true);
-        builder.part().modelFile(side).rotationY(270).uvLock(true).addModel()
+        builder.part().modelFile(side).uvLock(false).rotationY(270).addModel()
                 .condition(YellowCable.WEST, true);
-        builder.part().modelFile(side).rotationX(270).uvLock(true).addModel()
+        builder.part().modelFile(side).uvLock(false).rotationX(270).addModel()
                 .condition(YellowCable.UP, true);
-        builder.part().modelFile(side).rotationX(90).uvLock(true).addModel()
+        builder.part().modelFile(side).uvLock(false).rotationX(90).addModel()
                 .condition(YellowCable.DOWN, true);
 
-        itemModels().withExistingParent(name(cable), modLoc("block/" + name(cable)));
+        itemModels().withExistingParent(name(cable), modLoc("block/" + name(cable))).renderType("solid");
     }
 
-    /^* Flat item model referencing {@code item/{name}}. ^/
+    /** Flat item model referencing {@code item/{name}}. */
     private void flatItem(Item item) {
         itemModels().basicItem(item);
     }
 
-    /^* Flat item model using the block's texture (matches modern {@code blockGeneratedItem}). ^/
+    /** Flat item model using the block's texture (matches modern {@code blockGeneratedItem}). */
     private void blockGeneratedItem(Block block) {
         itemModels().withExistingParent(name(block), "item/generated")
                 .texture("layer0", blockTex(block));
     }
 
-    /^* Item model using an existing or generated block model as its parent. ^/
+    /** Item model using an existing or generated block model as its parent. */
     private void blockItem(Block block) {
         blockItem(block, name(block));
     }
 
-    /^* Item model using a specific block model, useful for source blockstates. ^/
+    /** Item model using a specific block model, useful for source blockstates. */
     private void blockItem(Block block, String modelName) {
-        itemModels().withExistingParent(name(block), modLoc("block/" + modelName));
+        itemModels().withExistingParent(name(block), modLoc("block/" + modelName)).renderType("soild");
     }
 }
-*///? }
+//? }

@@ -22,10 +22,10 @@ import java.util.Set;
 import java.util.function.Function;
 //?}
 //? if >= 26.2 {
-import net.minecraft.advancements.predicates.StatePropertiesPredicate;
-//?} else {
-/*import net.minecraft.advancements.critereon.StatePropertiesPredicate;
-*///?}
+/*import net.minecraft.advancements.predicates.StatePropertiesPredicate;
+*///?} else {
+import net.minecraft.advancements.critereon.StatePropertiesPredicate;
+//?}
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
@@ -37,10 +37,10 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 //? if >= 26.2 {
-import net.minecraft.world.level.block.FlowerBedBlock;
-//?} else {
-/*import com.github.starcatcher21.stargazer.block.older1211.FlowerBedBlock;
-*///?}
+/*import net.minecraft.world.level.block.FlowerBedBlock;
+*///?} else {
+import com.github.starcatcher21.stargazer.block.older1211.FlowerBedBlock;
+//?}
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
@@ -350,8 +350,8 @@ public class LootTableProvider
         dropSelf(Hedges.MOON_HEDGE.get());
         dropSelf(Hedges.OAK_HEDGE.get());
         //? if >= 26.2 {
-        dropSelf(Hedges.PALE_HEDGE.get());
-        //? }
+        /*dropSelf(Hedges.PALE_HEDGE.get());
+        *///? }
         dropSelf(Hedges.SPRUCE_HEDGE.get());
         dropSelf(Hedges.STAR_HEDGE.get());
         dropSelf(Hedges.YERI_HEDGE.get());

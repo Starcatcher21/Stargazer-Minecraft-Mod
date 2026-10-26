@@ -9,19 +9,19 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 //? if >= 26.2 {
-import net.minecraft.world.level.block.TintedParticleLeavesBlock;
- //?} else {
-/*import net.minecraft.world.level.block.LeavesBlock;
-*///?}
+/*import net.minecraft.world.level.block.TintedParticleLeavesBlock;
+ *///?} else {
+import net.minecraft.world.level.block.LeavesBlock;
+//?}
 
 //? if >= 26.2 {
-public class CustomLeaves extends TintedParticleLeavesBlock {
- //?} else {
-/*public class CustomLeaves extends LeavesBlock {
-*///?}
+/*public class CustomLeaves extends TintedParticleLeavesBlock {
+ *///?} else {
+public class CustomLeaves extends LeavesBlock {
+//?}
 
     //? if >= 26.2 {
-    public static final MapCodec<CustomLeaves> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+    /*public static final MapCodec<CustomLeaves> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             Codec.INT.fieldOf("tint").forGetter(block -> block.tint),
             propertiesCodec()
     ).apply(instance, CustomLeaves::new));
@@ -42,8 +42,8 @@ public class CustomLeaves extends TintedParticleLeavesBlock {
     protected void spawnFallingLeavesParticle(Level world, BlockPos pos, RandomSource random) {
         // Particle logic intentionally disabled — see original file.
     }
-    //?} else {
-    /*// 1.21.1 has no TintedParticleLeavesBlock; extend LeavesBlock.
+    *///?} else {
+    // 1.21.1 has no TintedParticleLeavesBlock; extend LeavesBlock.
     // The codec reads only "tint" and uses default properties, which is correct
     // for a code-registered block.
     public static final MapCodec<CustomLeaves> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
@@ -64,5 +64,5 @@ public class CustomLeaves extends TintedParticleLeavesBlock {
 
     // LeavesBlock on 1.21.1 has no spawnFallingLeavesParticle hook.
     // Particle logic is intentionally disabled, so no override is needed.
-    *///?}
+    //?}
 }

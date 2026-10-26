@@ -2,29 +2,31 @@ package com.github.starcatcher21.stargazer.item.armor;
 
 import com.github.starcatcher21.stargazer.CustomTags;
 //? if >= 26.2 {
-import com.google.common.collect.Maps;
+/*import com.google.common.collect.Maps;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.equipment.ArmorType;
 import java.util.Map;
-//? } else {
-/*import com.github.starcatcher21.stargazer.Stargazer;
+*///? } else {
+import com.github.starcatcher21.stargazer.Stargazer;
 import net.minecraft.Util;
 import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.registries.DeferredRegister;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.function.Supplier;
-*///? }
+//? }
 
 //? if >= 26.2 {
-public interface ArmorMaterial {
+/*public interface ArmorMaterial {
     private static Map<ArmorType, Integer> makeDefense(final int boots, final int legs, final int chest, final int helm, final int body) {
         return Maps.newEnumMap(Map.of(ArmorType.BOOTS, boots, ArmorType.LEGGINGS, legs, ArmorType.CHESTPLATE, chest, ArmorType.HELMET, helm, ArmorType.BODY, body));
     }
@@ -45,8 +47,11 @@ public interface ArmorMaterial {
             13, makeDefense(3, 6, 7, 2, 5), 40, SoundEvents.ARMOR_EQUIP_DIAMOND, 1.0F, 0.3F, CustomTags.REPAIR_AMETHYST, EquipmentAsset.AMETHYST
     );
 }
-//? } else {
-/*public class ArmorMaterial {
+*///? } else {
+public class ArmorMaterial {
+
+    public static final DeferredRegister<net.minecraft.world.item.ArmorMaterial> ARMOR_MATERIALS =
+            DeferredRegister.create(BuiltInRegistries.ARMOR_MATERIAL, Stargazer.MOD_ID);
 
     public static final Holder<net.minecraft.world.item.ArmorMaterial> MASK_OF_LUNA_MATERIAL = register(
             "mask_of_luna",
@@ -62,7 +67,7 @@ public interface ArmorMaterial {
             0.0F,
             0.0F,
             () -> Ingredient.of(CustomTags.STAR),
-            EquipmentAsset.MASK_OF_LUNA_ID.getPath()
+            EquipmentAsset.MASK_OF_LUNA_ID
     );
 
     public static final Holder<net.minecraft.world.item.ArmorMaterial> JESTER_MATERIAL = register(
@@ -78,8 +83,8 @@ public interface ArmorMaterial {
             SoundEvents.ARMOR_EQUIP_LEATHER.value(),
             0.0F,
             0.0F,
-            () -> Ingredient.of(ItemTags.RABBIT_FOOD),
-            EquipmentAsset.JESTER_ID.getPath()
+            () -> Ingredient.of(Items.LEATHER),
+            EquipmentAsset.JESTER_ID
     );
 
     public static final Holder<net.minecraft.world.item.ArmorMaterial> MOON_MATERIAL = register(
@@ -96,7 +101,7 @@ public interface ArmorMaterial {
             1.0F,
             0.3F,
             () -> Ingredient.of(CustomTags.REPAIR_MOON),
-            EquipmentAsset.MOON_ID.getPath()
+            EquipmentAsset.MOON_ID
     );
 
     public static final Holder<net.minecraft.world.item.ArmorMaterial> AMETHYST_MATERIAL = register(
@@ -113,7 +118,7 @@ public interface ArmorMaterial {
             1.0F,
             0.3F,
             () -> Ingredient.of(CustomTags.REPAIR_AMETHYST),
-            EquipmentAsset.AMETHYST_ID.getPath()
+            EquipmentAsset.AMETHYST_ID
     );
 
     private static Holder<net.minecraft.world.item.ArmorMaterial> register(
@@ -124,17 +129,21 @@ public interface ArmorMaterial {
             float toughness,
             float knockbackResistance,
             Supplier<Ingredient> repairIngredient,
-            String assetName
+            ResourceLocation assetId
     ) {
-        List<net.minecraft.world.item.ArmorMaterial.Layer> layers = List.of(new net.minecraft.world.item.ArmorMaterial.Layer(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, assetName)));
-        return Registry.registerForHolder(
-                BuiltInRegistries.ARMOR_MATERIAL,
-              Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, name),
-                new net.minecraft.world.item.ArmorMaterial(defenseMap, enchantability, net.minecraft.core.Holder.direct(equipSound), repairIngredient, layers, toughness, knockbackResistance)
-        );
+        return ARMOR_MATERIALS.register(name, () -> new net.minecraft.world.item.ArmorMaterial(
+                defenseMap,
+                enchantability,
+                Holder.direct(equipSound),
+                repairIngredient,
+                List.of(new net.minecraft.world.item.ArmorMaterial.Layer(assetId)),
+                toughness,
+                knockbackResistance
+        ));
     }
 
-    public static void register() {
-        // Simple method to force class loading during mod initialization if needed
+    public static void register(IEventBus modBus) {
+        ARMOR_MATERIALS.register(modBus);
     }
-}*///? }
+}
+//? }

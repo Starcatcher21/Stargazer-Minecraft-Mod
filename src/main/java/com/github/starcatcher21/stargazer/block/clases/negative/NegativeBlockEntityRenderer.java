@@ -12,21 +12,21 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 //? if >= 26.2 {
-import net.minecraft.client.renderer.state.level.CameraRenderState;
+/*import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
 import net.minecraft.client.renderer.rendertype.RenderType;
-//?} else {
-/*import net.minecraft.client.renderer.MultiBufferSource;
+*///?} else {
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
-*///?}
+//?}
 import org.jetbrains.annotations.NotNull;
 import org.joml.Matrix4f;
 
 import java.util.EnumSet;
 
 //? if >= 26.2 {
-public class NegativeBlockEntityRenderer<T extends NegativeBlockEntity>
+/*public class NegativeBlockEntityRenderer<T extends NegativeBlockEntity>
         implements BlockEntityRenderer<T, NegativeBlockEntityRenderState> {
 
     public NegativeBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {
@@ -98,8 +98,8 @@ public class NegativeBlockEntityRenderer<T extends NegativeBlockEntity>
         }
     }
 }
-//?} else {
-/*public class NegativeBlockEntityRenderer implements BlockEntityRenderer<NegativeBlockEntity> {
+*///?} else {
+public class NegativeBlockEntityRenderer implements BlockEntityRenderer<NegativeBlockEntity> {
 
     public NegativeBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {
     }
@@ -177,4 +177,4 @@ public class NegativeBlockEntityRenderer<T extends NegativeBlockEntity>
         this.renderSides(sides, matrices.last().pose(), consumer);
     }
 }
-*///?}
+//?}

@@ -4,7 +4,7 @@ import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.renderer.SkyDimensionChecks;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -16,7 +16,7 @@ import java.util.Optional;
 import java.util.OptionalDouble;
 
 //? if >= 26.2 {
-import com.github.starcatcher21.stargazer.renderer.CustomRederPipelines;
+/*import com.github.starcatcher21.stargazer.renderer.CustomRederPipelines;
 import com.mojang.blaze3d.PrimitiveTopology;
 import com.mojang.blaze3d.buffers.GpuBuffer;
 import com.mojang.blaze3d.buffers.GpuBufferSlice;
@@ -35,8 +35,8 @@ import net.minecraft.client.renderer.rendertype.RenderType;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
-//?} else {
-/*import com.mojang.blaze3d.systems.RenderSystem;
+*///?} else {
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.BufferUploader;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
@@ -45,17 +45,17 @@ import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import net.minecraft.client.renderer.LevelRenderer;
 import org.joml.Matrix4f;
-*///?}
+//?}
 
 //? if >= 26.2 {
-@Mixin(SkyRenderer.class)
- //?} else {
-/*@Mixin(LevelRenderer.class)
-*///?}
+/*@Mixin(SkyRenderer.class)
+ *///?} else {
+@Mixin(LevelRenderer.class)
+//?}
 public abstract class SkyRenderingMixin {
 
     //? if >= 26.2 {
-    @Unique
+    /*@Unique
     private static final ByteBufferBuilder SKY_ALLOCATOR =
         new ByteBufferBuilder(RenderType.SMALL_BUFFER_SIZE);
 
@@ -73,13 +73,13 @@ public abstract class SkyRenderingMixin {
 
     @Unique
     private MappableRingBuffer skyVertexBuffer;
-    //?}
+    *///?}
 
     /* ------------------------------------------------------------------ */
     /* 26.2+ : inject into SkyRenderer.renderEndSky / renderSun            */
     /* ------------------------------------------------------------------ */
     //? if >= 26.2 {
-    @Inject(method = "renderEndSky", at = @At("HEAD"), cancellable = true)
+    /*@Inject(method = "renderEndSky", at = @At("HEAD"), cancellable = true)
     private void renderStargazerSoftSky(CallbackInfo ci) {
         Level level = Minecraft.getInstance().level;
         if (level == null || !SkyDimensionChecks.isStargazerSkyDimension(level)) return;
@@ -166,9 +166,9 @@ public abstract class SkyRenderingMixin {
         encoder.writeToBuffer(slice, meshData.vertexBuffer());
         return slice;
     }
-    //?} else {
+    *///?} else {
 
-    /*@Inject(
+    @Inject(
             method = "renderSky",
             at = @At("HEAD"),
             cancellable = true
@@ -209,5 +209,5 @@ public abstract class SkyRenderingMixin {
         RenderSystem.enableCull();
         RenderSystem.disableBlend();
     }
-    *///?}
+    //?}
 }

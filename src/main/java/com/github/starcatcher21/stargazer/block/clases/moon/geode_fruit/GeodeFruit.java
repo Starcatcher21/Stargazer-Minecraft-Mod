@@ -11,8 +11,8 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 //? if >= 26.2 {
-import net.minecraft.world.level.ScheduledTickAccess;
- //?}
+/*import net.minecraft.world.level.ScheduledTickAccess;
+ *///?}
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -131,7 +131,7 @@ public class GeodeFruit extends Block {
 
     /* ---------------- updateShape (signature differs) ---------------- */
     //? if >= 26.2 {
-    @Override
+    /*@Override
     protected BlockState updateShape(BlockState state, LevelReader world,
                                      ScheduledTickAccess tickView, BlockPos pos,
                                      Direction direction, BlockPos neighborPos,
@@ -141,8 +141,8 @@ public class GeodeFruit extends Block {
         }
         return super.updateShape(state, world, tickView, pos, direction, neighborPos, neighborState, random);
     }
-    //?} else {
-    /*@Override
+    *///?} else {
+    @Override
     protected BlockState updateShape(BlockState state, Direction direction,
                                      BlockState neighborState, LevelAccessor world,
                                      BlockPos pos, BlockPos neighborPos) {
@@ -151,7 +151,7 @@ public class GeodeFruit extends Block {
         }
         return super.updateShape(state, direction, neighborState, world, pos, neighborPos);
     }
-    *///?}
+    //?}
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {

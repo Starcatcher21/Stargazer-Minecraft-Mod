@@ -1,6 +1,6 @@
 package com.github.starcatcher21.stargazer;
 
-import com.geckolib.renderer.GeoBlockRenderer;
+import software.bernie.geckolib.renderer.GeoBlockRenderer;
 import com.github.starcatcher21.stargazer.block.BlockTypes;
 import com.github.starcatcher21.stargazer.block.clases.eyes.eyejar.EyeJarModel;
 import com.github.starcatcher21.stargazer.block.clases.moon.star_trap.StarTrapModel;
@@ -26,7 +26,7 @@ import dev.architectury.registry.client.level.entity.EntityRendererRegistry;
 import dev.architectury.registry.client.rendering.BlockEntityRendererRegistry;
 import me.shedaniel.rei.api.client.registry.screen.ScreenRegistry;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 
 //? if >= 26.2 && fabric {
 /*import dev.architectury.registry.client.gui.MenuScreenRegistry;
@@ -60,7 +60,7 @@ public final class StargazerClient /*? if fabric {*//*implements ClientModInitia
         Stargazer.LOGGER.info("Loading GeckoLib Block Rendering");
 
         //? if >= 26.2 {
-        BlockTypes.STAR_TRAP.listen(type -> BlockEntityRendererRegistry.register(
+        /*BlockTypes.STAR_TRAP.listen(type -> BlockEntityRendererRegistry.register(
                 type,
                 context -> new GeoBlockRenderer<>(context, new StarTrapModel())
         ));
@@ -74,8 +74,8 @@ public final class StargazerClient /*? if fabric {*//*implements ClientModInitia
                 type,
                 context -> new StarDisplayRenderer<>(context, new StarDisplayModel())
         ));
-        //? } else {
-        /*BlockTypes.STAR_TRAP.listen(type -> BlockEntityRendererRegistry.register(
+        *///? } else {
+        BlockTypes.STAR_TRAP.listen(type -> BlockEntityRendererRegistry.register(
                 type,
                 context -> new GeoBlockRenderer<>(new StarTrapModel())
         ));
@@ -89,7 +89,7 @@ public final class StargazerClient /*? if fabric {*//*implements ClientModInitia
                 type,
                 context -> new StarDisplayRenderer(context, new StarDisplayModel())
         ));
-        *///? }
+        //? }
 
         // Particles
         ParticlesClient.init();

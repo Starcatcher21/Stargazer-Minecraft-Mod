@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.function.Consumer;
 import net.minecraft.ChatFormatting;
 //? if >= 26.2 {
-import net.minecraft.core.component.DataComponentGetter;
-//? }
+/*import net.minecraft.core.component.DataComponentGetter;
+*///? }
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -33,22 +33,22 @@ public record StarPatternsComponent(List<Layer> layers) implements TooltipProvid
     }
 
     //? if >= 1.21.5 {
-    @Override
+    /*@Override
     public void addToTooltip(Item.TooltipContext context, Consumer<Component> textConsumer,
                          TooltipFlag type, DataComponentGetter components) {
         for (int i = 0; i < Math.min(this.layers().size(), 6); i++) {
             textConsumer.accept(((Layer)this.layers().get(i)).getTooltipText().withStyle(ChatFormatting.GRAY));
         }
     }
-    //? } else {
-    /*@Override
+    *///? } else {
+    @Override
     public void addToTooltip(Item.TooltipContext context, Consumer<Component> textConsumer,
                              TooltipFlag type) {
         for (int i = 0; i < Math.min(this.layers().size(), 6); i++) {
             textConsumer.accept(((Layer)this.layers().get(i)).getTooltipText().withStyle(ChatFormatting.GRAY));
         }
     }
-    *///? }
+    //? }
     public MutableComponent getTooltip() {
             return ((Layer)this.layers().getFirst()).getTooltipText().withStyle(ChatFormatting.AQUA);
     }

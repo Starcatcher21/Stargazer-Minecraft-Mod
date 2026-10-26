@@ -18,12 +18,12 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 //? if >= 26.2 {
-import net.minecraft.world.item.ItemStackTemplate;
+/*import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.PlacementInfo;
 import net.minecraft.world.item.crafting.RecipeBookCategories;
 import net.minecraft.world.item.crafting.RecipeBookCategory;
 import org.jspecify.annotations.Nullable;
-//?}
+*///?}
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
@@ -34,7 +34,7 @@ public class ShapedStarCrusherRecipe implements StarCrusherRecipe {
     final boolean showNotification;
 
     //? if >= 26.2 {
-    final ItemStackTemplate result;
+    /*final ItemStackTemplate result;
     @Nullable
     private PlacementInfo ingredientPlacement;
 
@@ -50,8 +50,8 @@ public class ShapedStarCrusherRecipe implements StarCrusherRecipe {
                                    ItemStackTemplate result) {
         this(group, raw, result, true);
     }
-    //?} else {
-    /*final ItemStack result;
+    *///?} else {
+    final ItemStack result;
 
     public ShapedStarCrusherRecipe(String group, StarCrusherShapedRecipe raw,
                                    ItemStack result, boolean showNotification) {
@@ -65,7 +65,7 @@ public class ShapedStarCrusherRecipe implements StarCrusherRecipe {
                                    ItemStack result) {
         this(group, raw, result, true);
     }
-    *///?}
+    //?}
 
     @Override
     public RecipeSerializer<? extends StarCrusherRecipe> getSerializer() {
@@ -73,23 +73,23 @@ public class ShapedStarCrusherRecipe implements StarCrusherRecipe {
     }
 
     //? if >= 26.2 {
-    @Override
-    //? }
+    /*@Override
+    *///? }
     public String group() {
         return this.group;
     }
 
     //? if >= 26.2 {
-    public ItemStack craft(StarCrusherRecipeInput craftingRecipeInput,
+    /*public ItemStack craft(StarCrusherRecipeInput craftingRecipeInput,
                            RegistryAccess registryManager) {
         return this.result.create();
     }
-    //?} else {
-    /*public ItemStack craft(StarCrusherRecipeInput craftingRecipeInput,
+    *///?} else {
+    public ItemStack craft(StarCrusherRecipeInput craftingRecipeInput,
                            RegistryAccess registryManager) {
         return this.result.copy();     // 1.21.1: ItemStack is already concrete
     }
-    *///?}
+    //?}
 
     @Override
     public boolean matches(StarCrusherRecipeInput recipeInput, Level world) {
@@ -104,12 +104,12 @@ public class ShapedStarCrusherRecipe implements StarCrusherRecipe {
     }
 
     //? if >= 26.2 {
-    @Override
+    /*@Override
     public ItemStack assemble(StarCrusherRecipeInput input) {
         return this.result.create();
     }
-    //?} else {
-    /*@Override
+    *///?} else {
+    @Override
     public ItemStack assemble(StarCrusherRecipeInput input, HolderLookup.Provider provider) {
         return this.result.copy();
     }
@@ -123,7 +123,7 @@ public class ShapedStarCrusherRecipe implements StarCrusherRecipe {
     public ItemStack getResultItem(HolderLookup.Provider arg) {
         return this.result.copy();
     }
-    *///?}
+    //?}
 
     @Override
     public List<ItemStack> getHeldStacks() {
@@ -131,21 +131,21 @@ public class ShapedStarCrusherRecipe implements StarCrusherRecipe {
     }
 
     //? if >= 26.2 {
-    @VisibleForTesting
+    /*@VisibleForTesting
     public List<Optional<Ingredient>> getIngredients() {
         return List.of(Optional.of(this.raw.getItem1()));
     }
-    //?} else {
-    /*@VisibleForTesting
+    *///?} else {
+    @VisibleForTesting
     public NonNullList<Ingredient> getIngredients() {
         NonNullList<Ingredient> list = NonNullList.create();
         list.add(this.raw.getItem1());
         return list;
     }
-    *///? }
+    //? }
 
     //? if >= 26.2 {
-    @Override
+    /*@Override
     public PlacementInfo placementInfo() {
         if (this.ingredientPlacement == null) {
             this.ingredientPlacement = PlacementInfo.createFromOptionals(
@@ -153,17 +153,17 @@ public class ShapedStarCrusherRecipe implements StarCrusherRecipe {
         }
         return this.ingredientPlacement;
     }
-    //?}
+    *///?}
 
     //? if >= 26.2 {
-    public ItemStack getResult() {
+    /*public ItemStack getResult() {
         return this.result.create();
     }
-    //?} else {
-    /*public ItemStack getResult() {
+    *///?} else {
+    public ItemStack getResult() {
         return this.result.copy();
     }
-    *///?}
+    //?}
 
     @Override
     public boolean showNotification() {
@@ -171,16 +171,16 @@ public class ShapedStarCrusherRecipe implements StarCrusherRecipe {
     }
 
     //? if >= 26.2 {
-    @Override
+    /*@Override
     public RecipeBookCategory recipeBookCategory() {
         return RecipeBookCategories.CAMPFIRE;
     }
-    //?}
+    *///?}
 
     /* -------------------- codecs ------------------------------------- */
 
     //? if >= 26.2 {
-    public static final MapCodec<ShapedStarCrusherRecipe> CODEC =
+    /*public static final MapCodec<ShapedStarCrusherRecipe> CODEC =
             RecordCodecBuilder.mapCodec(instance -> instance.group(
                     Codec.STRING.optionalFieldOf("group", "").forGetter(r -> r.group),
                     StarCrusherShapedRecipe.CODEC.forGetter(r -> r.raw),
@@ -197,8 +197,8 @@ public class ShapedStarCrusherRecipe implements StarCrusherRecipe {
 
     public static final RecipeSerializer<ShapedStarCrusherRecipe> SERIALIZER =
     new RecipeSerializer<>(CODEC, STREAM_CODEC);
-    //?} else {
-    /*public static final MapCodec<ShapedStarCrusherRecipe> CODEC =
+    *///?} else {
+    public static final MapCodec<ShapedStarCrusherRecipe> CODEC =
         RecordCodecBuilder.mapCodec(instance -> instance.group(
             Codec.STRING.optionalFieldOf("group", "").forGetter(r -> r.group),
             StarCrusherShapedRecipe.CODEC.forGetter(r -> r.raw),
@@ -224,5 +224,5 @@ public class ShapedStarCrusherRecipe implements StarCrusherRecipe {
             return STREAM_CODEC;
         }
     };
-    *///?}
+    //?}
 }

@@ -11,20 +11,20 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 //? if >= 26.2 {
-import net.minecraft.world.level.storage.ValueInput;
+/*import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import com.geckolib.animatable.manager.AnimatableManager;
-import com.geckolib.animation.object.PlayState;
-import com.geckolib.animation.state.AnimationTest;
-import com.geckolib.animation.RawAnimation;
-import com.geckolib.animation.AnimationController;
-//?} else {
-/*import com.geckolib.animation.*;
-*///? }
-import com.geckolib.animatable.GeoAnimatable;
-import com.geckolib.animatable.GeoBlockEntity;
-import com.geckolib.animatable.instance.AnimatableInstanceCache;
-import com.geckolib.util.GeckoLibUtil;
+import software.bernie.geckolib.animatable.manager.AnimatableManager;
+import software.bernie.geckolib.animation.object.PlayState;
+import software.bernie.geckolib.animation.state.AnimationTest;
+import software.bernie.geckolib.animation.RawAnimation;
+import software.bernie.geckolib.animation.AnimationController;
+*///?} else {
+import software.bernie.geckolib.animation.*;
+//? }
+import software.bernie.geckolib.animatable.GeoAnimatable;
+import software.bernie.geckolib.animatable.GeoBlockEntity;
+import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
 public class StarDisplayEntity extends BlockEntity implements GeoBlockEntity {
 
@@ -40,7 +40,7 @@ public class StarDisplayEntity extends BlockEntity implements GeoBlockEntity {
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<GeoAnimatable>(/*? if < 26.2 { */ /*this, *//*? } */"MovementController", 5, this::AnimControler));
+        controllers.add(new AnimationController<GeoAnimatable>(/*? if < 26.2 { */ this, /*? } */"MovementController", 5, this::AnimControler));
     }
 
     public float getRotation() {
@@ -78,7 +78,7 @@ public class StarDisplayEntity extends BlockEntity implements GeoBlockEntity {
 
     /* ---------------- serialization ---------------------------------- */
     //? if >= 26.2 {
-    @Override
+    /*@Override
     protected void loadAdditional(ValueInput view) {
         super.loadAdditional(view);
         ContainerHelper.loadAllItems(view, inventory);
@@ -89,8 +89,8 @@ public class StarDisplayEntity extends BlockEntity implements GeoBlockEntity {
         super.saveAdditional(view);
         ContainerHelper.saveAllItems(view, inventory);
     }
-    //?} else {
-    /*@Override
+    *///?} else {
+    @Override
     protected void loadAdditional(CompoundTag view, HolderLookup.Provider registries) {
         super.loadAdditional(view, registries);
         ContainerHelper.loadAllItems(view, inventory, registries);
@@ -101,17 +101,17 @@ public class StarDisplayEntity extends BlockEntity implements GeoBlockEntity {
         super.saveAdditional(view, registries);
         ContainerHelper.saveAllItems(view, inventory, registries);
     }
-    *///?}
+    //?}
 
     public ItemStack getItem() {
         return inventory.getFirst();
     }
 
     //? if >= 26.2 {
-    protected PlayState AnimControler(final AnimationTest<?> animTest) {
-     //? } else {
-    /*protected PlayState AnimControler(final AnimationState<GeoAnimatable> animTest) {
-        *///? }
+    /*protected PlayState AnimControler(final AnimationTest<?> animTest) {
+     *///? } else {
+    protected PlayState AnimControler(final AnimationState<GeoAnimatable> animTest) {
+        //? }
         return animTest.setAndContinue(ROTATO);
     }
 

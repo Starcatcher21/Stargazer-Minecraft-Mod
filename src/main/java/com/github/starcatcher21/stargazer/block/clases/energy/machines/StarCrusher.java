@@ -15,6 +15,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -33,6 +34,13 @@ public class StarCrusher extends BaseEntityBlock {
     protected MapCodec<? extends BaseEntityBlock> codec() {
         return CODEC;
     }
+
+    //? if < 26.2 {
+    @Override
+    protected RenderShape getRenderShape(BlockState arg) {
+        return RenderShape.MODEL;
+    }
+    //? }
 
     @Override
     public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {

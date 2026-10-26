@@ -12,19 +12,19 @@ import net.minecraft.data.loot.EntityLootSubProvider;
 import net.minecraft.world.flag.FeatureFlags;
 //?}
 //? if >= 26.2 {
-import net.minecraft.advancements.predicates.entity.EntityPredicate;
+/*import net.minecraft.advancements.predicates.entity.EntityPredicate;
 import net.minecraft.advancements.predicates.NbtPredicate;
-//?} else {
-/*import net.minecraft.advancements.critereon.EntityPredicate;
+*///?} else {
+import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.advancements.critereon.NbtPredicate;
-*///?}
+//?}
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 //? if >= 26.2 {
-import net.minecraft.util.Util;
-//?} else {
-/*import net.minecraft.Util;
-*///?}
+/*import net.minecraft.util.Util;
+*///?} else {
+import net.minecraft.Util;
+//?}
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootPool;

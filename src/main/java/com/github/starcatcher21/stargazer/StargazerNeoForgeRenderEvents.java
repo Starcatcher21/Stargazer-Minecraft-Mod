@@ -13,7 +13,7 @@ import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
 public class StargazerNeoForgeRenderEvents {
 
     //? if >= 26.2 {
-    @SubscribeEvent
+    /*@SubscribeEvent
     public static void onRenderLevelStage(RenderLevelStageEvent.AfterSky event) {
         Minecraft client = Minecraft.getInstance();
         if (client.level != null && client.gameRenderer.mainCamera() != null) {
@@ -27,10 +27,10 @@ public class StargazerNeoForgeRenderEvents {
             );
         }
     }
-    //? } else {
-    /*@SubscribeEvent
+    *///? } else {
+    @SubscribeEvent
     public static void onRenderLevelStage(RenderLevelStageEvent event) {
     }
-    *///? }
+    //? }
 }
 //? }

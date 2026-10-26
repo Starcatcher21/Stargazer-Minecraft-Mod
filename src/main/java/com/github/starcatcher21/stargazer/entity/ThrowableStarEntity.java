@@ -9,10 +9,10 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.Blaze;
 //? if >= 26.2 {
-import net.minecraft.world.entity.projectile.throwableitemprojectile.ThrowableItemProjectile;
-//? } else {
-/*import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
-*///? }
+/*import net.minecraft.world.entity.projectile.throwableitemprojectile.ThrowableItemProjectile;
+*///? } else {
+import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
+//? }
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -25,11 +25,11 @@ public class ThrowableStarEntity extends ThrowableItemProjectile {
     }
 
     public ThrowableStarEntity(Level world, LivingEntity owner, ItemStack stack) {
-        super((EntityType<? extends ThrowableItemProjectile>) EntityRegistry.THROWABLE_STAR_ENTITY, owner, world/*? if >= 26.2 { */, stack/*? } */ );
+        super((EntityType<? extends ThrowableItemProjectile>) EntityRegistry.THROWABLE_STAR_ENTITY, owner, world/*? if >= 26.2 { *//*, stack*//*? } */ );
     }
 
     public ThrowableStarEntity(Level world, double x, double y, double z, ItemStack stack) {
-        super((EntityType<? extends ThrowableItemProjectile>) EntityRegistry.THROWABLE_STAR_ENTITY, x, y, z, world/*? if >= 26.2 { */, stack/*? } */ );
+        super((EntityType<? extends ThrowableItemProjectile>) EntityRegistry.THROWABLE_STAR_ENTITY, x, y, z, world/*? if >= 26.2 { *//*, stack*//*? } */ );
     }
 
     private ParticleOptions getParticleParameters() {

@@ -47,10 +47,10 @@ public class BlockTypes {
                     ? ModBlock.getRaw((RegistrySupplier<Block>) regSup)
                     : blockSupplier.get();
             //? if >= 26.2 {
-            return new BlockEntityType<>(factory, Collections.singleton(block));
-             //?} else {
-            /*return BlockEntityType.Builder.of(factory, block).build(null);
-            *///?}
+            /*return new BlockEntityType<>(factory, Collections.singleton(block));
+             *///?} else {
+            return BlockEntityType.Builder.of(factory, block).build(null);
+            //?}
         });
     }
 
