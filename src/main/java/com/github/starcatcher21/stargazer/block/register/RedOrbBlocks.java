@@ -119,16 +119,17 @@ public class RedOrbBlocks {
             .mapColor(MapColor.COLOR_CYAN)
     );
 
-    public static final RegistrySupplier<Block> YERI_PLANKS = register("yeri_planks", MoonPlanks::new, BlockBehaviour.Properties.of()
+    public static final RegistrySupplier<Block> YERI_PLANKS_DOOR = register("yeri_planks_door", (settings) -> new DoorBlock(BlockSetType.OAK, (BlockBehaviour.Properties)  settings), BlockBehaviour.Properties.of()
             .forceSolidOn()
+            .noOcclusion()
             .sound(SoundType.WOOD)
             .instrument(NoteBlockInstrument.BASS)
             .strength(2.0F)
             .mapColor(MapColor.COLOR_YELLOW)
     );
-    public static final RegistrySupplier<Block> YERI_PLANKS_DOOR = register("yeri_planks_door", (settings) -> new DoorBlock(BlockSetType.OAK, (BlockBehaviour.Properties)  settings), BlockBehaviour.Properties.of()
+
+    public static final RegistrySupplier<Block> YERI_PLANKS = register("yeri_planks", MoonPlanks::new, BlockBehaviour.Properties.of()
             .forceSolidOn()
-            .noOcclusion()
             .sound(SoundType.WOOD)
             .instrument(NoteBlockInstrument.BASS)
             .strength(2.0F)
@@ -204,6 +205,53 @@ public class RedOrbBlocks {
             .instabreak()
     );
     public static final RegistrySupplier<Block> POTTED_SPIRO_SAPLING = registerWoItem("potted_spiro_sapling", settings -> new FlowerPotBlock(SPIRO_SAPLING.get(), settings), BlockBehaviour.Properties.ofFullCopy(Blocks.POTTED_ALLIUM).noOcclusion());
+
+    public static final RegistrySupplier<Block> SPIRO_PLANKS = register("spiro_planks", MoonPlanks::new, BlockBehaviour.Properties.of()
+            .forceSolidOn()
+            .sound(SoundType.WOOD)
+            .instrument(NoteBlockInstrument.BASS)
+            .strength(2.0F)
+            .mapColor(MapColor.COLOR_PURPLE)
+    );
+    public static final RegistrySupplier<Block> SPIRO_PLANKS_SLAB = register("spiro_planks_slab", SlabBlock::new, BlockBehaviour.Properties.of()
+            .forceSolidOn()
+            .sound(SoundType.WOOD)
+            .instrument(NoteBlockInstrument.BASS)
+            .strength(2.0F)
+            .mapColor(MapColor.COLOR_PURPLE)
+    );
+    public static final RegistrySupplier<Block> SPIRO_PLANKS_STAIRS = register("spiro_planks_stairs", (BlockBehaviour.Properties settings) -> new StairBlock(SPIRO_PLANKS.get().defaultBlockState(), (BlockBehaviour.Properties)settings), BlockBehaviour.Properties.of()
+            .forceSolidOn()
+            .sound(SoundType.WOOD)
+            .instrument(NoteBlockInstrument.BASS)
+            .strength(2.0F)
+            .mapColor(MapColor.COLOR_PURPLE)
+    );
+    public static final RegistrySupplier<Block> SPIRO_PLANKS_FENCE = register("spiro_planks_fence", FenceBlock::new, BlockBehaviour.Properties.of()
+            .forceSolidOn()
+            .sound(SoundType.WOOD)
+            .instrument(NoteBlockInstrument.BASS)
+            .strength(2.0F)
+            .mapColor(MapColor.COLOR_PURPLE)
+    );
+    public static final RegistrySupplier<Block> SPIRO_PLANKS_FENCE_GATE = register("spiro_planks_fence_gate", (BlockBehaviour.Properties settings) -> new FenceGateBlock(WoodType.OAK, (BlockBehaviour.Properties)settings), BlockBehaviour.Properties.of()
+            .forceSolidOn()
+            .sound(SoundType.WOOD)
+            .instrument(NoteBlockInstrument.BASS)
+            .strength(2.0F)
+            .mapColor(MapColor.COLOR_PURPLE)
+    );
+    public static final RegistrySupplier<Block> SPIRO_PLANKS_BUTTON = register("spiro_planks_button", (BlockBehaviour.Properties settings) -> new ButtonBlock(BlockSetType.OAK, 30, (BlockBehaviour.Properties) settings), BlockBehaviour.Properties.of()
+            //? if >= 26.2 {
+            /*.noCollision()
+             *///? } else {
+            .noCollission()
+            //? }
+            .sound(SoundType.WOOD)
+            .instrument(NoteBlockInstrument.BASS)
+            .strength(1.0F)
+            .mapColor(MapColor.COLOR_YELLOW)
+    );
 
     public static final RegistrySupplier<Block> GLASS_LOG = register("glass_log", (settings) -> new MoonLog(null, settings), BlockBehaviour.Properties.ofFullCopy(Blocks.GLASS)
     );

@@ -183,6 +183,7 @@ public class MoonBlocks {
     public static final RegistrySupplier<Block> MOON_ROCK_TILES = register("moon_rock_tiles", Block::new, BlockBehaviour.Properties.of()
             .forceSolidOn()
             .sound(SoundType.STONE)
+            .forceSolidOn()
             .requiresCorrectToolForDrops()
             .strength(0.75f)
             .mapColor(MapColor.CRIMSON_NYLIUM)
@@ -260,7 +261,6 @@ public class MoonBlocks {
             .mapColor(MapColor.SNOW)
     );
     public static final RegistrySupplier<Block> MOON_PLANKS_DOOR = register("moon_planks_door", (settings) -> new DoorBlock(BlockSetType.OAK, (BlockBehaviour.Properties)  settings), BlockBehaviour.Properties.of()
-            .forceSolidOn()
             .noOcclusion()
             .sound(SoundType.WOOD)
             .instrument(NoteBlockInstrument.BASS)

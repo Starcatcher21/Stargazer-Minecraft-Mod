@@ -204,6 +204,12 @@ public class ModBlock {
             } /*? } */, BlockBehaviour.Properties.of()
             .sound(SoundType.SAND)
     );
+    public static final RegistrySupplier<Block> AMETHYST_BRICKS = register("amethyst_bricks", Block::new, BlockBehaviour.Properties.of()
+            .sound(SoundType.AMETHYST)
+            .requiresCorrectToolForDrops()
+            .mapColor(MapColor.COLOR_PURPLE)
+            .strength(1.5F)
+    );
 
     public static RegistrySupplier<Block> register(String path, Function<BlockBehaviour.Properties, Block> factory, BlockBehaviour.Properties settings) {
         RegistrySupplier<Block> blockSupplier = registerWoItem(path, factory, settings);

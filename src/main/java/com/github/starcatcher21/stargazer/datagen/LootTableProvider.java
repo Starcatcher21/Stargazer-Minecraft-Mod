@@ -196,6 +196,18 @@ public class LootTableProvider
         dropSelf(MoonBlocks.CURVE_PLANKS.get());
         add(MoonBlocks.CURVE_PLANKS_DOOR.get(), createDoorTable(MoonBlocks.CURVE_PLANKS_DOOR.get()));
         add(MoonBlocks.CURVE_PLANKS_SLAB.get(), createSlabItemTable(MoonBlocks.CURVE_PLANKS_SLAB.get()));
+        add(RedOrbBlocks.SPIRO_PLANKS_SLAB.get(), createSlabItemTable(RedOrbBlocks.SPIRO_PLANKS_SLAB.get()));
+        dropSelf(RedOrbBlocks.SPIRO_PLANKS_BUTTON.get());
+        dropSelf(RedOrbBlocks.SPIRO_PLANKS_FENCE_GATE.get());
+        dropSelf(RedOrbBlocks.SPIRO_PLANKS.get());
+        dropSelf(RedOrbBlocks.SPIRO_PLANKS_FENCE.get());
+        dropSelf(RedOrbBlocks.SPIRO_PLANKS_STAIRS.get());
+        add(Wander.TRUNN_PLANKS_SLAB.get(), createSlabItemTable(Wander.TRUNN_PLANKS_SLAB.get()));
+        dropSelf(Wander.TRUNN_PLANKS_BUTTON.get());
+        dropSelf(Wander.TRUNN_PLANKS_FENCE_GATE.get());
+        dropSelf(Wander.TRUNN_PLANKS.get());
+        dropSelf(Wander.TRUNN_PLANKS_FENCE.get());
+        dropSelf(Wander.TRUNN_PLANKS_STAIRS.get());
         dropSelf(MoonBlocks.CURVE_PLANKS_STAIRS.get());
         dropSelf(MoonBlocks.CURVE_PLANKS_BUTTON.get());
         dropSelf(MoonBlocks.CURVE_PLANKS_FENCE.get());

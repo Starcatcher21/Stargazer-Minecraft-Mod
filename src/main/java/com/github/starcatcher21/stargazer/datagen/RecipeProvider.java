@@ -2,6 +2,7 @@
 package com.github.starcatcher21.stargazer.datagen;
 
 import com.github.starcatcher21.stargazer.CustomTags;
+import com.github.starcatcher21.stargazer.block.ModBlock;
 import com.github.starcatcher21.stargazer.block.register.*;
 import com.github.starcatcher21.stargazer.item.ModItems;
 //? if fabric {
@@ -449,6 +450,13 @@ public class RecipeProvider
                         .unlockedBy(getHasName(MoonBlocks.MOON_ROCK.get()), this.has(MoonBlocks.MOON_ROCK.get()))
                         .save(this.output);
 
+                shaped(RecipeCategory.BUILDING_BLOCKS, ModBlock.AMETHYST_BRICKS.get(), 4)
+                        .define('#', ModItems.PURE_AMETHYST_INGOT.get())
+                        .pattern("##")
+                        .pattern("##")
+                        .unlockedBy(getHasName(MoonBlocks.MOON_ROCK.get()), this.has(MoonBlocks.MOON_ROCK.get()))
+                        .save(this.output);
+
                 shaped(RecipeCategory.BUILDING_BLOCKS, MoonBlocks.POLISHED_SUN_ENRICHED_MOON_ROCK.get(), 4)
                         .define('#', MoonBlocks.SUN_ENRICHED_MOON_ROCK.get())
                         .pattern("##")
@@ -609,6 +617,60 @@ public class RecipeProvider
                 fenceGateBuilder(RedOrbBlocks.YERI_PLANKS_FENCE_GATE.get(), Ingredient.of(RedOrbBlocks.YERI_PLANKS.get()))
                         .group("wooden_fence_gate")
                         .unlockedBy("wood", has(RedOrbBlocks.YERI_PLANKS.get()))
+                        .save(output);
+
+                shapeless(RecipeCategory.BUILDING_BLOCKS, RedOrbBlocks.SPIRO_PLANKS.get(), 4)
+                        .requires(RedOrbBlocks.SPIRO_LOG.get())
+                        .group("planks")
+                        .unlockedBy("has_log", this.has(RedOrbBlocks.SPIRO_LOG.get()))
+                        .save(this.output);
+
+                slabBuilder(RecipeCategory.BUILDING_BLOCKS, RedOrbBlocks.SPIRO_PLANKS_SLAB.get(), Ingredient.of(RedOrbBlocks.SPIRO_PLANKS.get()))
+                        .group("wooden_slab")
+                        .unlockedBy("wood", has(RedOrbBlocks.SPIRO_PLANKS.get()))
+                        .save(output);
+                stairBuilder(RedOrbBlocks.SPIRO_PLANKS_STAIRS.get(), Ingredient.of(RedOrbBlocks.SPIRO_PLANKS.get()))
+                        .group("wooden_stairs")
+                        .unlockedBy("wood", has(RedOrbBlocks.SPIRO_PLANKS.get()))
+                        .save(output);
+                buttonBuilder(RedOrbBlocks.SPIRO_PLANKS_BUTTON.get(), Ingredient.of(RedOrbBlocks.SPIRO_PLANKS.get()))
+                        .group("wooden_button")
+                        .unlockedBy("wood", has(RedOrbBlocks.SPIRO_PLANKS.get()))
+                        .save(output);
+                fenceBuilder(RedOrbBlocks.SPIRO_PLANKS_FENCE.get(), Ingredient.of(RedOrbBlocks.SPIRO_PLANKS.get()))
+                        .group("wooden_fence")
+                        .unlockedBy("wood", has(RedOrbBlocks.SPIRO_PLANKS.get()))
+                        .save(output);
+                fenceGateBuilder(RedOrbBlocks.SPIRO_PLANKS_FENCE_GATE.get(), Ingredient.of(RedOrbBlocks.SPIRO_PLANKS.get()))
+                        .group("wooden_fence_gate")
+                        .unlockedBy("wood", has(RedOrbBlocks.SPIRO_PLANKS.get()))
+                        .save(output);
+
+                shapeless(RecipeCategory.BUILDING_BLOCKS, Wander.TRUNN_PLANKS.get(), 4)
+                        .requires(Wander.TRUNN_LOG.get())
+                        .group("planks")
+                        .unlockedBy("has_log", this.has(Wander.TRUNN_LOG.get()))
+                        .save(this.output);
+
+                slabBuilder(RecipeCategory.BUILDING_BLOCKS, Wander.TRUNN_PLANKS_SLAB.get(), Ingredient.of(Wander.TRUNN_PLANKS.get()))
+                        .group("wooden_slab")
+                        .unlockedBy("wood", has(Wander.TRUNN_PLANKS.get()))
+                        .save(output);
+                stairBuilder(Wander.TRUNN_PLANKS_STAIRS.get(), Ingredient.of(Wander.TRUNN_PLANKS.get()))
+                        .group("wooden_stairs")
+                        .unlockedBy("wood", has(Wander.TRUNN_PLANKS.get()))
+                        .save(output);
+                buttonBuilder(Wander.TRUNN_PLANKS_BUTTON.get(), Ingredient.of(Wander.TRUNN_PLANKS.get()))
+                        .group("wooden_button")
+                        .unlockedBy("wood", has(RedOrbBlocks.YERI_PLANKS.get()))
+                        .save(output);
+                fenceBuilder(Wander.TRUNN_PLANKS_FENCE.get(), Ingredient.of(Wander.TRUNN_PLANKS.get()))
+                        .group("wooden_fence")
+                        .unlockedBy("wood", has(Wander.TRUNN_PLANKS.get()))
+                        .save(output);
+                fenceGateBuilder(Wander.TRUNN_PLANKS_FENCE_GATE.get(), Ingredient.of(Wander.TRUNN_PLANKS.get()))
+                        .group("wooden_fence_gate")
+                        .unlockedBy("wood", has(Wander.TRUNN_PLANKS.get()))
                         .save(output);
 
                 oreSmelting(Collections.singletonList((ItemLike) ModItems.COPPER_DUST.get()), RecipeCategory.MISC, CookingBookCategory.MISC, Items.COPPER_INGOT, 0.7f, 200, "copper_ingot");

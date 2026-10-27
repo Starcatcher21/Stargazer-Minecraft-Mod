@@ -154,6 +154,8 @@ public class ItemTagProvider
                 .add(Nebulas.RED_NEBULA_PLANKS.get().asItem().builtInRegistryHolder().key())
                 .add(Nebulas.YELLOW_NEBULA_PLANKS.get().asItem().builtInRegistryHolder().key())
                 .add(RedOrbBlocks.YERI_PLANKS.get().asItem().builtInRegistryHolder().key())
+                .add(Wander.TRUNN_PLANKS.get().asItem().builtInRegistryHolder().key())
+                .add(RedOrbBlocks.SPIRO_PLANKS.get().asItem().builtInRegistryHolder().key())
                 .add(MoonBlocks.MOON_PLANKS.get().asItem().builtInRegistryHolder().key());
         builder(ItemTags.STONE_TOOL_MATERIALS)
                 .add(MoonBlocks.MOON_ROCK.get().asItem().builtInRegistryHolder().key());

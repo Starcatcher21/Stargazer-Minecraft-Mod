@@ -102,10 +102,10 @@ public class ModEngLangProvider
             } else if (key instanceof net.minecraft.tags.TagKey<?> tag) {
                 translationBuilder.add(tag, value);
             //? if >= 26.2 {
-            } else if (key instanceof net.minecraft.resources.Identifier identifier) {
-            //?} else {
-            /^} else if (key instanceof net.minecraft.resources.ResourceLocation identifier) {
-            ^///?}
+            /^} else if (key instanceof net.minecraft.resources.Identifier identifier) {
+            ^///?} else {
+            } else if (key instanceof net.minecraft.resources.ResourceLocation identifier) {
+            //?}
                 translationBuilder.add(identifier, value);
             } else {
                 throw new IllegalArgumentException("Unsupported translation key type: " + key.getClass().getName());
@@ -115,6 +115,9 @@ public class ModEngLangProvider
     *///?}
 
     private static void populateTranslations(TranslationSink translationBuilder) {
+        translationBuilder.add(ModBlock.AMETHYST_BRICKS.get(), "Amethyst Bricks");
+        translationBuilder.add(ModItems.SPACE_JAM.get(), "Space Jam");
+        translationBuilder.add("item.stargazer.space_jam.effect.empty", "Space Jam");
         translationBuilder.add(ModItems.STAR_BOOK.get(), "Book of Stars 1");
         translationBuilder.add(ItemGroup.STAR_GROUP.get().getDisplayName().getString(), "Stargazer");
         translationBuilder.add("stat.stargazer.star_catched", "Star Catched");
@@ -481,12 +484,24 @@ public class ModEngLangProvider
         translationBuilder.add(RedOrbBlocks.POINTY.get(), "Pointy");
         translationBuilder.add(ModItems.STAR_HAMMER.get(), "Star Hammer");
         translationBuilder.add(RedOrbBlocks.SPIRO_LOG.get(), "Spiro Log");
+        translationBuilder.add(RedOrbBlocks.SPIRO_PLANKS.get(), "Spiro Planks");
+        translationBuilder.add(RedOrbBlocks.SPIRO_PLANKS_SLAB.get(), "Spiro Planks Slab");
+        translationBuilder.add(RedOrbBlocks.SPIRO_PLANKS_STAIRS.get(), "Spiro Planks Stairs");
+        translationBuilder.add(RedOrbBlocks.SPIRO_PLANKS_BUTTON.get(), "Spiro Planks Button");
+        translationBuilder.add(RedOrbBlocks.SPIRO_PLANKS_FENCE_GATE.get(), "Spiro Planks Fence Gate");
+        translationBuilder.add(RedOrbBlocks.SPIRO_PLANKS_FENCE.get(), "Spiro Planks Fence");
         translationBuilder.add(RedOrbBlocks.SPIRO_SAPLING.get(), "Spiro Sapling");
         translationBuilder.add(RedOrbBlocks.SPIRO_LEAVES.get(), "Spiro Leaves");
         translationBuilder.add(ModItems.WINGED_STAR.get(), "Winged Star");
         translationBuilder.add(Wander.BORIL.get(), "Boril");
         translationBuilder.add(Wander.PUROIL.get(), "Puroil");
         translationBuilder.add(Wander.TRUNN_LOG.get(), "Trunn Log");
+        translationBuilder.add(Wander.TRUNN_PLANKS.get(), "Trunn Planks");
+        translationBuilder.add(Wander.TRUNN_PLANKS_SLAB.get(), "Trunn Planks Slab");
+        translationBuilder.add(Wander.TRUNN_PLANKS_STAIRS.get(), "Trunn Planks Stairs");
+        translationBuilder.add(Wander.TRUNN_PLANKS_FENCE.get(), "Trunn Planks Fence");
+        translationBuilder.add(Wander.TRUNN_PLANKS_FENCE_GATE.get(), "Trunn Planks Fence Gate");
+        translationBuilder.add(Wander.TRUNN_PLANKS_BUTTON.get(), "Trunn Planks Button");
         translationBuilder.add(Wander.TRUNN_LEAVES.get(), "Trunn Leaves");
         translationBuilder.add(Wander.TRUNN_SAPLING.get(), "Trunn Sapling");
         translationBuilder.add(Wander.UMBRELLA_LOG.get(), "Umbrella Log");

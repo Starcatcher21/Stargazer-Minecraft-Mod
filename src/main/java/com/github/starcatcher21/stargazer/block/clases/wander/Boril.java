@@ -43,7 +43,7 @@ public class Boril extends Block implements BonemealableBlock {
             BlockState blockState = this.defaultBlockState();
             for (int i = 0; i < 4; ++i) {
                 BlockPos blockPos = pos.offset(random.nextInt(3) - 1, random.nextInt(5) - 3, random.nextInt(3) - 1);
-                if (!world.getBlockState(blockPos).is(MoonBlocks.MOON_ROCK.get()) || !canPropagate(state, world, blockPos)) continue;
+                if (!world.getBlockState(blockPos).is(Wander.PUROIL.get()) || !canPropagate(state, world, blockPos)) continue;
                 world.setBlockAndUpdate(blockPos, (BlockState)blockState);
             }
         }

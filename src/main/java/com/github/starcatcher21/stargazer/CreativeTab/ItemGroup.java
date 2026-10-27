@@ -323,6 +323,12 @@ public class ItemGroup {
                         output.accept(RedOrbBlocks.POINTY.get());
                         output.accept(RedOrbBlocks.PETRICY.get());
                         output.accept(RedOrbBlocks.SPIRO_LOG.get());
+                        output.accept(RedOrbBlocks.SPIRO_PLANKS.get());
+                        output.accept(RedOrbBlocks.SPIRO_PLANKS_STAIRS.get());
+                        output.accept(RedOrbBlocks.SPIRO_PLANKS_SLAB.get());
+                        output.accept(RedOrbBlocks.SPIRO_PLANKS_BUTTON.get());
+                        output.accept(RedOrbBlocks.SPIRO_PLANKS_FENCE.get());
+                        output.accept(RedOrbBlocks.SPIRO_PLANKS_FENCE_GATE.get());
                         output.accept(RedOrbBlocks.SPIRO_LEAVES.get());
                         output.accept(RedOrbBlocks.SPIRO_SAPLING.get());
                         output.accept(RedOrbBlocks.GLASS_LOG.get());
@@ -331,6 +337,12 @@ public class ItemGroup {
                         output.accept(Wander.BORIL.get());
                         output.accept(Wander.PUROIL.get());
                         output.accept(Wander.TRUNN_LOG.get());
+                        output.accept(Wander.TRUNN_PLANKS.get());
+                        output.accept(Wander.TRUNN_PLANKS_STAIRS.get());
+                        output.accept(Wander.TRUNN_PLANKS_SLAB.get());
+                        output.accept(Wander.TRUNN_PLANKS_FENCE.get());
+                        output.accept(Wander.TRUNN_PLANKS_FENCE_GATE.get());
+                        output.accept(Wander.TRUNN_PLANKS_BUTTON.get());
                         output.accept(Wander.TRUNN_LEAVES.get());
                         output.accept(Wander.TRUNN_SAPLING.get());
                         output.accept(Wander.UMBRELLA_LOG.get());
@@ -365,6 +377,8 @@ public class ItemGroup {
                         output.accept(ModItems.AMETHYST_BOOTS.get());
                         // Masks
                         output.accept(ModItems.MASK_OF_LUNA.get());
+                        output.accept(ModBlock.AMETHYST_BRICKS.get());
+                        output.accept(ModItems.SPACE_JAM.get());
                     })
     ));
 

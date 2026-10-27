@@ -337,6 +337,18 @@ public class ModelProvider
                 .fence(RedOrbBlocks.YERI_PLANKS_FENCE.get())
                 .fenceGate(RedOrbBlocks.YERI_PLANKS_FENCE_GATE.get())
                 .slab(RedOrbBlocks.YERI_PLANKS_SLAB.get());
+        blockStateModelGenerator.family(RedOrbBlocks.SPIRO_PLANKS.get())
+                .stairs(RedOrbBlocks.SPIRO_PLANKS_STAIRS.get())
+                .button(RedOrbBlocks.SPIRO_PLANKS_BUTTON.get())
+                .fence(RedOrbBlocks.SPIRO_PLANKS_FENCE.get())
+                .fenceGate(RedOrbBlocks.SPIRO_PLANKS_FENCE_GATE.get())
+                .slab(RedOrbBlocks.SPIRO_PLANKS_SLAB.get());
+        blockStateModelGenerator.family(Wander.TRUNN_PLANKS.get())
+                .stairs(Wander.TRUNN_PLANKS_STAIRS.get())
+                .button(Wander.TRUNN_PLANKS_BUTTON.get())
+                .fence(Wander.TRUNN_PLANKS_FENCE.get())
+                .fenceGate(Wander.TRUNN_PLANKS_FENCE_GATE.get())
+                .slab(Wander.TRUNN_PLANKS_SLAB.get());
         blockStateModelGenerator.createTrivialCube(RedOrbBlocks.GREEN_ROCK.get());
         blockStateModelGenerator.createCrossBlockWithDefaultItem(RedOrbBlocks.BLUE_GRASS.get(), BlockModelGenerators.PlantType.NOT_TINTED);
         blockStateModelGenerator.createAxisAlignedPillarBlock(RedOrbBlocks.SPIRO_LOG.get(), TexturedModel.COLUMN);
@@ -377,12 +389,14 @@ public class ModelProvider
         blockGeneratedItem(blockStateModelGenerator, MoonBlocks.FULL_MOON_SAPLING.get());
         blockGeneratedItem(blockStateModelGenerator, Darkness.ROSE_OF_PAIN.get());
         blockGeneratedItem(blockStateModelGenerator, MoonBlocks.SPRUNGUS.get());
+        blockStateModelGenerator.createTrivialCube(ModBlock.AMETHYST_BRICKS.get());
     }
 
     //? if fabric {
     /^@Override
     ^///?}
     public void generateItemModels(ItemModelGenerators itemModelGenerator) {
+        itemModelGenerator.generateFlatItem(ModItems.SPACE_JAM.get(), ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.LODESTAR.get(), ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.FULL_MOON_DUST.get(), ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.PURE_AMETHYST_DUST.get(), ModelTemplates.FLAT_ITEM);

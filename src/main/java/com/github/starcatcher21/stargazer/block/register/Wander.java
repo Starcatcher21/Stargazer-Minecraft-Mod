@@ -1,6 +1,7 @@
 package com.github.starcatcher21.stargazer.block.register;
 
 import com.github.starcatcher21.stargazer.Stargazer;
+import com.github.starcatcher21.stargazer.block.clases.moon.MoonPlanks;
 import com.github.starcatcher21.starlib.Helpers;
 import com.github.starcatcher21.stargazer.block.clases.CustomLeaves;
 import com.github.starcatcher21.stargazer.block.clases.CustomWanderSapling;
@@ -8,12 +9,12 @@ import com.github.starcatcher21.stargazer.block.clases.moon.log.MoonLog;
 import com.github.starcatcher21.stargazer.block.clases.wander.Boril;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.Direction;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.FlowerPotBlock;
-import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
+import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.MapColor;
 
 import static com.github.starcatcher21.stargazer.block.ModBlock.register;
@@ -39,6 +40,53 @@ public class Wander {
             .sound(SoundType.WOOD)
             .strength(2.0F)
             .mapColor(blockState -> blockState.getValue(BlockStateProperties.AXIS).equals(Direction.Axis.Y) ? MapColor.COLOR_BLUE : MapColor.ICE)
+    );
+
+    public static final RegistrySupplier<Block> TRUNN_PLANKS = register("trunn_planks", MoonPlanks::new, BlockBehaviour.Properties.of()
+            .forceSolidOn()
+            .sound(SoundType.WOOD)
+            .instrument(NoteBlockInstrument.BASS)
+            .strength(2.0F)
+            .mapColor(MapColor.COLOR_GRAY)
+    );
+    public static final RegistrySupplier<Block> TRUNN_PLANKS_SLAB = register("trunn_planks_slab", SlabBlock::new, BlockBehaviour.Properties.of()
+            .forceSolidOn()
+            .sound(SoundType.WOOD)
+            .instrument(NoteBlockInstrument.BASS)
+            .strength(2.0F)
+            .mapColor(MapColor.COLOR_GRAY)
+    );
+    public static final RegistrySupplier<Block> TRUNN_PLANKS_STAIRS = register("trunn_planks_stairs", (BlockBehaviour.Properties settings) -> new StairBlock(TRUNN_PLANKS.get().defaultBlockState(), (BlockBehaviour.Properties)settings), BlockBehaviour.Properties.of()
+            .forceSolidOn()
+            .sound(SoundType.WOOD)
+            .instrument(NoteBlockInstrument.BASS)
+            .strength(2.0F)
+            .mapColor(MapColor.COLOR_GRAY)
+    );
+    public static final RegistrySupplier<Block> TRUNN_PLANKS_FENCE = register("trunn_planks_fence", FenceBlock::new, BlockBehaviour.Properties.of()
+            .forceSolidOn()
+            .sound(SoundType.WOOD)
+            .instrument(NoteBlockInstrument.BASS)
+            .strength(2.0F)
+            .mapColor(MapColor.COLOR_GRAY)
+    );
+    public static final RegistrySupplier<Block> TRUNN_PLANKS_FENCE_GATE = register("trunn_planks_fence_gate", (BlockBehaviour.Properties settings) -> new FenceGateBlock(WoodType.OAK, (BlockBehaviour.Properties)settings), BlockBehaviour.Properties.of()
+            .forceSolidOn()
+            .sound(SoundType.WOOD)
+            .instrument(NoteBlockInstrument.BASS)
+            .strength(2.0F)
+            .mapColor(MapColor.COLOR_GRAY)
+    );
+    public static final RegistrySupplier<Block> TRUNN_PLANKS_BUTTON = register("trunn_planks_button", (BlockBehaviour.Properties settings) -> new ButtonBlock(BlockSetType.OAK, 30, (BlockBehaviour.Properties) settings), BlockBehaviour.Properties.of()
+            //? if >= 26.2 {
+            /*.noCollision()
+             *///? } else {
+            .noCollission()
+            //? }
+            .sound(SoundType.WOOD)
+            .instrument(NoteBlockInstrument.BASS)
+            .strength(1.0F)
+            .mapColor(MapColor.COLOR_GRAY)
     );
     public static final RegistrySupplier<Block> TRUNN_LEAVES = register("trunn_leaves", (settings) -> new CustomLeaves(0x3ffcaa, settings), BlockBehaviour.Properties.of()
             .forceSolidOn()

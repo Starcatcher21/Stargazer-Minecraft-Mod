@@ -21,11 +21,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.Rarity;
-import net.minecraft.world.item.SpawnEggItem;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.item.component.Tool;
 //? if >= 26.2 {
@@ -34,7 +30,6 @@ import net.minecraft.world.item.equipment.ArmorType;
 import net.minecraft.world.item.equipment.Equippable;
 import net.minecraft.world.item.consume_effects.ConsumeEffect;
 import net.minecraft.world.item.enchantment.Repairable;
-import net.minecraft.world.item.ToolMaterial;
 import net.minecraft.world.item.component.Consumable;
 import net.minecraft.world.item.component.Consumables;
 *///?} else {
@@ -218,6 +213,14 @@ public final class ModItems {
                     *///?} else {
                     .food(new FoodProperties.Builder().nutrition(1).saturationModifier(2.0f).alwaysEdible().build())
             //? }
+    );
+    public static final RegistrySupplier<Item> SPACE_JAM = register("space_jam", PotionItem::new, new Item.Properties()
+                    //? if >= 26.2 {
+
+                    /*.food(new FoodProperties(8, 16, true))
+            *///?} else {
+            .food(new FoodProperties.Builder().nutrition(8).saturationModifier(16.0f).alwaysEdible().build())
+             //? }
     );
     public static final RegistrySupplier<Item> ECTOPLASM = register("ectoplasm", Item::new, new Item.Properties().stacksTo(16));
     public static final RegistrySupplier<Item> COOLER_ECTOPLASM = register("cooler_ectoplasm", Item::new, new Item.Properties().stacksTo(16));

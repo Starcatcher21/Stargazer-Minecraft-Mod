@@ -46,7 +46,7 @@ public final class LegacyNeoForgeModelProvider extends BlockStateProvider {
             "grave", "negative_block", "no_red_block", "no_green_block", "no_blue_block",
             "infested_calcite", "copper_teleporter", "dark_teleporter", "end_teleporter",
             "red_teleporter", "sprinkler", "moon_welder", "moon_farmland", "moon_rock_nylium",
-            "moon_rock_tiles", "purple_moon_rock_tiles", "star_forge", "moon_planks_door",
+            "moon_rock_tiles", "purple_moon_rock_tiles", "star_forge",
             "star_stone", "geode_fruit_block", "star_trap", "forget_me_now",
             "potted_forget_me_now", "cosmic_block", "star_barrier_block", "border_block",
             "star_leaves", "aurora", "star_display", "eye_log", "eye_jar", "eye_fern",
@@ -118,6 +118,7 @@ public final class LegacyNeoForgeModelProvider extends BlockStateProvider {
         cubeWithItem(MoonBlocks.POLISHED_BLACK_MOON_ROCK_PURPLE.get());
         cubeWithItem(MoonBlocks.PRISMATIC_ORE.get());
         cubeWithItem(MoonBlocks.PRISMATIC_SHARD_BLOCK.get());
+        cubeWithItem(ModBlock.AMETHYST_BRICKS.get());
 
         // ---------------- Item models for source blockstates ----------------
         blockItem(EyeBloodBlocks.EYE_LOG.get(), "closed_eye_log");
@@ -164,6 +165,12 @@ public final class LegacyNeoForgeModelProvider extends BlockStateProvider {
         planks(RedOrbBlocks.YERI_PLANKS.get(), RedOrbBlocks.YERI_PLANKS_STAIRS.get(),
                 RedOrbBlocks.YERI_PLANKS_SLAB.get(), RedOrbBlocks.YERI_PLANKS_FENCE.get(),
                 RedOrbBlocks.YERI_PLANKS_FENCE_GATE.get(), RedOrbBlocks.YERI_PLANKS_BUTTON.get());
+        planks(RedOrbBlocks.SPIRO_PLANKS.get(), RedOrbBlocks.SPIRO_PLANKS_STAIRS.get(),
+                RedOrbBlocks.SPIRO_PLANKS_SLAB.get(), RedOrbBlocks.SPIRO_PLANKS_FENCE.get(),
+                RedOrbBlocks.SPIRO_PLANKS_FENCE_GATE.get(), RedOrbBlocks.SPIRO_PLANKS_BUTTON.get());
+        planks(Wander.TRUNN_PLANKS.get(), Wander.TRUNN_PLANKS_STAIRS.get(),
+                Wander.TRUNN_PLANKS_SLAB.get(), Wander.TRUNN_PLANKS_FENCE.get(),
+                Wander.TRUNN_PLANKS_FENCE_GATE.get(), Wander.TRUNN_PLANKS_BUTTON.get());
 
         // Stone family with slab + stairs
         stoneFamily(MoonBlocks.MOON_ROCK_BRICKS.get(),
@@ -176,6 +183,7 @@ public final class LegacyNeoForgeModelProvider extends BlockStateProvider {
         door(RedOrbBlocks.YERI_PLANKS_DOOR.get());
         door(MoonBlocks.CURVE_PLANKS_DOOR.get());
         door(Darkness.DARKNESS_PLANKS_DOOR.get());
+        door(MoonBlocks.MOON_PLANKS_DOOR.get());
 
         // ---------------- Pillars / logs ----------------
         pillar(MoonBlocks.MOON_LOG.get());
@@ -380,6 +388,7 @@ public final class LegacyNeoForgeModelProvider extends BlockStateProvider {
         flatItem(ModItems.ROOK_SPAWN_EGG.get());
         flatItem(ModItems.BLACK_ROOK_SPAWN_EGG.get());
         flatItem(ModItems.BLACK_FOX_SPAWN_EGG.get());
+        flatItem(ModItems.SPACE_JAM.get());
     }
 
     // ---------------------------------------------------------------------
@@ -417,18 +426,27 @@ public final class LegacyNeoForgeModelProvider extends BlockStateProvider {
      */
     private void planks(Block planks, Block stairs, Block slab, Block fence, Block gate, Block button) {
         ResourceLocation tex = blockTex(planks);
+
+        // Plan
         simpleBlockWithItem(planks, models().cubeAll(name(planks), tex));
 
+        // Stairs
         if (stairs instanceof StairBlock s) {
             stairsBlock(s, tex);
+            itemModels().withExistingParent(name(stairs), modLoc("block/" + name(stairs)));
         } else {
             simpleBlockWithItem(stairs, models().cubeAll(name(stairs), tex));
         }
+
+        // Slab
         if (slab instanceof SlabBlock s) {
             slabBlock(s, tex, tex);
+            itemModels().withExistingParent(name(slab), modLoc("block/" + name(slab)));
         } else {
             simpleBlockWithItem(slab, models().cubeAll(name(slab), tex));
         }
+
+        // Fence
         if (fence instanceof FenceBlock f) {
             fenceBlock(f, tex);
             itemModels().withExistingParent(name(fence), mcLoc("block/fence_inventory"))
@@ -436,11 +454,16 @@ public final class LegacyNeoForgeModelProvider extends BlockStateProvider {
         } else {
             simpleBlockWithItem(fence, models().cubeAll(name(fence), tex));
         }
+
+        // Fence gate
         if (gate instanceof FenceGateBlock g) {
             fenceGateBlock(g, tex);
+            itemModels().withExistingParent(name(gate), modLoc("block/" + name(gate)));
         } else {
             simpleBlockWithItem(gate, models().cubeAll(name(gate), tex));
         }
+
+        // Button
         if (button instanceof ButtonBlock b) {
             buttonBlock(b, tex);
             itemModels().withExistingParent(name(button), mcLoc("block/button_inventory"))
@@ -456,11 +479,13 @@ public final class LegacyNeoForgeModelProvider extends BlockStateProvider {
         simpleBlockWithItem(base, models().cubeAll(name(base), tex));
         if (stairs instanceof StairBlock s) {
             stairsBlock(s, tex);
+            itemModels().withExistingParent(name(stairs), modLoc("block/" + name(stairs)));
         } else {
             simpleBlockWithItem(stairs, models().cubeAll(name(stairs), tex));
         }
         if (slab instanceof SlabBlock s) {
             slabBlock(s, tex, tex);
+            itemModels().withExistingParent(name(slab), modLoc("block/" + name(slab)));
         } else {
             simpleBlockWithItem(slab, models().cubeAll(name(slab), tex));
         }
@@ -511,20 +536,30 @@ public final class LegacyNeoForgeModelProvider extends BlockStateProvider {
     private void door(Block block) {
         String n = name(block);
 
+        // Resolve textures independently
         ResourceLocation bottom = blockTex(n + "_bottom");
-        ResourceLocation top = blockTex(n + "_top");
-
         if (!existingFileHelper.exists(bottom, TEXTURE_RESOURCE)) {
-            // Try the planks texture: strip "_door" from the block name
             String planksName = n.endsWith("_door") ? n.substring(0, n.length() - 5) : n;
             bottom = blockTex(planksName);
+        }
+
+        ResourceLocation top = blockTex(n + "_top");
+        if (!existingFileHelper.exists(top, TEXTURE_RESOURCE)) {
             top = bottom;
         }
 
         if (block instanceof DoorBlock d) {
-            doorBlock(d, bottom, top);
-            itemModels().withExistingParent(n, "item/generated")
-                    .texture("layer0", modLoc("item/" + n));
+            // This is the crucial change
+            doorBlockWithRenderType(d, n, bottom, top, "cutout");
+
+            // Item model logic (unchanged)
+            ResourceLocation itemTex = modLoc("item/" + n);
+            if (existingFileHelper.exists(itemTex, TEXTURE_RESOURCE)) {
+                itemModels().withExistingParent(n, "item/generated")
+                        .texture("layer0", itemTex);
+            } else {
+                itemModels().withExistingParent(n, modLoc("block/" + n + "_bottom_left"));
+            }
         } else {
             simpleBlockWithItem(block, models().cubeAll(n, bottom));
         }
