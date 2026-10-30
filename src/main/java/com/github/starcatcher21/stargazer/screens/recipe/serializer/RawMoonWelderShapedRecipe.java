@@ -5,8 +5,8 @@ import com.mojang.serialization.DataResult;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 //? if >= 26.2 {
-/*import net.minecraft.world.attribute.EnvironmentAttributes;
- *///?}
+import net.minecraft.world.attribute.EnvironmentAttributes;
+ //?}
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -84,35 +84,35 @@ public class RawMoonWelderShapedRecipe {
         catch (Exception e) { stack2 = new ItemStack(Blocks.AIR.asItem()); }
 
         //? if >= 26.2 {
-        /*boolean isDark = world.isDarkOutside();
+        boolean isDark = world.isDarkOutside();
         int currentMoonPhase = world.environmentAttributes()
                                     .getDimensionValue(EnvironmentAttributes.MOON_PHASE)
                                     .index();
-        *///?} else {
-        boolean isDark = world.isNight();
+        //?} else {
+        /*boolean isDark = world.isNight();
         int currentMoonPhase = world.getMoonPhase();
-        //?}
+        *///?}
 
         if (this.getMoonPhase() > 7) {
             // Recipe declares "any phase" — requires daylight.
             if (isDark) return false;
             //? if >= 26.2 {
-            /*return Ingredient.testOptionalIngredient(Optional.of(item1), stack)
+            return Ingredient.testOptionalIngredient(Optional.of(item1), stack)
                     && Ingredient.testOptionalIngredient(Optional.of(item2), stack2);
-            *///?} else {
-            return testOptionalIngredient(Optional.of(item1), stack)
+            //?} else {
+            /*return testOptionalIngredient(Optional.of(item1), stack)
                     && testOptionalIngredient(Optional.of(item2), stack2);
-            //?}
+            *///?}
         }
 
         if (this.getMoonPhase() != currentMoonPhase || !isDark) return false;
         //? if >= 26.2 {
-        /*return Ingredient.testOptionalIngredient(Optional.of(item1), stack)
+        return Ingredient.testOptionalIngredient(Optional.of(item1), stack)
                 && Ingredient.testOptionalIngredient(Optional.of(item2), stack2);
-        *///?} else {
-        return testOptionalIngredient(Optional.of(item1), stack)
+        //?} else {
+        /*return testOptionalIngredient(Optional.of(item1), stack)
                 && testOptionalIngredient(Optional.of(item2), stack2);
-        //?}
+        *///?}
     }
 
     private static boolean testOptionalIngredient(Optional<Ingredient> optional, ItemStack stack) {

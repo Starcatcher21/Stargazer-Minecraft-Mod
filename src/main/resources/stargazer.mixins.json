@@ -10,7 +10,9 @@
     "WorldMixin",
     "IceBlockMixin",
     "EntityMixin",
-    "RecipeManagerMixin"
+    "RecipeManagerMixin",
+    "SnifferAccessor",
+    "SnifferMixin"
   ],
   "client": [
     "WorldRendererMixin",

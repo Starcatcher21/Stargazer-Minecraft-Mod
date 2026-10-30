@@ -24,7 +24,7 @@ public class IceBlockMixin {
             value = "INVOKE",
             target = "Lnet/minecraft/world/level/Level;setBlockAndUpdate(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)Z"
     ), cancellable = true)
-    private void notMelt(Level world, Player player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack tool, CallbackInfo ci) {
+    private void stargazer$notMelt(Level world, Player player, BlockPos pos, BlockState state, @Nullable BlockEntity blockEntity, ItemStack tool, CallbackInfo ci) {
         Optional<ResourceKey<DimensionType>> dim = world.dimensionTypeRegistration().unwrapKey();
         if (dim.isPresent() && (dim.get().equals(CustomWorlds.COSMIC_TYPE) || dim.get().equals(CustomWorlds.RED_ORB_TYPE))) {
             ci.cancel();

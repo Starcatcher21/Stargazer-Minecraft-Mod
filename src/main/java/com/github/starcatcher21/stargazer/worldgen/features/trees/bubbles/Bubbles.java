@@ -35,12 +35,12 @@ public class Bubbles extends Feature<TreeConfig> {
     }
 
     public static Tree register(String name) {
-        Tree tree = new Tree(true, name, Blocks.AIR.defaultBlockState(), ModBlock.NORED_BLOCK.get().defaultBlockState());
+        Tree tree = new Tree(true, name, Blocks.AIR.defaultBlockState(), ModBlock.UNTITLED.get().defaultBlockState());
         TREELIST.add(tree);
         return tree;
     }
     public static void init() {
-        ModBlock.NOBLUE_BLOCK.listen(block -> {
+        ModBlock.UNTITLED.listen(block -> {
             R3 = register("R3");
             G3 = register("G3");
             B3 = register("B3");
@@ -55,12 +55,12 @@ public class Bubbles extends Feature<TreeConfig> {
             B2.clearLeave();
             I2.clearLeave();
             I3.clearLeave();
-            G3.addLeave(ModBlock.NOGREEN_BLOCK.get().defaultBlockState());
-            G2.addLeave(ModBlock.NOGREEN_BLOCK.get().defaultBlockState());
-            B3.addLeave(ModBlock.NOBLUE_BLOCK.get().defaultBlockState());
-            B2.addLeave(ModBlock.NOBLUE_BLOCK.get().defaultBlockState());
-            I3.addLeave(ModBlock.NEGATIVE_BLOCK.get().defaultBlockState());
-            I2.addLeave(ModBlock.NEGATIVE_BLOCK.get().defaultBlockState());
+            G3.addLeave(ModBlock.UNTITLED.get().defaultBlockState());
+            G2.addLeave(ModBlock.UNTITLED.get().defaultBlockState());
+            B3.addLeave(ModBlock.UNTITLED.get().defaultBlockState());
+            B2.addLeave(ModBlock.UNTITLED.get().defaultBlockState());
+            I3.addLeave(ModBlock.UNTITLED.get().defaultBlockState());
+            I2.addLeave(ModBlock.UNTITLED.get().defaultBlockState());
             txt.init(R3);
             txt.init(G3);
             txt.init(B3);

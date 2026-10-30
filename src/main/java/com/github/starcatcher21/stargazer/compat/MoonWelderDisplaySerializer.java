@@ -4,7 +4,9 @@ import com.github.starcatcher21.stargazer.screens.recipe.serializer.ShapedMoonWe
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.shedaniel.rei.api.common.display.DisplaySerializer;
-import net.minecraft.nbt.CompoundTag;
+//? if < 26.2 {
+/*import net.minecraft.nbt.CompoundTag;
+*///? }
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 
@@ -20,7 +22,7 @@ public class MoonWelderDisplaySerializer implements DisplaySerializer<MoonWelder
             MoonWelderDisplay::new
     );
     //? if >= 26.2 {
-    /*@Override
+    @Override
     public MapCodec<MoonWelderDisplay> codec() {
         return CODEC;
     }
@@ -28,8 +30,8 @@ public class MoonWelderDisplaySerializer implements DisplaySerializer<MoonWelder
     public StreamCodec<RegistryFriendlyByteBuf, MoonWelderDisplay> streamCodec() {
         return PACKET_CODEC;
     }
-    *///? } else {
-    @Override
+    //? } else {
+    /*@Override
     public CompoundTag save(CompoundTag tag, MoonWelderDisplay display) {
         tag.put("recipe", LegacyDisplayCodec.encode(ShapedMoonWelderRecipe.CODEC.codec(), display.recipe()));
         return tag;
@@ -39,5 +41,5 @@ public class MoonWelderDisplaySerializer implements DisplaySerializer<MoonWelder
     public MoonWelderDisplay read(CompoundTag tag) {
         return new MoonWelderDisplay(LegacyDisplayCodec.decode(ShapedMoonWelderRecipe.CODEC.codec(), tag.get("recipe")));
     }
-    //? }
+    *///? }
 }

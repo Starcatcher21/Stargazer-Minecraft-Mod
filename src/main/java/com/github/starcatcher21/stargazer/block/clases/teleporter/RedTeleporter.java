@@ -26,14 +26,14 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelHeightAccessor;
 import net.minecraft.world.level.LevelReader;
 //? if >= 26.2 {
-/*import net.minecraft.util.BlockUtil;
+import net.minecraft.util.BlockUtil;
 import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.portal.TeleportTransition;
 import net.minecraft.world.entity.Relative;
-*///?} else {
-import net.minecraft.BlockUtil;
+//?} else {
+/*import net.minecraft.BlockUtil;
 import net.minecraft.world.level.portal.DimensionTransition;
-//?}
+*///?}
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
@@ -142,25 +142,25 @@ public class RedTeleporter extends Block {
     }
 
     //? if >= 26.2 {
-    /*@Override
+    @Override
     protected ItemStack getCloneItemStack(LevelReader world, BlockPos pos, BlockState state, boolean includeData) {
         if (state.getValue(STATE).equals(RedTeleporterState.middle)) {
             return RedOrbBlocks.POLISHED_RED_ROCK.get().asItem().getDefaultInstance();
         }
         return RedOrbBlocks.RED_ROCK_STAIRS.get().asItem().getDefaultInstance();
     }
-    *///?} else {
-    @Override
+    //?} else {
+    /*@Override
     public ItemStack getCloneItemStack(BlockState state, HitResult target, LevelReader level, BlockPos pos, Player player) {
         if (state.getValue(STATE).equals(RedTeleporterState.middle)) {
             return RedOrbBlocks.POLISHED_RED_ROCK.get().asItem().getDefaultInstance();
         }
         return RedOrbBlocks.RED_ROCK_STAIRS.get().asItem().getDefaultInstance();
     }
-    //?}
+    *///?}
 
     //? if >= 26.2 {
-    /*@Override
+    @Override
     protected BlockState updateShape(
             BlockState state,
             LevelReader world,
@@ -177,8 +177,8 @@ public class RedTeleporter extends Block {
 
         return state;
     }
-    *///?} else {
-    @Override
+    //?} else {
+    /*@Override
     protected BlockState updateShape(
             BlockState state,
             Direction direction,
@@ -192,19 +192,19 @@ public class RedTeleporter extends Block {
         }
         return state;
     }
-    //?}
+    *///?}
 
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit) {
         if (state.getValue(STATE).equals(RedTeleporterState.middle)) {
             if (world instanceof ServerLevel sw) {
                 //? if >= 26.2 {
-                /*TeleportTransition target = createTeleportTarget(sw, player, pos);
+                TeleportTransition target = createTeleportTarget(sw, player, pos);
                 if (target != null) player.teleport(target);
-                *///?} else {
-                DimensionTransition target = createTeleportTarget(sw, player, pos);
+                //?} else {
+                /*DimensionTransition target = createTeleportTarget(sw, player, pos);
                 if (target != null) player.changeDimension(target);
-                //?}
+                *///?}
             }
         }
         return InteractionResult.PASS;
@@ -216,14 +216,14 @@ public class RedTeleporter extends Block {
                 && state.getValue(STATE).equals(RedTeleporterState.middle)
                 && world instanceof ServerLevel sw) {
             //? if >= 26.2 {
-            /*TeleportTransition target = createTeleportTarget(sw, entity, pos);
+            TeleportTransition target = createTeleportTarget(sw, entity, pos);
             if (target != null) {
                 TeleportTransition newTarget = target.withPosition(
                         target.position().relative(Direction.NORTH, 1));
                 entity.teleport(newTarget);
             }
-            *///?} else {
-            DimensionTransition target = createTeleportTarget(sw, entity, pos);
+            //?} else {
+            /*DimensionTransition target = createTeleportTarget(sw, entity, pos);
             if (target != null) {
                 DimensionTransition newTarget = new DimensionTransition(
                         sw,
@@ -232,28 +232,28 @@ public class RedTeleporter extends Block {
                 );
                 entity.changeDimension(newTarget);
             }
-            //?}
+            *///?}
         }
         super.stepOn(world, pos, state, entity);
     }
 
     //? if >= 26.2 {
-    /*@Nullable
+    @Nullable
     public TeleportTransition createTeleportTarget(ServerLevel world, Entity entity, BlockPos pos) {
         ResourceKey<Level> key = world.dimension() == CustomWorlds.RED_ORB ? Level.OVERWORLD : CustomWorlds.RED_ORB;
         ServerLevel serverWorld = world.getServer().getLevel(key);
         if (serverWorld == null) return null;
         return getOrCreateExitPortalTarget(key, serverWorld, entity, pos, serverWorld.getWorldBorder());
     }
-    *///?} else {
-    @Nullable
+    //?} else {
+    /*@Nullable
     public DimensionTransition createTeleportTarget(ServerLevel world, Entity entity, BlockPos pos) {
         ResourceKey<Level> key = world.dimension() == CustomWorlds.RED_ORB ? Level.OVERWORLD : CustomWorlds.RED_ORB;
         ServerLevel serverWorld = world.getServer().getLevel(key);
         if (serverWorld == null) return null;
         return getOrCreateExitPortalTarget(key, serverWorld, entity, pos, serverWorld.getWorldBorder());
     }
-    //?}
+    *///?}
 
     public List<BlockPos> getPortalPos(BlockPos pos, ServerLevel world, WorldBorder worldBorder) {
         PoiManager pointOfInterestStorage = world.getPoiManager();
@@ -268,7 +268,7 @@ public class RedTeleporter extends Block {
     }
 
     //? if >= 26.2 {
-    /*private TeleportTransition getOrCreateExitPortalTarget(ResourceKey<Level> worldKey,
+    private TeleportTransition getOrCreateExitPortalTarget(ResourceKey<Level> worldKey,
                                                           ServerLevel world, Entity entity2,
                                                           BlockPos pos, WorldBorder worldBorder) {
         TeleportTransition.PostTeleportTransition post;
@@ -287,8 +287,8 @@ public class RedTeleporter extends Block {
                 Vec3.ZERO, entity2.getYRot(), entity2.getXRot(),
                 Relative.union(Relative.DELTA, Relative.ROTATION), post);
     }
-    *///?} else {
-    private DimensionTransition getOrCreateExitPortalTarget(ResourceKey<Level> worldKey,
+    //?} else {
+    /*private DimensionTransition getOrCreateExitPortalTarget(ResourceKey<Level> worldKey,
                                                             ServerLevel world, Entity entity2,
                                                             BlockPos pos, WorldBorder worldBorder) {
         DimensionTransition.PostDimensionTransition post;
@@ -306,7 +306,7 @@ public class RedTeleporter extends Block {
         return new DimensionTransition(world, Vec3.atCenterOf(rectangle.minCorner.above()),
                 Vec3.ZERO, entity2.getYRot(), entity2.getXRot(), post);
     }
-    //?}
+    *///?}
 
     @Override
     protected FluidState getFluidState(BlockState state) {
@@ -325,15 +325,15 @@ public class RedTeleporter extends Block {
 
     protected VoxelShape collision(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
         //? if >= 26.2 {
-        /*Map<Direction, VoxelShape> SIDEMAP = Shapes.rotateAll(SIDESHAPE);
-         *///?} else {
-        Map<Direction, VoxelShape> SIDEMAP = Map.of(
+        Map<Direction, VoxelShape> SIDEMAP = Shapes.rotateAll(SIDESHAPE);
+         //?} else {
+        /*Map<Direction, VoxelShape> SIDEMAP = Map.of(
                 Direction.NORTH, SIDESHAPE,
                 Direction.SOUTH, com.github.starcatcher21.stargazer.helpers.Shapes.rotateShape(Direction.NORTH, Direction.SOUTH, SIDESHAPE),
                 Direction.EAST, com.github.starcatcher21.stargazer.helpers.Shapes.rotateShape(Direction.NORTH, Direction.EAST, SIDESHAPE),
                 Direction.WEST, com.github.starcatcher21.stargazer.helpers.Shapes.rotateShape(Direction.NORTH, Direction.WEST, SIDESHAPE)
         );
-        //?}
+        *///?}
         RedTeleporterState cts = state.getValue(STATE);
         if (cts == RedTeleporterState.north) return SIDEMAP.get(Direction.NORTH);
         if (cts == RedTeleporterState.south) return SIDEMAP.get(Direction.SOUTH);
@@ -455,28 +455,28 @@ public class RedTeleporter extends Block {
         BlockPos blockPos2 = null;
         WorldBorder worldBorder = world.getWorldBorder();
         //? if >= 26.2 {
-        /*int i = Math.min(world.getMaxY(), world.getMinY() + world.getHeight() - 1);
-         *///?} else {
-        int i = Math.min(((LevelHeightAccessor) world).getMaxBuildHeight(), ((LevelHeightAccessor) world).getMinBuildHeight() + world.getHeight() - 1);
-        //?}
+        int i = Math.min(world.getMaxY(), world.getMinY() + world.getHeight() - 1);
+         //?} else {
+        /*int i = Math.min(((LevelHeightAccessor) world).getMaxBuildHeight(), ((LevelHeightAccessor) world).getMinBuildHeight() + world.getHeight() - 1);
+        *///?}
         boolean j = true;
         BlockPos.MutableBlockPos mutable = pos.mutable();
         for (BlockPos.MutableBlockPos mutable2 : BlockPos.spiralAround(pos, 0, Direction.EAST, Direction.SOUTH)) {
             int k = Math.min(i, world.getHeight(Heightmap.Types.MOTION_BLOCKING, mutable2.getX(), mutable2.getZ()));
             if (!worldBorder.isWithinBounds(mutable2)) continue;
             //? if >= 26.2 {
-            /*for (l = k; l >= world.getMinY(); --l) {
-             *///?} else {
-            for (l = k; l >= ((LevelHeightAccessor) world).getMinBuildHeight(); --l) {
-                //?}
+            for (l = k; l >= world.getMinY(); --l) {
+             //?} else {
+            /*for (l = k; l >= ((LevelHeightAccessor) world).getMinBuildHeight(); --l) {
+                *///?}
                 mutable2.setY(l);
                 if (!this.isBlockStateValid(world, mutable2)) continue;
                 m = l;
                 //? if >= 26.2 {
-                /*while (l > world.getMinY() && this.isBlockStateValid(world, mutable2.move(Direction.DOWN))) {
-                 *///?} else {
-                while (l > ((LevelHeightAccessor) world).getMinBuildHeight() && this.isBlockStateValid(world, mutable2.move(Direction.DOWN))) {
-                    //?}
+                while (l > world.getMinY() && this.isBlockStateValid(world, mutable2.move(Direction.DOWN))) {
+                 //?} else {
+                /*while (l > ((LevelHeightAccessor) world).getMinBuildHeight() && this.isBlockStateValid(world, mutable2.move(Direction.DOWN))) {
+                    *///?}
                     --l;
                 }
                 if (l + 4 > i || (n = m - l) > 0 && n < 3) continue;
@@ -501,16 +501,16 @@ public class RedTeleporter extends Block {
             int o;
             if (worldKey.equals(CustomWorlds.RED_ORB)) {
                 //? if >= 26.2 {
-                /*o = Math.max(world.getMinY() - -1, 120);
-                 *///?} else {
-                o = Math.max(((LevelHeightAccessor) world).getMinBuildHeight() - -1, 120);
-                //?}
+                o = Math.max(world.getMinY() - -1, 120);
+                 //?} else {
+                /*o = Math.max(((LevelHeightAccessor) world).getMinBuildHeight() - -1, 120);
+                *///?}
             } else {
                 //? if >= 26.2 {
-                /*o = Math.max(world.getMinY() - -1, 70);
-                 *///?} else {
-                o = Math.max(((LevelHeightAccessor) world).getMinBuildHeight() - -1, 70);
-                //?}
+                o = Math.max(world.getMinY() - -1, 70);
+                 //?} else {
+                /*o = Math.max(((LevelHeightAccessor) world).getMinBuildHeight() - -1, 70);
+                *///?}
             }
             if (p < o) {
                 return Optional.empty();

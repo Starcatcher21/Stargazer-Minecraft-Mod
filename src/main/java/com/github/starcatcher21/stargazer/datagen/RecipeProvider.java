@@ -6,14 +6,14 @@ import com.github.starcatcher21.stargazer.block.ModBlock;
 import com.github.starcatcher21.stargazer.block.register.*;
 import com.github.starcatcher21.stargazer.item.ModItems;
 //? if fabric {
-/*import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
-*///?} else {
-import net.minecraft.data.PackOutput;
+//?} else {
+/*import net.minecraft.data.PackOutput;
 //? if >= 26.2 {
-/*import net.minecraft.data.recipes.RecipeProvider.Runner;
-*///?}
+import net.minecraft.data.recipes.RecipeProvider.Runner;
 //?}
+*///?}
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
@@ -32,17 +32,17 @@ import java.util.concurrent.CompletableFuture;
 
 public class RecipeProvider
 //? if fabric {
-        /*extends FabricRecipeProvider {
+        extends FabricRecipeProvider {
     public RecipeProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
         super(output, registriesFuture);
     }
-*///?} else if >= 26.2 {
+//?} else if >= 26.2 {
         /*extends Runner {
     public RecipeProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
         super(output, registriesFuture);
     }
 *///?} else {
-        extends net.minecraft.data.recipes.RecipeProvider {
+        /*extends net.minecraft.data.recipes.RecipeProvider {
     private final PackOutput packOutput;
     private final CompletableFuture<HolderLookup.Provider> registriesFuture;
 
@@ -56,14 +56,14 @@ public class RecipeProvider
     protected void buildRecipes(RecipeOutput recipeOutput, HolderLookup.Provider registries) {
         new RecipeBody(registries, recipeOutput).buildRecipes();
     }
-//?}
+*///?}
 
     //? if >= 26.2 {
-    /*@Override
+    @Override
     protected net.minecraft.data.recipes.RecipeProvider createRecipeProvider(HolderLookup.Provider wrapperLookup, RecipeOutput recipeExporter) {
         return new RecipeBody(wrapperLookup, recipeExporter);
     }
-    *///?}
+    //?}
 
     private class RecipeBody extends net.minecraft.data.recipes.RecipeProvider {
         private final HolderLookup.Provider wrapperLookup;
@@ -72,17 +72,17 @@ public class RecipeProvider
 
         private RecipeBody(HolderLookup.Provider wrapperLookup, RecipeOutput recipeOutput) {
             //? if >= 26.2 {
-            /*super(wrapperLookup, recipeOutput);
-            *///?} else {
-            super(RecipeProvider.this.packOutput, RecipeProvider.this.registriesFuture);
-            //?}
+            super(wrapperLookup, recipeOutput);
+            //?} else {
+            /*super(RecipeProvider.this.packOutput, RecipeProvider.this.registriesFuture);
+            *///?}
             this.wrapperLookup = wrapperLookup;
             this.recipeOutput = recipeOutput;
             this.output = recipeOutput;
         }
 
         //? if < 26.2 {
-        private ShapedRecipeBuilder shaped(RecipeCategory category, ItemLike result) {
+        /*private ShapedRecipeBuilder shaped(RecipeCategory category, ItemLike result) {
             return ShapedRecipeBuilder.shaped(category, result);
         }
 
@@ -121,11 +121,11 @@ public class RecipeProvider
             net.minecraft.data.recipes.RecipeProvider.oreBlasting(
                     output, ingredients, recipeCategory, result, experience, cookingTime, group);
         }
-        //?}
+        *///?}
 
             //? if >= 26.2 {
-            /*@Override
-            *///?}
+            @Override
+            //?}
             public void buildRecipes() {
                 HolderGetter<Item> items = wrapperLookup.lookupOrThrow(Registries.ITEM);
 
@@ -242,6 +242,10 @@ public class RecipeProvider
                 doorBuilder(MoonBlocks.MOON_PLANKS_DOOR.get(), Ingredient.of(MoonBlocks.MOON_PLANKS.get()))
                         .group("wooden_door")
                         .unlockedBy("wood", has(MoonBlocks.MOON_PLANKS.get()))
+                        .save(output);
+                doorBuilder(RedOrbBlocks.SPIRO_PLANKS_DOOR.get(), Ingredient.of(RedOrbBlocks.SPIRO_PLANKS.get()))
+                        .group("wooden_door")
+                        .unlockedBy("wood", has(RedOrbBlocks.SPIRO_PLANKS.get()))
                         .save(output);
                 doorBuilder(StarBlocks.STAR_PLANKS_DOOR.get(), Ingredient.of(StarBlocks.STAR_PLANKS.get()))
                         .group("wooden_door")
@@ -579,6 +583,12 @@ public class RecipeProvider
                         .pattern("##")
                         .unlockedBy(getHasName(RedOrbBlocks.RED_ROCK.get()), this.has(RedOrbBlocks.RED_ROCK.get()))
                         .save(this.output);
+                shaped(RecipeCategory.BUILDING_BLOCKS, ModBlock.SPACE_JAM_BLOCK.get(), 4)
+                        .define('#', ModItems.SPACE_JAM.get())
+                        .pattern("##")
+                        .pattern("##")
+                        .unlockedBy(getHasName(ModItems.SPACE_JAM.get()), this.has(ModItems.SPACE_JAM.get()))
+                        .save(this.output);
                 shaped(RecipeCategory.BUILDING_BLOCKS, MoonBlocks.COMET_BLOCK.get(), 1)
                         .define('#', ModItems.COMET_FRAGMENT.get()) // Fixed with .get()
                         .pattern("##")
@@ -683,10 +693,10 @@ public class RecipeProvider
     }
 
     //? if fabric || >= 26.2 {
-    /*@Override
+    @Override
     public String getName() {
         return "stargazer";
     }
-    *///?}
+    //?}
 }
 //? }

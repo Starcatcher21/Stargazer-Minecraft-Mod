@@ -11,14 +11,16 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.WorldGenLevel;
 //? if >= 26.2 {
-/*import net.minecraft.world.level.block.FlowerBedBlock;
-*///? } else {
-import com.github.starcatcher21.stargazer.block.older1211.FlowerBedBlock;
-//? }
+import net.minecraft.world.level.block.FlowerBedBlock;
+//? } else {
+/*import com.github.starcatcher21.stargazer.block.older1211.FlowerBedBlock;
+*///? }
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.Feature;
+//? if < 26.3 {
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
+//? }
 
 public class Gradi extends Feature<NoneFeatureConfiguration> {
     public Gradi(Codec<NoneFeatureConfiguration> codec) {
@@ -56,12 +58,12 @@ public class Gradi extends Feature<NoneFeatureConfiguration> {
     private BlockState getState() {
         Random rand = new Random();
         //? if >= 26.2 {
-        /*Direction direction = FlowerBedBlock.FACING.getPossibleValues().get(rand.nextInt(FlowerBedBlock.FACING.getPossibleValues().toArray().length));
+        Direction direction = FlowerBedBlock.FACING.getPossibleValues().get(rand.nextInt(FlowerBedBlock.FACING.getPossibleValues().toArray().length));
         BlockState forgor = Darkness.GRADI.get().defaultBlockState().setValue(FlowerBedBlock.FACING, direction).setValue(FlowerBedBlock.AMOUNT, rand.nextInt(1,4));
-        *///? } else {
-        Direction direction = FlowerBedBlock.FACING.getPossibleValues().stream().toList().get(rand.nextInt(FlowerBedBlock.FACING.getPossibleValues().toArray().length));
+        //? } else {
+        /*Direction direction = FlowerBedBlock.FACING.getPossibleValues().stream().toList().get(rand.nextInt(FlowerBedBlock.FACING.getPossibleValues().toArray().length));
         BlockState forgor = Darkness.GRADI.get().defaultBlockState().setValue(FlowerBedBlock.FACING, direction).setValue(FlowerBedBlock.AMOUNT, rand.nextInt(1,4));
-        //? }
+        *///? }
         return forgor;
     }
 

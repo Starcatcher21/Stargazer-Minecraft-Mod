@@ -2,17 +2,17 @@ package com.github.starcatcher21.stargazer.item.armor;
 
 import com.github.starcatcher21.stargazer.CustomTags;
 //? if >= 26.2 {
-/*import com.google.common.collect.Maps;
+import com.google.common.collect.Maps;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.equipment.ArmorType;
 import java.util.Map;
-*///? } else {
-import com.github.starcatcher21.stargazer.Stargazer;
+//? } else {
+/*import com.github.starcatcher21.stargazer.Stargazer;
 import net.minecraft.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.ArmorItem;
@@ -23,10 +23,10 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.function.Supplier;
-//? }
+*///? }
 
 //? if >= 26.2 {
-/*public interface ArmorMaterial {
+public interface ArmorMaterial {
     private static Map<ArmorType, Integer> makeDefense(final int boots, final int legs, final int chest, final int helm, final int body) {
         return Maps.newEnumMap(Map.of(ArmorType.BOOTS, boots, ArmorType.LEGGINGS, legs, ArmorType.CHESTPLATE, chest, ArmorType.HELMET, helm, ArmorType.BODY, body));
     }
@@ -47,8 +47,8 @@ import java.util.function.Supplier;
             13, makeDefense(3, 6, 7, 2, 5), 40, SoundEvents.ARMOR_EQUIP_DIAMOND, 1.0F, 0.3F, CustomTags.REPAIR_AMETHYST, EquipmentAsset.AMETHYST
     );
 }
-*///? } else {
-public class ArmorMaterial {
+//? } else {
+/*public class ArmorMaterial {
 
     public static final DeferredRegister<net.minecraft.world.item.ArmorMaterial> ARMOR_MATERIALS =
             DeferredRegister.create(BuiltInRegistries.ARMOR_MATERIAL, Stargazer.MOD_ID);
@@ -129,7 +129,7 @@ public class ArmorMaterial {
             float toughness,
             float knockbackResistance,
             Supplier<Ingredient> repairIngredient,
-            ResourceLocation assetId
+            Identifier assetId
     ) {
         return ARMOR_MATERIALS.register(name, () -> new net.minecraft.world.item.ArmorMaterial(
                 defenseMap,
@@ -146,4 +146,4 @@ public class ArmorMaterial {
         ARMOR_MATERIALS.register(modBus);
     }
 }
-//? }
+*///? }

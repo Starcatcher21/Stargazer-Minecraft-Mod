@@ -1,5 +1,5 @@
 /*? if fabric {*/
-/*package com.github.starcatcher21.stargazer;
+package com.github.starcatcher21.stargazer;
 
 import com.github.starcatcher21.stargazer.datagen.*;
 import com.github.starcatcher21.stargazer.datagen.lang.ModEngLangProvider;
@@ -19,6 +19,7 @@ public class StargazerDataGenerator implements DataGeneratorEntrypoint {
 		pack.addProvider(LootTableProvider::new);
 		pack.addProvider(FishingLootPrivider::new);
 		pack.addProvider(ChestLootPrivider::new);
+        pack.addProvider(GiftLootPrivider::new);
 		pack.addProvider(RecipeProvider::new);
 		pack.addProvider(WorldGenerator::new);
 		pack.addProvider(ModelProvider::new);
@@ -42,4 +43,4 @@ public class StargazerDataGenerator implements DataGeneratorEntrypoint {
 		WorldgenDataBootstrap.addTo(registryBuilder);
 	}
 }
-*//*?}*/
+/*?}*/

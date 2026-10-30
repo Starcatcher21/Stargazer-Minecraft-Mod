@@ -6,20 +6,20 @@ import com.github.starcatcher21.stargazer.block.clases.star.cosmic.CosmicBlock;
 import com.github.starcatcher21.stargazer.block.clases.star.leaves.StarLeaves;
 
 //? if >= 26.2 {
-/*import net.minecraft.client.renderer.rendertype.RenderSetup;
+import net.minecraft.client.renderer.rendertype.RenderSetup;
 import net.minecraft.client.renderer.rendertype.RenderType;
-*///?} else {
-import com.mojang.blaze3d.vertex.DefaultVertexFormat;
+//?} else {
+/*import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.resources.ResourceLocation;
-//?}
+import net.minecraft.resources.Identifier;
+*///?}
 
 public class CustomRenderLayers {
 
     //? if >= 26.2 {
-    /*public static final RenderType COSMIC = RenderType.create(
+    public static final RenderType COSMIC = RenderType.create(
             "cosmic",
             RenderSetup.builder(CustomRederPipelines.COSMIC)
                     .withTexture("Sampler0", CosmicBlock.TEXTURE)
@@ -74,8 +74,8 @@ public class CustomRenderLayers {
                     .withTexture("Sampler0", Aurora.TEXTURE)
                     .createRenderSetup()
     );
-    *///?} else {
-    /* ---------------- 1.21.1 legacy RenderType API ------------------ */
+    //?} else {
+    /*/^ ---------------- 1.21.1 legacy RenderType API ------------------ ^/
 
     public static final RenderType COSMIC = RenderType.create(
             "cosmic",
@@ -212,5 +212,5 @@ public class CustomRenderLayers {
                     .setLightmapState(RenderStateShard.LIGHTMAP)
                     .createCompositeState(false)
     );
-    //?}
+    *///?}
 }

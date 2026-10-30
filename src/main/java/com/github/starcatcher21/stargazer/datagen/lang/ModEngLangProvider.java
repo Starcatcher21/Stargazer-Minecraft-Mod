@@ -17,12 +17,12 @@ import com.github.starcatcher21.stargazer.entity.EntityRegistry;
 import com.github.starcatcher21.stargazer.item.ModItems;
 import com.github.starcatcher21.stargazer.item.WishingStars;
 //? if fabric {
-/*import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
-*///?} else {
-import net.minecraft.data.PackOutput;
+//?} else {
+/*import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.common.data.LanguageProvider;
-//?}
+*///?}
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -32,12 +32,12 @@ import java.util.concurrent.CompletableFuture;
 
 public class ModEngLangProvider
 //? if fabric {
-        /*extends FabricLanguageProvider {
+        extends FabricLanguageProvider {
     public ModEngLangProvider(FabricPackOutput dataGenerator, CompletableFuture<HolderLookup.Provider> registryLookup) {
         super(dataGenerator, "en_us", registryLookup);
     }
-*///?} else {
-        extends LanguageProvider {
+//?} else {
+        /*extends LanguageProvider {
     public ModEngLangProvider(PackOutput output) {
         super(output, Stargazer.MOD_ID, "en_us");
     }
@@ -66,16 +66,16 @@ public class ModEngLangProvider
         } else if (key instanceof net.minecraft.tags.TagKey<?> tag) {
             add(tag, value);
         //? if >= 26.2 {
-        /*} else if (key instanceof net.minecraft.resources.Identifier identifier) {
-        *///?} else {
-        } else if (key instanceof net.minecraft.resources.ResourceLocation identifier) {
-        //?}
+        } else if (key instanceof net.minecraft.resources.Identifier identifier) {
+        //?} else {
+        /^} else if (key instanceof net.minecraft.resources.ResourceLocation identifier) {
+        ^///?}
             add(identifier.toLanguageKey(), value);
         } else {
             throw new IllegalArgumentException("Unsupported translation key type: " + key.getClass().getName());
         }
     }
-//?}
+*///?}
 
     @FunctionalInterface
     private interface TranslationSink {
@@ -83,7 +83,7 @@ public class ModEngLangProvider
     }
 
     //? if fabric {
-    /*@Override
+    @Override
     public void generateTranslations(HolderLookup.Provider wrapperLookup, FabricLanguageProvider.TranslationBuilder translationBuilder) {
         populateTranslations((key, value) -> {
             if (key instanceof String string) {
@@ -102,20 +102,21 @@ public class ModEngLangProvider
             } else if (key instanceof net.minecraft.tags.TagKey<?> tag) {
                 translationBuilder.add(tag, value);
             //? if >= 26.2 {
-            /^} else if (key instanceof net.minecraft.resources.Identifier identifier) {
-            ^///?} else {
-            } else if (key instanceof net.minecraft.resources.ResourceLocation identifier) {
-            //?}
+            } else if (key instanceof net.minecraft.resources.Identifier identifier) {
+            //?} else {
+            /*} else if (key instanceof net.minecraft.resources.ResourceLocation identifier) {
+            *///?}
                 translationBuilder.add(identifier, value);
             } else {
                 throw new IllegalArgumentException("Unsupported translation key type: " + key.getClass().getName());
             }
         });
     }
-    *///?}
+    //?}
 
     private static void populateTranslations(TranslationSink translationBuilder) {
         translationBuilder.add(ModBlock.AMETHYST_BRICKS.get(), "Amethyst Bricks");
+        translationBuilder.add(MoonBlocks.BRUNT.get(), "Brunt");
         translationBuilder.add(ModItems.SPACE_JAM.get(), "Space Jam");
         translationBuilder.add("item.stargazer.space_jam.effect.empty", "Space Jam");
         translationBuilder.add(ModItems.STAR_BOOK.get(), "Book of Stars 1");
@@ -457,8 +458,8 @@ public class ModEngLangProvider
         translationBuilder.add(Hedges.MOON_HEDGE.get(), "Moon Hedge");
         translationBuilder.add(Hedges.OAK_HEDGE.get(), "Oak Hedge");
         //? if >= 26.2 {
-        /*translationBuilder.add(Hedges.PALE_HEDGE.get(), "Pale Oak Hedge");
-        *///? }
+        translationBuilder.add(Hedges.PALE_HEDGE.get(), "Pale Oak Hedge");
+        //? }
         translationBuilder.add(Hedges.SPRUCE_HEDGE.get(), "Spruce Hedge");
         translationBuilder.add(Hedges.STAR_HEDGE.get(), "Star Hedge");
         translationBuilder.add(Hedges.YERI_HEDGE.get(), "Yeri Hedge");
@@ -485,7 +486,10 @@ public class ModEngLangProvider
         translationBuilder.add(ModItems.STAR_HAMMER.get(), "Star Hammer");
         translationBuilder.add(RedOrbBlocks.SPIRO_LOG.get(), "Spiro Log");
         translationBuilder.add(RedOrbBlocks.SPIRO_PLANKS.get(), "Spiro Planks");
+        translationBuilder.add(ModBlock.SPACE_JAM_BLOCK.get(), "Space Jam Block");
+        translationBuilder.add(ModBlock.UNTITLED.get(), "Untitled");
         translationBuilder.add(RedOrbBlocks.SPIRO_PLANKS_SLAB.get(), "Spiro Planks Slab");
+        translationBuilder.add(RedOrbBlocks.SPIRO_PLANKS_DOOR.get(), "Spiro Planks Door");
         translationBuilder.add(RedOrbBlocks.SPIRO_PLANKS_STAIRS.get(), "Spiro Planks Stairs");
         translationBuilder.add(RedOrbBlocks.SPIRO_PLANKS_BUTTON.get(), "Spiro Planks Button");
         translationBuilder.add(RedOrbBlocks.SPIRO_PLANKS_FENCE_GATE.get(), "Spiro Planks Fence Gate");
@@ -549,10 +553,10 @@ public class ModEngLangProvider
 
     private static String potionTranslationName(Object potion) {
         //? if >= 26.2 {
-        /*return ((net.minecraft.world.item.alchemy.Potion) potion).name();
-        *///?} else {
-        return BuiltInRegistries.POTION.getKey((net.minecraft.world.item.alchemy.Potion) potion).getPath();
-        //?}
+        return ((net.minecraft.world.item.alchemy.Potion) potion).name();
+        //?} else {
+        /*return BuiltInRegistries.POTION.getKey((net.minecraft.world.item.alchemy.Potion) potion).getPath();
+        *///?}
     }
 }
 //?}

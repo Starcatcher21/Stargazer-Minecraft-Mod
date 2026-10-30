@@ -8,15 +8,33 @@ import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.mojang.serialization.JsonOps;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.chunk.ChunkGenerator;
+import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.Feature;
+import com.github.starcatcher21.starlib.worldgen.features.trees.TreeConfig;
+//? if < 26.3 {
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
+//? }
 
-public class BlackStonePillars extends Feature<TreeConfig> {
+//? if < 26.3 {
+public class BlackStonePillars
+        extends Feature<TreeConfig>
+        //? } else {
+/*public record BlackStonePillars(TreeConfig config) implements Feature
+*///? }
+{
     public static final ImmutableList<Direction> GROW_DIRECTIONS = ImmutableList.of(
             Direction.SOUTH, Direction.NORTH, Direction.EAST, Direction.WEST
     );
@@ -25,9 +43,15 @@ public class BlackStonePillars extends Feature<TreeConfig> {
     public static Tree medium = register("medium");
     public static Tree large = register("large");
 
-    public BlackStonePillars(Codec<TreeConfig> codec) {
+    //? if < 26.3 {
+    public BlackStonePillars(
+            Codec<TreeConfig> codec
+    ) {
         super(codec);
     }
+    //? } else {
+    /*public static final MapCodec<BlackStonePillars> CODEC = RecordCodecBuilder.mapCodec((i) -> i.group(TreeConfig.CODEC.fieldOf("config").forGetter(BlackStonePillars::config)).apply(i, BlackStonePillars::new));
+    *///? }
 
     public static Tree register(String name) {
         Tree tree = new Tree(true, name, Blocks.BLACKSTONE.defaultBlockState(), Blocks.BLACKSTONE.defaultBlockState());
@@ -41,11 +65,21 @@ public class BlackStonePillars extends Feature<TreeConfig> {
     }
 
     @Override
-    public boolean place(FeaturePlaceContext<TreeConfig> context) {
+    public boolean place(
+            //? if < 26.3 {
+            FeaturePlaceContext<TreeConfig> context
+            //? } else {
+            /*WorldGenLevel level, ChunkGenerator chunkGenerator, RandomSource randomSource, BlockPos blockPos
+            *///? }
+            ) {
+        //? if < 26.3 {
         TreeConfig config = context.config();
-        boolean chunks = !context.level().hasNearbyAlivePlayer(context.origin().getX(), context.origin().getY(), context.origin().getZ(), 100);
+        BlockPos blockPos = context.origin();
+        var level = context.level();
+        //? }
+        boolean chunks = !level.hasNearbyAlivePlayer(blockPos.getX(), blockPos.getY(), blockPos.getZ(), 100);
         List<Block> growOn = config.growOn.stream().map(BlockBehaviour.BlockStateBase::getBlock).toList();
-        if (!growOn.contains(context.level().getBlockState(context.origin().below(1)).getBlock()) && chunks) {
+        if (!growOn.contains(level.getBlockState(blockPos.below(1)).getBlock()) && chunks) {
             return false;
         }
         List<String> allowed = config.NAMES;
@@ -55,28 +89,35 @@ public class BlackStonePillars extends Feature<TreeConfig> {
         } else {
             TREES = TREELIST.stream().filter(name -> allowed.contains(name.name)).toList();
         }
-        BlockPos pos = context.origin();
         java.util.Random random = new java.util.Random();
         Tree tree = TREES.get(random.nextInt(TREES.size()));
         if (tree.ROTATO) {
             Direction dir = GROW_DIRECTIONS.get(random.nextInt(GROW_DIRECTIONS.size()));
             Tree rotated = DirectionalTree.getFromNorth(tree, dir);
-            if (rotated.canGrow(context.level(), pos)) {
-                rotated.Grow(context.level(), pos);
-                if (context.level().getBlockState(pos.below(1)).getBlock().equals(MoonBlocks.MOON_ROCK_NYLIUM.get())) {
-                    this.setBlock(context.level(), pos.below(1), MoonBlocks.MOON_ROCK.get().defaultBlockState());
+            if (rotated.canGrow(level, blockPos)) {
+                rotated.Grow(level, blockPos);
+                if (level.getBlockState(blockPos.below(1)).getBlock().equals(MoonBlocks.MOON_ROCK_NYLIUM.get())) {
+                    this.setBlock(level, blockPos.below(1), MoonBlocks.MOON_ROCK.get().defaultBlockState());
                 }
                 return true;
             }
         } else {
-            if (tree.canGrow(context.level(), pos)) {
-                tree.Grow(context.level(), pos);
-                if (context.level().getBlockState(pos.below(1)).getBlock().equals(MoonBlocks.MOON_ROCK_NYLIUM.get())) {
-                    this.setBlock(context.level(), pos.below(1), MoonBlocks.MOON_ROCK.get().defaultBlockState());
+            if (tree.canGrow(level, blockPos)) {
+                tree.Grow(level, blockPos);
+                if (level.getBlockState(blockPos.below(1)).getBlock().equals(MoonBlocks.MOON_ROCK_NYLIUM.get())) {
+                    this.setBlock(level, blockPos.below(1), MoonBlocks.MOON_ROCK.get().defaultBlockState());
                 }
                 return true;
             }
         }
         return false;
     }
+
+    //? if >= 26.3 {
+    /*@Override
+    public MapCodec<? extends Feature> codec() {
+        return CODEC;
+    }
+
+    *///? }
 }

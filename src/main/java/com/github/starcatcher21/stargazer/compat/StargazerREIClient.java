@@ -7,35 +7,31 @@ import com.github.starcatcher21.stargazer.screens.handled.MoonWelderHandled;
 import com.github.starcatcher21.stargazer.screens.handled.StarCrusherHandled;
 import com.github.starcatcher21.stargazer.screens.handled.StarforgeHandled;
 //? if >= 26.2 {
-/*import com.github.starcatcher21.stargazer.screens.recipe.serializer.ShapedMoonWelderRecipeDisplay;
+import com.github.starcatcher21.stargazer.screens.recipe.serializer.ShapedMoonWelderRecipeDisplay;
 import com.github.starcatcher21.stargazer.screens.recipe.serializer.ShapedStarforgeRecipeDisplay;
 import com.github.starcatcher21.stargazer.screens.recipe.serializer.StarCrusherRecipeDisplay;
-*///?} else {
-import com.github.starcatcher21.stargazer.screens.recipe.RecipeTypes;
+//?} else {
+/*import com.github.starcatcher21.stargazer.screens.recipe.RecipeTypes;
 import com.github.starcatcher21.stargazer.screens.recipe.StarCrusherRecipe;
 import com.github.starcatcher21.stargazer.screens.recipe.serializer.ShapedMoonWelderRecipe;
 import com.github.starcatcher21.stargazer.screens.recipe.serializer.ShapedStarCrusherRecipe;
 import com.github.starcatcher21.stargazer.screens.recipe.serializer.ShapedStarforgeRecipe;
-//?}
+*///?}
 import com.github.starcatcher21.starlib.mechanics.star.FallingObjectsList;
 import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.plugins.REIClientPlugin;
 import me.shedaniel.rei.api.client.registry.category.CategoryRegistry;
 import me.shedaniel.rei.api.client.registry.display.DisplayRegistry;
 import me.shedaniel.rei.api.client.registry.screen.ScreenRegistry;
-import me.shedaniel.rei.api.common.display.DisplaySerializerRegistry;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 //? if neoforge {
-import me.shedaniel.rei.forge.REIPluginClient;
-//? }
-import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
+/*import me.shedaniel.rei.forge.REIPluginClient;
+*///? }
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.RecipeHolder;
 
 //? if neoforge {
-@REIPluginClient
-//? }
+/*@REIPluginClient
+*///? }
 public class StargazerREIClient implements REIClientPlugin {
 
     @Override
@@ -59,7 +55,7 @@ public class StargazerREIClient implements REIClientPlugin {
     @Override
     public void registerDisplays(DisplayRegistry registry) {
         //? if >= 26.2 {
-        /*registry.beginRecipeFiller(ShapedStarforgeRecipeDisplay.class)
+        registry.beginRecipeFiller(ShapedStarforgeRecipeDisplay.class)
                 .filterType(ShapedStarforgeRecipeDisplay.SERIALIZER)
                 .fill(StarforgeDisplay::new);
         registry.beginRecipeFiller(ShapedMoonWelderRecipeDisplay.class)
@@ -68,8 +64,8 @@ public class StargazerREIClient implements REIClientPlugin {
         registry.beginRecipeFiller(StarCrusherRecipeDisplay.class)
                 .filterType(StarCrusherRecipeDisplay.SERIALIZER)
                 .fill(StarCrusherDisplay::new);
-        *///?} else {
-        registry.registerRecipeFiller(
+        //?} else {
+        /*registry.registerRecipeFiller(
                 ShapedStarforgeRecipe.class,
                 RecipeTypes.STARFORGE.get(),
                 StarforgeDisplay::new
@@ -86,7 +82,7 @@ public class StargazerREIClient implements REIClientPlugin {
                 RecipeTypes.STAR_CRUSHER.get(),
                 StarCrusherDisplay::new
         );
-        //?}
+        *///?}
 
         for (FallingObjectsList objectsList : FallingObjectsList.list2) {
             registry.add(new StargazingDisplay(objectsList));

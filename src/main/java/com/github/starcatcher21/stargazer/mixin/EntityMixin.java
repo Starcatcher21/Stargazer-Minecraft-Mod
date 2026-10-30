@@ -26,12 +26,12 @@ public abstract class EntityMixin {
     public abstract boolean isInWater();
 
     //? if >= 26.2 {
-    /*@Shadow
-    public double fallDistance;
-    *///? } else {
     @Shadow
+    public double fallDistance;
+    //? } else {
+    /*@Shadow
     public float fallDistance;
-    //? }
+    *///? }
 
     @Shadow
     public Optional<BlockPos> mainSupportingBlockPos;
@@ -53,7 +53,7 @@ public abstract class EntityMixin {
 
 
     @Inject(method = "checkFallDamage", at = @At("HEAD"), cancellable = true)
-    private void checkFall(double d, boolean bl, BlockState blockState, BlockPos blockPos, CallbackInfo ci) {
+    private void stargazer$checkFall(double d, boolean bl, BlockState blockState, BlockPos blockPos, CallbackInfo ci) {
         Optional<ResourceKey<DimensionType>> dim = this.level.dimensionTypeRegistration().unwrapKey();
         if (dim.isPresent() && dim.get().equals(CustomWorlds.COSMIC_TYPE)) {
             if (!this.isInWater() && d < 0.0) {
@@ -63,10 +63,10 @@ public abstract class EntityMixin {
             if (bl) {
                 if (this.fallDistance / 1.25 > 0.0) {
                     //? if >= 26.2 {
-                    /*blockState.getBlock().fallOn(this.level(), blockState, blockPos, (Entity) (Object) this, this.fallDistance / 1.25);
-                    *///? } else {
-                    blockState.getBlock().fallOn(this.level(), blockState, blockPos, (Entity) (Object) this, (float) (this.getMaxFallDistance() / 1.25));
-                    //? }
+                    blockState.getBlock().fallOn(this.level(), blockState, blockPos, (Entity) (Object) this, this.fallDistance / 1.25);
+                    //? } else {
+                    /*blockState.getBlock().fallOn(this.level(), blockState, blockPos, (Entity) (Object) this, (float) (this.getMaxFallDistance() / 1.25));
+                    *///? }
                     this.level()
                             .gameEvent(
                                     GameEvent.HIT_GROUND,

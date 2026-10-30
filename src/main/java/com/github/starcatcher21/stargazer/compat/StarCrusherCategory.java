@@ -3,7 +3,6 @@ package com.github.starcatcher21.stargazer.compat;
 import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.block.clases.energy.machines.StarCrusher;
 import com.github.starcatcher21.stargazer.block.register.Energy;
-import com.google.common.collect.Lists;
 import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.gui.Renderer;
@@ -15,16 +14,13 @@ import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.resources.Identifier;
+
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Optional;
-
-import static com.github.starcatcher21.stargazer.screens.handled.MoonWelderHandled.*;
 
 public class StarCrusherCategory implements DisplayCategory<StarCrusherDisplay> {
-    public static final ResourceLocation TEXTURE =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/star_crusher_gui.png");
+    public static final Identifier TEXTURE =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/star_crusher_gui.png");
     public static final CategoryIdentifier<StarCrusherDisplay> STARFORGE = CategoryIdentifier.of(Stargazer.MOD_ID, "star_crusher");
     @Override
     public CategoryIdentifier<? extends StarCrusherDisplay> getCategoryIdentifier() {

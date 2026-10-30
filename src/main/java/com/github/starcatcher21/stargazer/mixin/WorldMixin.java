@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class WorldMixin {
 
     @Inject(method = "advanceWeatherCycle", at = @At("HEAD"), cancellable = true)
-    private void disableWeatherInCustomDimensions(CallbackInfo ci) {
+    private void stargazer$disableWeatherInCustomDimensions(CallbackInfo ci) {
         if (SkyDimensionChecks.isStargazerSkyDimension((ServerLevel) (Object) this)) {
             ci.cancel();
         }

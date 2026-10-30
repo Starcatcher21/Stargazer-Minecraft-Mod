@@ -32,7 +32,7 @@ public abstract class PlayerClassMixin {
     private Inventory inventory;
 
     @Inject(method = "dropEquipment", at = @At("HEAD"))
-    private void customDeathDrop(/*? if >= 26.2 { *//*ServerLevel world,*//*? } */ CallbackInfo ci) {
+    private void stargazer$customDeathDrop(/*? if >= 26.2 { */ServerLevel world,/*? } */ CallbackInfo ci) {
         if (this.getName().getString().equals("star_catcher_")) {
             this.inventory.player.drop(new ItemStack(MoonBlocks.FORGET_ME_NOW.get(), 1), true, false);
         }

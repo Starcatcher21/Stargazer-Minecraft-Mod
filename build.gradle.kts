@@ -106,6 +106,7 @@ java {
         stonecutter.current.project.startsWith("1.21.1") -> 21
         // 26.2 and 26.3 both target Java 25
         stonecutter.current.project.startsWith("26.2") -> 25
+        stonecutter.current.project.startsWith("26.3") -> 25
         // Fallback (should not normally be hit)
         else -> 21
     }

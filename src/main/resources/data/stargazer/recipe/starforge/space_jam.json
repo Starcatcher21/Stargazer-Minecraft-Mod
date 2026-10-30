@@ -1,0 +1,19 @@
+{
+  "type": "stargazer:starforge",
+  "pattern": [
+    "  B  ",
+    " GGG ",
+    "BGPGB",
+    " GGG ",
+    "B   B"
+  ],
+  "key": {
+    "P": "minecraft:glass_bottle",
+    "G": "stargazer:geode_fruit",
+    "B": "stargazer:blue_star"
+  },
+  "result": {
+    "count": 1,
+    "id": "stargazer:space_jam"
+  }
+}

@@ -1,10 +1,7 @@
 package com.github.starcatcher21.stargazer.block;
 
 import com.github.starcatcher21.stargazer.Stargazer;
-import com.github.starcatcher21.stargazer.block.clases.CosmicFlower;
-import com.github.starcatcher21.stargazer.block.clases.InfestedCalcite;
-import com.github.starcatcher21.stargazer.block.clases.MoonWelder;
-import com.github.starcatcher21.stargazer.block.clases.Sprinkler;
+import com.github.starcatcher21.stargazer.block.clases.*;
 import com.github.starcatcher21.stargazer.block.clases.grave.Grave;
 import com.github.starcatcher21.stargazer.block.clases.negative.NegativeBlock;
 import com.github.starcatcher21.stargazer.block.clases.noblue.NoBlueBlock;
@@ -20,7 +17,7 @@ import com.mojang.serialization.MapCodec;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.ColorRGBA;
 import net.minecraft.world.effect.MobEffects;
@@ -42,9 +39,9 @@ public class ModBlock {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(Stargazer.MOD_ID, Registries.BLOCK);
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(Stargazer.MOD_ID, Registries.ITEM);
 
-    private static final Map<ResourceLocation, Block> INSTANCE_CACHE = new ConcurrentHashMap<>();
+    private static final Map<Identifier, Block> INSTANCE_CACHE = new ConcurrentHashMap<>();
 
-    public static void cacheBlock(ResourceLocation id, Block block) {
+    public static void cacheBlock(Identifier id, Block block) {
         if (id != null && block != null) {
             INSTANCE_CACHE.put(id, block);
         }
@@ -52,7 +49,7 @@ public class ModBlock {
 
     public static Block getRaw(RegistrySupplier<Block> supplier) {
         if (supplier == null) return null;
-        ResourceLocation id = supplier.getId();
+        Identifier id = supplier.getId();
         if (id != null) {
             Block cached = INSTANCE_CACHE.get(id);
             if (cached != null) return cached;
@@ -70,10 +67,10 @@ public class ModBlock {
     public static final RegistrySupplier<Block> NEGATIVE_BLOCK = register("negative_block", NegativeBlock::new, BlockBehaviour.Properties.of()
             .noOcclusion()
             //? if >= 26.2 {
-            /*.noCollision()
-            *///? } else {
-            .noCollission()
-            //? }
+            .noCollision()
+            //? } else {
+            /*.noCollission()
+            *///? }
             .requiresCorrectToolForDrops()
             .strength(0.2f)
             .pushReaction(PushReaction.BLOCK)
@@ -82,10 +79,10 @@ public class ModBlock {
     public static final RegistrySupplier<Block> NORED_BLOCK = register("no_red_block", NoRedBlock::new, BlockBehaviour.Properties.of()
             .noOcclusion()
             //? if >= 26.2 {
-            /*.noCollision()
-             *///? } else {
-            .noCollission()
-            //? }
+            .noCollision()
+             //? } else {
+            /*.noCollission()
+            *///? }
             .requiresCorrectToolForDrops()
             .strength(0.2f)
             .pushReaction(PushReaction.BLOCK)
@@ -94,10 +91,10 @@ public class ModBlock {
     public static final RegistrySupplier<Block> NOGREEN_BLOCK = register("no_green_block", NoGreenBlock::new, BlockBehaviour.Properties.of()
             .noOcclusion()
             //? if >= 26.2 {
-            /*.noCollision()
-             *///? } else {
-            .noCollission()
-            //? }
+            .noCollision()
+             //? } else {
+            /*.noCollission()
+            *///? }
             .requiresCorrectToolForDrops()
             .strength(0.2f)
             .pushReaction(PushReaction.BLOCK)
@@ -106,10 +103,10 @@ public class ModBlock {
     public static final RegistrySupplier<Block> NOBLUE_BLOCK = register("no_blue_block", NoBlueBlock::new, BlockBehaviour.Properties.of()
             .noOcclusion()
             //? if >= 26.2 {
-            /*.noCollision()
-             *///? } else {
-            .noCollission()
-            //? }
+            .noCollision()
+             //? } else {
+            /*.noCollission()
+            *///? }
             .requiresCorrectToolForDrops()
             .strength(0.2f)
             .pushReaction(PushReaction.BLOCK)
@@ -134,10 +131,10 @@ public class ModBlock {
     public static final RegistrySupplier<Block> BONEFLOWER = register("boneflower", settings -> new CosmicFlower(MobEffects.BLINDNESS, 5.0f, settings), BlockBehaviour.Properties.of()
             .mapColor(MapColor.COLOR_PURPLE)
             //? if >= 26.2 {
-            /*.noCollision()
-             *///? } else {
-            .noCollission()
-            //? }
+            .noCollision()
+             //? } else {
+            /*.noCollission()
+            *///? }
             .instabreak()
             .sound(SoundType.GRASS)
             .offsetType(BlockBehaviour.OffsetType.XZ)
@@ -188,20 +185,20 @@ public class ModBlock {
             .sound(SoundType.METAL)
     );
 
-    public static final RegistrySupplier<Block> AMETHYST_DUST_BLOCK = register("amethyst_dust_block", properties -> /*? if >= 26.2 { *//*new SandBlock(new ColorRGBA(0x8B5DCAFF), properties) *//*? } else { */ new FallingBlock(properties) {
+    public static final RegistrySupplier<Block> AMETHYST_DUST_BLOCK = register("amethyst_dust_block", properties -> /*? if >= 26.2 { */new SandBlock(new ColorRGBA(0x8B5DCAFF), properties) /*? } else { */ /*new FallingBlock(properties) {
                 @Override
                 protected MapCodec<? extends FallingBlock> codec() {
                     return simpleCodec(c -> this);
                 }
-            } /*? } */, BlockBehaviour.Properties.of()
+            } *//*? } */, BlockBehaviour.Properties.of()
             .sound(SoundType.SAND)
     );
-    public static final RegistrySupplier<Block> PURE_AMETHYST_DUST_BLOCK = register("pure_amethyst_dust_block", properties -> /*? if >= 26.2 { *//*new SandBlock(new ColorRGBA(0x8B5DCAFF), properties) *//*? } else { */ new FallingBlock(properties) {
+    public static final RegistrySupplier<Block> PURE_AMETHYST_DUST_BLOCK = register("pure_amethyst_dust_block", properties -> /*? if >= 26.2 { */new SandBlock(new ColorRGBA(0x8B5DCAFF), properties) /*? } else { */ /*new FallingBlock(properties) {
                 @Override
                 protected MapCodec<? extends FallingBlock> codec() {
                     return simpleCodec(c -> this);
                 }
-            } /*? } */, BlockBehaviour.Properties.of()
+            } *//*? } */, BlockBehaviour.Properties.of()
             .sound(SoundType.SAND)
     );
     public static final RegistrySupplier<Block> AMETHYST_BRICKS = register("amethyst_bricks", Block::new, BlockBehaviour.Properties.of()
@@ -210,24 +207,33 @@ public class ModBlock {
             .mapColor(MapColor.COLOR_PURPLE)
             .strength(1.5F)
     );
+    public static final RegistrySupplier<Block> SPACE_JAM_BLOCK = register("space_jam_block", SpaceJamBlock::new, BlockBehaviour.Properties.of()
+            .noOcclusion()
+            .instabreak()
+            .sound(SoundType.HONEY_BLOCK)
+    );
+    public static final RegistrySupplier<Block> UNTITLED = register("untitled", Block::new, BlockBehaviour.Properties.of()
+            .mapColor(MapColor.COLOR_PINK)
+            .strength(1.5F)
+    );
 
     public static RegistrySupplier<Block> register(String path, Function<BlockBehaviour.Properties, Block> factory, BlockBehaviour.Properties settings) {
         RegistrySupplier<Block> blockSupplier = registerWoItem(path, factory, settings);
 
-        ResourceLocation identifier =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, path);
+        Identifier identifier =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, path);
         ResourceKey<Item> itemKey = ResourceKey.create(Registries.ITEM, identifier);
 
-        ITEMS.register(path, () -> new BlockItem(getRaw(blockSupplier), new Item.Properties()/*? if >= 26.2 { *//*.useBlockDescriptionPrefix().setId(itemKey)*//*? } */));
+        ITEMS.register(path, () -> new BlockItem(getRaw(blockSupplier), new Item.Properties()/*? if >= 26.2 { */.useBlockDescriptionPrefix().setId(itemKey)/*? } */));
 
         return blockSupplier;
     }
 
     public static RegistrySupplier<Block> registerWoItem(String path, Function<BlockBehaviour.Properties, Block> factory, BlockBehaviour.Properties settings) {
-        ResourceLocation identifier =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, path);
+        Identifier identifier =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, path);
         ResourceKey<Block> registryKey = ResourceKey.create(Registries.BLOCK, identifier);
 
         return BLOCKS.register(path, () -> {
-            Block block = factory.apply(settings/*? if >= 26.2 { */ /*.setId(registryKey) *//*? } */);
+            Block block = factory.apply(settings/*? if >= 26.2 { */ .setId(registryKey) /*? } */);
             INSTANCE_CACHE.put(identifier, block);
             return block;
         });

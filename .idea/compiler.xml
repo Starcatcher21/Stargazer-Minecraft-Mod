@@ -2,6 +2,12 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel target="21">
+      <module name="Stargazer.26_3-fabric" target="25" />
+      <module name="Stargazer.26_3-fabric.main" target="25" />
+      <module name="Stargazer.26_3-fabric.test" target="25" />
+      <module name="Stargazer.26_3-neoforge" target="25" />
+      <module name="Stargazer.26_3-neoforge.main" target="25" />
+      <module name="Stargazer.26_3-neoforge.test" target="25" />
       <module name="Starlib.26_2-fabric" target="25" />
       <module name="Starlib.26_2-fabric.main" target="25" />
       <module name="Starlib.26_2-fabric.test" target="25" />

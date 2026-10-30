@@ -4,12 +4,12 @@ import com.github.starcatcher21.stargazer.block.BlockTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
 //? if >= 26.2 {
-/*import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-*///?} else {
-import net.minecraft.core.HolderLookup;
+//?} else {
+/*import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-//?}
+*///?}
 
 public class YellowCableEntity extends BaseCableEntity {
 
@@ -18,7 +18,7 @@ public class YellowCableEntity extends BaseCableEntity {
     }
 
     //? if >= 26.2 {
-    /*@Override
+    @Override
     protected void loadAdditional(ValueInput nbt) {
         super.loadAdditional(nbt);
         energyStorage.setAmount(nbt.getLongOr("energy", 0));
@@ -29,8 +29,8 @@ public class YellowCableEntity extends BaseCableEntity {
         super.saveAdditional(nbt);
         nbt.putLong("energy", energyStorage.getAmount());
     }
-    *///?} else {
-    @Override
+    //?} else {
+    /*@Override
     protected void loadAdditional(CompoundTag nbt, HolderLookup.Provider registries) {
         super.loadAdditional(nbt, registries);
         // CompoundTag.getLong returns 0 when the key is absent,
@@ -43,5 +43,5 @@ public class YellowCableEntity extends BaseCableEntity {
         super.saveAdditional(nbt, registries);
         nbt.putLong("energy", energyStorage.getAmount());
     }
-    //?}
+    *///?}
 }

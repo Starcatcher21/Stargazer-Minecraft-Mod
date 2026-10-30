@@ -3,7 +3,7 @@ package com.github.starcatcher21.stargazer.worldgen;
 import com.github.starcatcher21.stargazer.Stargazer;
 import java.util.List;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.biome.Biome;
 
@@ -42,7 +42,7 @@ public class BiomeReg {
     );
 
     public static ResourceKey<Biome> register(String path) {
-        return ResourceKey.create(Registries.BIOME,ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, path));
+        return ResourceKey.create(Registries.BIOME,Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, path));
     }
     public static void init() {}
 }

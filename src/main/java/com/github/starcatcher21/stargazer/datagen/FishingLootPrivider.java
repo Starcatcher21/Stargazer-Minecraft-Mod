@@ -4,14 +4,14 @@ package com.github.starcatcher21.stargazer.datagen;
 import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.item.ModItems;
 //? if fabric {
-/*import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableSubProvider;
-*///?} else {
-import net.minecraft.data.loot.LootTableSubProvider;
-//?}
+//?} else {
+/*import net.minecraft.data.loot.LootTableSubProvider;
+*///?}
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -25,20 +25,20 @@ import java.util.function.BiConsumer;
 
 public class FishingLootPrivider
 //? if fabric {
-        /*extends SimpleFabricLootTableSubProvider {
+        extends SimpleFabricLootTableSubProvider {
     public FishingLootPrivider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registryLookup) {
         super(output, registryLookup, LootContextParamSets.FISHING);
     }
-*///?} else {
-        implements LootTableSubProvider {
+//?} else {
+        /*implements LootTableSubProvider {
     public FishingLootPrivider(HolderLookup.Provider registryLookup) {}
-//?}
+*///?}
 
     @Override
     public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> lootTableBiConsumer) {
         ResourceKey<LootTable> customFishingKey = ResourceKey.create(
                 Registries.LOOT_TABLE,
-              ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "gameplay/fishing/dream")
+              Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "gameplay/fishing/dream")
         );
 
         // Build the loot table

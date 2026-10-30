@@ -20,7 +20,7 @@ import net.minecraft.world.level.dimension.DimensionType;
 @Mixin(LiquidBlock.class)
 public class FluidBlockMixin {
     @Inject(method = "onPlace", at = @At("HEAD"), cancellable = true)
-    private void add(BlockState state, Level world, BlockPos pos, BlockState oldState, boolean notify, CallbackInfo ci) {
+    private void stargazer$add(BlockState state, Level world, BlockPos pos, BlockState oldState, boolean notify, CallbackInfo ci) {
         Optional<ResourceKey<DimensionType>> dim = world.dimensionTypeRegistration().unwrapKey();
         if (dim.isPresent() && dim.get().equals(CustomWorlds.COSMIC_TYPE)) {
             if (state.getFluidState().is(FluidTags.WATER)) {

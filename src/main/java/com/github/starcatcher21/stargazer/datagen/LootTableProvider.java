@@ -12,20 +12,20 @@ import com.github.starcatcher21.stargazer.entity.Star;
 import com.github.starcatcher21.stargazer.item.ModItems;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.nebulas.Red;
 //? if fabric {
-/*import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootSubProvider;
-*///?} else {
-import net.minecraft.data.loot.BlockLootSubProvider;
+//?} else {
+/*import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.world.flag.FeatureFlags;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Function;
-//?}
+*///?}
 //? if >= 26.2 {
-/*import net.minecraft.advancements.predicates.StatePropertiesPredicate;
-*///?} else {
-import net.minecraft.advancements.critereon.StatePropertiesPredicate;
-//?}
+import net.minecraft.advancements.predicates.StatePropertiesPredicate;
+//?} else {
+/*import net.minecraft.advancements.critereon.StatePropertiesPredicate;
+*///?}
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
@@ -37,10 +37,10 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 //? if >= 26.2 {
-/*import net.minecraft.world.level.block.FlowerBedBlock;
-*///?} else {
-import com.github.starcatcher21.stargazer.block.older1211.FlowerBedBlock;
-//?}
+import net.minecraft.world.level.block.FlowerBedBlock;
+//?} else {
+/*import com.github.starcatcher21.stargazer.block.older1211.FlowerBedBlock;
+*///?}
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
@@ -57,12 +57,12 @@ import java.util.concurrent.CompletableFuture;
 
 public class LootTableProvider
 //? if fabric {
-        /*extends FabricBlockLootSubProvider {
+        extends FabricBlockLootSubProvider {
     public LootTableProvider(FabricPackOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
         super(dataOutput, registryLookup);
     }
-*///?} else {
-        extends BlockLootSubProvider {
+//?} else {
+        /*extends BlockLootSubProvider {
     private final Set<Block> generatedBlocks = new HashSet<>();
 
     public LootTableProvider(HolderLookup.Provider registryLookup) {
@@ -85,7 +85,7 @@ public class LootTableProvider
         generatedBlocks.add(block);
         super.add(block, builder);
     }
-//?}
+*///?}
 
     public LootTable.Builder oreDrops(Block drop, ItemLike raw, float min, float max) {
         HolderLookup.RegistryLookup<Enchantment> enchantments = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
@@ -208,6 +208,8 @@ public class LootTableProvider
         dropSelf(Wander.TRUNN_PLANKS.get());
         dropSelf(Wander.TRUNN_PLANKS_FENCE.get());
         dropSelf(Wander.TRUNN_PLANKS_STAIRS.get());
+        dropSelf(ModBlock.SPACE_JAM_BLOCK.get());
+        dropSelf(ModBlock.UNTITLED.get());
         dropSelf(MoonBlocks.CURVE_PLANKS_STAIRS.get());
         dropSelf(MoonBlocks.CURVE_PLANKS_BUTTON.get());
         dropSelf(MoonBlocks.CURVE_PLANKS_FENCE.get());
@@ -274,6 +276,9 @@ public class LootTableProvider
         dropPottedContents(Nebulas.POTTED_YELLOW_TENTACLE_FLOWER.get());
         dropPottedContents(Nebulas.POTTED_PURPLE_TENTACLE_FLOWER.get());
 
+        dropSelf(MoonBlocks.BRUNT.get());
+        dropPottedContents(MoonBlocks.POTTED_BRUNT.get());
+
         // Star
         dropSelf(StarBlocks.COSMIC_BLOCK.get());
         add(StarBlocks.STAR_LEAVES.get(), createLeavesDrops(StarBlocks.STAR_LEAVES.get(), StarBlocks.STAR_SAPLING.get(), 0.035F));
@@ -281,6 +286,7 @@ public class LootTableProvider
         dropSelf(StarBlocks.STRIPPED_STAR_LOG.get());
         dropSelf(StarBlocks.STAR_PLANKS.get());
         add(StarBlocks.STAR_PLANKS_DOOR.get(), createDoorTable(StarBlocks.STAR_PLANKS_DOOR.get()));
+        add(RedOrbBlocks.SPIRO_PLANKS_DOOR.get(), createDoorTable(RedOrbBlocks.SPIRO_PLANKS_DOOR.get()));
         dropSelf(StarBlocks.STAR_PLANKS_STAIRS.get());
         add(StarBlocks.STAR_PLANKS_SLAB.get(), createSlabItemTable(StarBlocks.STAR_PLANKS_SLAB.get()));
         dropSelf(StarBlocks.STAR_PLANKS_BUTTON.get());
@@ -362,8 +368,8 @@ public class LootTableProvider
         dropSelf(Hedges.MOON_HEDGE.get());
         dropSelf(Hedges.OAK_HEDGE.get());
         //? if >= 26.2 {
-        /*dropSelf(Hedges.PALE_HEDGE.get());
-        *///? }
+        dropSelf(Hedges.PALE_HEDGE.get());
+        //? }
         dropSelf(Hedges.SPRUCE_HEDGE.get());
         dropSelf(Hedges.STAR_HEDGE.get());
         dropSelf(Hedges.YERI_HEDGE.get());

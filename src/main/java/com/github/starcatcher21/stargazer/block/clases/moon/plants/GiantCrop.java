@@ -173,12 +173,12 @@ public class GiantCrop
     }
 
     //? if >= 26.2 {
-    /*@Override
-    protected ItemStack getCloneItemStack(LevelReader world, BlockPos pos, BlockState state, boolean includeData) {
-    *///? } else {
     @Override
+    protected ItemStack getCloneItemStack(LevelReader world, BlockPos pos, BlockState state, boolean includeData) {
+    //? } else {
+    /*@Override
     public ItemStack getCloneItemStack(BlockState state, net.minecraft.world.phys.HitResult target, LevelReader world, BlockPos pos, net.minecraft.world.entity.player.Player player) {
-    //?}
+    *///?}
         return new ItemStack(this.getSeedsItem());
     }
 

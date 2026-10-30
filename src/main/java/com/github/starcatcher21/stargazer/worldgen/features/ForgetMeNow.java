@@ -6,32 +6,60 @@ import com.mojang.serialization.Codec;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
+
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 //? if >= 26.2 {
-/*import net.minecraft.world.level.block.FlowerBedBlock;
-*///? } else {
-import com.github.starcatcher21.stargazer.block.older1211.FlowerBedBlock;
-//? }
+import net.minecraft.world.level.block.FlowerBedBlock;
+//? } else {
+/*import com.github.starcatcher21.stargazer.block.older1211.FlowerBedBlock;
+*///? }
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.feature.Feature;
+//? if < 26.3 {
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
+//? }
 
+//? if < 26.3 {
 public class ForgetMeNow extends Feature<NoneFeatureConfiguration> {
+//? } else {
+/*public record ForgetMeNow() implements Feature {
+*///? }
+
+    //? if < 26.3 {
     public ForgetMeNow(Codec<NoneFeatureConfiguration> codec) {
         super(codec);
     }
+    //? }
     public static final ImmutableList<Direction> DIRECTIONS = ImmutableList.of(
             Direction.SOUTH, Direction.NORTH, Direction.EAST, Direction.WEST
     );
 
+    //? if > 26.3 {
+    /*@Override
+    public MapCodec<? extends Feature> codec() {
+        return null;
+    }
+    *///? }
+
     @Override
-    public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
+    public boolean place(
+            //? if < 26.3 {
+            FeaturePlaceContext<NoneFeatureConfiguration> context
+             //? } else {
+            /*WorldGenLevel world, ChunkGenerator chunkGenerator, RandomSource rand, BlockPos origin
+            *///? }
+    ) {
+        //? if < 26.3 {
         Random rand = new Random();
         BlockPos origin = context.origin();
         WorldGenLevel world = context.level();
+        //? }
         for (int o = 0; o < origin.getY()/10; o++) {
             BlockPos newori = origin.below(o*10);
             BlockState neworiunderstate = world.getBlockState(newori.below());
@@ -55,12 +83,12 @@ public class ForgetMeNow extends Feature<NoneFeatureConfiguration> {
     private BlockState getState() {
         Random rand = new Random();
         //? if >= 26.2 {
-        /*Direction direction = FlowerBedBlock.FACING.getPossibleValues().get(rand.nextInt(FlowerBedBlock.FACING.getPossibleValues().toArray().length));
+        Direction direction = FlowerBedBlock.FACING.getPossibleValues().get(rand.nextInt(FlowerBedBlock.FACING.getPossibleValues().toArray().length));
         BlockState forgor = MoonBlocks.FORGET_ME_NOW.get().defaultBlockState().setValue(FlowerBedBlock.FACING, direction).setValue(FlowerBedBlock.AMOUNT, rand.nextInt(1,4));
-        *///? } else {
-        Direction direction = FlowerBedBlock.FACING.getPossibleValues().stream().toList().get(rand.nextInt(FlowerBedBlock.FACING.getPossibleValues().toArray().length));
+        //? } else {
+        /*Direction direction = FlowerBedBlock.FACING.getPossibleValues().stream().toList().get(rand.nextInt(FlowerBedBlock.FACING.getPossibleValues().toArray().length));
         BlockState forgor = MoonBlocks.FORGET_ME_NOW.get().defaultBlockState().setValue(FlowerBedBlock.FACING, direction).setValue(FlowerBedBlock.AMOUNT, rand.nextInt(1,4));
-        //? }
+        *///? }
         return forgor;
     }
 

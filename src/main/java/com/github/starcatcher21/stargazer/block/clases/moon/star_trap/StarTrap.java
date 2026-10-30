@@ -22,9 +22,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 //? if >= 26.2 {
-/*import net.minecraft.world.entity.InsideBlockEffectApplier;
+import net.minecraft.world.entity.InsideBlockEffectApplier;
 import net.minecraft.world.level.ScheduledTickAccess;
-*///?}
+//?}
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -54,7 +54,7 @@ public class StarTrap extends BaseEntityBlock {
 
     /* ---------------- updateShape (signature differs) ---------------- */
     //? if >= 26.2 {
-    /*@Override
+    @Override
     protected BlockState updateShape(BlockState state, LevelReader world,
                                      ScheduledTickAccess tickView, BlockPos pos,
                                      Direction direction, BlockPos neighborPos,
@@ -64,8 +64,8 @@ public class StarTrap extends BaseEntityBlock {
         }
         return state;
     }
-    *///?} else {
-    @Override
+    //?} else {
+    /*@Override
     protected BlockState updateShape(BlockState state, Direction direction,
                                      BlockState neighborState, LevelAccessor world,
                                      BlockPos pos, BlockPos neighborPos) {
@@ -75,7 +75,7 @@ public class StarTrap extends BaseEntityBlock {
         return state;
     }
 
-    //?}
+    *///?}
 
     /* ---------------- interaction (use vs useWithoutItem) ----------- */
     @Override
@@ -89,10 +89,10 @@ public class StarTrap extends BaseEntityBlock {
             return InteractionResult.PASS;
         }
         //? if >= 26.2 {
-        /*boolean creative = player.hasInfiniteMaterials();
-         *///?} else {
-        boolean creative = player.getAbilities().instabuild;
-        //?}
+        boolean creative = player.hasInfiniteMaterials();
+         //?} else {
+        /*boolean creative = player.getAbilities().instabuild;
+        *///?}
         if (state.getValue(ACTIVE)) {
             world.setBlockAndUpdate(pos, state.setValue(ACTIVE, false));
             if (world.getBlockEntity(pos) instanceof StarTrapEntity ste) {
@@ -122,19 +122,19 @@ public class StarTrap extends BaseEntityBlock {
 
     /* ---------------- entityInside (signature differs) --------------- */
     //? if >= 26.2 {
-    /*@Override
+    @Override
     protected void entityInside(BlockState state, Level world, BlockPos pos, Entity entity,
                                 InsideBlockEffectApplier handler, boolean bl) {
         handleEntityInside(state, world, pos, entity);
         super.entityInside(state, world, pos, entity, handler, bl);
     }
-    *///?} else {
-    @Override
+    //?} else {
+    /*@Override
     protected void entityInside(BlockState state, Level world, BlockPos pos, Entity entity) {
         handleEntityInside(state, world, pos, entity);
         super.entityInside(state, world, pos, entity);
     }
-    //?}
+    *///?}
 
     /** Shared body for entityInside on both versions. */
     private void handleEntityInside(BlockState state, Level world, BlockPos pos, Entity entity) {
@@ -143,10 +143,10 @@ public class StarTrap extends BaseEntityBlock {
                 return;
             }
             //? if >= 26.2 {
-            /*if (pe.hasInfiniteMaterials()) return;
-             *///?} else {
-            if (pe.getAbilities().instabuild) return;
-            //?}
+            if (pe.hasInfiniteMaterials()) return;
+             //?} else {
+            /*if (pe.getAbilities().instabuild) return;
+            *///?}
         }
         if (!state.getValue(ACTIVE) && entity instanceof LivingEntity le) {
             world.setBlockAndUpdate(pos, state.setValue(ACTIVE, true));
@@ -160,16 +160,16 @@ public class StarTrap extends BaseEntityBlock {
                                 .get(DamageTypeRegistry.STAR_TRAP).get()
                 );
                 //? if >= 26.2 {
-                /*le.hurtServer(sw, damageSource, 6.0f);
-                 *///?} else {
-                le.hurt(damageSource, 6.0f);
-                //?}
+                le.hurtServer(sw, damageSource, 6.0f);
+                 //?} else {
+                /*le.hurt(damageSource, 6.0f);
+                *///?}
                 if (le instanceof ServerPlayer spe) {
                     //? if >= 26.2 {
-                    /*Criterias.STAR_TRAP.listen(crit -> crit.trigger(spe));
-                    *///? } else {
-                    Criterias.STAR_TRAP.trigger(spe);
-                    //? }
+                    Criterias.STAR_TRAP.listen(crit -> crit.trigger(spe));
+                    //? } else {
+                    /*Criterias.STAR_TRAP.trigger(spe);
+                    *///? }
                 }
             }
         }
