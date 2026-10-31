@@ -383,7 +383,10 @@ public class ItemGroup {
                         output.accept(ModItems.SPACE_JAM.get());
                         output.accept(ModBlock.SPACE_JAM_BLOCK.get());
                         output.accept(ModBlock.UNTITLED.get());
+                        output.accept(Crops.BRUNT_SEEDS.get());
                         output.accept(MoonBlocks.BRUNT.get());
+                        output.accept(MoonBlocks.SPINNY.get());
+                        output.accept(Crops.SPINNY_SEEDS.get());
                     })
     ));
 

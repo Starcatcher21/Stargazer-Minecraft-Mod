@@ -18,17 +18,17 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class RedGrass
+public class BlueGrass
         extends VegetationBlock
         implements BonemealableBlock {
-    public static final MapCodec<RedGrass> CODEC = RedGrass.simpleCodec(RedGrass::new);
+    public static final MapCodec<BlueGrass> CODEC = BlueGrass.simpleCodec(BlueGrass::new);
     private static final VoxelShape SHAPE = Block.box(0.0, 0.0, 0.0, 12.0, 13.0, 12.0);
 
-    public MapCodec<RedGrass> codec() {
+    public MapCodec<BlueGrass> codec() {
         return CODEC;
     }
 
-    public RedGrass(Properties settings) {
+    public BlueGrass(Properties settings) {
         super(settings);
     }
 

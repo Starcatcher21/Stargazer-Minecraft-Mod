@@ -47,7 +47,8 @@ public class GiftLootPrivider
                 .withPool(
                         LootPool.lootPool()
                                 .setRolls(UniformGenerator.between(1.0f, 1.0f))
-                                .add(LootItem.lootTableItem(MoonBlocks.BRUNT.get()).setWeight(20))
+                                .add(LootItem.lootTableItem(Crops.BRUNT_SEEDS.get()).setWeight(20))
+                                .add(LootItem.lootTableItem(Crops.SPINNY_SEEDS.get()).setWeight(20))
                 );
 
         lootTableBiConsumer.accept(snifferKey, lootTableSnifferMoon);

@@ -114,6 +114,17 @@ public class ModelProvider
             })));
         }
     }
+    public final void createFlowerCropBlock(BlockModelGenerators blockModelGenerators, final Block block, final Property<Integer> property, final int... stages) {
+        if (property.getPossibleValues().size() != stages.length) {
+            throw new IllegalArgumentException();
+        } else {
+            Int2ObjectMap<Identifier> models = new Int2ObjectOpenHashMap();
+            blockModelGenerators.blockStateOutput.accept(MultiVariantGenerator.dispatch(block).with(PropertyDispatch.initial(property).generate((i) -> {
+                int stage = stages[i];
+                return plainVariant((Identifier)models.computeIfAbsent(stage, (s) -> blockModelGenerators.createSuffixedVariant(block, "_stage" + s, ModelTemplates.CROSS, TextureMapping::cross)));
+            })));
+        }
+    }
 
     //? if fabric {
     @Override
@@ -233,6 +244,7 @@ public class ModelProvider
         registerCustomFlowerPotPlant(blockStateModelGenerator, Nebulas.BLUE_TENTACLE_FLOWER.get(), Nebulas.POTTED_BLUE_TENTACLE_FLOWER.get(), MoonBlocks.MOON_ROCK.get(), BlockModelGenerators.PlantType.NOT_TINTED);
         registerCustomFlowerPotPlant(blockStateModelGenerator, Nebulas.PURPLE_TENTACLE_FLOWER.get(), Nebulas.POTTED_PURPLE_TENTACLE_FLOWER.get(), MoonBlocks.MOON_ROCK.get(), BlockModelGenerators.PlantType.NOT_TINTED);
         registerCustomFlowerPotPlant(blockStateModelGenerator, MoonBlocks.BRUNT.get(), MoonBlocks.POTTED_BRUNT.get(), MoonBlocks.MOON_ROCK.get(), BlockModelGenerators.PlantType.NOT_TINTED);
+        registerCustomFlowerPotPlant(blockStateModelGenerator, MoonBlocks.SPINNY.get(), MoonBlocks.POTTED_SPINNY.get(), MoonBlocks.MOON_ROCK.get(), BlockModelGenerators.PlantType.NOT_TINTED);
         blockStateModelGenerator.createCrossBlockWithDefaultItem(MoonBlocks.MOON_GRASS.get(), BlockModelGenerators.PlantType.NOT_TINTED);
         blockStateModelGenerator.createDoublePlant(MoonBlocks.TALL_MOON_GRASS.get(), BlockModelGenerators.PlantType.NOT_TINTED);
         blockStateModelGenerator.createCrossBlockWithDefaultItem(MoonBlocks.MOON_FERN.get(), BlockModelGenerators.PlantType.NOT_TINTED);
@@ -240,6 +252,8 @@ public class ModelProvider
         createCropBlock(blockStateModelGenerator, Crops.DRAGON_CARROT_BLOCK.get(), MoonCrop.AGE, 0, 1, 2, 3, 4, 5, 6, 7);
         createCropBlock(blockStateModelGenerator, Crops.BROODY_BLOCK.get(), MoonCrop.AGE, 0, 1, 2, 3, 4, 5, 6, 7);
         createCropBlock(blockStateModelGenerator, Crops.EYE_BALLS_BLOCK.get(), MoonCrop.AGE, 0, 1, 2, 3, 4, 5, 6, 7);
+        createFlowerCropBlock(blockStateModelGenerator, Crops.BRUNT_BLOCK.get(), MoonCrop.AGE, 0, 1, 2, 3, 4, 5, 6, 7);
+        createFlowerCropBlock(blockStateModelGenerator, Crops.SPINNY_BLOCK.get(), MoonCrop.AGE, 0, 1, 2, 3, 4, 5, 6, 7);
         // Nebulas
         blockStateModelGenerator.createAxisAlignedPillarBlock(Nebulas.BLUE_NEBULA_LOG.get(), TexturedModel.COLUMN);
         blockStateModelGenerator.createAxisAlignedPillarBlock(Nebulas.RED_NEBULA_LOG.get(), TexturedModel.COLUMN);
@@ -375,6 +389,7 @@ public class ModelProvider
         blockGeneratedItem(blockStateModelGenerator, StarBlocks.CELESTIAL_STAR_FLOWER.get());
         blockGeneratedItem(blockStateModelGenerator, ModBlock.BONEFLOWER.get());
         blockGeneratedItem(blockStateModelGenerator, MoonBlocks.BRUNT.get());
+        blockGeneratedItem(blockStateModelGenerator, MoonBlocks.SPINNY.get());
         blockGeneratedItem(blockStateModelGenerator, RedOrbBlocks.POINTY.get());
         blockGeneratedItem(blockStateModelGenerator, RedOrbBlocks.PETRICY.get());
         blockGeneratedItem(blockStateModelGenerator, Nebulas.RED_TENTACLE_FLOWER.get());
@@ -477,6 +492,8 @@ public class ModelProvider
         itemModelGenerator.generateFlatItem(Crops.DRAGON_CARROT.get(), ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(Crops.BROODY.get(), ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(Crops.EYE_BALLS.get(), ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(Crops.BRUNT_SEEDS.get(), ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(Crops.SPINNY_SEEDS.get(), ModelTemplates.FLAT_ITEM);
 
         itemModelGenerator.generateFlatItem(ModItems.DEAD_EYE_BAT.get(), ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.LIVING_EYE.get(), ModelTemplates.FLAT_ITEM);

@@ -38,7 +38,7 @@ public class RedOrbBlocks {
             .requiresCorrectToolForDrops()
             .mapColor(MapColor.EMERALD)
     );
-    public static final RegistrySupplier<Block> BLUE_GRASS = register("blue_grass", RedGrass::new, BlockBehaviour.Properties.of()
+    public static final RegistrySupplier<Block> BLUE_GRASS = register("blue_grass", BlueGrass::new, BlockBehaviour.Properties.of()
             .mapColor(MapColor.COLOR_CYAN)
             //? if >= 26.2 {
             .noCollision()

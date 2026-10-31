@@ -583,7 +583,7 @@ public class RecipeProvider
                         .pattern("##")
                         .unlockedBy(getHasName(RedOrbBlocks.RED_ROCK.get()), this.has(RedOrbBlocks.RED_ROCK.get()))
                         .save(this.output);
-                shaped(RecipeCategory.BUILDING_BLOCKS, ModBlock.SPACE_JAM_BLOCK.get(), 4)
+                shaped(RecipeCategory.BUILDING_BLOCKS, ModBlock.SPACE_JAM_BLOCK.get(), 1)
                         .define('#', ModItems.SPACE_JAM.get())
                         .pattern("##")
                         .pattern("##")

@@ -711,6 +711,20 @@ public class MoonBlocks {
             .pushReaction(PushReaction.DESTROY)
     );
     public static final RegistrySupplier<Block> POTTED_BRUNT = registerWoItem("potted_brunt", settings -> new FlowerPotBlock(BRUNT.get(), settings), BlockBehaviour.Properties.ofFullCopy(Blocks.POTTED_ALLIUM).noOcclusion());
+
+    public static final RegistrySupplier<Block> SPINNY = register("spinny", settings -> new CosmicFlower(StatusEffects.getHolder(StatusEffects.COSMO.get()), 5.0f, settings), BlockBehaviour.Properties.of()
+            .mapColor(MapColor.COLOR_PURPLE)
+            //? if >= 26.2 {
+            .noCollision()
+            //? } else {
+            /*.noCollission()
+             *///? }
+            .instabreak()
+            .sound(SoundType.GRASS)
+            .offsetType(BlockBehaviour.OffsetType.XZ)
+            .pushReaction(PushReaction.DESTROY)
+    );
+    public static final RegistrySupplier<Block> POTTED_SPINNY = registerWoItem("potted_spinny", settings -> new FlowerPotBlock(SPINNY.get(), settings), BlockBehaviour.Properties.ofFullCopy(Blocks.POTTED_ALLIUM).noOcclusion());
     public static void init() {
     }
 }

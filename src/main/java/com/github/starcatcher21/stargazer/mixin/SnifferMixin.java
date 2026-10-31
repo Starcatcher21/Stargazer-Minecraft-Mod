@@ -52,8 +52,8 @@ public class SnifferMixin {
         Sniffer self = (Sniffer)(Object)this;
         BlockPos head = ((SnifferAccessor)this).invokeGetHeadBlock();
         return stargazer$getLootTableKey(self.level(), head, original);
-    }*/
-    //?}
+    }
+    *///?}
     @Unique
     private ResourceKey<LootTable> stargazer$getLootTableKey(Level level, BlockPos head, ResourceKey<LootTable> origin) {
         if (level.getBlockState(head.below()).is(MoonBlocks.MOON_ROCK_NYLIUM.get())) return MOON_ROCK_LOOT;

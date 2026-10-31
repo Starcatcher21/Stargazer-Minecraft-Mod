@@ -11,7 +11,7 @@ import com.github.starcatcher21.stargazer.block.clases.energy.machines.NightWatc
 import com.github.starcatcher21.stargazer.block.clases.energy.machines.StarCrusher;
 import com.github.starcatcher21.stargazer.block.clases.moon.starforge.Starforge;
 import com.github.starcatcher21.stargazer.block.register.*;
-import com.github.starcatcher21.stargazer.compat.StargazingCategory;
+import com.github.starcatcher21.stargazer.compat.rei.StargazingCategory;
 import com.github.starcatcher21.stargazer.effects.Potions;
 import com.github.starcatcher21.stargazer.entity.EntityRegistry;
 import com.github.starcatcher21.stargazer.item.ModItems;
@@ -23,8 +23,8 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 /*import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.common.data.LanguageProvider;
 *///?}
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.Holder;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.DyeColor;
 import java.util.Arrays;
@@ -117,6 +117,9 @@ public class ModEngLangProvider
     private static void populateTranslations(TranslationSink translationBuilder) {
         translationBuilder.add(ModBlock.AMETHYST_BRICKS.get(), "Amethyst Bricks");
         translationBuilder.add(MoonBlocks.BRUNT.get(), "Brunt");
+        translationBuilder.add(Crops.BRUNT_SEEDS.get(), "Brunt Seeds");
+        translationBuilder.add(Crops.SPINNY_SEEDS.get(), "Spinny Seeds");
+        translationBuilder.add(MoonBlocks.SPINNY.get(), "Spinny");
         translationBuilder.add(ModItems.SPACE_JAM.get(), "Space Jam");
         translationBuilder.add("item.stargazer.space_jam.effect.empty", "Space Jam");
         translationBuilder.add(ModItems.STAR_BOOK.get(), "Book of Stars 1");

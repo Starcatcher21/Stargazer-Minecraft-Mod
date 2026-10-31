@@ -119,6 +119,42 @@ public class Crops {
             )
             *///?}
     );
+    public static final RegistrySupplier<Block> BRUNT_BLOCK = registerWoItem(
+            "brunt_block",
+            (settings) -> new MoonCrop(settings, null),
+            BlockBehaviour.Properties.of()
+                    //? if >= 26.2 {
+                    .noCollision()
+                    //?} else {
+                    /*.noCollission()
+                     *///?}
+                    .instabreak()
+                    .sound(SoundType.GRASS)
+                    .pushReaction(PushReaction.DESTROY));
+
+    public static final RegistrySupplier<Item> BRUNT_SEEDS = ModItems.register(
+            "brunt_seeds",
+            ModItems.createBlockItemWithUniqueName(BRUNT_BLOCK),
+            new Item.Properties());
+
+
+    public static final RegistrySupplier<Block> SPINNY_BLOCK = registerWoItem(
+            "spinny_block",
+            (settings) -> new MoonCrop(settings, null),
+            BlockBehaviour.Properties.of()
+                    //? if >= 26.2 {
+                    .noCollision()
+                    //?} else {
+                    /*.noCollission()
+                     *///?}
+                    .instabreak()
+                    .sound(SoundType.GRASS)
+                    .pushReaction(PushReaction.DESTROY));
+
+    public static final RegistrySupplier<Item> SPINNY_SEEDS = ModItems.register(
+            "spinny_seeds",
+            ModItems.createBlockItemWithUniqueName(SPINNY_BLOCK),
+            new Item.Properties());
 
     public static void init() {
     }

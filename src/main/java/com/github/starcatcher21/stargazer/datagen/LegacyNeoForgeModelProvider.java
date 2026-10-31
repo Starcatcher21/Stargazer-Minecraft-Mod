@@ -225,6 +225,8 @@ public final class LegacyNeoForgeModelProvider extends BlockStateProvider {
         crop(Crops.DRAGON_CARROT_BLOCK.get(), 0, 1, 2, 3, 4, 5, 6, 7);
         crop(Crops.BROODY_BLOCK.get(), 0, 1, 2, 3, 4, 5, 6, 7);
         crop(Crops.EYE_BALLS_BLOCK.get(), 0, 1, 2, 3, 4, 5, 6, 7);
+        flowerCrop(Crops.BRUNT_BLOCK.get(), 0, 1, 2, 3, 4, 5, 6, 7);
+        flowerCrop(Crops.SPINNY_BLOCK.get(), 0, 1, 2, 3, 4, 5, 6, 7);
 
         // ---------------- Pot plants ----------------
         potPlant(MoonBlocks.PURPLE_MUSHROOM.get(), MoonBlocks.POTTED_PURPLE_MUSHROOM.get(), MoonBlocks.MOON_ROCK.get());
@@ -248,6 +250,7 @@ public final class LegacyNeoForgeModelProvider extends BlockStateProvider {
         potPlant(MoonBlocks.SPRUNGUS.get(), MoonBlocks.POTTED_SPRUNGUS.get(), MoonBlocks.MOON_ROCK.get());
         potPlant(RedOrbBlocks.POINTY.get(), RedOrbBlocks.POTTED_POINTY.get(), RedOrbBlocks.RED_ROCK.get());
         potPlant(MoonBlocks.BRUNT.get(), MoonBlocks.POTTED_BRUNT.get(), MoonBlocks.MOON_ROCK.get());
+        potPlant(MoonBlocks.SPINNY.get(), MoonBlocks.POTTED_SPINNY.get(), MoonBlocks.MOON_ROCK.get());
 
         // ---------------- Bottom-top blocks ----------------
         cubeBottomTop(Darkness.DYLIUM.get(), "dylium_side", "moon_rock", "dylium_top");
@@ -384,6 +387,8 @@ public final class LegacyNeoForgeModelProvider extends BlockStateProvider {
         flatItem(ModItems.BLACK_BRICK.get());
         flatItem(ModItems.WHITE_BRICK.get());
         flatItem(StarBlocks.STAR_DISPLAY.get().asItem());
+        flatItem(Crops.BRUNT_SEEDS.get());
+        flatItem(Crops.SPINNY_SEEDS.get());
         // Spawn eggs
         flatItem(ModItems.GHOST_SPAWN_EGG.get());
         flatItem(ModItems.AMETHYST_TURTLE_SPAWN_EGG.get());
@@ -604,6 +609,18 @@ public final class LegacyNeoForgeModelProvider extends BlockStateProvider {
         for (int stage : stages) {
             ModelFile model = models()
                     .crop(name(block) + "_stage" + stage, blockTex(name(block) + "_stage" + stage))
+                    .renderType("cutout");
+            builder.partialState().with(MoonCrop.AGE, stage)
+                    .modelForState().modelFile(model).addModel();
+        }
+    }
+
+    /^* Crop block with per-stage cross models. ^/
+    private void flowerCrop(Block block, int... stages) {
+        var builder = getVariantBuilder(block);
+        for (int stage : stages) {
+            ModelFile model = models()
+                    .cross(name(block) + "_stage" + stage, blockTex(name(block) + "_stage" + stage))
                     .renderType("cutout");
             builder.partialState().with(MoonCrop.AGE, stage)
                     .modelForState().modelFile(model).addModel();

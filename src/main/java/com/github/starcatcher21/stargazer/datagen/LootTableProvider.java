@@ -156,6 +156,8 @@ public class LootTableProvider
         dropPottedContents(StarBlocks.POTTED_STAR_SAPLING.get());
         dropPottedContents(MoonBlocks.POTTED_SPRUNGUS.get());
         dropPottedContents(Darkness.POTTED_GRADI.get());
+        dropPottedContents(MoonBlocks.POTTED_SPINNY.get());
+        dropSelf(MoonBlocks.SPINNY.get());
         add(Darkness.GRADI.get(), addFlowerbedDrop(Darkness.GRADI.get()));
         dropSelf(MoonBlocks.SPRUNGUS.get());
         dropSelf(ModBlock.MOON_WELDER.get());
@@ -177,6 +179,8 @@ public class LootTableProvider
         add(MoonBlocks.STAR_TRAP.get(), createShearsOrSilkTouchOnlyDrop(MoonBlocks.STAR_TRAP.get()));
         add(MoonBlocks.GEODE_FRUIT.get(), conditionDrop(MoonBlocks.GEODE_FRUIT.get(), ModItems.GEODE_FRUIT.get(), LootItemBlockStatePropertyCondition.hasBlockStateProperties(MoonBlocks.GEODE_FRUIT.get()).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(GeodeFruit.STAGE, GeodeFruitStage.grown))));
         add(Crops.DRAGON_CARROT_BLOCK.get(), createCropDrops(Crops.DRAGON_CARROT_BLOCK.get(), Crops.DRAGON_CARROT.get(), Crops.DRAGON_CARROT.get(), LootItemBlockStatePropertyCondition.hasBlockStateProperties(Crops.DRAGON_CARROT_BLOCK.get()).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(MoonCrop.AGE, 7))));
+        add(Crops.BRUNT_BLOCK.get(), createCropDrops(Crops.BRUNT_BLOCK.get(), MoonBlocks.BRUNT.get().asItem(), Crops.BRUNT_SEEDS.get(), LootItemBlockStatePropertyCondition.hasBlockStateProperties(Crops.BRUNT_BLOCK.get()).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(MoonCrop.AGE, 7))));
+        add(Crops.SPINNY_BLOCK.get(), createCropDrops(Crops.SPINNY_BLOCK.get(), MoonBlocks.SPINNY.get().asItem(), Crops.SPINNY_SEEDS.get(), LootItemBlockStatePropertyCondition.hasBlockStateProperties(Crops.SPINNY_BLOCK.get()).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(MoonCrop.AGE, 7))));
         add(Crops.BROODY_BLOCK.get(), createCropDrops(Crops.BROODY_BLOCK.get(), Crops.BROODY.get(), Crops.BROODY.get(), LootItemBlockStatePropertyCondition.hasBlockStateProperties(Crops.BROODY_BLOCK.get()).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(MoonCrop.AGE, 7))));
         add(Crops.EYE_BALLS_BLOCK.get(), createCropDrops(Crops.EYE_BALLS_BLOCK.get(), Crops.EYE_BALLS.get(), Crops.EYE_BALLS.get(), LootItemBlockStatePropertyCondition.hasBlockStateProperties(Crops.EYE_BALLS_BLOCK.get()).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(MoonCrop.AGE, 7))));
         dropSelf(EyeBloodBlocks.EYE_JAR.get());
