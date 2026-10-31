@@ -14,13 +14,13 @@ import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 
 import java.util.LinkedList;
 import java.util.List;
 
 public class StarCrusherCategory implements DisplayCategory<StarCrusherDisplay> {
-    public static final Identifier TEXTURE =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/star_crusher_gui.png");
+    public static final ResourceLocation TEXTURE =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/star_crusher_gui.png");
     public static final CategoryIdentifier<StarCrusherDisplay> STARFORGE = CategoryIdentifier.of(Stargazer.MOD_ID, "star_crusher");
     @Override
     public CategoryIdentifier<? extends StarCrusherDisplay> getCategoryIdentifier() {

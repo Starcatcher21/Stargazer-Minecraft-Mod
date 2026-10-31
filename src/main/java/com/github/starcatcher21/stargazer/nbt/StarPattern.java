@@ -7,17 +7,17 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 
-public record StarPattern(Identifier assetId, String translationKey) {
+public record StarPattern(ResourceLocation assetId, String translationKey) {
     public static final Codec<StarPattern> CODEC = RecordCodecBuilder.create(
             instance -> instance.group(
-                            Identifier.CODEC.fieldOf("asset_id").forGetter(StarPattern::assetId), Codec.STRING.fieldOf("translation_key").forGetter(StarPattern::translationKey)
+                            ResourceLocation.CODEC.fieldOf("asset_id").forGetter(StarPattern::assetId), Codec.STRING.fieldOf("translation_key").forGetter(StarPattern::translationKey)
                     )
                     .apply(instance, StarPattern::new)
     );
     public static final StreamCodec<RegistryFriendlyByteBuf, StarPattern> PACKET_CODEC = StreamCodec.composite(
-            Identifier.STREAM_CODEC, StarPattern::assetId, ByteBufCodecs.STRING_UTF8, StarPattern::translationKey, StarPattern::new
+            ResourceLocation.STREAM_CODEC, StarPattern::assetId, ByteBufCodecs.STRING_UTF8, StarPattern::translationKey, StarPattern::new
     );
 
     public static void init() {}

@@ -1,9 +1,9 @@
 package com.github.starcatcher21.stargazer.particle;
 
 //? if fabric {
-import net.fabricmc.api.EnvType;
+/*import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-//? }
+*///? }
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -11,10 +11,10 @@ import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.RandomSource;
 
 //? if fabric {
-@Environment(EnvType.CLIENT)
- //? }
+/*@Environment(EnvType.CLIENT)
+ *///? }
 //? if >= 26.2 {
-public class StarParticle2 extends SingleQuadParticle {
+/*public class StarParticle2 extends SingleQuadParticle {
     StarParticle2(ClientLevel world, double x, double y, double z, double velocityX, double velocityY, double velocityZ, boolean signal, TextureAtlasSprite sprite) {
         super(world, x, y, z, sprite);
         this.setAlpha(1.0f);
@@ -29,8 +29,8 @@ public class StarParticle2 extends SingleQuadParticle {
         this.yd = velocityY + this.random.nextFloat() / 500.0F;
         this.zd = velocityZ;
     }
-//?} else {
-/*public class StarParticle2 extends TextureSheetParticle {
+*///?} else {
+public class StarParticle2 extends TextureSheetParticle {
     StarParticle2(ClientLevel world, double x, double y, double z, double velocityX, double velocityY, double velocityZ, boolean signal, TextureAtlasSprite sprite) {
         super(world, x, y, z);
         this.setSprite(sprite);
@@ -46,7 +46,7 @@ public class StarParticle2 extends SingleQuadParticle {
         this.yd = velocityY + this.random.nextFloat() / 500.0F;
         this.zd = velocityZ;
     }
-*///?}
+//?}
 
     public void tick() {
         this.xo = this.x;
@@ -66,21 +66,21 @@ public class StarParticle2 extends SingleQuadParticle {
     }
 
     //? if < 26.2 {
-    /*@Override
+    @Override
     public ParticleRenderType getRenderType() {
         return ParticleRenderType.PARTICLE_SHEET_TRANSLUCENT;
     }
-    *///? } else {
-    @Override
+    //? } else {
+    /*@Override
     public Layer getLayer() {
         return Layer.TRANSLUCENT;
     }
-    //? }
+    *///? }
 
 
     //? if fabric {
-    @Environment(EnvType.CLIENT)
-     //? }
+    /*@Environment(EnvType.CLIENT)
+     *///? }
     public static class Factory implements ParticleProvider<SimpleParticleType> {
         private final SpriteSet spriteProvider;
 
@@ -89,19 +89,19 @@ public class StarParticle2 extends SingleQuadParticle {
         }
 
         //? if >= 26.2 {
-        public Particle createParticle(
+        /*public Particle createParticle(
                 SimpleParticleType simpleParticleType, ClientLevel clientWorld, double d, double e, double f, double g, double h, double i, RandomSource random
         ) {
             StarParticle2 campfireSmokeParticle = new StarParticle2(clientWorld, d, e, f, g, h, i, false, this.spriteProvider.get(random));
             return campfireSmokeParticle;
         }
-        //?} else {
-        /*public Particle createParticle(
+        *///?} else {
+        public Particle createParticle(
                 SimpleParticleType simpleParticleType, ClientLevel clientWorld, double d, double e, double f, double g, double h, double i
         ) {
             StarParticle2 campfireSmokeParticle = new StarParticle2(clientWorld, d, e, f, g, h, i, false, this.spriteProvider.get(clientWorld.random));
             return campfireSmokeParticle;
         }
-        *///?}
+        //?}
     }
 }

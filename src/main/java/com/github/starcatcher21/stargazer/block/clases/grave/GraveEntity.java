@@ -9,12 +9,12 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 //? if >= 26.2 {
-import net.minecraft.world.level.storage.ValueInput;
+/*import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-//?} else {
-/*import net.minecraft.core.HolderLookup;
+*///?} else {
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-*///?}
+//?}
 
 public class GraveEntity extends BlockEntity {
     public Optional<String> TYPE = Optional.of("item");
@@ -25,7 +25,7 @@ public class GraveEntity extends BlockEntity {
     }
 
     //? if >= 26.2 {
-    @Override
+    /*@Override
     protected void loadAdditional(ValueInput input) {
         super.loadAdditional(input);
         TYPE = input.getString("type");
@@ -42,8 +42,8 @@ public class GraveEntity extends BlockEntity {
         output.putString("type", TYPE.orElse(null));
         ContainerHelper.saveAllItems(output, items);
     }
-    //?} else {
-    /*@Override
+    *///?} else {
+    @Override
     protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.loadAdditional(tag, registries);
         TYPE = tag.contains("type") ? Optional.of(tag.getString("type")) : Optional.empty();
@@ -60,7 +60,7 @@ public class GraveEntity extends BlockEntity {
         tag.putString("type", TYPE.orElse(null));
         ContainerHelper.saveAllItems(tag, items, registries);
     }
-    *///?}
+    //?}
 
     public Optional<String> getNbtType() {
         return TYPE;

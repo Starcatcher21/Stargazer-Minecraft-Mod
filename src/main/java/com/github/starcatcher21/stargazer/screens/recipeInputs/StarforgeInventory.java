@@ -7,12 +7,12 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.entity.player.Player;
 //? if >= 26.2 {
-import net.minecraft.world.entity.player.StackedItemContents;
- //?} else {
-/*import net.minecraft.world.entity.player.StackedContents;
+/*import net.minecraft.world.entity.player.StackedItemContents;
+ *///?} else {
+import net.minecraft.world.entity.player.StackedContents;
 import net.minecraft.core.Holder;
 import net.minecraft.world.item.Item;
-*///?}
+//?}
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 
@@ -111,14 +111,14 @@ public class StarforgeInventory implements StarforgeRecipeInventory {
 
     /* ---------------- fillStackedContents (signature differs) -------- */
     //? if >= 26.2 {
-    @Override
+    /*@Override
     public void fillStackedContents(StackedItemContents finder) {
         for (ItemStack itemStack : this.stacks) {
             finder.accountSimpleStack(itemStack);
         }
     }
-    //?} else {
-    /*@Override
+    *///?} else {
+    @Override
     public void fillStackedContents(StackedContents finder) {
         for (ItemStack itemStack : this.stacks) {
             if (!itemStack.isEmpty()) {
@@ -126,5 +126,5 @@ public class StarforgeInventory implements StarforgeRecipeInventory {
             }
         }
     }
-    *///?}
+    //?}
 }

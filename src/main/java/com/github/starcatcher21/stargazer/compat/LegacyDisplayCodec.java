@@ -1,4 +1,4 @@
-package com.github.starcatcher21.stargazer.compat.rei;
+package com.github.starcatcher21.stargazer.compat;
 
 import com.mojang.serialization.Codec;
 import net.minecraft.client.Minecraft;

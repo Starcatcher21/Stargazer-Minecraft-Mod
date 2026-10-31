@@ -7,8 +7,8 @@ import me.shedaniel.rei.api.common.display.DisplaySerializer;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 //? if < 26.2 {
-/*import net.minecraft.nbt.CompoundTag;
-*///? }
+import net.minecraft.nbt.CompoundTag;
+//? }
 
 public class StarforgeDisplaySerializer implements DisplaySerializer<StarforgeDisplay> {
     public final MapCodec<StarforgeDisplay> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
@@ -22,7 +22,7 @@ public class StarforgeDisplaySerializer implements DisplaySerializer<StarforgeDi
             StarforgeDisplay::new
     );
     //? if >= 26.2 {
-    @Override
+    /*@Override
     public MapCodec<StarforgeDisplay> codec() {
         return CODEC;
     }
@@ -30,8 +30,8 @@ public class StarforgeDisplaySerializer implements DisplaySerializer<StarforgeDi
     public StreamCodec<RegistryFriendlyByteBuf, StarforgeDisplay> streamCodec() {
         return PACKET_CODEC;
     }
-    //? } else {
-    /*@Override
+    *///? } else {
+    @Override
     public CompoundTag save(CompoundTag tag, StarforgeDisplay display) {
         tag.put("recipe", LegacyDisplayCodec.encode(ShapedStarforgeRecipe.CODEC.codec(), display.recipe()));
         return tag;
@@ -41,5 +41,5 @@ public class StarforgeDisplaySerializer implements DisplaySerializer<StarforgeDi
     public StarforgeDisplay read(CompoundTag tag) {
         return new StarforgeDisplay(LegacyDisplayCodec.decode(ShapedStarforgeRecipe.CODEC.codec(), tag.get("recipe")));
     }
-    *///? }
+    //? }
 }

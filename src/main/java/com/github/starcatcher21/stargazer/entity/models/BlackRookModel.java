@@ -2,49 +2,49 @@ package com.github.starcatcher21.stargazer.entity.models;
 
 import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.entity.BlackRook;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 //? if >= 26.2 {
-import com.geckolib.model.GeoModel;
-import com.geckolib.renderer.base.GeoRenderState;
-//? } else {
-/*import com.geckolib.model.GeoModel;
-*///? }
+/*import software.bernie.geckolib.model.GeoModel;
+import software.bernie.geckolib.renderer.base.GeoRenderState;
+*///? } else {
+import software.bernie.geckolib.model.GeoModel;
+//? }
 
 public class BlackRookModel extends GeoModel<BlackRook> {
     //? if >= 26.2 {
-    private final Identifier animations =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "animations/entity/rook");
-    private final Identifier model =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "geo/entity/rook");
-    //? } else {
-    /*private final Identifier animations =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "animations/entity/rook.animation.json");
-    private final Identifier model =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "geo/entity/rook.geo.json");
-    *///? }
-    private final Identifier texture =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/black_rook.png");
+    /*private final ResourceLocation animations =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "animations/entity/rook");
+    private final ResourceLocation model =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "geo/entity/rook");
+    *///? } else {
+    private final ResourceLocation animations =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "animations/entity/rook.animation.json");
+    private final ResourceLocation model =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "geo/entity/rook.geo.json");
+    //? }
+    private final ResourceLocation texture =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/black_rook.png");
 
     //? if >= 26.2 {
-    @Override
-    public Identifier getModelResource(GeoRenderState renderState) {
-        return model;
-    }
-
-    @Override
-    public Identifier getTextureResource(GeoRenderState renderState) {
-        return texture;
-    }
-    //? } else {
     /*@Override
-    public Identifier getModelResource(BlackRook animatable) {
+    public ResourceLocation getModelResource(GeoRenderState renderState) {
         return model;
     }
 
     @Override
-    public Identifier getTextureResource(BlackRook animatable) {
+    public ResourceLocation getTextureResource(GeoRenderState renderState) {
         return texture;
     }
-    *///? }
+    *///? } else {
+    @Override
+    public ResourceLocation getModelResource(BlackRook animatable) {
+        return model;
+    }
+
+    @Override
+    public ResourceLocation getTextureResource(BlackRook animatable) {
+        return texture;
+    }
+    //? }
 
 
     @Override
-    public Identifier getAnimationResource(BlackRook animatable) {
+    public ResourceLocation getAnimationResource(BlackRook animatable) {
         return animations;
     }
 }

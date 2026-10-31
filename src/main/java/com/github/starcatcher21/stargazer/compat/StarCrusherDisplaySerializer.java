@@ -5,8 +5,8 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.shedaniel.rei.api.common.display.DisplaySerializer;
 //? if < 26.2 {
-/*import net.minecraft.nbt.CompoundTag;
-*///? }
+import net.minecraft.nbt.CompoundTag;
+//? }
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 
@@ -22,7 +22,7 @@ public class StarCrusherDisplaySerializer implements DisplaySerializer<StarCrush
             StarCrusherDisplay::new
     );
     //? if >= 26.2 {
-    @Override
+    /*@Override
     public MapCodec<StarCrusherDisplay> codec() {
         return CODEC;
     }
@@ -30,8 +30,8 @@ public class StarCrusherDisplaySerializer implements DisplaySerializer<StarCrush
     public StreamCodec<RegistryFriendlyByteBuf, StarCrusherDisplay> streamCodec() {
         return PACKET_CODEC;
     }
-    //? } else {
-    /*@Override
+    *///? } else {
+    @Override
     public CompoundTag save(CompoundTag tag, StarCrusherDisplay display) {
         tag.put("recipe", LegacyDisplayCodec.encode(ShapedStarCrusherRecipe.CODEC.codec(), display.recipe()));
         return tag;
@@ -41,5 +41,5 @@ public class StarCrusherDisplaySerializer implements DisplaySerializer<StarCrush
     public StarCrusherDisplay read(CompoundTag tag) {
         return new StarCrusherDisplay(LegacyDisplayCodec.decode(ShapedStarCrusherRecipe.CODEC.codec(), tag.get("recipe")));
     }
-    *///? }
+    //? }
 }

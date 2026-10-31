@@ -1,9 +1,9 @@
 package com.github.starcatcher21.stargazer.particle;
 
 //? if fabric {
-import net.fabricmc.api.EnvType;
+/*import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-//? }
+*///? }
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -12,10 +12,10 @@ import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.RandomSource;
 
 //? if fabric {
-@Environment(EnvType.CLIENT)
- //? }
+/*@Environment(EnvType.CLIENT)
+ *///? }
 //? if >= 26.2 {
-public class StarParticle extends SingleQuadParticle {
+/*public class StarParticle extends SingleQuadParticle {
     private static final float ACCELERATION_SCALE = 0.0025F;
     private static final int INITIAL_LIFETIME = 300;
     private static final int CURVE_ENDPOINT_TIME = 300;
@@ -47,8 +47,8 @@ public class StarParticle extends SingleQuadParticle {
         this.zaFlowScale = Math.sin(Math.toRadians(l * 60.0F)) * this.windBig;
         this.swirlPeriod = Math.toRadians(1000.0F + l * 3000.0F);
     }
-//?} else {
-/*public class StarParticle extends TextureSheetParticle {
+*///?} else {
+public class StarParticle extends TextureSheetParticle {
     private static final float ACCELERATION_SCALE = 0.0025F;
     private static final int INITIAL_LIFETIME = 300;
     private static final int CURVE_ENDPOINT_TIME = 300;
@@ -81,19 +81,19 @@ public class StarParticle extends SingleQuadParticle {
         this.zaFlowScale = Math.sin(Math.toRadians(l * 60.0F)) * this.windBig;
         this.swirlPeriod = Math.toRadians(1000.0F + l * 3000.0F);
     }
-*///?}
+//?}
 
     //? if >= 26.2 {
-    @Override
+    /*@Override
     public Layer getLayer() {
         return Layer.OPAQUE;
     }
-    //? } else {
-    /*@Override
+    *///? } else {
+    @Override
     public ParticleRenderType getRenderType() {
         return ParticleRenderType.PARTICLE_SHEET_OPAQUE;
     }
-    *///? }
+    //? }
 
     @Override
     public void tick() {
@@ -139,8 +139,8 @@ public class StarParticle extends SingleQuadParticle {
     }
 
     //? if fabric {
-    @Environment(EnvType.CLIENT)
-    //? }
+    /*@Environment(EnvType.CLIENT)
+    *///? }
     public static class Factory implements ParticleProvider<SimpleParticleType> {
         private final SpriteSet spriteProvider;
 
@@ -149,7 +149,7 @@ public class StarParticle extends SingleQuadParticle {
         }
 
         //? if >= 26.2 {
-        public Particle createParticle(
+        /*public Particle createParticle(
                 SimpleParticleType simpleParticleType, ClientLevel clientWorld,
                 double d, double e, double f, double g, double h, double i,
                 RandomSource random
@@ -158,8 +158,8 @@ public class StarParticle extends SingleQuadParticle {
                     this.spriteProvider.get(random),
                     0.07F, 10.0F, true, false, 2.0F, 0.021F);
         }
-        //?} else {
-        /*public Particle createParticle(
+        *///?} else {
+        public Particle createParticle(
                 SimpleParticleType simpleParticleType, ClientLevel clientWorld,
                 double d, double e, double f, double g, double h, double i
         ) {
@@ -167,14 +167,14 @@ public class StarParticle extends SingleQuadParticle {
                     this.spriteProvider.get(clientWorld.random),
                     0.07F, 10.0F, true, false, 2.0F, 0.021F);
         }
-        *///?}
+        //?}
     }
 
     //? if >= 26.2 {
     
-    //? if fabric {
-    @Environment(value = EnvType.CLIENT)
-    //? }
+    /*//? if fabric {
+    /^@Environment(value = EnvType.CLIENT)
+    ^///? }
     public static class TintedLeavesFactory implements ParticleProvider<ColorParticleOption> {
         private final SpriteSet spriteProvider;
 
@@ -197,9 +197,9 @@ public class StarParticle extends SingleQuadParticle {
             return leavesParticle;
         }
     }
-    //?}
+    *///?}
     //? if < 26.2 {
-    /*public static class TintedLeavesFactory implements ParticleProvider<ColorParticleOption> {
+    public static class TintedLeavesFactory implements ParticleProvider<ColorParticleOption> {
         private final SpriteSet spriteProvider;
 
         public TintedLeavesFactory(SpriteSet spriteProvider) {
@@ -217,5 +217,5 @@ public class StarParticle extends SingleQuadParticle {
             return particle;
         }
     }
-    *///?}
+    //?}
 }

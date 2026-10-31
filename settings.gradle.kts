@@ -9,9 +9,9 @@ pluginManagement {
         maven("https://maven.architectury.dev")
         maven("https://maven.minecraftforge.net")
         maven("https://maven.neoforged.net/releases/")
-        maven("https://cursemaven.com")                                   // REI
-        maven("https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/") // GeckoLib
-        maven("https://modmaven.dev/")                                    // teamreborn:energy
+        maven("https://cursemaven.com")
+        maven("https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/")
+        maven("https://modmaven.dev/")
         maven("https://api.modrinth.com/maven")
         maven("https://maven.parchmentmc.org")
     }

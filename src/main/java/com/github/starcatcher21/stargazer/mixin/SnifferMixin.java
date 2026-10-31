@@ -5,7 +5,7 @@ import com.github.starcatcher21.stargazer.block.register.MoonBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.animal.sniffer.Sniffer;
 import net.minecraft.world.level.Level;
@@ -23,11 +23,11 @@ public class SnifferMixin {
     private static final ResourceKey<LootTable> MOON_ROCK_LOOT =
             ResourceKey.create(
                     Registries.LOOT_TABLE,
-                    Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "sniffer_moon")
+                    ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "sniffer_moon")
             );
 
     //? if >=26.2 {
-    @Redirect(
+    /*@Redirect(
             method = "dropSeed",
             at = @At(
                     value = "INVOKE",
@@ -42,8 +42,8 @@ public class SnifferMixin {
 
         return instance.dropFromGiftLootTable(serverLevel, stargazer$getLootTableKey(serverLevel, head, resourceKey), biConsumer);
     }
-    //?} else {
-    /*@ModifyArg(
+    *///?} else {
+    @ModifyArg(
         method = "dropSeed",
         at = @At(value = "INVOKE", target = "Lnet/minecraft/server/ReloadableServerRegistries$Holder;getLootTable(Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/world/level/storage/loot/LootTable;"),
         index = 0
@@ -53,7 +53,7 @@ public class SnifferMixin {
         BlockPos head = ((SnifferAccessor)this).invokeGetHeadBlock();
         return stargazer$getLootTableKey(self.level(), head, original);
     }
-    *///?}
+    //?}
     @Unique
     private ResourceKey<LootTable> stargazer$getLootTableKey(Level level, BlockPos head, ResourceKey<LootTable> origin) {
         if (level.getBlockState(head.below()).is(MoonBlocks.MOON_ROCK_NYLIUM.get())) return MOON_ROCK_LOOT;

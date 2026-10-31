@@ -14,7 +14,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -25,18 +25,18 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.item.component.Tool;
 //? if >= 26.2 {
-import net.minecraft.world.item.component.Weapon;
+/*import net.minecraft.world.item.component.Weapon;
 import net.minecraft.world.item.equipment.ArmorType;
 import net.minecraft.world.item.equipment.Equippable;
 import net.minecraft.world.item.consume_effects.ConsumeEffect;
 import net.minecraft.world.item.enchantment.Repairable;
 import net.minecraft.world.item.component.Consumable;
 import net.minecraft.world.item.component.Consumables;
-//?} else {
-/*import net.minecraft.world.item.ArmorItem;
+*///?} else {
+import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.Tiers;
-*///? }
+//? }
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import java.util.List;
@@ -69,22 +69,22 @@ public final class ModItems {
     public static final RegistrySupplier<Item> GEODE_FRUIT = register("geode_fruit", Item::new, new Item.Properties());
 
     //? if <= 1.21.1 {
-    /*public static final RegistrySupplier<Item> GHOST_SPAWN_EGG = register("ghost_spawn_egg", properties -> new SpawnEggItem(EntityRegistry.GHOST_ENTITY.get(), 0xffffff, 0xffffff, properties), new Item.Properties());
+    public static final RegistrySupplier<Item> GHOST_SPAWN_EGG = register("ghost_spawn_egg", properties -> new SpawnEggItem(EntityRegistry.GHOST_ENTITY.get(), 0xffffff, 0xffffff, properties), new Item.Properties());
     public static final RegistrySupplier<Item> EYE_BAT_SPAWN_EGG = register("eye_bat_spawn_egg", properties -> new SpawnEggItem(EntityRegistry.EYE_BAT_ENTITY.get(), 0xffffff, 0xffffff, properties), new Item.Properties());
     public static final RegistrySupplier<Item> AMETHYST_TURTLE_SPAWN_EGG = register("amethyst_turtle_spawn_egg", properties -> new SpawnEggItem(EntityRegistry.AMETHYST_TURTLE_ENTITY.get(), 0xffffff, 0xffffff, properties), new Item.Properties());
     public static final RegistrySupplier<Item> ROOK_SPAWN_EGG = register("rook_spawn_egg", properties -> new SpawnEggItem(EntityRegistry.ROOK_ENTITY.get(), 0xffffff, 0xffffff, properties), new Item.Properties());
     public static final RegistrySupplier<Item> BLACK_ROOK_SPAWN_EGG = register("black_rook_spawn_egg", properties -> new SpawnEggItem(EntityRegistry.BLACK_ROOK_ENTITY.get(), 0xffffff, 0xffffff, properties), new Item.Properties());
     public static final RegistrySupplier<Item> SCRUBY_SPAWN_EGG = register("scruby_spawn_egg", properties -> new SpawnEggItem(EntityRegistry.SCRUBY_ENTITY.get(), 0xffffff, 0xffffff, properties), new Item.Properties());
     public static final RegistrySupplier<Item> BLACK_FOX_SPAWN_EGG = register("black_fox_spawn_egg", properties -> new SpawnEggItem(EntityRegistry.BLACK_FOX_ENTITY.get(), 0xffffff, 0xffffff, properties), new Item.Properties());
-    *///? } else {
-    public static final RegistrySupplier<Item> GHOST_SPAWN_EGG = register("ghost_spawn_egg", properties -> new SpawnEggItem(properties.spawnEgg(EntityRegistry.GHOST_ENTITY.get())), new Item.Properties());
+    //? } else {
+    /*public static final RegistrySupplier<Item> GHOST_SPAWN_EGG = register("ghost_spawn_egg", properties -> new SpawnEggItem(properties.spawnEgg(EntityRegistry.GHOST_ENTITY.get())), new Item.Properties());
     public static final RegistrySupplier<Item> EYE_BAT_SPAWN_EGG = register("eye_bat_spawn_egg", properties -> new SpawnEggItem(properties.spawnEgg(EntityRegistry.EYE_BAT_ENTITY.get())), new Item.Properties());
     public static final RegistrySupplier<Item> AMETHYST_TURTLE_SPAWN_EGG = register("amethyst_turtle_spawn_egg", properties -> new SpawnEggItem(properties.spawnEgg(EntityRegistry.AMETHYST_TURTLE_ENTITY.get())), new Item.Properties());
     public static final RegistrySupplier<Item> ROOK_SPAWN_EGG = register("rook_spawn_egg", properties -> new SpawnEggItem(properties.spawnEgg(EntityRegistry.ROOK_ENTITY.get())), new Item.Properties());
     public static final RegistrySupplier<Item> BLACK_ROOK_SPAWN_EGG = register("black_rook_spawn_egg", properties -> new SpawnEggItem(properties.spawnEgg(EntityRegistry.BLACK_ROOK_ENTITY.get())), new Item.Properties());
     public static final RegistrySupplier<Item> SCRUBY_SPAWN_EGG = register("scruby_spawn_egg", properties -> new SpawnEggItem(properties.spawnEgg(EntityRegistry.SCRUBY_ENTITY.get())), new Item.Properties());
     public static final RegistrySupplier<Item> BLACK_FOX_SPAWN_EGG = register("black_fox_spawn_egg", properties -> new SpawnEggItem(properties.spawnEgg(EntityRegistry.BLACK_FOX_ENTITY.get())), new Item.Properties());
-    //? }
+    *///? }
 
     public static final RegistrySupplier<Item> DEAD_EYE_BAT = register("dead_eye_bat", Item::new, new Item.Properties());
     public static final RegistrySupplier<Item> LIVING_EYE = register("living_eye", Item::new, new Item.Properties());
@@ -92,16 +92,16 @@ public final class ModItems {
     public static final RegistrySupplier<Item> COOKED_GEODE_FRUIT = register("cooked_geode_fruit", Item::new, new Item.Properties()
                     //? if >= 26.2 {
                     
-                    .food(new FoodProperties(8, 4, true))
-                    //?} else {
-                    /*.food(new FoodProperties.Builder().nutrition(8).saturationModifier(4.0f).alwaysEdible().build())
-            *///? }
+                    /*.food(new FoodProperties(8, 4, true))
+                    *///?} else {
+                    .food(new FoodProperties.Builder().nutrition(8).saturationModifier(4.0f).alwaysEdible().build())
+            //? }
     );
 
     public static final RegistrySupplier<Item> FULL_COOKED_GEODE_FRUIT = register("full_cooked_geode_fruit", Item::new, new Item.Properties()
                     //? if >= 26.2 {
                     
-                    .food(new FoodProperties(14, 20, true),
+                    /*.food(new FoodProperties(14, 20, true),
                             Consumable.builder()
                                     .onConsume(new ConsumeEffect() {
                                         @Override
@@ -118,19 +118,19 @@ public final class ModItems {
                                     })
                                     .build()
                     )
-                    //?} else {
-                    /*.food(new FoodProperties.Builder().nutrition(14).saturationModifier(20.0f).alwaysEdible()
+                    *///?} else {
+                    .food(new FoodProperties.Builder().nutrition(14).saturationModifier(20.0f).alwaysEdible()
                             .effect(() -> new MobEffectInstance(StatusEffects.getHolder(StatusEffects.COSMO.get()), 1200), 1.0f)
                             .effect(() -> new MobEffectInstance(MobEffects.ABSORPTION, 1200, 2), 1.0f)
                             .build()
                     )
-            *///? }
+            //? }
     );
 
     public static final RegistrySupplier<Item> BLACK_COOKED_GEODE_FRUIT = register("black_cooked_geode_fruit", Item::new, new Item.Properties()
                     //? if >= 26.2 {
                     
-                    .food(new FoodProperties(4, 0, true),
+                    /*.food(new FoodProperties(4, 0, true),
                             Consumable.builder()
                                     .onConsume(new ConsumeEffect() {
                                         @Override
@@ -147,86 +147,86 @@ public final class ModItems {
                                     })
                                     .build()
                     )
-                    //?} else {
-                    /*.food(new FoodProperties.Builder().nutrition(4).saturationModifier(0.0f).alwaysEdible()
+                    *///?} else {
+                    .food(new FoodProperties.Builder().nutrition(4).saturationModifier(0.0f).alwaysEdible()
                             .effect(() -> new MobEffectInstance(MobEffects.DARKNESS, 1200), 1.0f)
                             .effect(() -> new MobEffectInstance(MobEffects.HARM, 1), 1.0f)
                             .build()
                     )
-            *///? }
+            //? }
     );
 
     public static final RegistrySupplier<Item> GUMMY_FISH = register("gummy_fish", Item::new, new Item.Properties()
                     //? if >= 26.2 {
                     
-                    .food(new FoodProperties(1, 2, false))
-                    //?} else {
-                    /*.food(new FoodProperties.Builder().nutrition(1).saturationModifier(2.0f).build())
-            *///? }
+                    /*.food(new FoodProperties(1, 2, false))
+                    *///?} else {
+                    .food(new FoodProperties.Builder().nutrition(1).saturationModifier(2.0f).build())
+            //? }
     );
     public static final RegistrySupplier<Item> GUMMY_WORM = register("gummy_worm", Item::new, new Item.Properties()
                     //? if >= 26.2 {
                     
-                    .food(new FoodProperties(1, 2, false))
-                    //?} else {
-                    /*.food(new FoodProperties.Builder().nutrition(1).saturationModifier(2.0f).build())
-            *///? }
+                    /*.food(new FoodProperties(1, 2, false))
+                    *///?} else {
+                    .food(new FoodProperties.Builder().nutrition(1).saturationModifier(2.0f).build())
+            //? }
     );
     public static final RegistrySupplier<Item> COSMO_FISH = register("cosmo_fish", Item::new, new Item.Properties()
                     //? if >= 26.2 {
                     
-                    .food(new FoodProperties(3, 6, false),
+                    /*.food(new FoodProperties(3, 6, false),
                             ConsumableComponents.STARGAZE)
-                    //?} else {
-                    /*.food(new FoodProperties.Builder().nutrition(3).saturationModifier(6.0f).build())
-            *///? }
+                    *///?} else {
+                    .food(new FoodProperties.Builder().nutrition(3).saturationModifier(6.0f).build())
+            //? }
     );
     public static final RegistrySupplier<Item> ENDER_FISH = register("ender_fish", Item::new, new Item.Properties()
                     //? if >= 26.2 {
                     
-                    .food(new FoodProperties(3, 6, false),
+                    /*.food(new FoodProperties(3, 6, false),
                             Consumables.CHORUS_FRUIT)
-                    //?} else {
-                    /*.food(new FoodProperties.Builder().nutrition(3).saturationModifier(6.0f).build())
-            *///? }
+                    *///?} else {
+                    .food(new FoodProperties.Builder().nutrition(3).saturationModifier(6.0f).build())
+            //? }
     );
     public static final RegistrySupplier<Item> GOLDEN_CRUCIAN = register("golden_crucian", Item::new, new Item.Properties()
                     //? if >= 26.2 {
                     
-                    .food(new FoodProperties(2, 4, false))
-                    //?} else {
-                    /*.food(new FoodProperties.Builder().nutrition(2).saturationModifier(4.0f).build())
-            *///? }
+                    /*.food(new FoodProperties(2, 4, false))
+                    *///?} else {
+                    .food(new FoodProperties.Builder().nutrition(2).saturationModifier(4.0f).build())
+            //? }
     );
     public static final RegistrySupplier<Item> MOON_COOKIE = register("moon_cookie", Item::new, new Item.Properties()
                     //? if >= 26.2 {
                     
-                    .food(new FoodProperties(1, 2, true))
-                    //?} else {
-                    /*.food(new FoodProperties.Builder().nutrition(1).saturationModifier(2.0f).alwaysEdible().build())
-            *///? }
+                    /*.food(new FoodProperties(1, 2, true))
+                    *///?} else {
+                    .food(new FoodProperties.Builder().nutrition(1).saturationModifier(2.0f).alwaysEdible().build())
+            //? }
     );
     public static final RegistrySupplier<Item> STAR_COOKIE = register("star_cookie", Item::new, new Item.Properties()
                     //? if >= 26.2 {
                     
-                    .food(new FoodProperties(1, 2, true))
-                    //?} else {
-                    /*.food(new FoodProperties.Builder().nutrition(1).saturationModifier(2.0f).alwaysEdible().build())
-            *///? }
+                    /*.food(new FoodProperties(1, 2, true))
+                    *///?} else {
+                    .food(new FoodProperties.Builder().nutrition(1).saturationModifier(2.0f).alwaysEdible().build())
+            //? }
     );
     public static final RegistrySupplier<Item> SPACE_JAM = register("space_jam",
             //? if < 26.2 {
-            /*HoneyBottleItem::new,
-            *///? } else {
-            Item::new,
-            //? }
+            HoneyBottleItem::new,
+            //? } else {
+            /*Item::new,
+            *///? }
             new Item.Properties()
                     //? if >= 26.2 {
-                    .food(new FoodProperties(8, 16, true), Consumables.DEFAULT_DRINK)
+                    /*.food(new FoodProperties(8, 16, true), Consumables.DEFAULT_DRINK)
                     .usingConvertsTo(Items.GLASS_BOTTLE)
-            //?} else {
-            /*.food(new FoodProperties.Builder().nutrition(8).saturationModifier(16.0f).alwaysEdible().build())
-             *///? }
+            *///?} else {
+            .food(new FoodProperties.Builder().nutrition(8).saturationModifier(16.0f).alwaysEdible().build())
+             //? }
             .craftRemainder(Items.GLASS_BOTTLE)
     );
     public static final RegistrySupplier<Item> ECTOPLASM = register("ectoplasm", Item::new, new Item.Properties().stacksTo(16));
@@ -236,10 +236,10 @@ public final class ModItems {
 
     public static final RegistrySupplier<Item> STAR_HAMMER = register("star_hammer", Item::new, repairable(star_hammer(
             //? if >= 26.2 {
-            ToolMaterial.WOOD
-            //?} else {
-            /*Tiers.WOOD
-            *///? }
+            /*ToolMaterial.WOOD
+            *///?} else {
+            Tiers.WOOD
+            //? }
             , 1.0f, 1.0f), CustomTags.STARDUST).stacksTo(1).durability(500));
 
     public static final RegistrySupplier<Item> THROWABLE_STAR = register("throwable_star", ThrowableStar::new, new Item.Properties().stacksTo(16));
@@ -257,22 +257,22 @@ public final class ModItems {
 
     public static final RegistrySupplier<Item> MASK_OF_LUNA = register("mask_of_luna",
             //? if >= 26.2 {
-            Item::new,
+            /*Item::new,
             () -> new Item.Properties().stacksTo(1)
                     .humanoidArmor(
                     ArmorMaterial.MASK_OF_LUNA_MATERIAL,
                     ArmorType.HELMET
             )
-            //?} else {
-            /*properties -> new ArmorItem(ArmorMaterial.MASK_OF_LUNA_MATERIAL, ArmorItem.Type.HELMET, properties.stacksTo(1)),
+            *///?} else {
+            properties -> new ArmorItem(ArmorMaterial.MASK_OF_LUNA_MATERIAL, ArmorItem.Type.HELMET, properties.stacksTo(1)),
             new Item.Properties()
-                    *///? }
+                    //? }
                     .attributes(
                             ItemAttributeModifiers.builder()
                                     .add(
                                             StargazerAttributes.DASH_LEVEL,
                                             new AttributeModifier(
-                                                  Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.mask_of_luna.dash"),
+                                                  ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.mask_of_luna.dash"),
                                                     1.0,
                                                     AttributeModifier.Operation.ADD_VALUE
                                             ),
@@ -283,54 +283,54 @@ public final class ModItems {
     );
     public static final RegistrySupplier<Item> JESTER_HELMET = register("jester_helmet",
             //? if >= 26.2 {
-            Item::new,
+            /*Item::new,
             () -> new Item.Properties().stacksTo(1).humanoidArmor(ArmorMaterial.JESTER_MATERIAL, ArmorType.HELMET)
-            //?} else {
-            /*properties -> new ArmorItem(ArmorMaterial.JESTER_MATERIAL, ArmorItem.Type.HELMET, properties.stacksTo(1)), new Item.Properties()
-            *///? }
+            *///?} else {
+            properties -> new ArmorItem(ArmorMaterial.JESTER_MATERIAL, ArmorItem.Type.HELMET, properties.stacksTo(1)), new Item.Properties()
+            //? }
     );
     public static final RegistrySupplier<Item> JESTER_CHESTPLATE = register("jester_chestplate",
             //? if >= 26.2 {
-            Item::new,
+            /*Item::new,
             () -> new Item.Properties().stacksTo(1).humanoidArmor(ArmorMaterial.JESTER_MATERIAL, ArmorType.CHESTPLATE)
-            //?} else {
-            /*properties -> new ArmorItem(ArmorMaterial.JESTER_MATERIAL, ArmorItem.Type.CHESTPLATE, properties.stacksTo(1)), new Item.Properties()
-            *///? }
+            *///?} else {
+            properties -> new ArmorItem(ArmorMaterial.JESTER_MATERIAL, ArmorItem.Type.CHESTPLATE, properties.stacksTo(1)), new Item.Properties()
+            //? }
     );
     public static final RegistrySupplier<Item> JESTER_LEGGINS = register("jester_leggins",
             //? if >= 26.2 {
-            Item::new,
+            /*Item::new,
             () -> new Item.Properties().stacksTo(1).humanoidArmor(ArmorMaterial.JESTER_MATERIAL, ArmorType.LEGGINGS)
-            //?} else {
-            /*properties -> new ArmorItem(ArmorMaterial.JESTER_MATERIAL, ArmorItem.Type.LEGGINGS, properties.stacksTo(1)), new Item.Properties()
-            *///? }
+            *///?} else {
+            properties -> new ArmorItem(ArmorMaterial.JESTER_MATERIAL, ArmorItem.Type.LEGGINGS, properties.stacksTo(1)), new Item.Properties()
+            //? }
     );
     public static final RegistrySupplier<Item> JESTER_BOOTS = register("jester_boots",
             //? if >= 26.2 {
-            Item::new,
+            /*Item::new,
             () -> new Item.Properties().stacksTo(1).humanoidArmor(ArmorMaterial.JESTER_MATERIAL, ArmorType.BOOTS)
-            //?} else {
-            /*properties -> new ArmorItem(Holder.direct(ArmorMaterial.JESTER_MATERIAL.value()), ArmorItem.Type.BOOTS, properties.stacksTo(1)), new Item.Properties()
-            *///? }
+            *///?} else {
+            properties -> new ArmorItem(Holder.direct(ArmorMaterial.JESTER_MATERIAL.value()), ArmorItem.Type.BOOTS, properties.stacksTo(1)), new Item.Properties()
+            //? }
     );
     public static final RegistrySupplier<Item> CRYSTAL_MOON = register("crystal_moon", Item::new, new Item.Properties().stacksTo(16));
 
     public static final RegistrySupplier<Item> MOON_HELMET = register("moon_helmet",
             //? if >= 26.2 {
-            Item::new, () -> new Item.Properties().stacksTo(1).humanoidArmor(
+            /*Item::new, () -> new Item.Properties().stacksTo(1).humanoidArmor(
                     ArmorMaterial.MOON_MATERIAL,
                     ArmorType.HELMET
             )
-            //?} else {
-            /*properties -> new ArmorItem(ArmorMaterial.MOON_MATERIAL, ArmorItem.Type.HELMET, properties.stacksTo(1)),
+            *///?} else {
+            properties -> new ArmorItem(ArmorMaterial.MOON_MATERIAL, ArmorItem.Type.HELMET, properties.stacksTo(1)),
             new Item.Properties()
-                    *///? }
+                    //? }
                     .attributes(
                             ItemAttributeModifiers.builder()
                                     .add(
                                             Attributes.ARMOR,
                                             new AttributeModifier(
-                                                  Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.moon_helmet.armor"),
+                                                  ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.moon_helmet.armor"),
                                                     3.0,
                                                     AttributeModifier.Operation.ADD_VALUE
                                             ),
@@ -339,7 +339,7 @@ public final class ModItems {
                                     .add(
                                             Attributes.ARMOR_TOUGHNESS,
                                             new AttributeModifier(
-                                                  Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.moon_helmet.toughness"),
+                                                  ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.moon_helmet.toughness"),
                                                     2.0,
                                                     AttributeModifier.Operation.ADD_VALUE
                                             ),
@@ -348,7 +348,7 @@ public final class ModItems {
                                     .add(
                                             Attributes.KNOCKBACK_RESISTANCE,
                                             new AttributeModifier(
-                                                  Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.moon_helmet.knockback_resistance"),
+                                                  ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.moon_helmet.knockback_resistance"),
                                                     0.1,
                                                     AttributeModifier.Operation.ADD_VALUE
                                             ),
@@ -359,21 +359,21 @@ public final class ModItems {
 
     public static final RegistrySupplier<Item> MOON_CHESTPLATE = register("moon_chestplate",
             //? if >= 26.2 {
-            Item::new, () -> new Item.Properties().stacksTo(1)
+            /*Item::new, () -> new Item.Properties().stacksTo(1)
                     .humanoidArmor(
                     ArmorMaterial.MOON_MATERIAL,
                     ArmorType.CHESTPLATE
             )
-            //?} else {
-            /*properties -> new ArmorItem(ArmorMaterial.MOON_MATERIAL, ArmorItem.Type.CHESTPLATE, properties.stacksTo(1)),
+            *///?} else {
+            properties -> new ArmorItem(ArmorMaterial.MOON_MATERIAL, ArmorItem.Type.CHESTPLATE, properties.stacksTo(1)),
             new Item.Properties()
-                    *///? }
+                    //? }
                     .attributes(
                             ItemAttributeModifiers.builder()
                                     .add(
                                             Attributes.ARMOR,
                                             new AttributeModifier(
-                                                  Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.moon_chestplate.armor"),
+                                                  ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.moon_chestplate.armor"),
                                                     8.0,
                                                     AttributeModifier.Operation.ADD_VALUE
                                             ),
@@ -382,7 +382,7 @@ public final class ModItems {
                                     .add(
                                             Attributes.ARMOR_TOUGHNESS,
                                             new AttributeModifier(
-                                                  Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.moon_chestplate.toughness"),
+                                                  ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.moon_chestplate.toughness"),
                                                     2.0,
                                                     AttributeModifier.Operation.ADD_VALUE
                                             ),
@@ -391,7 +391,7 @@ public final class ModItems {
                                     .add(
                                             Attributes.KNOCKBACK_RESISTANCE,
                                             new AttributeModifier(
-                                                  Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.moon_chestplate.knockback_resistance"),
+                                                  ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.moon_chestplate.knockback_resistance"),
                                                     0.1,
                                                     AttributeModifier.Operation.ADD_VALUE
                                             ),
@@ -402,20 +402,20 @@ public final class ModItems {
 
     public static final RegistrySupplier<Item> MOON_LEGGINS = register("moon_leggins",
             //? if >= 26.2 {
-            Item::new, () -> new Item.Properties().stacksTo(1).humanoidArmor(
+            /*Item::new, () -> new Item.Properties().stacksTo(1).humanoidArmor(
                     ArmorMaterial.MOON_MATERIAL,
                     ArmorType.LEGGINGS
             )
-            //?} else {
-            /*properties -> new ArmorItem(ArmorMaterial.MOON_MATERIAL, ArmorItem.Type.LEGGINGS, properties.stacksTo(1)),
+            *///?} else {
+            properties -> new ArmorItem(ArmorMaterial.MOON_MATERIAL, ArmorItem.Type.LEGGINGS, properties.stacksTo(1)),
             new Item.Properties()
-                    *///? }
+                    //? }
                     .attributes(
                             ItemAttributeModifiers.builder()
                                     .add(
                                             Attributes.ARMOR,
                                             new AttributeModifier(
-                                                  Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.moon_leggins.armor"),
+                                                  ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.moon_leggins.armor"),
                                                     6.0,
                                                     AttributeModifier.Operation.ADD_VALUE
                                             ),
@@ -424,7 +424,7 @@ public final class ModItems {
                                     .add(
                                             Attributes.ARMOR_TOUGHNESS,
                                             new AttributeModifier(
-                                                  Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.moon_leggins.toughness"),
+                                                  ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.moon_leggins.toughness"),
                                                     2.0,
                                                     AttributeModifier.Operation.ADD_VALUE
                                             ),
@@ -433,7 +433,7 @@ public final class ModItems {
                                     .add(
                                             Attributes.KNOCKBACK_RESISTANCE,
                                             new AttributeModifier(
-                                                  Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.moon_leggins.knockback_resistance"),
+                                                  ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.moon_leggins.knockback_resistance"),
                                                     0.1,
                                                     AttributeModifier.Operation.ADD_VALUE
                                             ),
@@ -444,20 +444,20 @@ public final class ModItems {
 
     public static final RegistrySupplier<Item> MOON_BOOTS = register("moon_boots",
             //? if >= 26.2 {
-            Item::new, () -> new Item.Properties().stacksTo(1).humanoidArmor(
+            /*Item::new, () -> new Item.Properties().stacksTo(1).humanoidArmor(
                     ArmorMaterial.MOON_MATERIAL,
                     ArmorType.BOOTS
             )
-            //?} else {
-            /*properties -> new ArmorItem(ArmorMaterial.MOON_MATERIAL, ArmorItem.Type.BOOTS, properties.stacksTo(1)),
+            *///?} else {
+            properties -> new ArmorItem(ArmorMaterial.MOON_MATERIAL, ArmorItem.Type.BOOTS, properties.stacksTo(1)),
             new Item.Properties()
-                    *///? }
+                    //? }
                     .attributes(
                             ItemAttributeModifiers.builder()
                                     .add(
                                             Attributes.ARMOR,
                                             new AttributeModifier(
-                                                  Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.moon_boots.armor"),
+                                                  ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.moon_boots.armor"),
                                                     3.0,
                                                     AttributeModifier.Operation.ADD_VALUE
                                             ),
@@ -466,7 +466,7 @@ public final class ModItems {
                                     .add(
                                             Attributes.ARMOR_TOUGHNESS,
                                             new AttributeModifier(
-                                                  Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.moon_boots.toughness"),
+                                                  ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.moon_boots.toughness"),
                                                     2.0,
                                                     AttributeModifier.Operation.ADD_VALUE
                                             ),
@@ -475,7 +475,7 @@ public final class ModItems {
                                     .add(
                                             Attributes.KNOCKBACK_RESISTANCE,
                                             new AttributeModifier(
-                                                  Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.moon_boots.knockback_resistance"),
+                                                  ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.moon_boots.knockback_resistance"),
                                                     0.1,
                                                     AttributeModifier.Operation.ADD_VALUE
                                             ),
@@ -492,27 +492,27 @@ public final class ModItems {
 
     public static Item.Properties tool(
             //? if >= 26.2 {
-            ToolMaterial
-            //?} else {
-            /*Tier
-                    *///? }
+            /*ToolMaterial
+            *///?} else {
+            Tier
+                    //? }
                     material, TagKey<Block> effectiveBlocks, float attackDamage, float attackSpeed, float disableBlockingForSeconds) {
         Item.Properties settings = new Item.Properties();
         return settings.durability(
                         //? if >= 26.2 {
-                        material.durability()
-                        //?} else {
-                        /*material.getUses()
-                        *///? }
+                        /*material.durability()
+                        *///?} else {
+                        material.getUses()
+                        //? }
                 )
                 //? if >= 26.2 {
-                .enchantable(
+                /*.enchantable(
                         material.enchantmentValue()
                 )
-                //? }
+                *///? }
                 //? if >= 26.2 {
                 
-                .delayedComponent(DataComponents.REPAIRABLE, context -> new Repairable(context.getOrThrow(material.repairItems())))
+                /*.delayedComponent(DataComponents.REPAIRABLE, context -> new Repairable(context.getOrThrow(material.repairItems())))
                 .delayedComponent(DataComponents.TOOL, context -> new Tool(
                         List.of(
                                 Tool.Rule.deniesDrops(context.getOrThrow(material.incorrectBlocksForDrops())),
@@ -523,22 +523,22 @@ public final class ModItems {
                         true
                 ))
                 
-                //?} else {
-                /*.component(DataComponents.TOOL, new Tool(
+                *///?} else {
+                .component(DataComponents.TOOL, new Tool(
                         List.of(
                                 Tool.Rule.minesAndDrops(effectiveBlocks, material.getSpeed())
                         ),
                         1.0f,
                         1
                 ))
-                *///? }
+                //? }
                 .attributes(ItemAttributeModifiers.builder()
                         .add(Attributes.ATTACK_DAMAGE, new AttributeModifier(Item.BASE_ATTACK_DAMAGE_ID, (double)(attackDamage +
                                 //? if >= 26.2 {
-                                material.attackDamageBonus()
-                                //?} else {
-                                /*material.getAttackDamageBonus()
-                                *///? }
+                                /*material.attackDamageBonus()
+                                *///?} else {
+                                material.getAttackDamageBonus()
+                                //? }
                         ), AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
                         .add(Attributes.ATTACK_SPEED, new AttributeModifier(Item.BASE_ATTACK_SPEED_ID, (double)attackSpeed, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
                         .build()
@@ -547,20 +547,20 @@ public final class ModItems {
 
     public static final RegistrySupplier<Item> AMETHYST_HELMET = register("amethyst_helmet",
             //? if >= 26.2 {
-            Item::new, () -> new Item.Properties().stacksTo(1).humanoidArmor(
+            /*Item::new, () -> new Item.Properties().stacksTo(1).humanoidArmor(
                     ArmorMaterial.AMETHYST_MATERIAL,
                     ArmorType.HELMET
             )
-            //?} else {
-            /*properties -> new ArmorItem(ArmorMaterial.AMETHYST_MATERIAL, ArmorItem.Type.HELMET, properties.stacksTo(1)),
+            *///?} else {
+            properties -> new ArmorItem(ArmorMaterial.AMETHYST_MATERIAL, ArmorItem.Type.HELMET, properties.stacksTo(1)),
             new Item.Properties()
-                    *///? }
+                    //? }
                     .attributes(
                             ItemAttributeModifiers.builder()
                                     .add(
                                             Attributes.ARMOR,
                                             new AttributeModifier(
-                                                  Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.amethyst_helmet.armor"),
+                                                  ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.amethyst_helmet.armor"),
                                                     3.0,
                                                     AttributeModifier.Operation.ADD_VALUE
                                             ),
@@ -569,7 +569,7 @@ public final class ModItems {
                                     .add(
                                             Attributes.ARMOR_TOUGHNESS,
                                             new AttributeModifier(
-                                                  Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.amethhyst_helmet.toughness"),
+                                                  ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.amethhyst_helmet.toughness"),
                                                     2.0,
                                                     AttributeModifier.Operation.ADD_VALUE
                                             ),
@@ -578,7 +578,7 @@ public final class ModItems {
                                     .add(
                                             Attributes.KNOCKBACK_RESISTANCE,
                                             new AttributeModifier(
-                                                  Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.amethyst_helmet.knockback_resistance"),
+                                                  ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.amethyst_helmet.knockback_resistance"),
                                                     0.1,
                                                     AttributeModifier.Operation.ADD_VALUE
                                             ),
@@ -587,7 +587,7 @@ public final class ModItems {
                                     .add(
                                             StargazerAttributes.DASH_LEVEL,
                                             new AttributeModifier(
-                                                  Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.amethyst_helmet.dash"),
+                                                  ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.amethyst_helmet.dash"),
                                                     0.25,
                                                     AttributeModifier.Operation.ADD_VALUE
                                             ),
@@ -598,20 +598,20 @@ public final class ModItems {
 
     public static final RegistrySupplier<Item> AMETHYST_CHESTPLATE = register("amethyst_chestplate",
             //? if >= 26.2 {
-            Item::new, () -> new Item.Properties().stacksTo(1).humanoidArmor(
+            /*Item::new, () -> new Item.Properties().stacksTo(1).humanoidArmor(
                     ArmorMaterial.AMETHYST_MATERIAL,
                     ArmorType.CHESTPLATE
             )
-            //?} else {
-            /*properties -> new ArmorItem(ArmorMaterial.AMETHYST_MATERIAL, ArmorItem.Type.CHESTPLATE, properties.stacksTo(1)),
+            *///?} else {
+            properties -> new ArmorItem(ArmorMaterial.AMETHYST_MATERIAL, ArmorItem.Type.CHESTPLATE, properties.stacksTo(1)),
             new Item.Properties()
-                    *///? }
+                    //? }
                     .attributes(
                             ItemAttributeModifiers.builder()
                                     .add(
                                             Attributes.ARMOR,
                                             new AttributeModifier(
-                                                  Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.amethyst_chestplate.armor"),
+                                                  ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.amethyst_chestplate.armor"),
                                                     8.0,
                                                     AttributeModifier.Operation.ADD_VALUE
                                             ),
@@ -620,7 +620,7 @@ public final class ModItems {
                                     .add(
                                             Attributes.ARMOR_TOUGHNESS,
                                             new AttributeModifier(
-                                                  Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.amethyst_chestplate.toughness"),
+                                                  ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.amethyst_chestplate.toughness"),
                                                     2.0,
                                                     AttributeModifier.Operation.ADD_VALUE
                                             ),
@@ -629,7 +629,7 @@ public final class ModItems {
                                     .add(
                                             Attributes.KNOCKBACK_RESISTANCE,
                                             new AttributeModifier(
-                                                  Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.amethyst_chestplate.knockback_resistance"),
+                                                  ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.amethyst_chestplate.knockback_resistance"),
                                                     0.1,
                                                     AttributeModifier.Operation.ADD_VALUE
                                             ),
@@ -638,7 +638,7 @@ public final class ModItems {
                                     .add(
                                             StargazerAttributes.DASH_LEVEL,
                                             new AttributeModifier(
-                                                  Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.amethyst_chestplate.dash"),
+                                                  ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.amethyst_chestplate.dash"),
                                                     0.25,
                                                     AttributeModifier.Operation.ADD_VALUE
                                             ),
@@ -649,20 +649,20 @@ public final class ModItems {
 
     public static final RegistrySupplier<Item> AMETHYST_LEGGINS = register("amethyst_leggins",
             //? if >= 26.2 {
-            Item::new, () -> new Item.Properties().stacksTo(1).humanoidArmor(
+            /*Item::new, () -> new Item.Properties().stacksTo(1).humanoidArmor(
                     ArmorMaterial.AMETHYST_MATERIAL,
                     ArmorType.LEGGINGS
             )
-            //?} else {
-            /*properties -> new ArmorItem(ArmorMaterial.AMETHYST_MATERIAL, ArmorItem.Type.LEGGINGS, properties.stacksTo(1)),
+            *///?} else {
+            properties -> new ArmorItem(ArmorMaterial.AMETHYST_MATERIAL, ArmorItem.Type.LEGGINGS, properties.stacksTo(1)),
             new Item.Properties()
-                    *///? }
+                    //? }
                     .attributes(
                             ItemAttributeModifiers.builder()
                                     .add(
                                             Attributes.ARMOR,
                                             new AttributeModifier(
-                                                  Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.amethyst_leggings.armor"),
+                                                  ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.amethyst_leggings.armor"),
                                                     6.0,
                                                     AttributeModifier.Operation.ADD_VALUE
                                             ),
@@ -671,7 +671,7 @@ public final class ModItems {
                                     .add(
                                             Attributes.ARMOR_TOUGHNESS,
                                             new AttributeModifier(
-                                                  Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.amethhyst_leggings.toughness"),
+                                                  ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.amethhyst_leggings.toughness"),
                                                     2.0,
                                                     AttributeModifier.Operation.ADD_VALUE
                                             ),
@@ -680,7 +680,7 @@ public final class ModItems {
                                     .add(
                                             Attributes.KNOCKBACK_RESISTANCE,
                                             new AttributeModifier(
-                                                  Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.amethyst_leggings.knockback_resistance"),
+                                                  ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.amethyst_leggings.knockback_resistance"),
                                                     0.1,
                                                     AttributeModifier.Operation.ADD_VALUE
                                             ),
@@ -689,7 +689,7 @@ public final class ModItems {
                                     .add(
                                             StargazerAttributes.DASH_LEVEL,
                                             new AttributeModifier(
-                                                  Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.amethyst_leggings.dash"),
+                                                  ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.amethyst_leggings.dash"),
                                                     0.25,
                                                     AttributeModifier.Operation.ADD_VALUE
                                             ),
@@ -700,20 +700,20 @@ public final class ModItems {
 
     public static final RegistrySupplier<Item> AMETHYST_BOOTS = register("amethyst_boots",
             //? if >= 26.2 {
-            Item::new, () -> new Item.Properties().stacksTo(1).humanoidArmor(
+            /*Item::new, () -> new Item.Properties().stacksTo(1).humanoidArmor(
                     ArmorMaterial.AMETHYST_MATERIAL,
                     ArmorType.BOOTS
             )
-            //?} else {
-            /*properties -> new ArmorItem(ArmorMaterial.AMETHYST_MATERIAL, ArmorItem.Type.BOOTS, properties.stacksTo(1)),
+            *///?} else {
+            properties -> new ArmorItem(ArmorMaterial.AMETHYST_MATERIAL, ArmorItem.Type.BOOTS, properties.stacksTo(1)),
             new Item.Properties()
-                    *///? }
+                    //? }
                     .attributes(
                             ItemAttributeModifiers.builder()
                                     .add(
                                             Attributes.ARMOR,
                                             new AttributeModifier(
-                                                  Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.amethyst_boots.armor"),
+                                                  ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.amethyst_boots.armor"),
                                                     3.0,
                                                     AttributeModifier.Operation.ADD_VALUE
                                             ),
@@ -722,7 +722,7 @@ public final class ModItems {
                                     .add(
                                             Attributes.ARMOR_TOUGHNESS,
                                             new AttributeModifier(
-                                                  Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.amethyst_boots.toughness"),
+                                                  ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.amethyst_boots.toughness"),
                                                     2.0,
                                                     AttributeModifier.Operation.ADD_VALUE
                                             ),
@@ -731,7 +731,7 @@ public final class ModItems {
                                     .add(
                                             Attributes.KNOCKBACK_RESISTANCE,
                                             new AttributeModifier(
-                                                  Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.amethyst_boots.knockback_resistance"),
+                                                  ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.amethyst_boots.knockback_resistance"),
                                                     0.1,
                                                     AttributeModifier.Operation.ADD_VALUE
                                             ),
@@ -740,7 +740,7 @@ public final class ModItems {
                                     .add(
                                             StargazerAttributes.DASH_LEVEL,
                                             new AttributeModifier(
-                                                  Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.amethyst_boots.dash"),
+                                                  ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.amethyst_boots.dash"),
                                                     0.25,
                                                     AttributeModifier.Operation.ADD_VALUE
                                             ),
@@ -751,24 +751,24 @@ public final class ModItems {
 
     public static Item.Properties star_hammer(
             //? if >= 26.2 {
-            ToolMaterial
-            //?} else {
-            /*Tier
-                    *///? }
+            /*ToolMaterial
+            *///?} else {
+            Tier
+                    //? }
                     material, float attackDamage, float attackSpeed) {
         return tool(material, CustomTags.STAR_HAMMER_MINABLE, attackDamage, attackSpeed, 0.0f);
     }
 
     public static RegistrySupplier<Item> register(String path, Function<Item.Properties, Item> factory, java.util.function.Supplier<Item.Properties> settingsSupplier) {
         //? if >= 26.2 {
-        Identifier identifier =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, path);
+        /*ResourceLocation identifier =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, path);
         ResourceKey<Item> registryKey = ResourceKey.create(Registries.ITEM, identifier);
-        //? }
+        *///? }
         return ITEMS.register(path, () -> {
             return factory.apply(settingsSupplier.get()
                     //? if >= 26.2 {
-                            .setId(registryKey)
-                    //? }
+                            /*.setId(registryKey)
+                    *///? }
             );
         });
     }

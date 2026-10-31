@@ -29,10 +29,10 @@ public interface StarCrusherRecipe
         for (int i = 0; i < defaultedList.size(); ++i) {
             Item item = input.getItem(i).getItem();
             //? if >= 26.2 {
-            defaultedList.set(i, item.getCraftingRemainder().create());
-             //?} else {
-            /*defaultedList.set(i, input.getItem(i).getCraftingRemainingItem());
-            *///?}
+            /*defaultedList.set(i, item.getCraftingRemainder().create());
+             *///?} else {
+            defaultedList.set(i, input.getItem(i).getCraftingRemainingItem());
+            //?}
         }
         return defaultedList;
     }
@@ -46,4 +46,6 @@ public interface StarCrusherRecipe
     }
 
     List<ItemStack> getHeldStacks();
+
+    ItemStack getResultItem(RegistryAccess registryAccess);
 }

@@ -4,15 +4,15 @@ package com.github.starcatcher21.stargazer.datagen;
 import com.github.starcatcher21.stargazer.block.register.MoonBlocks;
 import com.github.starcatcher21.stargazer.mechanics.PointOfIntrests;
 //? if fabric {
-import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+/*import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
-//?} else if < 26.2 {
-/*import com.github.starcatcher21.stargazer.Stargazer;
+*///?} else if < 26.2 {
+import com.github.starcatcher21.stargazer.Stargazer;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.data.tags.TagsProvider.TagAppender;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
-*///?}
+//?}
 //? if neoforge && >= 26.2 {
 /*import com.github.starcatcher21.stargazer.Stargazer;
 import net.minecraft.data.PackOutput;
@@ -29,13 +29,13 @@ import java.util.concurrent.CompletableFuture;
 
 public class POITagProvider
 //? if fabric {
-        extends FabricTagsProvider {
+        /*extends FabricTagsProvider {
 
     public POITagProvider(FabricPackOutput output, CompletableFuture registryLookupFuture) {
         super(output, Registries.POINT_OF_INTEREST_TYPE, registryLookupFuture);
     }
-//?} else if < 26.2 {
-        /*extends IntrinsicHolderTagsProvider<PoiType> {
+*///?} else if < 26.2 {
+        extends IntrinsicHolderTagsProvider<PoiType> {
 
     public POITagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registryLookupFuture, ExistingFileHelper existingFileHelper) {
         super(output, Registries.POINT_OF_INTEREST_TYPE, registryLookupFuture, poi -> BuiltInRegistries.POINT_OF_INTEREST_TYPE.getResourceKey(poi).orElseThrow(), Stargazer.MOD_ID, existingFileHelper);
@@ -44,7 +44,7 @@ public class POITagProvider
     private TagAppender<PoiType> builder(net.minecraft.tags.TagKey<PoiType> tag) {
         return tag(tag);
     }
-*///?} else {
+//?} else {
         /*extends TagsProvider<PoiType> {
     public POITagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registryLookupFuture) {
         super(output, Registries.POINT_OF_INTEREST_TYPE, registryLookupFuture, Stargazer.MOD_ID);

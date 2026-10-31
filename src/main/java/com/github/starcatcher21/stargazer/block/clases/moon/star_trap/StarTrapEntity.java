@@ -1,27 +1,27 @@
 package com.github.starcatcher21.stargazer.block.clases.moon.star_trap;
 
-import com.geckolib.animation.AnimationController;
-import com.geckolib.animation.RawAnimation;
+import software.bernie.geckolib.animation.AnimationController;
+import software.bernie.geckolib.animation.RawAnimation;
 import com.github.starcatcher21.stargazer.block.BlockTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 //? if >= 26.2 {
-import net.minecraft.world.level.storage.ValueInput;
+/*import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import com.geckolib.animatable.manager.AnimatableManager;
-import com.geckolib.animation.object.PlayState;
-import com.geckolib.animation.state.AnimationTest;
-//?} else {
-/*import net.minecraft.core.HolderLookup;
+import software.bernie.geckolib.animatable.manager.AnimatableManager;
+import software.bernie.geckolib.animation.object.PlayState;
+import software.bernie.geckolib.animation.state.AnimationTest;
+*///?} else {
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-import com.geckolib.animatable.GeoEntity;
-*///?}
-import com.geckolib.animation.*;
-import com.geckolib.animatable.GeoAnimatable;
-import com.geckolib.animatable.GeoBlockEntity;
-import com.geckolib.animatable.instance.AnimatableInstanceCache;
-import com.geckolib.util.GeckoLibUtil;
+import software.bernie.geckolib.animatable.GeoEntity;
+//?}
+import software.bernie.geckolib.animation.*;
+import software.bernie.geckolib.animatable.GeoAnimatable;
+import software.bernie.geckolib.animatable.GeoBlockEntity;
+import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
 public class StarTrapEntity extends BlockEntity implements GeoBlockEntity {
     private boolean active;
@@ -49,14 +49,14 @@ public class StarTrapEntity extends BlockEntity implements GeoBlockEntity {
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<GeoAnimatable>(/*? if < 26.2 {*//*this, "controller", 5, *//*? } */this::animControler));
+        controllers.add(new AnimationController<GeoAnimatable>(/*? if < 26.2 {*/this, "controller", 5, /*? } */this::animControler));
     }
 
     //? if >= 26.2 {
-    protected <E extends StarTrap> PlayState animControler(final AnimationTest<?> animTest) {
-    //? } else {
-    /*protected PlayState animControler(final AnimationState<GeoAnimatable> animTest) {
-    *///? }
+    /*protected <E extends StarTrap> PlayState animControler(final AnimationTest<?> animTest) {
+    *///? } else {
+    protected PlayState animControler(final AnimationState<GeoAnimatable> animTest) {
+    //? }
         if (getBlockState().getValue(StarTrap.ACTIVE)) {
             animTest.setAnimation(ACTIVE);
         } else {
@@ -72,7 +72,7 @@ public class StarTrapEntity extends BlockEntity implements GeoBlockEntity {
 
     /* ---------------- serialization ---------------------------------- */
     //? if >= 26.2 {
-    @Override
+    /*@Override
     protected void loadAdditional(ValueInput nbt) {
         super.loadAdditional(nbt);
         active = nbt.getBooleanOr("active", false);
@@ -87,8 +87,8 @@ public class StarTrapEntity extends BlockEntity implements GeoBlockEntity {
         super.saveAdditional(nbt);
         nbt.putBoolean("active", active);
     }
-    //?} else {
-    /*@Override
+    *///?} else {
+    @Override
     protected void loadAdditional(CompoundTag nbt, HolderLookup.Provider registries) {
         super.loadAdditional(nbt, registries);
         // CompoundTag.getBoolean returns false when the key is absent,
@@ -105,5 +105,5 @@ public class StarTrapEntity extends BlockEntity implements GeoBlockEntity {
         super.saveAdditional(nbt, registries);
         nbt.putBoolean("active", active);
     }
-    *///?}
+    //?}
 }

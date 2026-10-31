@@ -20,11 +20,11 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 //? if >= 26.2 {
-import net.minecraft.world.item.ItemStackTemplate;
+/*import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.PlacementInfo;
 import net.minecraft.world.item.crafting.RecipeBookCategories;
 import net.minecraft.world.item.crafting.RecipeBookCategory;
-//? }
+*///? }
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 
@@ -36,7 +36,7 @@ public class ShapedMoonWelderRecipe implements MoonWelderRecipe {
 
     /* ---------------- 26.2+ ------------------------------------------ */
     //? if >= 26.2 {
-    final ItemStackTemplate result;
+    /*final ItemStackTemplate result;
     @Nullable private PlacementInfo ingredientPlacement;
 
     public ShapedMoonWelderRecipe(String group, RawMoonWelderShapedRecipe raw,
@@ -51,8 +51,8 @@ public class ShapedMoonWelderRecipe implements MoonWelderRecipe {
                                   ItemStackTemplate result) {
         this(group, raw, result, true);
     }
-    //?} else {
-    /*/^ ---------------- 1.21.1 ----------------------------------------- ^/
+    *///?} else {
+    /* ---------------- 1.21.1 ----------------------------------------- */
     final ItemStack result;
 
     public ShapedMoonWelderRecipe(String group, RawMoonWelderShapedRecipe raw,
@@ -67,7 +67,7 @@ public class ShapedMoonWelderRecipe implements MoonWelderRecipe {
                                   ItemStack result) {
         this(group, raw, result, true);
     }
-    *///?}
+    //?}
 
     @Override
     public RecipeSerializer<? extends MoonWelderRecipe> getSerializer() {
@@ -76,8 +76,8 @@ public class ShapedMoonWelderRecipe implements MoonWelderRecipe {
 
 
     //? if >= 26.2 {
-    @Override
-    //? }
+    /*@Override
+    *///? }
     public String group() {
         return this.group;
     }
@@ -86,19 +86,19 @@ public class ShapedMoonWelderRecipe implements MoonWelderRecipe {
     @Override
     public ItemStack assemble(MoonWelderRecipeInput craftingRecipeInput, RegistryAccess registryManager) {
         //? if >= 26.2 {
-        return this.result.create();
-        //? } else {
-        /*return this.result.copy();
-        *///? }
+        /*return this.result.create();
+        *///? } else {
+        return this.result.copy();
+        //? }
     }
 
     //? if >= 26.2 {
-    @Override
+    /*@Override
     public ItemStack assemble(MoonWelderRecipeInput recipeInput) {
         return this.result.create();
     }
-    //?} else {
-    /*@Override
+    *///?} else {
+    @Override
     public ItemStack assemble(MoonWelderRecipeInput craftingRecipeInput,
                               HolderLookup.Provider registryManager) {
         return this.result.copy();
@@ -108,22 +108,27 @@ public class ShapedMoonWelderRecipe implements MoonWelderRecipe {
     public boolean canCraftInDimensions(int i, int j) {
         return true;
     }
-    *///?}
+    //?}
 
     @Override
     public List<ItemStack> getHeldStacks() {
         return List.of();
     }
 
+    @Override
+    public ItemStack getResultItem(RegistryAccess registryAccess) {
+        return getResult().copy();
+    }
+
     /* ---------------- ingredients ------------------------------------ */
     //? if >= 26.2 {
-    @VisibleForTesting
+    /*@VisibleForTesting
     public List<Optional<Ingredient>> getIngredients() {
         return List.of(Optional.of(this.raw.getItem1()),
                        Optional.of(this.raw.getItem2()));
     }
-    //?} else {
-    /*// 1.21.1's Recipe interface declares NonNullList<Ingredient> getIngredients(),
+    *///?} else {
+    // 1.21.1's Recipe interface declares NonNullList<Ingredient> getIngredients(),
     // so we cannot name our optional-list method getIngredients() on this branch.
     @VisibleForTesting
     public List<Optional<Ingredient>> getOptionalIngredients() {
@@ -138,11 +143,11 @@ public class ShapedMoonWelderRecipe implements MoonWelderRecipe {
         list.add(this.raw.getItem2());
         return list;
     }
-    *///?}
+    //?}
 
     /* ---------------- placement (26.2 only) -------------------------- */
     //? if >= 26.2 {
-    @Override
+    /*@Override
     public PlacementInfo placementInfo() {
         if (this.ingredientPlacement == null) {
             this.ingredientPlacement = PlacementInfo.createFromOptionals(
@@ -151,15 +156,15 @@ public class ShapedMoonWelderRecipe implements MoonWelderRecipe {
         }
         return this.ingredientPlacement;
     }
-    //?}
+    *///?}
 
     /* ---------------- result ----------------------------------------- */
     //? if >= 26.2 {
-    public ItemStack getResult() {
+    /*public ItemStack getResult() {
         return this.result.create();
     }
-    //?} else {
-    /*public ItemStack getResult() {
+    *///?} else {
+    public ItemStack getResult() {
         return this.result.copy();
     }
 
@@ -167,7 +172,7 @@ public class ShapedMoonWelderRecipe implements MoonWelderRecipe {
     public ItemStack getResultItem(HolderLookup.Provider provider) {
         return this.result.copy();
     }
-    *///?}
+    //?}
 
     @Override
     public boolean showNotification() {
@@ -190,10 +195,10 @@ public class ShapedMoonWelderRecipe implements MoonWelderRecipe {
     public ItemStack craft(MoonWelderRecipeInput craftingRecipeInput,
                            HolderLookup.Provider wrapperLookup) {
         //? if >= 26.2 {
-        return this.result.create();
-         //?} else {
-        /*return this.result.copy();
-        *///?}
+        /*return this.result.create();
+         *///?} else {
+        return this.result.copy();
+        //?}
     }
 
     public int getWidth() {
@@ -205,15 +210,15 @@ public class ShapedMoonWelderRecipe implements MoonWelderRecipe {
     }
 
     //? if >= 26.2 {
-    @Override
+    /*@Override
     public RecipeBookCategory recipeBookCategory() {
         return RecipeBookCategories.CAMPFIRE;
     }
-    //?}
+    *///?}
 
     /* ---------------- codecs ----------------------------------------- */
     //? if >= 26.2 {
-    public static final MapCodec<ShapedMoonWelderRecipe> CODEC =
+    /*public static final MapCodec<ShapedMoonWelderRecipe> CODEC =
         RecordCodecBuilder.mapCodec(instance -> instance.group(
             Codec.STRING.optionalFieldOf("group", "").forGetter(r -> r.group),
             RawMoonWelderShapedRecipe.CODEC.forGetter(r -> r.raw),
@@ -227,8 +232,8 @@ public class ShapedMoonWelderRecipe implements MoonWelderRecipe {
             ItemStackTemplate.STREAM_CODEC,       r -> r.result,
             ShapedMoonWelderRecipe::new
         );
-    //?} else {
-    /*public static final MapCodec<ShapedMoonWelderRecipe> CODEC =
+    *///?} else {
+    public static final MapCodec<ShapedMoonWelderRecipe> CODEC =
             RecordCodecBuilder.mapCodec(instance -> instance.group(
                     Codec.STRING.optionalFieldOf("group", "").forGetter(r -> r.group),
                     RawMoonWelderShapedRecipe.CODEC.forGetter(r -> r.raw),
@@ -242,13 +247,13 @@ public class ShapedMoonWelderRecipe implements MoonWelderRecipe {
                     ItemStack.STREAM_CODEC,               r -> r.result,
                     ShapedMoonWelderRecipe::new
             );
-    *///?}
+    //?}
 
     //? if >= 26.2 {
-    public static final RecipeSerializer<ShapedMoonWelderRecipe> SERIALIZER =
+    /*public static final RecipeSerializer<ShapedMoonWelderRecipe> SERIALIZER =
             new RecipeSerializer<>(CODEC, STREAM_CODEC);
-    //?} else {
-    /*public static final RecipeSerializer<ShapedMoonWelderRecipe> SERIALIZER = new RecipeSerializer<>() {
+    *///?} else {
+    public static final RecipeSerializer<ShapedMoonWelderRecipe> SERIALIZER = new RecipeSerializer<>() {
         @Override
         public MapCodec<ShapedMoonWelderRecipe> codec() {
             return CODEC;
@@ -259,5 +264,5 @@ public class ShapedMoonWelderRecipe implements MoonWelderRecipe {
             return STREAM_CODEC;
         }
     };
-    *///?}
+    //?}
 }

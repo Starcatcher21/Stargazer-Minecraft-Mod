@@ -14,18 +14,18 @@ import com.github.starcatcher21.stargazer.mechanics.advancements.*;
 import com.github.starcatcher21.stargazer.worldgen.BiomeReg;
 import dev.architectury.registry.registries.RegistrySupplier;
 //? if fabric {
-import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+/*import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
-//?} else {
-/*import net.minecraft.data.PackOutput;
+*///?} else {
+import net.minecraft.data.PackOutput;
 import net.minecraft.data.advancements.AdvancementProvider;
-*///?}
+//?}
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.AdvancementType;
 //? if >= 26.2 {
-import net.minecraft.advancements.predicates.entity.EntityPredicate;
+/*import net.minecraft.advancements.predicates.entity.EntityPredicate;
 import net.minecraft.advancements.predicates.ItemPredicate;
 import net.minecraft.advancements.predicates.LocationPredicate;
 import net.minecraft.advancements.predicates.NbtPredicate;
@@ -33,8 +33,8 @@ import net.minecraft.advancements.triggers.PlayerHurtEntityTrigger;
 import net.minecraft.advancements.predicates.entity.PlayerPredicate;
 import net.minecraft.advancements.triggers.PlayerTrigger;
 import net.minecraft.advancements.predicates.TagPredicate;
-//?} else {
-/*import net.minecraft.advancements.critereon.EntityPredicate;
+*///?} else {
+import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.LocationPredicate;
 import net.minecraft.advancements.critereon.NbtPredicate;
@@ -42,20 +42,20 @@ import net.minecraft.advancements.critereon.PlayerHurtEntityTrigger;
 import net.minecraft.advancements.critereon.PlayerPredicate;
 import net.minecraft.advancements.critereon.PlayerTrigger;
 import net.minecraft.advancements.critereon.TagPredicate;
-*///?}
+//?}
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
 //? if >= 26.2 {
-import net.minecraft.util.Util;
-//?} else {
-/*import net.minecraft.Util;
-*///?}
+/*import net.minecraft.util.Util;
+*///?} else {
+import net.minecraft.Util;
+//?}
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Item;
@@ -69,25 +69,25 @@ import java.util.function.Consumer;
 
 public class AdvancementsProvider
 //? if fabric {
-        extends FabricAdvancementProvider {
+        /*extends FabricAdvancementProvider {
     public AdvancementsProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registryLookup) {
         super(output, registryLookup);
     }
-//?} else {
-        /*extends AdvancementProvider {
+*///?} else {
+        extends AdvancementProvider {
     public AdvancementsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registryLookup) {
         super(output, registryLookup, List.of(AdvancementsProvider::generateAdvancements));
     }
-*///?}
+//?}
 
-    public static final TagKey<DamageType> STAR_TRAP = TagKey.create(Registries.DAMAGE_TYPE, DamageTypeRegistry.STAR_TRAP.identifier());
+    public static final TagKey<DamageType> STAR_TRAP = TagKey.create(Registries.DAMAGE_TYPE, DamageTypeRegistry.STAR_TRAP.location());
 
     //? if fabric {
-    @Override
+    /*@Override
     public void generateAdvancement(HolderLookup.Provider wrapperLookup, Consumer<AdvancementHolder> consumer) {
         generateAdvancements(wrapperLookup, consumer);
     }
-    //?}
+    *///?}
 
     private static void generateAdvancements(HolderLookup.Provider wrapperLookup, Consumer<AdvancementHolder> consumer) {
         HolderGetter registryEntryLookupEntity = wrapperLookup.lookupOrThrow(Registries.ENTITY_TYPE);
@@ -98,7 +98,7 @@ public class AdvancementsProvider
                         MoonBlocks.MOON_ROCK.get(), // The display icon
                         Component.literal("Stargazer"), // The title
                         Component.literal("Are you ready for cosmic adventures"), // The description
-                      Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "gui/advancements/backgrounds/stars"), // Background image for the tab in the advancements page, if this is a root advancement (has no parent)
+                      ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "gui/advancements/backgrounds/stars"), // Background image for the tab in the advancements page, if this is a root advancement (has no parent)
                         AdvancementType.TASK, // TASK, CHALLENGE, or GOAL
                         false, // Show the toast when completing it
                         false, // Announce it to chat
@@ -168,10 +168,10 @@ public class AdvancementsProvider
                 .parent(airplane)
                 .display(
                         //? if >= 26.2 {
-                        Blocks.CUT_COPPER.weathering().unaffected(),
-                        //?} else {
-                        /*Blocks.CUT_COPPER,
-                        *///?}
+                        /*Blocks.CUT_COPPER.weathering().unaffected(),
+                        *///?} else {
+                        Blocks.CUT_COPPER,
+                        //?}
                         Component.literal("Where are we going?"), // The title
                         Component.literal("Open a portal to the unknown"), // The description
                         null,
@@ -382,7 +382,7 @@ public class AdvancementsProvider
         HolderGetter registryEntryLookup = registries.lookupOrThrow(Registries.BIOME);
         for (ResourceKey<Biome> registryKey : biomes) {
             builder.addCriterion(
-                    "visited_" + registryKey.identifier().getPath(),
+                    "visited_" + registryKey.location().getPath(),
                     PlayerTrigger.TriggerInstance.located(
                             LocationPredicate.Builder.inBiome(registryEntryLookup.getOrThrow(registryKey))
                     )
@@ -401,27 +401,27 @@ public class AdvancementsProvider
 
     private static ItemPredicate itemPredicate(HolderGetter<Item> items, Item item) {
         //? if >= 26.2 {
-        return ItemPredicate.Builder.item().of(items, item).build();
-        //?} else {
-        /*return ItemPredicate.Builder.item().of(item).build();
-        *///?}
+        /*return ItemPredicate.Builder.item().of(items, item).build();
+        *///?} else {
+        return ItemPredicate.Builder.item().of(item).build();
+        //?}
     }
 
     private static ItemPredicate itemTagPredicate(HolderGetter<Item> items, TagKey<Item> tag) {
         //? if >= 26.2 {
-        return ItemPredicate.Builder.item().of(items, tag).build();
-        //?} else {
-        /*return ItemPredicate.Builder.item().of(tag).build();
-        *///?}
+        /*return ItemPredicate.Builder.item().of(items, tag).build();
+        *///?} else {
+        return ItemPredicate.Builder.item().of(tag).build();
+        //?}
     }
 
     private static EntityPredicate.Builder entityPredicate(
             HolderGetter<EntityType<?>> entities, EntityType<?> entityType) {
         //? if >= 26.2 {
-        return EntityPredicate.Builder.entity().of(entities, entityType);
-        //?} else {
-        /*return EntityPredicate.Builder.entity().of(entityType);
-        *///?}
+        /*return EntityPredicate.Builder.entity().of(entities, entityType);
+        *///?} else {
+        return EntityPredicate.Builder.entity().of(entityType);
+        //?}
     }
 
     private static EntityPredicate.Builder lookingAtEntityPredicate(
@@ -431,10 +431,10 @@ public class AdvancementsProvider
                 new CompoundTag(), nbt -> nbt.putString("tag", value)))));
         PlayerPredicate.Builder player = PlayerPredicate.Builder.player().setLookingAt(lookedAt);
         //? if >= 26.2 {
-        return EntityPredicate.Builder.entity().player(player.build());
-        //?} else {
-        /*return EntityPredicate.Builder.entity().subPredicate(player.build());
-        *///?}
+        /*return EntityPredicate.Builder.entity().player(player.build());
+        *///?} else {
+        return EntityPredicate.Builder.entity().subPredicate(player.build());
+        //?}
     }
 }
 //?}

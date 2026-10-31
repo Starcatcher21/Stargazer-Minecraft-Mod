@@ -10,17 +10,17 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 //? if >= 26.2 {
-import net.minecraft.world.entity.npc.villager.VillagerProfession;
-//? }
+/*import net.minecraft.world.entity.npc.villager.VillagerProfession;
+*///? }
 
 public class ModVillagers {
     //? if >= 26.2 {
-    public static final DeferredRegister<VillagerProfession> PROFESSIONS =
+    /*public static final DeferredRegister<VillagerProfession> PROFESSIONS =
             DeferredRegister.create(Stargazer.MOD_ID, Registries.VILLAGER_PROFESSION);
 
     public static final RegistrySupplier<VillagerProfession> ASTROLOGISTS = PROFESSIONS.register("astrologists",
@@ -36,12 +36,12 @@ public class ModVillagers {
     );
 
     public static final ResourceKey<VillagerProfession> ASTROLOGISTS_KEY =
-            ResourceKey.create(Registries.VILLAGER_PROFESSION,Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "astrologists"));
-    //? }
+            ResourceKey.create(Registries.VILLAGER_PROFESSION,ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "astrologists"));
+    *///? }
 
     public static void init() {
         //? if >= 26.2 {
-        PROFESSIONS.register();
-        //? }
+        /*PROFESSIONS.register();
+        *///? }
     }
 }

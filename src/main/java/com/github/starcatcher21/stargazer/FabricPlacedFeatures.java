@@ -1,5 +1,5 @@
 //? if fabric {
-package com.github.starcatcher21.stargazer;
+/*package com.github.starcatcher21.stargazer;
 
 import com.github.starcatcher21.stargazer.worldgen.BiomeTags;
 import com.github.starcatcher21.stargazer.worldgen.features.PlacedFeatures;
@@ -28,4 +28,4 @@ public class FabricPlacedFeatures {
         );
     }
 }
-//? }
+*///? }

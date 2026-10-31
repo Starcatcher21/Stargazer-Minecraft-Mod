@@ -7,7 +7,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.item.Item;
@@ -20,7 +20,7 @@ public class StatusEffects {
     public static RegistrySupplier<MobEffect> GLASS = register("glasshands", new GlassHands(MobEffectCategory.HARMFUL, 60460));
 
     public static RegistrySupplier<MobEffect> register(String path, MobEffect status) {
-        final Identifier identifier =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, path);
+        final ResourceLocation identifier =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, path);
         return EFFECTS.register(identifier, () -> status);
     }
 

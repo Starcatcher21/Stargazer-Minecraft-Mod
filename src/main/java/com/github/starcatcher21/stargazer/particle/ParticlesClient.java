@@ -2,13 +2,13 @@ package com.github.starcatcher21.stargazer.particle;
 
 import dev.architectury.registry.client.particle.ParticleProviderRegistry;
 //? if fabric {
-import net.fabricmc.api.EnvType;
+/*import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-//? }
+*///? }
 
 //? if fabric {
-@Environment(EnvType.CLIENT)
-//? }
+/*@Environment(EnvType.CLIENT)
+*///? }
 public final class ParticlesClient {
     private ParticlesClient() {
     }

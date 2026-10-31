@@ -31,10 +31,10 @@ public interface StarforgeRecipe
             Item item = input.getItem(i).getItem();
             try {
                 //? if >= 26.2 {
-                defaultedList.set(i, item.getCraftingRemainder().create());
-                 //?} else {
-                /*defaultedList.set(i, input.getItem(i).getCraftingRemainingItem());
-                *///?}
+                /*defaultedList.set(i, item.getCraftingRemainder().create());
+                 *///?} else {
+                defaultedList.set(i, input.getItem(i).getCraftingRemainingItem());
+                //?}
             } catch (Exception ignored) {}
         }
         return defaultedList;
@@ -49,4 +49,6 @@ public interface StarforgeRecipe
     }
 
     List<ItemStack> getHeldStacks();
+
+    ItemStack getResultItem(RegistryAccess registryAccess);
 }

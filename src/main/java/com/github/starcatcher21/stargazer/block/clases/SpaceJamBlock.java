@@ -29,10 +29,10 @@ public class SpaceJamBlock extends Block {
             BlockPos pos,
             Entity entity,
             //? if >= 26.2 {
-            double fallDistance
-            //? } else {
-            /*float fallDistance
-            *///? }
+            /*double fallDistance
+            *///? } else {
+            float fallDistance
+            //? }
     ) {
     }
 }

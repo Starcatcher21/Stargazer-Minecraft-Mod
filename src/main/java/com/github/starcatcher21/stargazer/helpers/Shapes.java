@@ -1,5 +1,5 @@
 //? if < 26.2 {
-/*package com.github.starcatcher21.stargazer.helpers;
+package com.github.starcatcher21.stargazer.helpers;
 
 import net.minecraft.core.Direction;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -22,4 +22,4 @@ public class Shapes {
         return buffer[0];
     }
 }
-*///? }
+//? }

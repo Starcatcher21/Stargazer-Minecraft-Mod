@@ -12,42 +12,42 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 
 public class Patterns {
     public static final Codec<Patterns> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            Identifier.CODEC.fieldOf("asset_id").forGetter(Patterns::getPattern),
+            ResourceLocation.CODEC.fieldOf("asset_id").forGetter(Patterns::getPattern),
             //? if >= 26.2 {
-            Codec.list(Item.CODEC).fieldOf("items").forGetter(Patterns::getItems)
-            //?} else {
-            /*BuiltInRegistries.ITEM.holderByNameCodec().listOf().fieldOf("items").forGetter(Patterns::getItems)
-            *///?}
+            /*Codec.list(Item.CODEC).fieldOf("items").forGetter(Patterns::getItems)
+            *///?} else {
+            BuiltInRegistries.ITEM.holderByNameCodec().listOf().fieldOf("items").forGetter(Patterns::getItems)
+            //?}
     ).apply(instance, Patterns::new));
     public static final StreamCodec<RegistryFriendlyByteBuf, Patterns> PACKET_CODEC = StreamCodec.composite(
-            Identifier.STREAM_CODEC,
+            ResourceLocation.STREAM_CODEC,
             Patterns::getPattern,
             //? if >= 26.2 {
-            Item.STREAM_CODEC.apply(ByteBufCodecs.list()),
-            //?} else {
-            /*ByteBufCodecs.holderRegistry(Registries.ITEM).apply(ByteBufCodecs.list()),
-            *///?}
+            /*Item.STREAM_CODEC.apply(ByteBufCodecs.list()),
+            *///?} else {
+            ByteBufCodecs.holderRegistry(Registries.ITEM).apply(ByteBufCodecs.list()),
+            //?}
             Patterns::getItems,
             Patterns::new
     );
-    public Identifier pattern;
+    public ResourceLocation pattern;
     public List<Holder<Item>> items2;
-    public Patterns(Identifier pattern, List<Holder<Item>> items2) {
+    public Patterns(ResourceLocation pattern, List<Holder<Item>> items2) {
         this.pattern = pattern;
         this.items2 = items2;
         of(pattern, items2);
     }
-    public Identifier getPattern() { return pattern; }
+    public ResourceLocation getPattern() { return pattern; }
     public List<Holder<Item>> getItems() { return items2; }
     public static List<StarPattern> patternList = new ArrayList<>();
     public static Map<StarPattern, List<Item>> itemList = new HashMap<>();
 
-    public static StarPattern of(Identifier id, List<Holder<Item>> items) {
+    public static StarPattern of(ResourceLocation id, List<Holder<Item>> items) {
         StarPattern pat = new StarPattern(id, id.getNamespace() + ".star_pattern." + id.getPath());
         try {
             patternList.add(pat);

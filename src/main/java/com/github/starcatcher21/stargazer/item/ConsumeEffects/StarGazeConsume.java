@@ -1,5 +1,5 @@
 //? if >= 26.2 {
-package com.github.starcatcher21.stargazer.item.ConsumeEffects;
+/*package com.github.starcatcher21.stargazer.item.ConsumeEffects;
 
 import com.github.starcatcher21.stargazer.item.ConsumeEffectsRegistry;
 import com.github.starcatcher21.stargazer.mechanics.advancements.Criterias;
@@ -50,4 +50,4 @@ public record StarGazeConsume() implements ConsumeEffect {
             return true;
         }
 }
-//? }
+*///? }

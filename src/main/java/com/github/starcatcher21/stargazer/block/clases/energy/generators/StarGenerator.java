@@ -13,8 +13,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 //? if < 26.2 {
-/*import net.minecraft.world.level.block.RenderShape;
-*///? }
+import net.minecraft.world.level.block.RenderShape;
+//? }
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -35,11 +35,11 @@ public class StarGenerator extends BaseEntityBlock {
     }
 
     //? if < 26.2 {
-    /*@Override
+    @Override
     protected RenderShape getRenderShape(BlockState arg) {
         return RenderShape.MODEL;
     }
-    *///? }
+    //? }
 
     @Override
     public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {

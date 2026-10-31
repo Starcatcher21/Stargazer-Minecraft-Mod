@@ -20,12 +20,12 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 //? if >= 26.2 {
-import net.minecraft.world.entity.Relative;
+/*import net.minecraft.world.entity.Relative;
 import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.portal.TeleportTransition;
-//?} else {
-/*import net.minecraft.world.level.portal.DimensionTransition;
-*///?}
+*///?} else {
+import net.minecraft.world.level.portal.DimensionTransition;
+//?}
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
@@ -165,7 +165,7 @@ public class EndTeleporter extends Block {
     }
 
     //? if >= 26.2 {
-    @Override
+    /*@Override
     protected ItemStack getCloneItemStack(LevelReader world, BlockPos pos, BlockState state, boolean includeData) {
         EndTeleporterState cts = state.getValue(STATE);
         if (cts.equals(EndTeleporterState.middle)) {
@@ -176,8 +176,8 @@ public class EndTeleporter extends Block {
         }
         return Chess.WHITE_BRICKS.get().asItem().getDefaultInstance();
     }
-    //?} else {
-    /*@Override
+    *///?} else {
+    @Override
     public ItemStack getCloneItemStack(BlockState state, HitResult target, LevelReader level, BlockPos pos, Player player) {
         EndTeleporterState cts = state.getValue(STATE);
         if (cts.equals(EndTeleporterState.middle)) {
@@ -188,10 +188,10 @@ public class EndTeleporter extends Block {
         }
         return Chess.WHITE_BRICKS.get().asItem().getDefaultInstance();
     }
-    *///?}
+    //?}
 
     //? if >= 26.2 {
-    @Override
+    /*@Override
     protected BlockState updateShape(
             BlockState state,
             LevelReader world,
@@ -208,8 +208,8 @@ public class EndTeleporter extends Block {
 
         return state;
     }
-    //?} else {
-    /*@Override
+    *///?} else {
+    @Override
     protected BlockState updateShape(
             BlockState state,
             Direction direction,
@@ -223,19 +223,19 @@ public class EndTeleporter extends Block {
         }
         return state;
     }
-    *///?}
+    //?}
 
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit) {
         if (state.getValue(STATE).equals(EndTeleporterState.middle)) {
             if (world instanceof ServerLevel sw) {
                 //? if >= 26.2 {
-                TeleportTransition target = createTeleportTarget(sw, player, pos);
+                /*TeleportTransition target = createTeleportTarget(sw, player, pos);
                 if (target != null) player.teleport(target);
-                //?} else {
-                /*DimensionTransition target = createTeleportTarget(sw, player, pos);
+                *///?} else {
+                DimensionTransition target = createTeleportTarget(sw, player, pos);
                 if (target != null) player.changeDimension(target);
-                *///?}
+                //?}
             }
         }
         return InteractionResult.PASS;
@@ -247,14 +247,14 @@ public class EndTeleporter extends Block {
                 && state.getValue(STATE).equals(EndTeleporterState.middle)
                 && world instanceof ServerLevel sw) {
             //? if >= 26.2 {
-            TeleportTransition target = createTeleportTarget(sw, entity, pos);
+            /*TeleportTransition target = createTeleportTarget(sw, entity, pos);
             if (target != null) {
                 TeleportTransition newTarget = target.withPosition(
                         target.position().relative(Direction.NORTH, 1));
                 entity.teleport(newTarget);
             }
-            //?} else {
-            /*DimensionTransition target = createTeleportTarget(sw, entity, pos);
+            *///?} else {
+            DimensionTransition target = createTeleportTarget(sw, entity, pos);
             if (target != null) {
                 DimensionTransition newTarget = new DimensionTransition(
                         sw,
@@ -263,13 +263,13 @@ public class EndTeleporter extends Block {
                 );
                 entity.changeDimension(newTarget);
             }
-            *///?}
+            //?}
         }
         super.stepOn(world, pos, state, entity);
     }
 
     //? if >= 26.2 {
-    @Nullable
+    /*@Nullable
     public TeleportTransition createTeleportTarget(ServerLevel world, Entity entity, BlockPos pos) {
         LevelData.RespawnData spawnPoint = world.getRespawnData();
         ResourceKey<Level> registryKey = world.dimension();
@@ -308,8 +308,8 @@ public class EndTeleporter extends Block {
             );
         }
     }
-    //?} else {
-    /*@Nullable
+    *///?} else {
+    @Nullable
     public DimensionTransition createTeleportTarget(ServerLevel world, Entity entity, BlockPos pos) {
         ResourceKey<Level> registryKey = world.dimension();
         boolean bl = registryKey == Level.END;
@@ -370,7 +370,7 @@ public class EndTeleporter extends Block {
                 DimensionTransition.PLAY_PORTAL_SOUND.then(DimensionTransition.PLACE_PORTAL_TICKET)
         );
     }
-    *///?}
+    //?}
 
     @Override
     protected FluidState getFluidState(BlockState state) {
@@ -389,10 +389,10 @@ public class EndTeleporter extends Block {
 
     protected VoxelShape collision(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
         //? if >= 26.2 {
-        Map<Direction, VoxelShape> SIDEMAP = Shapes.rotateAll(SIDESHAPE);
+        /*Map<Direction, VoxelShape> SIDEMAP = Shapes.rotateAll(SIDESHAPE);
         Map<Direction, VoxelShape> CORNERMAP = Shapes.rotateAll(CORNERSHAPE);
-        //?} else {
-        /*Map<Direction, VoxelShape> SIDEMAP = Map.of(
+        *///?} else {
+        Map<Direction, VoxelShape> SIDEMAP = Map.of(
                 Direction.NORTH, SIDESHAPE,
                 Direction.SOUTH, com.github.starcatcher21.stargazer.helpers.Shapes.rotateShape(Direction.NORTH, Direction.SOUTH, SIDESHAPE),
                 Direction.EAST, com.github.starcatcher21.stargazer.helpers.Shapes.rotateShape(Direction.NORTH, Direction.EAST, SIDESHAPE),
@@ -404,7 +404,7 @@ public class EndTeleporter extends Block {
                 Direction.EAST, com.github.starcatcher21.stargazer.helpers.Shapes.rotateShape(Direction.NORTH, Direction.EAST, CORNERSHAPE),
                 Direction.WEST, com.github.starcatcher21.stargazer.helpers.Shapes.rotateShape(Direction.NORTH, Direction.WEST, CORNERSHAPE)
         );
-        *///?}
+        //?}
         EndTeleporterState cts = state.getValue(STATE);
         if (cts == EndTeleporterState.north) return SIDEMAP.get(Direction.NORTH);
         if (cts == EndTeleporterState.south) return SIDEMAP.get(Direction.SOUTH);

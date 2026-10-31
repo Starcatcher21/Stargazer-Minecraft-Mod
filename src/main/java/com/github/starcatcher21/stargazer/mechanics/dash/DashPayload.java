@@ -5,12 +5,12 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 
 public record DashPayload(int unused) implements CustomPacketPayload {
 
-    public static final Identifier ID =
-            Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "request_dash");
+    public static final ResourceLocation ID =
+            ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "request_dash");
 
     public static final StreamCodec<RegistryFriendlyByteBuf, DashPayload> STREAM_CODEC =
             StreamCodec.composite(

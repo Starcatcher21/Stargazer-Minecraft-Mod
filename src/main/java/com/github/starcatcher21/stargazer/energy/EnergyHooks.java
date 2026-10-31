@@ -5,21 +5,21 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
 //? if neoforge {
-/*import net.neoforged.bus.api.IEventBus;
+import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 //? if >= 26.2 {
-import net.neoforged.neoforge.transfer.energy.EnergyHandler;
+/*import net.neoforged.neoforge.transfer.energy.EnergyHandler;
 import net.neoforged.neoforge.transfer.transaction.Transaction;
 import net.neoforged.neoforge.transfer.transaction.TransactionContext;
-//?} else {
-/^import net.neoforged.neoforge.energy.IEnergyStorage;
-^///?}
-*///? } else {
-import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
+*///?} else {
+import net.neoforged.neoforge.energy.IEnergyStorage;
+//?}
+//? } else {
+/*import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import team.reborn.energy.api.EnergyStorage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
-//? }
+*///? }
 
 public class EnergyHooks {
 
@@ -30,8 +30,8 @@ public class EnergyHooks {
                                   ModEnergyStorage source, long maxAmount) {
 
         //? if neoforge {
-        /*//? if >= 26.2 {
-        // 26.2 NeoForge: new transfer API with transactions.
+        //? if >= 26.2 {
+        /*// 26.2 NeoForge: new transfer API with transactions.
         EnergyHandler targetHandler = level.getCapability(
                 Capabilities.Energy.BLOCK,
                 pos.relative(direction),
@@ -51,8 +51,8 @@ public class EnergyHooks {
             }
         }
         return inserted;
-        //?} else {
-        /^// 1.21.1 NeoForge: legacy IEnergyStorage (no transactions).
+        *///?} else {
+        // 1.21.1 NeoForge: legacy IEnergyStorage (no transactions).
         IEnergyStorage target = level.getCapability(
                 Capabilities.EnergyStorage.BLOCK,
                 pos.relative(direction),
@@ -69,9 +69,9 @@ public class EnergyHooks {
         int extracted = (int) source.extractEnergy(accepted, false);
         int inserted = target.receiveEnergy(extracted, false);
         return inserted;
-        ^///?}
-        *///? } else {
-        // Fabric: Team Reborn Energy with Fabric Transfer API transactions.
+        //?}
+        //? } else {
+        /*// Fabric: Team Reborn Energy with Fabric Transfer API transactions.
         EnergyStorage target = EnergyStorage.SIDED.find(
                 level, pos.relative(direction), direction.getOpposite());
         if (target == null) return 0;
@@ -88,7 +88,7 @@ public class EnergyHooks {
             }
         }
         return 0;
-        //? }
+        *///? }
     }
 
     public static void registerEnergyStorages() {
@@ -101,22 +101,22 @@ public class EnergyHooks {
     /* ================================================================ */
     public static boolean hasEnergyCapability(Level level, BlockPos pos, Direction side) {
         //? if neoforge {
-        /*//? if >= 26.2 {
-        return level.getCapability(Capabilities.Energy.BLOCK, pos, side) != null;
-         //?} else {
-        /^return level.getCapability(Capabilities.EnergyStorage.BLOCK, pos, side) != null;
-        ^///?}
-        *///? } else {
-        return EnergyStorage.SIDED.find(level, pos, side) != null;
-         //? }
+        //? if >= 26.2 {
+        /*return level.getCapability(Capabilities.Energy.BLOCK, pos, side) != null;
+         *///?} else {
+        return level.getCapability(Capabilities.EnergyStorage.BLOCK, pos, side) != null;
+        //?}
+        //? } else {
+        /*return EnergyStorage.SIDED.find(level, pos, side) != null;
+         *///? }
     }
 
     /* ================================================================ */
     /* Capability adapters + registration                                */
     /* ================================================================ */
     //? if neoforge {
-    /*//? if >= 26.2 {
-    // 26.2: adapter to the new transfer EnergyHandler interface.
+    //? if >= 26.2 {
+    /*// 26.2: adapter to the new transfer EnergyHandler interface.
     public static EnergyHandler adapt(ModEnergyStorage storage) {
         return new EnergyHandler() {
             @Override public long getCapacityAsLong() { return storage.getCapacity(); }
@@ -139,8 +139,8 @@ public class EnergyHooks {
         event.registerBlockEntity(Capabilities.Energy.BLOCK, BlockTypes.RED_CABLE.get(),     (be, dir) -> adapt(be.energyStorage));
         event.registerBlockEntity(Capabilities.Energy.BLOCK, BlockTypes.PURPLE_CABLE.get(),  (be, dir) -> adapt(be.energyStorage));
     }
-    //?} else {
-    /^// 1.21.1 NeoForge: adapter to the legacy IEnergyStorage interface.
+    *///?} else {
+    // 1.21.1 NeoForge: adapter to the legacy IEnergyStorage interface.
     public static IEnergyStorage adapt(ModEnergyStorage storage) {
         return new IEnergyStorage() {
             @Override public int receiveEnergy(int maxReceive, boolean simulate) {
@@ -165,9 +165,9 @@ public class EnergyHooks {
         event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, BlockTypes.RED_CABLE.get(),     (be, dir) -> adapt(be.energyStorage));
         event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, BlockTypes.PURPLE_CABLE.get(),  (be, dir) -> adapt(be.energyStorage));
     }
-    ^///?}
-    *///? } else {
-    // Fabric: adapter to Team Reborn EnergyStorage with transaction rollback support.
+    //?}
+    //? } else {
+    /*// Fabric: adapter to Team Reborn EnergyStorage with transaction rollback support.
     private static EnergyStorage adapt(ModEnergyStorage storage) {
         return new EnergyStorage() {
             @Override
@@ -192,14 +192,14 @@ public class EnergyHooks {
             @Override public long getCapacity() { return storage.getCapacity(); }
         };
     }
-    //? }
+    *///? }
 
     /* ================================================================ */
     /* init                                                              */
     /* ================================================================ */
-    public static void init(/*? if neoforge {*/ /*IEventBus modEventBus *//*? }*/) {
+    public static void init(/*? if neoforge {*/ IEventBus modEventBus /*? }*/) {
         //? if neoforge {
-        /*modEventBus.addListener(EnergyHooks::onRegisterCapabilities);
-        *///? }
+        modEventBus.addListener(EnergyHooks::onRegisterCapabilities);
+        //? }
     }
 }

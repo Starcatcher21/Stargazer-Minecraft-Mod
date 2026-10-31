@@ -11,33 +11,33 @@ import com.github.starcatcher21.stargazer.block.clases.energy.machines.NightWatc
 import com.github.starcatcher21.stargazer.block.clases.energy.machines.StarCrusher;
 import com.github.starcatcher21.stargazer.block.clases.moon.starforge.Starforge;
 import com.github.starcatcher21.stargazer.block.register.*;
-import com.github.starcatcher21.stargazer.compat.rei.StargazingCategory;
+import com.github.starcatcher21.stargazer.compat.StargazingCategory;
 import com.github.starcatcher21.stargazer.effects.Potions;
 import com.github.starcatcher21.stargazer.entity.EntityRegistry;
 import com.github.starcatcher21.stargazer.item.ModItems;
 import com.github.starcatcher21.stargazer.item.WishingStars;
 //? if fabric {
-import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+/*import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
-//?} else {
-/*import net.minecraft.data.PackOutput;
+*///?} else {
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.common.data.LanguageProvider;
-*///?}
+//?}
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.DyeColor;
 import java.util.Arrays;
 import java.util.concurrent.CompletableFuture;
 
 public class ModEngLangProvider
 //? if fabric {
-        extends FabricLanguageProvider {
+        /*extends FabricLanguageProvider {
     public ModEngLangProvider(FabricPackOutput dataGenerator, CompletableFuture<HolderLookup.Provider> registryLookup) {
         super(dataGenerator, "en_us", registryLookup);
     }
-//?} else {
-        /*extends LanguageProvider {
+*///?} else {
+        extends LanguageProvider {
     public ModEngLangProvider(PackOutput output) {
         super(output, Stargazer.MOD_ID, "en_us");
     }
@@ -66,16 +66,16 @@ public class ModEngLangProvider
         } else if (key instanceof net.minecraft.tags.TagKey<?> tag) {
             add(tag, value);
         //? if >= 26.2 {
-        } else if (key instanceof net.minecraft.resources.Identifier identifier) {
-        //?} else {
-        /^} else if (key instanceof net.minecraft.resources.ResourceLocation identifier) {
-        ^///?}
+        /*} else if (key instanceof net.minecraft.resources.Identifier identifier) {
+        *///?} else {
+        } else if (key instanceof net.minecraft.resources.ResourceLocation identifier) {
+        //?}
             add(identifier.toLanguageKey(), value);
         } else {
             throw new IllegalArgumentException("Unsupported translation key type: " + key.getClass().getName());
         }
     }
-*///?}
+//?}
 
     @FunctionalInterface
     private interface TranslationSink {
@@ -83,7 +83,7 @@ public class ModEngLangProvider
     }
 
     //? if fabric {
-    @Override
+    /*@Override
     public void generateTranslations(HolderLookup.Provider wrapperLookup, FabricLanguageProvider.TranslationBuilder translationBuilder) {
         populateTranslations((key, value) -> {
             if (key instanceof String string) {
@@ -104,17 +104,18 @@ public class ModEngLangProvider
             //? if >= 26.2 {
             } else if (key instanceof net.minecraft.resources.Identifier identifier) {
             //?} else {
-            /*} else if (key instanceof net.minecraft.resources.ResourceLocation identifier) {
-            *///?}
+            /^} else if (key instanceof net.minecraft.resources.ResourceLocation identifier) {
+            ^///?}
                 translationBuilder.add(identifier, value);
             } else {
                 throw new IllegalArgumentException("Unsupported translation key type: " + key.getClass().getName());
             }
         });
     }
-    //?}
+    *///?}
 
     private static void populateTranslations(TranslationSink translationBuilder) {
+        translationBuilder.add(StargazingCategory.TranslationKey, "Stargazing");
         translationBuilder.add(ModBlock.AMETHYST_BRICKS.get(), "Amethyst Bricks");
         translationBuilder.add(MoonBlocks.BRUNT.get(), "Brunt");
         translationBuilder.add(Crops.BRUNT_SEEDS.get(), "Brunt Seeds");
@@ -163,7 +164,6 @@ public class ModEngLangProvider
         translationBuilder.add(ModItems.STAR_BANNER_PATTERN.get(), "Star Banner Pattern");
         // misc
         translationBuilder.add("entity.minecraft.villager.stargazer.astrologists", "Astrologists");
-        translationBuilder.add(StargazingCategory.TranslationKey, "Stargazing");
         translationBuilder.add(ModBlock.COPPER_TELEPORTER.get(), "Copper Teleporter");
         translationBuilder.add(ModBlock.DARK_TELEPORTER.get(), "Wander Teleporter");
         translationBuilder.add(ModBlock.RED_TELEPORTER.get(), "Red Obr Teleporter");
@@ -461,8 +461,8 @@ public class ModEngLangProvider
         translationBuilder.add(Hedges.MOON_HEDGE.get(), "Moon Hedge");
         translationBuilder.add(Hedges.OAK_HEDGE.get(), "Oak Hedge");
         //? if >= 26.2 {
-        translationBuilder.add(Hedges.PALE_HEDGE.get(), "Pale Oak Hedge");
-        //? }
+        /*translationBuilder.add(Hedges.PALE_HEDGE.get(), "Pale Oak Hedge");
+        *///? }
         translationBuilder.add(Hedges.SPRUCE_HEDGE.get(), "Spruce Hedge");
         translationBuilder.add(Hedges.STAR_HEDGE.get(), "Star Hedge");
         translationBuilder.add(Hedges.YERI_HEDGE.get(), "Yeri Hedge");
@@ -556,10 +556,10 @@ public class ModEngLangProvider
 
     private static String potionTranslationName(Object potion) {
         //? if >= 26.2 {
-        return ((net.minecraft.world.item.alchemy.Potion) potion).name();
-        //?} else {
-        /*return BuiltInRegistries.POTION.getKey((net.minecraft.world.item.alchemy.Potion) potion).getPath();
-        *///?}
+        /*return ((net.minecraft.world.item.alchemy.Potion) potion).name();
+        *///?} else {
+        return BuiltInRegistries.POTION.getKey((net.minecraft.world.item.alchemy.Potion) potion).getPath();
+        //?}
     }
 }
 //?}

@@ -1,6 +1,7 @@
 //? if neoforge && < 26.2 {
-/*package com.github.starcatcher21.stargazer.renderer.effects;
+package com.github.starcatcher21.stargazer.renderer.effects;
 
+import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.renderer.SkyStarRenderer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Camera;
@@ -12,7 +13,6 @@ import org.joml.Matrix4f;
 public final class CosmicSkyEffects extends DimensionSpecialEffects {
 
     public CosmicSkyEffects() {
-        // cloudLevel, hasGround, skyType, forceBrightLightmap, constantAmbientLight
         super(Float.NaN, false, SkyType.NONE, false, false);
     }
 
@@ -34,4 +34,4 @@ public final class CosmicSkyEffects extends DimensionSpecialEffects {
         return false;
     }
 }
-*///? }
+//? }

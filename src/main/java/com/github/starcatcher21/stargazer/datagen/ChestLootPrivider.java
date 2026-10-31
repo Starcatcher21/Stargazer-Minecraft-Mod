@@ -6,14 +6,14 @@ import com.github.starcatcher21.stargazer.block.register.Crops;
 import com.github.starcatcher21.stargazer.block.register.MoonBlocks;
 import com.github.starcatcher21.stargazer.item.ModItems;
 //? if fabric {
-import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+/*import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableSubProvider;
-//?} else {
-/*import net.minecraft.data.loot.LootTableSubProvider;
-*///?}
+*///?} else {
+import net.minecraft.data.loot.LootTableSubProvider;
+//?}
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.storage.loot.LootPool;
@@ -28,26 +28,26 @@ import java.util.function.BiConsumer;
 
 public class ChestLootPrivider
 //? if fabric {
-        extends SimpleFabricLootTableSubProvider {
+        /*extends SimpleFabricLootTableSubProvider {
     public ChestLootPrivider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registryLookup) {
         super(output, registryLookup, LootContextParamSets.CHEST);
     }
-//?} else {
-        /*implements LootTableSubProvider {
+*///?} else {
+        implements LootTableSubProvider {
     public ChestLootPrivider(HolderLookup.Provider registryLookup) {}
-*///?}
+//?}
 
     @Override
     public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> lootTableBiConsumer) {
 
         ResourceKey<LootTable> cometKey = ResourceKey.create(
                 Registries.LOOT_TABLE,
-              Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "gameplay/comet")
+              ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "gameplay/comet")
         );
 
         ResourceKey<LootTable> seedKey = ResourceKey.create(
                 Registries.LOOT_TABLE,
-              Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "gameplay/seed_packet")
+              ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "gameplay/seed_packet")
         );
 
         LootTable.Builder lootTableComet = LootTable.lootTable()
@@ -57,10 +57,10 @@ public class ChestLootPrivider
                                 .add(LootItem.lootTableItem(Items.IRON_NUGGET).setWeight(60))
                                 .add(LootItem.lootTableItem(Items.GOLD_NUGGET).setWeight(50))
                                 //? if >= 26.2 {
-                                .add(LootItem.lootTableItem(Items.COPPER_NUGGET).setWeight(50))
-                                //?} else {
-                                /*.add(LootItem.lootTableItem(Items.COPPER_INGOT).setWeight(50))
-                                *///?}
+                                /*.add(LootItem.lootTableItem(Items.COPPER_NUGGET).setWeight(50))
+                                *///?} else {
+                                .add(LootItem.lootTableItem(Items.COPPER_INGOT).setWeight(50))
+                                //?}
                                 .add(LootItem.lootTableItem(Items.RAW_IRON).setWeight(30))
                                 .add(LootItem.lootTableItem(Items.RAW_GOLD).setWeight(30))
                                 .add(LootItem.lootTableItem(Items.RAW_COPPER).setWeight(30))

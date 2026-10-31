@@ -1,5 +1,5 @@
 //? if <= 1.21.1 {
-/*package com.github.starcatcher21.stargazer.block.older1211;
+package com.github.starcatcher21.stargazer.block.older1211;
 
 import com.mojang.serialization.MapCodec;
 import java.util.Map;
@@ -101,4 +101,4 @@ public class FlowerBedBlock extends VegetationBlock implements BonemealableBlock
         AMOUNT = BlockStateProperties.FLOWER_AMOUNT;
     }
 }
-*///? }
+//? }

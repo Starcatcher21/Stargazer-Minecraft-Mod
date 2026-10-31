@@ -2,6 +2,7 @@ package com.github.starcatcher21.stargazer.compat;
 
 import com.github.starcatcher21.stargazer.GameRules;
 import com.github.starcatcher21.stargazer.Stargazer;
+import com.github.starcatcher21.stargazer.StargazerNetworking;
 import com.github.starcatcher21.stargazer.block.ModBlock;
 import com.github.starcatcher21.stargazer.block.clases.MoonWelder;
 import com.google.common.collect.Lists;
@@ -17,7 +18,7 @@ import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Ingredient;
 import java.util.LinkedList;
 import java.util.List;
@@ -26,7 +27,7 @@ import java.util.Optional;
 import static com.github.starcatcher21.stargazer.screens.handled.MoonWelderHandled.*;
 
 public class MoonWelderCategory implements DisplayCategory<MoonWelderDisplay> {
-    public static final Identifier TEXTURE =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/moon_welder/moon_welder_gui.png");
+    public static final ResourceLocation TEXTURE =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/moon_welder/moon_welder_gui.png");
     public static final CategoryIdentifier<MoonWelderDisplay> STARFORGE = CategoryIdentifier.of(Stargazer.MOD_ID, "moon_welder");
     @Override
     public CategoryIdentifier<? extends MoonWelderDisplay> getCategoryIdentifier() {
@@ -49,11 +50,7 @@ public class MoonWelderCategory implements DisplayCategory<MoonWelderDisplay> {
 
         widgets.add(Widgets.createTexturedWidget(TEXTURE, new Rectangle(startPoint.x - 7, startPoint.y - 7, 146, 102)));
         int moonphase = display.recipe().getMoonPhase();
-        //? if >= 26.2 {
-        if (Minecraft.getInstance().getSingleplayerServer().overworld().getGameRules().get(GameRules.MOON)) {
-        //?} else {
-        /*if (Minecraft.getInstance().getSingleplayerServer().overworld().getGameRules().getBoolean(GameRules.MOON)) {
-        *///?}
+        if (StargazerNetworking.isMoonRuleEnabled()) {
             switch (moonphase) {
                 case 0:
                     widgets.add(Widgets.createTexturedWidget(FULL, startPoint.x + 10, startPoint.y + 10, 0, 0, 16, 16, 16, 16));
