@@ -1,19 +1,22 @@
-#version 150
+#version 330
 
-#moj_import <fog.glsl>
-
-uniform mat4 ModelViewMat;
-uniform mat4 ProjMat;
-uniform int FogShape;
+#moj_import <minecraft:fog.glsl>
+#moj_import <minecraft:projection.glsl>
+#moj_import <minecraft:dynamictransforms.glsl>
 
 in vec3 Position;
+in vec4 Color;
 
 out vec3 localPos;
-out float vertexDistance;
+out float sphericalVertexDistance;
+out float cylindricalVertexDistance;
 
 void main() {
-vec4 viewPosition = ModelViewMat * vec4(Position, 1.0);
-gl_Position = ProjMat * viewPosition;
+gl_Position = ProjMat * ModelViewMat * vec4(Position, 1.0);
+
+// Pass the true 3D position to the fragment shader
 localPos = Position;
-vertexDistance = fog_distance(viewPosition.xyz, FogShape);
+
+sphericalVertexDistance = fog_spherical_distance(Position);
+cylindricalVertexDistance = fog_cylindrical_distance(Position);
 }

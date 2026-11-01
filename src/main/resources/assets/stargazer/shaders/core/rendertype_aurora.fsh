@@ -20,15 +20,8 @@
 #moj_import <minecraft:fog.glsl>
 #moj_import <minecraft:projection.glsl>
 #moj_import <minecraft:dynamictransforms.glsl>
-layout(std140) uniform Globals {
-ivec3 CameraBlockPos;
-vec3  CameraOffset;
-vec2  ScreenSize;
-float GlintAlpha;
-float GameTime;
-int   MenuBlurRadius;
-int   UseRgss;
-};
+#moj_import <minecraft:globals.glsl>
+
 in vec4 vertexColor;
 in vec2 texCoord0;
 in vec4 lightMapColor;
