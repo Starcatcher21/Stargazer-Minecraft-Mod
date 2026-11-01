@@ -35,11 +35,11 @@ public class NightWatcher extends BaseEntityBlock {
     }
 
     //? if < 26.2 {
-    @Override
+    /*@Override
     protected RenderShape getRenderShape(BlockState arg) {
         return RenderShape.MODEL;
     }
-    //? }
+    *///? }
 
     @Override
     public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {

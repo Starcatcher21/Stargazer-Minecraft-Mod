@@ -15,6 +15,7 @@ repositories {
     maven("https://maven.shedaniel.me")
     maven("https://maven.neoforged.net/releases/")
     maven("https://maven.parchmentmc.org")
+    maven("https://cursemaven.com")
 }
 
 subprojects {
@@ -55,6 +56,9 @@ subprojects {
 loom {
     version = project.mod.version
     enableTransitiveAccessWideners = true
+    runs.named("client") {
+        programArgs("--uuid", "00000000-0000-0000-0000-000000000000")
+    }
 }
 
 // Add generated datagen assets to main resource source set
@@ -142,6 +146,15 @@ dependencies {
     } else if (isNeoForge) {
         compileOnly("me.shedaniel:RoughlyEnoughItems-api-neoforge:$reiVersion")
         runtimeOnly("me.shedaniel:RoughlyEnoughItems-neoforge:$reiVersion")
+    }
+
+    val jeiVersion = project.mod.prop("jei_version")
+    if (isFabric) {
+        compileOnly("mezz.jei:jei-${stonecutter.current.version}-fabric-api:$jeiVersion")
+        runtimeOnly("mezz.jei:jei-${stonecutter.current.version}-fabric:$jeiVersion")
+    } else if (isNeoForge) {
+        compileOnly("mezz.jei:jei-${stonecutter.current.version}-neoforge-api:$jeiVersion")
+        runtimeOnly("mezz.jei:jei-${stonecutter.current.version}-neoforge:$jeiVersion")
     }
 
     // --- Cloth Config ---

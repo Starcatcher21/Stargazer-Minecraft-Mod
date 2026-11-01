@@ -1,7 +1,11 @@
 package com.github.starcatcher21.stargazer;
 
+import com.github.starcatcher21.stargazer.screens.recipe.RecipeTypes;
+//? if fabric {
+import net.fabricmc.fabric.api.recipe.v1.sync.RecipeSynchronization;
+//? }
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
-import software.bernie.geckolib.renderer.GeoBlockRenderer;
+import com.geckolib.renderer.GeoBlockRenderer;
 import com.github.starcatcher21.stargazer.block.BlockTypes;
 import com.github.starcatcher21.stargazer.block.clases.eyes.eyejar.EyeJarModel;
 import com.github.starcatcher21.stargazer.block.clases.moon.star_trap.StarTrapModel;
@@ -27,25 +31,25 @@ import dev.architectury.registry.client.level.entity.EntityRendererRegistry;
 import dev.architectury.registry.client.rendering.BlockEntityRendererRegistry;
 import me.shedaniel.rei.api.client.registry.screen.ScreenRegistry;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 //? if >= 26.2 && fabric {
-/*import dev.architectury.registry.client.gui.MenuScreenRegistry;
-*///?}
-
-//? if neoforge {
-import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
+import dev.architectury.registry.client.gui.MenuScreenRegistry;
 //?}
 
+//? if neoforge {
+/*import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
+*///?}
+
 //? if fabric {
-/*import com.github.starcatcher21.stargazer.FabricSkyStarRenderer;
+import com.github.starcatcher21.stargazer.FabricSkyStarRenderer;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderingRegistry;
 import net.minecraft.client.renderer.block.FluidModel;
 import net.minecraft.client.resources.model.sprite.Material;
-*///?}
+//?}
 
-public final class StargazerClient /*? if fabric {*//*implements ClientModInitializer *//*? } */{
+public final class StargazerClient /*? if fabric {*/implements ClientModInitializer /*? } */{
     public static void initClient() {
         // Block rendering
         Stargazer.LOGGER.info("Loading Block Rendering");
@@ -61,7 +65,7 @@ public final class StargazerClient /*? if fabric {*//*implements ClientModInitia
         Stargazer.LOGGER.info("Loading GeckoLib Block Rendering");
 
         //? if >= 26.2 {
-        /*BlockTypes.STAR_TRAP.listen(type -> BlockEntityRendererRegistry.register(
+        BlockTypes.STAR_TRAP.listen(type -> BlockEntityRendererRegistry.register(
                 type,
                 context -> new GeoBlockRenderer<>(context, new StarTrapModel())
         ));
@@ -75,8 +79,8 @@ public final class StargazerClient /*? if fabric {*//*implements ClientModInitia
                 type,
                 context -> new StarDisplayRenderer<>(context, new StarDisplayModel())
         ));
-        *///? } else {
-        BlockTypes.STAR_TRAP.listen(type -> BlockEntityRendererRegistry.register(
+        //? } else {
+        /*BlockTypes.STAR_TRAP.listen(type -> BlockEntityRendererRegistry.register(
                 type,
                 context -> new GeoBlockRenderer<>(new StarTrapModel())
         ));
@@ -90,7 +94,7 @@ public final class StargazerClient /*? if fabric {*//*implements ClientModInitia
                 type,
                 context -> new StarDisplayRenderer(context, new StarDisplayModel())
         ));
-        //? }
+        *///? }
 
         // Particles
         ParticlesClient.init();
@@ -111,14 +115,14 @@ public final class StargazerClient /*? if fabric {*//*implements ClientModInitia
 
         // Screens
         //? if >= 26.2 && fabric {
-        /*Stargazer.LOGGER.info("Registering Menu Screens (Fabric)");
+        Stargazer.LOGGER.info("Registering Menu Screens (Fabric)");
         MenuScreenRegistry.registerScreenFactory(ScreenHandlerTypes.STARFORGE_HANDLER.get(), StarforgeHandled::new);
         MenuScreenRegistry.registerScreenFactory(ScreenHandlerTypes.MOON_WELDER_HANDLER.get(), MoonWelderHandled::new);
         MenuScreenRegistry.registerScreenFactory(ScreenHandlerTypes.NIGHTWATCHER_HANDLER.get(), NightWatcherHandled::new);
         MenuScreenRegistry.registerScreenFactory(ScreenHandlerTypes.STARGENERATOR_HANDLER.get(), StargeneratorHandled::new);
         MenuScreenRegistry.registerScreenFactory(ScreenHandlerTypes.STARBOOK_HANDLER.get(), StarBookHandled::new);
         MenuScreenRegistry.registerScreenFactory(ScreenHandlerTypes.STARCRUSHER_HANDLER.get(), StarCrusherHandled::new);
-        *///?}
+        //?}
 
         // Tick Events
         Stargazer.LOGGER.info("Loading End Client Tick Events");
@@ -133,10 +137,13 @@ public final class StargazerClient /*? if fabric {*//*implements ClientModInitia
     }
 
     //? if fabric {
-    /*@Override
+    @Override
     public void onInitializeClient() {
         initClient();
+        RecipeSynchronization.synchronizeRecipeSerializer(RecipeTypes.STAR_CRUSHER_SERIALIZER.get());
+        RecipeSynchronization.synchronizeRecipeSerializer(RecipeTypes.MOON_WELDER_SERIALIZER.get());
+        RecipeSynchronization.synchronizeRecipeSerializer(RecipeTypes.STARFORGE_SERIALIZER.get());
         FabricSkyStarRenderer.init();
     }
-    *///?}
+    //?}
 }

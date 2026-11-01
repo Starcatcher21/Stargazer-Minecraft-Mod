@@ -16,6 +16,7 @@ import com.github.starcatcher21.stargazer.worldgen.features.trees.curve.CurveTre
 import com.github.starcatcher21.stargazer.worldgen.features.trees.darkness.DarknessTrees;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.eyeblodbirch.EyeBirchTrees;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.fullmoon.FullMoonTrees;
+import com.github.starcatcher21.stargazer.worldgen.features.trees.fuzzy.FuzzyTrees;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.glass.GlassTrees;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.green_rocks.GreenRocks;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.moon.MoonTrees;
@@ -67,6 +68,7 @@ public class CustomFeatures {
     public static final RegistrySupplier<Feature/*? if < 26.3 { */ <?> /*? } */> trunn_trees = register("trunn_trees", () -> new TrunnTrees(TreeConfig.CODEC));
     public static final RegistrySupplier<Feature/*? if < 26.3 { */ <?> /*? } */> glass_trees = register("glass_trees", () -> new GlassTrees(TreeConfig.CODEC));
     public static final RegistrySupplier<Feature/*? if < 26.3 { */ <?> /*? } */> umbrella_trees = register("umbrella_trees", () -> new UmbrellaTrees(TreeConfig.CODEC));
+    public static final RegistrySupplier<Feature/*? if < 26.3 { */ <?> /*? } */> fuzzy_trees = register("fuzzy_trees", () -> new FuzzyTrees(TreeConfig.CODEC));
 
     public static <T extends Feature/*? if < 26.3 { */ <?> /*? } */> RegistrySupplier<T> register(String id, Supplier<T> entry) {
         return FEATURES.register(id, entry);

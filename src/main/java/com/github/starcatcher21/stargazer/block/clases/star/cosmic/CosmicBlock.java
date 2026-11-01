@@ -8,7 +8,7 @@ import java.util.Random;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
@@ -26,7 +26,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 public class CosmicBlock extends BaseEntityBlock {
     private final static Random random = new Random();
     private final static float velocity = 0.06F;
-    public static final ResourceLocation TEXTURE =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/block/dream_block.png");
+    public static final Identifier TEXTURE =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/block/dream_block.png");
     @Override
     protected MapCodec<? extends CosmicBlock> codec() {
         return simpleCodec(CosmicBlock::new);
@@ -41,10 +41,10 @@ public class CosmicBlock extends BaseEntityBlock {
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter view, BlockPos pos, CollisionContext context) {
         //? if >= 26.2 {
-        /*if (context.isHoldingItem(BuiltInRegistries.ITEM.getValue(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "cosmic_block"))) || context.isHoldingItem(ModItems.STAR_HAMMER.get())) {
-         *///?} else {
-        if (context.isHoldingItem(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "cosmic_block"))) || context.isHoldingItem(ModItems.STAR_HAMMER.get())) {
-        //?}
+        if (context.isHoldingItem(BuiltInRegistries.ITEM.getValue(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "cosmic_block"))) || context.isHoldingItem(ModItems.STAR_HAMMER.get())) {
+         //?} else {
+        /*if (context.isHoldingItem(BuiltInRegistries.ITEM.get(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "cosmic_block"))) || context.isHoldingItem(ModItems.STAR_HAMMER.get())) {
+        *///?}
             return Shapes.block();
         } else {
             return Shapes.box(0.0, 0.0, 0.0, 0.01, 0.01, 0.01);
@@ -54,16 +54,6 @@ public class CosmicBlock extends BaseEntityBlock {
     @Override
     protected VoxelShape getCollisionShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
         return Shapes.empty();
-    }
-
-    @Override
-    public BlockState playerWillDestroy(Level world, BlockPos pos, BlockState state, Player player) {
-        if (world instanceof ServerLevel sw) {
-            sw.sendParticles((SimpleParticleType) Particles.STAR, pos.getX() + 0.5d, pos.getY() + 0.5d, pos.getZ() + 0.5d, 5, -velocity + random.nextFloat(velocity*2), -velocity + random.nextFloat(velocity*2), -velocity + random.nextFloat(velocity*2), 0.02d);
-        }
-        world.playLocalSound(pos, this.soundType.getBreakSound(), SoundSource.BLOCKS, this.soundType.volume*2, this.soundType.pitch, true);
-        world.gameEvent(GameEvent.BLOCK_DESTROY, pos, GameEvent.Context.of(player, state));
-        return state;
     }
 
 

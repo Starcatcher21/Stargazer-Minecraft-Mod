@@ -17,10 +17,10 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SuspiciousEffectHolder;
 //? if >= 26.2 {
-/*import net.minecraft.world.level.block.VegetationBlock;
-*///? } else {
-import com.github.starcatcher21.stargazer.block.older1211.VegetationBlock;
-//? }
+import net.minecraft.world.level.block.VegetationBlock;
+//? } else {
+/*import com.github.starcatcher21.stargazer.block.older1211.VegetationBlock;
+*///? }
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -73,7 +73,7 @@ public class RedHangingFlower
 
     @Override
     protected VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
-        var offset = state.getOffset(/*? if < 26.2 { */world, /*? } */pos);
+        var offset = state.getOffset(/*? if < 26.2 { *//*world, *//*? } */pos);
         return SHAPE.move(offset.x, offset.y, offset.z).move(0.0, 0.5, 0.0);
     }
 

@@ -1,8 +1,16 @@
 #version 330
 
 #moj_import <minecraft:fog.glsl>
-#moj_import <minecraft:globals.glsl>
 #moj_import <minecraft:chunksection.glsl>
+layout(std140) uniform Globals {
+ivec3 CameraBlockPos;
+vec3  CameraOffset;
+vec2  ScreenSize;
+float GlintAlpha;
+float GameTime;
+int   MenuBlurRadius;
+int   UseRgss;
+};
 
 uniform sampler2D Sampler0;
 

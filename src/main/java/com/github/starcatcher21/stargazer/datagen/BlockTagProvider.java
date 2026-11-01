@@ -3,16 +3,17 @@ package com.github.starcatcher21.stargazer.datagen;
 
 import com.github.starcatcher21.stargazer.CustomTags;
 import com.github.starcatcher21.stargazer.block.ModBlock;
+import com.github.starcatcher21.stargazer.block.clases.Hedge;
 import com.github.starcatcher21.stargazer.block.register.*;
 //? if fabric {
-/*import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
-*///?} else if < 26.2 {
-import net.minecraft.data.PackOutput;
+//?} else if < 26.2 {
+/*import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.common.data.BlockTagsProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.minecraft.data.tags.TagsProvider.TagAppender;
-//?}
+*///?}
 //? if neoforge && >= 26.2 {
 /*import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.TagsProvider;
@@ -26,12 +27,12 @@ import java.util.concurrent.CompletableFuture;
 
 public class BlockTagProvider
 //? if fabric {
-        /*extends FabricTagsProvider.BlockTagsProvider {
+        extends FabricTagsProvider.BlockTagsProvider {
     public BlockTagProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
         super(output, registriesFuture);
     }
-*///?} else if < 26.2 {
-        extends BlockTagsProvider {
+//?} else if < 26.2 {
+        /*extends BlockTagsProvider {
     public BlockTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture, ExistingFileHelper existingFileHelper) {
         super(output, registriesFuture, com.github.starcatcher21.stargazer.Stargazer.MOD_ID, existingFileHelper);
     }
@@ -39,7 +40,7 @@ public class BlockTagProvider
     private TagAppender<net.minecraft.world.level.block.Block> builder(net.minecraft.tags.TagKey<net.minecraft.world.level.block.Block> tag) {
         return tag(tag);
     }
-//?} else {
+*///?} else {
         /*extends TagsProvider<net.minecraft.world.level.block.Block> {
     public BlockTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
         super(output, Registries.BLOCK, registriesFuture, com.github.starcatcher21.stargazer.Stargazer.MOD_ID);
@@ -65,6 +66,9 @@ public class BlockTagProvider
         // Wood
         builder(BlockTags.MINEABLE_WITH_AXE)
                 .add(Wander.TRUNN_LOG.getKey())
+                .add(MoonBlocks.FUZZY_LOG.getKey())
+                .add(Hedges.FUZZY_HEDGE.getKey())
+                .add(Hedges.UMBRELLA_HEDGE.getKey())
                 .add(Wander.UMBRELLA_LOG.getKey())
                 .add(MoonBlocks.MOON_LOG.getKey())
                 .add(MoonBlocks.MOON_PLANKS_DOOR.getKey())
@@ -140,6 +144,8 @@ public class BlockTagProvider
                 .add(Darkness.STRIPPED_LOG_OF_DARKNESS.getKey());
         builder(BlockTags.LOGS)
                 .add(Wander.TRUNN_LOG.getKey())
+                .add(Hedges.FUZZY_HEDGE.getKey())
+                .add(MoonBlocks.FUZZY_LOG.getKey())
                 .add(Wander.UMBRELLA_LOG.getKey())
                 .add(MoonBlocks.MOON_LOG.getKey())
                 .add(MoonBlocks.CURVE_LOG.getKey())
@@ -165,8 +171,8 @@ public class BlockTagProvider
                 .add(Hedges.MANGROVE_HEDGE.getKey())
                 .add(Hedges.OAK_HEDGE.getKey())
                 //? if >= 26.2 {
-                /*.add(Hedges.PALE_HEDGE.getKey())
-                *///? }
+                .add(Hedges.PALE_HEDGE.getKey())
+                //? }
                 .add(Hedges.SPRUCE_HEDGE.getKey())
                 .add(Hedges.MOON_HEDGE.getKey())
                 .add(Hedges.CURVE_HEDGE.getKey())
@@ -175,10 +181,12 @@ public class BlockTagProvider
                 .add(Hedges.YERI_HEDGE.getKey())
                 .add(Hedges.SPIRO_HEDGE.getKey())
                 .add(Hedges.TRUNN_HEDGE.getKey())
+                .add(Hedges.UMBRELLA_HEDGE.getKey())
                 .add(MoonBlocks.FULL_MOON_LOG.getKey())
                 .add(Darkness.STRIPPED_LOG_OF_DARKNESS.getKey());
         builder(BlockTags.LEAVES)
                 .add(Wander.TRUNN_LEAVES.getKey())
+                .add(MoonBlocks.FUZZY_LEAVES.getKey())
                 .add(Wander.UMBRELLA_LEAVES.getKey())
                 .add(MoonBlocks.MOON_LEAVES.getKey())
                 .add(MoonBlocks.CURVE_LEAVES.getKey())
@@ -194,6 +202,7 @@ public class BlockTagProvider
                 .add(Darkness.DARKNESS_LEAVES.getKey());
         builder(BlockTags.MINEABLE_WITH_HOE)
                 .add(Wander.TRUNN_LEAVES.getKey())
+                .add(MoonBlocks.FUZZY_LEAVES.getKey())
                 .add(Wander.UMBRELLA_LEAVES.getKey())
                 .add(MoonBlocks.MOON_LEAVES.getKey())
                 .add(ModBlock.BONE_LEAVES.getKey())
@@ -332,9 +341,13 @@ public class BlockTagProvider
                 .add(Nebulas.YELLOW_NEBULA_PLANKS_FENCE.getKey())
                 .add(Nebulas.PURPLE_NEBULA_PLANKS_FENCE.getKey())
                 .add(RedOrbBlocks.YERI_PLANKS_FENCE.getKey())
+                .add(Wander.TRUNN_PLANKS_FENCE.getKey())
+                .add(RedOrbBlocks.SPIRO_PLANKS_FENCE.getKey())
                 .add(MoonBlocks.RED_MOON_PLANKS_FENCE.getKey());
         builder(BlockTags.WOODEN_FENCES)
                 .add(MoonBlocks.BLUE_MOON_PLANKS_FENCE.getKey())
+                .add(Wander.TRUNN_PLANKS_FENCE.getKey())
+                .add(RedOrbBlocks.SPIRO_PLANKS_FENCE.getKey())
                 .add(MoonBlocks.YELLOW_MOON_PLANKS_FENCE.getKey())
                 .add(MoonBlocks.MOON_PLANKS_FENCE.getKey())
                 .add(MoonBlocks.PURPLE_MOON_PLANKS_FENCE.getKey())
@@ -358,9 +371,11 @@ public class BlockTagProvider
                 .add(Nebulas.YELLOW_NEBULA_PLANKS_FENCE_GATE.getKey())
                 .add(Nebulas.PURPLE_NEBULA_PLANKS_FENCE_GATE.getKey())
                 .add(RedOrbBlocks.YERI_PLANKS_FENCE_GATE.getKey())
+                .add(RedOrbBlocks.SPIRO_PLANKS_FENCE_GATE.getKey())
+                .add(Wander.TRUNN_PLANKS_FENCE_GATE.getKey())
                 .add(MoonBlocks.YELLOW_MOON_PLANKS_FENCE_GATE.getKey());
         //? if >= 26.2 {
-        /*builder(CustomTags.COPPER_BLOCKS)
+        builder(CustomTags.COPPER_BLOCKS)
                 .add(Blocks.COPPER_BLOCK.weathering().unaffected().builtInRegistryHolder().key())
                 .add(Blocks.COPPER_BLOCK.waxed().unaffected().builtInRegistryHolder().key())
                 .add(Blocks.CUT_COPPER.weathering().unaffected().builtInRegistryHolder().key())
@@ -369,13 +384,12 @@ public class BlockTagProvider
                 .add(Blocks.CHISELED_COPPER.waxed().unaffected().builtInRegistryHolder().key())
                 .add(Blocks.CUT_COPPER_STAIRS.weathering().unaffected().builtInRegistryHolder().key())
                 .add(Blocks.CUT_COPPER_STAIRS.waxed().unaffected().builtInRegistryHolder().key());
-        *///?}
-        // other
+        //?}
         //? if >= 26.2 {
-        /*builder(BlockTags.OVERRIDES_MUSHROOM_LIGHT_REQUIREMENT)
+        builder(BlockTags.OVERRIDES_MUSHROOM_LIGHT_REQUIREMENT)
                 .add(MoonBlocks.MOON_ROCK_NYLIUM.getKey())
                 .add(Darkness.DYLIUM.getKey());
-        *///?}
+        //?}
         builder(CustomTags.STAR_HAMMER_MINABLE)
                 .add(StarBlocks.COSMIC_BLOCK.getKey())
                 .add(ModBlock.NEGATIVE_BLOCK.getKey())

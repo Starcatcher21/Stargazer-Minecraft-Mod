@@ -15,7 +15,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.RegistryOps;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.dimension.LevelStem;
@@ -87,10 +87,10 @@ public final class WorldgenDataBootstrap {
 
     private static Codec<DensityFunction> densityFunctionCodec() {
         //? if >= 26.2 {
-        /*return net.minecraft.world.level.levelgen.DensityFunctions.DIRECT_CODEC;
-        *///?} else {
-        return DensityFunction.DIRECT_CODEC;
-        //?}
+        return net.minecraft.world.level.levelgen.DensityFunctions.DIRECT_CODEC;
+        //?} else {
+        /*return DensityFunction.DIRECT_CODEC;
+        *///?}
     }
 
     private static void configuredFeatures(BootstrapContext<ConfiguredFeature<?, ?>> context) {
@@ -111,7 +111,7 @@ public final class WorldgenDataBootstrap {
     private static void biomes(BootstrapContext<Biome> context) {
         RegistryOps<JsonElement> ops = registryOps(context);
         for (ResourceKey<Biome> key : BiomeReg.ALL) {
-            context.register(key, loadBiome(key.location().getPath() + ".json", ops));
+            context.register(key, loadBiome(key.identifier().getPath() + ".json", ops));
         }
     }
 
@@ -135,7 +135,7 @@ public final class WorldgenDataBootstrap {
         for (String fileName : jsonFileNames(directory, worldgenDirectory)) {
             String id = fileName.substring(0, fileName.length() - ".json".length());
             ResourceKey<T> key = ResourceKey.create(
-                    registry, ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, id));
+                    registry, Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, id));
             String resource = "/data/stargazer/" + (worldgenDirectory ? "worldgen/" : "") + directory + "/" + fileName;
             try (var stream = WorldgenDataBootstrap.class.getResourceAsStream(resource)) {
                 if (stream == null) {
@@ -144,10 +144,10 @@ public final class WorldgenDataBootstrap {
                 try (Reader reader = new InputStreamReader(stream, StandardCharsets.UTF_8)) {
                     JsonElement json = JsonParser.parseReader(reader);
                     //? if < 26.2 {
-                    if (directory.equals("dimension_type")) {
+                    /*if (directory.equals("dimension_type")) {
                         json = legacyDimensionType(json.getAsJsonObject(), id);
                     }
-                    //?}
+                    *///?}
                     T value = codec.parse(ops, json)
                             .getPartialOrThrow(error -> new RuntimeException("Failed to parse " + resource + ": " + error));
                     context.register(key, normalizer.apply(value));
@@ -159,7 +159,7 @@ public final class WorldgenDataBootstrap {
     }
 
     //? if < 26.2 {
-    private static JsonElement legacyDimensionType(com.google.gson.JsonObject current, String id) {
+    /*private static JsonElement legacyDimensionType(com.google.gson.JsonObject current, String id) {
         com.google.gson.JsonObject legacy = new com.google.gson.JsonObject();
         boolean fixedTime = current.has("has_fixed_time") && current.get("has_fixed_time").getAsBoolean();
         if (fixedTime) {
@@ -184,7 +184,7 @@ public final class WorldgenDataBootstrap {
         legacy.add("monster_spawn_block_light_limit", current.get("monster_spawn_block_light_limit").deepCopy());
         return legacy;
     }
-    //?}
+    *///?}
 
     private static List<String> jsonFileNames(String registryDirectory, boolean worldgenDirectory) {
         String resource = "/data/stargazer/" + (worldgenDirectory ? "worldgen/" : "") + registryDirectory;
@@ -243,7 +243,7 @@ public final class WorldgenDataBootstrap {
             try (Reader reader = new InputStreamReader(stream, StandardCharsets.UTF_8)) {
                 JsonElement json = JsonParser.parseReader(reader);
                 //? if < 26.2 {
-                JsonElement carvers = json.getAsJsonObject().get("carvers");
+                /*JsonElement carvers = json.getAsJsonObject().get("carvers");
                 if (carvers != null && carvers.isJsonArray() && carvers.getAsJsonArray().isEmpty()) {
                     json.getAsJsonObject().add("carvers", new com.google.gson.JsonObject());
                 }
@@ -257,7 +257,7 @@ public final class WorldgenDataBootstrap {
                 if (!effects.has("water_fog_color")) {
                     effects.addProperty("water_fog_color", 329011);
                 }
-                //?}
+                *///?}
                 return Biome.DIRECT_CODEC.parse(ops, json)
                         .getPartialOrThrow(error -> new RuntimeException("Failed to parse biome " + resource + ": " + error));
             }

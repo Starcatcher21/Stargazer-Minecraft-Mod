@@ -3,59 +3,59 @@ package com.github.starcatcher21.stargazer.entity.models;
 import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.entity.Ghost;
 //? if >= 26.2 {
-/*import software.bernie.geckolib.model.GeoModel;
+import com.geckolib.model.GeoModel;
 import com.github.starcatcher21.stargazer.entity.DataTickets;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
-import software.bernie.geckolib.renderer.base.GeoRenderState;
-*///? } else {
-import software.bernie.geckolib.model.GeoModel;
-//? }
+import com.geckolib.renderer.base.GeoRenderState;
+//? } else {
+/*import com.geckolib.model.GeoModel;
+*///? }
 
 import java.util.Locale;
 import java.util.Set;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public class GhostModel extends GeoModel<Ghost> {
     //? if >= 26.2 {
-    /*private final ResourceLocation animations =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "animations/entity/ghost");
-    private final ResourceLocation model =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "geo/entity/ghost");
-    *///? } else {
-    private final ResourceLocation animations =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "animations/entity/ghost.animation.json");
-    private final ResourceLocation model =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "geo/entity/ghost.geo.json");
-    //? }
-    private final ResourceLocation texture =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/ghost.png");
-    private final ResourceLocation texture_blinky =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/ghost_blinky.png");
-    private final ResourceLocation texture_clyde =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/ghost_clyde.png");
-    private final ResourceLocation texture_inky =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/ghost_inky.png");
-    private final ResourceLocation texture_pinky =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/ghost_pinky.png");
-    private final ResourceLocation texture_dead =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/pacman_ghost_dead.png");
-    private final ResourceLocation texture_hurt =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/pacman_ghost_hurt.png");
+    private final Identifier animations =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "animations/entity/ghost");
+    private final Identifier model =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "geo/entity/ghost");
+    //? } else {
+    /*private final Identifier animations =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "animations/entity/ghost.animation.json");
+    private final Identifier model =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "geo/entity/ghost.geo.json");
+    *///? }
+    private final Identifier texture =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/ghost.png");
+    private final Identifier texture_blinky =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/ghost_blinky.png");
+    private final Identifier texture_clyde =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/ghost_clyde.png");
+    private final Identifier texture_inky =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/ghost_inky.png");
+    private final Identifier texture_pinky =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/ghost_pinky.png");
+    private final Identifier texture_dead =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/pacman_ghost_dead.png");
+    private final Identifier texture_hurt =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/pacman_ghost_hurt.png");
     public static final Set<String> pacman = Set.of("blinky", "shadow", "clyde", "pokey", "inky", "bashful", "pinky", "speedy");
-    private final ResourceLocation texture_trans =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/ghost_trans.png");
-    private final ResourceLocation texture_cat =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/ghost_cat.png");
+    private final Identifier texture_trans =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/ghost_trans.png");
+    private final Identifier texture_cat =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/ghost_cat.png");
 
-    private final ResourceLocation texture_cipher =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/ghost_cipher.png");
+    private final Identifier texture_cipher =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/ghost_cipher.png");
     public static final Set<String> bill = Set.of("bill", "bill cipher", "cipher", "gold", "golden triangle", "60 degrees that comes in threes");
-    public static final ResourceLocation texture_finn =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/ghost_finn.png");
-    public static final ResourceLocation texture_jake =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/ghost_jake.png");
+    public static final Identifier texture_finn =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/ghost_finn.png");
+    public static final Identifier texture_jake =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/ghost_jake.png");
     public static final Set<String> adventure = Set.of("finn", "finn the human", "finn martens", "jake", "jake the dog");
 
     //? if >= 26.2 {
-    /*@Override
-    public ResourceLocation getModelResource(GeoRenderState renderState) {
-        return model;
-    }
-    *///? } else {
     @Override
-    public ResourceLocation getModelResource(Ghost animatable) {
+    public Identifier getModelResource(GeoRenderState renderState) {
         return model;
     }
-    //? }
+    //? } else {
+    /*@Override
+    public Identifier getModelResource(Ghost animatable) {
+        return model;
+    }
+    *///? }
 
 
     //? if >= 26.2 {
-    /*@Override
-    public ResourceLocation getTextureResource(GeoRenderState renderState) {
+    @Override
+    public Identifier getTextureResource(GeoRenderState renderState) {
         String name = renderState.getGeckolibData(DataTickets.CUSTOM_NAME).toLowerCase();
         if (renderState instanceof LivingEntityRenderState entityState) {
             if (pacman.contains(name) && entityState.deathTime > 0) {
@@ -96,9 +96,9 @@ public class GhostModel extends GeoModel<Ghost> {
         }
         return texture;
     }
-    *///? } else {
-    @Override
-    public ResourceLocation getTextureResource(Ghost animatable) {
+    //? } else {
+    /*@Override
+    public Identifier getTextureResource(Ghost animatable) {
         String name = animatable.CustomName.toLowerCase();
         if (pacman.contains(name) && animatable.deathTime > 0) {
             return texture_dead;
@@ -137,12 +137,12 @@ public class GhostModel extends GeoModel<Ghost> {
         }
         return texture;
     }
-    //? }
+    *///? }
 
 
 
     @Override
-    public ResourceLocation getAnimationResource(Ghost animatable) {
+    public Identifier getAnimationResource(Ghost animatable) {
         return animations;
     }
 }

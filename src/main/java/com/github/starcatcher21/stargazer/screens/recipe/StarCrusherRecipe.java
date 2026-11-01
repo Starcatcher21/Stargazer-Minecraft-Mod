@@ -1,7 +1,9 @@
 package com.github.starcatcher21.stargazer.screens.recipe;
 
 import java.util.List;
+import java.util.Optional;
 import net.minecraft.core.NonNullList;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -29,10 +31,10 @@ public interface StarCrusherRecipe
         for (int i = 0; i < defaultedList.size(); ++i) {
             Item item = input.getItem(i).getItem();
             //? if >= 26.2 {
-            /*defaultedList.set(i, item.getCraftingRemainder().create());
-             *///?} else {
-            defaultedList.set(i, input.getItem(i).getCraftingRemainingItem());
-            //?}
+            defaultedList.set(i, item.getCraftingRemainder().create());
+            //?} else {
+            /*defaultedList.set(i, input.getItem(i).getCraftingRemainingItem());
+             *///?}
         }
         return defaultedList;
     }
@@ -47,5 +49,12 @@ public interface StarCrusherRecipe
 
     List<ItemStack> getHeldStacks();
 
-    ItemStack getResultItem(RegistryAccess registryAccess);
+    /** The recipe's output stack; used by recipe viewers (JEI). */
+    ItemStack getResult();
+
+    //? if >= 26.2 {
+    /** Input ingredients, in slot order. (On 1.21.1 this is vanilla Recipe#getIngredients.) */
+    List<Optional<Ingredient>> getIngredients();
+    //?}
+
 }

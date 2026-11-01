@@ -8,9 +8,9 @@ import com.github.starcatcher21.stargazer.screens.recipe.RecipeTypes;
 import com.github.starcatcher21.stargazer.screens.recipeInputs.MoonWelderInventory;
 import com.github.starcatcher21.stargazer.screens.slots.MoonWelderResultSlot;
 //? if >= 26.2 {
-/*import net.minecraft.world.attribute.EnvironmentAttributes;
+import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.attribute.EnvironmentAttributeSystem;
-*///?}
+//?}
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -50,9 +50,9 @@ public class MoonWelderScreenHandler extends AbstractContainerMenu {
         this.addResultSlot(this.player, 112, 40);
         this.addInputSlots(36, 40);
         //? if >= 26.2 {
-        /*this.addStandardInventorySlots(playerInventory, 8, 95);
-        *///?} else {
-        for (int row = 0; row < 3; row++) {
+        this.addStandardInventorySlots(playerInventory, 8, 95);
+        //?} else {
+        /*for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 9; col++) {
                 this.addSlot(new Slot(playerInventory,
                         col + row * 9 + 9,
@@ -66,7 +66,7 @@ public class MoonWelderScreenHandler extends AbstractContainerMenu {
                     8 + col * 18,
                     153));  // 95 + 3*18 + 4 (vanilla hotbar gap)
         }
-        //?}
+        *///?}
     }
 
     protected static void updateResult(AbstractContainerMenu handler,
@@ -80,38 +80,38 @@ public class MoonWelderScreenHandler extends AbstractContainerMenu {
         ItemStack itemStack = ItemStack.EMPTY;
 
         //? if >= 26.2 {
-        /*Optional<RecipeHolder<MoonWelderRecipe>> optional =
+        Optional<RecipeHolder<MoonWelderRecipe>> optional =
             world.recipeAccess().getRecipeFor(RecipeTypes.MOON_WELDER.get(),
                                              craftingRecipeInput, world);
-        *///?} else {
-        Optional<RecipeHolder<MoonWelderRecipe>> optional =
+        //?} else {
+        /*Optional<RecipeHolder<MoonWelderRecipe>> optional =
                 world.getRecipeManager().getRecipeFor(RecipeTypes.MOON_WELDER.get(),
                         craftingRecipeInput, world);
-        //?}
+        *///?}
 
         if (optional.isPresent()) {
             RecipeHolder<MoonWelderRecipe> recipeEntry = optional.get();
             MoonWelderRecipe craftingRecipe = recipeEntry.value();
 
-            if (resultInventory.setRecipeUsed(/*? if < 26.2 { */ world, /*? }*/serverPlayerEntity, recipeEntry)) {
+            if (resultInventory.setRecipeUsed(/*? if < 26.2 { */ /*world, *//*? }*/serverPlayerEntity, recipeEntry)) {
                 //? if >= 26.2 {
-                /*ItemStack itemStack2 = craftingRecipe.assemble(craftingRecipeInput);
-                 *///?} else {
-                ItemStack itemStack2 = craftingRecipe.assemble(craftingRecipeInput,
+                ItemStack itemStack2 = craftingRecipe.assemble(craftingRecipeInput);
+                 //?} else {
+                /*ItemStack itemStack2 = craftingRecipe.assemble(craftingRecipeInput,
                         world.registryAccess());
-                //?}
+                *///?}
 
                 if (itemStack2.isItemEnabled(world.enabledFeatures())) {
                     //? if >= 26.2 {
-                    /*boolean isBright = world.isBrightOutside();
+                    boolean isBright = world.isBrightOutside();
                     boolean isDark   = world.isDarkOutside();
                     EnvironmentAttributeSystem envAccess = world.environmentAttributes();
                     int moonPhase = envAccess.getDimensionValue(EnvironmentAttributes.MOON_PHASE).index();
-                    *///?} else {
-                    boolean isBright = !world.isNight();
+                    //?} else {
+                    /*boolean isBright = !world.isNight();
                     boolean isDark   = world.isNight();
                     int moonPhase    = world.getMoonPhase();
-                    //?}
+                    *///?}
 
                     if (craftingRecipe.getMoonPhase() > 7
                             && isBright

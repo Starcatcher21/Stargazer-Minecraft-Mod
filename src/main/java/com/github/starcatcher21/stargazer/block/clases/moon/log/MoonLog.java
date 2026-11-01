@@ -3,10 +3,10 @@ package com.github.starcatcher21.stargazer.block.clases.moon.log;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 //? if >= 26.2 {
-/*import net.minecraft.advancements.triggers.CriteriaTriggers;
- *///?} else {
-import net.minecraft.advancements.CriteriaTriggers;
-//?}
+import net.minecraft.advancements.triggers.CriteriaTriggers;
+ //?} else {
+/*import net.minecraft.advancements.CriteriaTriggers;
+*///?}
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -32,21 +32,21 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Optional;
 
 //? if < 26.2 {
-import net.minecraft.world.ItemInteractionResult;
+/*import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-//?}
+*///?}
 
 public class MoonLog extends RotatedPillarBlock {
     //? if >= 26.2 {
-    /*public static final MapCodec<MoonLog> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+    public static final MapCodec<MoonLog> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             BuiltInRegistries.BLOCK.byNameCodec().optionalFieldOf("strip").forGetter(block -> Optional.ofNullable(block.STRIP)),
             propertiesCodec()
     ).apply(instance, (strip, settings) -> new MoonLog(strip.orElse(null), settings)));
-    *///?} else {
-    public static final MapCodec<MoonLog> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+    //?} else {
+    /*public static final MapCodec<MoonLog> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             BuiltInRegistries.BLOCK.byNameCodec().optionalFieldOf("strip").forGetter(block -> Optional.ofNullable(block.STRIP))
     ).apply(instance, strip -> new MoonLog(strip.orElse(null), BlockBehaviour.Properties.of())));
-    //?}
+    *///?}
 
     @Nullable
     protected Block STRIP;
@@ -58,7 +58,7 @@ public class MoonLog extends RotatedPillarBlock {
 
     /* ---------------- useItemOn (return type differs) ---------------- */
     //? if >= 26.2 {
-    /*@Override
+    @Override
     protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         if (STRIP == null) {
             return InteractionResult.PASS;
@@ -79,8 +79,8 @@ public class MoonLog extends RotatedPillarBlock {
             return InteractionResult.PASS;
         }
     }
-    *///?} else {
-    @Override
+    //?} else {
+    /*@Override
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         if (STRIP == null) {
             return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
@@ -101,7 +101,7 @@ public class MoonLog extends RotatedPillarBlock {
             return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         }
     }
-    //?}
+    *///?}
 
     public MoonLog(@Nullable Block strip, Properties settings) {
         super(settings);

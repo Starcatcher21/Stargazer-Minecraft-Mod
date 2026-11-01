@@ -10,11 +10,11 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib.model.GeoModel;
-import software.bernie.geckolib.renderer.GeoBlockRenderer;
+import com.geckolib.model.GeoModel;
+import com.geckolib.renderer.GeoBlockRenderer;
 
 //? if >= 26.2 {
-/*import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import com.github.starcatcher21.stargazer.entity.DataTickets;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;
@@ -22,16 +22,16 @@ import net.minecraft.client.renderer.item.ItemModelResolver;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import software.bernie.geckolib.renderer.base.GeoRenderState;
-*///?} else {
-import net.minecraft.client.renderer.MultiBufferSource;
+import com.geckolib.renderer.base.GeoRenderState;
+//?} else {
+/*import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.world.level.Level;
-//?}
+*///?}
 
 //? if >= 26.2 {
-/*public class StarDisplayRenderer<R extends BlockEntityRenderState & GeoRenderState>
+public class StarDisplayRenderer<R extends BlockEntityRenderState & GeoRenderState>
         extends GeoBlockRenderer<StarDisplayEntity, R> {
 
     public StarDisplayRenderer(BlockEntityRendererProvider.Context context,
@@ -100,8 +100,8 @@ import net.minecraft.world.level.Level;
         }
     }
 }
-*///?} else {
-/* ---------------- 1.21.1 — GeckoLib 4.x, direct render ----------------- */
+//?} else {
+/*/^ ---------------- 1.21.1 — GeckoLib 4.x, direct render ----------------- ^/
 
 public class StarDisplayRenderer extends GeoBlockRenderer<StarDisplayEntity> {
 
@@ -162,4 +162,4 @@ public class StarDisplayRenderer extends GeoBlockRenderer<StarDisplayEntity> {
         }
     }
 }
-//?}
+*///?}

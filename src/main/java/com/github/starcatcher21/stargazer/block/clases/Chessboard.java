@@ -21,14 +21,14 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelHeightAccessor;
 import net.minecraft.world.level.LevelReader;
 //? if >= 26.2 {
-/*import net.minecraft.util.BlockUtil;
+import net.minecraft.util.BlockUtil;
 import net.minecraft.world.entity.Relative;
 import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.portal.TeleportTransition;
-*///?} else {
-import net.minecraft.BlockUtil;
+//?} else {
+/*import net.minecraft.BlockUtil;
 import net.minecraft.world.level.portal.DimensionTransition;
-//?}
+*///?}
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -59,7 +59,7 @@ public class Chessboard extends Block {
     }
 
     //? if >= 26.2 {
-    /*@Override
+    @Override
     protected BlockState updateShape(
             BlockState state,
             LevelReader world,
@@ -76,8 +76,8 @@ public class Chessboard extends Block {
 
         return state;
     }
-    *///?} else {
-    @Override
+    //?} else {
+    /*@Override
     protected BlockState updateShape(
             BlockState state,
             Direction direction,
@@ -91,18 +91,18 @@ public class Chessboard extends Block {
         }
         return state;
     }
-    //?}
+    *///?}
 
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit) {
         if (world instanceof ServerLevel sw) {
             //? if >= 26.2 {
-            /*TeleportTransition target = createTeleportTarget(sw, player, pos);
+            TeleportTransition target = createTeleportTarget(sw, player, pos);
             if (target != null) player.teleport(target);
-            *///?} else {
-            DimensionTransition target = createTeleportTarget(sw, player, pos);
+            //?} else {
+            /*DimensionTransition target = createTeleportTarget(sw, player, pos);
             if (target != null) player.changeDimension(target);
-            //?}
+            *///?}
         }
         return InteractionResult.PASS;
     }
@@ -111,14 +111,14 @@ public class Chessboard extends Block {
     public void stepOn(Level world, BlockPos pos, BlockState state, Entity entity) {
         if (!(entity instanceof Player) && world instanceof ServerLevel sw) {
             //? if >= 26.2 {
-            /*TeleportTransition target = createTeleportTarget(sw, entity, pos);
+            TeleportTransition target = createTeleportTarget(sw, entity, pos);
             if (target != null) {
                 TeleportTransition newTarget = target.withPosition(
                         target.position().relative(Direction.NORTH, 1));
                 entity.teleport(newTarget);
             }
-            *///?} else {
-            DimensionTransition target = createTeleportTarget(sw, entity, pos);
+            //?} else {
+            /*DimensionTransition target = createTeleportTarget(sw, entity, pos);
             if (target != null) {
                 DimensionTransition newTarget = new DimensionTransition(
                         sw,
@@ -127,28 +127,28 @@ public class Chessboard extends Block {
                 );
                 entity.changeDimension(newTarget);
             }
-            //?}
+            *///?}
         }
         super.stepOn(world, pos, state, entity);
     }
 
     //? if >= 26.2 {
-    /*@Nullable
+    @Nullable
     public TeleportTransition createTeleportTarget(ServerLevel world, Entity entity, BlockPos pos) {
         ResourceKey<Level> key = world.dimension() == CustomWorlds.CHESS ? Level.OVERWORLD : CustomWorlds.CHESS;
         ServerLevel serverWorld = world.getServer().getLevel(key);
         if (serverWorld == null) return null;
         return getOrCreateExitPortalTarget(key, serverWorld, entity, pos, serverWorld.getWorldBorder());
     }
-    *///?} else {
-    @Nullable
+    //?} else {
+    /*@Nullable
     public DimensionTransition createTeleportTarget(ServerLevel world, Entity entity, BlockPos pos) {
         ResourceKey<Level> key = world.dimension() == CustomWorlds.CHESS ? Level.OVERWORLD : CustomWorlds.CHESS;
         ServerLevel serverWorld = world.getServer().getLevel(key);
         if (serverWorld == null) return null;
         return getOrCreateExitPortalTarget(key, serverWorld, entity, pos, serverWorld.getWorldBorder());
     }
-    //?}
+    *///?}
 
     public List<BlockPos> getPortalPos(BlockPos pos, ServerLevel world, WorldBorder worldBorder) {
         PoiManager pointOfInterestStorage = world.getPoiManager();
@@ -161,7 +161,7 @@ public class Chessboard extends Block {
     }
 
     //? if >= 26.2 {
-    /*private TeleportTransition getOrCreateExitPortalTarget(ResourceKey<Level> worldKey,
+    private TeleportTransition getOrCreateExitPortalTarget(ResourceKey<Level> worldKey,
                                                           ServerLevel world, Entity entity2,
                                                           BlockPos pos, WorldBorder worldBorder) {
         TeleportTransition.PostTeleportTransition post;
@@ -180,8 +180,8 @@ public class Chessboard extends Block {
                 Vec3.ZERO, entity2.getYRot(), entity2.getXRot(),
                 Relative.union(Relative.DELTA, Relative.ROTATION), post);
     }
-    *///?} else {
-    private DimensionTransition getOrCreateExitPortalTarget(ResourceKey<Level> worldKey,
+    //?} else {
+    /*private DimensionTransition getOrCreateExitPortalTarget(ResourceKey<Level> worldKey,
                                                             ServerLevel world, Entity entity2,
                                                             BlockPos pos, WorldBorder worldBorder) {
         DimensionTransition.PostDimensionTransition post;
@@ -199,7 +199,7 @@ public class Chessboard extends Block {
         return new DimensionTransition(world, Vec3.atCenterOf(rectangle.minCorner.above()),
                 Vec3.ZERO, entity2.getYRot(), entity2.getXRot(), post);
     }
-    //?}
+    *///?}
 
     @Override
     protected FluidState getFluidState(BlockState state) {
@@ -234,28 +234,28 @@ public class Chessboard extends Block {
         BlockPos blockPos2 = null;
         WorldBorder worldBorder = world.getWorldBorder();
         //? if >= 26.2 {
-        /*int i = Math.min(world.getMaxY(), world.getMinY() + world.getHeight() - 1);
-         *///?} else {
-        int i = Math.min(((LevelHeightAccessor) world).getMaxBuildHeight(), ((LevelHeightAccessor) world).getMinBuildHeight() + world.getHeight() - 1);
-        //?}
+        int i = Math.min(world.getMaxY(), world.getMinY() + world.getHeight() - 1);
+         //?} else {
+        /*int i = Math.min(((LevelHeightAccessor) world).getMaxBuildHeight(), ((LevelHeightAccessor) world).getMinBuildHeight() + world.getHeight() - 1);
+        *///?}
         boolean j = true;
         BlockPos.MutableBlockPos mutable = pos.mutable();
         for (BlockPos.MutableBlockPos mutable2 : BlockPos.spiralAround(pos, 0, Direction.EAST, Direction.SOUTH)) {
             int k = Math.min(i, world.getHeight(Heightmap.Types.MOTION_BLOCKING, mutable2.getX(), mutable2.getZ()));
             if (!worldBorder.isWithinBounds(mutable2)) continue;
             //? if >= 26.2 {
-            /*for (l = k; l >= world.getMinY(); --l) {
-             *///?} else {
-            for (l = k; l >= ((LevelHeightAccessor) world).getMinBuildHeight(); --l) {
-                //?}
+            for (l = k; l >= world.getMinY(); --l) {
+             //?} else {
+            /*for (l = k; l >= ((LevelHeightAccessor) world).getMinBuildHeight(); --l) {
+                *///?}
                 mutable2.setY(l);
                 if (!this.isBlockStateValid(world, mutable2)) continue;
                 m = l;
                 //? if >= 26.2 {
-                /*while (l > world.getMinY() && this.isBlockStateValid(world, mutable2.move(Direction.DOWN))) {
-                 *///?} else {
-                while (l > ((LevelHeightAccessor) world).getMinBuildHeight() && this.isBlockStateValid(world, mutable2.move(Direction.DOWN))) {
-                    //?}
+                while (l > world.getMinY() && this.isBlockStateValid(world, mutable2.move(Direction.DOWN))) {
+                 //?} else {
+                /*while (l > ((LevelHeightAccessor) world).getMinBuildHeight() && this.isBlockStateValid(world, mutable2.move(Direction.DOWN))) {
+                    *///?}
                     --l;
                 }
                 if (l + 4 > i || (n = m - l) > 0 && n < 3) continue;
@@ -278,10 +278,10 @@ public class Chessboard extends Block {
         if (d == -1.0) {
             int p = i - 9;
             //? if >= 26.2 {
-            /*int o = Math.max(world.getMinY() - -1, 70);
-             *///?} else {
-            int o = Math.max(((LevelHeightAccessor) world).getMinBuildHeight() - -1, 70);
-            //?}
+            int o = Math.max(world.getMinY() - -1, 70);
+             //?} else {
+            /*int o = Math.max(((LevelHeightAccessor) world).getMinBuildHeight() - -1, 70);
+            *///?}
             if (p < o) {
                 return Optional.empty();
             }

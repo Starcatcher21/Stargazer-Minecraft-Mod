@@ -63,7 +63,7 @@ public class GlassTrees extends Feature<TreeConfig> {
             TRANS = register("trans", Blocks.GLASS.defaultBlockState());
 
             //? if >= 26.2 {
-            /*WHITE      = register("white",      Blocks.STAINED_GLASS.white().defaultBlockState());
+            WHITE      = register("white",      Blocks.STAINED_GLASS.white().defaultBlockState());
             ORANGE     = register("orange",     Blocks.STAINED_GLASS.orange().defaultBlockState());
             MAGENTA    = register("magenta",    Blocks.STAINED_GLASS.magenta().defaultBlockState());
             LIGHT_BLUE = register("light_blue", Blocks.STAINED_GLASS.lightBlue().defaultBlockState());
@@ -79,8 +79,8 @@ public class GlassTrees extends Feature<TreeConfig> {
             GREEN      = register("green",      Blocks.STAINED_GLASS.green().defaultBlockState());
             RED        = register("red",        Blocks.STAINED_GLASS.red().defaultBlockState());
             BLACK      = register("black",      Blocks.STAINED_GLASS.black().defaultBlockState());
-            *///?} else {
-            WHITE      = register("white",      Blocks.WHITE_STAINED_GLASS.defaultBlockState());
+            //?} else {
+            /*WHITE      = register("white",      Blocks.WHITE_STAINED_GLASS.defaultBlockState());
             ORANGE     = register("orange",     Blocks.ORANGE_STAINED_GLASS.defaultBlockState());
             MAGENTA    = register("magenta",    Blocks.MAGENTA_STAINED_GLASS.defaultBlockState());
             LIGHT_BLUE = register("light_blue", Blocks.LIGHT_BLUE_STAINED_GLASS.defaultBlockState());
@@ -96,7 +96,7 @@ public class GlassTrees extends Feature<TreeConfig> {
             GREEN      = register("green",      Blocks.GREEN_STAINED_GLASS.defaultBlockState());
             RED        = register("red",        Blocks.RED_STAINED_GLASS.defaultBlockState());
             BLACK      = register("black",      Blocks.BLACK_STAINED_GLASS.defaultBlockState());
-            //?}
+            *///?}
         });
     }
 

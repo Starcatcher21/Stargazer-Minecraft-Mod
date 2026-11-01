@@ -1,20 +1,19 @@
-#version 330
+#version 150
 
-#moj_import <minecraft:fog.glsl>
-#moj_import <minecraft:projection.glsl>
-#moj_import <minecraft:dynamictransforms.glsl>
-#moj_import <minecraft:projection.glsl>
+#moj_import <fog.glsl>
+
+uniform mat4 ModelViewMat;
+uniform mat4 ProjMat;
+uniform int FogShape;
 
 in vec3 Position;
 
-out vec4 texProj0;
-out float sphericalVertexDistance;
-out float cylindricalVertexDistance;
+out vec3 localPos;
+out float vertexDistance;
 
 void main() {
-    gl_Position = ProjMat * ModelViewMat * vec4(Position, 1.0);
-
-    texProj0 = projection_from_position(gl_Position);
-    sphericalVertexDistance = fog_spherical_distance(Position);
-    cylindricalVertexDistance = fog_cylindrical_distance(Position);
+vec4 viewPosition = ModelViewMat * vec4(Position, 1.0);
+gl_Position = ProjMat * viewPosition;
+localPos = Position;
+vertexDistance = fog_distance(viewPosition.xyz, FogShape);
 }

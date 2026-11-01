@@ -11,10 +11,10 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 //? if >= 26.2 {
-/*import net.minecraft.world.level.block.FlowerBedBlock;
- *///?} else {
-import com.github.starcatcher21.stargazer.block.older1211.FlowerBedBlock;
-//?}
+import net.minecraft.world.level.block.FlowerBedBlock;
+ //?} else {
+/*import com.github.starcatcher21.stargazer.block.older1211.FlowerBedBlock;
+*///?}
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;

@@ -25,12 +25,12 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 //? if >= 26.2 {
-/*import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-*///?} else {
-import net.minecraft.core.HolderLookup;
+//?} else {
+/*import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-//?}
+*///?}
 import org.jetbrains.annotations.Nullable;
 
 public class StarCrusherEntity extends BlockEntity implements Container {
@@ -52,7 +52,7 @@ public class StarCrusherEntity extends BlockEntity implements Container {
 
     /* ---------------- serialization ---------------------------------- */
     //? if >= 26.2 {
-    /*@Override
+    @Override
     protected void loadAdditional(ValueInput nbt) {
         super.loadAdditional(nbt);
         ContainerHelper.loadAllItems(nbt, this.inventory);
@@ -69,8 +69,8 @@ public class StarCrusherEntity extends BlockEntity implements Container {
         nbt.putInt("progress", progress);
         nbt.putInt("max_progress", maxProgress);
     }
-    *///?} else {
-    @Override
+    //?} else {
+    /*@Override
     protected void loadAdditional(CompoundTag nbt, HolderLookup.Provider registries) {
         super.loadAdditional(nbt, registries);
         ContainerHelper.loadAllItems(nbt, this.inventory, registries);
@@ -87,7 +87,7 @@ public class StarCrusherEntity extends BlockEntity implements Container {
         nbt.putInt("progress", progress);
         nbt.putInt("max_progress", maxProgress);
     }
-    //?}
+    *///?}
 
     /* ---------------- tick ------------------------------------------- */
     public static void tick(Level world, BlockPos pos, BlockState state, StarCrusherEntity sge) {
@@ -153,12 +153,12 @@ public class StarCrusherEntity extends BlockEntity implements Container {
                 new StarCrusherRecipeInput(List.of(inventory.get(INPUT_SLOT)));
 
         //? if >= 26.2 {
-        /*return serverLevel.recipeAccess().getRecipeFor(
+        return serverLevel.recipeAccess().getRecipeFor(
             RecipeTypes.STAR_CRUSHER.get(), input, serverLevel);
-        *///?} else {
-        return serverLevel.getRecipeManager().getRecipeFor(
+        //?} else {
+        /*return serverLevel.getRecipeManager().getRecipeFor(
                 RecipeTypes.STAR_CRUSHER.get(), input, serverLevel);
-        //?}
+        *///?}
     }
 
     private boolean canInsertItemIntoOutputSlot(ItemStack output) {

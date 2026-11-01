@@ -6,14 +6,14 @@ import com.github.starcatcher21.stargazer.block.register.Crops;
 import com.github.starcatcher21.stargazer.block.register.MoonBlocks;
 import com.github.starcatcher21.stargazer.item.ModItems;
 //? if fabric {
-/*import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableSubProvider;
-*///?} else {
-import net.minecraft.data.loot.LootTableSubProvider;
-//?}
+//?} else {
+/*import net.minecraft.data.loot.LootTableSubProvider;
+*///?}
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.storage.loot.LootPool;
@@ -26,21 +26,21 @@ import java.util.function.BiConsumer;
 
 public class GiftLootPrivider
 //? if fabric {
-        /*extends SimpleFabricLootTableSubProvider {
+        extends SimpleFabricLootTableSubProvider {
     public GiftLootPrivider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registryLookup) {
         super(output, registryLookup, LootContextParamSets.GIFT);
     }
-*///?} else {
-        implements LootTableSubProvider {
+//?} else {
+        /*implements LootTableSubProvider {
     public GiftLootPrivider(HolderLookup.Provider registryLookup) {}
-//?}
+*///?}
 
     @Override
     public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> lootTableBiConsumer) {
 
         ResourceKey<LootTable> snifferKey = ResourceKey.create(
                 Registries.LOOT_TABLE,
-                ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "sniffer_moon")
+                Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "sniffer_moon")
         );
 
         LootTable.Builder lootTableSnifferMoon = LootTable.lootTable()
@@ -49,6 +49,7 @@ public class GiftLootPrivider
                                 .setRolls(UniformGenerator.between(1.0f, 1.0f))
                                 .add(LootItem.lootTableItem(Crops.BRUNT_SEEDS.get()).setWeight(20))
                                 .add(LootItem.lootTableItem(Crops.SPINNY_SEEDS.get()).setWeight(20))
+                                .add(LootItem.lootTableItem(MoonBlocks.FUZZY_BALL.get()).setWeight(5))
                 );
 
         lootTableBiConsumer.accept(snifferKey, lootTableSnifferMoon);

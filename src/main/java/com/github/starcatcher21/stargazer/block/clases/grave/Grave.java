@@ -85,11 +85,11 @@ public class Grave extends BaseEntityBlock {
             if (active) {
                 if (item instanceof ShovelItem) {
                     //? if >= 26.2 {
-                    /*stack.hurtWithoutBreaking(1, player);
-                     *///?} else {
-                    stack.hurtAndBreak(1, player, player.getUsedItemHand() == InteractionHand.MAIN_HAND
+                    stack.hurtWithoutBreaking(1, player);
+                     //?} else {
+                    /*stack.hurtAndBreak(1, player, player.getUsedItemHand() == InteractionHand.MAIN_HAND
                             ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND);
-                    //?}
+                    *///?}
                     world.setBlockAndUpdate(pos, state.setValue(ACTIVATED, false));
                     BlockEntity be = world.getBlockEntity(pos);
                     if (be instanceof GraveEntity ge) {

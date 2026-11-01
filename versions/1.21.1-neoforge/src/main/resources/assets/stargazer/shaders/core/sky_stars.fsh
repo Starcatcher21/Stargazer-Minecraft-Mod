@@ -1,6 +1,7 @@
 #version 150
 
 uniform sampler2D Sampler0;
+uniform vec4 ColorModulator;
 
 in vec2 texCoord0;
 in vec4 vertexColor;
@@ -14,5 +15,5 @@ void main() {
         discard;
     }
     vec4 color = sprite * vertexColor;
-    fragColor = vec4(color.rgb * 2.15, color.a);
+    fragColor = vec4(color.rgb * 2.15, color.a) * ColorModulator;
 }

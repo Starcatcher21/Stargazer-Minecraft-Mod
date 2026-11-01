@@ -10,53 +10,76 @@ uniform float FogStart;
 uniform float FogEnd;
 uniform vec4 FogColor;
 
-in vec4 texProj0;
+in vec3 localPos;
 in float vertexDistance;
 
 const vec3 COLORS[16] = vec3[16](
-    vec3(0.022087, 0.098399, 0.110818),
-    vec3(0.011892, 0.095924, 0.089485),
-    vec3(0.027636, 0.101689, 0.100326),
-    vec3(0.046564, 0.109883, 0.114838),
-    vec3(0.064901, 0.117696, 0.097189),
-    vec3(0.063761, 0.086895, 0.123646),
-    vec3(0.084817, 0.111994, 0.166380),
-    vec3(0.097489, 0.154120, 0.091064),
-    vec3(0.106152, 0.131144, 0.195191),
-    vec3(0.097721, 0.110188, 0.187229),
-    vec3(0.133516, 0.138278, 0.148582),
-    vec3(0.070006, 0.243332, 0.235792),
-    vec3(0.196766, 0.142899, 0.214696),
-    vec3(0.047281, 0.315338, 0.321970),
-    vec3(0.204675, 0.390010, 0.302066),
-    vec3(0.080955, 0.314821, 0.661491)
+vec3(0.022087, 0.098399, 0.110818), vec3(0.011892, 0.095924, 0.089485),
+vec3(0.027636, 0.101689, 0.100326), vec3(0.046564, 0.109883, 0.114838),
+vec3(0.064901, 0.117696, 0.097189), vec3(0.063761, 0.086895, 0.123646),
+vec3(0.084817, 0.111994, 0.166380), vec3(0.097489, 0.154120, 0.091064),
+vec3(0.106152, 0.131144, 0.195191), vec3(0.097721, 0.110188, 0.187229),
+vec3(0.133516, 0.138278, 0.148582), vec3(0.070006, 0.243332, 0.235792),
+vec3(0.196766, 0.142899, 0.214696), vec3(0.047281, 0.315338, 0.321970),
+vec3(0.204675, 0.390010, 0.302066), vec3(0.080955, 0.314821, 0.661491)
 );
 
-const mat4 SCALE_TRANSLATE = mat4(
-    1.0, 0.0, 0.0, 0.25,
-    0.0, 1.0, 0.0, 0.25,
-    0.0, 0.0, 8.0, 0.0,
-    0.0, 0.0, 0.0, 8.0
-);
+vec2 star_layer_uv(vec2 uv, float layer) {
+mat2 rotate = mat2_rotate_z(radians((layer * layer * 4321.0 + layer * 9.0) * 2.0));
+float scale = (4.5 - layer / 4.0) * 2.0;
 
-mat4 star_layer(float layer) {
-    mat4 translate = mat4(
-        1.0, 0.0, 0.0, 1.0 / layer,
-        0.0, 1.0, 0.0, (2.0 + layer) * (GameTime * 16.0),
-        0.0, 0.0, 1.0, 0.0,
-        0.0, 0.0, 0.0, 1.0
-    );
-    mat2 rotate = mat2_rotate_z(radians((layer * layer * 4321.0 + layer * 9.0) * 2.0));
-    mat2 scale = mat2((4.5 - layer / 4.0) * 2.0);
-    return mat4(scale * rotate) * translate * SCALE_TRANSLATE;
+// Random scattered directions per layer
+vec2 dir = vec2(cos(layer * 2.3), sin(layer * 2.3));
+
+// Swirling vortex effect
+float angle = GameTime * 0.02 * (layer + 1.0);
+mat2 swirl = mat2(cos(angle), -sin(angle), sin(angle), cos(angle));
+
+vec2 translation = (swirl * dir) * (2.0 + layer) * (GameTime * 0.5);
+vec2 shifted = uv + vec2(0.25) + translation;
+return (rotate * shifted) * scale;
 }
 
 out vec4 fragColor;
 
 void main() {
-    vec3 color = textureProj(Sampler0, texProj0).rgb * COLORS[0];
-    for (int i = 0; i < 8; ++i) {
-        color += textureProj(Sampler1, texProj0 * star_layer(float(i + 1))).rgb * (COLORS[i] * 4.0);
-    }
-    fragColor = linear_fog(vec4(color, 1.0), vertexDistance, FogStart, FogEnd, FogColor);
+// 1. Cube mapping to prevent stretching
+vec3 n = abs(cross(dFdx(localPos), dFdy(localPos)));
+vec2 uv;
+if (n.x > n.y && n.x > n.z) {
+uv = localPos.yz; // Side faces
+} else if (n.y > n.z) {
+uv = localPos.xz; // Top/Bottom faces
+} else {
+uv = localPos.xy; // Front/Back faces
+}
+
+// Try increasing this to 0.015 or 0.025 if you want the stars to be bigger/closer
+const float ZOOM = 0.015;
+uv *= ZOOM;
+
+// 2. Accumulate the star layers exactly like star_leaves
+vec4 color = vec4(0.0, 0.0, 0.0, 0.0);
+for (int i = 0; i < 32; i++) {
+int idx = i < 16 ? i : i - 16;
+vec2 layerUV = star_layer_uv(uv, float(i + 1));
+
+// We use Sampler1 here because your cosmic.json has Sampler1 as the star texture
+vec4 tex = texture(Sampler0, layerUV);
+
+// Multiply RGB by Alpha to prevent dark/black edges when blending
+color.rgb += tex.rgb * COLORS[idx] * 4.0 * tex.a;
+color.a += tex.a;
+}
+
+// 3. Transparency and discarding
+color.a /= 8.0;
+color.a = min(color.a, 1.0);
+
+if (color.a < 0.1) {
+discard;
+}
+
+// 4. Apply fog
+fragColor = linear_fog(color, vertexDistance, FogStart, FogEnd, FogColor);
 }

@@ -2,49 +2,49 @@ package com.github.starcatcher21.stargazer.entity.models;
 
 import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.entity.AmethystTurtle;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 //? if >= 26.2 {
-/*import software.bernie.geckolib.model.GeoModel;
-import software.bernie.geckolib.renderer.base.GeoRenderState;
-*///? } else {
-import software.bernie.geckolib.model.GeoModel;
-//? }
+import com.geckolib.model.GeoModel;
+import com.geckolib.renderer.base.GeoRenderState;
+//? } else {
+/*import com.geckolib.model.GeoModel;
+*///? }
 
 public class AmethystTurtleModel extends GeoModel<AmethystTurtle> {
     //? if >= 26.2 {
-    /*private final ResourceLocation animations =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "animations/entity/amethyst_turtle");
-    private final ResourceLocation model =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "geo/entity/amethyst_turtle");
-    *///? } else {
-    private final ResourceLocation animations =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "animations/entity/amethyst_turtle.animation.json");
-    private final ResourceLocation model =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "geo/entity/amethyst_turtle.geo.json");
-    //? }
-    private final ResourceLocation texture =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/turtle.png");
+    private final Identifier animations =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "animations/entity/amethyst_turtle");
+    private final Identifier model =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "geo/entity/amethyst_turtle");
+    //? } else {
+    /*private final Identifier animations =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "animations/entity/amethyst_turtle.animation.json");
+    private final Identifier model =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "geo/entity/amethyst_turtle.geo.json");
+    *///? }
+    private final Identifier texture =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/turtle.png");
 
     //? if >= 26.2 {
+    @Override
+    public Identifier getModelResource(GeoRenderState renderState) {
+        return model;
+    }
+
+    @Override
+    public Identifier getTextureResource(GeoRenderState renderState) {
+        return texture;
+    }
+    //? } else {
+
     /*@Override
-    public ResourceLocation getModelResource(GeoRenderState renderState) {
+    public Identifier getModelResource(AmethystTurtle animatable) {
         return model;
     }
 
     @Override
-    public ResourceLocation getTextureResource(GeoRenderState renderState) {
+    public Identifier getTextureResource(AmethystTurtle animatable) {
         return texture;
     }
-    *///? } else {
+    *///? }
 
     @Override
-    public ResourceLocation getModelResource(AmethystTurtle animatable) {
-        return model;
-    }
-
-    @Override
-    public ResourceLocation getTextureResource(AmethystTurtle animatable) {
-        return texture;
-    }
-    //? }
-
-    @Override
-    public ResourceLocation getAnimationResource(AmethystTurtle animatable) {
+    public Identifier getAnimationResource(AmethystTurtle animatable) {
         return animations;
     }
 }

@@ -4,18 +4,18 @@ import com.github.starcatcher21.stargazer.renderer.CustomRenderLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 //? if fabric {
-/*import net.fabricmc.api.EnvType;
+import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-*///? }
+//? }
 //? if >= 26.2 {
-/*import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.rendertype.RenderType;
-*///?} else {
-import net.minecraft.client.renderer.MultiBufferSource;
+//?} else {
+/*import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
-//?}
+*///?}
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.Direction;
@@ -26,10 +26,10 @@ import org.joml.Matrix4f;
 import java.util.EnumSet;
 
 //? if fabric {
-/*@Environment(value = EnvType.CLIENT)
- *///? }
+@Environment(value = EnvType.CLIENT)
+ //? }
 //? if >= 26.2 {
-/*public class CosmicBlockEntityRenderer<T extends CosmicBlockEntity>
+public class CosmicBlockEntityRenderer<T extends CosmicBlockEntity>
         implements BlockEntityRenderer<T, CosmicBlockEntityRenderState> {
 
     public CosmicBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {
@@ -60,13 +60,17 @@ import java.util.EnumSet;
         }
     }
 
+    private static int enc(float v) {
+        return Math.round(v * 255f);
+    }
+
     private void renderNormal(Matrix4f pose, VertexConsumer consumer,
                               float x0, float x1, float y0, float y1,
                               float z0, float z1, float z2, float z3) {
-        consumer.addVertex(pose, x0, y0, z0).setColor(255, 255, 255, 255).setUv(0, 0).setLight(15728880);
-        consumer.addVertex(pose, x1, y0, z1).setColor(255, 255, 255, 255).setUv(1, 0).setLight(15728880);
-        consumer.addVertex(pose, x1, y1, z2).setColor(255, 255, 255, 255).setUv(1, 1).setLight(15728880);
-        consumer.addVertex(pose, x0, y1, z3).setColor(255, 255, 255, 255).setUv(0, 1).setLight(15728880);
+        consumer.addVertex(pose, x0, y0, z0).setColor(x0, y0, z0, 255);
+        consumer.addVertex(pose, x1, y0, z1).setColor(x1, y0, z1, 255);
+        consumer.addVertex(pose, x1, y1, z2).setColor(x1, y1, z2, 255);
+        consumer.addVertex(pose, x0, y1, z3).setColor(x0, y1, z3, 255);
     }
 
     protected RenderType getLayer() {
@@ -82,8 +86,9 @@ import java.util.EnumSet;
     public void submit(CosmicBlockEntityRenderState state, PoseStack matrices,
                        SubmitNodeCollector queue, CameraRenderState cameraState) {
         queue.submitCustomGeometry(matrices, this.getLayer(),
-            (matricesEntry, vertexConsumer) ->
-                this.renderSides(state.sides, matricesEntry.pose(), vertexConsumer));
+            (matricesEntry, vertexConsumer) -> {
+                this.renderSides(state.sides, matricesEntry.pose(), vertexConsumer);
+            });
     }
 
     @Override
@@ -102,8 +107,8 @@ import java.util.EnumSet;
         }
     }
 }
-*///?} else {
-public class CosmicBlockEntityRenderer implements BlockEntityRenderer<CosmicBlockEntity> {
+//?} else {
+/*public class CosmicBlockEntityRenderer implements BlockEntityRenderer<CosmicBlockEntity> {
 
     public CosmicBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {
     }
@@ -167,4 +172,4 @@ public class CosmicBlockEntityRenderer implements BlockEntityRenderer<CosmicBloc
         this.renderSides(sides, matrices.last().pose(), consumer);
     }
 }
-//?}
+*///?}

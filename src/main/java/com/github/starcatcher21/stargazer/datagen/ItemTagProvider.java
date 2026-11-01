@@ -5,15 +5,15 @@ import com.github.starcatcher21.stargazer.CustomTags;
 import com.github.starcatcher21.stargazer.block.register.*;
 import com.github.starcatcher21.stargazer.item.ModItems;
 //? if fabric {
-/*import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
-*///?} else if < 26.2 {
-import com.github.starcatcher21.stargazer.Stargazer;
+//?} else if < 26.2 {
+/*import com.github.starcatcher21.stargazer.Stargazer;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.data.tags.TagsProvider.TagAppender;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
-//?}
+*///?}
 //? if neoforge && >= 26.2 {
 /*import com.github.starcatcher21.stargazer.Stargazer;
 import net.minecraft.data.PackOutput;
@@ -22,7 +22,7 @@ import net.minecraft.data.tags.TagAppender;
 *///?}
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -34,13 +34,13 @@ import static com.github.starcatcher21.stargazer.CustomTags.STARDUST;
 
 public class ItemTagProvider
 //? if fabric {
-        /*extends FabricTagsProvider.ItemTagsProvider {
+        extends FabricTagsProvider.ItemTagsProvider {
 
     public ItemTagProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> completableFuture) {
         super(output, completableFuture);
     }
-*///?} else if < 26.2 {
-        extends IntrinsicHolderTagsProvider<Item> {
+//?} else if < 26.2 {
+        /*extends IntrinsicHolderTagsProvider<Item> {
 
     public ItemTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> completableFuture, ExistingFileHelper existingFileHelper) {
         super(output, Registries.ITEM, completableFuture, item -> item.builtInRegistryHolder().key(), Stargazer.MOD_ID, existingFileHelper);
@@ -49,7 +49,7 @@ public class ItemTagProvider
     private TagAppender<Item> builder(net.minecraft.tags.TagKey<Item> tag) {
         return tag(tag);
     }
-//?} else {
+*///?} else {
         /*extends TagsProvider<Item> {
 
     public ItemTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> completableFuture) {
@@ -70,7 +70,7 @@ public class ItemTagProvider
                 .add(ModItems.BLUE_STAR.get().builtInRegistryHolder().key())
                 .add(ModItems.END_STAR.get().builtInRegistryHolder().key())
                 .add(ModItems.YELLOW_STAR.get().builtInRegistryHolder().key());
-        builder(TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("c", "dusts")))
+        builder(TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("c", "dusts")))
                 .add(ModItems.IRON_DUST.get().builtInRegistryHolder().key())
                 .add(ModItems.COPPER_DUST.get().builtInRegistryHolder().key())
                 .add(ModItems.GOLD_DUST.get().builtInRegistryHolder().key())
@@ -83,7 +83,7 @@ public class ItemTagProvider
         builder(CustomTags.COPPER_DUST).add(ModItems.COPPER_DUST.get().builtInRegistryHolder().key());
         builder(CustomTags.IRON_DUST).add(ModItems.IRON_DUST.get().builtInRegistryHolder().key());
         builder(CustomTags.GOLD_DUST).add(ModItems.GOLD_DUST.get().builtInRegistryHolder().key());
-        builder(TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("c", "crops")))
+        builder(TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("c", "crops")))
                 .add(Crops.BROODY.get().builtInRegistryHolder().key(), Crops.DRAGON_CARROT.get().builtInRegistryHolder().key(), Crops.EYE_BALLS.get().builtInRegistryHolder().key());
         builder(CustomTags.COSMIC)
                 .add(StarBlocks.COSMIC_BLOCK.get().asItem().builtInRegistryHolder().key());

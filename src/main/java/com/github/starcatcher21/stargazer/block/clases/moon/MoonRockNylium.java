@@ -9,7 +9,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -20,8 +20,8 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 //? if < 26.2 {
-import net.minecraft.world.ItemInteractionResult;
-//?}
+/*import net.minecraft.world.ItemInteractionResult;
+*///?}
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -48,37 +48,37 @@ public class MoonRockNylium extends Block implements BonemealableBlock {
     }
 
     //? if >= 26.2 {
-    /*@Override
-    protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-    *///? } else {
     @Override
+    protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+    //? } else {
+    /*@Override
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-    //?}
+    *///?}
         if (stack.is(ItemTags.HOES)) {
             world.playSound((Entity)player, pos, SoundEvents.HOE_TILL, SoundSource.BLOCKS, 1.0f, 1.0f);
             if (!world.isClientSide()) {
                 if (player != null) {
                     //? if >= 26.2 {
-                    /*stack.hurtAndBreak(1, player, hand);
-                     *///?} else {
-                    stack.hurtAndBreak(1, player, hand == InteractionHand.MAIN_HAND
+                    stack.hurtAndBreak(1, player, hand);
+                     //?} else {
+                    /*stack.hurtAndBreak(1, player, hand == InteractionHand.MAIN_HAND
                             ? net.minecraft.world.entity.EquipmentSlot.MAINHAND
                             : net.minecraft.world.entity.EquipmentSlot.OFFHAND);
-                    //?}
+                    *///?}
                 }
             }
             world.setBlockAndUpdate(pos, MoonBlocks.MOON_FARMLAND.get().defaultBlockState());
             //? if >= 26.2 {
-            /*return InteractionResult.SUCCESS;
-             *///?} else {
-            return ItemInteractionResult.SUCCESS;
-            //?}
+            return InteractionResult.SUCCESS;
+             //?} else {
+            /*return ItemInteractionResult.SUCCESS;
+            *///?}
         }
         //? if >= 26.2 {
-        /*return InteractionResult.PASS;
-         *///?} else {
-        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
-        //?}
+        return InteractionResult.PASS;
+         //?} else {
+        /*return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        *///?}
     }
 
     private static boolean canStayAlive(final BlockState state, final LevelReader level, final BlockPos pos) {
@@ -89,18 +89,18 @@ public class MoonRockNylium extends Block implements BonemealableBlock {
         }
 
         //? if >= 26.2 {
-        /*if (aboveState.getFluidState().isFull()) {
-         *///?} else {
-        if (aboveState.getFluidState().getAmount() == 8) {
-        //?}
+        if (aboveState.getFluidState().isFull()) {
+         //?} else {
+        /*if (aboveState.getFluidState().getAmount() == 8) {
+        *///?}
             return false;
         }
 
         //? if >= 26.2 {
-        /*int lightDampeningTopFace = LightEngine.getLightDampeningInto(state, aboveState, Direction.UP, aboveState.getLightDampening());
-         *///?} else {
-        int lightDampeningTopFace = LightEngine.getLightBlockInto(level, state, pos, aboveState, above, Direction.UP, aboveState.getLightBlock(level, above));
-        //?}
+        int lightDampeningTopFace = LightEngine.getLightDampeningInto(state, aboveState, Direction.UP, aboveState.getLightDampening());
+         //?} else {
+        /*int lightDampeningTopFace = LightEngine.getLightBlockInto(level, state, pos, aboveState, above, Direction.UP, aboveState.getLightBlock(level, above));
+        *///?}
         return lightDampeningTopFace < 15;
 
     }
@@ -121,10 +121,10 @@ public class MoonRockNylium extends Block implements BonemealableBlock {
             }
         }
         //? if >= 26.2 {
-        /*if (!world.getBlockState(pos.above()).propagatesSkylightDown()) {
-         *///?} else {
-        if (!world.getBlockState(pos.above()).propagatesSkylightDown(world, pos.above())) {
-        //?}
+        if (!world.getBlockState(pos.above()).propagatesSkylightDown()) {
+         //?} else {
+        /*if (!world.getBlockState(pos.above()).propagatesSkylightDown(world, pos.above())) {
+        *///?}
             world.setBlockAndUpdate(pos, MoonBlocks.MOON_ROCK.get().defaultBlockState());
             world.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(state));
         }
@@ -144,7 +144,7 @@ public class MoonRockNylium extends Block implements BonemealableBlock {
     public void performBonemeal(ServerLevel world, RandomSource random, BlockPos pos, BlockState state) {
         BlockPos blockPos = pos.above();
         BlockState blockState = MoonBlocks.MOON_GRASS.get().defaultBlockState();
-        Optional<Holder.Reference<PlacedFeature>> optional = world.registryAccess().lookupOrThrow(Registries.PLACED_FEATURE).get(ResourceKey.create(Registries.PLACED_FEATURE,ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "moon_grass_bone")));
+        Optional<Holder.Reference<PlacedFeature>> optional = world.registryAccess().lookupOrThrow(Registries.PLACED_FEATURE).get(ResourceKey.create(Registries.PLACED_FEATURE,Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "moon_grass_bone")));
         block0: for (int i = 0; i < 128; ++i) {
             BonemealableBlock fertilizable;
             BlockPos blockPos2 = blockPos;
@@ -158,10 +158,10 @@ public class MoonRockNylium extends Block implements BonemealableBlock {
             if (!blockState2.isAir()) continue;
             if (random.nextInt(8) == 0) {
                 //? if >= 26.2 {
-                /*List<ConfiguredFeature<?, ?>> list = world.getBiome(blockPos2).value().getGenerationSettings().getBoneMealFeatures();
-                 *///?} else {
-                List<ConfiguredFeature<?, ?>> list = world.getBiome(blockPos2).value().getGenerationSettings().getFlowerFeatures();
-                //?}
+                List<ConfiguredFeature<?, ?>> list = world.getBiome(blockPos2).value().getGenerationSettings().getBoneMealFeatures();
+                 //?} else {
+                /*List<ConfiguredFeature<?, ?>> list = world.getBiome(blockPos2).value().getGenerationSettings().getFlowerFeatures();
+                *///?}
                 if (list.isEmpty()) continue;
                 ConfiguredFeature<?, ?> configuredFeature = list.get(random.nextInt(list.size()));
                 configuredFeature.place(world, world.getChunkSource().getGenerator(), random, blockPos2);

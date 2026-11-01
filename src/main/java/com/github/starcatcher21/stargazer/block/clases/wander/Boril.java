@@ -9,7 +9,7 @@ import java.util.Optional;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -48,10 +48,10 @@ public class Boril extends Block implements BonemealableBlock {
             }
         }
         //? if >= 26.2 {
-        /*if (!world.getBlockState(pos.above()).propagatesSkylightDown()) {
-         *///?} else {
-        if (!world.getBlockState(pos.above()).propagatesSkylightDown(world, pos.above())) {
-        //?}
+        if (!world.getBlockState(pos.above()).propagatesSkylightDown()) {
+         //?} else {
+        /*if (!world.getBlockState(pos.above()).propagatesSkylightDown(world, pos.above())) {
+        *///?}
             world.setBlockAndUpdate(pos, Wander.PUROIL.get().defaultBlockState());
             world.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(state));
         }
@@ -71,7 +71,7 @@ public class Boril extends Block implements BonemealableBlock {
     public void performBonemeal(ServerLevel world, RandomSource random, BlockPos pos, BlockState state) {
         BlockPos blockPos = pos.above();
         BlockState blockState = MoonBlocks.MOON_GRASS.get().defaultBlockState();
-        Optional<Holder.Reference<PlacedFeature>> optional = world.registryAccess().lookupOrThrow(Registries.PLACED_FEATURE).get(ResourceKey.create(Registries.PLACED_FEATURE,ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "moon_grass_bone")));
+        Optional<Holder.Reference<PlacedFeature>> optional = world.registryAccess().lookupOrThrow(Registries.PLACED_FEATURE).get(ResourceKey.create(Registries.PLACED_FEATURE,Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "moon_grass_bone")));
         block0: for (int i = 0; i < 128; ++i) {
             BonemealableBlock fertilizable;
             BlockPos blockPos2 = blockPos;
@@ -85,10 +85,10 @@ public class Boril extends Block implements BonemealableBlock {
             if (!blockState2.isAir()) continue;
             if (random.nextInt(8) == 0) {
                 //? if >= 26.2 {
-                /*List<ConfiguredFeature<?, ?>> list = world.getBiome(blockPos2).value().getGenerationSettings().getBoneMealFeatures();
-                 *///?} else {
-                List<ConfiguredFeature<?, ?>> list = world.getBiome(blockPos2).value().getGenerationSettings().getFlowerFeatures();
-                //?}
+                List<ConfiguredFeature<?, ?>> list = world.getBiome(blockPos2).value().getGenerationSettings().getBoneMealFeatures();
+                 //?} else {
+                /*List<ConfiguredFeature<?, ?>> list = world.getBiome(blockPos2).value().getGenerationSettings().getFlowerFeatures();
+                *///?}
                 if (list.isEmpty()) continue;
                 ConfiguredFeature<?, ?> configuredFeature = list.get(random.nextInt(list.size()));
                 configuredFeature.place(world, world.getChunkSource().getGenerator(), random, blockPos2);

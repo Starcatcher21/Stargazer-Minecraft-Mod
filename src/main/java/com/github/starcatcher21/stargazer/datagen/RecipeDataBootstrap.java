@@ -12,7 +12,7 @@ import com.mojang.serialization.JsonOps;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.resources.RegistryOps;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.crafting.Recipe;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -58,9 +58,9 @@ public final class RecipeDataBootstrap {
      * <p>Recipes that fail to parse (missing items, malformed JSON, …) are logged as warnings
      * and skipped — this method never throws for a single bad file.
      */
-    public static Map<ResourceLocation, Recipe<?>> loadAll(HolderLookup.Provider registries) {
+    public static Map<Identifier, Recipe<?>> loadAll(HolderLookup.Provider registries) {
         RegistryOps<JsonElement> ops = RegistryOps.create(JsonOps.INSTANCE, registries);
-        Map<ResourceLocation, Recipe<?>> output = new HashMap<>();
+        Map<Identifier, Recipe<?>> output = new HashMap<>();
 
         load(ops, output, "starforge",    ShapedStarforgeRecipe.CODEC);
         load(ops, output, "moon_welder",  ShapedMoonWelderRecipe.CODEC);
@@ -72,7 +72,7 @@ public final class RecipeDataBootstrap {
 
     private static <T extends Recipe<?>> void load(
             RegistryOps<JsonElement> ops,
-            Map<ResourceLocation, Recipe<?>> output,
+            Map<Identifier, Recipe<?>> output,
             String directory,
             MapCodec<T> codec) {
 
@@ -110,7 +110,7 @@ public final class RecipeDataBootstrap {
                     if (recipe == null) continue;
 
                     output.put(
-                            ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, id),
+                            Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, id),
                             recipe);
                 }
             } catch (IOException e) {

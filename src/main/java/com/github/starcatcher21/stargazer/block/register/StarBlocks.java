@@ -120,10 +120,10 @@ public class StarBlocks {
     );
     public static final RegistrySupplier<Block> STAR_PLANKS_BUTTON = register("star_planks_button", (BlockBehaviour.Properties settings) -> new ButtonBlock(BlockSetType.OAK, 30, (BlockBehaviour.Properties) settings), BlockBehaviour.Properties.of()
             //? if >= 26.2 {
-            /*.noCollision()
-             *///? } else {
-            .noCollission()
-            //? }
+            .noCollision()
+             //? } else {
+            /*.noCollission()
+            *///? }
             .sound(SoundType.WOOD)
             .instrument(NoteBlockInstrument.BASS)
             .strength(1.0F)
@@ -143,10 +143,10 @@ public class StarBlocks {
     );
     public static final RegistrySupplier<Block> STAR_SAPLING = register("star_sapling", (BlockBehaviour.Properties settings) -> new CustomSapling(Helpers.configuredFeatureOf(Stargazer.MOD_ID, "star_trees"), settings), BlockBehaviour.Properties.of()
             //? if >= 26.2 {
-            /*.noCollision()
-             *///? } else {
-            .noCollission()
-            //? }
+            .noCollision()
+             //? } else {
+            /*.noCollission()
+            *///? }
             .sound(SoundType.GRASS)
             .randomTicks()
             .instabreak()
@@ -155,10 +155,10 @@ public class StarBlocks {
     public static final RegistrySupplier<Block> STAR_FLOWER = register("star_flower", settings -> new CosmicFlower(StatusEffects.getHolder(StatusEffects.COSMO.get()), 5.0f, settings), BlockBehaviour.Properties.of()
             .mapColor(MapColor.COLOR_YELLOW)
             //? if >= 26.2 {
-            /*.noCollision()
-             *///? } else {
-            .noCollission()
-            //? }
+            .noCollision()
+             //? } else {
+            /*.noCollission()
+            *///? }
             .instabreak()
             .sound(SoundType.GRASS)
             .offsetType(BlockBehaviour.OffsetType.XZ)
@@ -168,10 +168,10 @@ public class StarBlocks {
     public static final RegistrySupplier<Block> CELESTIAL_STAR_FLOWER = register("celestial_star_flower", settings -> new CosmicFlower(StatusEffects.getHolder(StatusEffects.COSMO.get()), 5.0f, settings), BlockBehaviour.Properties.of()
             .mapColor(MapColor.COLOR_YELLOW)
             //? if >= 26.2 {
-            /*.noCollision()
-             *///? } else {
-            .noCollission()
-            //? }
+            .noCollision()
+             //? } else {
+            /*.noCollission()
+            *///? }
             .instabreak()
             .sound(SoundType.GRASS)
             .offsetType(BlockBehaviour.OffsetType.XZ)

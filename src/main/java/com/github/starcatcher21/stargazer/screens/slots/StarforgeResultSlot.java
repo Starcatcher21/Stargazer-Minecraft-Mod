@@ -54,10 +54,10 @@ public class StarforgeResultSlot
     protected void checkTakeAchievements(ItemStack stack) {
         if (this.amount > 0) {
             //? if >= 26.2 {
-            /*stack.onCraftedBy(this.player, this.amount);
-             *///?} else {
-            stack.onCraftedBy(this.player.level(), this.player, this.amount);
-            //?}
+            stack.onCraftedBy(this.player, this.amount);
+             //?} else {
+            /*stack.onCraftedBy(this.player.level(), this.player, this.amount);
+            *///?}
         }
         this.amount = 0;
     }
@@ -74,10 +74,10 @@ public class StarforgeResultSlot
         if (world instanceof ServerLevel) {
             ServerLevel serverWorld = (ServerLevel)world;
             //? if >= 26.2 {
-            /*return serverWorld.recipeAccess().getRecipeFor(RecipeTypes.STARFORGE.get(), input, serverWorld).map(recipe -> ((StarforgeRecipe)recipe.value()).getRecipeRemainders(input)).orElseGet(() -> StarforgeResultSlot.copyInput(input));
-             *///?} else {
-            return serverWorld.getRecipeManager().getRecipeFor(RecipeTypes.STARFORGE.get(), input, serverWorld).map(recipe -> ((StarforgeRecipe)recipe.value()).getRecipeRemainders(input)).orElseGet(() -> StarforgeResultSlot.copyInput(input));
-            //?}
+            return serverWorld.recipeAccess().getRecipeFor(RecipeTypes.STARFORGE.get(), input, serverWorld).map(recipe -> ((StarforgeRecipe)recipe.value()).getRecipeRemainders(input)).orElseGet(() -> StarforgeResultSlot.copyInput(input));
+             //?} else {
+            /*return serverWorld.getRecipeManager().getRecipeFor(RecipeTypes.STARFORGE.get(), input, serverWorld).map(recipe -> ((StarforgeRecipe)recipe.value()).getRecipeRemainders(input)).orElseGet(() -> StarforgeResultSlot.copyInput(input));
+            *///?}
         }
         return StarforgeRecipe.collectRecipeRemainders(input);
     }
@@ -113,10 +113,10 @@ public class StarforgeResultSlot
         }
         if (player instanceof ServerPlayer spe) {
             //? if >= 26.2 {
-            /*Criterias.FORGE_CRAFT.listen(crit -> crit.trigger(spe, stack.getItem()));
-             *///?} else {
-            Criterias.FORGE_CRAFT.trigger(spe, stack.getItem());
-            //?}
+            Criterias.FORGE_CRAFT.listen(crit -> crit.trigger(spe, stack.getItem()));
+             //?} else {
+            /*Criterias.FORGE_CRAFT.trigger(spe, stack.getItem());
+            *///?}
         }
     }
 }

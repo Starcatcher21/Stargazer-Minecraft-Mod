@@ -72,14 +72,14 @@ public class Hedges {
             .mapColor(MapColor.COLOR_BROWN)
     );
     //? if >= 26.2 {
-    /*public static final RegistrySupplier<Block> PALE_HEDGE = register("pale_oak_hedge", settings -> new Hedge(() -> Blocks.PALE_OAK_LEAVES, settings), BlockBehaviour.Properties.of()
+    public static final RegistrySupplier<Block> PALE_HEDGE = register("pale_oak_hedge", settings -> new Hedge(() -> Blocks.PALE_OAK_LEAVES, settings), BlockBehaviour.Properties.of()
             .forceSolidOn()
             .sound(SoundType.WOOD)
             .randomTicks()
             .strength(2.0F)
             .mapColor(MapColor.COLOR_BROWN)
     );
-    *///? }
+    //? }
     public static final RegistrySupplier<Block> MOON_HEDGE = register("moon_hedge", settings -> new Hedge(MoonBlocks.MOON_LEAVES, settings), BlockBehaviour.Properties.of()
             .forceSolidOn()
             .sound(SoundType.WOOD)
@@ -142,6 +142,13 @@ public class Hedges {
             .randomTicks()
             .strength(2.0F)
             .mapColor(MapColor.COLOR_BROWN)
+    );
+    public static final RegistrySupplier<Block> FUZZY_HEDGE = register("fuzzy_hedge", settings -> new Hedge(MoonBlocks.FUZZY_LEAVES, settings), BlockBehaviour.Properties.of()
+            .forceSolidOn()
+            .sound(SoundType.WOOD)
+            .randomTicks()
+            .strength(2.0F)
+            .mapColor(MapColor.COLOR_PURPLE)
     );
     public static void init() {
     }

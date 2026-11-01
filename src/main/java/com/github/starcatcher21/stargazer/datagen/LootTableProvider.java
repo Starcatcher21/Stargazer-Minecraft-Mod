@@ -12,20 +12,20 @@ import com.github.starcatcher21.stargazer.entity.Star;
 import com.github.starcatcher21.stargazer.item.ModItems;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.nebulas.Red;
 //? if fabric {
-/*import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootSubProvider;
-*///?} else {
-import net.minecraft.data.loot.BlockLootSubProvider;
+//?} else {
+/*import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.world.flag.FeatureFlags;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Function;
-//?}
+*///?}
 //? if >= 26.2 {
-/*import net.minecraft.advancements.predicates.StatePropertiesPredicate;
-*///?} else {
-import net.minecraft.advancements.critereon.StatePropertiesPredicate;
-//?}
+import net.minecraft.advancements.predicates.StatePropertiesPredicate;
+//?} else {
+/*import net.minecraft.advancements.critereon.StatePropertiesPredicate;
+*///?}
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
@@ -37,10 +37,10 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 //? if >= 26.2 {
-/*import net.minecraft.world.level.block.FlowerBedBlock;
-*///?} else {
-import com.github.starcatcher21.stargazer.block.older1211.FlowerBedBlock;
-//?}
+import net.minecraft.world.level.block.FlowerBedBlock;
+//?} else {
+/*import com.github.starcatcher21.stargazer.block.older1211.FlowerBedBlock;
+*///?}
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
@@ -57,12 +57,12 @@ import java.util.concurrent.CompletableFuture;
 
 public class LootTableProvider
 //? if fabric {
-        /*extends FabricBlockLootSubProvider {
+        extends FabricBlockLootSubProvider {
     public LootTableProvider(FabricPackOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
         super(dataOutput, registryLookup);
     }
-*///?} else {
-        extends BlockLootSubProvider {
+//?} else {
+        /*extends BlockLootSubProvider {
     private final Set<Block> generatedBlocks = new HashSet<>();
 
     public LootTableProvider(HolderLookup.Provider registryLookup) {
@@ -85,7 +85,7 @@ public class LootTableProvider
         generatedBlocks.add(block);
         super.add(block, builder);
     }
-//?}
+*///?}
 
     public LootTable.Builder oreDrops(Block drop, ItemLike raw, float min, float max) {
         HolderLookup.RegistryLookup<Enchantment> enchantments = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
@@ -130,8 +130,11 @@ public class LootTableProvider
         dropSelf(ModBlock.AMETHYST_DUST_BLOCK.get());
         add(Wander.BORIL.get(), oreDrops(Wander.BORIL.get(), Wander.PUROIL.get(), 1.0f, 1.0f));
         dropSelf(Wander.TRUNN_LOG.get());
+        dropSelf(MoonBlocks.FUZZY_LOG.get());
+        dropSelf(MoonBlocks.FUZZY_BALL.get());
         dropSelf(Wander.UMBRELLA_LOG.get());
         add(Wander.TRUNN_LEAVES.get(), createLeavesDrops(Wander.TRUNN_LEAVES.get(), Wander.TRUNN_SAPLING.get(), 0.035F));
+        add(MoonBlocks.FUZZY_LEAVES.get(), createLeavesDrops(MoonBlocks.FUZZY_LEAVES.get(), MoonBlocks.FUZZY_BALL.get(), 0.035F));
         add(Wander.UMBRELLA_LEAVES.get(), createLeavesDrops(Wander.UMBRELLA_LEAVES.get(), Wander.UMBRELLA_SAPLING.get(), 0.035F));
         dropSelf(ModBlock.GRAVE.get());
         add(ModBlock.INFESTED_CALCITE.get(), oreDrops(ModBlock.INFESTED_CALCITE.get(), Blocks.CALCITE, 1.0f, 1.0f));
@@ -317,6 +320,7 @@ public class LootTableProvider
         dropSelf(Wander.TRUNN_SAPLING.get());
         dropSelf(MoonBlocks.CURVE_SAPLING.get());
         dropSelf(Hedges.FULL_MOON_HEDGE.get());
+        dropSelf(Hedges.FUZZY_HEDGE.get());
         dropSelf(RedOrbBlocks.PETRICY.get());
         dropSelf(Nebulas.PURPLE_NEBULA_CORE.get());
         dropSelf(Nebulas.BLUE_NEBULA_CORE.get());
@@ -372,8 +376,8 @@ public class LootTableProvider
         dropSelf(Hedges.MOON_HEDGE.get());
         dropSelf(Hedges.OAK_HEDGE.get());
         //? if >= 26.2 {
-        /*dropSelf(Hedges.PALE_HEDGE.get());
-        *///? }
+        dropSelf(Hedges.PALE_HEDGE.get());
+        //? }
         dropSelf(Hedges.SPRUCE_HEDGE.get());
         dropSelf(Hedges.STAR_HEDGE.get());
         dropSelf(Hedges.YERI_HEDGE.get());

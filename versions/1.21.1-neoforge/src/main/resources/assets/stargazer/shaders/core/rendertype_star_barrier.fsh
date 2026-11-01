@@ -1,6 +1,7 @@
 #version 150
 
 uniform sampler2D Sampler0;
+uniform vec4 ColorModulator;
 
 in vec4 texProj0;
 out vec4 fragColor;
@@ -10,5 +11,5 @@ void main() {
     if (color.a < 0.1) {
         discard;
     }
-    fragColor = vec4(1.0, 0.5, 0.5, color.a);
+    fragColor = vec4(1.0, 0.5, 0.5, color.a) * ColorModulator;
 }

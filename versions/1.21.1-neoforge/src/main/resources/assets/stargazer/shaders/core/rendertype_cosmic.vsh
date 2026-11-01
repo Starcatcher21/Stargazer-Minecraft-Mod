@@ -1,7 +1,6 @@
 #version 150
 
 #moj_import <fog.glsl>
-#moj_import <projection.glsl>
 
 uniform mat4 ModelViewMat;
 uniform mat4 ProjMat;
@@ -9,12 +8,12 @@ uniform int FogShape;
 
 in vec3 Position;
 
-out vec4 texProj0;
+out vec3 localPos;
 out float vertexDistance;
 
 void main() {
-    vec4 viewPosition = ModelViewMat * vec4(Position, 1.0);
-    gl_Position = ProjMat * viewPosition;
-    texProj0 = projection_from_position(gl_Position);
-    vertexDistance = fog_distance(viewPosition.xyz, FogShape);
+vec4 viewPosition = ModelViewMat * vec4(Position, 1.0);
+gl_Position = ProjMat * viewPosition;
+localPos = Position;
+vertexDistance = fog_distance(viewPosition.xyz, FogShape);
 }

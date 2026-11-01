@@ -7,13 +7,13 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.MinecraftServer;
 
 public record MoonRulePayload(boolean moonRuleEnabled) implements CustomPacketPayload {
 
     public static final CustomPacketPayload.Type<MoonRulePayload> TYPE =
-            new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "moon_rule"));
+            new CustomPacketPayload.Type<>(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "moon_rule"));
 
     public static final StreamCodec<ByteBuf, MoonRulePayload> STREAM_CODEC =
             StreamCodec.composite(
