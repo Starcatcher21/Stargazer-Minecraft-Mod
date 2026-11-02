@@ -3,16 +3,16 @@ package com.github.starcatcher21.stargazer.mechanics;
 import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.worldgen.BiomeTags;
 import net.minecraft.client.Minecraft;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.Level;
 
 public class PlayerRedOrbGrav {
-    public static AttributeModifier gravity_modifier = new AttributeModifier(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "red_orb_gravity"),  0.5F, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
-    public static AttributeModifier fall_damage_modifier = new AttributeModifier(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "red_orb_fall"),  0.1F, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
-    public static AttributeModifier jump_modifier = new AttributeModifier(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "red_orb_jump"),  -0.15F, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
+    public static AttributeModifier gravity_modifier = new AttributeModifier(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "red_orb_gravity"),  0.5F, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
+    public static AttributeModifier fall_damage_modifier = new AttributeModifier(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "red_orb_fall"),  0.1F, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
+    public static AttributeModifier jump_modifier = new AttributeModifier(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "red_orb_jump"),  -0.15F, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
 
     public static void tick(LivingEntity player) {
         Level world = player.level();
@@ -34,8 +34,8 @@ public class PlayerRedOrbGrav {
     }
 
     public static void removeEffect(LivingEntity player) {
-        player.getAttribute(Attributes.GRAVITY).removeModifier(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "red_orb_gravity"));
-        player.getAttribute(Attributes.SAFE_FALL_DISTANCE).removeModifier(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "red_orb_fall"));
-        player.getAttribute(Attributes.JUMP_STRENGTH).removeModifier(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "red_orb_jump"));
+        player.getAttribute(Attributes.GRAVITY).removeModifier(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "red_orb_gravity"));
+        player.getAttribute(Attributes.SAFE_FALL_DISTANCE).removeModifier(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "red_orb_fall"));
+        player.getAttribute(Attributes.JUMP_STRENGTH).removeModifier(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "red_orb_jump"));
     }
 }

@@ -11,8 +11,8 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
 //? if >= 26.2 {
-import net.minecraft.world.entity.EntityTypes;
-//? }
+/*import net.minecraft.world.entity.EntityTypes;
+*///? }
 import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.context.UseOnContext;
@@ -33,19 +33,19 @@ public class LodeStar extends Item {
             CopperTeleporter.portalPlace(world, root, false, false);
             LightningBolt lightning = new LightningBolt(
                     //? if >= 26.2 {
-                    EntityTypes
-                    //? } else {
-                    /*EntityType
-                    *///? }
+                    /*EntityTypes
+                    *///? } else {
+                    EntityType
+                    //? }
                             .LIGHTNING_BOLT, world);
             lightning.setPosRaw(root.getX(), root.getY()+1, root.getZ());
             world.addFreshEntity(lightning);
             if (context.getPlayer() instanceof ServerPlayer spe) {
                 //? if >= 26.2 {
-                Criterias.COSMIC_PORTAL.listen(crit -> crit.trigger(spe));
-                //? } else {
-                /*Criterias.COSMIC_PORTAL.trigger(spe);
-                *///? }
+                /*Criterias.COSMIC_PORTAL.listen(crit -> crit.trigger(spe));
+                *///? } else {
+                Criterias.COSMIC_PORTAL.trigger(spe);
+                //? }
             }
             return InteractionResult.SUCCESS;
         }
@@ -53,10 +53,10 @@ public class LodeStar extends Item {
             RedTeleporter.portalPlace(world, root, false, false);
             LightningBolt lightning = new LightningBolt(
                     //? if >= 26.2 {
-                    EntityTypes
-                    //? } else {
-                    /*EntityType
-                    *///? }
+                    /*EntityTypes
+                    *///? } else {
+                    EntityType
+                    //? }
                             .LIGHTNING_BOLT, world);
             lightning.setPosRaw(root.getX(), root.getY()+1, root.getZ());
             world.addFreshEntity(lightning);
@@ -85,20 +85,20 @@ public class LodeStar extends Item {
     }
     public static Boolean isProperTeleporter(Level world, BlockPos pos) {
         //? if >= 26.2 {
-        var cut = Blocks.CUT_COPPER.weathering().unaffected();
+        /*var cut = Blocks.CUT_COPPER.weathering().unaffected();
         var cut_w = Blocks.CUT_COPPER.waxed().unaffected();
         var cut_s = Blocks.CUT_COPPER_STAIRS.weathering().unaffected();
         var cut_sw = Blocks.CUT_COPPER_STAIRS.waxed().unaffected();
         var chis = Blocks.CHISELED_COPPER.weathering().unaffected();
         var chis_w = Blocks.CHISELED_COPPER.waxed().unaffected();
-        //? } else {
-        /*var cut = Blocks.CUT_COPPER;
+        *///? } else {
+        var cut = Blocks.CUT_COPPER;
         var cut_w = Blocks.WAXED_CUT_COPPER;
         var cut_s = Blocks.CUT_COPPER_STAIRS;
         var cut_sw = Blocks.WAXED_CUT_COPPER_STAIRS;
         var chis = Blocks.CHISELED_COPPER;
         var chis_w = Blocks.WAXED_CHISELED_COPPER;
-        *///? }
+        //? }
 
         if (!(world.getBlockState(pos).getBlock().equals(cut) || world.getBlockState(pos).getBlock().equals(cut_w))) {
             return false;

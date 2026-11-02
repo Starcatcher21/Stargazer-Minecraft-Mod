@@ -25,7 +25,7 @@ public class NebulaCore extends Block {
     @Override
     protected void randomTick(BlockState state, ServerLevel world, BlockPos pos, RandomSource random) {
         if (random.nextInt(7) == 0) {
-            if (Dimensions.REG_COSMIC_WORLD.identifier().equals(world.dimension().identifier())) {
+            if (Dimensions.REG_COSMIC_WORLD.location().equals(world.dimension().location())) {
                 this.instantGrow(world, pos.above(), state, random);
             } else {
                 if (world.getBlockState(pos.above()).isAir()) {

@@ -3,15 +3,15 @@ package com.github.starcatcher21.stargazer.villager;
 import com.github.starcatcher21.stargazer.Stargazer;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.resources.ResourceKey;
 //? if >= 26.2 {
-import net.minecraft.world.item.trading.TradeSet;
-//? }
+/*import net.minecraft.world.item.trading.TradeSet;
+*///? }
 
 public class ModTraids {
     //? if >= 26.2 {
-    public static final ResourceKey<TradeSet> ASTROLOGISTS_LEVEL_1 = resourceKey("astrologists/level_1");
+    /*public static final ResourceKey<TradeSet> ASTROLOGISTS_LEVEL_1 = resourceKey("astrologists/level_1");
     public static final ResourceKey<TradeSet> ASTROLOGISTS_LEVEL_2 = resourceKey("astrologists/level_2");
     public static final ResourceKey<TradeSet> ASTROLOGISTS_LEVEL_3 = resourceKey("astrologists/level_3");
     public static final ResourceKey<TradeSet> ASTROLOGISTS_LEVEL_4 = resourceKey("astrologists/level_4");
@@ -24,7 +24,7 @@ public class ModTraids {
             Int2ObjectMap.entry(4, ASTROLOGISTS_LEVEL_4),
             Int2ObjectMap.entry(5, ASTROLOGISTS_LEVEL_5)
             );
-    //? }
+    *///? }
     public static void init() {
 //        TradeOfferHelper.registerVillagerOffers(ASTROLOGISTS_KEY, 1, factories -> {
 //            factories.add(((world, entity, random) -> new MerchantOffer(
@@ -111,8 +111,8 @@ public class ModTraids {
     }
 
     //? if >= 26.2 {
-    public static ResourceKey<TradeSet> resourceKey(final String path) {
-        return ResourceKey.create(Registries.TRADE_SET,Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, path));
+    /*public static ResourceKey<TradeSet> resourceKey(final String path) {
+        return ResourceKey.create(Registries.TRADE_SET,ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, path));
     }
-    //? }
+    *///? }
 }

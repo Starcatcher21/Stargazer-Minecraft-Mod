@@ -3,7 +3,7 @@ package com.github.starcatcher21.stargazer.block.clases.star.aurora;
 import com.github.starcatcher21.stargazer.Stargazer;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
@@ -14,7 +14,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class Aurora extends BaseEntityBlock {
     public static final MapCodec<Aurora> CODEC = simpleCodec(Aurora::new);
-    public static final Identifier TEXTURE =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/block/aurora.png");
+    public static final ResourceLocation TEXTURE =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/block/aurora.png");
     @Override
     public MapCodec<? extends Aurora> codec() {
         return CODEC;

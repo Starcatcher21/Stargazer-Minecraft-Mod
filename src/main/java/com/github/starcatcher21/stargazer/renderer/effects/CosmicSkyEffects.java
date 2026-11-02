@@ -1,5 +1,5 @@
 //? if neoforge && < 26.2 {
-/*package com.github.starcatcher21.stargazer.renderer.effects;
+package com.github.starcatcher21.stargazer.renderer.effects;
 
 import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.renderer.SkyStarRenderer;
@@ -34,4 +34,4 @@ public final class CosmicSkyEffects extends DimensionSpecialEffects {
         return false;
     }
 }
-*///? }
+//? }

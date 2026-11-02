@@ -12,11 +12,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 //? if >= 26.2 {
-import net.minecraft.world.level.ScheduledTickAccess;
+/*import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.util.Util;
-//?} else {
-/*import net.minecraft.Util;
-*///? }
+*///?} else {
+import net.minecraft.Util;
+//? }
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.PipeBlock;
@@ -73,11 +73,11 @@ public class YellowCable extends BaseEntityBlock {
     }
 
     //? if < 26.2 {
-    /*@Override
+    @Override
     protected RenderShape getRenderShape(BlockState arg) {
         return RenderShape.MODEL;
     }
-    *///? }
+    //? }
 
     private VoxelShape[] createShapeCache() {
         VoxelShape[] shapes = new VoxelShape[64];
@@ -128,7 +128,7 @@ public class YellowCable extends BaseEntityBlock {
 
     /* ---------------- updateShape (signature differs) ---------------- */
     //? if >= 26.2 {
-    @Override
+    /*@Override
     protected BlockState updateShape(BlockState state, LevelReader world,
                                      ScheduledTickAccess tickView, BlockPos pos,
                                      Direction direction, BlockPos neighborPos,
@@ -136,15 +136,15 @@ public class YellowCable extends BaseEntityBlock {
         boolean canConnect = this.shouldConnectTo(world, neighborPos, direction);
         return state.setValue(FACING_PROPERTIES.get(direction), canConnect);
     }
-    //?} else {
-    /*@Override
+    *///?} else {
+    @Override
     protected BlockState updateShape(BlockState state, Direction direction,
                                      BlockState neighborState, LevelAccessor world,
                                      BlockPos pos, BlockPos neighborPos) {
         boolean canConnect = this.shouldConnectTo(world, neighborPos, direction);
         return state.setValue(FACING_PROPERTIES.get(direction), canConnect);
     }
-    *///?}
+    //?}
 
     private int getShapeIndex(BlockState state) {
         int index = 0;

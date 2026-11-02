@@ -9,7 +9,7 @@ import com.github.starcatcher21.starlib.mechanics.star.FallingObjectsList;
 import net.minecraft.data.PackOutput;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
 
 import java.util.List;
@@ -99,25 +99,25 @@ public class FallingObjectListProvider extends FallingObjectListDataProvider {
     );
 
     @Override
-    protected void addFallingObjectList(BiConsumer<Identifier, FallingObjectsList> exporter, HolderLookup.Provider registries) {
+    protected void addFallingObjectList(BiConsumer<ResourceLocation, FallingObjectsList> exporter, HolderLookup.Provider registries) {
         exporter.accept(
-              Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "overworld"),
+              ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "overworld"),
                 OVERWORLD
         );
         exporter.accept(
-              Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "chess"),
+              ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "chess"),
                 CHESS
         );
         exporter.accept(
-              Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "cosmic"),
+              ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "cosmic"),
                 COSMIC
         );
         exporter.accept(
-              Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "red_orb"),
+              ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "red_orb"),
                 RED_ORB
         );
         exporter.accept(
-              Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "end"),
+              ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "end"),
                 END
         );
     }

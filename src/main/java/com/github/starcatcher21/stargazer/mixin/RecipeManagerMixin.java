@@ -6,7 +6,7 @@ import com.google.common.collect.Multimap;
 import com.google.gson.JsonElement;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistryAccess;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.item.crafting.Recipe;
@@ -27,8 +27,8 @@ import java.util.Map;
 @Mixin(RecipeManager.class)
 public abstract class RecipeManagerMixin {
     //? if < 26.2 {
-    /*@Shadow @Final @Mutable
-    private Map<Identifier, RecipeHolder<?>> byName;
+    @Shadow @Final @Mutable
+    private Map<ResourceLocation, RecipeHolder<?>> byName;
 
     @Shadow
     @Final
@@ -38,15 +38,15 @@ public abstract class RecipeManagerMixin {
     private Multimap<RecipeType<?>, RecipeHolder<?>> byType;
 
     @Inject(method = "apply", at = @At("TAIL"))
-    private void stargazer$injectRecipes(Map<Identifier, JsonElement> recipes,
+    private void stargazer$injectRecipes(Map<ResourceLocation, JsonElement> recipes,
                                          ResourceManager resourceManager,
                                          ProfilerFiller profiler,
                                          CallbackInfo ci) {
-        Map<Identifier, Recipe<?>> extra =
+        Map<ResourceLocation, Recipe<?>> extra =
                 RecipeDataBootstrap.loadAll(this.registries);
         if (extra.isEmpty()) return;
 
-        Map<Identifier, RecipeHolder<?>> newByName = new HashMap<>(this.byName);
+        Map<ResourceLocation, RecipeHolder<?>> newByName = new HashMap<>(this.byName);
         Multimap<RecipeType<?>, RecipeHolder<?>> newByType =
                 ArrayListMultimap.create(this.byType);
 
@@ -59,5 +59,5 @@ public abstract class RecipeManagerMixin {
         this.byName = newByName;
         this.byType = newByType;
     }
-    *///?}
+    //?}
 }

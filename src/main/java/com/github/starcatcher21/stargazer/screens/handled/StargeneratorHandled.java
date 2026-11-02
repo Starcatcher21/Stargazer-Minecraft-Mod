@@ -4,36 +4,36 @@ import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.screens.StarGeneratorScreenHandler;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
 import java.util.List;
 //? if >= 26.2 {
-import net.minecraft.client.gui.GuiGraphicsExtractor;
+/*import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.renderer.RenderPipelines;
-//?} else {
-/*import net.minecraft.client.gui.GuiGraphics;
-*///?}
+*///?} else {
+import net.minecraft.client.gui.GuiGraphics;
+//?}
 
 public class StargeneratorHandled extends AbstractContainerScreen<StarGeneratorScreenHandler> {
-    private static final Identifier TEXTURE =
-            Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/stargenerator.png");
-    private static final Identifier ARROW_TEXTURE =
-            Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/arrow_progress.png");
+    private static final ResourceLocation TEXTURE =
+            ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/stargenerator.png");
+    private static final ResourceLocation ARROW_TEXTURE =
+            ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/arrow_progress.png");
 
     public StargeneratorHandled(StarGeneratorScreenHandler handler, Inventory inventory, Component title) {
-        super(handler, inventory, title/*? if >= 26.2 { */, 176, 200/*? } */);
+        super(handler, inventory, title/*? if >= 26.2 { *//*, 176, 200*//*? } */);
         //? if < 26.2 {
-        /*this.imageHeight = 200;
+        this.imageHeight = 200;
         this.imageWidth = 200;
-        *///? }
+        //? }
         this.titleLabelX = 83;
         this.titleLabelY = 10;
         this.inventoryLabelY = 108;
     }
 
     //? if >= 26.2 {
-    @Override
+    /*@Override
     public void extractBackground(GuiGraphicsExtractor context, int mouseX, int mouseY, float deltaTicks) {
         super.extractBackground(context, mouseX, mouseY, deltaTicks);
 
@@ -64,8 +64,8 @@ public class StargeneratorHandled extends AbstractContainerScreen<StarGeneratorS
                     60, 7);
         }
     }
-    //?} else {
-    /*@Override
+    *///?} else {
+    @Override
     public void renderBg(GuiGraphics context, float deltaTicks, int mouseX, int mouseY) {
         int i = this.leftPos;
         int j = this.topPos;
@@ -105,5 +105,5 @@ public class StargeneratorHandled extends AbstractContainerScreen<StarGeneratorS
                     60, 7);
         }
     }
-    *///?}
+    //?}
 }

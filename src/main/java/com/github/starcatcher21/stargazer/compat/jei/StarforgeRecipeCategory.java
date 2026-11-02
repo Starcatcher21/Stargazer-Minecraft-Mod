@@ -12,18 +12,18 @@ import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 //? if >= 26.2 {
-import mezz.jei.api.recipe.types.IRecipeType;
-//?} else {
-/*import mezz.jei.api.recipe.RecipeType;
-*///?}
+/*import mezz.jei.api.recipe.types.IRecipeType;
+*///?} else {
+import mezz.jei.api.recipe.RecipeType;
+//?}
 import mezz.jei.api.recipe.category.IRecipeCategory;
 //? if >= 26.2 {
-import net.minecraft.client.gui.GuiGraphicsExtractor;
-import net.minecraft.resources.Identifier;
-//?} else {
-/*import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.resources.Identifier;
-*///?}
+/*import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.resources.ResourceLocation;
+*///?} else {
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.resources.ResourceLocation;
+//?}
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
@@ -33,12 +33,12 @@ public class StarforgeRecipeCategory
         implements IRecipeCategory<RecipeHolder<StarforgeRecipe>> {
 
     //? if >= 26.2 {
-    private static final Identifier TEXTURE =
-            Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/starforge/starforge_gui.png");
-    //?} else {
-    /*private static final Identifier TEXTURE =
-            Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/starforge/starforge_gui.png");
-    *///?}
+    /*private static final ResourceLocation TEXTURE =
+            ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/starforge/starforge_gui.png");
+    *///?} else {
+    private static final ResourceLocation TEXTURE =
+            ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/starforge/starforge_gui.png");
+    //?}
 
     private final IDrawable icon;
     private final IDrawable overlay;
@@ -51,16 +51,16 @@ public class StarforgeRecipeCategory
     }
 
     //? if >= 26.2 {
-    @Override
+    /*@Override
     public IRecipeType<RecipeHolder<StarforgeRecipe>> getRecipeType() {
         return StargazerJEIPlugin.STARFORGE;
     }
-    //?} else {
-    /*@Override
+    *///?} else {
+    @Override
     public RecipeType<RecipeHolder<StarforgeRecipe>> getRecipeType() {
         return StargazerJEIPlugin.STARFORGE;
     }
-    *///?}
+    //?}
 
     @Override
     public Component getTitle() {
@@ -94,40 +94,40 @@ public class StarforgeRecipeCategory
         for (int i = 0; i < Math.min(ingredients.size(), xs.length); i++) {
             var ing = ingredients.get(i);
             //? if >= 26.2 {
-            final int slotX = xs[i];
+            /*final int slotX = xs[i];
             final int slotY = ys[i];
             ing.ifPresent(present ->
                     builder.addSlot(RecipeIngredientRole.INPUT, slotX, slotY).add(present));
-            //?} else {
-            /*if (ing != null && !ing.isEmpty()) {
+            *///?} else {
+            if (ing != null && !ing.isEmpty()) {
                 builder.addSlot(RecipeIngredientRole.INPUT, xs[i], ys[i]).addIngredients(ing);
             }
-            *///?}
+            //?}
         }
 
         builder.addSlot(RecipeIngredientRole.OUTPUT, 119, 29)
                 //? if >= 26.2 {
-                .add(recipe.getResult());
-                //?} else {
-                /*.addItemStack(recipe.getResult());
-                *///?}
+                /*.add(recipe.getResult());
+                *///?} else {
+                .addItemStack(recipe.getResult());
+                //?}
     }
 
     //? if >= 26.2 {
-    @Override
+    /*@Override
     public void draw(RecipeHolder<StarforgeRecipe> holder,
                      IRecipeSlotsView slots,
                      GuiGraphicsExtractor guiGraphics,
                      double mouseX, double mouseY) {
         this.overlay.draw(guiGraphics, 0, 0);
     }
-    //?} else {
-    /*@Override
+    *///?} else {
+    @Override
     public void draw(RecipeHolder<StarforgeRecipe> holder,
                      IRecipeSlotsView slots,
                      GuiGraphics guiGraphics,
                      double mouseX, double mouseY) {
         this.overlay.draw(guiGraphics, 0, 0);
     }
-    *///?}
+    //?}
 }

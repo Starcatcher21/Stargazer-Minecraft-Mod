@@ -5,8 +5,8 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.shedaniel.rei.api.common.display.DisplaySerializer;
 //? if < 26.2 {
-/*import net.minecraft.nbt.CompoundTag;
-*///? }
+import net.minecraft.nbt.CompoundTag;
+//? }
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 
@@ -22,7 +22,7 @@ public class StargazingDisplaySerializer implements DisplaySerializer<Stargazing
             StargazingDisplay::new
     );
     //? if >= 26.2 {
-    @Override
+    /*@Override
     public MapCodec<StargazingDisplay> codec() {
         return CODEC;
     }
@@ -30,8 +30,8 @@ public class StargazingDisplaySerializer implements DisplaySerializer<Stargazing
     public StreamCodec<RegistryFriendlyByteBuf, StargazingDisplay> streamCodec() {
         return PACKET_CODEC;
     }
-    //? } else {
-    /*@Override
+    *///? } else {
+    @Override
     public CompoundTag save(CompoundTag tag, StargazingDisplay display) {
         tag.put("objects", LegacyDisplayCodec.encode(FallingObjectsList.CODEC, display.getList()));
         return tag;
@@ -41,5 +41,5 @@ public class StargazingDisplaySerializer implements DisplaySerializer<Stargazing
     public StargazingDisplay read(CompoundTag tag) {
         return new StargazingDisplay(LegacyDisplayCodec.decode(FallingObjectsList.CODEC, tag.get("objects")));
     }
-    *///? }
+    //? }
 }

@@ -1,5 +1,5 @@
 //? if neoforge {
-/*package com.github.starcatcher21.stargazer;
+package com.github.starcatcher21.stargazer;
 
 import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.screens.ScreenHandlerTypes;
@@ -22,4 +22,4 @@ public class NeoForgeClientEvents {
         event.register(ScreenHandlerTypes.STARCRUSHER_HANDLER.get(), StarCrusherHandled::new);
     }
 }
-*///? }
+//? }

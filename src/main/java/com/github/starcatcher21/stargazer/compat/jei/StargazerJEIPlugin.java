@@ -11,19 +11,19 @@ import com.github.starcatcher21.stargazer.screens.recipe.StarforgeRecipe;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 //? if >= 26.2 {
-import mezz.jei.api.recipe.types.IRecipeType;
-//?} else {
-/*import mezz.jei.api.recipe.RecipeType;
- *///?}
+/*import mezz.jei.api.recipe.types.IRecipeType;
+*///?} else {
+import mezz.jei.api.recipe.RecipeType;
+ //?}
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import net.minecraft.client.Minecraft;
 //? if >= 26.2 {
-import net.minecraft.resources.Identifier;
-//?} else {
-/*import net.minecraft.resources.Identifier;
- *///?}
+/*import net.minecraft.resources.ResourceLocation;
+*///?} else {
+import net.minecraft.resources.ResourceLocation;
+ //?}
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
@@ -31,14 +31,14 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 @JeiPlugin
 public class StargazerJEIPlugin implements IModPlugin {
 
-    private static final Identifier UID =
-            Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "jei_plugin");
+    private static final ResourceLocation UID =
+            ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "jei_plugin");
 
     /* ------------------------------------------------------------------ */
     /* Recipe Type constants                                              */
     /* ------------------------------------------------------------------ */
     //? if >= 26.2 {
-    // Built from names only: JEI loads this class during mod construction, before the
+    /*// Built from names only: JEI loads this class during mod construction, before the
     // registries are filled, so these must NOT call RecipeTypes.X.get() here.
     public static final IRecipeType<RecipeHolder<StarCrusherRecipe>> STAR_CRUSHER = holderType("star_crusher");
     public static final IRecipeType<RecipeHolder<MoonWelderRecipe>> MOON_WELDER = holderType("moon_welder");
@@ -50,26 +50,26 @@ public class StargazerJEIPlugin implements IModPlugin {
     private static <R extends Recipe<?>> IRecipeType<RecipeHolder<R>> holderType(String path) {
         return (IRecipeType) IRecipeType.create(Stargazer.MOD_ID, path, RecipeHolder.class);
     }
-    //?} else {
-    /*public static final RecipeType<RecipeHolder<StarCrusherRecipe>> STAR_CRUSHER =
-            RecipeType.createRecipeHolderType(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "star_crusher"));
+    *///?} else {
+    public static final RecipeType<RecipeHolder<StarCrusherRecipe>> STAR_CRUSHER =
+            RecipeType.createRecipeHolderType(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "star_crusher"));
     public static final RecipeType<RecipeHolder<MoonWelderRecipe>> MOON_WELDER =
-            RecipeType.createRecipeHolderType(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "moon_welder"));
+            RecipeType.createRecipeHolderType(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "moon_welder"));
     public static final RecipeType<RecipeHolder<StarforgeRecipe>> STARFORGE =
-            RecipeType.createRecipeHolderType(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "starforge"));
-    *///?}
+            RecipeType.createRecipeHolderType(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "starforge"));
+    //?}
 
     //? if >= 26.2 {
-    @Override
-    public Identifier getPluginUid() {
-        return UID;
-    }
-    //?} else {
     /*@Override
-    public Identifier getPluginUid() {
+    public ResourceLocation getPluginUid() {
         return UID;
     }
-    *///?}
+    *///?} else {
+    @Override
+    public ResourceLocation getPluginUid() {
+        return UID;
+    }
+    //?}
 
     @Override
     public void registerCategories(IRecipeCategoryRegistration registration) {
@@ -88,37 +88,37 @@ public class StargazerJEIPlugin implements IModPlugin {
             return;
         }
         //? if >= 26.2 {
-        // Since 1.21.2 the client only has recipes the server explicitly syncs; see ClientRecipes.
+        /*// Since 1.21.2 the client only has recipes the server explicitly syncs; see ClientRecipes.
         registration.addRecipes(STAR_CRUSHER, ClientRecipes.all(RecipeTypes.STAR_CRUSHER.get()));
         registration.addRecipes(MOON_WELDER, ClientRecipes.all(RecipeTypes.MOON_WELDER.get()));
         registration.addRecipes(STARFORGE, ClientRecipes.all(RecipeTypes.STARFORGE.get()));
-        //?} else {
-        /*var manager = level.getRecipeManager();
+        *///?} else {
+        var manager = level.getRecipeManager();
         registration.addRecipes(STAR_CRUSHER,
                 manager.getAllRecipesFor(RecipeTypes.STAR_CRUSHER.get()));
         registration.addRecipes(MOON_WELDER,
                 manager.getAllRecipesFor(RecipeTypes.MOON_WELDER.get()));
         registration.addRecipes(STARFORGE,
                 manager.getAllRecipesFor(RecipeTypes.STARFORGE.get()));
-        *///?}
+        //?}
     }
 
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
         //? if >= 26.2 {
-        registration.addCraftingStation(STAR_CRUSHER,
+        /*registration.addCraftingStation(STAR_CRUSHER,
                 new ItemStack(Energy.STAR_CRUSHER.get()));
         registration.addCraftingStation(MOON_WELDER,
                 new ItemStack(ModBlock.MOON_WELDER.get()));
         registration.addCraftingStation(STARFORGE,
                 new ItemStack(MoonBlocks.STAR_FORGE.get()));
-        //?} else {
-        /*registration.addRecipeCatalyst(
+        *///?} else {
+        registration.addRecipeCatalyst(
                 new ItemStack(Energy.STAR_CRUSHER.get()), STAR_CRUSHER);
         registration.addRecipeCatalyst(
                 new ItemStack(ModBlock.MOON_WELDER.get()), MOON_WELDER);
         registration.addRecipeCatalyst(
                 new ItemStack(MoonBlocks.STAR_FORGE.get()), STARFORGE);
-        *///?}
+        //?}
     }
 }

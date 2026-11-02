@@ -10,7 +10,7 @@ import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.animal.sniffer.SnifferAi;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
@@ -19,7 +19,7 @@ import net.minecraft.world.level.block.Block;
 public class ItemGroup {
     public static final DeferredRegister<CreativeModeTab> TABS = DeferredRegister.create(Stargazer.MOD_ID, Registries.CREATIVE_MODE_TAB);
 
-    public static final RegistrySupplier<CreativeModeTab> STAR_GROUP = TABS.register(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "star_group"), () -> CreativeTabRegistry.create(
+    public static final RegistrySupplier<CreativeModeTab> STAR_GROUP = TABS.register(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "star_group"), () -> CreativeTabRegistry.create(
             builder -> builder
                     .icon(() -> new ItemStack(ModItems.YELLOW_STAR.get()))
                     .title(Component.translatable("itemGroup.Stargazer"))
@@ -29,9 +29,6 @@ public class ItemGroup {
                         output.accept(ModItems.STAR_HAMMER.get());
                         output.accept(ModBlock.GRAVE.get());
                         output.accept(ModBlock.NEGATIVE_BLOCK.get());
-                        output.accept(ModBlock.NORED_BLOCK.get());
-                        output.accept(ModBlock.NOGREEN_BLOCK.get());
-                        output.accept(ModBlock.NOBLUE_BLOCK.get());
                         output.accept(ModBlock.INFESTED_CALCITE.get());
                         output.accept(ModBlock.BONE_LEAVES.get());
                         output.accept(ModBlock.SPRINKLER.get());
@@ -293,8 +290,8 @@ public class ItemGroup {
                         output.accept(Hedges.JUNGLE_HEDGE.get());
                         output.accept(Hedges.MANGROVE_HEDGE.get());
                         //? if >= 26.2 {
-                        output.accept(Hedges.PALE_HEDGE.get());
-                        //? }
+                        /*output.accept(Hedges.PALE_HEDGE.get());
+                        *///? }
                         output.accept(Hedges.SPRUCE_HEDGE.get());
                         output.accept(Hedges.MOON_HEDGE.get());
                         output.accept(Hedges.CURVE_HEDGE.get());
@@ -391,6 +388,12 @@ public class ItemGroup {
                         output.accept(MoonBlocks.FUZZY_BALL.get());
                         output.accept(MoonBlocks.FUZZY_LOG.get());
                         output.accept(MoonBlocks.FUZZY_LEAVES.get());
+                        output.accept(MoonBlocks.FUZZY_PLANKS.get());
+                        output.accept(MoonBlocks.FUZZY_PLANKS_SLAB.get());
+                        output.accept(MoonBlocks.FUZZY_PLANKS_STAIRS.get());
+                        output.accept(MoonBlocks.FUZZY_PLANKS_FENCE.get());
+                        output.accept(MoonBlocks.FUZZY_PLANKS_FENCE_GATE.get());
+                        output.accept(MoonBlocks.FUZZY_PLANKS_BUTTON.get());
                     })
     ));
 

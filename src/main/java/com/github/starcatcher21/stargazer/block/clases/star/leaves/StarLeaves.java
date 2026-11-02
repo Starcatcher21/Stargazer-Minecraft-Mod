@@ -5,7 +5,7 @@ import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.ParticleUtils;
@@ -16,8 +16,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 //? if >= 26.2 {
-import net.minecraft.world.level.ScheduledTickAccess;
- //?}
+/*import net.minecraft.world.level.ScheduledTickAccess;
+ *///?}
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
@@ -35,8 +35,8 @@ import java.util.OptionalInt;
 
 public class StarLeaves extends BaseEntityBlock implements SimpleWaterloggedBlock {
     public static final MapCodec<StarLeaves> CODEC = simpleCodec(StarLeaves::new);
-    public static final Identifier TEXTURE =
-            Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/block/star_leaves.png");
+    public static final ResourceLocation TEXTURE =
+            ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/block/star_leaves.png");
     protected final float leafParticleChance = 0.5F;
     public static final int MAX_DISTANCE = 7;
     public static final IntegerProperty DISTANCE = BlockStateProperties.DISTANCE;
@@ -89,7 +89,7 @@ public class StarLeaves extends BaseEntityBlock implements SimpleWaterloggedBloc
 
     /* ---------------- updateShape (signature differs) ---------------- */
     //? if >= 26.2 {
-    @Override
+    /*@Override
     protected BlockState updateShape(BlockState state, LevelReader world,
                                      ScheduledTickAccess tickView, BlockPos pos,
                                      Direction direction, BlockPos neighborPos,
@@ -105,8 +105,8 @@ public class StarLeaves extends BaseEntityBlock implements SimpleWaterloggedBloc
 
         return state;
     }
-    //?} else {
-    /*@Override
+    *///?} else {
+    @Override
     protected BlockState updateShape(BlockState state, Direction direction,
                                      BlockState neighborState, LevelAccessor world,
                                      BlockPos pos, BlockPos neighborPos) {
@@ -121,7 +121,7 @@ public class StarLeaves extends BaseEntityBlock implements SimpleWaterloggedBloc
 
         return state;
     }
-    *///?}
+    //?}
 
     private static BlockState updateDistanceFromLogs(BlockState state, LevelAccessor world, BlockPos pos) {
         int i = 7;

@@ -3,7 +3,7 @@ package com.github.starcatcher21.stargazer.mixin;
 import com.github.starcatcher21.stargazer.CustomTags;
 import com.github.starcatcher21.stargazer.Stargazer;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.TagKey;
@@ -72,7 +72,7 @@ public class FishingBobberEntityMixin {
         if (bobber.level().getFluidState(bobber.blockPosition()).is(CustomTags.DREAM)) {
             ResourceKey<LootTable> customLootKey = ResourceKey.create(
                     Registries.LOOT_TABLE,
-                  Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "gameplay/fishing/dream")
+                  ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "gameplay/fishing/dream")
             );
             return lookup.getLootTable(customLootKey);
         }

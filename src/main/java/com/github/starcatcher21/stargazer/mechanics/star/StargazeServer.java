@@ -15,19 +15,19 @@ import java.util.Random;
 public class StargazeServer {
     public static void handleStarCatchRequest(ServerPlayer player) {
         //? if >= 26.2 {
-        ServerLevel level = player.level();
-         //?} else {
-        /*ServerLevel level = player.serverLevel();
-        *///?}
+        /*ServerLevel level = player.level();
+         *///?} else {
+        ServerLevel level = player.serverLevel();
+        //?}
 
         for (FallingObjectsList list : FallingObjectsList.list2) {
             if (!level.dimension().equals(list.world)) continue;
 
             //? if >= 26.2 {
-            boolean bright = level.isBrightOutside();
-             //?} else {
-            /*boolean bright = !level.isNight();
-            *///?}
+            /*boolean bright = level.isBrightOutside();
+             *///?} else {
+            boolean bright = !level.isNight();
+            //?}
 
             if (list.dayState == FallingObjectDayState.Day && !bright) continue;
             if (list.dayState == FallingObjectDayState.Night && bright) continue;
@@ -41,10 +41,10 @@ public class StargazeServer {
                     FallingObject star = list.weightedList.get(random.nextInt(list.weightedList.size()));
 
                     //? if >= 26.2 {
-                    Criterias.STARCATCHING.get().trigger(player, star.item.value());
-                     //?} else {
-                    /*Criterias.STARCATCHING.trigger(player, star.item.value());
-                    *///?}
+                    /*Criterias.STARCATCHING.get().trigger(player, star.item.value());
+                     *///?} else {
+                    Criterias.STARCATCHING.trigger(player, star.item.value());
+                    //?}
                     star.spawn(level, player);
                     ModStats.STAR_CATCHED.listen(player::awardStat);
                 }

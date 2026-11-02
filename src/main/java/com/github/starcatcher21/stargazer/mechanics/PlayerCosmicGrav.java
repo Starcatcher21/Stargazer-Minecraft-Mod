@@ -4,7 +4,7 @@ import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.StargazerAttributes;
 import com.github.starcatcher21.stargazer.block.register.StarBlocks;
 import com.github.starcatcher21.stargazer.worldgen.BiomeTags;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -12,10 +12,10 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.Level;
 
 public class PlayerCosmicGrav {
-    public static AttributeModifier gravity_modifier = new AttributeModifier(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "cosmic_gravity"), -0.5F, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
-    public static AttributeModifier fall_damage_modifier = new AttributeModifier(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "cosmic_fall"), 10.0F, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
-    public static AttributeModifier jump_modifier = new AttributeModifier(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "cosmic_jump"), 0.35F, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
-    public static AttributeModifier dash_modifier = new AttributeModifier(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "cosmic_dash"), 1.0F, AttributeModifier.Operation.ADD_VALUE);
+    public static AttributeModifier gravity_modifier = new AttributeModifier(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "cosmic_gravity"), -0.5F, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
+    public static AttributeModifier fall_damage_modifier = new AttributeModifier(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "cosmic_fall"), 10.0F, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
+    public static AttributeModifier jump_modifier = new AttributeModifier(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "cosmic_jump"), 0.35F, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
+    public static AttributeModifier dash_modifier = new AttributeModifier(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "cosmic_dash"), 1.0F, AttributeModifier.Operation.ADD_VALUE);
 
     public static void tick(LivingEntity player) {
         Level world = player.level();
@@ -51,7 +51,7 @@ public class PlayerCosmicGrav {
         safeRemoveModifier(player, StargazerAttributes.DASH_LEVEL, dash_modifier.id());
     }
 
-    private static void safeRemoveModifier(LivingEntity player, net.minecraft.core.Holder<net.minecraft.world.entity.ai.attributes.Attribute> attribute, Identifier id) {
+    private static void safeRemoveModifier(LivingEntity player, net.minecraft.core.Holder<net.minecraft.world.entity.ai.attributes.Attribute> attribute, ResourceLocation id) {
         AttributeInstance instance = player.getAttribute(attribute);
         if (instance != null && instance.hasModifier(id)) {
             instance.removeModifier(id);

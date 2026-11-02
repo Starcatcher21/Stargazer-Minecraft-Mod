@@ -32,10 +32,10 @@ public interface StarforgeRecipe
             Item item = input.getItem(i).getItem();
             try {
                 //? if >= 26.2 {
-                defaultedList.set(i, item.getCraftingRemainder().create());
-                //?} else {
-                /*defaultedList.set(i, input.getItem(i).getCraftingRemainingItem());
-                 *///?}
+                /*defaultedList.set(i, item.getCraftingRemainder().create());
+                *///?} else {
+                defaultedList.set(i, input.getItem(i).getCraftingRemainingItem());
+                 //?}
             } catch (Exception ignored) {}
         }
         return defaultedList;
@@ -55,8 +55,8 @@ public interface StarforgeRecipe
     ItemStack getResult();
 
     //? if >= 26.2 {
-    /** Input ingredients in slot order, empty slots kept as Optional.empty(). (1.21.1: vanilla Recipe#getIngredients.) */
+    /*/^* Input ingredients in slot order, empty slots kept as Optional.empty(). (1.21.1: vanilla Recipe#getIngredients.) ^/
     List<Optional<Ingredient>> getIngredients();
-    //?}
+    *///?}
 
 }

@@ -20,12 +20,12 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 //? if >= 26.2 {
-import net.minecraft.world.level.storage.ValueInput;
+/*import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-//?} else {
-/*import net.minecraft.core.HolderLookup;
+*///?} else {
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-*///?}
+//?}
 
 import org.jetbrains.annotations.Nullable;
 import java.util.Collections;
@@ -49,7 +49,7 @@ public class NightWatcherEntity extends BlockEntity implements Container {
 
     /* ---------------- serialization ---------------------------------- */
     //? if >= 26.2 {
-    @Override
+    /*@Override
     protected void loadAdditional(ValueInput nbt) {
         super.loadAdditional(nbt);
         ContainerHelper.loadAllItems(nbt, this.inventory);
@@ -66,8 +66,8 @@ public class NightWatcherEntity extends BlockEntity implements Container {
         nbt.putInt("progress", progress);
         nbt.putInt("max_progress", maxProgress);
     }
-    //?} else {
-    /*@Override
+    *///?} else {
+    @Override
     protected void loadAdditional(CompoundTag nbt, HolderLookup.Provider registries) {
         super.loadAdditional(nbt, registries);
         ContainerHelper.loadAllItems(nbt, this.inventory, registries);
@@ -84,7 +84,7 @@ public class NightWatcherEntity extends BlockEntity implements Container {
         nbt.putInt("progress", progress);
         nbt.putInt("max_progress", maxProgress);
     }
-    *///?}
+    //?}
 
     /* ---------------- tick ------------------------------------------- */
     public static void tick(Level world, BlockPos pos, BlockState state, NightWatcherEntity sge) {
@@ -159,10 +159,10 @@ public class NightWatcherEntity extends BlockEntity implements Container {
      */
     private static boolean isSkyDark(Level level) {
         //? if >= 26.2 {
-        return level.isDarkOutside();
-         //?} else {
-        /*return level.isNight();
-        *///?}
+        /*return level.isDarkOutside();
+         *///?} else {
+        return level.isNight();
+        //?}
     }
 
     private boolean hasEnoughEnergy() {

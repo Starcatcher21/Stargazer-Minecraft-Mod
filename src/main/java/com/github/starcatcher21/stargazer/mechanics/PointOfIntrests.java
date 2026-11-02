@@ -8,7 +8,7 @@ import com.google.common.collect.ImmutableSet;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.level.block.Block;
@@ -29,11 +29,11 @@ public class PointOfIntrests {
     public static final ResourceKey<PoiType> STAR_FORGE_KEY = registerPOIKey("star_forge");
 
     public static ResourceKey<PoiType> registerPOIKey(String name) {
-        return ResourceKey.create(Registries.POINT_OF_INTEREST_TYPE,Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, name));
+        return ResourceKey.create(Registries.POINT_OF_INTEREST_TYPE,ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, name));
     }
 
     private static RegistrySupplier<PoiType> registerPOI(String name, RegistrySupplier<Block> block, int ticketCount, int searchDistance) {
-        return POI_TYPES.register(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, name), () -> new PoiType(
+        return POI_TYPES.register(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, name), () -> new PoiType(
                         ImmutableSet.copyOf(block.get().getStateDefinition().getPossibleStates()), ticketCount,
                         searchDistance
                 )

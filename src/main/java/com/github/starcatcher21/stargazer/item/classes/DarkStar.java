@@ -9,8 +9,8 @@ import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionResult;
 //? if >= 26.2 {
-import net.minecraft.world.entity.EntityTypes;
-//? }
+/*import net.minecraft.world.entity.EntityTypes;
+*///? }
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.item.Item;
@@ -32,10 +32,10 @@ public class DarkStar extends Item {
             DarkTeleporter.portalPlace(world, root, false, false);
             LightningBolt lightning = new LightningBolt(
                     //? if >= 26.2 {
-                    EntityTypes
-                     //? } else {
-                    /*EntityType
-                            *///? }
+                    /*EntityTypes
+                     *///? } else {
+                    EntityType
+                            //? }
                             .LIGHTNING_BOLT, world);
             lightning.setPosRaw(root.getX(), root.getY()+1, root.getZ());
             world.addFreshEntity(lightning);
@@ -45,10 +45,10 @@ public class DarkStar extends Item {
             EndTeleporter.portalPlace(world, root, false, false);
             LightningBolt lightning = new LightningBolt(
                     //? if >= 26.2 {
-                    EntityTypes
-                     //? } else {
-                    /*EntityType
-                            *///? }
+                    /*EntityTypes
+                     *///? } else {
+                    EntityType
+                            //? }
                             .LIGHTNING_BOLT, world);
             lightning.setPosRaw(root.getX(), root.getY()+1, root.getZ());
             world.addFreshEntity(lightning);

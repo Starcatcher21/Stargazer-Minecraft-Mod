@@ -10,8 +10,8 @@ import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 //? if < 26.2 {
-/*import net.minecraft.world.InteractionResultHolder;
-*///? }
+import net.minecraft.world.InteractionResultHolder;
+//? }
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.Item;
@@ -26,10 +26,10 @@ public class ThrowableStar extends Item implements ProjectileItem {
 
     @Override
     //? if >= 26.2 {
-    public InteractionResult use(Level world, Player user, InteractionHand hand) {
-    //? } else {
-    /*public InteractionResultHolder use(Level world, Player user, InteractionHand hand) {
-    *///? }
+    /*public InteractionResult use(Level world, Player user, InteractionHand hand) {
+    *///? } else {
+    public InteractionResultHolder use(Level world, Player user, InteractionHand hand) {
+    //? }
         ItemStack itemStack = user.getItemInHand(hand);
 		world.playSound(
 			null,
@@ -43,18 +43,18 @@ public class ThrowableStar extends Item implements ProjectileItem {
 		);
 		if (world instanceof ServerLevel serverWorld) {
             //? if >= 26.2 {
-            Projectile.spawnProjectileFromRotation(ThrowableStarEntity::new, serverWorld, itemStack, user, 0.0F, 1.5f, 1.0F);
-            //? } else {
+            /*Projectile.spawnProjectileFromRotation(ThrowableStarEntity::new, serverWorld, itemStack, user, 0.0F, 1.5f, 1.0F);
+            *///? } else {
             //? }
 		}
 
 		user.awardStat(Stats.ITEM_USED.get(this));
 		itemStack.consume(1, user);
         //? if >= 26.2 {
-        return InteractionResult.SUCCESS;
-        //? } else {
-        /*return InteractionResultHolder.success(itemStack);
-        *///? }
+        /*return InteractionResult.SUCCESS;
+        *///? } else {
+        return InteractionResultHolder.success(itemStack);
+        //? }
     }
 
     @Override

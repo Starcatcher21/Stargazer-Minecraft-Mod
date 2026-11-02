@@ -41,10 +41,10 @@ public class RedOrbBlocks {
     public static final RegistrySupplier<Block> BLUE_GRASS = register("blue_grass", BlueGrass::new, BlockBehaviour.Properties.of()
             .mapColor(MapColor.COLOR_CYAN)
             //? if >= 26.2 {
-            .noCollision()
-             //? } else {
-            /*.noCollission()
-            *///? }
+            /*.noCollision()
+             *///? } else {
+            .noCollission()
+            //? }
             .instabreak()
             .sound(SoundType.GRASS)
             .offsetType(BlockBehaviour.OffsetType.XZ)
@@ -53,10 +53,10 @@ public class RedOrbBlocks {
     public static final RegistrySupplier<Block> POINTY = register("pointy", (settings) -> new OrbFlower(MobEffects.GLOWING, 10.0f, settings), BlockBehaviour.Properties.of()
             .mapColor(MapColor.COLOR_CYAN)
             //? if >= 26.2 {
-            .noCollision()
-             //? } else {
-            /*.noCollission()
-            *///? }
+            /*.noCollision()
+             *///? } else {
+            .noCollission()
+            //? }
             .instabreak()
             .sound(SoundType.GRASS)
             .offsetType(BlockBehaviour.OffsetType.XZ)
@@ -66,10 +66,10 @@ public class RedOrbBlocks {
     public static final RegistrySupplier<Block> PETRICY = register("petricy", (settings) -> new RedHangingFlower(MobEffects.GLOWING, 10.0f, settings), BlockBehaviour.Properties.of()
             .mapColor(MapColor.COLOR_CYAN)
             //? if >= 26.2 {
-            .noCollision()
-             //? } else {
-            /*.noCollission()
-            *///? }
+            /*.noCollision()
+             *///? } else {
+            .noCollission()
+            //? }
             .instabreak()
             .sound(SoundType.GRASS)
             .offsetType(BlockBehaviour.OffsetType.XZ)
@@ -128,7 +128,7 @@ public class RedOrbBlocks {
             .mapColor(MapColor.COLOR_YELLOW)
     );
 
-    public static final RegistrySupplier<Block> YERI_PLANKS = register("yeri_planks", MoonPlanks::new, BlockBehaviour.Properties.of()
+    public static final RegistrySupplier<Block> YERI_PLANKS = register("yeri_planks", Block::new, BlockBehaviour.Properties.of()
             .forceSolidOn()
             .sound(SoundType.WOOD)
             .instrument(NoteBlockInstrument.BASS)
@@ -165,10 +165,10 @@ public class RedOrbBlocks {
     );
     public static final RegistrySupplier<Block> YERI_PLANKS_BUTTON = register("yeri_planks_button", (BlockBehaviour.Properties settings) -> new ButtonBlock(BlockSetType.OAK, 30, (BlockBehaviour.Properties) settings), BlockBehaviour.Properties.of()
             //? if >= 26.2 {
-            .noCollision()
-             //? } else {
-            /*.noCollission()
-            *///? }
+            /*.noCollision()
+             *///? } else {
+            .noCollission()
+            //? }
             .sound(SoundType.WOOD)
             .instrument(NoteBlockInstrument.BASS)
             .strength(1.0F)
@@ -184,10 +184,10 @@ public class RedOrbBlocks {
     );
     public static final RegistrySupplier<Block> YERI_SAPLING = register("yeri_sapling", (BlockBehaviour.Properties settings) -> new CustomRedSapling(Helpers.configuredFeatureOf(Stargazer.MOD_ID, "yeri_trees"), settings), BlockBehaviour.Properties.of()
             //? if >= 26.2 {
-            .noCollision()
-             //? } else {
-            /*.noCollission()
-            *///? }
+            /*.noCollision()
+             *///? } else {
+            .noCollission()
+            //? }
             .sound(SoundType.GRASS)
             .randomTicks()
             .instabreak()
@@ -196,17 +196,17 @@ public class RedOrbBlocks {
 
     public static final RegistrySupplier<Block> SPIRO_SAPLING = register("spiro_sapling", (BlockBehaviour.Properties settings) -> new CustomRedSapling(Helpers.configuredFeatureOf(Stargazer.MOD_ID, "spiro_trees"), settings), BlockBehaviour.Properties.of()
             //? if >= 26.2 {
-            .noCollision()
-             //? } else {
-            /*.noCollission()
-            *///? }
+            /*.noCollision()
+             *///? } else {
+            .noCollission()
+            //? }
             .sound(SoundType.GRASS)
             .randomTicks()
             .instabreak()
     );
     public static final RegistrySupplier<Block> POTTED_SPIRO_SAPLING = registerWoItem("potted_spiro_sapling", settings -> new FlowerPotBlock(SPIRO_SAPLING.get(), settings), BlockBehaviour.Properties.ofFullCopy(Blocks.POTTED_ALLIUM).noOcclusion());
 
-    public static final RegistrySupplier<Block> SPIRO_PLANKS = register("spiro_planks", MoonPlanks::new, BlockBehaviour.Properties.of()
+    public static final RegistrySupplier<Block> SPIRO_PLANKS = register("spiro_planks", Block::new, BlockBehaviour.Properties.of()
             .forceSolidOn()
             .sound(SoundType.WOOD)
             .instrument(NoteBlockInstrument.BASS)
@@ -243,10 +243,10 @@ public class RedOrbBlocks {
     );
     public static final RegistrySupplier<Block> SPIRO_PLANKS_BUTTON = register("spiro_planks_button", (BlockBehaviour.Properties settings) -> new ButtonBlock(BlockSetType.OAK, 30, (BlockBehaviour.Properties) settings), BlockBehaviour.Properties.of()
             //? if >= 26.2 {
-            .noCollision()
-             //? } else {
-            /*.noCollission()
-            *///? }
+            /*.noCollision()
+             *///? } else {
+            .noCollission()
+            //? }
             .sound(SoundType.WOOD)
             .instrument(NoteBlockInstrument.BASS)
             .strength(1.0F)

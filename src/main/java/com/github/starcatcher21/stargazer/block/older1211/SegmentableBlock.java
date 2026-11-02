@@ -1,5 +1,5 @@
 //? if <= 1.21.1 {
-/*package com.github.starcatcher21.stargazer.block.older1211;
+package com.github.starcatcher21.stargazer.block.older1211;
 
 import java.util.function.Function;
 import net.minecraft.core.Direction;
@@ -49,4 +49,4 @@ public interface SegmentableBlock {
         return state.is(block) ? (BlockState)state.setValue(segment, Math.min(4, (Integer)state.getValue(segment) + 1)) : (BlockState)block.defaultBlockState().setValue(facing, context.getHorizontalDirection().getOpposite());
     }
 }
-*///? }
+//? }

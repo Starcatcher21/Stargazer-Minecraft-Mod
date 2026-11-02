@@ -1,5 +1,5 @@
 //? if >= 26.2 {
-package com.github.starcatcher21.stargazer.item;
+/*package com.github.starcatcher21.stargazer.item;
 
 import com.github.starcatcher21.stargazer.item.ConsumeEffects.StarGazeConsume;
 import net.minecraft.sounds.SoundEvents;
@@ -13,4 +13,4 @@ public class ConsumableComponents {
         return Consumable.builder().consumeSeconds(1.6F).animation(ItemUseAnimation.EAT).sound(SoundEvents.GENERIC_EAT).hasConsumeParticles(true);
     }
 }
-//? }
+*///? }

@@ -6,20 +6,22 @@ import com.github.starcatcher21.stargazer.block.clases.star.cosmic.CosmicBlock;
 import com.github.starcatcher21.stargazer.block.clases.star.leaves.StarLeaves;
 
 //? if >= 26.2 {
-import net.minecraft.client.renderer.rendertype.RenderSetup;
+/*import net.minecraft.client.renderer.rendertype.RenderSetup;
 import net.minecraft.client.renderer.rendertype.RenderType;
-//?} else {
-/*import com.mojang.blaze3d.vertex.DefaultVertexFormat;
+*///?} else {
+import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.resources.Identifier;
-*///?}
+import net.minecraft.resources.ResourceLocation;
+//?}
 
 public class CustomRenderLayers {
 
     //? if >= 26.2 {
-    public static final RenderType COSMIC = RenderType.create(
+    /*public static final RenderType COSMIC = RenderType.create(
             "cosmic",
             RenderSetup.builder(CustomRederPipelines.COSMIC)
                     .withTexture("Sampler0", CosmicBlock.TEXTURE)
@@ -74,8 +76,8 @@ public class CustomRenderLayers {
                     .withTexture("Sampler0", Aurora.TEXTURE)
                     .createRenderSetup()
     );
-    //?} else {
-    /*/^ ---------------- 1.21.1 legacy RenderType API ------------------ ^/
+    *///?} else {
+    /* ---------------- 1.21.1 legacy RenderType API ------------------ */
 
     public static final RenderType COSMIC = RenderType.create(
             "cosmic",
@@ -131,6 +133,21 @@ public class CustomRenderLayers {
                     .createCompositeState(false)
     );
 
+    private static final RenderStateShard.TransparencyStateShard NEGATIVE_TRANSPARENCY =
+            new RenderStateShard.TransparencyStateShard("negative_transparency",
+                    () -> {
+                        RenderSystem.enableBlend();
+                        RenderSystem.blendFuncSeparate(
+                                GlStateManager.SourceFactor.ONE_MINUS_DST_COLOR,
+                                GlStateManager.DestFactor.ONE_MINUS_SRC_COLOR,
+                                GlStateManager.SourceFactor.ONE,
+                                GlStateManager.DestFactor.ZERO);
+                    },
+                    () -> {
+                        RenderSystem.disableBlend();
+                        RenderSystem.defaultBlendFunc();
+                    });
+
     public static final RenderType NEGATIVE = RenderType.create(
             "negative",
             DefaultVertexFormat.POSITION_COLOR_LIGHTMAP,
@@ -141,7 +158,7 @@ public class CustomRenderLayers {
             RenderType.CompositeState.builder()
                     .setShaderState(new RenderStateShard.ShaderStateShard(
                             CustomRederPipelines::getNegativeShader))
-                    .setTransparencyState(RenderStateShard.TRANSLUCENT_TRANSPARENCY)
+                    .setTransparencyState(NEGATIVE_TRANSPARENCY)
                     .setCullState(RenderStateShard.NO_CULL)
                     .setLightmapState(RenderStateShard.LIGHTMAP)
                     .createCompositeState(false)
@@ -212,5 +229,5 @@ public class CustomRenderLayers {
                     .setLightmapState(RenderStateShard.LIGHTMAP)
                     .createCompositeState(false)
     );
-    *///?}
+    //?}
 }

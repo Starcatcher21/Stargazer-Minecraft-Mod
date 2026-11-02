@@ -1,5 +1,5 @@
 //? if >= 26.2 {
-package com.github.starcatcher21.stargazer.screens.recipe.serializer;
+/*package com.github.starcatcher21.stargazer.screens.recipe.serializer;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -51,4 +51,4 @@ public record ShapedMoonWelderRecipeDisplay(
         SERIALIZER = new Type(CODEC, STREAM_CODEC);
     }
 }
-//?}
+*///?}

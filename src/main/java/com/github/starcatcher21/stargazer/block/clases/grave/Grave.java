@@ -1,5 +1,7 @@
 package com.github.starcatcher21.stargazer.block.clases.grave;
 
+import com.github.starcatcher21.stargazer.Stargazer;
+import com.github.starcatcher21.stargazer.entity.Star;
 import com.github.starcatcher21.starlib.Helpers;
 import com.github.starcatcher21.stargazer.block.ModBlock;
 import com.mojang.serialization.MapCodec;
@@ -8,13 +10,14 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ShovelItem;
+import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -27,10 +30,10 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import java.util.Optional;
 
 public class Grave extends BaseEntityBlock {
 
@@ -65,9 +68,7 @@ public class Grave extends BaseEntityBlock {
 
         BlockEntity be = world.getBlockEntity(pos);
         if (!player.isCreative() && be instanceof GraveEntity ge) {
-            if (ge.TYPE.equals(Optional.of("item"))) {
-                world.addFreshEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), ge.items.getFirst()));
-            }
+            releaseContent(world, pos, ge.items.getFirst(), 0.0);
         }
         world.gameEvent(GameEvent.BLOCK_DESTROY, pos, GameEvent.Context.of(player, ModBlock.GRAVE.get().defaultBlockState()));
         return ModBlock.GRAVE.get().defaultBlockState();
@@ -85,17 +86,15 @@ public class Grave extends BaseEntityBlock {
             if (active) {
                 if (item instanceof ShovelItem) {
                     //? if >= 26.2 {
-                    stack.hurtWithoutBreaking(1, player);
-                     //?} else {
-                    /*stack.hurtAndBreak(1, player, player.getUsedItemHand() == InteractionHand.MAIN_HAND
+                    /*stack.hurtWithoutBreaking(1, player);
+                    *///?} else {
+                    stack.hurtAndBreak(1, player, player.getUsedItemHand() == InteractionHand.MAIN_HAND
                             ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND);
-                    *///?}
+                    //?}
                     world.setBlockAndUpdate(pos, state.setValue(ACTIVATED, false));
                     BlockEntity be = world.getBlockEntity(pos);
                     if (be instanceof GraveEntity ge) {
-                        if (ge.TYPE.equals(Optional.of("item"))) {
-                            world.addFreshEntity(new ItemEntity(world, pos.getX(), pos.getY()+0.3, pos.getZ(), ge.items.getFirst()));
-                        }
+                        releaseContent(world, pos, ge.items.getFirst(), 0.3);
                     }
                 } else {
                     return InteractionResult.PASS;
@@ -106,7 +105,6 @@ public class Grave extends BaseEntityBlock {
                     world.setBlockAndUpdate(pos, state.setValue(ACTIVATED, true));
                     BlockEntity be = world.getBlockEntity(pos);
                     if (be instanceof GraveEntity ge) {
-                        ge.setNbtType(Optional.of("item"));
                         ge.setNbtItems(NonNullList.withSize(1, stack.copy()));
                         if (!player.isCreative()) {
                             stack.setCount(0);
@@ -120,14 +118,33 @@ public class Grave extends BaseEntityBlock {
         }
     }
 
+    private static void releaseContent(Level world, BlockPos pos, ItemStack stack, double yOffset) {
+        if (stack.isEmpty()) {
+            return;
+        }
+
+        if (stack.getItem() instanceof SpawnEggItem sei) {
+            EntityType<?> type = sei.getType(stack);
+            if (type != null) {
+                Entity entity = type.create(world/*? if >= 26.2 { *//*, EntitySpawnReason.DISPENSER *//*? } */);
+                entity.setPos(pos.getX(), pos.getY() + yOffset, pos.getZ());
+                if (entity != null) {
+                    world.addFreshEntity(entity);
+                    return;
+                }
+            }
+        }
+
+        world.addFreshEntity(new ItemEntity(world, pos.getX(), pos.getY() + yOffset, pos.getZ(), stack));
+    }
+
     @Override
-    public  VoxelShape getCollisionShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
+    public VoxelShape getCollisionShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
         Direction dir = state.getValue(BlockStateProperties.HORIZONTAL_FACING);
         return Shapes.or(
                 Helpers.FacingHorizontal(dir, 0.1875F, 0.8125F, 0.875F, 0.8125F, 0.9375F, 1F, true),
                 Helpers.FacingHorizontal(dir, 0.125F, 0F, 0.875F, 0.875F, 0.8125F, 1F, true)
         );
-
     }
 
     @Override
@@ -137,11 +154,10 @@ public class Grave extends BaseEntityBlock {
                 Shapes.box(0.0F, 0.0F, 0.0F, 1.0F, 0.1F, 1.0F),
                 this.getCollisionShape(state, view, pos, context)
         );
-
     }
+
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext ctx) {
         return super.getStateForPlacement(ctx).setValue(BlockStateProperties.HORIZONTAL_FACING, ctx.getHorizontalDirection().getOpposite());
     }
-
 }

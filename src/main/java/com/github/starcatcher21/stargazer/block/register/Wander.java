@@ -42,7 +42,7 @@ public class Wander {
             .mapColor(blockState -> blockState.getValue(BlockStateProperties.AXIS).equals(Direction.Axis.Y) ? MapColor.COLOR_BLUE : MapColor.ICE)
     );
 
-    public static final RegistrySupplier<Block> TRUNN_PLANKS = register("trunn_planks", MoonPlanks::new, BlockBehaviour.Properties.of()
+    public static final RegistrySupplier<Block> TRUNN_PLANKS = register("trunn_planks", Block::new, BlockBehaviour.Properties.of()
             .forceSolidOn()
             .sound(SoundType.WOOD)
             .instrument(NoteBlockInstrument.BASS)
@@ -79,10 +79,10 @@ public class Wander {
     );
     public static final RegistrySupplier<Block> TRUNN_PLANKS_BUTTON = register("trunn_planks_button", (BlockBehaviour.Properties settings) -> new ButtonBlock(BlockSetType.OAK, 30, (BlockBehaviour.Properties) settings), BlockBehaviour.Properties.of()
             //? if >= 26.2 {
-            .noCollision()
-             //? } else {
-            /*.noCollission()
-            *///? }
+            /*.noCollision()
+             *///? } else {
+            .noCollission()
+            //? }
             .sound(SoundType.WOOD)
             .instrument(NoteBlockInstrument.BASS)
             .strength(1.0F)
@@ -99,10 +99,10 @@ public class Wander {
 
     public static final RegistrySupplier<Block> TRUNN_SAPLING = register("trunn_sapling", (BlockBehaviour.Properties settings) -> new CustomWanderSapling(Helpers.configuredFeatureOf(Stargazer.MOD_ID, "trunn_trees"), settings), BlockBehaviour.Properties.of()
             //? if >= 26.2 {
-            .noCollision()
-             //? } else {
-            /*.noCollission()
-            *///? }
+            /*.noCollision()
+             *///? } else {
+            .noCollission()
+            //? }
             .sound(SoundType.GRASS)
             .randomTicks()
             .instabreak()
@@ -125,10 +125,10 @@ public class Wander {
     );
     public static final RegistrySupplier<Block> UMBRELLA_SAPLING = register("umbrella_sapling", (BlockBehaviour.Properties settings) -> new CustomWanderSapling(Helpers.configuredFeatureOf(Stargazer.MOD_ID, "umbrella_trees"), settings), BlockBehaviour.Properties.of()
             //? if >= 26.2 {
-            .noCollision()
-             //? } else {
-            /*.noCollission()
-            *///? }
+            /*.noCollision()
+             *///? } else {
+            .noCollission()
+            //? }
             .sound(SoundType.GRASS)
             .randomTicks()
             .instabreak()

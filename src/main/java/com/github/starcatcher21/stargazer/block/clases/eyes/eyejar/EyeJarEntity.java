@@ -4,14 +4,14 @@ import com.github.starcatcher21.stargazer.block.BlockTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import com.geckolib.animatable.GeoBlockEntity;
-import com.geckolib.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.animatable.GeoBlockEntity;
+import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 //? if >= 26.2 {
-import com.geckolib.animatable.manager.AnimatableManager;
-//? } else {
-/*import com.geckolib.animation.AnimatableManager;
-*///? }
-import com.geckolib.util.GeckoLibUtil;
+/*import software.bernie.geckolib.animatable.manager.AnimatableManager;
+*///? } else {
+import software.bernie.geckolib.animation.AnimatableManager;
+//? }
+import software.bernie.geckolib.util.GeckoLibUtil;
 
 public class EyeJarEntity extends BlockEntity implements GeoBlockEntity {
 

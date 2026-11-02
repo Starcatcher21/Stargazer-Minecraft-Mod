@@ -1,5 +1,5 @@
 /*? if fabric {*/
-package com.github.starcatcher21.stargazer.datagen;
+/*package com.github.starcatcher21.stargazer.datagen;
 
 import com.github.starcatcher21.starlib.RegistryKeys;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
@@ -23,4 +23,4 @@ public class DynamicRegistriesProvider extends FabricDynamicRegistryProvider {
         return "Stargazer Dynamic Registries";
     }
 }
-//? }
+*///? }

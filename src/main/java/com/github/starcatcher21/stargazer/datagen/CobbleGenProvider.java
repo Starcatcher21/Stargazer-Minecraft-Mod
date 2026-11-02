@@ -10,7 +10,7 @@ import com.github.starcatcher21.starlib.datagen.provider.CobblegenDataProvider;
 import com.github.starcatcher21.starlib.mechanics.Generators.CobbleGen;
 import net.minecraft.data.PackOutput;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.level.block.Blocks;
 
@@ -22,24 +22,6 @@ public class CobbleGenProvider extends CobblegenDataProvider {
         super(output, registriesFuture);
     }
 
-    public static final CobbleGen BLUE = new CobbleGen(
-            FluidTags.WATER,
-            ModBlock.NOBLUE_BLOCK.get().defaultBlockState(),
-            Blocks.LAPIS_BLOCK.defaultBlockState(),
-            Blocks.LAPIS_ORE.defaultBlockState()
-    );
-    public static final CobbleGen GREEN = new CobbleGen(
-            FluidTags.WATER,
-            ModBlock.NOGREEN_BLOCK.get().defaultBlockState(),
-            RedOrbBlocks.GREEN_ROCK.get().defaultBlockState(),
-            RedOrbBlocks.GREEN_ROCK.get().defaultBlockState()
-    );
-    public static final CobbleGen RED = new CobbleGen(
-            FluidTags.WATER,
-            ModBlock.NORED_BLOCK.get().defaultBlockState(),
-            Blocks.REDSTONE_BLOCK.defaultBlockState(),
-            Blocks.REDSTONE_ORE.defaultBlockState()
-    );
     public static final CobbleGen COSMIC_LAVA = new CobbleGen(
             FluidTags.LAVA,
             StarBlocks.COSMIC_BLOCK.get().defaultBlockState(),
@@ -66,33 +48,21 @@ public class CobbleGenProvider extends CobblegenDataProvider {
     );
 
     @Override
-    protected void addCobblegen(BiConsumer<Identifier, CobbleGen> exporter, HolderLookup.Provider registries) {
+    protected void addCobblegen(BiConsumer<ResourceLocation, CobbleGen> exporter, HolderLookup.Provider registries) {
         exporter.accept(
-              Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "blue"),
-                BLUE
-        );
-        exporter.accept(
-              Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "red"),
-                RED
-        );
-        exporter.accept(
-              Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "green"),
-                GREEN
-        );
-        exporter.accept(
-              Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "cosmic_lava"),
+              ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "cosmic_lava"),
                 COSMIC_LAVA
         );
         exporter.accept(
-              Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "cosmic_water"),
+              ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "cosmic_water"),
                 COSMIC_WATER
         );
         exporter.accept(
-              Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "lava_water"),
+              ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "lava_water"),
                 LAVA_WATER
         );
         exporter.accept(
-              Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "negative_water"),
+              ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "negative_water"),
                 NEGATIVE_WATER
         );
     }

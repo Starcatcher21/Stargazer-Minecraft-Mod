@@ -12,9 +12,6 @@ import com.github.starcatcher21.stargazer.block.clases.eyes.eyejar.EyeJarEntity;
 import com.github.starcatcher21.stargazer.block.clases.grave.GraveEntity;
 import com.github.starcatcher21.stargazer.block.clases.moon.star_trap.StarTrapEntity;
 import com.github.starcatcher21.stargazer.block.clases.negative.NegativeBlockEntity;
-import com.github.starcatcher21.stargazer.block.clases.noblue.NoBlueBlockEntity;
-import com.github.starcatcher21.stargazer.block.clases.nogreen.NoGreenBlockEntity;
-import com.github.starcatcher21.stargazer.block.clases.nored.NoRedBlockEntity;
 import com.github.starcatcher21.stargazer.block.clases.star.aurora.AuroraEntity;
 import com.github.starcatcher21.stargazer.block.clases.star.barrier.StarBarrierBlockEntity;
 import com.github.starcatcher21.stargazer.block.clases.star.border.BorderBlockEntity;
@@ -47,10 +44,10 @@ public class BlockTypes {
                     ? ModBlock.getRaw((RegistrySupplier<Block>) regSup)
                     : blockSupplier.get();
             //? if >= 26.2 {
-            return new BlockEntityType<>(factory, Collections.singleton(block));
-             //?} else {
-            /*return BlockEntityType.Builder.of(factory, block).build(null);
-            *///?}
+            /*return new BlockEntityType<>(factory, Collections.singleton(block));
+             *///?} else {
+            return BlockEntityType.Builder.of(factory, block).build(null);
+            //?}
         });
     }
 
@@ -80,15 +77,6 @@ public class BlockTypes {
 
     public static final RegistrySupplier<BlockEntityType<NegativeBlockEntity>> NEGATIVE_BLOCK =
             registerBE("negativeblock", NegativeBlockEntity::new, ModBlock.NEGATIVE_BLOCK);
-
-    public static final RegistrySupplier<BlockEntityType<NoRedBlockEntity>> NORED_BLOCK =
-            registerBE("noredblock", NoRedBlockEntity::new, ModBlock.NORED_BLOCK);
-
-    public static final RegistrySupplier<BlockEntityType<NoGreenBlockEntity>> NOGREEN_BLOCK =
-            registerBE("nogreenblock", NoGreenBlockEntity::new, ModBlock.NOGREEN_BLOCK);
-
-    public static final RegistrySupplier<BlockEntityType<NoBlueBlockEntity>> NOBLUE_BLOCK =
-            registerBE("noblueblock", NoBlueBlockEntity::new, ModBlock.NOBLUE_BLOCK);
 
     public static final RegistrySupplier<BlockEntityType<CosmicBlockEntity>> COSMIC_BLOCK =
             registerBE("cosmicblock", CosmicBlockEntity::new, StarBlocks.COSMIC_BLOCK);

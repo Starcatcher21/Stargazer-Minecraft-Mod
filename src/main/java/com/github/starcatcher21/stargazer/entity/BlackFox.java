@@ -24,27 +24,27 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
-import com.geckolib.animation.RawAnimation;
+import software.bernie.geckolib.animation.RawAnimation;
 //? if >= 26.2 {
-import com.geckolib.animatable.GeoAnimatable;
-import com.geckolib.animatable.GeoEntity;
-import com.geckolib.animatable.instance.AnimatableInstanceCache;
-import com.geckolib.animatable.manager.AnimatableManager;
-import com.geckolib.animation.AnimationController;
-import com.geckolib.animation.RawAnimation;
-import com.geckolib.animation.object.PlayState;
-import com.geckolib.animation.state.AnimationTest;
-import com.geckolib.util.GeckoLibUtil;
-//? } else {
-/*import com.geckolib.animatable.GeoAnimatable;
-import com.geckolib.animatable.GeoEntity;
-import com.geckolib.animatable.instance.AnimatableInstanceCache;
-import com.geckolib.animation.AnimatableManager;
-import com.geckolib.animation.AnimationController;
-import com.geckolib.animation.PlayState;
-import com.geckolib.util.GeckoLibUtil;
-import com.geckolib.animation.AnimationState;
-*///? }
+/*import software.bernie.geckolib.animatable.GeoAnimatable;
+import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.animatable.manager.AnimatableManager;
+import software.bernie.geckolib.animation.AnimationController;
+import software.bernie.geckolib.animation.RawAnimation;
+import software.bernie.geckolib.animation.object.PlayState;
+import software.bernie.geckolib.animation.state.AnimationTest;
+import software.bernie.geckolib.util.GeckoLibUtil;
+*///? } else {
+import software.bernie.geckolib.animatable.GeoAnimatable;
+import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.animation.AnimatableManager;
+import software.bernie.geckolib.animation.AnimationController;
+import software.bernie.geckolib.animation.PlayState;
+import software.bernie.geckolib.util.GeckoLibUtil;
+import software.bernie.geckolib.animation.AnimationState;
+//? }
 
 public class BlackFox extends TamableAnimal implements GeoEntity {
     protected static final RawAnimation WALK_ANIM = RawAnimation.begin().thenLoop("walk");
@@ -64,15 +64,15 @@ public class BlackFox extends TamableAnimal implements GeoEntity {
 
     @Override
     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<GeoAnimatable>(/*? if < 26.2 { */ /*this, *//*? } */"MovementController", 5, this::AnimControler));
+        controllers.add(new AnimationController<GeoAnimatable>(/*? if < 26.2 { */ this, /*? } */"MovementController", 5, this::AnimControler));
     }
 
 
     //? if >= 26.2 {
-    protected PlayState AnimControler(final AnimationTest<?> animTest) {
-    //? } else {
-    /*protected PlayState AnimControler(final AnimationState<GeoAnimatable> animTest) {
-    *///? }
+    /*protected PlayState AnimControler(final AnimationTest<?> animTest) {
+    *///? } else {
+    protected PlayState AnimControler(final AnimationState<GeoAnimatable> animTest) {
+    //? }
         if (animTest.isMoving()) {
             return animTest.setAndContinue(WALK_ANIM);
         }
@@ -113,10 +113,10 @@ public class BlackFox extends TamableAnimal implements GeoEntity {
                 this.tryTame(player);
                 this.setPersistenceRequired();
                 //? if >= 26.2 {
-                this.playEatingSound();
-                //? } else {
-                /*this.playSound(SoundEvents.GENERIC_EAT, 0.5F, 1.0F);
-                *///? }
+                /*this.playEatingSound();
+                *///? } else {
+                this.playSound(SoundEvents.GENERIC_EAT, 0.5F, 1.0F);
+                //? }
             }
             return InteractionResult.SUCCESS;
         }
