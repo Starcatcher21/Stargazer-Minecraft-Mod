@@ -91,7 +91,7 @@ public class WorldRendererMixin {
 
         Matrix4f matrix = new Matrix4f();
         float distance = 100.0F;
-        int color = -14145496; // 0xFF282828
+        int color = 0xFF282828;
 
         buffer.addVertex(matrix, -distance, -distance, distance).setColor(color);
         buffer.addVertex(matrix,  distance, -distance, distance).setColor(color);

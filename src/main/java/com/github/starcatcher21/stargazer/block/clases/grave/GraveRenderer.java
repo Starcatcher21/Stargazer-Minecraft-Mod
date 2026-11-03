@@ -1,6 +1,7 @@
 package com.github.starcatcher21.stargazer.block.clases.grave;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Overlay;
 import net.minecraft.client.model.Model;
@@ -23,7 +24,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
-// ---- Imports only needed for < 26.2 ----
 //? if < 26.2 {
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -46,7 +46,6 @@ public class GraveRenderer implements BlockEntityRenderer<GraveEntity
          //? }
     }
 
-    // ==================== 26.2+ IMPLEMENTATION ====================
     //? if >= 26.2 {
     /*@Override
     public GraveRenderState createRenderState() {
@@ -87,7 +86,11 @@ public class GraveRenderer implements BlockEntityRenderer<GraveEntity
             poseStack.pushPose();
             poseStack.scale(scale, scale, scale);
             poseStack.translate(pos[0], yOffset, pos[1]);
+            //? if neoforge {
             BlockModelResolver modelManager = Minecraft.getInstance().getBlockModelResolver();
+            //? } else {
+            /^BlockModelResolver modelManager = new BlockModelResolver(Minecraft.getInstance().modelManager);
+            ^///? }
             BlockModelRenderState blockModelRenderState = new BlockModelRenderState();
             modelManager.update(blockModelRenderState, dirtState, BlockDisplayContext.create());
 
@@ -97,7 +100,6 @@ public class GraveRenderer implements BlockEntityRenderer<GraveEntity
     }
     *///? }
 
-    // ==================== < 26.2 IMPLEMENTATION (unchanged) ====================
     //? if < 26.2 {
     @Override
     public void render(GraveEntity entity, float partialTick, PoseStack poseStack,

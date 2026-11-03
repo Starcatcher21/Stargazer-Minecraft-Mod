@@ -92,36 +92,6 @@ public class CustomRederPipelines {
             .withDepthStencilState(DepthStencilState.DEFAULT)
             .buildSnippet();
 
-    public static final RenderPipeline.Snippet RENDERTYPE_NO_RED_SNIPPET = RenderPipeline.builder(MATRICES_FOG_SNIPPET)
-            .withVertexShader(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "core/rendertype_cube"))
-            .withFragmentShader(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "core/position_tex_color_red"))
-            .withBindGroupLayout(BindGroupLayouts.SAMPLER0_SAMPLER2)
-            .withColorTargetState(new ColorTargetState(BlendFunction.INVERT))
-            .withPrimitiveTopology(PrimitiveTopology.QUADS)
-            .withVertexBinding(0, DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP)
-            .withDepthStencilState(DepthStencilState.DEFAULT)
-            .buildSnippet();
-
-    public static final RenderPipeline.Snippet RENDERTYPE_NO_GREEN_SNIPPET = RenderPipeline.builder(MATRICES_FOG_SNIPPET)
-            .withVertexShader(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "core/rendertype_cube"))
-            .withFragmentShader(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "core/position_tex_color_green"))
-            .withBindGroupLayout(BindGroupLayouts.SAMPLER0_SAMPLER2)
-            .withColorTargetState(new ColorTargetState(BlendFunction.INVERT))
-            .withPrimitiveTopology(PrimitiveTopology.QUADS)
-            .withVertexBinding(0, DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP)
-            .withDepthStencilState(DepthStencilState.DEFAULT)
-            .buildSnippet();
-
-    public static final RenderPipeline.Snippet RENDERTYPE_NO_BLUE_SNIPPET = RenderPipeline.builder(MATRICES_FOG_SNIPPET)
-            .withVertexShader(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "core/rendertype_cosmic"))
-            .withFragmentShader(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "core/position_tex_color_blue"))
-            .withBindGroupLayout(BindGroupLayouts.SAMPLER0_SAMPLER2)
-            .withColorTargetState(new ColorTargetState(BlendFunction.INVERT))
-            .withPrimitiveTopology(PrimitiveTopology.QUADS)
-            .withVertexBinding(0, DefaultVertexFormat.POSITION_COLOR)
-            .withDepthStencilState(DepthStencilState.DEFAULT)
-            .buildSnippet();
-
     public static final RenderPipeline POSITION_SOFT_SKY = register(
             RenderPipeline.builder()
                     .withLocation("pipeline/soft_sky")
@@ -156,12 +126,6 @@ public class CustomRederPipelines {
             RenderPipeline.builder(RENDERTYPE_AURORA_SNIPPET).withLocation("pipeline/aurora").build());
     public static final RenderPipeline NEGATIVE = register(
             RenderPipeline.builder(RENDERTYPE_NEGATIVE_SNIPPET).withLocation("pipeline/negative").build());
-    public static final RenderPipeline NO_RED = register(
-            RenderPipeline.builder(RENDERTYPE_NO_RED_SNIPPET).withLocation("pipeline/no_red").build());
-    public static final RenderPipeline NO_GREEN = register(
-            RenderPipeline.builder(RENDERTYPE_NO_GREEN_SNIPPET).withLocation("pipeline/no_green").build());
-    public static final RenderPipeline NO_BLUE = register(
-            RenderPipeline.builder(RENDERTYPE_NO_BLUE_SNIPPET).withLocation("pipeline/no_blue").build());
 
     private static RenderPipeline register(final RenderPipeline pipeline) {
         //? if fabric {
@@ -182,9 +146,6 @@ public class CustomRederPipelines {
     public static ShaderInstance STAR_BARRIER;
     public static ShaderInstance AURORA;
     public static ShaderInstance NEGATIVE;
-    public static ShaderInstance NO_RED;
-    public static ShaderInstance NO_GREEN;
-    public static ShaderInstance NO_BLUE;
     public static ShaderInstance SKY_STARS;
 
     public static ShaderInstance getCosmicShader()       { return COSMIC; }
@@ -192,9 +153,6 @@ public class CustomRederPipelines {
     public static ShaderInstance getStarBarrierShader()  { return STAR_BARRIER; }
     public static ShaderInstance getAuroraShader()       { return AURORA; }
     public static ShaderInstance getNegativeShader()     { return NEGATIVE; }
-    public static ShaderInstance getNoRedShader()        { return NO_RED; }
-    public static ShaderInstance getNoGreenShader()      { return NO_GREEN; }
-    public static ShaderInstance getNoBlueShader()       { return NO_BLUE; }
     public static ShaderInstance getSkyStarsShader()     { return SKY_STARS; }
 
     private static ResourceLocation id(String path) {
@@ -214,9 +172,6 @@ public class CustomRederPipelines {
         event.registerPipeline(STAR_BARRIER);
         event.registerPipeline(AURORA);
         event.registerPipeline(NEGATIVE);
-        event.registerPipeline(NO_RED);
-        event.registerPipeline(NO_GREEN);
-        event.registerPipeline(NO_BLUE);
         event.registerPipeline(POSITION_SOFT_SKY);
         event.registerPipeline(POSITION_TEX_COLOR_DEPTH_PINNED_STARS);
     }
@@ -233,12 +188,6 @@ public class CustomRederPipelines {
                 DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP), shader -> AURORA = shader);
         event.registerShader(new ShaderInstance(event.getResourceProvider(), id("negative"),
                 DefaultVertexFormat.POSITION_COLOR_LIGHTMAP), shader -> NEGATIVE = shader);
-        event.registerShader(new ShaderInstance(event.getResourceProvider(), id("no_red"),
-                DefaultVertexFormat.POSITION_COLOR_LIGHTMAP), shader -> NO_RED = shader);
-        event.registerShader(new ShaderInstance(event.getResourceProvider(), id("no_green"),
-                DefaultVertexFormat.POSITION_COLOR_LIGHTMAP), shader -> NO_GREEN = shader);
-        event.registerShader(new ShaderInstance(event.getResourceProvider(), id("no_blue"),
-                DefaultVertexFormat.POSITION_COLOR_LIGHTMAP), shader -> NO_BLUE = shader);
         event.registerShader(new ShaderInstance(event.getResourceProvider(), id("sky_stars"),
                 DefaultVertexFormat.POSITION_TEX_COLOR), shader -> SKY_STARS = shader);
     }

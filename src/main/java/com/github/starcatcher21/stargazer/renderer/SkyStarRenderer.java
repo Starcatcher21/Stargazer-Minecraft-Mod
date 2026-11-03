@@ -2,6 +2,7 @@ package com.github.starcatcher21.stargazer.renderer;
 
 import com.github.starcatcher21.stargazer.CustomWorlds;
 import com.github.starcatcher21.stargazer.Stargazer;
+import com.github.starcatcher21.stargazer.entity.Star;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Minecraft;

@@ -49,27 +49,6 @@ public class CustomRenderLayers {
                     .useLightmap()
                     .createRenderSetup()
     );
-    public static final RenderType NO_RED = RenderType.create(
-            "no_red",
-            RenderSetup.builder(CustomRederPipelines.NO_RED)
-                    .withTexture("Sampler0", StarBarrierBlock.TEXTURE)
-                    .useLightmap()
-                    .createRenderSetup()
-    );
-    public static final RenderType NO_GREEN = RenderType.create(
-            "no_green",
-            RenderSetup.builder(CustomRederPipelines.NO_GREEN)
-                    .withTexture("Sampler0", StarBarrierBlock.TEXTURE)
-                    .useLightmap()
-                    .createRenderSetup()
-    );
-    public static final RenderType NO_BLUE = RenderType.create(
-            "no_blue",
-            RenderSetup.builder(CustomRederPipelines.NO_BLUE)
-                    .withTexture("Sampler0", StarBarrierBlock.TEXTURE)
-                    .useLightmap()
-                    .createRenderSetup()
-    );
     public static final RenderType AURORA = RenderType.create(
             "aurora",
             RenderSetup.builder(CustomRederPipelines.AURORA)
@@ -159,54 +138,6 @@ public class CustomRenderLayers {
                     .setShaderState(new RenderStateShard.ShaderStateShard(
                             CustomRederPipelines::getNegativeShader))
                     .setTransparencyState(NEGATIVE_TRANSPARENCY)
-                    .setCullState(RenderStateShard.NO_CULL)
-                    .setLightmapState(RenderStateShard.LIGHTMAP)
-                    .createCompositeState(false)
-    );
-
-    public static final RenderType NO_RED = RenderType.create(
-            "no_red",
-            DefaultVertexFormat.POSITION_COLOR_LIGHTMAP,
-            VertexFormat.Mode.QUADS,
-            256,
-            false,
-            true,
-            RenderType.CompositeState.builder()
-                    .setShaderState(new RenderStateShard.ShaderStateShard(
-                            CustomRederPipelines::getNoRedShader))
-                    .setTransparencyState(RenderStateShard.TRANSLUCENT_TRANSPARENCY)
-                    .setCullState(RenderStateShard.NO_CULL)
-                    .setLightmapState(RenderStateShard.LIGHTMAP)
-                    .createCompositeState(false)
-    );
-
-    public static final RenderType NO_GREEN = RenderType.create(
-            "no_green",
-            DefaultVertexFormat.POSITION_COLOR_LIGHTMAP,
-            VertexFormat.Mode.QUADS,
-            256,
-            false,
-            true,
-            RenderType.CompositeState.builder()
-                    .setShaderState(new RenderStateShard.ShaderStateShard(
-                            CustomRederPipelines::getNoGreenShader))
-                    .setTransparencyState(RenderStateShard.TRANSLUCENT_TRANSPARENCY)
-                    .setCullState(RenderStateShard.NO_CULL)
-                    .setLightmapState(RenderStateShard.LIGHTMAP)
-                    .createCompositeState(false)
-    );
-
-    public static final RenderType NO_BLUE = RenderType.create(
-            "no_blue",
-            DefaultVertexFormat.POSITION_COLOR_LIGHTMAP,
-            VertexFormat.Mode.QUADS,
-            256,
-            false,
-            true,
-            RenderType.CompositeState.builder()
-                    .setShaderState(new RenderStateShard.ShaderStateShard(
-                            CustomRederPipelines::getNoBlueShader))
-                    .setTransparencyState(RenderStateShard.TRANSLUCENT_TRANSPARENCY)
                     .setCullState(RenderStateShard.NO_CULL)
                     .setLightmapState(RenderStateShard.LIGHTMAP)
                     .createCompositeState(false)

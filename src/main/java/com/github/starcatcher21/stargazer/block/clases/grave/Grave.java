@@ -5,9 +5,12 @@ import com.github.starcatcher21.stargazer.entity.Star;
 import com.github.starcatcher21.starlib.Helpers;
 import com.github.starcatcher21.stargazer.block.ModBlock;
 import com.mojang.serialization.MapCodec;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.*;
@@ -34,6 +37,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.Nullable;
 
 public class Grave extends BaseEntityBlock {
 
@@ -68,6 +72,8 @@ public class Grave extends BaseEntityBlock {
 
         BlockEntity be = world.getBlockEntity(pos);
         if (!player.isCreative() && be instanceof GraveEntity ge) {
+            ge.generateLootIfNeeded(world);
+            ge.lootTable = null;
             releaseContent(world, pos, ge.items.getFirst(), 0.0);
         }
         world.gameEvent(GameEvent.BLOCK_DESTROY, pos, GameEvent.Context.of(player, ModBlock.GRAVE.get().defaultBlockState()));
@@ -94,6 +100,8 @@ public class Grave extends BaseEntityBlock {
                     world.setBlockAndUpdate(pos, state.setValue(ACTIVATED, false));
                     BlockEntity be = world.getBlockEntity(pos);
                     if (be instanceof GraveEntity ge) {
+                        ge.generateLootIfNeeded(world);
+                        ge.lootTable = null;
                         releaseContent(world, pos, ge.items.getFirst(), 0.3);
                     }
                 } else {

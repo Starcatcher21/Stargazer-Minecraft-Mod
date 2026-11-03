@@ -102,10 +102,10 @@ public class ModEngLangProvider
             } else if (key instanceof net.minecraft.tags.TagKey<?> tag) {
                 translationBuilder.add(tag, value);
             //? if >= 26.2 {
-            } else if (key instanceof net.minecraft.resources.Identifier identifier) {
-            //?} else {
-            /^} else if (key instanceof net.minecraft.resources.ResourceLocation identifier) {
-            ^///?}
+            /^} else if (key instanceof net.minecraft.resources.Identifier identifier) {
+            ^///?} else {
+            } else if (key instanceof net.minecraft.resources.ResourceLocation identifier) {
+            //?}
                 translationBuilder.add(identifier, value);
             } else {
                 throw new IllegalArgumentException("Unsupported translation key type: " + key.getClass().getName());
