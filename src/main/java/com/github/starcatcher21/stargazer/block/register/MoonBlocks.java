@@ -3,6 +3,7 @@
 package com.github.starcatcher21.stargazer.block.register;
 
 import com.github.starcatcher21.stargazer.Stargazer;
+import com.github.starcatcher21.stargazer.block.clases.crystalizer.Crystalizer;
 import com.github.starcatcher21.starlib.Helpers;
 import com.github.starcatcher21.stargazer.block.clases.CosmicFlower;
 import com.github.starcatcher21.stargazer.block.clases.CustomLeaves;
@@ -794,6 +795,13 @@ public class MoonBlocks {
             .sound(SoundType.WOOD)
             .instrument(NoteBlockInstrument.BASS)
             .strength(1.0F)
+            .mapColor(MapColor.COLOR_PURPLE)
+    );
+    public static final RegistrySupplier<Block> CRYSTALIZER = register("crystalizer", Crystalizer::new, BlockBehaviour.Properties.of()
+            .forceSolidOn()
+            .sound(SoundType.METAL)
+            .instrument(NoteBlockInstrument.BASS)
+            .strength(2.0F)
             .mapColor(MapColor.COLOR_PURPLE)
     );
     public static void init() {

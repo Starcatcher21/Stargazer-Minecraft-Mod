@@ -1,6 +1,7 @@
 package com.github.starcatcher21.stargazer.screens.recipe;
 
 import com.github.starcatcher21.stargazer.Stargazer;
+import com.github.starcatcher21.stargazer.screens.recipe.serializer.ShapedCrystalizerRecipe;
 import com.github.starcatcher21.stargazer.screens.recipe.serializer.ShapedMoonWelderRecipe;
 import com.github.starcatcher21.stargazer.screens.recipe.serializer.ShapedStarCrusherRecipe;
 import com.github.starcatcher21.stargazer.screens.recipe.serializer.ShapedStarforgeRecipe;
@@ -28,6 +29,8 @@ public class RecipeTypes {
             registerType("moon_welder");
     public static final RegistrySupplier<RecipeType<StarCrusherRecipe>> STAR_CRUSHER =
             registerType("star_crusher");
+    public static final RegistrySupplier<RecipeType<CrystalizerRecipe>> CRYSTALIZER =
+            registerType("crystalizer");
 
     // Recipe Serializers
     public static final RegistrySupplier<RecipeSerializer<ShapedStarforgeRecipe>> STARFORGE_SERIALIZER =
@@ -36,6 +39,8 @@ public class RecipeTypes {
             RECIPE_SERIALIZERS.register("moon_welder", () -> ShapedMoonWelderRecipe.SERIALIZER);
     public static final RegistrySupplier<RecipeSerializer<ShapedStarCrusherRecipe>> STAR_CRUSHER_SERIALIZER =
             RECIPE_SERIALIZERS.register("star_crusher", () -> ShapedStarCrusherRecipe.SERIALIZER);
+    public static final RegistrySupplier<RecipeSerializer<ShapedCrystalizerRecipe>> CRYSTALIZER_SERIALIZER =
+            RECIPE_SERIALIZERS.register("crystalizer", () -> ShapedCrystalizerRecipe.SERIALIZER);
 
     private static <T extends Recipe<?>> RegistrySupplier<RecipeType<T>> registerType(String id) {
         return RECIPE_TYPES.register(id, () -> new RecipeType<T>() {

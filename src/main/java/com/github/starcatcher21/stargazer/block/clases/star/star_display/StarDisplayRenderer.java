@@ -101,7 +101,6 @@ import net.minecraft.world.level.Level;
     }
 }
 *///?} else {
-/* ---------------- 1.21.1 — GeckoLib 4.x, direct render ----------------- */
 
 public class StarDisplayRenderer extends GeoBlockRenderer<StarDisplayEntity> {
 

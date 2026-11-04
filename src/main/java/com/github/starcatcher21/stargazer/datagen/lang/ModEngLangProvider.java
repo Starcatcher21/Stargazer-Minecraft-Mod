@@ -20,6 +20,7 @@ import com.github.starcatcher21.stargazer.item.WishingStars;
 /*import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 *///?} else {
+import dev.architectury.platform.Mod;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.common.data.LanguageProvider;
@@ -117,6 +118,13 @@ public class ModEngLangProvider
     private static void populateTranslations(TranslationSink translationBuilder) {
         translationBuilder.add(StargazingCategory.TranslationKey, "Stargazing");
         translationBuilder.add(MoonBlocks.FUZZY_BALL.get(), "Fuzzy Ball");
+        translationBuilder.add(ModItems.RED_GEM.get(), "Red Gem");
+        translationBuilder.add(ModItems.GREEN_GEM.get(), "Green Gem");
+        translationBuilder.add(ModItems.PURPLE_GEM.get(), "Purple Gem");
+        translationBuilder.add(ModItems.DEMONIC_SWORD.get(), "Demonic Sword");
+        translationBuilder.add(ModItems.PURE_GOLD_SWORD.get(), "Pure Gold Sword");
+        translationBuilder.add(ModItems.GRASS_SWORD.get(), "Grass Sword");
+        translationBuilder.add(MoonBlocks.CRYSTALIZER.get(), "Crystalizer");
         translationBuilder.add(MoonBlocks.FUZZY_LOG.get(), "Fuzzy Log");
         translationBuilder.add(MoonBlocks.FUZZY_LEAVES.get(), "Fuzzy Leaves");
         translationBuilder.add(ModBlock.AMETHYST_BRICKS.get(), "Amethyst Bricks");

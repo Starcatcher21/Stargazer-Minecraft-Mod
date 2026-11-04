@@ -8,6 +8,7 @@ import com.github.starcatcher21.stargazer.effects.StatusEffects;
 import com.github.starcatcher21.stargazer.entity.EntityRegistry;
 import com.github.starcatcher21.stargazer.item.armor.ArmorMaterial;
 import com.github.starcatcher21.stargazer.item.classes.*;
+import com.github.starcatcher21.stargazer.item.classes.SwordItem;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
@@ -49,6 +50,9 @@ public final class ModItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(Stargazer.MOD_ID, Registries.ITEM);
 
     public static final RegistrySupplier<Item> STARDUST = register("stardust", Item::new, new Item.Properties());
+    public static final RegistrySupplier<Item> RED_GEM = register("red_gem", Item::new, new Item.Properties());
+    public static final RegistrySupplier<Item> GREEN_GEM = register("green_gem", Item::new, new Item.Properties());
+    public static final RegistrySupplier<Item> PURPLE_GEM = register("purple_gem", Item::new, new Item.Properties());
     public static final RegistrySupplier<Item> FULL_MOON_DUST = register("full_moon_dust", Item::new, new Item.Properties());
     public static final RegistrySupplier<Item> AMETHYST_DUST = register("amethyst_dust", Item::new, new Item.Properties());
     public static final RegistrySupplier<Item> PURE_AMETHYST_DUST = register("pure_amethyst_dust", Item::new, new Item.Properties());
@@ -67,6 +71,77 @@ public final class ModItems {
     public static final RegistrySupplier<Item> LODESTAR = register("lodestar", LodeStar::new, new Item.Properties().rarity(Rarity.UNCOMMON).stacksTo(1));
     public static final RegistrySupplier<Item> DARKSTAR = register("darkstar", DarkStar::new, new Item.Properties().rarity(Rarity.UNCOMMON).stacksTo(1));
     public static final RegistrySupplier<Item> GEODE_FRUIT = register("geode_fruit", Item::new, new Item.Properties());
+
+    public static final RegistrySupplier<Item> DEMONIC_SWORD = register("demonic_sword", SwordItem::new, new Item.Properties()
+            .rarity(Rarity.EPIC).stacksTo(1)
+            .attributes(
+                    ItemAttributeModifiers.builder()
+                            .add(
+                                    StargazerAttributes.DASH_LEVEL,
+                                    new AttributeModifier(
+                                            ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "sword.demonic.dash"),
+                                            1.0,
+                                            AttributeModifier.Operation.ADD_VALUE
+                                    ),
+                                    EquipmentSlotGroup.MAINHAND
+                            )
+                            .add(
+                                    Attributes.ATTACK_DAMAGE,
+                                    new AttributeModifier(
+                                            Item.BASE_ATTACK_DAMAGE_ID,
+                                            10,
+                                            AttributeModifier.Operation.ADD_VALUE),
+                                    EquipmentSlotGroup.MAINHAND)
+                            .add(
+                                    Attributes.ATTACK_SPEED,
+                                    new AttributeModifier(
+                                            Item.BASE_ATTACK_SPEED_ID,
+                                            - 1.8,
+                                            AttributeModifier.Operation.ADD_VALUE),
+                                    EquipmentSlotGroup.MAINHAND).build()
+            )
+    );
+    public static final RegistrySupplier<Item> PURE_GOLD_SWORD = register("pure_gold_sword", PureGoldSword::new, new Item.Properties()
+            .rarity(Rarity.EPIC).stacksTo(1)
+            .attributes(
+                    ItemAttributeModifiers.builder()
+                            .add(
+                                    Attributes.ATTACK_DAMAGE,
+                                    new AttributeModifier(
+                                            Item.BASE_ATTACK_DAMAGE_ID,
+                                            6,
+                                            AttributeModifier.Operation.ADD_VALUE),
+                                    EquipmentSlotGroup.MAINHAND)
+                            .add(
+                                    Attributes.ATTACK_SPEED,
+                                    new AttributeModifier(
+                                            Item.BASE_ATTACK_SPEED_ID,
+                                            - 2.4,
+                                            AttributeModifier.Operation.ADD_VALUE),
+                                    EquipmentSlotGroup.MAINHAND).build()
+            )
+    );
+
+    public static final RegistrySupplier<Item> GRASS_SWORD = register("grass_sword", SwordItem::new, new Item.Properties()
+            .rarity(Rarity.EPIC).stacksTo(1)
+            .attributes(
+                    ItemAttributeModifiers.builder()
+                            .add(
+                                    Attributes.ATTACK_DAMAGE,
+                                    new AttributeModifier(
+                                            Item.BASE_ATTACK_DAMAGE_ID,
+                                            5,
+                                            AttributeModifier.Operation.ADD_VALUE),
+                                    EquipmentSlotGroup.MAINHAND)
+                            .add(
+                                    Attributes.ATTACK_SPEED,
+                                    new AttributeModifier(
+                                            Item.BASE_ATTACK_SPEED_ID,
+                                            + 2.0,
+                                            AttributeModifier.Operation.ADD_VALUE),
+                                    EquipmentSlotGroup.MAINHAND).build()
+            )
+    );
 
     //? if <= 1.21.1 {
     public static final RegistrySupplier<Item> GHOST_SPAWN_EGG = register("ghost_spawn_egg", properties -> new SpawnEggItem(EntityRegistry.GHOST_ENTITY.get(), 0xffffff, 0xffffff, properties), new Item.Properties());

@@ -1,6 +1,7 @@
 package com.github.starcatcher21.stargazer.datagen;
 
 import com.github.starcatcher21.stargazer.Stargazer;
+import com.github.starcatcher21.stargazer.screens.recipe.serializer.ShapedCrystalizerRecipe;
 import com.github.starcatcher21.stargazer.screens.recipe.serializer.ShapedMoonWelderRecipe;
 import com.github.starcatcher21.stargazer.screens.recipe.serializer.ShapedStarCrusherRecipe;
 import com.github.starcatcher21.stargazer.screens.recipe.serializer.ShapedStarforgeRecipe;
@@ -64,6 +65,7 @@ public final class RecipeDataBootstrap {
 
         load(ops, output, "starforge",    ShapedStarforgeRecipe.CODEC);
         load(ops, output, "moon_welder",  ShapedMoonWelderRecipe.CODEC);
+        load(ops, output, "crystalizer",  ShapedCrystalizerRecipe.CODEC);
         load(ops, output, "star_crusher", ShapedStarCrusherRecipe.CODEC);
 
         LOG.info("Loaded {} custom recipe(s) from data/stargazer/recipe/", output.size());

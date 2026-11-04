@@ -65,30 +65,30 @@ public class ItemTagProvider
     protected void addTags(HolderLookup.Provider wrapperLookup) {
         builder(CustomTags.STAR)
                 .add(Items.NETHER_STAR.builtInRegistryHolder().key())
-                .add(ModItems.PURPLE_STAR.get().builtInRegistryHolder().key())
-                .add(ModItems.RED_STAR.get().builtInRegistryHolder().key())
-                .add(ModItems.BLUE_STAR.get().builtInRegistryHolder().key())
-                .add(ModItems.END_STAR.get().builtInRegistryHolder().key())
-                .add(ModItems.YELLOW_STAR.get().builtInRegistryHolder().key());
+                .add(ModItems.PURPLE_STAR.getKey())
+                .add(ModItems.RED_STAR.getKey())
+                .add(ModItems.BLUE_STAR.getKey())
+                .add(ModItems.END_STAR.getKey())
+                .add(ModItems.YELLOW_STAR.getKey());
         builder(TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("c", "dusts")))
-                .add(ModItems.IRON_DUST.get().builtInRegistryHolder().key())
-                .add(ModItems.COPPER_DUST.get().builtInRegistryHolder().key())
-                .add(ModItems.GOLD_DUST.get().builtInRegistryHolder().key())
-                .add(ModItems.FULL_MOON_DUST.get().builtInRegistryHolder().key())
-                .add(ModItems.AMETHYST_DUST.get().builtInRegistryHolder().key())
-                .add(ModItems.PURE_AMETHYST_DUST.get().builtInRegistryHolder().key())
-                .add(ModItems.STARDUST.get().builtInRegistryHolder().key());
+                .add(ModItems.IRON_DUST.getKey())
+                .add(ModItems.COPPER_DUST.getKey())
+                .add(ModItems.GOLD_DUST.getKey())
+                .add(ModItems.FULL_MOON_DUST.getKey())
+                .add(ModItems.AMETHYST_DUST.getKey())
+                .add(ModItems.PURE_AMETHYST_DUST.getKey())
+                .add(ModItems.STARDUST.getKey());
         builder(CustomTags.REPAIR_AMETHYST)
-                .add(ModItems.PURE_AMETHYST_DUST.get().builtInRegistryHolder().key());
-        builder(CustomTags.COPPER_DUST).add(ModItems.COPPER_DUST.get().builtInRegistryHolder().key());
-        builder(CustomTags.IRON_DUST).add(ModItems.IRON_DUST.get().builtInRegistryHolder().key());
-        builder(CustomTags.GOLD_DUST).add(ModItems.GOLD_DUST.get().builtInRegistryHolder().key());
+                .add(ModItems.PURE_AMETHYST_DUST.getKey());
+        builder(CustomTags.COPPER_DUST).add(ModItems.COPPER_DUST.getKey());
+        builder(CustomTags.IRON_DUST).add(ModItems.IRON_DUST.getKey());
+        builder(CustomTags.GOLD_DUST).add(ModItems.GOLD_DUST.getKey());
         builder(TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("c", "crops")))
-                .add(Crops.BROODY.get().builtInRegistryHolder().key(), Crops.DRAGON_CARROT.get().builtInRegistryHolder().key(), Crops.EYE_BALLS.get().builtInRegistryHolder().key());
+                .add(Crops.BROODY.getKey(), Crops.DRAGON_CARROT.getKey(), Crops.EYE_BALLS.get().builtInRegistryHolder().key());
         builder(CustomTags.COSMIC)
                 .add(StarBlocks.COSMIC_BLOCK.get().asItem().builtInRegistryHolder().key());
         builder(CustomTags.CHESS_BRICK)
-                .add(ModItems.WHITE_BRICK.get().builtInRegistryHolder().key(), ModItems.BLACK_BRICK.get().builtInRegistryHolder().key());
+                .add(ModItems.WHITE_BRICK.getKey(), ModItems.BLACK_BRICK.getKey());
         builder(ItemTags.LOGS)
                 .add(MoonBlocks.MOON_LOG.get().asItem().builtInRegistryHolder().key())
                 .add(MoonBlocks.STRIPPED_MOON_LOG.get().asItem().builtInRegistryHolder().key())
@@ -117,15 +117,15 @@ public class ItemTagProvider
                 .add(RedOrbBlocks.SPIRO_SAPLING.get().asItem().builtInRegistryHolder().key())
                 .add(RedOrbBlocks.YERI_SAPLING.get().asItem().builtInRegistryHolder().key());
         builder(STARDUST)
-                .add(ModItems.STARDUST.get().builtInRegistryHolder().key());
+                .add(ModItems.STARDUST.getKey());
        builder(CustomTags.PURPLE_STAR)
-                .add(ModItems.PURPLE_STAR.get().builtInRegistryHolder().key());
+                .add(ModItems.PURPLE_STAR.getKey());
        builder(CustomTags.RED_STAR)
-                .add(ModItems.RED_STAR.get().builtInRegistryHolder().key());
+                .add(ModItems.RED_STAR.getKey());
        builder(CustomTags.BLUE_STAR)
-                .add(ModItems.BLUE_STAR.get().builtInRegistryHolder().key());
+                .add(ModItems.BLUE_STAR.getKey());
        builder(CustomTags.YELLOW_STAR)
-                .add(ModItems.YELLOW_STAR.get().builtInRegistryHolder().key());
+                .add(ModItems.YELLOW_STAR.getKey());
         builder(CustomTags.MOON_LOG)
                 .add(MoonBlocks.MOON_LOG.get().asItem().builtInRegistryHolder().key())
                 .add(MoonBlocks.STRIPPED_MOON_LOG.get().asItem().builtInRegistryHolder().key());
@@ -156,32 +156,41 @@ public class ItemTagProvider
                 .add(RedOrbBlocks.YERI_PLANKS.get().asItem().builtInRegistryHolder().key())
                 .add(Wander.TRUNN_PLANKS.get().asItem().builtInRegistryHolder().key())
                 .add(RedOrbBlocks.SPIRO_PLANKS.get().asItem().builtInRegistryHolder().key())
+                .add(MoonBlocks.FUZZY_PLANKS.get().asItem().builtInRegistryHolder().key())
                 .add(MoonBlocks.MOON_PLANKS.get().asItem().builtInRegistryHolder().key());
         builder(ItemTags.STONE_TOOL_MATERIALS)
                 .add(MoonBlocks.MOON_ROCK.get().asItem().builtInRegistryHolder().key());
         builder(CustomTags.STAR_FLOWER)
                 .add(StarBlocks.STAR_FLOWER.get().asItem().builtInRegistryHolder().key());
         builder(CustomTags.ECTOPLASM)
-                .add(ModItems.ECTOPLASM.get().builtInRegistryHolder().key())
-                .add(ModItems.COOLER_ECTOPLASM.get().builtInRegistryHolder().key());
+                .add(ModItems.ECTOPLASM.getKey())
+                .add(ModItems.COOLER_ECTOPLASM.getKey());
         builder(ItemTags.HEAD_ARMOR)
-                .add(ModItems.MOON_HELMET.get().builtInRegistryHolder().key())
-                .add(ModItems.AMETHYST_HELMET.get().builtInRegistryHolder().key())
-                .add(ModItems.JESTER_HELMET.get().builtInRegistryHolder().key());
+                .add(ModItems.MOON_HELMET.getKey())
+                .add(ModItems.AMETHYST_HELMET.getKey())
+                .add(ModItems.JESTER_HELMET.getKey());
         builder(ItemTags.CHEST_ARMOR)
-                .add(ModItems.MOON_CHESTPLATE.get().builtInRegistryHolder().key())
-                .add(ModItems.AMETHYST_CHESTPLATE.get().builtInRegistryHolder().key())
-                .add(ModItems.JESTER_CHESTPLATE.get().builtInRegistryHolder().key());
+                .add(ModItems.MOON_CHESTPLATE.getKey())
+                .add(ModItems.AMETHYST_CHESTPLATE.getKey())
+                .add(ModItems.JESTER_CHESTPLATE.getKey());
         builder(ItemTags.FOOT_ARMOR)
-                .add(ModItems.MOON_BOOTS.get().builtInRegistryHolder().key())
-                .add(ModItems.AMETHYST_BOOTS.get().builtInRegistryHolder().key())
-                .add(ModItems.JESTER_BOOTS.get().builtInRegistryHolder().key());
+                .add(ModItems.MOON_BOOTS.getKey())
+                .add(ModItems.AMETHYST_BOOTS.getKey())
+                .add(ModItems.JESTER_BOOTS.getKey());
         builder(ItemTags.LEG_ARMOR)
-                .add(ModItems.MOON_LEGGINS.get().builtInRegistryHolder().key())
-                .add(ModItems.AMETHYST_LEGGINS.get().builtInRegistryHolder().key())
-                .add(ModItems.JESTER_LEGGINS.get().builtInRegistryHolder().key());
+                .add(ModItems.MOON_LEGGINS.getKey())
+                .add(ModItems.AMETHYST_LEGGINS.getKey())
+                .add(ModItems.JESTER_LEGGINS.getKey());
         builder(CustomTags.REPAIR_MOON)
-                .add(ModItems.CRYSTAL_MOON.get().builtInRegistryHolder().key());
+                .add(ModItems.CRYSTAL_MOON.getKey());
+        builder(CustomTags.GEM)
+                .add(ModItems.RED_GEM.getKey())
+                .add(ModItems.GREEN_GEM.getKey())
+                .add(ModItems.PURPLE_GEM.getKey());
+        builder(ItemTags.SWORDS)
+                .add(ModItems.GRASS_SWORD.getKey())
+                .add(ModItems.PURE_GOLD_SWORD.getKey())
+                .add(ModItems.DEMONIC_SWORD.getKey());
     }
 }
 //? }

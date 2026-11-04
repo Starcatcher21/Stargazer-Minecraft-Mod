@@ -394,6 +394,13 @@ public class ItemGroup {
                         output.accept(MoonBlocks.FUZZY_PLANKS_FENCE.get());
                         output.accept(MoonBlocks.FUZZY_PLANKS_FENCE_GATE.get());
                         output.accept(MoonBlocks.FUZZY_PLANKS_BUTTON.get());
+                        output.accept(MoonBlocks.CRYSTALIZER.get());
+                        output.accept(ModItems.GREEN_GEM.get());
+                        output.accept(ModItems.RED_GEM.get());
+                        output.accept(ModItems.PURPLE_GEM.get());
+                        output.accept(ModItems.DEMONIC_SWORD.get());
+                        output.accept(ModItems.PURE_GOLD_SWORD.get());
+                        output.accept(ModItems.GRASS_SWORD.get());
                     })
     ));
 

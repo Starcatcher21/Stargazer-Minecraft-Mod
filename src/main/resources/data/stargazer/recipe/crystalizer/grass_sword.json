@@ -1,0 +1,9 @@
+{
+  "type": "stargazer:crystalizer",
+  "item1": "stargazer:green_gem",
+  "item2": "minecraft:wooden_sword",
+  "result": {
+    "count": 1,
+    "id": "stargazer:grass_sword"
+  }
+}

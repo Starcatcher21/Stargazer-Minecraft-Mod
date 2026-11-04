@@ -9,6 +9,7 @@ build/
 **/build/
 out/
 classes/
+!item/classes/**
 versions/*-*/**
 !versions/1.21.1-neoforge/
 !versions/1.21.1-neoforge/src/

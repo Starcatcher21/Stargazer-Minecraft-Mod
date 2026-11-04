@@ -1,0 +1,9 @@
+{
+  "type": "stargazer:crystalizer",
+  "item1": "stargazer:purple_gem",
+  "item2": "minecraft:netherite_sword",
+  "result": {
+    "count": 1,
+    "id": "stargazer:demonic_sword"
+  }
+}

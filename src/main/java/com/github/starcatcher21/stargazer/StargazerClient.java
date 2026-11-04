@@ -1,5 +1,6 @@
 package com.github.starcatcher21.stargazer;
 
+import com.github.starcatcher21.stargazer.block.clases.crystalizer.CrystalizerRenderer;
 import com.github.starcatcher21.stargazer.block.clases.grave.GraveRenderer;
 import com.github.starcatcher21.stargazer.screens.recipe.RecipeTypes;
 //? if fabric {
@@ -45,6 +46,7 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderingRegistry;
 import net.minecraft.client.renderer.block.FluidModel;
 import net.minecraft.client.resources.model.sprite.Material;
+import net.minecraft.world.level.block.Block;
 *///?}
 
 public final class StargazerClient /*? if fabric {*//*implements ClientModInitializer *//*? } */{
@@ -57,6 +59,7 @@ public final class StargazerClient /*? if fabric {*//*implements ClientModInitia
         BlockTypes.AURORA.listen(type -> BlockEntityRendererRegistry.register(type, AuroraEntityRenderer::new));
         BlockTypes.STAR_LEAVES.listen(type -> BlockEntityRendererRegistry.register(type, StarLeavesEntityRenderer::new));
         BlockTypes.GRAVE.listen(type -> BlockEntityRendererRegistry.register(type, GraveRenderer::new));
+        BlockTypes.CRYSTALIZER.listen(type -> BlockEntityRendererRegistry.register(type, CrystalizerRenderer::new));
 
         Stargazer.LOGGER.info("Loading GeckoLib Block Rendering");
 

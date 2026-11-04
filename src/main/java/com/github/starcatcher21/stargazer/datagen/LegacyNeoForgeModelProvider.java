@@ -396,6 +396,9 @@ public final class LegacyNeoForgeModelProvider extends BlockStateProvider {
         flatItem(StarBlocks.STAR_DISPLAY.get().asItem());
         flatItem(Crops.BRUNT_SEEDS.get());
         flatItem(Crops.SPINNY_SEEDS.get());
+        flatItem(ModItems.RED_GEM.get());
+        flatItem(ModItems.GREEN_GEM.get());
+        flatItem(ModItems.PURPLE_GEM.get());
         // Spawn eggs
         flatItem(ModItems.GHOST_SPAWN_EGG.get());
         flatItem(ModItems.AMETHYST_TURTLE_SPAWN_EGG.get());
@@ -405,8 +408,12 @@ public final class LegacyNeoForgeModelProvider extends BlockStateProvider {
         flatItem(ModItems.BLACK_ROOK_SPAWN_EGG.get());
         flatItem(ModItems.BLACK_FOX_SPAWN_EGG.get());
         flatItem(ModItems.SPACE_JAM.get());
+        swordItem(ModItems.DEMONIC_SWORD.get());
+        swordItem(ModItems.PURE_GOLD_SWORD.get());
+        swordItem(ModItems.GRASS_SWORD.get());
         // existing models;
         existingModel(ModBlock.SPACE_JAM_BLOCK.get(), "space_jam_block");
+        existingModel(MoonBlocks.CRYSTALIZER.get(), "crystalizer");
     }
 
     // ---------------------------------------------------------------------
@@ -722,6 +729,10 @@ public final class LegacyNeoForgeModelProvider extends BlockStateProvider {
     /** Flat item model referencing {@code item/{name}}. */
     private void flatItem(Item item) {
         itemModels().basicItem(item);
+    }
+
+    private void swordItem(Item item) {
+        itemModels().handheldItem(item);
     }
 
     /** Flat item model using the block's texture (matches modern {@code blockGeneratedItem}). */

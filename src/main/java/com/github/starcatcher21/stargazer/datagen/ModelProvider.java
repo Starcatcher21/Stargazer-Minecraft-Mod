@@ -24,6 +24,7 @@ import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.MultiVariant;
 import net.minecraft.client.data.models.blockstates.*;
 import net.minecraft.client.data.models.model.*;
+import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.renderer.block.dispatch.Variant;
 import net.minecraft.client.renderer.block.model.BlockStateModelWrapper;
 import net.minecraft.client.renderer.item.EmptyModel;
@@ -421,6 +422,7 @@ public class ModelProvider
         blockGeneratedItem(blockStateModelGenerator, MoonBlocks.SPRUNGUS.get());
         blockStateModelGenerator.createTrivialCube(ModBlock.AMETHYST_BRICKS.get());
         registerExistingModel(blockStateModelGenerator, ModBlock.SPACE_JAM_BLOCK.get(), "space_jam_block");
+        registerExistingModel(blockStateModelGenerator, MoonBlocks.CRYSTALIZER.get(), "crystalizer");
         blockStateModelGenerator.createTrivialCube(ModBlock.UNTITLED.get());
     }
 
@@ -429,6 +431,12 @@ public class ModelProvider
     ^///?}
     public void generateItemModels(ItemModelGenerators itemModelGenerator) {
         itemModelGenerator.generateFlatItem(ModItems.SPACE_JAM.get(), ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.DEMONIC_SWORD.get(), ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.PURE_GOLD_SWORD.get(), ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.GRASS_SWORD.get(), ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.RED_GEM.get(), ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.GREEN_GEM.get(), ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.PURPLE_GEM.get(), ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.LODESTAR.get(), ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.FULL_MOON_DUST.get(), ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.PURE_AMETHYST_DUST.get(), ModelTemplates.FLAT_ITEM);

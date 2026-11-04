@@ -130,6 +130,7 @@ public class LootTableProvider
         dropSelf(MoonBlocks.FUZZY_LOG.get());
         dropSelf(MoonBlocks.FUZZY_BALL.get());
         dropSelf(Wander.UMBRELLA_LOG.get());
+        dropSelf(MoonBlocks.CRYSTALIZER.get());
         add(Wander.TRUNN_LEAVES.get(), createLeavesDrops(Wander.TRUNN_LEAVES.get(), Wander.TRUNN_SAPLING.get(), 0.035F));
         add(MoonBlocks.FUZZY_LEAVES.get(), createLeavesDrops(MoonBlocks.FUZZY_LEAVES.get(), MoonBlocks.FUZZY_BALL.get(), 0.035F));
         add(Wander.UMBRELLA_LEAVES.get(), createLeavesDrops(Wander.UMBRELLA_LEAVES.get(), Wander.UMBRELLA_SAPLING.get(), 0.035F));

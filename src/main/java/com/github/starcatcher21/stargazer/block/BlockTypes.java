@@ -1,6 +1,8 @@
 package com.github.starcatcher21.stargazer.block;
 
 import com.github.starcatcher21.stargazer.Stargazer;
+import com.github.starcatcher21.stargazer.block.clases.crystalizer.Crystalizer;
+import com.github.starcatcher21.stargazer.block.clases.crystalizer.CrystalizerEntity;
 import com.github.starcatcher21.stargazer.block.clases.energy.cables.BlueCableEntity;
 import com.github.starcatcher21.stargazer.block.clases.energy.cables.PurpleCableEntity;
 import com.github.starcatcher21.stargazer.block.clases.energy.cables.RedCableEntity;
@@ -53,6 +55,9 @@ public class BlockTypes {
 
     public static final RegistrySupplier<BlockEntityType<GraveEntity>> GRAVE =
             registerBE("grave", GraveEntity::new, ModBlock.GRAVE);
+
+    public static final RegistrySupplier<BlockEntityType<CrystalizerEntity>> CRYSTALIZER =
+            registerBE("crystalizer", CrystalizerEntity::new, MoonBlocks.CRYSTALIZER);
 
     public static final RegistrySupplier<BlockEntityType<StarGeneratorEntity>> STAR_GENERATOR =
             registerBE("stargenerator", StarGeneratorEntity::new, Energy.STARGENERATOR);

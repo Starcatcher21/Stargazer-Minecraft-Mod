@@ -1,0 +1,9 @@
+{
+  "type": "stargazer:crystalizer",
+  "item1": "stargazer:red_gem",
+  "item2": "minecraft:golden_sword",
+  "result": {
+    "count": 1,
+    "id": "stargazer:pure_gold_sword"
+  }
+}
