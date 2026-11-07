@@ -11,7 +11,9 @@ import com.github.starcatcher21.stargazer.block.clases.energy.machines.NightWatc
 import com.github.starcatcher21.stargazer.block.clases.energy.machines.StarCrusher;
 import com.github.starcatcher21.stargazer.block.clases.moon.starforge.Starforge;
 import com.github.starcatcher21.stargazer.block.register.*;
+import com.github.starcatcher21.stargazer.compat.CrystalizerCategory;
 import com.github.starcatcher21.stargazer.compat.StargazingCategory;
+import com.github.starcatcher21.stargazer.compat.jei.CrystalizerRecipeCategory;
 import com.github.starcatcher21.stargazer.effects.Potions;
 import com.github.starcatcher21.stargazer.entity.EntityRegistry;
 import com.github.starcatcher21.stargazer.item.ModItems;
@@ -20,6 +22,8 @@ import com.github.starcatcher21.stargazer.item.WishingStars;
 /*import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 *///?} else {
+import com.github.starcatcher21.stargazer.screens.recipe.CrystalizerRecipe;
+import com.github.starcatcher21.stargazer.worldgen.features.trees.nebulas.Red;
 import dev.architectury.platform.Mod;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
@@ -28,6 +32,8 @@ import net.neoforged.neoforge.common.data.LanguageProvider;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.world.item.DyeColor;
+
+import java.security.CryptoPrimitive;
 import java.util.Arrays;
 import java.util.concurrent.CompletableFuture;
 
@@ -103,10 +109,10 @@ public class ModEngLangProvider
             } else if (key instanceof net.minecraft.tags.TagKey<?> tag) {
                 translationBuilder.add(tag, value);
             //? if >= 26.2 {
-            /^} else if (key instanceof net.minecraft.resources.Identifier identifier) {
-            ^///?} else {
-            } else if (key instanceof net.minecraft.resources.ResourceLocation identifier) {
-            //?}
+            } else if (key instanceof net.minecraft.resources.Identifier identifier) {
+            //?} else {
+            /^} else if (key instanceof net.minecraft.resources.ResourceLocation identifier) {
+            ^///?}
                 translationBuilder.add(identifier, value);
             } else {
                 throw new IllegalArgumentException("Unsupported translation key type: " + key.getClass().getName());
@@ -117,6 +123,9 @@ public class ModEngLangProvider
 
     private static void populateTranslations(TranslationSink translationBuilder) {
         translationBuilder.add(StargazingCategory.TranslationKey, "Stargazing");
+        translationBuilder.add(CrystalizerCategory.TranslationKey, "Crystalizing");
+        translationBuilder.add(Crops.STARBERRY.get(), "Starberry");
+        translationBuilder.add(ModItems.MASK_OF_SOL.get(), "Mask of Sol");
         translationBuilder.add(MoonBlocks.FUZZY_BALL.get(), "Fuzzy Ball");
         translationBuilder.add(ModItems.RED_GEM.get(), "Red Gem");
         translationBuilder.add(ModItems.GREEN_GEM.get(), "Green Gem");
@@ -124,6 +133,8 @@ public class ModEngLangProvider
         translationBuilder.add(ModItems.DEMONIC_SWORD.get(), "Demonic Sword");
         translationBuilder.add(ModItems.PURE_GOLD_SWORD.get(), "Pure Gold Sword");
         translationBuilder.add(ModItems.GRASS_SWORD.get(), "Grass Sword");
+        translationBuilder.add(RedOrbBlocks.CRYSTALLED_RED_ROCK.get(), "Crystalled Red Rock");
+        translationBuilder.add(ModItems.GEM_FRAGMENTS.get(), "Gem Fragments");
         translationBuilder.add(MoonBlocks.CRYSTALIZER.get(), "Crystalizer");
         translationBuilder.add(MoonBlocks.FUZZY_LOG.get(), "Fuzzy Log");
         translationBuilder.add(MoonBlocks.FUZZY_LEAVES.get(), "Fuzzy Leaves");

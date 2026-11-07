@@ -3,6 +3,8 @@
 
 import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.block.ModBlock;
+import com.github.starcatcher21.stargazer.block.ModFluids;
+import com.github.starcatcher21.stargazer.block.clases.StarBerryBushBlock;
 import com.github.starcatcher21.stargazer.block.clases.energy.cables.YellowCable;
 import com.github.starcatcher21.stargazer.block.clases.moon.plants.MoonCrop;
 import com.github.starcatcher21.stargazer.block.register.*;
@@ -132,6 +134,7 @@ public class ModelProvider
     ^///?}
     public void generateBlockStateModels(BlockModelGenerators blockStateModelGenerator) {
         blockStateModelGenerator.createTrivialCube(ModBlock.BONE_LEAVES.get());
+        blockStateModelGenerator.createTrivialCube(RedOrbBlocks.CRYSTALLED_RED_ROCK.get());
         // planks
         blockStateModelGenerator.family(MoonBlocks.MOON_PLANKS.get())
                 .stairs(MoonBlocks.MOON_PLANKS_STAIRS.get())
@@ -261,6 +264,7 @@ public class ModelProvider
         createCropBlock(blockStateModelGenerator, Crops.EYE_BALLS_BLOCK.get(), MoonCrop.AGE, 0, 1, 2, 3, 4, 5, 6, 7);
         createFlowerCropBlock(blockStateModelGenerator, Crops.BRUNT_BLOCK.get(), MoonCrop.AGE, 0, 1, 2, 3, 4, 5, 6, 7);
         createFlowerCropBlock(blockStateModelGenerator, Crops.SPINNY_BLOCK.get(), MoonCrop.AGE, 0, 1, 2, 3, 4, 5, 6, 7);
+        createFlowerCropBlock(blockStateModelGenerator, Crops.STARBERRY_BUSH.get(), StarBerryBushBlock.AGE, 0, 1, 2, 3);
         // Nebulas
         blockStateModelGenerator.createAxisAlignedPillarBlock(Nebulas.BLUE_NEBULA_LOG.get(), TexturedModel.COLUMN);
         blockStateModelGenerator.createAxisAlignedPillarBlock(Nebulas.RED_NEBULA_LOG.get(), TexturedModel.COLUMN);
@@ -424,13 +428,18 @@ public class ModelProvider
         registerExistingModel(blockStateModelGenerator, ModBlock.SPACE_JAM_BLOCK.get(), "space_jam_block");
         registerExistingModel(blockStateModelGenerator, MoonBlocks.CRYSTALIZER.get(), "crystalizer");
         blockStateModelGenerator.createTrivialCube(ModBlock.UNTITLED.get());
+        blockStateModelGenerator.createTrivialCube(ModFluids.DREAM_BLOCK.get());
     }
 
     //? if fabric {
     /^@Override
     ^///?}
     public void generateItemModels(ItemModelGenerators itemModelGenerator) {
+        itemModelGenerator.generateFlatItem(ModFluids.DREAM_BUCKET.get(), ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.MASK_OF_SOL.get(), ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(Crops.STARBERRY.get(), ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.SPACE_JAM.get(), ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.GEM_FRAGMENTS.get(), ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.DEMONIC_SWORD.get(), ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.PURE_GOLD_SWORD.get(), ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.GRASS_SWORD.get(), ModelTemplates.FLAT_HANDHELD_ITEM);

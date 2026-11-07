@@ -71,6 +71,7 @@ public final class ModItems {
     public static final RegistrySupplier<Item> LODESTAR = register("lodestar", LodeStar::new, new Item.Properties().rarity(Rarity.UNCOMMON).stacksTo(1));
     public static final RegistrySupplier<Item> DARKSTAR = register("darkstar", DarkStar::new, new Item.Properties().rarity(Rarity.UNCOMMON).stacksTo(1));
     public static final RegistrySupplier<Item> GEODE_FRUIT = register("geode_fruit", Item::new, new Item.Properties());
+    public static final RegistrySupplier<Item> GEM_FRAGMENTS = register("gem_fragments", Item::new, new Item.Properties());
 
     public static final RegistrySupplier<Item> DEMONIC_SWORD = register("demonic_sword", SwordItem::new, new Item.Properties()
             .rarity(Rarity.EPIC).stacksTo(1)
@@ -349,6 +350,41 @@ public final class ModItems {
                                             new AttributeModifier(
                                                   ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.mask_of_luna.dash"),
                                                     1.0,
+                                                    AttributeModifier.Operation.ADD_VALUE
+                                            ),
+                                            EquipmentSlotGroup.HEAD
+                                    )
+                                    .build()
+                    )
+    );
+    public static final RegistrySupplier<Item> MASK_OF_SOL = register("mask_of_sol",
+            //? if >= 26.2 {
+            /*Item::new,
+            () -> new Item.Properties().stacksTo(1)
+                    .humanoidArmor(
+                            ArmorMaterial.MASK_OF_SOL_MATERIAL,
+                            ArmorType.HELMET
+                    )
+                    *///?} else {
+                    properties -> new ArmorItem(ArmorMaterial.MASK_OF_SOL_MATERIAL, ArmorItem.Type.HELMET, properties.stacksTo(1)),
+                    new Item.Properties()
+                            //? }
+                    .attributes(
+                            ItemAttributeModifiers.builder()
+                                    .add(
+                                            Attributes.JUMP_STRENGTH,
+                                            new AttributeModifier(
+                                                    ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.mask_of_sol.jump"),
+                                                    0.5,
+                                                    AttributeModifier.Operation.ADD_VALUE
+                                            ),
+                                            EquipmentSlotGroup.HEAD
+                                    )
+                                    .add(
+                                            Attributes.FALL_DAMAGE_MULTIPLIER,
+                                            new AttributeModifier(
+                                                    ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "armor.mask_of_sol.fall"),
+                                                    -20,
                                                     AttributeModifier.Operation.ADD_VALUE
                                             ),
                                             EquipmentSlotGroup.HEAD

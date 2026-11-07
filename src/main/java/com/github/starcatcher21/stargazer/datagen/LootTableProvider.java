@@ -3,6 +3,7 @@ package com.github.starcatcher21.stargazer.datagen;
 
 import com.github.starcatcher21.stargazer.block.ModBlock;
 import com.github.starcatcher21.stargazer.block.clases.Hedge;
+import com.github.starcatcher21.stargazer.block.clases.StarBerryBushBlock;
 import com.github.starcatcher21.stargazer.block.clases.moon.geode_fruit.GeodeFruit;
 import com.github.starcatcher21.stargazer.block.clases.moon.geode_fruit.GeodeFruitStage;
 import com.github.starcatcher21.stargazer.block.clases.moon.plants.MoonCrop;
@@ -131,6 +132,7 @@ public class LootTableProvider
         dropSelf(MoonBlocks.FUZZY_BALL.get());
         dropSelf(Wander.UMBRELLA_LOG.get());
         dropSelf(MoonBlocks.CRYSTALIZER.get());
+        add(RedOrbBlocks.CRYSTALLED_RED_ROCK.get(), oreDrops(RedOrbBlocks.CRYSTALLED_RED_ROCK.get(), ModItems.GEM_FRAGMENTS.get(), 1.0f, 4.0f));
         add(Wander.TRUNN_LEAVES.get(), createLeavesDrops(Wander.TRUNN_LEAVES.get(), Wander.TRUNN_SAPLING.get(), 0.035F));
         add(MoonBlocks.FUZZY_LEAVES.get(), createLeavesDrops(MoonBlocks.FUZZY_LEAVES.get(), MoonBlocks.FUZZY_BALL.get(), 0.035F));
         add(Wander.UMBRELLA_LEAVES.get(), createLeavesDrops(Wander.UMBRELLA_LEAVES.get(), Wander.UMBRELLA_SAPLING.get(), 0.035F));
@@ -184,6 +186,7 @@ public class LootTableProvider
         add(Crops.SPINNY_BLOCK.get(), createCropDrops(Crops.SPINNY_BLOCK.get(), MoonBlocks.SPINNY.get().asItem(), Crops.SPINNY_SEEDS.get(), LootItemBlockStatePropertyCondition.hasBlockStateProperties(Crops.SPINNY_BLOCK.get()).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(MoonCrop.AGE, 7))));
         add(Crops.BROODY_BLOCK.get(), createCropDrops(Crops.BROODY_BLOCK.get(), Crops.BROODY.get(), Crops.BROODY.get(), LootItemBlockStatePropertyCondition.hasBlockStateProperties(Crops.BROODY_BLOCK.get()).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(MoonCrop.AGE, 7))));
         add(Crops.EYE_BALLS_BLOCK.get(), createCropDrops(Crops.EYE_BALLS_BLOCK.get(), Crops.EYE_BALLS.get(), Crops.EYE_BALLS.get(), LootItemBlockStatePropertyCondition.hasBlockStateProperties(Crops.EYE_BALLS_BLOCK.get()).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(MoonCrop.AGE, 7))));
+        add(Crops.STARBERRY_BUSH.get(), createCropDrops(Crops.STARBERRY_BUSH.get(), Crops.STARBERRY.get(), Crops.STARBERRY.get(), LootItemBlockStatePropertyCondition.hasBlockStateProperties(Crops.STARBERRY_BUSH.get()).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(StarBerryBushBlock.AGE, 3))));
         dropSelf(EyeBloodBlocks.EYE_JAR.get());
         dropSelf(MoonBlocks.MOON_LOG.get());
         dropSelf(MoonBlocks.FULL_MOON_CORE.get());

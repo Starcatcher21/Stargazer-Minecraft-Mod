@@ -1,0 +1,29 @@
+{
+  "feature": "stargazer:gem_ore",
+  "placement": [
+    {
+      "type": "minecraft:count",
+      "count": 6
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:heightmap",
+      "heightmap": "WORLD_SURFACE"
+    },
+    {
+      "type": "minecraft:height_range",
+      "height": {
+        "type": "minecraft:trapezoid",
+        "min_inclusive": {
+          "absolute": 40
+        },
+        "max_inclusive": {
+          "absolute": 90
+        },
+        "plateau": 60
+      }
+    }
+  ]
+}

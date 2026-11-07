@@ -1,0 +1,8 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "#stargazer:red_orb",
+  "features": [
+    "stargazer:gem_ore"
+  ],
+  "step": "underground_ores"
+}

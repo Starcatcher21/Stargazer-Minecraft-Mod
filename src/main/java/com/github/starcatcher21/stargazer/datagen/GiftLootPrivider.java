@@ -51,7 +51,6 @@ public class GiftLootPrivider
                                 .add(LootItem.lootTableItem(Crops.SPINNY_SEEDS.get()).setWeight(20))
                                 .add(LootItem.lootTableItem(MoonBlocks.FUZZY_BALL.get()).setWeight(5))
                 );
-
         lootTableBiConsumer.accept(snifferKey, lootTableSnifferMoon);
     }
 }

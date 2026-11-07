@@ -186,6 +186,7 @@ public class ItemTagProvider
         builder(CustomTags.GEM)
                 .add(ModItems.RED_GEM.getKey())
                 .add(ModItems.GREEN_GEM.getKey())
+                .add(ModItems.CRYSTAL_MOON.getKey())
                 .add(ModItems.PURPLE_GEM.getKey());
         builder(ItemTags.SWORDS)
                 .add(ModItems.GRASS_SWORD.getKey())

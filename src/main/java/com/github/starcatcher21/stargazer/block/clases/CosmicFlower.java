@@ -31,7 +31,7 @@ public class CosmicFlower
         implements SuspiciousEffectHolder {
     protected static final MapCodec<SuspiciousStewEffects> STEW_EFFECT_CODEC = SuspiciousStewEffects.CODEC.fieldOf("suspicious_stew_effects");
     public static final MapCodec<CosmicFlower> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(STEW_EFFECT_CODEC.forGetter(CosmicFlower::getSuspiciousEffects), CosmicFlower.propertiesCodec()).apply(instance, CosmicFlower::new));
-    private static final VoxelShape SHAPE = Block.box(2.0, 0.0, 2.0, 7.0, 7.0, 7.0);
+    private static final VoxelShape SHAPE = Block.box(1.0, 0.0, 1.0, 8.0, 7.0, 8.0);
     private final SuspiciousStewEffects stewEffects;
 
     public MapCodec<? extends CosmicFlower> codec() {

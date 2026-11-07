@@ -35,6 +35,10 @@ import java.util.function.Supplier;
             5, makeDefense(0, 0, 0, 0, 0), 15, SoundEvents.ARMOR_EQUIP_LEATHER, 0.0F, 0.0F, CustomTags.STAR, EquipmentAsset.MASK_OF_LUNA
     );
 
+    net.minecraft.world.item.equipment.ArmorMaterial MASK_OF_SOL_MATERIAL = new net.minecraft.world.item.equipment.ArmorMaterial(
+            5, makeDefense(0, 0, 0, 0, 0), 15, SoundEvents.ARMOR_EQUIP_LEATHER, 0.0F, 0.0F, CustomTags.STAR, EquipmentAsset.MASK_OF_SOL
+    );
+
     net.minecraft.world.item.equipment.ArmorMaterial JESTER_MATERIAL = new net.minecraft.world.item.equipment.ArmorMaterial(
             7, makeDefense(1, 3, 5, 2, 5), 40, SoundEvents.ARMOR_EQUIP_LEATHER, 0.0F, 0.0F, ItemTags.REPAIRS_LEATHER_ARMOR, EquipmentAsset.JESTER
     );
@@ -68,6 +72,23 @@ public class ArmorMaterial {
             0.0F,
             () -> Ingredient.of(CustomTags.STAR),
             EquipmentAsset.MASK_OF_LUNA_ID
+    );
+
+    public static final Holder<net.minecraft.world.item.ArmorMaterial> MASK_OF_SOL_MATERIAL = register(
+            "mask_of_sol",
+            Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
+                map.put(ArmorItem.Type.BOOTS, 0);
+                map.put(ArmorItem.Type.LEGGINGS, 0);
+                map.put(ArmorItem.Type.CHESTPLATE, 0);
+                map.put(ArmorItem.Type.HELMET, 0);
+                map.put(ArmorItem.Type.BODY, 0);
+            }),
+            15,
+            SoundEvents.ARMOR_EQUIP_LEATHER.value(),
+            0.0F,
+            0.0F,
+            () -> Ingredient.of(CustomTags.STAR),
+            EquipmentAsset.MASK_OF_SOL_ID
     );
 
     public static final Holder<net.minecraft.world.item.ArmorMaterial> JESTER_MATERIAL = register(

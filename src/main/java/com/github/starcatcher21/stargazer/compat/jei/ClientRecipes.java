@@ -23,13 +23,6 @@ import net.neoforged.neoforge.event.OnDatapackSyncEvent;
 //?}
 *///?}
 
-/**
- * Client-side access to the mod's recipes (26.2+).
- * Vanilla no longer sends recipes to the client, so each loader needs its own route:
- * Fabric reads them through Fabric API's FabricRecipeAccess (types must be registered with
- * RecipeSynchronization.synchronizeRecipeSerializer in your common/mod initializer),
- * NeoForge caches the RecipeMap from RecipesReceivedEvent (types requested via OnDatapackSyncEvent#sendRecipes).
- */
 public final class ClientRecipes {
 
     private ClientRecipes() {}
@@ -60,6 +53,7 @@ public final class ClientRecipes {
             event.sendRecipes(
                     RecipeTypes.STAR_CRUSHER.get(),
                     RecipeTypes.MOON_WELDER.get(),
+                    RecipeTypes.CRYSTALIZER.get(),
                     RecipeTypes.STARFORGE.get());
         }
     }

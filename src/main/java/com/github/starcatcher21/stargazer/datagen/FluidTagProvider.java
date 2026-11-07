@@ -16,6 +16,7 @@ import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.TagsProvider;
 *///?}
+import com.github.starcatcher21.stargazer.block.ModFluids;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
@@ -50,6 +51,9 @@ public class FluidTagProvider
 
     @Override
     protected void addTags(HolderLookup.Provider wrapperLookup) {
+        getOrCreateRawBuilder(DREAM)
+                .addElement(ModFluids.DREAM_FLOWING.getId())
+                .addElement(ModFluids.DREAM_STILL.getId());
     }
 }
 //? }

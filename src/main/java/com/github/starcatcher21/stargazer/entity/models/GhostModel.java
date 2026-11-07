@@ -30,7 +30,7 @@ public class GhostModel extends GeoModel<Ghost> {
     private final ResourceLocation texture_pinky =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/ghost_pinky.png");
     private final ResourceLocation texture_dead =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/pacman_ghost_dead.png");
     private final ResourceLocation texture_hurt =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/pacman_ghost_hurt.png");
-    public static final Set<String> pacman = Set.of("blinky", "shadow", "clyde", "pokey", "inky", "bashful", "pinky", "speedy");
+    public static final Set<String> pacman = Set.of("blinky", "shadow", "clyde", "pokey", "inky", "bashful", "pinky", "speedy", "oikake", "machibuse", "kimagure", "otoboke");
     private final ResourceLocation texture_trans =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/ghost_trans.png");
     private final ResourceLocation texture_cat =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/entity/ghost_cat.png");
 
@@ -56,26 +56,39 @@ public class GhostModel extends GeoModel<Ghost> {
     //? if >= 26.2 {
     /*@Override
     public ResourceLocation getTextureResource(GeoRenderState renderState) {
-        String name = renderState.getGeckolibData(DataTickets.CUSTOM_NAME).toLowerCase();
+    *///? } else {
+    public ResourceLocation getTextureResource(Ghost animatable) {
+    //? }
+        //? if >= 26.2 {
+        /*String name = renderState.getGeckolibData(DataTickets.CUSTOM_NAME).toLowerCase();
         if (renderState instanceof LivingEntityRenderState entityState) {
+        *///? } else {
+        String name = animatable.CustomName.toLowerCase();
+        var entityState = animatable;
+        if (true) {
+        //? }
             if (pacman.contains(name) && entityState.deathTime > 0) {
                 return texture_dead;
             }
-            if (pacman.contains(name) && entityState.hasRedOverlay) {
+            //? if >= 26.2 {
+            /*if (pacman.contains(name) && entityState.hasRedOverlay) {
+            *///? } else {
+            if (pacman.contains(name) && entityState.hurtTime > 0) {
+            //? }
                 return texture_hurt;
             }
         }
         switch (name) {
-            case "blinky", "shadow" -> {
+            case "blinky", "shadow", "oikake" -> {
                 return texture_blinky;
             }
-            case "clyde", "pokey" -> {
+            case "clyde", "pokey", "otoboke" -> {
                 return texture_clyde;
             }
-            case "inky", "bashful" -> {
+            case "inky", "bashful", "kimagure" -> {
                 return texture_inky;
             }
-            case "pinky", "speedy" -> {
+            case "pinky", "speedy", "machibuse" -> {
                 return texture_pinky;
             }
             case "trans", "transgender", "estrogen", "testosterone" -> {
@@ -96,50 +109,6 @@ public class GhostModel extends GeoModel<Ghost> {
         }
         return texture;
     }
-    *///? } else {
-    @Override
-    public ResourceLocation getTextureResource(Ghost animatable) {
-        String name = animatable.CustomName.toLowerCase();
-        if (pacman.contains(name) && animatable.deathTime > 0) {
-            return texture_dead;
-        }
-        if (pacman.contains(name) && animatable.hurtTime > 0) {
-            return texture_hurt;
-        }
-        switch (name) {
-            case "blinky", "shadow" -> {
-                return texture_blinky;
-            }
-            case "clyde", "pokey" -> {
-                return texture_clyde;
-            }
-            case "inky", "bashful" -> {
-                return texture_inky;
-            }
-            case "pinky", "speedy" -> {
-                return texture_pinky;
-            }
-            case "trans", "transgender", "estrogen", "testosterone" -> {
-                return texture_trans;
-            }
-            case "cat" -> {
-                return texture_cat;
-            }
-            case "bill", "bill cipher", "cipher", "gold", "golden triangle", "60 degrees that comes in threes"-> {
-                return texture_cipher;
-            }
-            case "finn", "finn the human", "finn martens" -> {
-                return texture_finn;
-            }
-            case "jake", "jake the dog" -> {
-                return texture_jake;
-            }
-        }
-        return texture;
-    }
-    //? }
-
-
 
     @Override
     public ResourceLocation getAnimationResource(Ghost animatable) {

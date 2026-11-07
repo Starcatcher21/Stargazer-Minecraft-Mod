@@ -1,12 +1,12 @@
 package com.github.starcatcher21.stargazer;
 
+import com.github.starcatcher21.stargazer.block.ModFluids;
 import com.github.starcatcher21.stargazer.block.clases.crystalizer.CrystalizerRenderer;
 import com.github.starcatcher21.stargazer.block.clases.grave.GraveRenderer;
 import com.github.starcatcher21.stargazer.screens.recipe.RecipeTypes;
 //? if fabric {
 /*import net.fabricmc.fabric.api.recipe.v1.sync.RecipeSynchronization;
 *///? }
-import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import software.bernie.geckolib.renderer.GeoBlockRenderer;
 import com.github.starcatcher21.stargazer.block.BlockTypes;
 import com.github.starcatcher21.stargazer.block.clases.eyes.eyejar.EyeJarModel;
@@ -101,6 +101,19 @@ public final class StargazerClient /*? if fabric {*//*implements ClientModInitia
         // Keybinds
         Keybinds.init();
 
+        //? if fabric {
+        /*FluidRenderingRegistry.register(
+                ModFluids.DREAM_STILL.get(),
+                ModFluids.DREAM_FLOWING.get(),
+                new FluidModel.Unbaked(
+                        new Material(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "block/dream_still")),
+                        new Material(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "block/dream_flow")),
+                        null,
+                        null
+                )
+        );
+        *///? }
+
         // Entity Renderers
         EntityRendererRegistry.register(EntityRegistry.GHOST_ENTITY, GhostRenderer::new);
         EntityRendererRegistry.register(EntityRegistry.AMETHYST_TURTLE_ENTITY, AmethystTurtleRenderer::new);
@@ -127,7 +140,6 @@ public final class StargazerClient /*? if fabric {*//*implements ClientModInitia
         Stargazer.LOGGER.info("Loading End Client Tick Events");
         ClientTickEvent.CLIENT_POST.register(client -> {
             if (client != null && client.level != null && client.player != null) {
-                // Run dash logic directly without illegal server-side gameRule lookups
                 DashClient.tick();
                 StargazeClient.clientTick(client);
             }
@@ -142,6 +154,7 @@ public final class StargazerClient /*? if fabric {*//*implements ClientModInitia
         RecipeSynchronization.synchronizeRecipeSerializer(RecipeTypes.STAR_CRUSHER_SERIALIZER.get());
         RecipeSynchronization.synchronizeRecipeSerializer(RecipeTypes.MOON_WELDER_SERIALIZER.get());
         RecipeSynchronization.synchronizeRecipeSerializer(RecipeTypes.STARFORGE_SERIALIZER.get());
+        RecipeSynchronization.synchronizeRecipeSerializer(RecipeTypes.CRYSTALIZER_SERIALIZER.get());
         FabricSkyStarRenderer.init();
     }
     *///?}

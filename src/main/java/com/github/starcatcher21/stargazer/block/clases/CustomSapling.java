@@ -95,9 +95,7 @@ public class CustomSapling extends VegetationBlock implements BonemealableBlock 
     }
 
     public void instantGrow(ServerLevel world, BlockPos pos, BlockState state, RandomSource random) {
-        Stargazer.LOGGER.error("grow");
         Optional<Holder.Reference<ConfiguredFeature<?, ?>>> optional = world.registryAccess().lookupOrThrow(Registries.CONFIGURED_FEATURE).get(this.featureKey);
-        Stargazer.LOGGER.error(optional.toString());
         if (optional.isEmpty()) return;
         ((ConfiguredFeature)((Holder)optional.get()).value()).place(world, world.getChunkSource().getGenerator(), random, pos);
     }

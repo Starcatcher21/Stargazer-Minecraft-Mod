@@ -213,6 +213,8 @@ public class ModBlock {
         Wander.init();
         Energy.init();
 
+        ModFluids.init();
+
         BLOCKS.register();
         ITEMS.register();
 

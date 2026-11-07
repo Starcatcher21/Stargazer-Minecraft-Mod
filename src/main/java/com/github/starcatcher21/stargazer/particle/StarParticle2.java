@@ -4,6 +4,7 @@ package com.github.starcatcher21.stargazer.particle;
 /*import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 *///? }
+import com.github.starcatcher21.stargazer.Stargazer;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;

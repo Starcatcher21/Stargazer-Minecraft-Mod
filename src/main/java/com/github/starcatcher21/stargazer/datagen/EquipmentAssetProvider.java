@@ -28,6 +28,10 @@ public class EquipmentAssetProvider implements DataProvider {
                 EquipmentClientInfo.builder()
                         .addHumanoidLayers(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "mask_of_luna"))
                         .build());
+        consumer.accept(EquipmentAsset.MASK_OF_SOL,
+                EquipmentClientInfo.builder()
+                        .addHumanoidLayers(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "mask_of_sol"))
+                        .build());
         consumer.accept(EquipmentAsset.JESTER,
                 EquipmentClientInfo.builder()
                         .addHumanoidLayers(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "jester"))

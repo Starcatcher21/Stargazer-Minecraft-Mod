@@ -12,7 +12,9 @@
     "EntityMixin",
     "RecipeManagerMixin",
     "SnifferAccessor",
-    "SnifferMixin"
+    "SnifferMixin",
+    "FishingBobberEntityMixin",
+    "LivingEntityMixin"
   ],
   "client": [
     "WorldRendererMixin",

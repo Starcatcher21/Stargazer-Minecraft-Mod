@@ -1,14 +1,17 @@
 package com.github.starcatcher21.stargazer.block.register;
 
+import com.github.starcatcher21.stargazer.block.clases.StarBerryBushBlock;
 import com.github.starcatcher21.stargazer.block.clases.moon.plants.MoonCrop;
 import com.github.starcatcher21.stargazer.item.ModItems;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.SweetBerryBushBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.PushReaction;
 
@@ -155,6 +158,25 @@ public class Crops {
             "spinny_seeds",
             ModItems.createBlockItemWithUniqueName(SPINNY_BLOCK),
             new Item.Properties());
+
+    public static final RegistrySupplier<Block> STARBERRY_BUSH = registerWoItem("starberry_bush", StarBerryBushBlock::new, BlockBehaviour.Properties.of()
+            //? if >= 26.2 {
+            /*.noCollision()
+            *///?} else {
+            .noCollission()
+            //?}
+            .instabreak()
+            .randomTicks()
+            .sound(SoundType.GRASS)
+            .pushReaction(PushReaction.DESTROY)
+    );
+    public static final RegistrySupplier<Item> STARBERRY = ModItems.register(
+            "starberry",
+            ModItems.createBlockItemWithUniqueName(STARBERRY_BUSH),
+            new Item.Properties()
+                    .food(Foods.SWEET_BERRIES)
+    );
+
 
     public static void init() {
     }

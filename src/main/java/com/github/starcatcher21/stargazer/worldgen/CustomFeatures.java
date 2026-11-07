@@ -8,6 +8,7 @@ import com.github.starcatcher21.stargazer.worldgen.features.chess.ChessTrees;
 import com.github.starcatcher21.stargazer.worldgen.features.amertylst.Amertylst;
 import com.github.starcatcher21.stargazer.worldgen.features.amertylst.AmertylstConfig;
 import com.github.starcatcher21.stargazer.worldgen.features.blackstone_pillars.BlackStonePillars;
+import com.github.starcatcher21.stargazer.worldgen.features.gem.GemOre;
 import com.github.starcatcher21.stargazer.worldgen.features.iron.IronOre;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.bones.BoneTrees;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.bubbles.Bubbles;
@@ -53,6 +54,7 @@ public class CustomFeatures {
     public static final RegistrySupplier<Feature/*? if < 26.3 { */ <?> /*? } */> prismatic_ore = register("prismatic_ore", () -> new PrismaticOre(TreeConfig.CODEC));
     public static final RegistrySupplier<Feature/*? if < 26.3 { */ <?> /*? } */> crystal_ore = register("crystal_ore", () -> new CrystalOre(TreeConfig.CODEC));
     public static final RegistrySupplier<Feature/*? if < 26.3 { */ <?> /*? } */> iron_ore = register("iron_ore", () -> new IronOre(TreeConfig.CODEC));
+    public static final RegistrySupplier<Feature/*? if < 26.3 { */ <?> /*? } */> gem_ore = register("gem_ore", () -> new GemOre(TreeConfig.CODEC));
     public static final RegistrySupplier<Feature/*? if < 26.3 { */ <?> /*? } */> forget_me_now = register("forget_me_now", () -> new ForgetMeNow(/*? if < 26.3 { */NoneFeatureConfiguration.CODEC/*? } */));
     public static final RegistrySupplier<Feature/*? if < 26.3 { */ <?> /*? } */> gradi = register("gradi", () -> new Gradi(/*? if < 26.3 { */NoneFeatureConfiguration.CODEC/*? } */));
     public static final RegistrySupplier<Feature/*? if < 26.3 { */ <?> /*? } */> eyes = register("eyes", () -> new Eyes(/*? if < 26.3 { */NoneFeatureConfiguration.CODEC/*? } */));

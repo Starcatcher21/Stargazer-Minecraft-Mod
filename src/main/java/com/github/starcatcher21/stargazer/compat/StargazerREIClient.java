@@ -1,5 +1,6 @@
 package com.github.starcatcher21.stargazer.compat;
 
+import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.block.ModBlock;
 import com.github.starcatcher21.stargazer.block.register.Energy;
 import com.github.starcatcher21.stargazer.block.register.MoonBlocks;
@@ -7,10 +8,12 @@ import com.github.starcatcher21.stargazer.screens.handled.MoonWelderHandled;
 import com.github.starcatcher21.stargazer.screens.handled.StarCrusherHandled;
 import com.github.starcatcher21.stargazer.screens.handled.StarforgeHandled;
 //? if >= 26.2 {
-/*import com.github.starcatcher21.stargazer.screens.recipe.serializer.ShapedMoonWelderRecipeDisplay;
+/*import com.github.starcatcher21.stargazer.screens.recipe.serializer.ShapedCrystalizerRecipeDisplay;
+import com.github.starcatcher21.stargazer.screens.recipe.serializer.ShapedMoonWelderRecipeDisplay;
 import com.github.starcatcher21.stargazer.screens.recipe.serializer.ShapedStarforgeRecipeDisplay;
 import com.github.starcatcher21.stargazer.screens.recipe.serializer.StarCrusherRecipeDisplay;
 *///?} else {
+import com.github.starcatcher21.stargazer.screens.recipe.CrystalizerRecipe;
 import com.github.starcatcher21.stargazer.screens.recipe.RecipeTypes;
 import com.github.starcatcher21.stargazer.screens.recipe.StarCrusherRecipe;
 import com.github.starcatcher21.stargazer.screens.recipe.serializer.ShapedMoonWelderRecipe;
@@ -21,7 +24,9 @@ import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.plugins.REIClientPlugin;
 import me.shedaniel.rei.api.client.registry.category.CategoryRegistry;
 import me.shedaniel.rei.api.client.registry.display.DisplayRegistry;
+import me.shedaniel.rei.api.client.registry.entry.EntryRegistry;
 import me.shedaniel.rei.api.client.registry.screen.ScreenRegistry;
+import me.shedaniel.rei.api.common.entry.type.VanillaEntryTypes;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 //? if neoforge {
 import me.shedaniel.rei.forge.REIPluginClient;
@@ -50,6 +55,10 @@ public class StargazerREIClient implements REIClientPlugin {
         registry.add(new StarCrusherCategory());
         registry.addWorkstations(StarCrusherCategory.STARFORGE,
                 EntryStacks.of(Energy.STAR_CRUSHER.get().asItem().getDefaultInstance()));
+
+        registry.add(new CrystalizerCategory());
+        registry.addWorkstations(CrystalizerCategory.CRYSTALIZER,
+                EntryStacks.of(MoonBlocks.CRYSTALIZER.get().asItem().getDefaultInstance()));
     }
     @Override
     public void registerDisplays(DisplayRegistry registry) {
@@ -63,6 +72,9 @@ public class StargazerREIClient implements REIClientPlugin {
         registry.beginRecipeFiller(StarCrusherRecipeDisplay.class)
                 .filterType(StarCrusherRecipeDisplay.SERIALIZER)
                 .fill(StarCrusherDisplay::new);
+        registry.beginRecipeFiller(ShapedCrystalizerRecipeDisplay.class)
+                .filterType(ShapedCrystalizerRecipeDisplay.SERIALIZER)
+                .fill(CrystalizerDisplay::new);
         *///?} else {
         registry.registerRecipeFiller(
                 ShapedStarforgeRecipe.class,
@@ -80,6 +92,11 @@ public class StargazerREIClient implements REIClientPlugin {
                 StarCrusherRecipe.class,
                 RecipeTypes.STAR_CRUSHER.get(),
                 StarCrusherDisplay::new
+        );
+        registry.registerRecipeFiller(
+                CrystalizerRecipe.class,
+                RecipeTypes.CRYSTALIZER.get(),
+                CrystalizerDisplay::new
         );
         //?}
 
@@ -113,5 +130,15 @@ public class StargazerREIClient implements REIClientPlugin {
                         9, 47),
                 StarCrusherHandled.class,
                 StarCrusherCategory.STARFORGE);
+    }
+
+    @Override
+    public void registerEntries(EntryRegistry registry) {
+        REIClientPlugin.super.registerEntries(registry);
+        registry.removeEntryIf(stack ->
+                stack.getType() == VanillaEntryTypes.FLUID
+                        && stack.getIdentifier() != null
+                        && stack.getIdentifier().getNamespace().equals(Stargazer.MOD_ID)
+                        && stack.getIdentifier().getPath().contains("dream"));
     }
 }

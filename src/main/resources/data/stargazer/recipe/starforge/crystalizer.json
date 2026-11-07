@@ -1,0 +1,21 @@
+{
+  "type": "stargazer:starforge",
+  "pattern": [
+    "  R  ",
+    " SGS ",
+    "RGMGR",
+    " SGS ",
+    "B   B"
+  ],
+  "key": {
+    "S": "stargazer:amethyst_dust",
+    "G": "#stargazer:gem",
+    "M": "stargazer:moon_rock",
+    "R": "stargazer:red_star",
+    "B": "stargazer:blue_star"
+  },
+  "result": {
+    "count": 1,
+    "id": "stargazer:crystalizer"
+  }
+}

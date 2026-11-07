@@ -1,0 +1,8 @@
+{
+  "type": "stargazer:star_crusher",
+  "item1": "stargazer:crystalized_red_rock",
+  "result": {
+    "count": 3,
+    "id": "stargazer:gem_fragments"
+  }
+}

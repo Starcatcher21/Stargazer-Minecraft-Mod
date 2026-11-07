@@ -3,6 +3,7 @@ package com.github.starcatcher21.stargazer.datagen;
 
 import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.block.ModBlock;
+import com.github.starcatcher21.stargazer.block.clases.StarBerryBushBlock;
 import com.github.starcatcher21.stargazer.block.clases.energy.cables.YellowCable;
 import com.github.starcatcher21.stargazer.block.clases.moon.plants.MoonCrop;
 import com.github.starcatcher21.stargazer.block.register.*;
@@ -18,6 +19,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
 import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
@@ -122,6 +124,7 @@ public final class LegacyNeoForgeModelProvider extends BlockStateProvider {
         cubeWithItem(ModBlock.AMETHYST_BRICKS.get());
         cubeWithItem(ModBlock.UNTITLED.get());
         cubeWithItem(MoonBlocks.FUZZY_LEAVES.get());
+        cubeWithItem(RedOrbBlocks.CRYSTALLED_RED_ROCK.get());
 
         // ---------------- Item models for source blockstates ----------------
         blockItem(EyeBloodBlocks.EYE_LOG.get(), "closed_eye_log");
@@ -227,11 +230,12 @@ public final class LegacyNeoForgeModelProvider extends BlockStateProvider {
         mushroomBlock(MoonBlocks.PURPLE_MUSHROOM_BLOCK.get());
 
         // ---------------- Crops ----------------
-        crop(Crops.DRAGON_CARROT_BLOCK.get(), 0, 1, 2, 3, 4, 5, 6, 7);
-        crop(Crops.BROODY_BLOCK.get(), 0, 1, 2, 3, 4, 5, 6, 7);
-        crop(Crops.EYE_BALLS_BLOCK.get(), 0, 1, 2, 3, 4, 5, 6, 7);
-        flowerCrop(Crops.BRUNT_BLOCK.get(), 0, 1, 2, 3, 4, 5, 6, 7);
-        flowerCrop(Crops.SPINNY_BLOCK.get(), 0, 1, 2, 3, 4, 5, 6, 7);
+        crop(Crops.DRAGON_CARROT_BLOCK.get(), MoonCrop.AGE, 0, 1, 2, 3, 4, 5, 6, 7);
+        crop(Crops.BROODY_BLOCK.get(), MoonCrop.AGE, 0, 1, 2, 3, 4, 5, 6, 7);
+        crop(Crops.EYE_BALLS_BLOCK.get(), MoonCrop.AGE, 0, 1, 2, 3, 4, 5, 6, 7);
+        flowerCrop(Crops.BRUNT_BLOCK.get(), MoonCrop.AGE, 0, 1, 2, 3, 4, 5, 6, 7);
+        flowerCrop(Crops.SPINNY_BLOCK.get(), MoonCrop.AGE, 0, 1, 2, 3, 4, 5, 6, 7);
+        flowerCrop(Crops.STARBERRY_BUSH.get(), StarBerryBushBlock.AGE, 0, 1, 2, 3);
 
         // ---------------- Pot plants ----------------
         potPlant(MoonBlocks.PURPLE_MUSHROOM.get(), MoonBlocks.POTTED_PURPLE_MUSHROOM.get(), MoonBlocks.MOON_ROCK.get());
@@ -399,6 +403,9 @@ public final class LegacyNeoForgeModelProvider extends BlockStateProvider {
         flatItem(ModItems.RED_GEM.get());
         flatItem(ModItems.GREEN_GEM.get());
         flatItem(ModItems.PURPLE_GEM.get());
+        flatItem(ModItems.GEM_FRAGMENTS.get());
+        flatItem(ModItems.MASK_OF_SOL.get());
+        flatItem(Crops.STARBERRY.get());
         // Spawn eggs
         flatItem(ModItems.GHOST_SPAWN_EGG.get());
         flatItem(ModItems.AMETHYST_TURTLE_SPAWN_EGG.get());
@@ -618,25 +625,25 @@ public final class LegacyNeoForgeModelProvider extends BlockStateProvider {
     }
 
     /** Crop block with per-stage cross models. */
-    private void crop(Block block, int... stages) {
+    private void crop(Block block, IntegerProperty property, int... stages) {
         var builder = getVariantBuilder(block);
         for (int stage : stages) {
             ModelFile model = models()
                     .crop(name(block) + "_stage" + stage, blockTex(name(block) + "_stage" + stage))
                     .renderType("cutout");
-            builder.partialState().with(MoonCrop.AGE, stage)
+            builder.partialState().with(property, stage)
                     .modelForState().modelFile(model).addModel();
         }
     }
 
     /** Crop block with per-stage cross models. */
-    private void flowerCrop(Block block, int... stages) {
+    private void flowerCrop(Block block, IntegerProperty property, int... stages) {
         var builder = getVariantBuilder(block);
         for (int stage : stages) {
             ModelFile model = models()
                     .cross(name(block) + "_stage" + stage, blockTex(name(block) + "_stage" + stage))
                     .renderType("cutout");
-            builder.partialState().with(MoonCrop.AGE, stage)
+            builder.partialState().with(property, stage)
                     .modelForState().modelFile(model).addModel();
         }
     }

@@ -2,6 +2,7 @@ package com.github.starcatcher21.stargazer.CreativeTab;
 
 import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.block.ModBlock;
+import com.github.starcatcher21.stargazer.block.ModFluids;
 import com.github.starcatcher21.stargazer.block.register.*;
 import com.github.starcatcher21.stargazer.item.ModItems;
 import com.github.starcatcher21.stargazer.item.WishingStars;
@@ -377,6 +378,7 @@ public class ItemGroup {
                         output.accept(ModItems.AMETHYST_BOOTS.get());
                         // Masks
                         output.accept(ModItems.MASK_OF_LUNA.get());
+                        output.accept(ModItems.MASK_OF_SOL.get());
                         output.accept(ModBlock.AMETHYST_BRICKS.get());
                         output.accept(ModItems.SPACE_JAM.get());
                         output.accept(ModBlock.SPACE_JAM_BLOCK.get());
@@ -398,9 +400,13 @@ public class ItemGroup {
                         output.accept(ModItems.GREEN_GEM.get());
                         output.accept(ModItems.RED_GEM.get());
                         output.accept(ModItems.PURPLE_GEM.get());
+                        output.accept(ModItems.GEM_FRAGMENTS.get());
+                        output.accept(RedOrbBlocks.CRYSTALLED_RED_ROCK.get());
                         output.accept(ModItems.DEMONIC_SWORD.get());
                         output.accept(ModItems.PURE_GOLD_SWORD.get());
                         output.accept(ModItems.GRASS_SWORD.get());
+                        output.accept(Crops.STARBERRY.get());
+                        output.accept(ModFluids.DREAM_BUCKET.get());
                     })
     ));
 

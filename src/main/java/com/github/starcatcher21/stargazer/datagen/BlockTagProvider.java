@@ -237,6 +237,7 @@ public class BlockTagProvider
         // Rock
         builder(BlockTags.MINEABLE_WITH_PICKAXE)
                 .add(MoonBlocks.COMET_BLOCK.getKey())
+                .add(RedOrbBlocks.CRYSTALLED_RED_ROCK.getKey())
                 .add(MoonBlocks.MOON_ROCK_IRON_ORE.getKey())
                 .add(MoonBlocks.MOON_ROCK_CRYSTALS.getKey())
                 .add(MoonBlocks.CRYSTAL_MOON_BLOCK.getKey())

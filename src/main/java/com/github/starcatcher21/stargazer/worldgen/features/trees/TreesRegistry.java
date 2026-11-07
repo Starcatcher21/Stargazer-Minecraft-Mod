@@ -2,6 +2,7 @@ package com.github.starcatcher21.stargazer.worldgen.features.trees;
 
 import com.github.starcatcher21.stargazer.worldgen.features.chess.ChessTrees;
 import com.github.starcatcher21.stargazer.worldgen.features.blackstone_pillars.BlackStonePillars;
+import com.github.starcatcher21.stargazer.worldgen.features.gem.GemOre;
 import com.github.starcatcher21.stargazer.worldgen.features.iron.IronOre;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.bones.BoneTrees;
 import com.github.starcatcher21.stargazer.worldgen.features.trees.bubbles.Bubbles;
@@ -51,5 +52,6 @@ public class TreesRegistry {
         IronOre.init();
         UmbrellaTrees.init();
         FuzzyTrees.init();
+        GemOre.init();
     }
 }

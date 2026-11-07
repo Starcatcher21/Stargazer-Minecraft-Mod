@@ -31,6 +31,13 @@ public class RedOrbBlocks {
             .requiresCorrectToolForDrops()
             .mapColor(MapColor.COLOR_ORANGE)
     );
+    public static final RegistrySupplier<Block> CRYSTALLED_RED_ROCK = register("crystalled_red_rock", Block::new, BlockBehaviour.Properties.of()
+            .forceSolidOn()
+            .sound(SoundType.STONE)
+            .strength(0.5f)
+            .requiresCorrectToolForDrops()
+            .mapColor(MapColor.COLOR_ORANGE)
+    );
     public static final RegistrySupplier<Block> GREEN_ROCK = register("green_rock", Block::new, BlockBehaviour.Properties.of()
             .forceSolidOn()
             .sound(SoundType.STONE)

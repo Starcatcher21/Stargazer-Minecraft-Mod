@@ -33,8 +33,8 @@ public class IronOre extends Feature<TreeConfig> {
 
     public static void init() {
         MoonBlocks.MOON_ROCK_IRON_ORE.listen(block -> {
-            IRON = register("IRON");
-            IRON2 = register("IRON2");
+            IRON = register("GEM");
+            IRON2 = register("GEM2");
             iron1.init(IRON);
             iron2.init(IRON2);
         });

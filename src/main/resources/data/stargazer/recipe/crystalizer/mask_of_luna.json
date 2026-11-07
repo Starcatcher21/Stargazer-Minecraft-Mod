@@ -1,0 +1,9 @@
+{
+  "type": "stargazer:crystalizer",
+  "item1": "stargazer:crystal_moon",
+  "item2": "minecraft:leather_helmet",
+  "result": {
+    "count": 1,
+    "id": "stargazer:mask_of_luna"
+  }
+}

@@ -2,9 +2,7 @@ package com.github.starcatcher21.stargazer.compat;
 
 import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.screens.recipe.RecipeTypes;
-import com.github.starcatcher21.stargazer.screens.recipe.serializer.ShapedMoonWelderRecipe;
-import com.github.starcatcher21.stargazer.screens.recipe.serializer.ShapedStarCrusherRecipe;
-import com.github.starcatcher21.stargazer.screens.recipe.serializer.ShapedStarforgeRecipe;
+import com.github.starcatcher21.stargazer.screens.recipe.serializer.*;
 import com.github.starcatcher21.starlib.mechanics.star.FallingObjectsList;
 import me.shedaniel.rei.api.common.display.DisplaySerializer;
 import me.shedaniel.rei.api.common.display.DisplaySerializerRegistry;
@@ -35,6 +33,7 @@ public class StargazerREICommon implements
     public static DisplaySerializer<MoonWelderDisplay> MOONWELDER = new MoonWelderDisplaySerializer();
     public static DisplaySerializer<StargazingDisplay> STARGAZING = new StargazingDisplaySerializer();
     public static DisplaySerializer<StarCrusherDisplay> STAR_CRUSHER = new StarCrusherDisplaySerializer();
+    public static DisplaySerializer<CrystalizerDisplay> CRYSTALIZER = new CrystalizerDisplaySerializer();
 
     @Override
     public void registerDisplaySerializer(DisplaySerializerRegistry registry) {
@@ -43,12 +42,14 @@ public class StargazerREICommon implements
         registry.register(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "moon_welder_display_serializer"), MOONWELDER);
         registry.register(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "stargazing_display_serializer"), STARGAZING);
         registry.register(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "star_crusher_display_serializer"), STAR_CRUSHER);
+        registry.register(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "crystalizer_display_serializer"), CRYSTALIZER);
         REICommonPlugin.super.registerDisplaySerializer(registry);
         *///? } else {
         registry.register(CategoryIdentifier.of(Stargazer.MOD_ID, "starforge_display_serializer"), STARFORGE);
         registry.register(CategoryIdentifier.of(Stargazer.MOD_ID, "moon_welder_display_serializer"), MOONWELDER);
         registry.register(CategoryIdentifier.of(Stargazer.MOD_ID, "stargazing_display_serializer"), STARGAZING);
         registry.register(CategoryIdentifier.of(Stargazer.MOD_ID, "star_crusher_display_serializer"), STAR_CRUSHER);
+        registry.register(CategoryIdentifier.of(Stargazer.MOD_ID, "crystalizer_display_serializer"), CRYSTALIZER);
         REIPlugin.super.registerDisplaySerializer(registry);
         //? }
     }
@@ -66,6 +67,9 @@ public class StargazerREICommon implements
         registry.beginRecipeFiller(ShapedStarCrusherRecipe.class)
                 .filterType(RecipeTypes.STAR_CRUSHER.get())
                 .fill(StarCrusherDisplay::of);
+        registry.beginRecipeFiller(ShapedCrystalizerRecipe.class)
+                .filterType(RecipeTypes.CRYSTALIZER.get())
+                .fill(CrystalizerDisplay::of);
         REICommonPlugin.super.registerDisplays(registry);
     }
     *///? }

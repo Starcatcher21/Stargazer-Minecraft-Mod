@@ -10,6 +10,7 @@ public interface EquipmentAsset {
         return ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, name);
     }
     ResourceLocation MASK_OF_LUNA_ID = id("mask_of_luna");
+    ResourceLocation MASK_OF_SOL_ID = id("mask_of_sol");
     ResourceLocation JESTER_ID = id("jester");
     ResourceLocation MOON_ID = id("moon");
     ResourceLocation AMETHYST_ID = id("amethyst");
@@ -17,6 +18,7 @@ public interface EquipmentAsset {
     /*ResourceKey<? extends Registry<net.minecraft.world.item.equipment.EquipmentAsset>> ROOT_ID = ResourceKey.createRegistryKey(ResourceLocation.withDefaultNamespace("equipment_asset"));
 
     ResourceKey<net.minecraft.world.item.equipment.EquipmentAsset> MASK_OF_LUNA = createId("mask_of_luna");
+    ResourceKey<net.minecraft.world.item.equipment.EquipmentAsset> MASK_OF_SOL = createId("mask_of_sol");
     ResourceKey<net.minecraft.world.item.equipment.EquipmentAsset> JESTER = createId("jester");
     ResourceKey<net.minecraft.world.item.equipment.EquipmentAsset> MOON = createId("moon");
     ResourceKey<net.minecraft.world.item.equipment.EquipmentAsset> AMETHYST = createId("amethyst");

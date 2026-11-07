@@ -3,9 +3,13 @@ package com.github.starcatcher21.stargazer;
 import com.github.starcatcher21.stargazer.CreativeTab.ItemGroup;
 import com.github.starcatcher21.stargazer.block.BlockTypes;
 import com.github.starcatcher21.stargazer.block.ModBlock;
-//? if neoforge {
+import com.github.starcatcher21.stargazer.block.ModFluids;
 import com.github.starcatcher21.stargazer.compat.jei.ClientRecipes;
+//? if neoforge {
 import com.github.starcatcher21.stargazer.datagen.NeoForgeDataGenerator;
+import com.github.starcatcher21.stargazer.item.armor.ArmorMaterial;
+import com.github.starcatcher21.stargazer.particle.NeoforgeParticleRegistration;
+import com.github.starcatcher21.stargazer.block.NeoForgeFluidClientEvents;
 //? }
 import com.github.starcatcher21.stargazer.effects.Potions;
 import com.github.starcatcher21.stargazer.effects.StatusEffects;
@@ -15,7 +19,6 @@ import com.github.starcatcher21.stargazer.entity.EntityRegistry;
 /*import com.github.starcatcher21.stargazer.item.ConsumeEffectsRegistry;
 *///? }
 import com.github.starcatcher21.stargazer.item.ModItems;
-import com.github.starcatcher21.stargazer.item.armor.ArmorMaterial;
 import com.github.starcatcher21.stargazer.mechanics.DamageTypeRegistry;
 import com.github.starcatcher21.stargazer.mechanics.PlayerCosmicGrav;
 import com.github.starcatcher21.stargazer.mechanics.PlayerRedOrbGrav;
@@ -125,6 +128,12 @@ public final class Stargazer
             /*NeoForge.EVENT_BUS.register(ClientRecipes.Sync.class);
             NeoForge.EVENT_BUS.register(ClientRecipes.Receive.class);
             *///? }
+            //? if >= 26.2 {
+            /*modEventBus.addListener(NeoForgeFluidClientEvents::registerFluidModels);
+             *///? } else {
+            modEventBus.addListener(NeoForgeFluidClientEvents::registerClientExtensions);
+            //? }
+            modEventBus.register(NeoforgeParticleRegistration.class);
             StargazerClient.initClient();
             NeoForge.EVENT_BUS.register(StargazerNeoForgeRenderEvents.class);
         }
@@ -141,6 +150,7 @@ public final class Stargazer
     public static void initCommon() {
         EntityRegistry.init();
         StargazerNetworking.registerPackets();
+        ModFluids.FLUIDS.register();
         ModItems.init();
         SoundEffects.init();
         StatusEffects.init();

@@ -1,12 +1,15 @@
 package com.github.starcatcher21.stargazer.block.clases.crystalizer;
 
 import com.github.starcatcher21.stargazer.block.BlockTypes;
+import com.github.starcatcher21.stargazer.particle.Particles;
 import com.github.starcatcher21.stargazer.screens.recipe.CrystalizerRecipe;
 import com.github.starcatcher21.stargazer.screens.recipe.CrystalizerRecipeInput;
 import com.github.starcatcher21.stargazer.screens.recipe.RecipeTypes;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
@@ -130,9 +133,26 @@ public class CrystalizerEntity extends BlockEntity {
         return this.progress;
     }
 
+    public static void tick(Level level, BlockPos pos, BlockState state, CrystalizerEntity be) {
+        if (level instanceof ServerLevel) {
+            serverTick(level, pos, state, be);
+        } else {
+            clientTick(level, pos, state, be);
+        }
+    }
+
+    public static void clientTick(Level level, BlockPos pos, BlockState state, CrystalizerEntity be) {
+        if (be.getProgress() == 1) {
+            level.addParticle(ParticleTypes.HAPPY_VILLAGER, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 0, 0, 0);
+        } else if (be.getProgress() < CRAFTING_TIME/2) {
+            level.addParticle(ParticleTypes.FLAME, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 0, 0, 0);
+        } else if (be.getProgress() < CRAFTING_TIME) {
+            level.addParticle(ParticleTypes.SMOKE, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 0, 0, 0);
+        }
+    }
+
     public static void serverTick(Level level, BlockPos pos, BlockState state, CrystalizerEntity be) {
         if (!(level instanceof ServerLevel serverLevel)) return;
-
         ItemStack in1 = be.getInput();
         ItemStack in2 = be.getInput2();
 
