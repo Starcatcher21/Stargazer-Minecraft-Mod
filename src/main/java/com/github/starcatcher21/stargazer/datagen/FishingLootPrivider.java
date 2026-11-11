@@ -11,7 +11,7 @@ import net.minecraft.data.loot.LootTableSubProvider;
 //?}
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -38,7 +38,7 @@ public class FishingLootPrivider
     public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> lootTableBiConsumer) {
         ResourceKey<LootTable> customFishingKey = ResourceKey.create(
                 Registries.LOOT_TABLE,
-              ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "gameplay/fishing/dream")
+              Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "gameplay/fishing/dream")
         );
 
         // Build the loot table

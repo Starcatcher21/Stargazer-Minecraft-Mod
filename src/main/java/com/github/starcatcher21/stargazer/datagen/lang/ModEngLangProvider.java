@@ -5,7 +5,9 @@ import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.CreativeTab.ItemGroup;
 import com.github.starcatcher21.stargazer.StargazerAttributes;
 import com.github.starcatcher21.stargazer.block.ModBlock;
+import com.github.starcatcher21.stargazer.block.ModFluids;
 import com.github.starcatcher21.stargazer.block.clases.MoonWelder;
+import com.github.starcatcher21.stargazer.block.clases.StarBerryBushBlock;
 import com.github.starcatcher21.stargazer.block.clases.energy.generators.StarGenerator;
 import com.github.starcatcher21.stargazer.block.clases.energy.machines.NightWatcher;
 import com.github.starcatcher21.stargazer.block.clases.energy.machines.StarCrusher;
@@ -32,6 +34,7 @@ import net.neoforged.neoforge.common.data.LanguageProvider;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.world.item.DyeColor;
+import org.apache.logging.log4j.core.pattern.AbstractStyleNameConverter;
 
 import java.security.CryptoPrimitive;
 import java.util.Arrays;
@@ -73,10 +76,10 @@ public class ModEngLangProvider
         } else if (key instanceof net.minecraft.tags.TagKey<?> tag) {
             add(tag, value);
         //? if >= 26.2 {
-        /*} else if (key instanceof net.minecraft.resources.Identifier identifier) {
-        *///?} else {
-        } else if (key instanceof net.minecraft.resources.ResourceLocation identifier) {
-        //?}
+        } else if (key instanceof net.minecraft.resources.Identifier identifier) {
+        //?} else {
+        /*} else if (key instanceof net.minecraft.resources.ResourceLocation identifier) {
+        *///?}
             add(identifier.toLanguageKey(), value);
         } else {
             throw new IllegalArgumentException("Unsupported translation key type: " + key.getClass().getName());
@@ -122,6 +125,17 @@ public class ModEngLangProvider
     *///?}
 
     private static void populateTranslations(TranslationSink translationBuilder) {
+        translationBuilder.add(ModFluids.DREAM_BUCKET.get(), "Bucket of Dream");
+        translationBuilder.add("fluid.stargazer.dream", "Dream");
+        translationBuilder.add(Wander.CRYOSTONE.get(), "Cryostone");
+        translationBuilder.add(Wander.COBBLED_CRYOSTONE.get(), "Cobbled Cryostone");
+        translationBuilder.add(ModItems.SOL_CRYSTAL.get(), "Sol Crystal");
+        translationBuilder.add(MoonBlocks.MOON_PLANKS_TRAPDOOR.get(), "Moon Trapdoor");
+        translationBuilder.add(RedOrbBlocks.YERI_PLANKS_TRAPDOOR.get(), "Yeri Trapdoor");
+        translationBuilder.add(RedOrbBlocks.SPIRO_PLANKS_TRAPDOOR.get(), "Spiro Trapdoor");
+        translationBuilder.add(Darkness.DARKNESS_PLANKS_TRAPDOOR.get(), "Darkness Trapdoor");
+        translationBuilder.add(StarBlocks.STAR_PLANKS_TRAPDOOR.get(), "Star Trapdoor");
+        translationBuilder.add(MoonBlocks.CURVE_PLANKS_TRAPDOOR.get(), "Curve Trapdoor");
         translationBuilder.add(StargazingCategory.TranslationKey, "Stargazing");
         translationBuilder.add(CrystalizerCategory.TranslationKey, "Crystalizing");
         translationBuilder.add(Crops.STARBERRY.get(), "Starberry");
@@ -486,8 +500,8 @@ public class ModEngLangProvider
         translationBuilder.add(Hedges.MOON_HEDGE.get(), "Moon Hedge");
         translationBuilder.add(Hedges.OAK_HEDGE.get(), "Oak Hedge");
         //? if >= 26.2 {
-        /*translationBuilder.add(Hedges.PALE_HEDGE.get(), "Pale Oak Hedge");
-        *///? }
+        translationBuilder.add(Hedges.PALE_HEDGE.get(), "Pale Oak Hedge");
+        //? }
         translationBuilder.add(Hedges.SPRUCE_HEDGE.get(), "Spruce Hedge");
         translationBuilder.add(Hedges.STAR_HEDGE.get(), "Star Hedge");
         translationBuilder.add(Hedges.YERI_HEDGE.get(), "Yeri Hedge");
@@ -582,10 +596,10 @@ public class ModEngLangProvider
 
     private static String potionTranslationName(Object potion) {
         //? if >= 26.2 {
-        /*return ((net.minecraft.world.item.alchemy.Potion) potion).name();
-        *///?} else {
-        return BuiltInRegistries.POTION.getKey((net.minecraft.world.item.alchemy.Potion) potion).getPath();
-        //?}
+        return ((net.minecraft.world.item.alchemy.Potion) potion).name();
+        //?} else {
+        /*return BuiltInRegistries.POTION.getKey((net.minecraft.world.item.alchemy.Potion) potion).getPath();
+        *///?}
     }
 }
 //?}

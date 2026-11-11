@@ -20,9 +20,9 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 //? if < 26.2 && neoforge {
-import net.neoforged.neoforge.common.ItemAbilities;
+/*import net.neoforged.neoforge.common.ItemAbilities;
 import net.neoforged.neoforge.common.ItemAbility;
-//? }
+*///? }
 
 import java.util.List;
 
@@ -33,45 +33,45 @@ public class SwordItem extends Item {
     }
 
     public static Tool createToolProperties() {
-        //? if >= 26.2 {
-        /*HolderGetter<Block> registrationLookup = BuiltInRegistries.acquireBootstrapRegistrationLookup(BuiltInRegistries.BLOCK);
-        *///? }
+        //? if >= 26.1.2 {
+        HolderGetter<Block> registrationLookup = BuiltInRegistries.acquireBootstrapRegistrationLookup(BuiltInRegistries.BLOCK);
+        //? }
         return new Tool(
                 List.of(
                         Tool.Rule.minesAndDrops(
-                                //? if < 26.2 {
-                                List.of(Blocks.COBWEB),
-                                //? } else {
-                                /*HolderSet.direct(new Holder[]{Blocks.COBWEB.builtInRegistryHolder()}),
-                                *///? }
+                                //? if < 26.1.2 {
+                                /*List.of(Blocks.COBWEB),
+                                *///? } else {
+                                HolderSet.direct(new Holder[]{Blocks.COBWEB.builtInRegistryHolder()}),
+                                //? }
                                 15.0F),
                         Tool.Rule.overrideSpeed(
-                                //? if < 26.2 {
-                                BlockTags.SWORD_EFFICIENT,
-                                //? } else {
-                                /*registrationLookup.getOrThrow(BlockTags.SWORD_EFFICIENT),
-                                *///? }
+                                //? if < 26.1.2 {
+                                /*BlockTags.SWORD_EFFICIENT,
+                                *///? } else {
+                                registrationLookup.getOrThrow(BlockTags.SWORD_EFFICIENT),
+                                //? }
                                 1.5F)
-                        //? if >= 26.2 {
-                        /*, Tool.Rule.overrideSpeed(
+                        //? if >= 26.1.2 {
+                        , Tool.Rule.overrideSpeed(
                                 registrationLookup.getOrThrow(BlockTags.SWORD_INSTANTLY_MINES),
                                 Float.MAX_VALUE)
-                        *///? }
+                        //? }
                 ),
                 1.0F,
                 2
-                //? if >= 26.2 {
-                /*, false
-                *///? }
+                //? if >= 26.1.2 {
+                , false
+                //? }
         );
     }
-    //? if < 26.2 {
-    public boolean canAttackBlock(BlockState arg, Level arg2, BlockPos arg3, Player arg4) {
+    //? if < 26.1.2 {
+    /*public boolean canAttackBlock(BlockState arg, Level arg2, BlockPos arg3, Player arg4) {
         return !arg4.isCreative();
     }
 
     public boolean canPerformAction(ItemStack stack, ItemAbility itemAbility) {
         return ItemAbilities.DEFAULT_SWORD_ACTIONS.contains(itemAbility);
     }
-    //? }
+    *///? }
 }

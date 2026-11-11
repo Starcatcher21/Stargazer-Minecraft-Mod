@@ -26,7 +26,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 //? if >= 26.2 {
-/*import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.level.storage.loot.LootParams;
@@ -37,7 +37,7 @@ import net.minecraft.world.phys.Vec3;
 
 import java.util.List;
 
-*///?} else {
+//?} else {
 //?}
 
 public class CrystalizerEntity extends BlockEntity {
@@ -71,7 +71,7 @@ public class CrystalizerEntity extends BlockEntity {
     }
 
     //? if >= 26.2 {
-    /*@Override
+    @Override
     protected void loadAdditional(ValueInput input) {
         super.loadAdditional(input);
         this.items.clear();
@@ -85,8 +85,8 @@ public class CrystalizerEntity extends BlockEntity {
         ContainerHelper.saveAllItems(output, this.items);
         output.putInt("progress", progress);
     }
-    *///?} else {
-    @Override
+    //?} else {
+    /*@Override
     protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.loadAdditional(tag, registries);
         this.items.clear();
@@ -101,7 +101,7 @@ public class CrystalizerEntity extends BlockEntity {
         ContainerHelper.saveAllItems(tag, items, registries);
         tag.putInt("progress", progress);
     }
-    //?}
+    *///?}
 
     public void setProgress(int progress) {
         this.progress = progress;
@@ -166,10 +166,10 @@ public class CrystalizerEntity extends BlockEntity {
         CrystalizerRecipeInput input = new CrystalizerRecipeInput(2, 1, List.of(in1, in2));
         var recipeOpt = serverLevel
                 //? if >= 26.2 {
-                /*.recipeAccess()
-                *///? } else {
-                .getRecipeManager()
-                //? }
+                .recipeAccess()
+                //? } else {
+                /*.getRecipeManager()
+                *///? }
                 .getRecipeFor(RecipeTypes.CRYSTALIZER.get(), input, serverLevel);
 
         if (recipeOpt.isEmpty()) {

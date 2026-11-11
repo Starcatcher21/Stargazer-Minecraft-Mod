@@ -5,6 +5,7 @@ import com.github.starcatcher21.stargazer.block.BlockTypes;
 import com.github.starcatcher21.stargazer.block.ModBlock;
 import com.github.starcatcher21.stargazer.block.ModFluids;
 import com.github.starcatcher21.stargazer.compat.jei.ClientRecipes;
+import com.github.starcatcher21.stargazer.energy.EnergyCapabilities;
 //? if neoforge {
 import com.github.starcatcher21.stargazer.datagen.NeoForgeDataGenerator;
 import com.github.starcatcher21.stargazer.item.armor.ArmorMaterial;
@@ -13,11 +14,11 @@ import com.github.starcatcher21.stargazer.block.NeoForgeFluidClientEvents;
 //? }
 import com.github.starcatcher21.stargazer.effects.Potions;
 import com.github.starcatcher21.stargazer.effects.StatusEffects;
-import com.github.starcatcher21.stargazer.energy.EnergyHooks;
+import com.github.starcatcher21.stargazer.renderer.CustomRederPipelines;
 import com.github.starcatcher21.stargazer.entity.EntityRegistry;
-//? if >= 26.2 {
-/*import com.github.starcatcher21.stargazer.item.ConsumeEffectsRegistry;
-*///? }
+//? if >= 26.1.2 {
+import com.github.starcatcher21.stargazer.item.ConsumeEffectsRegistry;
+//? }
 import com.github.starcatcher21.stargazer.item.ModItems;
 import com.github.starcatcher21.stargazer.mechanics.DamageTypeRegistry;
 import com.github.starcatcher21.stargazer.mechanics.PlayerCosmicGrav;
@@ -68,9 +69,9 @@ import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
 //?}
 
-//? if neoforge && < 26.2 {
-import com.github.starcatcher21.stargazer.renderer.NeoforgeEffects;
-//? }
+//? if neoforge && < 26.1.2 {
+/*import com.github.starcatcher21.stargazer.renderer.NeoforgeEffects;
+*///? }
 
 //? if neoforge {
 @Mod(Stargazer.MOD_ID)
@@ -88,7 +89,7 @@ public final class Stargazer
     public void onInitialize() {
         initCommon();
         PlacedFeatures.init();
-        EnergyHooks.registerEnergyStorages();
+        EnergyCapabilities.registerEnergyStorages();
         FabricDefaultAttributeRegistry.register(
                 EntityTypes.PLAYER,
                 Player.createAttributes().add(StargazerAttributes.DASH_LEVEL, 0.0)
@@ -99,8 +100,8 @@ public final class Stargazer
     //? if neoforge {
     public Stargazer(IEventBus modEventBus, Dist dist) {
         modEventBus.addListener(this::commonSetup);
-        //? if >= 26.2 {
-        /*modEventBus.addListener(
+        //? if >= 26.1.2 {
+        modEventBus.addListener(
                 net.neoforged.neoforge.data.event.GatherDataEvent.Server.class,
                 com.github.starcatcher21.stargazer.datagen.NeoForgeDataGenerator::gatherServerData
         );
@@ -108,37 +109,44 @@ public final class Stargazer
                 net.neoforged.neoforge.data.event.GatherDataEvent.Client.class,
                 com.github.starcatcher21.stargazer.datagen.NeoForgeDataGenerator::gatherClientData
         );
-        *///?} else {
-        modEventBus.addListener(NeoForgeDataGenerator::gatherData);
+        //?} else {
+        /*modEventBus.addListener(NeoForgeDataGenerator::gatherData);
         ArmorMaterial.register(modEventBus);
-        //?}
+        *///?}
 
         RegistryKeys.ENTITY_DATA_SERIALIZERS.register(modEventBus);
         StargazerAttributes.init(modEventBus);
-        //? if < 26.2 {
-        Criterias.init(modEventBus);
-        //?}
+        //? if < 26.1.2 {
+        /*Criterias.init(modEventBus);
+        *///?}
 
         initCommon();
+        //? if < 26.1.2 {
+        /*modEventBus.addListener(CustomRederPipelines::onRegisterShaders);
+        *///? } else {
+        
+        //? }
+//        modEventBus.addListener(CustomRederPipelines::onRegisterRenderPipelines);
+//        modEventBus.addListener(RegistryKeys::onNewRegistry);
         if (dist.isClient()) {
-            //? if < 26.2 {
-            modEventBus.addListener(NeoforgeEffects::onRegisterEffects);
-            modEventBus.register(NeoForgeClientEvents.class);
-            //?} else {
-            /*NeoForge.EVENT_BUS.register(ClientRecipes.Sync.class);
+            modEventBus.addListener(NeoForgeClientScreensEvents::registerScreens);
+            //? if < 26.1.2 {
+            /*modEventBus.addListener(NeoforgeEffects::onRegisterEffects);
+            *///?} else {
+            NeoForge.EVENT_BUS.register(ClientRecipes.Sync.class);
             NeoForge.EVENT_BUS.register(ClientRecipes.Receive.class);
-            *///? }
-            //? if >= 26.2 {
-            /*modEventBus.addListener(NeoForgeFluidClientEvents::registerFluidModels);
-             *///? } else {
-            modEventBus.addListener(NeoForgeFluidClientEvents::registerClientExtensions);
             //? }
-            modEventBus.register(NeoforgeParticleRegistration.class);
+            //? if >= 26.1.2 {
+            modEventBus.addListener(NeoForgeFluidClientEvents::registerFluidModels);
+             //? } else {
+            /*modEventBus.addListener(NeoForgeFluidClientEvents::registerClientExtensions);
+            *///? }
+            modEventBus.addListener(NeoforgeParticleRegistration::register);
             StargazerClient.initClient();
-            NeoForge.EVENT_BUS.register(StargazerNeoForgeRenderEvents.class);
+            NeoForge.EVENT_BUS.addListener(StargazerNeoForgeRenderEvents::onRenderLevelStage);
         }
-        modEventBus.register(StargazerNeoForgeAttributes.class);
-        EnergyHooks.init(modEventBus);
+        modEventBus.addListener(StargazerNeoForgeAttributes::onEntityAttributeModification);
+        EnergyCapabilities.init(modEventBus);
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {
@@ -166,9 +174,9 @@ public final class Stargazer
         DamageTypeRegistry.init();
         BiomeReg.init();
         BiomeTags.init();
-        //? if >= 26.2 {
-        /*ConsumeEffectsRegistry.init();
-        *///? }
+        //? if >= 26.1.2 {
+        ConsumeEffectsRegistry.init();
+        //? }
         BlockTypes.init();
         PointOfIntrests.init();
         ItemGroup.init();
@@ -183,11 +191,11 @@ public final class Stargazer
         // Replaced Fabric ServerLifecycleEvents with Architectury LifecycleEvent
         LifecycleEvent.SERVER_STARTED.register(server -> {
             var registryManager = server.registryAccess();
-            //? if >= 26.2 {
-            /*long patternCount = registryManager.lookupOrThrow(RegistryKeys.STAR_PATTERN).size();
-             *///?} else {
-            long patternCount = registryManager.lookupOrThrow(RegistryKeys.STAR_PATTERN).listElements().count();
-            //?}
+            //? if >= 26.1.2 {
+            long patternCount = registryManager.lookupOrThrow(RegistryKeys.STAR_PATTERN).size();
+             //?} else {
+            /*long patternCount = registryManager.lookupOrThrow(RegistryKeys.STAR_PATTERN).listElements().count();
+            *///?}
             LOGGER.info("Loaded: " + patternCount + " Star Patterns");
         });
 
@@ -203,17 +211,17 @@ public final class Stargazer
         });
         TickEvent.SERVER_POST.register(server -> {
             AtomicBoolean current = new AtomicBoolean(true);
-            //? if < 26.2 {
-            current.set(server.overworld()
+            //? if < 26.1.2 {
+            /*current.set(server.overworld()
                     .getGameRules()
                     .getBoolean(GameRules.MOON));
-            //? } else {
-            /*GameRules.MOON.listen(rule -> {
+            *///? } else {
+            GameRules.MOON.listen(rule -> {
                 current.set(server.overworld()
                         .getGameRules()
                         .get(rule));
             });
-            *///? }
+            //? }
 
             if (current.get() != lastMoonRule) {
                 lastMoonRule = current.get();

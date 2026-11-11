@@ -6,14 +6,14 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Overlay;
 import net.minecraft.client.model.Model;
 
-//? if >= 26.2 {
-/*import net.minecraft.client.renderer.SubmitNodeCollector;
+//? if >= 26.1.2 {
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.block.BlockModelRenderState;
 import net.minecraft.client.renderer.block.BlockModelResolver;
 import net.minecraft.client.renderer.block.model.BlockDisplayContext;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
-*///? }
+//? }
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
@@ -24,30 +24,30 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
-//? if < 26.2 {
-import net.minecraft.client.renderer.MultiBufferSource;
+//? if < 26.1.2 {
+/*import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.resources.model.BakedModel;
-//? }
+*///? }
 
 public class GraveRenderer implements BlockEntityRenderer<GraveEntity
-        //? if >= 26.2
-        //, GraveRenderState
+        //? if >= 26.1.2
+        , GraveRenderState
         > {
 
-    //? if < 26.2 {
-    private final BlockRenderDispatcher blockRenderer;
-    //? }
+    //? if < 26.1.2 {
+    /*private final BlockRenderDispatcher blockRenderer;
+    *///? }
 
     public GraveRenderer(BlockEntityRendererProvider.Context ctx) {
-        //? if < 26.2 {
-        this.blockRenderer = Minecraft.getInstance().getBlockRenderer();
-         //? }
+        //? if < 26.1.2 {
+        /*this.blockRenderer = Minecraft.getInstance().getBlockRenderer();
+         *///? }
     }
 
-    //? if >= 26.2 {
-    /*@Override
+    //? if >= 26.1.2 {
+    @Override
     public GraveRenderState createRenderState() {
         return new GraveRenderState();
     }
@@ -89,8 +89,8 @@ public class GraveRenderer implements BlockEntityRenderer<GraveEntity
             //? if neoforge {
             BlockModelResolver modelManager = Minecraft.getInstance().getBlockModelResolver();
             //? } else {
-            /^BlockModelResolver modelManager = new BlockModelResolver(Minecraft.getInstance().modelManager);
-            ^///? }
+            /*BlockModelResolver modelManager = new BlockModelResolver(Minecraft.getInstance().modelManager);
+            *///? }
             BlockModelRenderState blockModelRenderState = new BlockModelRenderState();
             modelManager.update(blockModelRenderState, dirtState, BlockDisplayContext.create());
 
@@ -98,10 +98,10 @@ public class GraveRenderer implements BlockEntityRenderer<GraveEntity
             poseStack.popPose();
         }
     }
-    *///? }
+    //? }
 
-    //? if < 26.2 {
-    @Override
+    //? if < 26.1.2 {
+    /*@Override
     public void render(GraveEntity entity, float partialTick, PoseStack poseStack,
                        MultiBufferSource bufferSource, int packedLight, int packedOverlay) {
         BlockState graveState = entity.getBlockState();
@@ -199,5 +199,5 @@ public class GraveRenderer implements BlockEntityRenderer<GraveEntity
         rend(graveState,poseStack,bufferSource, dirtModel, packedLight, packedOverlay);
         poseStack.popPose();
     }
-    //? }
+    *///? }
 }

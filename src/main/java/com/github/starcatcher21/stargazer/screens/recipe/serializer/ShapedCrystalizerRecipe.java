@@ -20,13 +20,13 @@ import java.util.List;
 import java.util.Optional;
 
 //? if >= 26.2 {
-/*import net.minecraft.world.item.ItemStackTemplate;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.PlacementInfo;
 import net.minecraft.world.item.crafting.RecipeBookCategories;
 import net.minecraft.world.item.crafting.RecipeBookCategory;
 import org.jetbrains.annotations.Nullable;
 
-*///? }
+//? }
 
 public class ShapedCrystalizerRecipe implements CrystalizerRecipe {
 
@@ -36,7 +36,7 @@ public class ShapedCrystalizerRecipe implements CrystalizerRecipe {
 
     /* ---------------- 26.2+ ------------------------------------------ */
     //? if >= 26.2 {
-    /*final ItemStackTemplate result;
+    final ItemStackTemplate result;
     @Nullable
     private PlacementInfo ingredientPlacement;
 
@@ -52,8 +52,8 @@ public class ShapedCrystalizerRecipe implements CrystalizerRecipe {
                                   ItemStackTemplate result) {
         this(group, raw, result, true);
     }
-    *///?} else {
-    /* ---------------- 1.21.1 ----------------------------------------- */
+    //?} else {
+    /*/^ ---------------- 1.21.1 ----------------------------------------- ^/
     final ItemStack result;
 
     public ShapedCrystalizerRecipe(String group, RawCrystalizerRecipe raw,
@@ -68,7 +68,7 @@ public class ShapedCrystalizerRecipe implements CrystalizerRecipe {
                                    ItemStack result) {
         this(group, raw, result, true);
     }
-    //?}
+    *///?}
 
     @Override
     public RecipeSerializer<? extends CrystalizerRecipe> getSerializer() {
@@ -77,8 +77,8 @@ public class ShapedCrystalizerRecipe implements CrystalizerRecipe {
 
 
     //? if >= 26.2 {
-    /*@Override
-    *///? }
+    @Override
+    //? }
     public String group() {
         return this.group;
     }
@@ -87,19 +87,19 @@ public class ShapedCrystalizerRecipe implements CrystalizerRecipe {
     @Override
     public ItemStack craft(CrystalizerRecipeInput craftingRecipeInput, RegistryAccess registryManager) {
         //? if >= 26.2 {
-        /*return this.result.create();
-        *///? } else {
-        return this.result.copy();
-        //? }
+        return this.result.create();
+        //? } else {
+        /*return this.result.copy();
+        *///? }
     }
 
     //? if >= 26.2 {
-    /*@Override
+    @Override
     public ItemStack assemble(CrystalizerRecipeInput recipeInput) {
         return this.result.create();
     }
-    *///?} else {
-    @Override
+    //?} else {
+    /*@Override
     public ItemStack assemble(CrystalizerRecipeInput craftingRecipeInput,
                               HolderLookup.Provider registryManager) {
         return this.result.copy();
@@ -109,7 +109,7 @@ public class ShapedCrystalizerRecipe implements CrystalizerRecipe {
     public boolean canCraftInDimensions(int i, int j) {
         return true;
     }
-    //?}
+    *///?}
 
     @Override
     public List<ItemStack> getHeldStacks() {
@@ -118,13 +118,13 @@ public class ShapedCrystalizerRecipe implements CrystalizerRecipe {
 
     /* ---------------- ingredients ------------------------------------ */
     //? if >= 26.2 {
-    /*@VisibleForTesting
+    @VisibleForTesting
     public List<Optional<Ingredient>> getIngredients() {
         return List.of(Optional.of(this.raw.getItem1()),
                        Optional.of(this.raw.getItem2()));
     }
-    *///?} else {
-    @VisibleForTesting
+    //?} else {
+    /*@VisibleForTesting
     public List<Optional<Ingredient>> getOptionalIngredients() {
         return List.of(Optional.of(this.raw.getItem1()),
                 Optional.of(this.raw.getItem2()));
@@ -137,11 +137,11 @@ public class ShapedCrystalizerRecipe implements CrystalizerRecipe {
         list.add(this.raw.getItem2());
         return list;
     }
-    //?}
+    *///?}
 
     /* ---------------- placement (26.2 only) -------------------------- */
     //? if >= 26.2 {
-    /*@Override
+    @Override
     public PlacementInfo placementInfo() {
         if (this.ingredientPlacement == null) {
             this.ingredientPlacement = PlacementInfo.createFromOptionals(
@@ -150,15 +150,15 @@ public class ShapedCrystalizerRecipe implements CrystalizerRecipe {
         }
         return this.ingredientPlacement;
     }
-    *///?}
+    //?}
 
     /* ---------------- result ----------------------------------------- */
     //? if >= 26.2 {
-    /*public ItemStack getResult() {
+    public ItemStack getResult() {
         return this.result.create();
     }
-    *///?} else {
-    public ItemStack getResult() {
+    //?} else {
+    /*public ItemStack getResult() {
         return this.result.copy();
     }
 
@@ -166,7 +166,7 @@ public class ShapedCrystalizerRecipe implements CrystalizerRecipe {
     public ItemStack getResultItem(HolderLookup.Provider provider) {
         return this.result.copy();
     }
-    //?}
+    *///?}
 
     @Override
     public boolean showNotification() {
@@ -184,10 +184,10 @@ public class ShapedCrystalizerRecipe implements CrystalizerRecipe {
     public ItemStack craft(CrystalizerRecipeInput craftingRecipeInput,
                            HolderLookup.Provider wrapperLookup) {
         //? if >= 26.2 {
-        /*return this.result.create();
-         *///?} else {
-        return this.result.copy();
-        //?}
+        return this.result.create();
+         //?} else {
+        /*return this.result.copy();
+        *///?}
     }
 
     public int getWidth() {
@@ -199,15 +199,15 @@ public class ShapedCrystalizerRecipe implements CrystalizerRecipe {
     }
 
     //? if >= 26.2 {
-    /*@Override
+    @Override
     public RecipeBookCategory recipeBookCategory() {
         return RecipeBookCategories.CAMPFIRE;
     }
-    *///?}
+    //?}
 
     /* ---------------- codecs ----------------------------------------- */
     //? if >= 26.2 {
-    /*public static final MapCodec<ShapedCrystalizerRecipe> CODEC =
+    public static final MapCodec<ShapedCrystalizerRecipe> CODEC =
         RecordCodecBuilder.mapCodec(instance -> instance.group(
             Codec.STRING.optionalFieldOf("group", "").forGetter(r -> r.group),
             RawCrystalizerRecipe.CODEC.forGetter(r -> r.raw),
@@ -221,8 +221,8 @@ public class ShapedCrystalizerRecipe implements CrystalizerRecipe {
             ItemStackTemplate.STREAM_CODEC,       r -> r.result,
             ShapedCrystalizerRecipe::new
         );
-    *///?} else {
-    public static final MapCodec<ShapedCrystalizerRecipe> CODEC =
+    //?} else {
+    /*public static final MapCodec<ShapedCrystalizerRecipe> CODEC =
             RecordCodecBuilder.mapCodec(instance -> instance.group(
                     Codec.STRING.optionalFieldOf("group", "").forGetter(r -> r.group),
                     RawCrystalizerRecipe.CODEC.forGetter(r -> r.raw),
@@ -236,13 +236,13 @@ public class ShapedCrystalizerRecipe implements CrystalizerRecipe {
                     ItemStack.STREAM_CODEC,               r -> r.result,
                     ShapedCrystalizerRecipe::new
             );
-    //?}
+    *///?}
 
     //? if >= 26.2 {
-    /*public static final RecipeSerializer<ShapedCrystalizerRecipe> SERIALIZER =
+    public static final RecipeSerializer<ShapedCrystalizerRecipe> SERIALIZER =
             new RecipeSerializer<>(CODEC, STREAM_CODEC);
-    *///?} else {
-    public static final RecipeSerializer<ShapedCrystalizerRecipe> SERIALIZER = new RecipeSerializer<>() {
+    //?} else {
+    /*public static final RecipeSerializer<ShapedCrystalizerRecipe> SERIALIZER = new RecipeSerializer<>() {
         @Override
         public MapCodec<ShapedCrystalizerRecipe> codec() {
             return CODEC;
@@ -253,5 +253,5 @@ public class ShapedCrystalizerRecipe implements CrystalizerRecipe {
             return STREAM_CODEC;
         }
     };
-    //?}
+    *///?}
 }

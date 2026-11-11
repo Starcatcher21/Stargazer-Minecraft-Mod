@@ -55,10 +55,10 @@ public class MoonWelderResultSlot
     protected void checkTakeAchievements(ItemStack stack) {
         if (this.amount > 0) {
             //? if >= 26.2 {
-            /*stack.onCraftedBy(this.player, this.amount);
-             *///?} else {
-            stack.onCraftedBy(this.player.level(), this.player, this.amount);
-            //?}
+            stack.onCraftedBy(this.player, this.amount);
+             //?} else {
+            /*stack.onCraftedBy(this.player.level(), this.player, this.amount);
+            *///?}
         }
         this.amount = 0;
     }
@@ -75,10 +75,10 @@ public class MoonWelderResultSlot
         if (world instanceof ServerLevel) {
             ServerLevel serverWorld = (ServerLevel)world;
             //? if >= 26.2 {
-            /*return serverWorld.recipeAccess().getRecipeFor(RecipeTypes.MOON_WELDER.get(), input, serverWorld).map(recipe -> ((MoonWelderRecipe)recipe.value()).getRecipeRemainders(input)).orElseGet(() -> MoonWelderResultSlot.copyInput(input));
-             *///?} else {
-            return serverWorld.getRecipeManager().getRecipeFor(RecipeTypes.MOON_WELDER.get(), input, serverWorld).map(recipe -> ((MoonWelderRecipe)recipe.value()).getRecipeRemainders(input)).orElseGet(() -> MoonWelderResultSlot.copyInput(input));
-            //?}
+            return serverWorld.recipeAccess().getRecipeFor(RecipeTypes.MOON_WELDER.get(), input, serverWorld).map(recipe -> ((MoonWelderRecipe)recipe.value()).getRecipeRemainders(input)).orElseGet(() -> MoonWelderResultSlot.copyInput(input));
+             //?} else {
+            /*return serverWorld.getRecipeManager().getRecipeFor(RecipeTypes.MOON_WELDER.get(), input, serverWorld).map(recipe -> ((MoonWelderRecipe)recipe.value()).getRecipeRemainders(input)).orElseGet(() -> MoonWelderResultSlot.copyInput(input));
+            *///?}
         }
         return MoonWelderRecipe.collectRecipeRemainders(input);
     }
@@ -114,10 +114,10 @@ public class MoonWelderResultSlot
         }
         if (player instanceof ServerPlayer spe) {
             //? if >= 26.2 {
-            /*Criterias.MOON_WELD.listen(crit -> crit.trigger(spe, stack.getItem()));
-             *///?} else {
-            Criterias.MOON_WELD.trigger(spe, stack.getItem());
-            //?}
+            Criterias.MOON_WELD.listen(crit -> crit.trigger(spe, stack.getItem()));
+             //?} else {
+            /*Criterias.MOON_WELD.trigger(spe, stack.getItem());
+            *///?}
         }
     }
 

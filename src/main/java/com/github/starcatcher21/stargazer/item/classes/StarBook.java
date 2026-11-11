@@ -19,7 +19,7 @@ public class StarBook extends Item {
     }
 
     @Override
-    public /*? if 26.2 { *//*InteractionResult*//*? } else { */ InteractionResultHolder /*? } */ use(Level world, Player user, InteractionHand hand) {
+    public /*? if >= 26.1.2 { */InteractionResult/*? } else { */ /*InteractionResultHolder *//*? } */ use(Level world, Player user, InteractionHand hand) {
         if (!world.isClientSide()) {
 
             MenuProvider factory = new SimpleMenuProvider(
@@ -31,10 +31,10 @@ public class StarBook extends Item {
         }
 
         user.awardStat(Stats.ITEM_USED.get(this));
-        //? if >= 26.2 {
-        /*return InteractionResult.SUCCESS;
-        *///? } else {
-        return InteractionResultHolder.success(this.getDefaultInstance());
-        //? }
+        //? if >= 26.1.2 {
+        return InteractionResult.SUCCESS;
+        //? } else {
+        /*return InteractionResultHolder.success(this.getDefaultInstance());
+        *///? }
     }
 }

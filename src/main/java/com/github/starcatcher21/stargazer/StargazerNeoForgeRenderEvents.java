@@ -2,6 +2,7 @@
 package com.github.starcatcher21.stargazer;
 
 import com.github.starcatcher21.stargazer.renderer.SkyStarRenderer;
+import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.phys.Vec3;
@@ -10,15 +11,20 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
 
-@EventBusSubscriber(modid = Stargazer.MOD_ID, value = Dist.CLIENT)
+//@EventBusSubscriber(modid = Stargazer.MOD_ID, value = Dist.CLIENT)
 public class StargazerNeoForgeRenderEvents {
 
-    //? if >= 26.2 {
-    /*@SubscribeEvent
+    //? if >= 26.1.2 {
+    @SubscribeEvent
     public static void onRenderLevelStage(RenderLevelStageEvent.AfterSky event) {
         Minecraft client = Minecraft.getInstance();
-        if (client.level != null && client.gameRenderer.mainCamera() != null) {
-            Vec3 cameraPos = client.gameRenderer.mainCamera().position();
+        //? if >= 26.2 {
+        Camera camera = client.gameRenderer.mainCamera();
+        //? } else {
+        /*Camera camera = client.gameRenderer.getMainCamera();
+        *///? }
+        if (client.level != null && camera != null) {
+            Vec3 cameraPos = camera.position();
 
             SkyStarRenderer.renderDirect(
                     event.getPoseStack(),
@@ -28,8 +34,8 @@ public class StargazerNeoForgeRenderEvents {
             );
         }
     }
-    *///? } else {
-    @SubscribeEvent
+    //? } else {
+    /*@SubscribeEvent
     public static void onRenderLevelStage(RenderLevelStageEvent event) {
         if (event.getStage().equals(RenderLevelStageEvent.Stage.AFTER_SKY)) {
             Minecraft client = Minecraft.getInstance();
@@ -47,6 +53,6 @@ public class StargazerNeoForgeRenderEvents {
             }
         }
     }
-    //? }
+    *///? }
 }
 //? }

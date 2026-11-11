@@ -16,29 +16,29 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
-//? if >= 26.2 {
-/*import net.minecraft.world.level.storage.ValueInput;
+//? if >= 26.1.2 {
+import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import software.bernie.geckolib.animatable.GeoAnimatable;
-import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animatable.manager.AnimatableManager;
-import software.bernie.geckolib.animation.AnimationController;
-import software.bernie.geckolib.animation.RawAnimation;
-import software.bernie.geckolib.animation.object.PlayState;
-import software.bernie.geckolib.animation.state.AnimationTest;
-import software.bernie.geckolib.util.GeckoLibUtil;
-*///? } else {
-import software.bernie.geckolib.animatable.GeoAnimatable;
-import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.AnimatableManager;
-import software.bernie.geckolib.animation.AnimationController;
-import software.bernie.geckolib.animation.AnimationState;
-import software.bernie.geckolib.animation.PlayState;
-import software.bernie.geckolib.animation.RawAnimation;
-import software.bernie.geckolib.util.GeckoLibUtil;
-//? }
+import com.geckolib.animatable.GeoAnimatable;
+import com.geckolib.animatable.GeoEntity;
+import com.geckolib.animatable.instance.AnimatableInstanceCache;
+import com.geckolib.animatable.manager.AnimatableManager;
+import com.geckolib.animation.AnimationController;
+import com.geckolib.animation.RawAnimation;
+import com.geckolib.animation.object.PlayState;
+import com.geckolib.animation.state.AnimationTest;
+import com.geckolib.util.GeckoLibUtil;
+//? } else {
+/*import com.geckolib.animatable.GeoAnimatable;
+import com.geckolib.animatable.GeoEntity;
+import com.geckolib.animatable.instance.AnimatableInstanceCache;
+import com.geckolib.animation.AnimatableManager;
+import com.geckolib.animation.AnimationController;
+import com.geckolib.animation.AnimationState;
+import com.geckolib.animation.PlayState;
+import com.geckolib.animation.RawAnimation;
+import com.geckolib.util.GeckoLibUtil;
+*///? }
 
 public class Ghost extends PathfinderMob implements GeoEntity {
     protected static final RawAnimation FLY_ANIM = RawAnimation.begin().thenLoop("animation.ghost_move");
@@ -69,9 +69,9 @@ public class Ghost extends PathfinderMob implements GeoEntity {
         FlyingPathNavigation birdNavigation = new FlyingPathNavigation(this, world);
         birdNavigation.setCanOpenDoors(false);
         birdNavigation.setCanFloat(true);
-        //? if >= 26.2 {
-        /*birdNavigation.setRequiredPathLength(48.0F);
-        *///? }
+        //? if >= 26.1.2 {
+        birdNavigation.setRequiredPathLength(48.0F);
+        //? }
         return birdNavigation;
     }
 
@@ -82,14 +82,14 @@ public class Ghost extends PathfinderMob implements GeoEntity {
 
     @Override
     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<GeoAnimatable>(/*? if < 26.2 { */ this, /*? } */"MovementController", 5, this::AnimControler));
+        controllers.add(new AnimationController<GeoAnimatable>(/*? if < 26.1.2 { */ /*this, *//*? } */"MovementController", 5, this::AnimControler));
     }
 
-    //? if >= 26.2 {
-    /*protected PlayState AnimControler(final AnimationTest<?> animTest) {
-    *///? } else {
-    protected PlayState AnimControler(final AnimationState<GeoAnimatable> animTest) {
-    //? }
+    //? if >= 26.1.2 {
+    protected PlayState AnimControler(final AnimationTest<?> animTest) {
+    //? } else {
+    /*protected PlayState AnimControler(final AnimationState<GeoAnimatable> animTest) {
+    *///? }
         int rand = this.random.nextInt(5);
         if (rand > 3 & !animTest.isMoving()) {
             return animTest.setAndContinue(IDLE_ANIM);
@@ -113,13 +113,10 @@ public class Ghost extends PathfinderMob implements GeoEntity {
         }
         LivingEntity livingEntity = this.getKillCredit();
         if (livingEntity != null) {
-            livingEntity.awardKillScore(this,/*? if <= 1.21.1 {*/1,/*? }*/ damageSource);
+            livingEntity.awardKillScore(this,/*? if <= 1.21.1 {*//*1,*//*? }*/ damageSource);
         }
         if (this.isSleeping()) {
             this.stopSleeping();
-        }
-        if (!this.level().isClientSide() && this.hasCustomName()) {
-            Stargazer.LOGGER.info("Named entity {} died: {}", (Object)this, (Object)this.getCombatTracker().getDeathMessage().getString());
         }
         this.dead = true;
         this.getCombatTracker().recheckStatus();
@@ -184,8 +181,8 @@ public class Ghost extends PathfinderMob implements GeoEntity {
         TAG = t;
     }
 
-    //? if >= 26.2 {
-    /*@Override
+    //? if >= 26.1.2 {
+    @Override
     public void addAdditionalSaveData(ValueOutput nbt) {
         super.addAdditionalSaveData(nbt);
         nbt.putString("tag", TAG);
@@ -198,7 +195,7 @@ public class Ghost extends PathfinderMob implements GeoEntity {
         TAG = nbt.getStringOr("tag", "");
         CustomName = nbt.getStringOr("name", "");
     }
-    *///? }
+    //? }
 
     public void setTargetPos(Vec3 pos) {
         this.navigation.moveTo(pos.x, pos.y, pos.z, 0.7);

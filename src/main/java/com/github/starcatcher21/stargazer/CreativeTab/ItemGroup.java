@@ -11,7 +11,7 @@ import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.animal.sniffer.SnifferAi;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
@@ -20,7 +20,7 @@ import net.minecraft.world.level.block.Block;
 public class ItemGroup {
     public static final DeferredRegister<CreativeModeTab> TABS = DeferredRegister.create(Stargazer.MOD_ID, Registries.CREATIVE_MODE_TAB);
 
-    public static final RegistrySupplier<CreativeModeTab> STAR_GROUP = TABS.register(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "star_group"), () -> CreativeTabRegistry.create(
+    public static final RegistrySupplier<CreativeModeTab> STAR_GROUP = TABS.register(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "star_group"), () -> CreativeTabRegistry.create(
             builder -> builder
                     .icon(() -> new ItemStack(ModItems.YELLOW_STAR.get()))
                     .title(Component.translatable("itemGroup.Stargazer"))
@@ -60,6 +60,7 @@ public class ItemGroup {
                         output.accept(StarBlocks.STRIPPED_STAR_LOG.get());
                         output.accept(StarBlocks.STAR_PLANKS.get());
                         output.accept(StarBlocks.STAR_PLANKS_DOOR.get());
+                        output.accept(StarBlocks.STAR_PLANKS_TRAPDOOR.get());
                         output.accept(StarBlocks.STAR_PLANKS_SLAB.get());
                         output.accept(StarBlocks.STAR_PLANKS_STAIRS.get());
                         output.accept(StarBlocks.STAR_PLANKS_BUTTON.get());
@@ -133,6 +134,7 @@ public class ItemGroup {
                         output.accept(ModItems.FULL_MOON_DUST.get());
                         output.accept(MoonBlocks.MOON_PLANKS.get());
                         output.accept(MoonBlocks.MOON_PLANKS_DOOR.get());
+                        output.accept(MoonBlocks.MOON_PLANKS_TRAPDOOR.get());
                         output.accept(MoonBlocks.MOON_PLANKS_SLAB.get());
                         output.accept(MoonBlocks.MOON_PLANKS_STAIRS.get());
                         output.accept(MoonBlocks.MOON_PLANKS_BUTTON.get());
@@ -169,6 +171,7 @@ public class ItemGroup {
                         output.accept(MoonBlocks.CURVE_SAPLING.get());
                         output.accept(MoonBlocks.CURVE_PLANKS.get());
                         output.accept(MoonBlocks.CURVE_PLANKS_DOOR.get());
+                        output.accept(MoonBlocks.CURVE_PLANKS_TRAPDOOR.get());
                         output.accept(MoonBlocks.CURVE_PLANKS_SLAB.get());
                         output.accept(MoonBlocks.CURVE_PLANKS_STAIRS.get());
                         output.accept(MoonBlocks.CURVE_PLANKS_BUTTON.get());
@@ -195,6 +198,8 @@ public class ItemGroup {
                         output.accept(Darkness.DARKNESS_PLANKS_BUTTON.get());
                         output.accept(Darkness.DARKNESS_PLANKS_FENCE.get());
                         output.accept(Darkness.DARKNESS_PLANKS_FENCE_GATE.get());
+                        output.accept(Darkness.DARKNESS_PLANKS_DOOR.get());
+                        output.accept(Darkness.DARKNESS_PLANKS_TRAPDOOR.get());
                         // Plants
                         output.accept(StarBlocks.STAR_FLOWER.get());
                         output.accept(StarBlocks.CELESTIAL_STAR_FLOWER.get());
@@ -291,8 +296,8 @@ public class ItemGroup {
                         output.accept(Hedges.JUNGLE_HEDGE.get());
                         output.accept(Hedges.MANGROVE_HEDGE.get());
                         //? if >= 26.2 {
-                        /*output.accept(Hedges.PALE_HEDGE.get());
-                        *///? }
+                        output.accept(Hedges.PALE_HEDGE.get());
+                        //? }
                         output.accept(Hedges.SPRUCE_HEDGE.get());
                         output.accept(Hedges.MOON_HEDGE.get());
                         output.accept(Hedges.CURVE_HEDGE.get());
@@ -318,6 +323,7 @@ public class ItemGroup {
                         output.accept(RedOrbBlocks.YERI_PLANKS_FENCE_GATE.get());
                         output.accept(RedOrbBlocks.YERI_PLANKS_BUTTON.get());
                         output.accept(RedOrbBlocks.YERI_PLANKS_DOOR.get());
+                        output.accept(RedOrbBlocks.YERI_PLANKS_TRAPDOOR.get());
                         output.accept(RedOrbBlocks.GREEN_ROCK.get());
                         output.accept(RedOrbBlocks.BLUE_GRASS.get());
                         output.accept(RedOrbBlocks.POINTY.get());
@@ -325,6 +331,7 @@ public class ItemGroup {
                         output.accept(RedOrbBlocks.SPIRO_LOG.get());
                         output.accept(RedOrbBlocks.SPIRO_PLANKS.get());
                         output.accept(RedOrbBlocks.SPIRO_PLANKS_DOOR.get());
+                        output.accept(RedOrbBlocks.SPIRO_PLANKS_TRAPDOOR.get());
                         output.accept(RedOrbBlocks.SPIRO_PLANKS_STAIRS.get());
                         output.accept(RedOrbBlocks.SPIRO_PLANKS_SLAB.get());
                         output.accept(RedOrbBlocks.SPIRO_PLANKS_BUTTON.get());
@@ -407,6 +414,9 @@ public class ItemGroup {
                         output.accept(ModItems.GRASS_SWORD.get());
                         output.accept(Crops.STARBERRY.get());
                         output.accept(ModFluids.DREAM_BUCKET.get());
+                        output.accept(ModItems.SOL_CRYSTAL.get());
+                        output.accept(Wander.CRYOSTONE.get());
+                        output.accept(Wander.COBBLED_CRYOSTONE.get());
                     })
     ));
 

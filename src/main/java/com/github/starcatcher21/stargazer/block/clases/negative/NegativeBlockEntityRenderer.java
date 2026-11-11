@@ -11,22 +11,22 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
-//? if >= 26.2 {
-/*import net.minecraft.client.renderer.state.level.CameraRenderState;
+//? if >= 26.1.2 {
+import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
 import net.minecraft.client.renderer.rendertype.RenderType;
-*///?} else {
-import net.minecraft.client.renderer.MultiBufferSource;
+//?} else {
+/*import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
-//?}
+*///?}
 import org.jetbrains.annotations.NotNull;
 import org.joml.Matrix4f;
 
 import java.util.EnumSet;
 
-//? if >= 26.2 {
-/*public class NegativeBlockEntityRenderer<T extends NegativeBlockEntity>
+//? if >= 26.1.2 {
+public class NegativeBlockEntityRenderer<T extends NegativeBlockEntity>
         implements BlockEntityRenderer<T, NegativeBlockEntityRenderState> {
 
     public NegativeBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {
@@ -118,8 +118,8 @@ import java.util.EnumSet;
         }
     }
 }
-*///?} else {
-public class NegativeBlockEntityRenderer implements BlockEntityRenderer<NegativeBlockEntity> {
+//?} else {
+/*public class NegativeBlockEntityRenderer implements BlockEntityRenderer<NegativeBlockEntity> {
 
     public NegativeBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {
     }
@@ -181,7 +181,7 @@ public class NegativeBlockEntityRenderer implements BlockEntityRenderer<Negative
         Level world = entity.getLevel();
         if (world == null) return;
 
-        // Build the set of exposed sides (same logic as 26.2 extractRenderState)
+        // Build the set of exposed sides (same logic as 26.1.2 extractRenderState)
         EnumSet<Direction> sides = EnumSet.noneOf(Direction.class);
         BlockPos pos = entity.getBlockPos();
         for (Direction direction : Direction.values()) {
@@ -196,4 +196,4 @@ public class NegativeBlockEntityRenderer implements BlockEntityRenderer<Negative
         this.renderSides(sides, matrices.last().pose(), consumer);
     }
 }
-//?}
+*///?}

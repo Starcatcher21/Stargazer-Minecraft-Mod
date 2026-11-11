@@ -1,0 +1,9 @@
+{
+  "type": "stargazer:crystalizer",
+  "item1": "stargazer:sol_crystal",
+  "item2": "minecraft:leather_helmet",
+  "result": {
+    "count": 1,
+    "id": "stargazer:mask_of_sol"
+  }
+}

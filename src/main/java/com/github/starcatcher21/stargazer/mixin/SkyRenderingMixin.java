@@ -4,7 +4,7 @@ import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.renderer.SkyDimensionChecks;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -14,10 +14,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Optional;
 import java.util.OptionalDouble;
+import java.util.OptionalInt;
 
-//? if >= 26.2 {
-/*import com.github.starcatcher21.stargazer.renderer.CustomRederPipelines;
+//? if >= 26.1.2 {
+import com.github.starcatcher21.stargazer.renderer.CustomRederPipelines;
+//? if >=26.2 {
 import com.mojang.blaze3d.PrimitiveTopology;
+//? }
 import com.mojang.blaze3d.buffers.GpuBuffer;
 import com.mojang.blaze3d.buffers.GpuBufferSlice;
 import com.mojang.blaze3d.systems.CommandEncoder;
@@ -35,8 +38,8 @@ import net.minecraft.client.renderer.rendertype.RenderType;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
-*///?} else {
-import com.mojang.blaze3d.systems.RenderSystem;
+//?} else {
+/*import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.BufferUploader;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
@@ -45,17 +48,17 @@ import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import net.minecraft.client.renderer.LevelRenderer;
 import org.joml.Matrix4f;
-//?}
+*///?}
 
-//? if >= 26.2 {
-/*@Mixin(SkyRenderer.class)
- *///?} else {
-@Mixin(LevelRenderer.class)
-//?}
+//? if >= 26.1.2 {
+@Mixin(SkyRenderer.class)
+ //?} else {
+/*@Mixin(LevelRenderer.class)
+*///?}
 public abstract class SkyRenderingMixin {
 
-    //? if >= 26.2 {
-    /*@Unique
+    //? if >= 26.1.2 {
+    @Unique
     private static final ByteBufferBuilder SKY_ALLOCATOR =
         new ByteBufferBuilder(RenderType.SMALL_BUFFER_SIZE);
 
@@ -73,13 +76,13 @@ public abstract class SkyRenderingMixin {
 
     @Unique
     private MappableRingBuffer skyVertexBuffer;
-    *///?}
+    //?}
 
     /* ------------------------------------------------------------------ */
-    /* 26.2+ : inject into SkyRenderer.renderEndSky / renderSun            */
+    /* 26.1.2+ : inject into SkyRenderer.renderEndSky / renderSun            */
     /* ------------------------------------------------------------------ */
-    //? if >= 26.2 {
-    /*@Inject(method = "renderEndSky", at = @At("HEAD"), cancellable = true)
+    //? if >= 26.1.2 {
+    @Inject(method = "renderEndSky", at = @At("HEAD"), cancellable = true)
     private void renderStargazerSoftSky(CallbackInfo ci) {
         Level level = Minecraft.getInstance().level;
         if (level == null || !SkyDimensionChecks.isStargazerSkyDimension(level)) return;
@@ -102,29 +105,62 @@ public abstract class SkyRenderingMixin {
         GpuBufferSlice vertices = uploadSkyQuad(meshData, drawState.format());
 
         RenderSystem.AutoStorageIndexBuffer shapeIndexBuffer =
-            RenderSystem.getSequentialBuffer(PrimitiveTopology.QUADS);
+            RenderSystem.getSequentialBuffer(
+                    //? if >= 26.2 {
+                    PrimitiveTopology.QUADS
+                    //? } else {
+                    /*VertexFormat.Mode.QUADS
+                    *///? }
+            );
         GpuBuffer indices = shapeIndexBuffer.getBuffer(drawState.indexCount());
 
         Minecraft client = Minecraft.getInstance();
         GpuTextureView colorTarget =
+            //? if >= 26.2 {
             client.gameRenderer.mainRenderTarget().getColorTextureView();
+            //? } else {
+            /*client.getMainRenderTarget().getColorTextureView();
+            *///? }
         GpuTextureView depthTarget =
+            //? if >= 26.2 {
             client.gameRenderer.mainRenderTarget().getDepthTextureView();
+            //? } else {
+            /*client.getMainRenderTarget().getDepthTextureView();
+            *///? }
 
         GpuBufferSlice dynamicTransforms = RenderSystem.getDynamicUniforms().writeTransform(
-            RenderSystem.getModelViewMatrixCopy(), COLOR_MODULATOR, MODEL_OFFSET, TEXTURE_MATRIX);
+                //? if >= 26.2 {
+                RenderSystem.getModelViewMatrixCopy(),
+                //? } else {
+                /*RenderSystem.getModelViewMatrix(),
+                *///? }
+                COLOR_MODULATOR, MODEL_OFFSET, TEXTURE_MATRIX);
 
         try (RenderPass renderPass = RenderSystem.getDevice()
                 .createCommandEncoder()
                 .createRenderPass(
                     () -> Stargazer.MOD_ID + " soft sky",
-                    colorTarget, Optional.empty(), depthTarget, OptionalDouble.empty())) {
+                        colorTarget,
+                        //? if >= 26.2 {
+                        Optional.empty(),
+                        //? } else {
+                        /*OptionalInt.empty(),
+                        *///? }
+                        depthTarget, OptionalDouble.empty())) {
             renderPass.setPipeline(CustomRederPipelines.POSITION_SOFT_SKY);
             RenderSystem.bindDefaultUniforms(renderPass);
             renderPass.setUniform("DynamicTransforms", dynamicTransforms);
+            //? if >= 26.2 {
             renderPass.setVertexBuffer(0, vertices);
+            //? } else {
+            /*renderPass.setVertexBuffer(0, vertices.buffer());
+            *///? }
             renderPass.setIndexBuffer(indices, shapeIndexBuffer.type());
+            //? if >= 26.2 {
             renderPass.drawIndexed(0, 0, drawState.indexCount(), 0, 1);
+            //? } else {
+            /*renderPass.drawIndexed(0, 0, drawState.indexCount(), 1);
+            *///? }
         } catch (Exception e) {
             Stargazer.LOGGER.error("Exception in sky render: ", e);
         }
@@ -136,7 +172,13 @@ public abstract class SkyRenderingMixin {
     @Unique
     private static MeshData buildSkyQuad() {
         BufferBuilder buffer = new BufferBuilder(
-            SKY_ALLOCATOR, PrimitiveTopology.QUADS, DefaultVertexFormat.POSITION);
+                SKY_ALLOCATOR,
+                //? if >= 26.2 {
+                PrimitiveTopology.QUADS,
+                //? } else {
+                /*VertexFormat.Mode.QUADS,
+                *///? }
+                DefaultVertexFormat.POSITION);
         float distance = 100.0F;
         buffer.addVertex(IDENTITY, -distance, -distance, distance)
               .setUv(0.0F, 0.0F).setColor(-14145496);
@@ -166,9 +208,9 @@ public abstract class SkyRenderingMixin {
         encoder.writeToBuffer(slice, meshData.vertexBuffer());
         return slice;
     }
-    *///?} else {
+    //?} else {
 
-    @Inject(
+    /*@Inject(
             method = "renderSky",
             at = @At("HEAD"),
             cancellable = true
@@ -209,5 +251,5 @@ public abstract class SkyRenderingMixin {
         RenderSystem.enableCull();
         RenderSystem.disableBlend();
     }
-    //?}
+    *///?}
 }

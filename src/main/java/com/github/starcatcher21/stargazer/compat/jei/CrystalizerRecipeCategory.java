@@ -11,19 +11,19 @@ import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-//? if >= 26.2 {
-/*import mezz.jei.api.recipe.types.IRecipeType;
-*///?} else {
-import mezz.jei.api.recipe.RecipeType;
-//?}
+//? if >= 26.1.2 {
+import mezz.jei.api.recipe.types.IRecipeType;
+//?} else {
+/*import mezz.jei.api.recipe.RecipeType;
+*///?}
 import mezz.jei.api.recipe.category.IRecipeCategory;
-//? if >= 26.2 {
-/*import net.minecraft.client.gui.GuiGraphicsExtractor;
-import net.minecraft.resources.ResourceLocation;
-*///?} else {
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.resources.ResourceLocation;
-//?}
+//? if >= 26.1.2 {
+import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.resources.Identifier;
+//?} else {
+/*import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.resources.Identifier;
+*///?}
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
@@ -32,8 +32,8 @@ import org.jetbrains.annotations.Nullable;
 public class CrystalizerRecipeCategory
         implements IRecipeCategory<RecipeHolder<CrystalizerRecipe>> {
 
-    private static final ResourceLocation TEXTURE =
-            ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/crystalizer_gui.png");
+    private static final Identifier TEXTURE =
+            Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/crystalizer_gui.png");
 
     private final IDrawable icon;
     private final IDrawable overlay;
@@ -45,17 +45,17 @@ public class CrystalizerRecipeCategory
                 new ItemStack(MoonBlocks.CRYSTALIZER.get()));
     }
 
-    //? if >= 26.2 {
-    /*@Override
+    //? if >= 26.1.2 {
+    @Override
     public IRecipeType<RecipeHolder<CrystalizerRecipe>> getRecipeType() {
         return StargazerJEIPlugin.CRYSTALIZER;
     }
-    *///?} else {
-    @Override
+    //?} else {
+    /*@Override
     public RecipeType<RecipeHolder<CrystalizerRecipe>> getRecipeType() {
         return StargazerJEIPlugin.CRYSTALIZER;
     }
-    //?}
+    *///?}
 
     @Override
     public Component getTitle() {
@@ -80,39 +80,39 @@ public class CrystalizerRecipeCategory
         CrystalizerRecipe recipe = holder.value();
         var ingredients = recipe.getIngredients();
 
-        //? if >= 26.2 {
-        /*ingredients.get(0).ifPresent(ing ->
+        //? if >= 26.1.2 {
+        ingredients.get(0).ifPresent(ing ->
                 builder.addSlot(RecipeIngredientRole.INPUT, 25, 43).add(ing));
         ingredients.get(1).ifPresent(ing ->
                 builder.addSlot(RecipeIngredientRole.INPUT, 61, 43).add(ing));
-        *///?} else {
-        builder.addSlot(RecipeIngredientRole.INPUT, 25, 43).addIngredients(ingredients.get(0));
+        //?} else {
+        /*builder.addSlot(RecipeIngredientRole.INPUT, 25, 43).addIngredients(ingredients.get(0));
         builder.addSlot(RecipeIngredientRole.INPUT, 61, 43).addIngredients(ingredients.get(1));
-        //?}
+        *///?}
 
         builder.addSlot(RecipeIngredientRole.OUTPUT, 102, 43)
-                //? if >= 26.2 {
-                /*.add(recipe.getResult());
-                *///?} else {
-                .addItemStack(recipe.getResult());
-                //?}
+                //? if >= 26.1.2 {
+                .add(recipe.getResult());
+                //?} else {
+                /*.addItemStack(recipe.getResult());
+                *///?}
     }
 
-    //? if >= 26.2 {
-    /*@Override
+    //? if >= 26.1.2 {
+    @Override
     public void draw(RecipeHolder<CrystalizerRecipe> holder,
                      IRecipeSlotsView slots,
                      GuiGraphicsExtractor guiGraphics,
                      double mouseX, double mouseY) {
         this.overlay.draw(guiGraphics, 0, 0);
     }
-    *///?} else {
-    @Override
+    //?} else {
+    /*@Override
     public void draw(RecipeHolder<CrystalizerRecipe> holder,
                      IRecipeSlotsView slots,
                      GuiGraphics guiGraphics,
                      double mouseX, double mouseY) {
         this.overlay.draw(guiGraphics, 0, 0);
     }
-    //?}
+    *///?}
 }

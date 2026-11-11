@@ -15,33 +15,33 @@ public class Hydrophobic extends MobEffect {
         super(category, color);
     }
 
-    //? if >= 26.2 {
-    /*@Override
-    public boolean applyEffectTick(ServerLevel world, LivingEntity entity, int amplifier) {
-    *///? } else {
+    //? if >= 26.1.2 {
     @Override
+    public boolean applyEffectTick(ServerLevel world, LivingEntity entity, int amplifier) {
+    //? } else {
+    /*@Override
     public boolean applyEffectTick(LivingEntity entity, int amplifier) {
         if (!(entity.level() instanceof ServerLevel world)) {
             return false;
         }
-    //?}
+    *///?}
         if (world.getFluidState(entity.blockPosition()).is(FluidTags.WATER)) {
             DamageSource damageSource = new DamageSource(
                     world.registryAccess()
                             .lookupOrThrow(Registries.DAMAGE_TYPE)
                             .getOrThrow(DamageTypeRegistry.WATER_DAMAGE)
             );
-            //? if >= 26.2 {
-            /*entity.hurtServer(world, damageSource, amplifier + 1.0F);
-             *///?} else {
-            entity.hurt(damageSource, amplifier + 1.0F);
-            //?}
+            //? if >= 26.1.2 {
+            entity.hurtServer(world, damageSource, amplifier + 1.0F);
+             //?} else {
+            /*entity.hurt(damageSource, amplifier + 1.0F);
+            *///?}
         }
-        //? if >= 26.2 {
-        /*return super.applyEffectTick(world, entity, amplifier);
-         *///?} else {
-        return super.applyEffectTick(entity, amplifier);
-        //?}
+        //? if >= 26.1.2 {
+        return super.applyEffectTick(world, entity, amplifier);
+         //?} else {
+        /*return super.applyEffectTick(entity, amplifier);
+        *///?}
     }
 
     @Override

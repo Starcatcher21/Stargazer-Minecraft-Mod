@@ -92,11 +92,11 @@ public class Grave extends BaseEntityBlock {
             if (active) {
                 if (item instanceof ShovelItem) {
                     //? if >= 26.2 {
-                    /*stack.hurtWithoutBreaking(1, player);
-                    *///?} else {
-                    stack.hurtAndBreak(1, player, player.getUsedItemHand() == InteractionHand.MAIN_HAND
+                    stack.hurtWithoutBreaking(1, player);
+                    //?} else {
+                    /*stack.hurtAndBreak(1, player, player.getUsedItemHand() == InteractionHand.MAIN_HAND
                             ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND);
-                    //?}
+                    *///?}
                     world.setBlockAndUpdate(pos, state.setValue(ACTIVATED, false));
                     BlockEntity be = world.getBlockEntity(pos);
                     if (be instanceof GraveEntity ge) {
@@ -134,7 +134,7 @@ public class Grave extends BaseEntityBlock {
         if (stack.getItem() instanceof SpawnEggItem sei) {
             EntityType<?> type = sei.getType(stack);
             if (type != null) {
-                Entity entity = type.create(world/*? if >= 26.2 { *//*, EntitySpawnReason.DISPENSER *//*? } */);
+                Entity entity = type.create(world/*? if >= 26.2 { */, EntitySpawnReason.DISPENSER /*? } */);
                 entity.setPos(pos.getX(), pos.getY() + yOffset, pos.getZ());
                 if (entity != null) {
                     world.addFreshEntity(entity);

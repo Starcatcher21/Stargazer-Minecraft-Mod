@@ -7,7 +7,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
 
-@EventBusSubscriber(modid = Stargazer.MOD_ID, value = Dist.CLIENT)
+//@EventBusSubscriber(modid = Stargazer.MOD_ID, value = Dist.CLIENT)
 public class NeoforgeParticleRegistration {
     @SubscribeEvent
     public static void register(RegisterParticleProvidersEvent event) {

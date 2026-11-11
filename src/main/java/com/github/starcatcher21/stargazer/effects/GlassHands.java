@@ -19,35 +19,35 @@ public class GlassHands extends MobEffect {
         super(category, color, particleEffect);
     }
 
-    //? if >= 26.2 {
-    /*@Override
-    public void onMobHurt(ServerLevel world, LivingEntity entity, int amplifier, DamageSource source, float amount) {
-    *///? } else {
+    //? if >= 26.1.2 {
     @Override
+    public void onMobHurt(ServerLevel world, LivingEntity entity, int amplifier, DamageSource source, float amount) {
+    //? } else {
+    /*@Override
     public void onMobHurt(LivingEntity entity, int amplifier, DamageSource source, float amount) {
         if (!(entity.level() instanceof ServerLevel world)) {
             return;
         }
-    //?}
+    *///?}
         ItemStack mh = entity.getMainHandItem();
         ItemStack oh = entity.getOffhandItem();
         if (!mh.isEmpty()) {
             if (mh.isDamageableItem()) {
-                //? if >= 26.2 {
-                /*mh.hurtAndConvertOnBreak((amplifier + 1) * 5, mh.getItem(), entity, entity.getEquipmentSlotForItem(mh));
-                 *///?} else {
-                mh.hurtAndBreak((amplifier + 1) * 5, entity, entity.getEquipmentSlotForItem(mh));
-                //?}
+                //? if >= 26.1.2 {
+                mh.hurtAndConvertOnBreak((amplifier + 1) * 5, mh.getItem(), entity, entity.getEquipmentSlotForItem(mh));
+                 //?} else {
+                /*mh.hurtAndBreak((amplifier + 1) * 5, entity, entity.getEquipmentSlotForItem(mh));
+                *///?}
             } else {
                 mh.shrink(amplifier+1);
             }
         } else if (!oh.isEmpty()) {
             if (oh.isDamageableItem()) {
-                //? if >= 26.2 {
-                /*oh.hurtAndConvertOnBreak((amplifier + 1) * 2, oh.getItem(), entity, entity.getEquipmentSlotForItem(oh));
-                 *///?} else {
-                oh.hurtAndBreak((amplifier + 1) * 2, entity, entity.getEquipmentSlotForItem(oh));
-                //?}
+                //? if >= 26.1.2 {
+                oh.hurtAndConvertOnBreak((amplifier + 1) * 2, oh.getItem(), entity, entity.getEquipmentSlotForItem(oh));
+                 //?} else {
+                /*oh.hurtAndBreak((amplifier + 1) * 2, entity, entity.getEquipmentSlotForItem(oh));
+                *///?}
             } else {
                 oh.shrink(amplifier+1);
             }
@@ -57,11 +57,11 @@ public class GlassHands extends MobEffect {
                             .lookupOrThrow(Registries.DAMAGE_TYPE)
                             .getOrThrow(DamageTypeRegistry.GLASS_CANNON)
             );
-            //? if >= 26.2 {
-            /*entity.hurtServer(world, damageSource, entity.getHealth() - 1);
-             *///?} else {
-            entity.hurt(damageSource, entity.getHealth() - 1);
-            //?}
+            //? if >= 26.1.2 {
+            entity.hurtServer(world, damageSource, entity.getHealth() - 1);
+             //?} else {
+            /*entity.hurt(damageSource, entity.getHealth() - 1);
+            *///?}
         }
     }
 }

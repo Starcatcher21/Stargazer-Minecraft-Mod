@@ -5,8 +5,8 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import me.shedaniel.rei.api.common.display.DisplaySerializer;
 //? if < 26.2 {
-import net.minecraft.nbt.CompoundTag;
-//? }
+/*import net.minecraft.nbt.CompoundTag;
+*///? }
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 
@@ -22,7 +22,7 @@ public class CrystalizerDisplaySerializer implements DisplaySerializer<Crystaliz
             CrystalizerDisplay::new
     );
     //? if >= 26.2 {
-    /*@Override
+    @Override
     public MapCodec<CrystalizerDisplay> codec() {
         return CODEC;
     }
@@ -30,8 +30,8 @@ public class CrystalizerDisplaySerializer implements DisplaySerializer<Crystaliz
     public StreamCodec<RegistryFriendlyByteBuf, CrystalizerDisplay> streamCodec() {
         return PACKET_CODEC;
     }
-    *///? } else {
-    @Override
+    //? } else {
+    /*@Override
     public CompoundTag save(CompoundTag tag, CrystalizerDisplay display) {
         tag.put("recipe", LegacyDisplayCodec.encode(ShapedCrystalizerRecipe.CODEC.codec(), display.recipe()));
         return tag;
@@ -42,5 +42,5 @@ public class CrystalizerDisplaySerializer implements DisplaySerializer<Crystaliz
         return new CrystalizerDisplay(
                 LegacyDisplayCodec.decode(ShapedCrystalizerRecipe.CODEC.codec(), tag.get("recipe")));
     }
-    //? }
+    *///? }
 }

@@ -10,7 +10,7 @@ import dev.architectury.core.item.ArchitecturyBucketItem;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -30,28 +30,28 @@ public class ModFluids {
             FLUIDS.register("flowing_dream", () -> new ArchitecturyFlowingFluid.Flowing(Holder.DREAM_ATTRIBUTES));
 
     public static final RegistrySupplier<LiquidBlock> DREAM_BLOCK = ModBlock.BLOCKS.register("dream", () -> {
-        ResourceKey<Block> key = ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "dream"));
+        ResourceKey<Block> key = ResourceKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "dream"));
         return new ArchitecturyLiquidBlock(DREAM_STILL, BlockBehaviour.Properties.ofFullCopy(Blocks.WATER)
                 //? if >= 26.2 {
-                /*.setId(key)
-                *///? }
+                .setId(key)
+                //? }
         );
     });
 
     public static final RegistrySupplier<Item> DREAM_BUCKET = ModItems.ITEMS.register("dream_bucket", () -> {
-        ResourceKey<Item> key = ResourceKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "dream_bucket"));
-        return new ArchitecturyBucketItem(DREAM_STILL, new Item.Properties().craftRemainder(Items.BUCKET)
+        ResourceKey<Item> key = ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "dream_bucket"));
+        return new ArchitecturyBucketItem(DREAM_STILL, new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)
                 //? if >= 26.2 {
-                /*.setId(key)
-                *///? }
+                .setId(key)
+                //? }
         );
     });
 
     public static class Holder {
         public static final ArchitecturyFluidAttributes DREAM_ATTRIBUTES =
                 SimpleArchitecturyFluidAttributes.of(() -> DREAM_FLOWING.get(), () -> DREAM_STILL.get())
-                        .sourceTexture(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "fluid/dream_still"))
-                        .flowingTexture(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "fluid/dream_flow"))
+                        .sourceTexture(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "fluid/dream_still"))
+                        .flowingTexture(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "fluid/dream_flow"))
                         .color(0xFF1A1A1A)
                         .density(25)
                         .viscosity(25)

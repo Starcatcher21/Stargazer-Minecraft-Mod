@@ -5,18 +5,18 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 //? if >= 26.2 {
-/*import net.minecraft.advancements.triggers.CriteriaTriggers;
-*///? } else {
-import net.minecraft.advancements.CriteriaTriggers;
-//? }
+import net.minecraft.advancements.triggers.CriteriaTriggers;
+//? } else {
+/*import net.minecraft.advancements.CriteriaTriggers;
+*///? }
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-//? if < 26.2 {
-import net.minecraft.world.ItemInteractionResult;
-//? }
+//? if < 26.1.2 {
+/*import net.minecraft.world.ItemInteractionResult;
+*///? }
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -37,36 +37,36 @@ public class MoonPlanks extends Block {
     }
 
     @Override
-    //? if >= 26.2 {
-    /*protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-    *///? } else {
-    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-    //? }
+    //? if >= 26.1.2 {
+    protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+    //? } else {
+    /*protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+    *///? }
         if (stack.getItem() instanceof PotionItem && !state.getBlock().equals(MoonBlocks.MOON_PLANKS)) {
             if (stack.getItem().getDefaultInstance().getHoverName().equals(Component.translatable("item.minecraft.potion.effect.water"))) {
                 change(world, stack, MoonBlocks.MOON_PLANKS.get().defaultBlockState(), pos, player);
-                //? if >= 26.2 {
-                /*return InteractionResult.SUCCESS;
-                *///? } else {
-                return ItemInteractionResult.SUCCESS;
-                //? }
+                //? if >= 26.1.2 {
+                return InteractionResult.SUCCESS;
+                //? } else {
+                /*return ItemInteractionResult.SUCCESS;
+                *///? }
             }
         }
         for (Map.Entry<Supplier<Item>, Supplier<Block>> entry : COLORED_PLANKS.entrySet()) {
             if (stack.getItem().equals(entry.getKey().get()) && !state.equals(entry.getValue().get().defaultBlockState())) {
                 change(world, stack, entry.getValue().get().defaultBlockState(), pos, player);
-                //? if >= 26.2 {
-                /*return InteractionResult.SUCCESS;
-                 *///? } else {
-                return ItemInteractionResult.SUCCESS;
-                //? }
+                //? if >= 26.1.2 {
+                return InteractionResult.SUCCESS;
+                 //? } else {
+                /*return ItemInteractionResult.SUCCESS;
+                *///? }
             }
         }
-        //? if >= 26.2 {
-        /*return InteractionResult.PASS;
-         *///? } else {
-        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
-        //? }
+        //? if >= 26.1.2 {
+        return InteractionResult.PASS;
+         //? } else {
+        /*return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        *///? }
     }
     public static void change(Level world, ItemStack stack, BlockState state, BlockPos pos, Player player) {
         if (player instanceof ServerPlayer) {
@@ -78,11 +78,11 @@ public class MoonPlanks extends Block {
             if (!player.hasInfiniteMaterials()) {
                 stack.shrink(1);
                 if (stack.getItem().equals(Potions.WATER)) {
-                    //? if >= 26.2 {
-                    /*player.handleExtraItemsCreatedOnUse(new ItemStack(Items.GLASS_BOTTLE, 1));
-                    *///? } else {
-                    player.setItemSlot(stack.getEquipmentSlot(), new ItemStack(Items.GLASS_BOTTLE, 1));
-                    //? }
+                    //? if >= 26.1.2 {
+                    player.handleExtraItemsCreatedOnUse(new ItemStack(Items.GLASS_BOTTLE, 1));
+                    //? } else {
+                    /*player.setItemSlot(stack.getEquipmentSlot(), new ItemStack(Items.GLASS_BOTTLE, 1));
+                    *///? }
                 }
             }
         }

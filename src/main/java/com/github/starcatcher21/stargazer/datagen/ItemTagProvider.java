@@ -7,22 +7,22 @@ import com.github.starcatcher21.stargazer.item.ModItems;
 //? if fabric {
 /*import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
-*///?} else if < 26.2 {
-import com.github.starcatcher21.stargazer.Stargazer;
+*///?} else if < 26.1.2 {
+/*import com.github.starcatcher21.stargazer.Stargazer;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.data.tags.TagsProvider.TagAppender;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
-//?}
-//? if neoforge && >= 26.2 {
-/*import com.github.starcatcher21.stargazer.Stargazer;
+*///?}
+//? if neoforge && >= 26.1.2 {
+import com.github.starcatcher21.stargazer.Stargazer;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.data.tags.TagAppender;
-*///?}
+//?}
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -39,8 +39,8 @@ public class ItemTagProvider
     public ItemTagProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> completableFuture) {
         super(output, completableFuture);
     }
-*///?} else if < 26.2 {
-        extends IntrinsicHolderTagsProvider<Item> {
+*///?} else if < 26.1.2 {
+        /*extends IntrinsicHolderTagsProvider<Item> {
 
     public ItemTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> completableFuture, ExistingFileHelper existingFileHelper) {
         super(output, Registries.ITEM, completableFuture, item -> item.builtInRegistryHolder().key(), Stargazer.MOD_ID, existingFileHelper);
@@ -49,8 +49,8 @@ public class ItemTagProvider
     private TagAppender<Item> builder(net.minecraft.tags.TagKey<Item> tag) {
         return tag(tag);
     }
-//?} else {
-        /*extends TagsProvider<Item> {
+*///?} else {
+        extends TagsProvider<Item> {
 
     public ItemTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> completableFuture) {
         super(output, Registries.ITEM, completableFuture, Stargazer.MOD_ID);
@@ -59,7 +59,7 @@ public class ItemTagProvider
     private TagAppender<Item> builder(net.minecraft.tags.TagKey<Item> tag) {
         return tag(tag);
     }
-*///?}
+//?}
 
     @Override
     protected void addTags(HolderLookup.Provider wrapperLookup) {
@@ -70,7 +70,7 @@ public class ItemTagProvider
                 .add(ModItems.BLUE_STAR.getKey())
                 .add(ModItems.END_STAR.getKey())
                 .add(ModItems.YELLOW_STAR.getKey());
-        builder(TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("c", "dusts")))
+        builder(TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("c", "dusts")))
                 .add(ModItems.IRON_DUST.getKey())
                 .add(ModItems.COPPER_DUST.getKey())
                 .add(ModItems.GOLD_DUST.getKey())
@@ -83,8 +83,8 @@ public class ItemTagProvider
         builder(CustomTags.COPPER_DUST).add(ModItems.COPPER_DUST.getKey());
         builder(CustomTags.IRON_DUST).add(ModItems.IRON_DUST.getKey());
         builder(CustomTags.GOLD_DUST).add(ModItems.GOLD_DUST.getKey());
-        builder(TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath("c", "crops")))
-                .add(Crops.BROODY.getKey(), Crops.DRAGON_CARROT.getKey(), Crops.EYE_BALLS.get().builtInRegistryHolder().key());
+        builder(TagKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("c", "crops")))
+                .add(Crops.BROODY.getKey(), Crops.DRAGON_CARROT.getKey(), Crops.EYE_BALLS.getKey(), Crops.STARBERRY.getKey());
         builder(CustomTags.COSMIC)
                 .add(StarBlocks.COSMIC_BLOCK.get().asItem().builtInRegistryHolder().key());
         builder(CustomTags.CHESS_BRICK)
@@ -106,6 +106,8 @@ public class ItemTagProvider
                 .add(Wander.TRUNN_LOG.get().asItem().builtInRegistryHolder().key())
                 .add(MoonBlocks.FULL_MOON_LOG.get().asItem().builtInRegistryHolder().key())
                 .add(RedOrbBlocks.SPIRO_LOG.get().asItem().builtInRegistryHolder().key())
+                .add(MoonBlocks.FUZZY_LOG.get().asItem().builtInRegistryHolder().key())
+                .add(Wander.UMBRELLA_LOG.get().asItem().builtInRegistryHolder().key())
                 .add(Darkness.STRIPPED_LOG_OF_DARKNESS.get().asItem().builtInRegistryHolder().key());
         builder(ItemTags.SAPLINGS)
                 .add(MoonBlocks.MOON_SAPLING.get().asItem().builtInRegistryHolder().key())
@@ -115,6 +117,9 @@ public class ItemTagProvider
                 .add(MoonBlocks.CURVE_SAPLING.get().asItem().builtInRegistryHolder().key())
                 .add(MoonBlocks.FULL_MOON_SAPLING.get().asItem().builtInRegistryHolder().key())
                 .add(RedOrbBlocks.SPIRO_SAPLING.get().asItem().builtInRegistryHolder().key())
+                .add(MoonBlocks.FUZZY_BALL.get().asItem().builtInRegistryHolder().key())
+                .add(Wander.UMBRELLA_SAPLING.get().asItem().builtInRegistryHolder().key())
+                .add(Wander.TRUNN_SAPLING.get().asItem().builtInRegistryHolder().key())
                 .add(RedOrbBlocks.YERI_SAPLING.get().asItem().builtInRegistryHolder().key());
         builder(STARDUST)
                 .add(ModItems.STARDUST.getKey());
@@ -159,6 +164,7 @@ public class ItemTagProvider
                 .add(MoonBlocks.FUZZY_PLANKS.get().asItem().builtInRegistryHolder().key())
                 .add(MoonBlocks.MOON_PLANKS.get().asItem().builtInRegistryHolder().key());
         builder(ItemTags.STONE_TOOL_MATERIALS)
+                .add(Wander.COBBLED_CRYOSTONE.get().asItem().builtInRegistryHolder().key())
                 .add(MoonBlocks.MOON_ROCK.get().asItem().builtInRegistryHolder().key());
         builder(CustomTags.STAR_FLOWER)
                 .add(StarBlocks.STAR_FLOWER.get().asItem().builtInRegistryHolder().key());
@@ -186,8 +192,9 @@ public class ItemTagProvider
         builder(CustomTags.GEM)
                 .add(ModItems.RED_GEM.getKey())
                 .add(ModItems.GREEN_GEM.getKey())
+                .add(ModItems.PURPLE_GEM.getKey())
                 .add(ModItems.CRYSTAL_MOON.getKey())
-                .add(ModItems.PURPLE_GEM.getKey());
+                .add(ModItems.SOL_CRYSTAL.getKey());
         builder(ItemTags.SWORDS)
                 .add(ModItems.GRASS_SWORD.getKey())
                 .add(ModItems.PURE_GOLD_SWORD.getKey())

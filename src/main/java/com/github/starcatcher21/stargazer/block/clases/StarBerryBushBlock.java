@@ -4,7 +4,7 @@ import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.block.register.Crops;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -14,12 +14,12 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
-//? if >= 26.2 {
-/*import net.minecraft.world.entity.InsideBlockEffectApplier;
+//? if >= 26.1.2 {
+import net.minecraft.world.entity.InsideBlockEffectApplier;
 import net.minecraft.world.item.ItemInstance;
-*///? } else {
-import net.minecraft.world.ItemInteractionResult;
-//? }
+//? } else {
+/*import net.minecraft.world.ItemInteractionResult;
+*///? }
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -29,11 +29,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BonemealableBlock;
-//? if >= 26.2 {
-/*import net.minecraft.world.level.block.VegetationBlock;
-*///? } else {
-import com.github.starcatcher21.stargazer.block.older1211.VegetationBlock;
-//? }
+//? if >= 26.1.2 {
+import net.minecraft.world.level.block.VegetationBlock;
+//? } else {
+/*import com.github.starcatcher21.stargazer.block.older1211.VegetationBlock;
+*///? }
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -94,27 +94,27 @@ public class StarBerryBushBlock extends VegetationBlock implements BonemealableB
     }
 
     protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity
-                                //? if >= 26.2 {
-                                /*, InsideBlockEffectApplier effectApplier,
+                                //? if >= 26.1.2 {
+                                , InsideBlockEffectApplier effectApplier,
                                 boolean isPrecise
-                                *///? }
+                                //? }
                                 ) {
         entity.makeStuckInBlock(state, new Vec3((double)0.8F, (double)0.75F, (double)0.8F));
         if (level instanceof ServerLevel) {
             ServerLevel serverLevel = (ServerLevel)level;
             if ((Integer)state.getValue(AGE) != 0) {
-                //? if >= 26.2 {
-                /*Vec3 movement = entity.isClientAuthoritative() ? entity.getKnownMovement() : entity.oldPosition().subtract(entity.position());
+                //? if >= 26.1.2 {
+                Vec3 movement = entity.isClientAuthoritative() ? entity.getKnownMovement() : entity.oldPosition().subtract(entity.position());
                 if (movement.horizontalDistanceSqr() > (double)0.0F) {
                     double xs = Math.abs(movement.x());
                     double zs = Math.abs(movement.z());
                     if (xs >= (double)0.003F || zs >= (double)0.003F) {
-                *///? } else {
-                if (!level.isClientSide && (Integer)state.getValue(AGE) > 0 && (entity.xOld != entity.getX() || entity.zOld != entity.getZ())) {
+                //? } else {
+                /*if (!level.isClientSide && (Integer)state.getValue(AGE) > 0 && (entity.xOld != entity.getX() || entity.zOld != entity.getZ())) {
                     double d0 = Math.abs(entity.getX() - entity.xOld);
                     double d1 = Math.abs(entity.getZ() - entity.zOld);
                     if (d0 >= (double)0.003F || d1 >= (double)0.003F) {
-                //? }
+                *///? }
                         if (entity instanceof LivingEntity le) {
                             le.addEffect(new MobEffectInstance(MobEffects.POISON, 200, 1));
                         }
@@ -125,30 +125,30 @@ public class StarBerryBushBlock extends VegetationBlock implements BonemealableB
 
     }
 
-    //? if >= 26.2 {
-    /*protected InteractionResult useItemOn(ItemStack itemStack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+    //? if >= 26.1.2 {
+    protected InteractionResult useItemOn(ItemStack itemStack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         int age = (Integer)state.getValue(AGE);
         boolean isMaxAge = age == 3;
         return (InteractionResult)(!isMaxAge && itemStack.is(Items.BONE_MEAL) ? InteractionResult.PASS : super.useItemOn(itemStack, state, level, pos, player, hand, hitResult));
     }
-    *///? } else {
-    protected ItemInteractionResult useItemOn(ItemStack arg, BlockState arg2, Level arg3, BlockPos arg4, Player arg5, InteractionHand arg6, BlockHitResult arg7) {
+    //? } else {
+    /*protected ItemInteractionResult useItemOn(ItemStack arg, BlockState arg2, Level arg3, BlockPos arg4, Player arg5, InteractionHand arg6, BlockHitResult arg7) {
         int i = (Integer)arg2.getValue(AGE);
         boolean flag = i == 3;
         return !flag && arg.is(Items.BONE_MEAL) ? ItemInteractionResult.SKIP_DEFAULT_BLOCK_INTERACTION : super.useItemOn(arg, arg2, arg3, arg4, arg5, arg6, arg7);
     }
-    //? }
+    *///? }
 
 
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
         if ((Integer)state.getValue(AGE) > 1) {
             if (level instanceof ServerLevel) {
                 ServerLevel serverLevel = (ServerLevel)level;
-                //? if >= 26.2 {
-                /*var random = level.getRandom();
-                *///? } else {
-                var random = level.random;
-                //? }
+                //? if >= 26.1.2 {
+                var random = level.getRandom();
+                //? } else {
+                /*var random = level.random;
+                *///? }
                 popResource(level, pos, new ItemStack(Crops.STARBERRY.get(), 1 + random.nextInt(2)));
                 serverLevel.playSound((Entity)null, pos, SoundEvents.SWEET_BERRY_BUSH_PICK_BERRIES, SoundSource.BLOCKS, 1.0F, 0.8F + serverLevel.getRandom().nextFloat() * 0.4F);
                 BlockState newState = (BlockState)state.setValue(AGE, 1);

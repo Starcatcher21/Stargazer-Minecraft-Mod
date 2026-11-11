@@ -12,39 +12,39 @@ import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Blocks;
-//? if >= 26.2 {
-/*import net.minecraft.references.BlockIds;
+//? if >= 26.1.2 {
+import net.minecraft.references.BlockIds;
 import net.minecraft.world.level.block.SpreadingSnowyBlock;
-*///?} else {
-import net.minecraft.core.registries.BuiltInRegistries;
+//?} else {
+/*import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.SpreadingSnowyDirtBlock;
-//?}
+*///?}
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.lighting.LightEngine;
 import net.minecraft.world.phys.BlockHitResult;
 
-//? if >= 26.2 {
-/*public class InfestedCalcite extends SpreadingSnowyBlock {
- *///?} else {
-public class InfestedCalcite extends SpreadingSnowyDirtBlock {
-    //?}
+//? if >= 26.1.2 {
+public class InfestedCalcite extends SpreadingSnowyBlock {
+ //?} else {
+/*public class InfestedCalcite extends SpreadingSnowyDirtBlock {
+    *///?}
     public static final MapCodec<InfestedCalcite> CODEC = simpleCodec(InfestedCalcite::new);
 
     public InfestedCalcite(final Properties properties) {
-        //? if >= 26.2 {
-        /*super(properties, Blocks.CALCITE.builtInRegistryHolder().key());
-         *///?} else {
-        super(properties);
-        //?}
+        //? if >= 26.1.2 {
+        super(properties, Blocks.CALCITE.builtInRegistryHolder().key());
+         //?} else {
+        /*super(properties);
+        *///?}
     }
 
     @Override
-    //? if >= 26.2 {
-    /*protected MapCodec<? extends SpreadingSnowyBlock> codec() {
-    *///? } else {
-    protected MapCodec<? extends SpreadingSnowyDirtBlock> codec() {
-    //? }
+    //? if >= 26.1.2 {
+    protected MapCodec<? extends SpreadingSnowyBlock> codec() {
+    //? } else {
+    /*protected MapCodec<? extends SpreadingSnowyDirtBlock> codec() {
+    *///? }
         return CODEC;
     }
 
@@ -62,11 +62,11 @@ public class InfestedCalcite extends SpreadingSnowyDirtBlock {
         if (blockState.getFluidState().getAmount() == 8) {
             return false;
         }
-        //? if >= 26.2 {
-        /*int i = LightEngine.getLightDampeningInto(state, blockState, Direction.UP, blockState.getLightDampening());
-        *///? } else {
-        int i = LightEngine.getLightBlockInto(world, blockState, blockPos, blockState, blockPos, Direction.UP, blockState.getLightBlock(world, pos.above()));
-        //? }
+        //? if >= 26.1.2 {
+        int i = LightEngine.getLightDampeningInto(state, blockState, Direction.UP, blockState.getLightDampening());
+        //? } else {
+        /*int i = LightEngine.getLightBlockInto(world, blockState, blockPos, blockState, blockPos, Direction.UP, blockState.getLightBlock(world, pos.above()));
+        *///? }
         return i < 15;
     }
 

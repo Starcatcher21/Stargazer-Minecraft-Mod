@@ -17,19 +17,19 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 //? if >= 26.2 {
-/*import net.minecraft.world.level.block.TintedParticleLeavesBlock;
- *///?} else {
-import net.minecraft.world.level.block.LeavesBlock;
-//?}
+import net.minecraft.world.level.block.TintedParticleLeavesBlock;
+ //?} else {
+/*import net.minecraft.world.level.block.LeavesBlock;
+*///?}
 
 //? if >= 26.2 {
-/*public class NebulaLeaves extends TintedParticleLeavesBlock {
- *///?} else {
-public class NebulaLeaves extends LeavesBlock {
-//?}
+public class NebulaLeaves extends TintedParticleLeavesBlock {
+ //?} else {
+/*public class NebulaLeaves extends LeavesBlock {
+*///?}
 
     //? if >= 26.2 {
-    /*public static final MapCodec<NebulaLeaves> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+    public static final MapCodec<NebulaLeaves> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
         Codec.INT.fieldOf("tint").forGetter(block -> block.tint),
         propertiesCodec()
     ).apply(instance, NebulaLeaves::new));
@@ -45,8 +45,8 @@ public class NebulaLeaves extends LeavesBlock {
     public MapCodec<? extends TintedParticleLeavesBlock> codec() {
         return CODEC;
     }
-    *///?} else {
-    public static final MapCodec<NebulaLeaves> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+    //?} else {
+    /*public static final MapCodec<NebulaLeaves> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             Codec.INT.fieldOf("tint").forGetter(block -> block.tint)
     ).apply(instance, tint -> new NebulaLeaves(tint, BlockBehaviour.Properties.of())));
 
@@ -61,7 +61,7 @@ public class NebulaLeaves extends LeavesBlock {
     public MapCodec<? extends LeavesBlock> codec() {
         return CODEC;
     }
-    //?}
+    *///?}
 
     @Override
     protected VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
@@ -69,14 +69,14 @@ public class NebulaLeaves extends LeavesBlock {
     }
 
     //? if >= 26.2 {
-    /*@Override
+    @Override
     protected void spawnFallingLeavesParticle(Level world, BlockPos pos, RandomSource random) {
         ColorParticleOption tintedParticleEffect =
             ColorParticleOption.create(Particles.TINTED_STAR.get(), tint);
         ParticleUtils.spawnParticleBelow(world, pos, random, tintedParticleEffect);
     }
-    *///?} else {
-    @Override
+    //?} else {
+    /*@Override
     public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource random) {
         super.animateTick(state, world, pos, random);
         if (random.nextInt(20) == 0) {
@@ -85,5 +85,5 @@ public class NebulaLeaves extends LeavesBlock {
             ParticleUtils.spawnParticleBelow(world, pos, random, particle);
         }
     }
-    //?}
+    *///?}
 }

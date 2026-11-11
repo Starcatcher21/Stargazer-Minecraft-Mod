@@ -5,16 +5,21 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.Optional;
 import net.minecraft.advancements.CriterionTriggerInstance;
 //? if >= 26.2 {
-/*import net.minecraft.advancements.predicates.ContextAwarePredicate;
+import net.minecraft.advancements.predicates.ContextAwarePredicate;
 import net.minecraft.advancements.predicates.entity.EntityPredicate;
 import net.minecraft.advancements.predicates.ItemPredicate;
 import net.minecraft.advancements.triggers.SimpleCriterionTrigger;
+//? } else if 26.1.2 {
+/*import net.minecraft.advancements.criterion.ContextAwarePredicate;
+import net.minecraft.advancements.criterion.EntityPredicate;
+import net.minecraft.advancements.criterion.ItemPredicate;
+import net.minecraft.advancements.criterion.SimpleCriterionTrigger;
 *///? } else {
-import net.minecraft.advancements.critereon.ContextAwarePredicate;
+/*import net.minecraft.advancements.critereon.ContextAwarePredicate;
 import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.SimpleCriterionTrigger;
-//? }
+*///? }
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.Item;
 
@@ -28,7 +33,6 @@ public class ForgeCraft extends SimpleCriterionTrigger<ForgeCraft.Conditions> {
         trigger(player, conditions -> conditions.requirementsMet(item));
     }
 
-    // The 'Conditions' record defines what the JSON file looks like
     public record Conditions(Optional<ContextAwarePredicate> player, Optional<ItemPredicate> output) implements CriterionTriggerInstance, SimpleInstance {
         public static final Codec<Conditions> CODEC = RecordCodecBuilder.create(instance ->
                 instance.group(

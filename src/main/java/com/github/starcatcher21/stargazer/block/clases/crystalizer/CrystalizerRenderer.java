@@ -8,15 +8,15 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 
-//? if >= 26.2 {
-/*import net.minecraft.client.renderer.SubmitNodeCollector;
+//? if >= 26.1.2 {
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.client.renderer.block.BlockModelRenderState;
 import net.minecraft.client.renderer.block.BlockModelResolver;
@@ -26,32 +26,32 @@ import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
-*///? }
-//? if < 26.2 {
-import net.minecraft.client.renderer.MultiBufferSource;
+//? }
+//? if < 26.1.2 {
+/*import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.resources.model.BakedModel;
-//? }
+*///? }
 
 public class CrystalizerRenderer implements BlockEntityRenderer<CrystalizerEntity
-        //? if >= 26.2
-        //, CrystalizerRenderState
+        //? if >= 26.1.2
+        , CrystalizerRenderState
         > {
 
-    //? if < 26.2 {
-    private final BlockRenderDispatcher blockRenderer;
-    //? }
+    //? if < 26.1.2 {
+    /*private final BlockRenderDispatcher blockRenderer;
+    *///? }
     private static final float ROTATION_SPEED = 0.03f;
 
     public CrystalizerRenderer(BlockEntityRendererProvider.Context ctx) {
-        //? if < 26.2 {
-        this.blockRenderer = Minecraft.getInstance().getBlockRenderer();
-         //? }
+        //? if < 26.1.2 {
+        /*this.blockRenderer = Minecraft.getInstance().getBlockRenderer();
+         *///? }
     }
 
-    //? if >= 26.2 {
-    /*@Override
+    //? if >= 26.1.2 {
+    @Override
     public CrystalizerRenderState createRenderState() {
         return new CrystalizerRenderState();
     }
@@ -101,10 +101,10 @@ public class CrystalizerRenderer implements BlockEntityRenderer<CrystalizerEntit
         itemStackRenderState3.submit(poseStack, collector, state.lightCoords, OverlayTexture.NO_OVERLAY, 0);
         poseStack.popPose();
     }
-    *///? }
+    //? }
 
-    //? if < 26.2 {
-    @Override
+    //? if < 26.1.2 {
+    /*@Override
     public void render(CrystalizerEntity entity, float partialTick, PoseStack poseStack,
                        MultiBufferSource bufferSource, int packedLight, int packedOverlay) {
 
@@ -157,5 +157,5 @@ public class CrystalizerRenderer implements BlockEntityRenderer<CrystalizerEntit
                 packedLight, overlay, poseStack, bufferSource, level, 0);
         poseStack.popPose();
     }
-    //? }
+    *///? }
 }

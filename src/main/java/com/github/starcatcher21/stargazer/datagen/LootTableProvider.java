@@ -23,10 +23,12 @@ import java.util.Set;
 import java.util.function.Function;
 //?}
 //? if >= 26.2 {
-/*import net.minecraft.advancements.predicates.StatePropertiesPredicate;
-*///?} else {
-import net.minecraft.advancements.critereon.StatePropertiesPredicate;
-//?}
+import net.minecraft.advancements.predicates.StatePropertiesPredicate;
+//?} else if 26.1.2 {
+/*import net.minecraft.advancements.criterion.StatePropertiesPredicate;
+*///? } else {
+/*import net.minecraft.advancements.critereon.StatePropertiesPredicate;
+*///?}
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
@@ -37,11 +39,11 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-//? if >= 26.2 {
-/*import net.minecraft.world.level.block.FlowerBedBlock;
-*///?} else {
-import com.github.starcatcher21.stargazer.block.older1211.FlowerBedBlock;
-//?}
+//? if >= 26.1.2 {
+import net.minecraft.world.level.block.FlowerBedBlock;
+//?} else {
+/*import com.github.starcatcher21.stargazer.block.older1211.FlowerBedBlock;
+*///?}
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
@@ -114,6 +116,12 @@ public class LootTableProvider
     @Override
     public void generate() {
         dropSelf(ModBlock.NEGATIVE_BLOCK.get());
+        dropSelf(MoonBlocks.MOON_PLANKS_TRAPDOOR.get());
+        dropSelf(MoonBlocks.CURVE_PLANKS_TRAPDOOR.get());
+        dropSelf(RedOrbBlocks.YERI_PLANKS_TRAPDOOR.get());
+        dropSelf(RedOrbBlocks.SPIRO_PLANKS_TRAPDOOR.get());
+        dropSelf(Darkness.DARKNESS_PLANKS_TRAPDOOR.get());
+        dropSelf(StarBlocks.STAR_PLANKS_TRAPDOOR.get());
         dropSelf(Wander.PUROIL.get());
         dropSelf(StarBlocks.AURORA.get());
         dropSelf(MoonBlocks.COMET_BLOCK.get());
@@ -127,6 +135,8 @@ public class LootTableProvider
         dropSelf(Energy.STAR_CRUSHER.get());
         dropSelf(ModBlock.AMETHYST_DUST_BLOCK.get());
         add(Wander.BORIL.get(), oreDrops(Wander.BORIL.get(), Wander.PUROIL.get(), 1.0f, 1.0f));
+        add(Wander.CRYOSTONE.get(), oreDrops(Wander.CRYOSTONE.get(), Wander.COBBLED_CRYOSTONE.get(), 1.0f, 1.0f));
+        dropSelf(Wander.COBBLED_CRYOSTONE.get());
         dropSelf(Wander.TRUNN_LOG.get());
         dropSelf(MoonBlocks.FUZZY_LOG.get());
         dropSelf(MoonBlocks.FUZZY_BALL.get());
@@ -376,9 +386,9 @@ public class LootTableProvider
         dropSelf(Hedges.MANGROVE_HEDGE.get());
         dropSelf(Hedges.MOON_HEDGE.get());
         dropSelf(Hedges.OAK_HEDGE.get());
-        //? if >= 26.2 {
-        /*dropSelf(Hedges.PALE_HEDGE.get());
-        *///? }
+        //? if >= 26.1.2 {
+        dropSelf(Hedges.PALE_HEDGE.get());
+        //? }
         dropSelf(Hedges.SPRUCE_HEDGE.get());
         dropSelf(Hedges.STAR_HEDGE.get());
         dropSelf(Hedges.YERI_HEDGE.get());

@@ -7,10 +7,10 @@ import net.minecraft.world.item.crafting.RecipeInput;
 import java.util.List;
 
 //? if >= 26.2 {
-/*import net.minecraft.world.entity.player.StackedItemContents;
+import net.minecraft.world.entity.player.StackedItemContents;
 import net.minecraft.world.level.MoonPhase;
 
-*///?} else {
+//?} else {
 //?}
 
 public class CrystalizerRecipeInput implements RecipeInput {
@@ -24,11 +24,11 @@ public class CrystalizerRecipeInput implements RecipeInput {
     private final int stackCount;
 
     //? if >= 26.2 {
-    /*private final StackedItemContents matcher = new StackedItemContents();
-     *///?} else {
-    private final StackedContents matcher =
+    private final StackedItemContents matcher = new StackedItemContents();
+     //?} else {
+    /*private final StackedContents matcher =
             new StackedContents();
-    //?}
+    *///?}
 
     public CrystalizerRecipeInput(int width, int height, List<ItemStack> stacks) {
         this.width = width;
@@ -39,10 +39,10 @@ public class CrystalizerRecipeInput implements RecipeInput {
             if (itemStack.isEmpty()) continue;
             ++i;
             //? if >= 26.2 {
-            /*this.matcher.accountStack(itemStack, 1);
-             *///?} else {
-            this.matcher.accountStack(itemStack);
-            //?}
+            this.matcher.accountStack(itemStack, 1);
+             //?} else {
+            /*this.matcher.accountStack(itemStack);
+            *///?}
         }
         this.stackCount = i;
     }
@@ -77,15 +77,15 @@ public class CrystalizerRecipeInput implements RecipeInput {
     }
 
     //? if >= 26.2 {
-    /*public StackedItemContents getRecipeMatcher() {
+    public StackedItemContents getRecipeMatcher() {
         return this.matcher;
     }
-    *///?} else {
-    // 1.21.1 equivalent — same purpose, different type.
+    //?} else {
+    /*// 1.21.1 equivalent — same purpose, different type.
     public StackedContents getRecipeMatcher() {
         return this.matcher;
     }
-    //?}
+    *///?}
 
     public List<ItemStack> getStacks() {
         return this.stacks;
@@ -118,13 +118,13 @@ public class CrystalizerRecipeInput implements RecipeInput {
     @Override
     public int hashCode() {
         //? if >= 26.2 {
-        /*int i = ItemStack.hashStackList(this.stacks);
-        *///?} else {
-        int i = 1;
+        int i = ItemStack.hashStackList(this.stacks);
+        //?} else {
+        /*int i = 1;
         for (ItemStack stack : this.stacks) {
             i = 31 * i + ItemStack.hashItemAndComponents(stack);
         }
-        //?}
+        *///?}
         i = 31 * i + this.width;
         i = 31 * i + this.height;
         return i;

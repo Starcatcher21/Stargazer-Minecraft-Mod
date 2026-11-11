@@ -73,12 +73,12 @@ public class RawCrystalizerRecipe {
         catch (Exception e) { stack2 = new ItemStack(Blocks.AIR.asItem()); }
 
         //? if >= 26.2 {
-        /*return Ingredient.testOptionalIngredient(Optional.of(item1), stack)
+        return Ingredient.testOptionalIngredient(Optional.of(item1), stack)
                 && Ingredient.testOptionalIngredient(Optional.of(item2), stack2);
-        *///?} else {
-        return testOptionalIngredient(Optional.of(item1), stack)
+        //?} else {
+        /*return testOptionalIngredient(Optional.of(item1), stack)
                 && testOptionalIngredient(Optional.of(item2), stack2);
-        //?}
+        *///?}
     }
 
     private static boolean testOptionalIngredient(Optional<Ingredient> optional, ItemStack stack) {

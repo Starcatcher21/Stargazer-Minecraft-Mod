@@ -14,6 +14,7 @@ pluginManagement {
         maven("https://modmaven.dev/")
         maven("https://api.modrinth.com/maven")
         maven("https://maven.parchmentmc.org")
+        maven("https://maven.firstdark.dev/releases")
     }
 }
 

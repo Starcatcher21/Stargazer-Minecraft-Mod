@@ -19,9 +19,9 @@ public class LivingEntityMixin {
         FluidState fluid = self.level().getFluidState(self.blockPosition());
         if (!fluid.is(FluidTagProvider.DREAM)) return;
 
-        self.moveRelative(0.03F, input);
+        self.moveRelative(-0.01F, input);
         Vec3 look = self.getLookAngle();
-        self.setDeltaMovement(self.getDeltaMovement().add(0, look.y * input.z * 0.02, 0));
+        self.setDeltaMovement(self.getDeltaMovement().add(0, look.y * input.z * -0.01, 0));
         self.move(MoverType.SELF, self.getDeltaMovement());
         self.setDeltaMovement(self.getDeltaMovement().scale(0.92));
         ci.cancel();

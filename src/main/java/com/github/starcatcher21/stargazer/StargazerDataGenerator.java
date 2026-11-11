@@ -3,9 +3,15 @@
 
 import com.github.starcatcher21.stargazer.datagen.*;
 import com.github.starcatcher21.stargazer.datagen.lang.ModEngLangProvider;
+import com.github.starcatcher21.stargazer.datagen.worldgen.BiomesProvider;
+import com.github.starcatcher21.stargazer.datagen.worldgen.ConfiguredFeaturesProvider;
+import com.github.starcatcher21.stargazer.datagen.worldgen.PlacedFeaturesProvider;
+import com.github.starcatcher21.stargazer.datagen.worldgen.DimensionTypesProvider;
+import com.github.starcatcher21.stargazer.datagen.worldgen.WorldGenProvider;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.minecraft.core.RegistrySetBuilder;
+import net.minecraft.core.registries.Registries;
 
 
 public class StargazerDataGenerator implements DataGeneratorEntrypoint {
@@ -21,7 +27,7 @@ public class StargazerDataGenerator implements DataGeneratorEntrypoint {
 		pack.addProvider(ChestLootPrivider::new);
         pack.addProvider(GiftLootPrivider::new);
 		pack.addProvider(RecipeProvider::new);
-		pack.addProvider(WorldGenerator::new);
+        pack.addProvider(WorldGenProvider::new);
 		pack.addProvider(ModelProvider::new);
 		pack.addProvider(AdvancementsProvider::new);
 		pack.addProvider(EntityLootTableProvider::new);
@@ -40,7 +46,10 @@ public class StargazerDataGenerator implements DataGeneratorEntrypoint {
 	@Override
 	public void buildRegistry(RegistrySetBuilder registryBuilder) {
 		DataGeneratorEntrypoint.super.buildRegistry(registryBuilder);
-		WorldgenDataBootstrap.addTo(registryBuilder);
+        registryBuilder.add(Registries.CONFIGURED_FEATURE, ConfiguredFeaturesProvider::bootstrap);
+        registryBuilder.add(Registries.PLACED_FEATURE, PlacedFeaturesProvider::bootstrap);
+        registryBuilder.add(Registries.BIOME, BiomesProvider::bootstrap);
+        registryBuilder.add(Registries.DIMENSION_TYPE, DimensionTypesProvider::bootstrap);
 	}
 }
 *//*?}*/

@@ -1,7 +1,7 @@
 package com.github.starcatcher21.stargazer.block.clases.energy.cables;
 
-import com.github.starcatcher21.stargazer.energy.EnergyHooks;
-import com.github.starcatcher21.stargazer.energy.SimpleModEnergyStorage;
+import com.github.starcatcher21.starlib.energy.EnergyHooks;
+import com.github.starcatcher21.starlib.energy.SimpleModEnergyStorage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;

@@ -1,5 +1,5 @@
-//? if >= 26.2 {
-/*package com.github.starcatcher21.stargazer.block.clases.crystalizer;
+//? if >= 26.1.2 {
+package com.github.starcatcher21.stargazer.block.clases.crystalizer;
 
 import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;
 import net.minecraft.core.NonNullList;
@@ -11,4 +11,4 @@ public class CrystalizerRenderState extends BlockEntityRenderState {
     public NonNullList<ItemStack> items;
     public float rotation;
 }
-*///? }
+//? }

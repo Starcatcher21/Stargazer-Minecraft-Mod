@@ -6,18 +6,18 @@ import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.stats.StatFormatter;
 import net.minecraft.stats.Stats;
 
 public class ModStats {
-    public static final DeferredRegister<ResourceLocation> STATS =
+    public static final DeferredRegister<Identifier> STATS =
             DeferredRegister.create(Stargazer.MOD_ID, Registries.CUSTOM_STAT);
 
-    public static final RegistrySupplier<ResourceLocation> STAR_CATCHED = register("star_catched");
+    public static final RegistrySupplier<Identifier> STAR_CATCHED = register("star_catched");
 
-    private static RegistrySupplier<ResourceLocation> register(String id) {
-        ResourceLocation identifier =ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, id);
+    private static RegistrySupplier<Identifier> register(String id) {
+        Identifier identifier =Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, id);
         return STATS.register(id, () -> identifier);
     }
 

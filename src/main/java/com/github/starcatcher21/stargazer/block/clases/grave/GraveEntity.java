@@ -5,7 +5,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.item.ItemStack;
@@ -14,7 +14,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 //? if >= 26.2 {
-/*import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.level.storage.loot.LootParams;
@@ -22,19 +22,19 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.Vec3;
-*///?} else {
-import net.minecraft.core.HolderLookup;
+//?} else {
+/*import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.Vec3;
-//?}
+*///?}
 
 public class GraveEntity extends BlockEntity {
     public NonNullList<ItemStack> items = NonNullList.withSize(1, ItemStack.EMPTY);
-    public ResourceLocation lootTable;
+    public Identifier lootTable;
 
     public GraveEntity(BlockPos pos, BlockState state) {
         super(BlockTypes.GRAVE.get(), pos, state);
@@ -45,14 +45,14 @@ public class GraveEntity extends BlockEntity {
     }
 
     //? if >= 26.2 {
-    /*@Override
+    @Override
     protected void loadAdditional(ValueInput input) {
         super.loadAdditional(input);
         ContainerHelper.loadAllItems(input, items);
 
         var optional = input.getString("LootTable");
         if (optional.isPresent()) {
-            this.lootTable = ResourceLocation.tryParse(optional.get());
+            this.lootTable = Identifier.tryParse(optional.get());
         } else {
             this.lootTable = null;
         }
@@ -75,13 +75,13 @@ public class GraveEntity extends BlockEntity {
             output.putString("LootTable", this.lootTable.toString());
         }
     }
-    *///?} else {
-    @Override
+    //?} else {
+    /*@Override
     protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.loadAdditional(tag, registries);
         ContainerHelper.loadAllItems(tag, items, registries);
         if (tag.contains("LootTable", 8)) { // 8 = string tag
-            this.lootTable = ResourceLocation.tryParse(tag.getString("LootTable"));
+            this.lootTable = Identifier.tryParse(tag.getString("LootTable"));
         }
 
         if (level != null) {
@@ -102,7 +102,7 @@ public class GraveEntity extends BlockEntity {
             tag.putString("LootTable", this.lootTable.toString());
         }
     }
-    //?}
+    *///?}
 
     public NonNullList<ItemStack> getNbtItems() {
         return items;

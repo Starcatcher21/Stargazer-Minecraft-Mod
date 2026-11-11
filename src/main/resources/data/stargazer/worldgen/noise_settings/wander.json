@@ -1,7 +1,7 @@
 {
   "aquifers_enabled": false,
   "default_block": {
-    "Name": "stargazer:puroil"
+    "Name": "stargazer:cryostone"
   },
   "default_fluid": {
     "Name": "minecraft:air"
@@ -135,36 +135,25 @@
                     "secondary_depth_range": 0
                   },
                   "then_run": {
-                    "type": "minecraft:condition",
-                    "if_true": {
-                      "type": "minecraft:y_above",
-                      "anchor": {
-                        "above_bottom": -64
-                      },
-                      "surface_depth_multiplier": 0,
-                      "add_stone_depth": false
-                    },
-                    "then_run": {
-                      "type": "minecraft:sequence",
-                      "sequence": [
-                        {
-                          "type": "minecraft:condition",
-                          "if_true": {
-                            "type": "minecraft:biome",
-                            "biome_is": [
-                              "stargazer:bubble_field",
-                              "stargazer:trunn_forest",
-                              "stargazer:umbrella_forest"
-                            ]
-                          },
-                          "then_run": {
-                            "type": "minecraft:block",
-                            "result_state": {
-                              "Name": "stargazer:boril"
-                            }
-                          }
-                        }
-                      ]
+                    "type": "minecraft:block",
+                    "result_state": {
+                      "Name": "stargazer:boril"
+                    }
+                  }
+                },
+                {
+                  "type": "minecraft:condition",
+                  "if_true": {
+                    "type": "minecraft:stone_depth",
+                    "offset": 1,
+                    "surface_type": "floor",
+                    "add_surface_depth": true,
+                    "secondary_depth_range": 2
+                  },
+                  "then_run": {
+                    "type": "minecraft:block",
+                    "result_state": {
+                      "Name": "stargazer:puroil"
                     }
                   }
                 }

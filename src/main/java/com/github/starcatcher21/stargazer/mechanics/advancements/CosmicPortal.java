@@ -5,14 +5,18 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import java.util.Optional;
 import net.minecraft.advancements.CriterionTriggerInstance;
 //? if >= 26.2 {
-/*import net.minecraft.advancements.predicates.ContextAwarePredicate;
+import net.minecraft.advancements.predicates.ContextAwarePredicate;
 import net.minecraft.advancements.predicates.entity.EntityPredicate;
 import net.minecraft.advancements.triggers.SimpleCriterionTrigger;
+//? } else if 26.1.2 {
+/*import net.minecraft.advancements.criterion.ContextAwarePredicate;
+import net.minecraft.advancements.criterion.EntityPredicate;
+import net.minecraft.advancements.criterion.SimpleCriterionTrigger;
 *///? } else {
-import net.minecraft.advancements.critereon.ContextAwarePredicate;
+/*import net.minecraft.advancements.critereon.ContextAwarePredicate;
 import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.advancements.critereon.SimpleCriterionTrigger;
-//? }
+*///? }
 import net.minecraft.server.level.ServerPlayer;
 
 public class CosmicPortal extends SimpleCriterionTrigger<CosmicPortal.Conditions> {

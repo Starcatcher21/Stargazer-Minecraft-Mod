@@ -2,20 +2,32 @@
 package com.github.starcatcher21.stargazer.datagen;
 
 import com.github.starcatcher21.stargazer.Stargazer;
+import com.github.starcatcher21.stargazer.datagen.worldgen.WorldGenProvider;
+import com.sun.jna.platform.win32.WinBase;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.RegistrySetBuilder;
+import net.minecraft.data.PackOutput;
+import net.minecraft.data.registries.RegistryPatchGenerator;
 import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 
 import net.minecraft.data.loot.LootTableProvider.SubProviderEntry;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 
+import java.io.IOException;
+import java.io.UncheckedIOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.CompletableFuture;
 
 public final class NeoForgeDataGenerator {
     private NeoForgeDataGenerator() {}
 
     //? if >= 26.2 {
-    /*public static void gatherServerData(GatherDataEvent.Server event) {
+    public static void gatherServerData(GatherDataEvent.Server event) {
         gatherData(event);
     }
 
@@ -29,18 +41,20 @@ public final class NeoForgeDataGenerator {
                 event.getLookupProvider()
         ));
     }
-    *///?}
+    //?}
 
     public static void gatherData(GatherDataEvent event) {
         //? if >= 26.2 {
-        /*if (event instanceof GatherDataEvent.Server) {
-            DatapackBuiltinEntriesProvider worldgenProvider = new DatapackBuiltinEntriesProvider(
+        if (event instanceof GatherDataEvent.Server) {
+            event.addProvider(new WorldGenProvider(
                     event.getGenerator().getPackOutput(),
-                    event.getLookupProvider(),
-                    WorldgenDataBootstrap.createRegistrySetBuilder(),
-                    Set.of(Stargazer.MOD_ID)
-            );
-            event.addProvider(worldgenProvider);
+                    event.getLookupProvider()
+            ));
+            CompletableFuture<HolderLookup.Provider> patchedLookup =
+                    RegistryPatchGenerator.createLookup(
+                            event.getLookupProvider(),
+                            WorldGenProvider.getBuilder()
+                    ).thenApply(RegistrySetBuilder.PatchedRegistries::full);
             event.addProvider(new BlockTagProvider(
                     event.getGenerator().getPackOutput(),
                     event.getLookupProvider()
@@ -81,31 +95,17 @@ public final class NeoForgeDataGenerator {
                     ),
                     event.getLookupProvider()
             ));
-            //? if >= 26.2 {
-            /^event.addProvider(new AdvancementsProvider(
+            event.addProvider(new AdvancementsProvider(
                     event.getGenerator().getPackOutput(),
-                    worldgenProvider.getRegistryProvider()
+                    patchedLookup
             ));
-            ^///?}
-            //? if >= 26.2 {
-            /^event.addProvider(new RecipeProvider(
+            event.addProvider(new RecipeProvider(
                     event.getGenerator().getPackOutput(),
-                    worldgenProvider.getRegistryProvider()
+                    event.getLookupProvider()
             ));
-            ^///?}
         }
-        *///?} else {
-        DatapackBuiltinEntriesProvider worldgenProvider = new DatapackBuiltinEntriesProvider(
-                        event.getGenerator().getPackOutput(),
-                        event.getLookupProvider(),
-                        WorldgenDataBootstrap.createRegistrySetBuilder(),
-                        Set.of(Stargazer.MOD_ID)
-                );
-        event.getGenerator().addProvider(event.includeServer(), worldgenProvider);
-        //?}
-
-        //? if < 26.2 {
-        event.getGenerator().addProvider(
+        //?} else {
+        /*event.getGenerator().addProvider(
                 event.includeServer(),
                 new BlockTagProvider(
                         event.getGenerator().getPackOutput(),
@@ -113,6 +113,15 @@ public final class NeoForgeDataGenerator {
                         event.getExistingFileHelper()
                 )
         );
+        event.addProvider(new WorldGenProvider(
+                event.getGenerator().getPackOutput(),
+                event.getLookupProvider()
+        ));
+        CompletableFuture<HolderLookup.Provider> patchedLookup =
+                RegistryPatchGenerator.createLookup(
+                        event.getLookupProvider(),
+                        WorldGenProvider.getBuilder()
+                ).thenApply(RegistrySetBuilder.PatchedRegistries::full);
         event.getGenerator().addProvider(
                 event.includeServer(),
                 new ItemTagProvider(
@@ -200,10 +209,10 @@ public final class NeoForgeDataGenerator {
                 event.includeServer(),
                 new AdvancementsProvider(
                         event.getGenerator().getPackOutput(),
-                        worldgenProvider.getRegistryProvider()
+                        patchedLookup
                 )
         );
-        //?}
+        *///?}
     }
 }
 //?}

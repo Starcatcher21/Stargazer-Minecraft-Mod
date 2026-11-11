@@ -12,12 +12,12 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
-//? if >= 26.2 {
-/*import net.minecraft.world.level.ScheduledTickAccess;
+//? if >= 26.1.2 {
+import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.FarmlandBlock;
-*///?} else {
-import net.minecraft.world.level.block.FarmBlock;
-//?}
+//?} else {
+/*import net.minecraft.world.level.block.FarmBlock;
+*///?}
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FenceGateBlock;
 import net.minecraft.world.level.block.piston.MovingPistonBlock;
@@ -38,8 +38,8 @@ public class MoonFarmland extends Block {
     }
 
     /* ---------------- updateShape (signature differs) ---------------- */
-    //? if >= 26.2 {
-    /*@Override
+    //? if >= 26.1.2 {
+    @Override
     protected BlockState updateShape(BlockState state, LevelReader world,
                                      ScheduledTickAccess tickView, BlockPos pos,
                                      Direction direction, BlockPos neighborPos,
@@ -49,8 +49,8 @@ public class MoonFarmland extends Block {
         }
         return super.updateShape(state, world, tickView, pos, direction, neighborPos, neighborState, random);
     }
-    *///?} else {
-    @Override
+    //?} else {
+    /*@Override
     protected BlockState updateShape(BlockState state, Direction direction,
                                      BlockState neighborState, LevelAccessor world,
                                      BlockPos pos, BlockPos neighborPos) {
@@ -59,12 +59,12 @@ public class MoonFarmland extends Block {
         }
         return super.updateShape(state, direction, neighborState, world, pos, neighborPos);
     }
-    //?}
+    *///?}
 
     @Override
     protected boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) {
         BlockState blockState = world.getBlockState(pos.above());
-        return !blockState.isSolidRender(/*? if < 26.2 { */ world, pos.above() /*? } */) || blockState.getBlock() instanceof FenceGateBlock || blockState.getBlock() instanceof MovingPistonBlock;
+        return !blockState.isSolidRender(/*? if < 26.1.2 { */ /*world, pos.above() *//*? } */) || blockState.getBlock() instanceof FenceGateBlock || blockState.getBlock() instanceof MovingPistonBlock;
     }
 
     @Override
@@ -110,13 +110,13 @@ public class MoonFarmland extends Block {
     }
 
     public static void setToRock(@Nullable Entity entity, BlockState state, Level world, BlockPos pos) {
-        //? if >= 26.2 {
-        /*BlockState blockState = FarmlandBlock.pushEntitiesUp(
+        //? if >= 26.1.2 {
+        BlockState blockState = FarmlandBlock.pushEntitiesUp(
             state, MoonBlocks.MOON_ROCK.get().defaultBlockState(), world, pos);
-        *///?} else {
-        BlockState blockState = FarmBlock.pushEntitiesUp(
+        //?} else {
+        /*BlockState blockState = FarmBlock.pushEntitiesUp(
                 state, MoonBlocks.MOON_ROCK.get().defaultBlockState(), world, pos);
-        //?}
+        *///?}
         world.setBlockAndUpdate(pos, blockState);
         world.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(entity, blockState));
     }

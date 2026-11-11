@@ -17,4 +17,9 @@ stonecutter {
     }
 }
 
-stonecutter active "1.21.1-neoforge" /* [SC] DO NOT EDIT */
+tasks.register("publishAll") {
+    group = "publishing"
+    dependsOn(stonecutter.versions.map { ":${it.project}:publishMod" })
+}
+
+stonecutter active "26.2-neoforge" /* [SC] DO NOT EDIT */

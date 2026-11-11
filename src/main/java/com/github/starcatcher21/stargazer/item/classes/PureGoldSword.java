@@ -11,19 +11,19 @@ public class PureGoldSword extends SwordItem {
 
     @Override
     public
-    //? if < 26.2 {
-    boolean
-    //? } else {
-    /*void
-    *///? }
+    //? if < 26.1.2 {
+    /*boolean
+    *///? } else {
+    void
+    //? }
     hurtEnemy(ItemStack itemStack, LivingEntity mob, LivingEntity attacker) {
-        //? if < 26.2 {
-        var hurt =
-        //? }
+        //? if < 26.1.2 {
+        /*var hurt =
+        *///? }
                 super.hurtEnemy(itemStack, mob, attacker);
         mob.igniteForSeconds(5);
-        //? if < 26.2 {
-        return hurt;
-        //? }
+        //? if < 26.1.2 {
+        /*return hurt;
+        *///? }
     }
 }

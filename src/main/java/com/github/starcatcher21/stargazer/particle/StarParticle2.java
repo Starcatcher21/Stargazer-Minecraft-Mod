@@ -14,8 +14,8 @@ import net.minecraft.util.RandomSource;
 //? if fabric {
 /*@Environment(EnvType.CLIENT)
  *///? }
-//? if >= 26.2 {
-/*public class StarParticle2 extends SingleQuadParticle {
+//? if >= 26.1.2 {
+public class StarParticle2 extends SingleQuadParticle {
     StarParticle2(ClientLevel world, double x, double y, double z, double velocityX, double velocityY, double velocityZ, boolean signal, TextureAtlasSprite sprite) {
         super(world, x, y, z, sprite);
         this.setAlpha(1.0f);
@@ -30,8 +30,8 @@ import net.minecraft.util.RandomSource;
         this.yd = velocityY + this.random.nextFloat() / 500.0F;
         this.zd = velocityZ;
     }
-*///?} else {
-public class StarParticle2 extends TextureSheetParticle {
+//?} else {
+/*public class StarParticle2 extends TextureSheetParticle {
     StarParticle2(ClientLevel world, double x, double y, double z, double velocityX, double velocityY, double velocityZ, boolean signal, TextureAtlasSprite sprite) {
         super(world, x, y, z);
         this.setSprite(sprite);
@@ -47,7 +47,7 @@ public class StarParticle2 extends TextureSheetParticle {
         this.yd = velocityY + this.random.nextFloat() / 500.0F;
         this.zd = velocityZ;
     }
-//?}
+*///?}
 
     public void tick() {
         this.xo = this.x;
@@ -66,17 +66,17 @@ public class StarParticle2 extends TextureSheetParticle {
         }
     }
 
-    //? if < 26.2 {
-    @Override
+    //? if < 26.1.2 {
+    /*@Override
     public ParticleRenderType getRenderType() {
         return ParticleRenderType.PARTICLE_SHEET_TRANSLUCENT;
     }
-    //? } else {
-    /*@Override
+    *///? } else {
+    @Override
     public Layer getLayer() {
         return Layer.TRANSLUCENT;
     }
-    *///? }
+    //? }
 
 
     //? if fabric {
@@ -89,20 +89,20 @@ public class StarParticle2 extends TextureSheetParticle {
             this.spriteProvider = spriteProvider;
         }
 
-        //? if >= 26.2 {
-        /*public Particle createParticle(
+        //? if >= 26.1.2 {
+        public Particle createParticle(
                 SimpleParticleType simpleParticleType, ClientLevel clientWorld, double d, double e, double f, double g, double h, double i, RandomSource random
         ) {
             StarParticle2 campfireSmokeParticle = new StarParticle2(clientWorld, d, e, f, g, h, i, false, this.spriteProvider.get(random));
             return campfireSmokeParticle;
         }
-        *///?} else {
-        public Particle createParticle(
+        //?} else {
+        /*public Particle createParticle(
                 SimpleParticleType simpleParticleType, ClientLevel clientWorld, double d, double e, double f, double g, double h, double i
         ) {
             StarParticle2 campfireSmokeParticle = new StarParticle2(clientWorld, d, e, f, g, h, i, false, this.spriteProvider.get(clientWorld.random));
             return campfireSmokeParticle;
         }
-        //?}
+        *///?}
     }
 }

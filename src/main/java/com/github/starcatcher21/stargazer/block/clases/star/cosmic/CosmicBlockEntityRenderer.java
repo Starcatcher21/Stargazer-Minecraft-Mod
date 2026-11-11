@@ -7,15 +7,15 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 /*import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 *///? }
-//? if >= 26.2 {
-/*import net.minecraft.client.renderer.SubmitNodeCollector;
+//? if >= 26.1.2 {
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.rendertype.RenderType;
-*///?} else {
-import net.minecraft.client.renderer.MultiBufferSource;
+//?} else {
+/*import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
-//?}
+*///?}
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.Direction;
@@ -28,8 +28,8 @@ import java.util.EnumSet;
 //? if fabric {
 /*@Environment(value = EnvType.CLIENT)
  *///? }
-//? if >= 26.2 {
-/*public class CosmicBlockEntityRenderer<T extends CosmicBlockEntity>
+//? if >= 26.1.2 {
+public class CosmicBlockEntityRenderer<T extends CosmicBlockEntity>
         implements BlockEntityRenderer<T, CosmicBlockEntityRenderState> {
 
     public CosmicBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {
@@ -107,8 +107,8 @@ import java.util.EnumSet;
         }
     }
 }
-*///?} else {
-public class CosmicBlockEntityRenderer implements BlockEntityRenderer<CosmicBlockEntity> {
+//?} else {
+/*public class CosmicBlockEntityRenderer implements BlockEntityRenderer<CosmicBlockEntity> {
 
     public CosmicBlockEntityRenderer(BlockEntityRendererProvider.Context ctx) {
     }
@@ -172,4 +172,4 @@ public class CosmicBlockEntityRenderer implements BlockEntityRenderer<CosmicBloc
         this.renderSides(sides, matrices.last().pose(), consumer);
     }
 }
-//?}
+*///?}

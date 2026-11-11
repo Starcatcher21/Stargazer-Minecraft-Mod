@@ -19,16 +19,7 @@ import com.github.starcatcher21.stargazer.sound.SoundGroups;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.DyeColor;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.ButtonBlock;
-import net.minecraft.world.level.block.DoorBlock;
-import net.minecraft.world.level.block.FenceBlock;
-import net.minecraft.world.level.block.FenceGateBlock;
-import net.minecraft.world.level.block.FlowerPotBlock;
-import net.minecraft.world.level.block.SlabBlock;
-import net.minecraft.world.level.block.SoundType;
-import net.minecraft.world.level.block.StairBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -89,6 +80,14 @@ public class StarBlocks {
             .strength(2.0F)
             .mapColor(MapColor.SNOW)
     );
+    public static final RegistrySupplier<Block> STAR_PLANKS_TRAPDOOR = register("star_planks_trapdoor", (settings) -> new TrapDoorBlock(BlockSetType.OAK, (BlockBehaviour.Properties)  settings), BlockBehaviour.Properties.of()
+            .forceSolidOn()
+            .noOcclusion()
+            .sound(SoundType.WOOD)
+            .instrument(NoteBlockInstrument.BASS)
+            .strength(2.0F)
+            .mapColor(MapColor.SNOW)
+    );
 
     public static final RegistrySupplier<Block> STAR_PLANKS_SLAB = register("star_planks_slab", SlabBlock::new, BlockBehaviour.Properties.of()
             .forceSolidOn()
@@ -120,10 +119,10 @@ public class StarBlocks {
     );
     public static final RegistrySupplier<Block> STAR_PLANKS_BUTTON = register("star_planks_button", (BlockBehaviour.Properties settings) -> new ButtonBlock(BlockSetType.OAK, 30, (BlockBehaviour.Properties) settings), BlockBehaviour.Properties.of()
             //? if >= 26.2 {
-            /*.noCollision()
-             *///? } else {
-            .noCollission()
-            //? }
+            .noCollision()
+             //? } else {
+            /*.noCollission()
+            *///? }
             .sound(SoundType.WOOD)
             .instrument(NoteBlockInstrument.BASS)
             .strength(1.0F)
@@ -143,10 +142,10 @@ public class StarBlocks {
     );
     public static final RegistrySupplier<Block> STAR_SAPLING = register("star_sapling", (BlockBehaviour.Properties settings) -> new CustomSapling(Helpers.configuredFeatureOf(Stargazer.MOD_ID, "star_trees"), settings), BlockBehaviour.Properties.of()
             //? if >= 26.2 {
-            /*.noCollision()
-             *///? } else {
-            .noCollission()
-            //? }
+            .noCollision()
+             //? } else {
+            /*.noCollission()
+            *///? }
             .sound(SoundType.GRASS)
             .randomTicks()
             .instabreak()
@@ -155,10 +154,10 @@ public class StarBlocks {
     public static final RegistrySupplier<Block> STAR_FLOWER = register("star_flower", settings -> new CosmicFlower(StatusEffects.getHolder(StatusEffects.COSMO.get()), 5.0f, settings), BlockBehaviour.Properties.of()
             .mapColor(MapColor.COLOR_YELLOW)
             //? if >= 26.2 {
-            /*.noCollision()
-             *///? } else {
-            .noCollission()
-            //? }
+            .noCollision()
+             //? } else {
+            /*.noCollission()
+            *///? }
             .instabreak()
             .sound(SoundType.GRASS)
             .offsetType(BlockBehaviour.OffsetType.XZ)
@@ -168,10 +167,10 @@ public class StarBlocks {
     public static final RegistrySupplier<Block> CELESTIAL_STAR_FLOWER = register("celestial_star_flower", settings -> new CosmicFlower(StatusEffects.getHolder(StatusEffects.COSMO.get()), 5.0f, settings), BlockBehaviour.Properties.of()
             .mapColor(MapColor.COLOR_YELLOW)
             //? if >= 26.2 {
-            /*.noCollision()
-             *///? } else {
-            .noCollission()
-            //? }
+            .noCollision()
+             //? } else {
+            /*.noCollission()
+            *///? }
             .instabreak()
             .sound(SoundType.GRASS)
             .offsetType(BlockBehaviour.OffsetType.XZ)

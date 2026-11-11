@@ -11,19 +11,19 @@ import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-//? if >= 26.2 {
-/*import mezz.jei.api.recipe.types.IRecipeType;
-*///?} else {
-import mezz.jei.api.recipe.RecipeType;
-//?}
+//? if >= 26.1.2 {
+import mezz.jei.api.recipe.types.IRecipeType;
+//?} else {
+/*import mezz.jei.api.recipe.RecipeType;
+*///?}
 import mezz.jei.api.recipe.category.IRecipeCategory;
-//? if >= 26.2 {
-/*import net.minecraft.client.gui.GuiGraphicsExtractor;
-import net.minecraft.resources.ResourceLocation;
-*///?} else {
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.resources.ResourceLocation;
-//?}
+//? if >= 26.1.2 {
+import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.resources.Identifier;
+//?} else {
+/*import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.resources.Identifier;
+*///?}
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
@@ -32,13 +32,13 @@ import org.jetbrains.annotations.Nullable;
 public class StarCrusherRecipeCategory
         implements IRecipeCategory<RecipeHolder<StarCrusherRecipe>> {
 
-    //? if >= 26.2 {
-    /*private static final ResourceLocation TEXTURE =
-            ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/star_crusher_gui.png");
-    *///?} else {
-    private static final ResourceLocation TEXTURE =
-            ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/star_crusher_gui.png");
-    //?}
+    //? if >= 26.1.2 {
+    private static final Identifier TEXTURE =
+            Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/star_crusher_gui.png");
+    //?} else {
+    /*private static final Identifier TEXTURE =
+            Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/star_crusher_gui.png");
+    *///?}
 
     private final IDrawable icon;
     private final IDrawable overlay;
@@ -50,17 +50,17 @@ public class StarCrusherRecipeCategory
                 new ItemStack(Energy.STAR_CRUSHER.get()));
     }
 
-    //? if >= 26.2 {
-    /*@Override
+    //? if >= 26.1.2 {
+    @Override
     public IRecipeType<RecipeHolder<StarCrusherRecipe>> getRecipeType() {
         return StargazerJEIPlugin.STAR_CRUSHER;
     }
-    *///?} else {
-    @Override
+    //?} else {
+    /*@Override
     public RecipeType<RecipeHolder<StarCrusherRecipe>> getRecipeType() {
         return StargazerJEIPlugin.STAR_CRUSHER;
     }
-    //?}
+    *///?}
 
     @Override
     public Component getTitle() {
@@ -85,37 +85,37 @@ public class StarCrusherRecipeCategory
         StarCrusherRecipe recipe = holder.value();
 
         // getHeldStacks() is always empty for these recipes; the real input is the ingredient.
-        //? if >= 26.2 {
-        /*recipe.getIngredients().get(0).ifPresent(ing ->
+        //? if >= 26.1.2 {
+        recipe.getIngredients().get(0).ifPresent(ing ->
                 builder.addSlot(RecipeIngredientRole.INPUT, 48, 13).add(ing));
-        *///?} else {
-        builder.addSlot(RecipeIngredientRole.INPUT, 48, 13)
+        //?} else {
+        /*builder.addSlot(RecipeIngredientRole.INPUT, 48, 13)
                 .addIngredients(recipe.getIngredients().get(0));
-        //?}
+        *///?}
 
         builder.addSlot(RecipeIngredientRole.OUTPUT, 48, 80)
-                //? if >= 26.2 {
-                /*.add(recipe.getResult());
-                *///?} else {
-                .addItemStack(recipe.getResult());
-                //?}
+                //? if >= 26.1.2 {
+                .add(recipe.getResult());
+                //?} else {
+                /*.addItemStack(recipe.getResult());
+                *///?}
     }
 
-    //? if >= 26.2 {
-    /*@Override
+    //? if >= 26.1.2 {
+    @Override
     public void draw(RecipeHolder<StarCrusherRecipe> holder,
                      IRecipeSlotsView slots,
                      GuiGraphicsExtractor guiGraphics,
                      double mouseX, double mouseY) {
         this.overlay.draw(guiGraphics, 0, 0);
     }
-    *///?} else {
-    @Override
+    //?} else {
+    /*@Override
     public void draw(RecipeHolder<StarCrusherRecipe> holder,
                      IRecipeSlotsView slots,
                      GuiGraphics guiGraphics,
                      double mouseX, double mouseY) {
         this.overlay.draw(guiGraphics, 0, 0);
     }
-    //?}
+    *///?}
 }

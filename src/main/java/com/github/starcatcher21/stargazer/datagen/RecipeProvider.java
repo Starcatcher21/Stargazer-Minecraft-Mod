@@ -11,8 +11,8 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 *///?} else {
 import net.minecraft.data.PackOutput;
 //? if >= 26.2 {
-/*import net.minecraft.data.recipes.RecipeProvider.Runner;
-*///?}
+import net.minecraft.data.recipes.RecipeProvider.Runner;
+//?}
 //?}
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
@@ -37,12 +37,12 @@ public class RecipeProvider
         super(output, registriesFuture);
     }
 *///?} else if >= 26.2 {
-        /*extends Runner {
+        extends Runner {
     public RecipeProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
         super(output, registriesFuture);
     }
-*///?} else {
-        extends net.minecraft.data.recipes.RecipeProvider {
+//?} else {
+        /*extends net.minecraft.data.recipes.RecipeProvider {
     private final PackOutput packOutput;
     private final CompletableFuture<HolderLookup.Provider> registriesFuture;
 
@@ -56,14 +56,14 @@ public class RecipeProvider
     protected void buildRecipes(RecipeOutput recipeOutput, HolderLookup.Provider registries) {
         new RecipeBody(registries, recipeOutput).buildRecipes();
     }
-//?}
+*///?}
 
     //? if >= 26.2 {
-    /*@Override
+    @Override
     protected net.minecraft.data.recipes.RecipeProvider createRecipeProvider(HolderLookup.Provider wrapperLookup, RecipeOutput recipeExporter) {
         return new RecipeBody(wrapperLookup, recipeExporter);
     }
-    *///?}
+    //?}
 
     private class RecipeBody extends net.minecraft.data.recipes.RecipeProvider {
         private final HolderLookup.Provider wrapperLookup;
@@ -72,17 +72,17 @@ public class RecipeProvider
 
         private RecipeBody(HolderLookup.Provider wrapperLookup, RecipeOutput recipeOutput) {
             //? if >= 26.2 {
-            /*super(wrapperLookup, recipeOutput);
-            *///?} else {
-            super(RecipeProvider.this.packOutput, RecipeProvider.this.registriesFuture);
-            //?}
+            super(wrapperLookup, recipeOutput);
+            //?} else {
+            /*super(RecipeProvider.this.packOutput, RecipeProvider.this.registriesFuture);
+            *///?}
             this.wrapperLookup = wrapperLookup;
             this.recipeOutput = recipeOutput;
             this.output = recipeOutput;
         }
 
         //? if < 26.2 {
-        private ShapedRecipeBuilder shaped(RecipeCategory category, ItemLike result) {
+        /*private ShapedRecipeBuilder shaped(RecipeCategory category, ItemLike result) {
             return ShapedRecipeBuilder.shaped(category, result);
         }
 
@@ -121,11 +121,11 @@ public class RecipeProvider
             net.minecraft.data.recipes.RecipeProvider.oreBlasting(
                     output, ingredients, recipeCategory, result, experience, cookingTime, group);
         }
-        //?}
+        *///?}
 
             //? if >= 26.2 {
-            /*@Override
-            *///?}
+            @Override
+            //?}
             public void buildRecipes() {
                 HolderGetter<Item> items = wrapperLookup.lookupOrThrow(Registries.ITEM);
 
@@ -242,6 +242,30 @@ public class RecipeProvider
                 doorBuilder(MoonBlocks.MOON_PLANKS_DOOR.get(), Ingredient.of(MoonBlocks.MOON_PLANKS.get()))
                         .group("wooden_door")
                         .unlockedBy("wood", has(MoonBlocks.MOON_PLANKS.get()))
+                        .save(output);
+                trapdoorBuilder(MoonBlocks.MOON_PLANKS_TRAPDOOR.get(), Ingredient.of(MoonBlocks.MOON_PLANKS.get()))
+                        .group("wooden_trapdoor")
+                        .unlockedBy("wood", has(MoonBlocks.MOON_PLANKS.get()))
+                        .save(output);
+                trapdoorBuilder(MoonBlocks.CURVE_PLANKS_TRAPDOOR.get(), Ingredient.of(MoonBlocks.CURVE_PLANKS.get()))
+                        .group("wooden_trapdoor")
+                        .unlockedBy("wood", has(MoonBlocks.CURVE_PLANKS.get()))
+                        .save(output);
+                trapdoorBuilder(Darkness.DARKNESS_PLANKS_TRAPDOOR.get(), Ingredient.of(Darkness.DARKNESS_PLANKS.get()))
+                        .group("wooden_trapdoor")
+                        .unlockedBy("wood", has(Darkness.DARKNESS_PLANKS.get()))
+                        .save(output);
+                trapdoorBuilder(StarBlocks.STAR_PLANKS_TRAPDOOR.get(), Ingredient.of(StarBlocks.STAR_PLANKS.get()))
+                        .group("wooden_trapdoor")
+                        .unlockedBy("wood", has(StarBlocks.STAR_PLANKS.get()))
+                        .save(output);
+                trapdoorBuilder(RedOrbBlocks.YERI_PLANKS_TRAPDOOR.get(), Ingredient.of(RedOrbBlocks.YERI_PLANKS.get()))
+                        .group("wooden_trapdoor")
+                        .unlockedBy("wood", has(RedOrbBlocks.YERI_PLANKS.get()))
+                        .save(output);
+                trapdoorBuilder(RedOrbBlocks.SPIRO_PLANKS_TRAPDOOR.get(), Ingredient.of(RedOrbBlocks.SPIRO_PLANKS.get()))
+                        .group("wooden_trapdoor")
+                        .unlockedBy("wood", has(RedOrbBlocks.SPIRO_PLANKS.get()))
                         .save(output);
                 doorBuilder(RedOrbBlocks.SPIRO_PLANKS_DOOR.get(), Ingredient.of(RedOrbBlocks.SPIRO_PLANKS.get()))
                         .group("wooden_door")
@@ -715,14 +739,15 @@ public class RecipeProvider
                 oreBlasting(Collections.singletonList((ItemLike) ModItems.COPPER_DUST.get()), RecipeCategory.MISC, CookingBookCategory.MISC, Items.COPPER_INGOT, 0.7f, 100, "copper_ingot"); // Fixed with .get()
                 oreBlasting(Collections.singletonList((ItemLike) ModItems.IRON_DUST.get()), RecipeCategory.MISC, CookingBookCategory.MISC, Items.IRON_INGOT, 0.7f, 100, "iron_ingot"); // Fixed with .get()
                 oreBlasting(Collections.singletonList((ItemLike) ModItems.GOLD_DUST.get()), RecipeCategory.MISC, CookingBookCategory.MISC, Items.GOLD_INGOT, 0.7f, 100, "gold_ingot"); // Fixed with .get()
+                oreSmelting(Collections.singletonList((ItemLike) Wander.COBBLED_CRYOSTONE.get()), RecipeCategory.BUILDING_BLOCKS, CookingBookCategory.BLOCKS, Wander.CRYOSTONE.get().asItem(), 0.7f, 200, "cryostone");
             }
     }
 
     //? if fabric || >= 26.2 {
-    /*@Override
+    @Override
     public String getName() {
         return "stargazer";
     }
-    *///?}
+    //?}
 }
 //? }

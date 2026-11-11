@@ -13,7 +13,7 @@ import net.minecraft.data.loot.LootTableSubProvider;
 //?}
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.storage.loot.LootPool;
@@ -40,7 +40,7 @@ public class GiftLootPrivider
 
         ResourceKey<LootTable> snifferKey = ResourceKey.create(
                 Registries.LOOT_TABLE,
-                ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "sniffer_moon")
+                Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "sniffer_moon")
         );
 
         LootTable.Builder lootTableSnifferMoon = LootTable.lootTable()

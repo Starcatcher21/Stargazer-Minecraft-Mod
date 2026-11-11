@@ -15,12 +15,12 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BonemealableBlock;
-//? if >= 26.2 {
-/*import net.minecraft.world.level.block.VegetationBlock;
+//? if >= 26.1.2 {
+import net.minecraft.world.level.block.VegetationBlock;
 import net.minecraft.world.entity.InsideBlockEffectApplier;
-*///?} else {
-import com.github.starcatcher21.stargazer.block.older1211.VegetationBlock;
-//?}
+//?} else {
+/*import com.github.starcatcher21.stargazer.block.older1211.VegetationBlock;
+*///?}
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -39,11 +39,11 @@ public class MoonCrop extends VegetationBlock implements BonemealableBlock {
     public static final int MAX_AGE = 7;
     public static final IntegerProperty AGE = BlockStateProperties.AGE_7;
 
-    //? if >= 26.2 {
-    /*private static final VoxelShape[] SHAPES_BY_AGE =
+    //? if >= 26.1.2 {
+    private static final VoxelShape[] SHAPES_BY_AGE =
         Block.boxes(7, age -> Block.column(16.0, 0.0, 2 + age * 2));
-    *///?} else {
-    private static final VoxelShape[] SHAPES_BY_AGE = makeShapes();
+    //?} else {
+    /*private static final VoxelShape[] SHAPES_BY_AGE = makeShapes();
     private static VoxelShape[] makeShapes() {
         VoxelShape[] shapes = new VoxelShape[8];
         for (int age = 0; age < shapes.length; age++) {
@@ -51,7 +51,7 @@ public class MoonCrop extends VegetationBlock implements BonemealableBlock {
         }
         return shapes;
     }
-    //?}
+    *///?}
 
     @Nullable
     public Block giantCrop = null;
@@ -226,8 +226,8 @@ public class MoonCrop extends VegetationBlock implements BonemealableBlock {
     }
 
     /* ---------------- entityInside (signature differs) --------------- */
-    //? if >= 26.2 {
-    /*@Override
+    //? if >= 26.1.2 {
+    @Override
     protected void entityInside(BlockState state, Level world, BlockPos pos, Entity entity,
                                 InsideBlockEffectApplier handler, boolean bl) {
         if (world instanceof ServerLevel serverWorld) {
@@ -238,8 +238,8 @@ public class MoonCrop extends VegetationBlock implements BonemealableBlock {
         }
         super.entityInside(state, world, pos, entity, handler, bl);
     }
-    *///?} else {
-    @Override
+    //?} else {
+    /*@Override
     protected void entityInside(BlockState state, Level world, BlockPos pos, Entity entity) {
         if (world instanceof ServerLevel serverWorld) {
             if (entity instanceof Ravager
@@ -249,7 +249,7 @@ public class MoonCrop extends VegetationBlock implements BonemealableBlock {
         }
         super.entityInside(state, world, pos, entity);
     }
-    //?}
+    *///?}
 
     @Override
     public boolean isValidBonemealTarget(LevelReader world, BlockPos pos, BlockState state) {

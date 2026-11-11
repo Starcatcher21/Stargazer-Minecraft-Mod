@@ -8,14 +8,14 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.BookViewScreen;
 import net.minecraft.client.gui.screens.inventory.PageButton;
-//? if >= 26.2 {
-/*import net.minecraft.client.renderer.RenderPipelines;
+//? if >= 26.1.2 {
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
-*///? } else {
-import net.minecraft.client.gui.GuiGraphics;
-//? }
+//? } else {
+/*import net.minecraft.client.gui.GuiGraphics;
+*///? }
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
 
 public class StarBookHandled extends AbstractContainerScreen<StarBookScreenHandler> {
@@ -23,13 +23,13 @@ public class StarBookHandled extends AbstractContainerScreen<StarBookScreenHandl
     private int page = 0;
 
     public StarBookHandled(StarBookScreenHandler handler, Inventory inventory, Component title) {
-        //? if >= 26.2 {
-        /*super(handler, inventory, title, 296, 185);
-        *///? } else {
-        super(handler, inventory, title);
+        //? if >= 26.1.2 {
+        super(handler, inventory, title, 296, 185);
+        //? } else {
+        /*super(handler, inventory, title);
         this.imageHeight = 185;
         this.imageWidth = 296;
-        //? }
+        *///? }
         this.titleLabelX = -10000000;
         this.titleLabelY = -10000000;
         this.inventoryLabelX = -10000000;
@@ -42,14 +42,14 @@ public class StarBookHandled extends AbstractContainerScreen<StarBookScreenHandl
     }
 
 
-    //? if >= 26.2 {
-    /*@Override
+    //? if >= 26.1.2 {
+    @Override
     public void extractBackground(GuiGraphicsExtractor context, int mouseX, int mouseY, float deltaTicks) {
         super.extractBackground(context, mouseX, mouseY, deltaTicks);
 
-        ResourceLocation pageTexture = page <= maxPage
-                ?ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/book/page" + page + ".png")
-                :ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/book/pagesoon.png");
+        Identifier pageTexture = page <= maxPage
+                ?Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/book/page" + page + ".png")
+                :Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/book/pagesoon.png");
         this.clearWidgets();
         StarPageButton buttonn = new StarPageButton(this.leftPos + 244, this.topPos + 157, true, _ -> page = page < maxPage + 1 ? page + 1 : maxPage + 1, true);
         StarPageButton button = new StarPageButton(this.leftPos + 7, this.topPos + 157, false, _ -> page = page > 0 ? page - 1 : 0, true);
@@ -61,12 +61,12 @@ public class StarBookHandled extends AbstractContainerScreen<StarBookScreenHandl
         }
         context.blit(RenderPipelines.GUI_TEXTURED, pageTexture, this.leftPos, this.topPos, 0.0F, 0.0F, this.imageWidth, this.imageHeight, 296, 296);
     }
-    *///? } else {
-    @Override
+    //? } else {
+    /*@Override
     protected void renderBg(GuiGraphics context, float deltaTiicks, int mouseX, int mouseY) {
-        ResourceLocation pageTexture = page <= maxPage
-                ?ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/book/page" + page + ".png")
-                :ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/book/pagesoon.png");
+        Identifier pageTexture = page <= maxPage
+                ?Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/book/page" + page + ".png")
+                :Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "textures/gui/book/pagesoon.png");
         this.clearWidgets();
         StarPageButton buttonn = new StarPageButton(this.leftPos + 244, this.topPos + 157, true, (arg) -> page = page < maxPage + 1 ? page + 1 : maxPage + 1, true);
         StarPageButton button = new StarPageButton(this.leftPos + 7, this.topPos + 157, false, (arg) -> page = page > 0 ? page - 1 : 0, true);
@@ -78,5 +78,5 @@ public class StarBookHandled extends AbstractContainerScreen<StarBookScreenHandl
         }
         context.blit(pageTexture, this.leftPos, this.topPos, 0.0F, 0.0F, this.imageWidth, this.imageHeight, 296, 296);
     }
-    //? }
+    *///? }
 }

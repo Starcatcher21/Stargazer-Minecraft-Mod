@@ -1,5 +1,5 @@
 /*? if fabric || (neoforge && >= 26.2) {*/
-/*package com.github.starcatcher21.stargazer.datagen;
+package com.github.starcatcher21.stargazer.datagen;
 
 import com.github.starcatcher21.stargazer.Stargazer;
 import com.github.starcatcher21.stargazer.block.ModBlock;
@@ -16,9 +16,9 @@ import com.mojang.serialization.MapCodec;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 //? if fabric {
-/^import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
+/*import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
-^///?} else {
+*///?} else {
 import net.minecraft.data.PackOutput;
 //?}
 import net.minecraft.client.data.models.BlockModelGenerators;
@@ -33,7 +33,7 @@ import net.minecraft.client.renderer.item.EmptyModel;
 import net.minecraft.client.renderer.item.ItemModel;
 import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.random.WeightedList;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -43,19 +43,19 @@ import org.joml.Matrix4fc;
 
 import java.util.Optional;
 //? if neoforge && >= 26.2 {
-/^import java.util.Set;
+import java.util.Set;
 import java.util.stream.Stream;
-^///?}
+//?}
 
 import static net.minecraft.client.data.models.BlockModelGenerators.plainVariant;
 
 public class ModelProvider
 //? if fabric {
-        /^extends FabricModelProvider {
+        /*extends FabricModelProvider {
     public ModelProvider(FabricPackOutput output) {
         super(output);
     }
-^///?} else {
+*///?} else {
         extends net.minecraft.client.data.models.ModelProvider {
     public ModelProvider(PackOutput output) {
         super(output, Stargazer.MOD_ID);
@@ -68,7 +68,7 @@ public class ModelProvider
     }
 
     //? if neoforge && >= 26.2 {
-    /^@Override
+    @Override
     protected Stream<? extends net.minecraft.core.Holder<Block>> getKnownBlocks() {
         Set<String> sourceBlockstates = Set.of(
                 "grave", "negative_block",
@@ -82,7 +82,7 @@ public class ModelProvider
         );
         return BuiltInRegistries.BLOCK.listElements()
                 .filter(holder -> {
-                    ResourceLocation id = BuiltInRegistries.BLOCK.getKey(holder.value());
+                    Identifier id = BuiltInRegistries.BLOCK.getKey(holder.value());
                     return id.getNamespace().equals(Stargazer.MOD_ID) && !sourceBlockstates.contains(id.getPath());
                 });
     }
@@ -100,20 +100,20 @@ public class ModelProvider
         );
         return BuiltInRegistries.ITEM.listElements()
                 .filter(holder -> {
-                    ResourceLocation id = BuiltInRegistries.ITEM.getKey(holder.value());
+                    Identifier id = BuiltInRegistries.ITEM.getKey(holder.value());
                     return id.getNamespace().equals(Stargazer.MOD_ID) && !sourceBlockstates.contains(id.getPath());
                 });
-    }    ^///?}
+    }    //?}
 //?}
 
     public final void createCropBlock(BlockModelGenerators blockModelGenerators, final Block block, final Property<Integer> property, final int... stages) {
         if (property.getPossibleValues().size() != stages.length) {
             throw new IllegalArgumentException();
         } else {
-            Int2ObjectMap<ResourceLocation> models = new Int2ObjectOpenHashMap();
+            Int2ObjectMap<Identifier> models = new Int2ObjectOpenHashMap();
             blockModelGenerators.blockStateOutput.accept(MultiVariantGenerator.dispatch(block).with(PropertyDispatch.initial(property).generate((i) -> {
                 int stage = stages[i];
-                return plainVariant((ResourceLocation)models.computeIfAbsent(stage, (s) -> blockModelGenerators.createSuffixedVariant(block, "_stage" + s, ModelTemplates.CROP, TextureMapping::crop)));
+                return plainVariant((Identifier)models.computeIfAbsent(stage, (s) -> blockModelGenerators.createSuffixedVariant(block, "_stage" + s, ModelTemplates.CROP, TextureMapping::crop)));
             })));
         }
     }
@@ -121,17 +121,17 @@ public class ModelProvider
         if (property.getPossibleValues().size() != stages.length) {
             throw new IllegalArgumentException();
         } else {
-            Int2ObjectMap<ResourceLocation> models = new Int2ObjectOpenHashMap();
+            Int2ObjectMap<Identifier> models = new Int2ObjectOpenHashMap();
             blockModelGenerators.blockStateOutput.accept(MultiVariantGenerator.dispatch(block).with(PropertyDispatch.initial(property).generate((i) -> {
                 int stage = stages[i];
-                return plainVariant((ResourceLocation)models.computeIfAbsent(stage, (s) -> blockModelGenerators.createSuffixedVariant(block, "_stage" + s, ModelTemplates.CROSS, TextureMapping::cross)));
+                return plainVariant((Identifier)models.computeIfAbsent(stage, (s) -> blockModelGenerators.createSuffixedVariant(block, "_stage" + s, ModelTemplates.CROSS, TextureMapping::cross)));
             })));
         }
     }
 
     //? if fabric {
-    /^@Override
-    ^///?}
+    /*@Override
+    *///?}
     public void generateBlockStateModels(BlockModelGenerators blockStateModelGenerator) {
         blockStateModelGenerator.createTrivialCube(ModBlock.BONE_LEAVES.get());
         blockStateModelGenerator.createTrivialCube(RedOrbBlocks.CRYSTALLED_RED_ROCK.get());
@@ -198,6 +198,8 @@ public class ModelProvider
         blockStateModelGenerator.family(MoonBlocks.POLISHED_BLACK_MOON_ROCK_PURPLE.get());
         blockStateModelGenerator.family(MoonBlocks.PRISMATIC_ORE.get());
         blockStateModelGenerator.family(MoonBlocks.PRISMATIC_SHARD_BLOCK.get());
+        blockStateModelGenerator.createTrivialCube(Wander.CRYOSTONE.get());
+        blockStateModelGenerator.createTrivialCube(Wander.COBBLED_CRYOSTONE.get());
         // tree
         blockStateModelGenerator.createTrivialCube(MoonBlocks.MOON_LEAVES.get());
         blockStateModelGenerator.createAxisAlignedPillarBlock(MoonBlocks.MOON_LOG.get(), TexturedModel.COLUMN);
@@ -307,15 +309,15 @@ public class ModelProvider
         blockStateModelGenerator.createTrivialCube(MoonBlocks.SUN_ENRICHED_MOON_ROCK.get());
         blockStateModelGenerator.createTrivialCube(MoonBlocks.POLISHED_SUN_ENRICHED_MOON_ROCK.get());
         TextureMapping dyliumMap = new TextureMapping()
-                .put(TextureSlot.TOP, new Material(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "block/dylium_top")))
-                .put(TextureSlot.BOTTOM, new Material(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "block/moon_rock")))
-                .put(TextureSlot.SIDE, new Material(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "block/dylium_side")));
+                .put(TextureSlot.TOP, new Material(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "block/dylium_top")))
+                .put(TextureSlot.BOTTOM, new Material(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "block/moon_rock")))
+                .put(TextureSlot.SIDE, new Material(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "block/dylium_side")));
 
         registerTopBottom(blockStateModelGenerator, Darkness.DYLIUM.get(), dyliumMap);
         TextureMapping BorilMap = new TextureMapping()
-                .put(TextureSlot.TOP, new Material(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "block/boril_top")))
-                .put(TextureSlot.BOTTOM, new Material(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "block/puroil")))
-                .put(TextureSlot.SIDE, new Material(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "block/boril_side")));
+                .put(TextureSlot.TOP, new Material(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "block/boril_top")))
+                .put(TextureSlot.BOTTOM, new Material(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "block/puroil")))
+                .put(TextureSlot.SIDE, new Material(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "block/boril_side")));
 
         registerTopBottom(blockStateModelGenerator, Wander.BORIL.get(), BorilMap);
         blockStateModelGenerator.createTrivialCube(Wander.PUROIL.get());
@@ -429,13 +431,20 @@ public class ModelProvider
         registerExistingModel(blockStateModelGenerator, MoonBlocks.CRYSTALIZER.get(), "crystalizer");
         blockStateModelGenerator.createTrivialCube(ModBlock.UNTITLED.get());
         blockStateModelGenerator.createTrivialCube(ModFluids.DREAM_BLOCK.get());
+        blockStateModelGenerator.createOrientableTrapdoor(MoonBlocks.MOON_PLANKS_TRAPDOOR.get());
+        blockStateModelGenerator.createOrientableTrapdoor(RedOrbBlocks.YERI_PLANKS_TRAPDOOR.get());
+        blockStateModelGenerator.createOrientableTrapdoor(RedOrbBlocks.SPIRO_PLANKS_TRAPDOOR.get());
+        blockStateModelGenerator.createOrientableTrapdoor(Darkness.DARKNESS_PLANKS_TRAPDOOR.get());
+        blockStateModelGenerator.createOrientableTrapdoor(MoonBlocks.CURVE_PLANKS_TRAPDOOR.get());
+        blockStateModelGenerator.createOrientableTrapdoor(StarBlocks.STAR_PLANKS_TRAPDOOR.get());
     }
 
     //? if fabric {
-    /^@Override
-    ^///?}
+    /*@Override
+    *///?}
     public void generateItemModels(ItemModelGenerators itemModelGenerator) {
         itemModelGenerator.generateFlatItem(ModFluids.DREAM_BUCKET.get(), ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.SOL_CRYSTAL.get(), ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.MASK_OF_SOL.get(), ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(Crops.STARBERRY.get(), ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.SPACE_JAM.get(), ModelTemplates.FLAT_ITEM);
@@ -542,8 +551,8 @@ public class ModelProvider
         itemModelGenerator.generateFlatItem(ModItems.BLACK_FOX_SPAWN_EGG.get(), ModelTemplates.FLAT_ITEM);
     }
 
-    public static final ModelTemplate CUSTOM_POT_CROSS = new ModelTemplate(Optional.of(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "block/potted_plant_custom")), Optional.empty(), TextureSlot.PLANT, TextureSlot.DIRT);
-    public static final ModelTemplate HEDGE = new ModelTemplate(Optional.of(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "block/hedge")), Optional.empty(), TextureSlot.TOP, TextureSlot.SIDE);
+    public static final ModelTemplate CUSTOM_POT_CROSS = new ModelTemplate(Optional.of(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "block/potted_plant_custom")), Optional.empty(), TextureSlot.PLANT, TextureSlot.DIRT);
+    public static final ModelTemplate HEDGE = new ModelTemplate(Optional.of(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "block/hedge")), Optional.empty(), TextureSlot.TOP, TextureSlot.SIDE);
 
     public final void registerCustomFlowerPotPlant(BlockModelGenerators blockStateModelGenerator, Block plantBlock, Block flowerPotBlock, Block dirt, BlockModelGenerators.PlantType tintType) {
         blockStateModelGenerator.createCrossBlock(plantBlock, tintType);
@@ -594,9 +603,9 @@ public class ModelProvider
         blockGen.itemModelOutput.accept(block.asItem(), ItemModelUtils.plainModel(ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(block.asItem()), map, blockGen.modelOutput)));
     }
 
-    public ResourceLocation getBlockTexture(Block block) {
-        ResourceLocation id = BuiltInRegistries.BLOCK.getKey(block);
-        return ResourceLocation.fromNamespaceAndPath(id.getNamespace(), "block/" + id.getPath());
+    public Identifier getBlockTexture(Block block) {
+        Identifier id = BuiltInRegistries.BLOCK.getKey(block);
+        return Identifier.fromNamespaceAndPath(id.getNamespace(), "block/" + id.getPath());
     }
 
     public static final ModelTemplate CABLE_CORE_TEMPLATE = block("cable_core_template", TextureSlot.ALL, TextureSlot.PARTICLE);
@@ -604,10 +613,10 @@ public class ModelProvider
 
     // helper method for creating Models
     private static ModelTemplate block(String parent, TextureSlot... requiredTextureKeys) {
-        return new ModelTemplate(Optional.of(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "block/" + parent)), Optional.empty(), requiredTextureKeys);
+        return new ModelTemplate(Optional.of(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "block/" + parent)), Optional.empty(), requiredTextureKeys);
     }
 
-    private BlockModelDefinitionGenerator createCableBlockStates(Block cableBlock, ResourceLocation core, ResourceLocation side) {
+    private BlockModelDefinitionGenerator createCableBlockStates(Block cableBlock, Identifier core, Identifier side) {
         // 1. Core and Base Side Models
         Variant cableCoreModel = BlockModelGenerators.plainModel(core);
         Variant cableSideModel = BlockModelGenerators.plainModel(side);
@@ -642,8 +651,8 @@ public class ModelProvider
     }
     public void registerCable(BlockModelGenerators generator, Block block) {
         TextureMapping map = getCableMap(block);
-        ResourceLocation core = CABLE_CORE_TEMPLATE.create(block, map, generator.modelOutput);
-        ResourceLocation side = CABLE_SIDE_TEMPLATE.create(ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID,"block/"+BuiltInRegistries.BLOCK.getKey(block).getPath()+"_side"), map, generator.modelOutput);
+        Identifier core = CABLE_CORE_TEMPLATE.create(block, map, generator.modelOutput);
+        Identifier side = CABLE_SIDE_TEMPLATE.create(Identifier.fromNamespaceAndPath(Stargazer.MOD_ID,"block/"+BuiltInRegistries.BLOCK.getKey(block).getPath()+"_side"), map, generator.modelOutput);
         generator.blockStateOutput.accept(createCableBlockStates(block, core, side));
         generator.registerSimpleItemModel(block.asItem(), core);
     }
@@ -655,10 +664,10 @@ public class ModelProvider
     }
 
     private void registerExistingModel(BlockModelGenerators gen, Block block, String modelPath) {
-        ResourceLocation modelId = ResourceLocation.fromNamespaceAndPath(Stargazer.MOD_ID, "block/" + modelPath);
+        Identifier modelId = Identifier.fromNamespaceAndPath(Stargazer.MOD_ID, "block/" + modelPath);
         gen.blockStateOutput.accept(
                 MultiVariantGenerator.dispatch(block, plainVariant(modelId))
         );
     }
 }
-*///? }
+//? }
